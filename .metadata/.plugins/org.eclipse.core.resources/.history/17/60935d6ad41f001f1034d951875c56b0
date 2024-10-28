@@ -1,0 +1,52 @@
+package com.headlamp;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.ArrayList;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+/**
+ * HDLmUnReTest short summary.
+ *
+ * HDLmUnReTest description.
+ *
+ * @version 1.0
+ * @author Peter
+ */
+class HDLmUnReTest {
+  @BeforeAll
+	static void HDLmUnReBeforeAll() {}
+  @Test
+	void checkUnre() {
+		/* The overall logic of this routine is too insert a company and then
+		   delete it. The delete of the company is the actual test. */  
+		ArrayList<HDLmDatabaseRow>    databaseRowList;  
+		ArrayList<ArrayList<String>>  dummyScopeArray;
+		String                        dummyCompanyName = "zyxwvutsrq9876543210.com";
+		String                        dummyScope = "(zyxwvutsrq)";
+		String                        content; 
+		String                        databaseOut;
+		String                        jsonInsert; 
+		String                        outJson;
+		String                        tableName; 
+		/* Get all the rows (there may be none) for the test company */
+		content = HDLmUtility.getContentString();
+		tableName = HDLmConfigInfo.getEntriesDatabaseTableName();
+		databaseRowList = HDLmDatabase.getTableRowsCompany(content, tableName, dummyCompanyName);
+		/* 
+		if (databaseRowList.size() > 0) {
+			HDLmDatabase.deleteTableRows(databaseRowList, tableName);
+		}
+		*/
+		/* Try to insert the company into the table */ 
+		/* 
+		jsonInsert = HDLmTreeData.jsonBridgeInsert; 
+		databaseOut = HDLmDatabase.insertTableRowsJson(jsonInsert, tableName);
+		*/
+		dummyScopeArray = HDLmSecurity.convertScopeString(dummyScope);		
+		outJson = HDLmDatabase.getTableRowsJson(content, tableName, dummyScopeArray); 
+		outJson = HDLmDatabase.getTableRowsJson(content, tableName, dummyScopeArray); 
+  }
+}

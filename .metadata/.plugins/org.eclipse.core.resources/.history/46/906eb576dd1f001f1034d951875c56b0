@@ -1,0 +1,73 @@
+package com.headlamp;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.ArrayList;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+/**
+ * HDLmUnReTest short summary.
+ *
+ * HDLmUnReTest description.
+ *
+ * @version 1.0
+ * @author Peter
+ */
+class HDLmUnReTest {
+  @BeforeAll
+	static void HDLmUnReBeforeAll() {}
+  @Test
+	void checkUnre() {
+		/* The overall logic of this routine is too insert a company and then
+		   delete it. The delete of the company is the actual test. */  
+		ArrayList<HDLmDatabaseRow>    databaseRowList;  
+		ArrayList<ArrayList<String>>  dummyScopeArray;
+		int                           unReNumber;
+		String                        firstDummyCompanyName = "zyxwvutsrq9876543210.com";
+		String                        secondDummyCompanyName = "zyxwvutsrq9876543211.com";
+		String                        dummyScope = "(zyxwvutsrq)";
+		String                        content; 
+		String                        databaseOut;
+		String                        jsonInsert; 
+		String                        outJson;
+		String                        tableName; 
+		/* Get all the rows (there may be none) for the test company */
+		content = HDLmUtility.getContentString();
+		tableName = HDLmConfigInfo.getEntriesDatabaseTableName();
+		/* Delete the first dummy company from the table */
+		databaseRowList = HDLmDatabase.getTableRowsCompany(content, tableName, firstDummyCompanyName); 
+		if (databaseRowList.size() > 0) {
+			HDLmDatabase.deleteTableRows(databaseRowList, tableName);
+		} 
+		/* Delete the second dummy company from the table */
+		databaseRowList = HDLmDatabase.getTableRowsCompany(content, tableName, secondDummyCompanyName); 
+		if (databaseRowList.size() > 0) {
+			HDLmDatabase.deleteTableRows(databaseRowList, tableName);
+		}  
+		/* Try to insert the company into the table */  
+		jsonInsert = HDLmTreeData.jsonUnReInsert; 
+		databaseOut = HDLmDatabase.insertTableRowsJson(jsonInsert, tableName); 
+		/* The next two lines are not really needed */ 
+		dummyScopeArray = HDLmSecurity.convertScopeString(dummyScope);		
+		outJson = HDLmDatabase.getTableRowsJson(content, tableName, dummyScopeArray);  
+		/* At this point we should have no undo/redo operations */
+		unReNumber = HDLmUnRe.unReGetCount();
+		assertEquals(0, unReNumber, "We should have no undo/redo operations at this point");
+		unReNumber = HDLmUnRe.unReGetCurrent();
+		assertEquals(0, unReNumber, "We should have no undo/redo operations at this point");
+		unReNumber = HDLmUnRe.unReGetTop();
+		assertEquals(0, unReNumber, "We should have no undo/redo operations at this point");
+		unReNumber = HDLmUnRe.unReGetBottom();
+		assertEquals(0, unReNumber, "We should have no undo/redo operations at this point");
+		/* Create a string with the transfer request in it */ 
+    String  transferJson = "{\"fromSystem\": \"prod\", \"toSystem\": \"prod\"," + 
+							 			        "\"fromDomain\": \"zyxwvutsrq9876543210.com\"," + 
+										        "\"fromDivision\": \"example.com\"," + 
+										        "\"fromSite\": \"example.com\", " +
+										        "\"fromRule\": \"Change Add To Cart\"," + 
+										        "\"toDomain\": \"zyxwvutsrq9876543211.com\",";
+		
+  }
+}

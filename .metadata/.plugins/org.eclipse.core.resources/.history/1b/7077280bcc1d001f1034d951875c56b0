@@ -1,0 +1,17 @@
+package com.headlamp;
+/**
+ * HDLmSystemTypes short summary.
+ *
+ * HDLmSystemTypes description.
+ *
+ * @version 1.0
+ * @author Peter
+ */
+/* The enum below defines the types of systems supported by the
+   product. The product supports a production system and a test
+   system. Only one each is really supported. */ 
+public enum HDLmSystemTypes {
+	NONE,
+	PROD,
+	TEST
+}

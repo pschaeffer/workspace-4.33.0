@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item key="hasShownOverlayPopupBefore" value="true"/>
+	<item key="replaceBarOpen" value="false"/>
+	<list key="searchhistory">
+		<item value="visit"/>
+		<item value="invalid"/>
+		<item value="hdlmgetupdatecount"/>
+		<item value="hdlmgetup"/>
+		<item value="hdlmincre"/>
+		<item value="hdlmin"/>
+		<item value="HDLmIncrementUpdateCount"/>
+		<item value="&apos;script&apos;"/>
+		<item value="hdlmincrementupdate"/>
+		<item value=".setattribute("/>
+		<item value="hdlmu"/>
+		<item value="hdlmupdated"/>
+		<item value="HDLmIncrementUpdateCount("/>
+		<item value="updatecount"/>
+		<item value="applymod("/>
+	</list>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item key="selection" value="HDLmGetUpdate"/>
+		<item key="wrap" value="true"/>
+		<item key="casesensitive" value="false"/>
+		<item key="wholeword" value="false"/>
+		<item key="incremental" value="false"/>
+		<item key="isRegEx" value="false"/>
+		<list key="findhistory">
+			<item value="hdlmgetupdate"/>
+			<item value="applymod("/>
+			<item value="default"/>
+			<item value="try"/>
+			<item value="always"/>
+			<item value=" "/>
+			<item value="getjsonspeci"/>
+			<item value="getjson"/>
+			<item value="entiretree"/>
+			<item value="entire"/>
+			<item value="lastModified"/>
+			<item value="&apos;script&apos;"/>
+			<item value="switch"/>
+			<item value="swich"/>
+			<item value="handle each of the values"/>
+		</list>
+		<list key="replacehistory">
+			<item value="lastmodified"/>
+			<item value="/"/>
+			<item value="&quot;"/>
+			<item value=");"/>
+			<item value="&quot;, "/>
+			<item value="replaceAll(&quot;"/>
+			<item value="replaceAll"/>
+			<item value="HDLmZeroLengthOk.ZEROLENGTHNOTOK"/>
+			<item value="Length"/>
+			<item value="getJsBuildJs"/>
+			<item value="HDLmZeroLenthOk.ZEROLENGTHNOTOK"/>
+			<item value="ZEROLENGTHNOTOK"/>
+			<item value="HDLmZeroLength"/>
+			<item value="Null"/>
+			<item value="getJsMain"/>
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="1004"/>
+		<item key="DIALOG_Y_ORIGIN" value="603"/>
+		<item key="DIALOG_WIDTH" value="322"/>
+		<item key="DIALOG_HEIGHT" value="391"/>
+		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|5|0|Segoe UI"/>
+	</section>
+	<section name="org.eclipse.ui.texteditor.GotoLineAction$GotoLineDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="970"/>
+		<item key="DIALOG_Y_ORIGIN" value="561"/>
+	</section>
+</section>
