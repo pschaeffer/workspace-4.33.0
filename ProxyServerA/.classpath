@@ -83,8 +83,49 @@
 	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/graal/polyglot-24.0.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/graal/truffle-api-24.0.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/graal/nativeimage-24.0.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/secretsmanager-2.29.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/regions-2.29.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/aws-core-2.29.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/junit-3.8.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/secretsmanager-2.29.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/aws-json-protocol-2.29.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/third-party-jackson-core-2.29.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/protocol-core-2.29.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/http-auth-aws-2.29.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/checksums-spi-2.29.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/checksums-2.29.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/sdk-core-2.29.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/profiles-2.29.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/retries-2.29.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/slf4j-api-1.7.36.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/reactive-streams-1.0.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/auth-2.29.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/http-auth-aws-eventstream-2.29.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/eventstream-1.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/http-auth-spi-2.29.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/http-auth-2.29.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/identity-spi-2.29.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/http-client-spi-2.29.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/regions-2.29.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/annotations-2.29.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/utils-2.29.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/aws-core-2.29.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/metrics-spi-2.29.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/json-utils-2.29.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/endpoints-spi-2.29.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/retries-spi-2.29.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/apache-client-2.29.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/httpclient-4.5.13.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/httpcore-4.4.16.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/commons-codec-1.17.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/netty-nio-client-2.29.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/netty-codec-http-4.1.114.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/netty-codec-http2-4.1.114.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/netty-codec-4.1.114.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/netty-transport-4.1.114.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/netty-common-4.1.114.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/netty-buffer-4.1.114.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/netty-handler-4.1.114.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/netty-transport-native-unix-common-4.1.114.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/netty-transport-classes-epoll-4.1.114.Final.jar"/>
+        <classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/.m2/netty-resolver-4.1.114.Final.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

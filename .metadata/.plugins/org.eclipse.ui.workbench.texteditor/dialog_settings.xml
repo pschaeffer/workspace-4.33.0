@@ -3,6 +3,10 @@
 	<item key="hasShownOverlayPopupBefore" value="true"/>
 	<item key="replaceBarOpen" value="false"/>
 	<list key="searchhistory">
+		<item value="treemap"/>
+		<item value="new "/>
+		<item value="map"/>
+		<item value="aws"/>
 		<item value="visit"/>
 		<item value="invalid"/>
 		<item value="hdlmgetupdatecount"/>
@@ -14,10 +18,6 @@
 		<item value="hdlmincrementupdate"/>
 		<item value=".setattribute("/>
 		<item value="hdlmu"/>
-		<item value="hdlmupdated"/>
-		<item value="HDLmIncrementUpdateCount("/>
-		<item value="updatecount"/>
-		<item value="applymod("/>
 	</list>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item key="selection" value="HDLmGetUpdate"/>

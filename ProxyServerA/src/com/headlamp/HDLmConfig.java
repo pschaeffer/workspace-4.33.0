@@ -1,9 +1,16 @@
 package com.headlamp;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
 import org.apache.commons.lang3.StringUtils;
+
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+
+import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 /**
  * HDLmConfig short summary.
  *
@@ -137,7 +144,7 @@ public class HDLmConfig {
 		   values. */ 
 		
 		final Map<String, HDLmConfig>   configImmutable = Map.ofEntries(	
-		  Map.entry("awsAccessKeyId",                       new HDLmConfig(HDLmConfigTypes.STRING,  "AKIAJLHEDDOBN5QUXL2Q")),
+		  Map.entry("awsAccessKeyId",                       new HDLmConfig(HDLmConfigTypes.STRING,  "")),
 			Map.entry("awsCognitoAcceptEncoding",             new HDLmConfig(HDLmConfigTypes.STRING,  "identity")),
 			Map.entry("awsCognitoApiAdminGetUser",            new HDLmConfig(HDLmConfigTypes.STRING,  "AWSCognitoIdentityProviderService.AdminGetUser")),
 			Map.entry("awsCognitoApiAdminSetUserPassword",    new HDLmConfig(HDLmConfigTypes.STRING,  "AWSCognitoIdentityProviderService.AdminSetUserPassword")),
@@ -156,7 +163,7 @@ public class HDLmConfig {
 			Map.entry("awsCognitoUserPoolId",                 new HDLmConfig(HDLmConfigTypes.STRING,  "us-east-2_xTvIIRtgB")),
 			Map.entry("awsCognitoUserPoolName",               new HDLmConfig(HDLmConfigTypes.STRING,  "HeadlampUserPool1")),
 			Map.entry("awsCognitoUserPoolRegion",             new HDLmConfig(HDLmConfigTypes.STRING,  "us-east-2")),
-			Map.entry("awsSecretAccessKey",                   new HDLmConfig(HDLmConfigTypes.STRING,  "8yLJjOw2MPvbzyax9IjHiYQUwf+f3i3dAXlZcbuv")),
+			Map.entry("awsSecretAccessKey",                   new HDLmConfig(HDLmConfigTypes.STRING,  "")),
 			Map.entry("clustersMaxCount",                     new HDLmConfig(HDLmConfigTypes.INT,     "10")),		  
 			Map.entry("clustersSampleSize",                   new HDLmConfig(HDLmConfigTypes.INT,     "100")),
 			Map.entry("clustersThreshold",                    new HDLmConfig(HDLmConfigTypes.DOUBLE,  "0.10")),
@@ -178,26 +185,26 @@ public class HDLmConfig {
 		  Map.entry("entriesBridgeDeleteUrl",               new HDLmConfig(HDLmConfigTypes.STRING,  "/io/bucket/delete/")),
 		  Map.entry("entriesBridgeInsertUrl",               new HDLmConfig(HDLmConfigTypes.STRING,  "/io/bucket/insert/")),
 		  Map.entry("entriesBridgeInternetMethod",          new HDLmConfig(HDLmConfigTypes.STRING,  "https")),	
-		  Map.entry("entriesBridgePassword",                new HDLmConfig(HDLmConfigTypes.STRING,  "Headlamp0")),	
+		  Map.entry("entriesBridgePassword",                new HDLmConfig(HDLmConfigTypes.STRING,  "")),	
 		  Map.entry("entriesBridgeReadUrl",                 new HDLmConfig(HDLmConfigTypes.STRING,  "/io/bucket/search/")),
 		  Map.entry("entriesBridgeUpdateUrl",               new HDLmConfig(HDLmConfigTypes.STRING,  "/io/bucket/update/")),
 		  /* This value does not appear to be in use */		  
 		  Map.entry("entriesBridgeUseCache",                new HDLmConfig(HDLmConfigTypes.CACHE,   "update")),	
-		  Map.entry("entriesBridgeUserid",                  new HDLmConfig(HDLmConfigTypes.STRING,  "admin")),
+		  Map.entry("entriesBridgeUserid",                  new HDLmConfig(HDLmConfigTypes.STRING,  "")),
 		  /* The database entries follow */
 		  Map.entry("entriesDatabaseCompanyPrefix",         new HDLmConfig(HDLmConfigTypes.STRING,  "")),	
 		  Map.entry("entriesDatabaseContentSuffix",         new HDLmConfig(HDLmConfigTypes.STRING,  "java")),	
 		  Map.entry("entriesDatabaseDatabaseNameProd",      new HDLmConfig(HDLmConfigTypes.STRING,  "main_9")),
 		  Map.entry("entriesDatabaseDatabaseNameTest",      new HDLmConfig(HDLmConfigTypes.STRING,  "test_1")),
-		  Map.entry("entriesDatabaseDomainNameProd",        new HDLmConfig(HDLmConfigTypes.STRING,  "main-9.cluster-c7czx6cxnjsz.us-east-2.rds.amazonaws.com")),
+		  Map.entry("entriesDatabaseDomainNameProd",        new HDLmConfig(HDLmConfigTypes.STRING,  "")),
 		  Map.entry("entriesDatabaseDomainNameTest",        new HDLmConfig(HDLmConfigTypes.STRING,  "test-1.cluster-c7czx6cxnjsz.us-east-2.rds.amazonaws.com")),
 		  Map.entry("entriesDatabaseInternetMethod",        new HDLmConfig(HDLmConfigTypes.STRING,  "https")),	
-		  Map.entry("entriesDatabasePassword",              new HDLmConfig(HDLmConfigTypes.STRING,  "Headlamp0")),	
+		  Map.entry("entriesDatabasePassword",              new HDLmConfig(HDLmConfigTypes.STRING,  "")),	
 		  Map.entry("entriesDatabasePortNumber",            new HDLmConfig(HDLmConfigTypes.INT,     "3306")),
 		  Map.entry("entriesDatabaseTableNameProd",         new HDLmConfig(HDLmConfigTypes.STRING,  "main_9")),	
 		  Map.entry("entriesDatabaseTableNameTest",         new HDLmConfig(HDLmConfigTypes.STRING,  "test_1")),	
 		  Map.entry("entriesDatabaseUseCache",              new HDLmConfig(HDLmConfigTypes.CACHE,   "update")),	
-		  Map.entry("entriesDatabaseUserid",                new HDLmConfig(HDLmConfigTypes.STRING,  "admin")),	
+		  Map.entry("entriesDatabaseUserid",                new HDLmConfig(HDLmConfigTypes.STRING,  "")),	
 		  /* Some Dreamtsoft entries follow */		  
 		  Map.entry("entriesDreamtsoftCompanyPrefix",       new HDLmConfig(HDLmConfigTypes.STRING,  "")),
 		  Map.entry("entriesDreamtsoftContentSuffix",       new HDLmConfig(HDLmConfigTypes.STRING,  "java")),
@@ -209,7 +216,7 @@ public class HDLmConfig {
 	    Map.entry("logFileName",                          new HDLmConfig(HDLmConfigTypes.STRING,  "info.log")),
 	    Map.entry("logRuleMatching",                      new HDLmConfig(HDLmConfigTypes.BOOLEAN, "false")),
 	    Map.entry("openAIMaximumStringLength",            new HDLmConfig(HDLmConfigTypes.INT,     "6000")),	
-	    Map.entry("openAIApiKey",                         new HDLmConfig(HDLmConfigTypes.STRING,  "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")),	
+	    Map.entry("openAIApiKey",                         new HDLmConfig(HDLmConfigTypes.STRING,  "")),	
 	    Map.entry("parametersAccessMethod",               new HDLmConfig(HDLmConfigTypes.STRING,  "cgi-bin/get-set.py?get")),
 	    Map.entry("parametersInternetMethod",             new HDLmConfig(HDLmConfigTypes.STRING,  "http")),
 	    Map.entry("parametersUpdateMethod",               new HDLmConfig(HDLmConfigTypes.STRING,  "cgi-bin/get-set.py?set")),
@@ -509,4 +516,71 @@ public class HDLmConfig {
 		configValues.put(configName, newConfig);
 		return;
 	}
+	/* This routine does all of the work needed to set the configuration
+     values. Some secrets are stored in the configuration values. This 
+     routine gets the secrets from the AWS Secrets Manager and stores 
+     them in the configuration values. */
+	protected static void  setConfigurationValues() {
+		ArrayList<ArrayList<String>> mainList = new ArrayList<ArrayList<String>>();
+		/* The order here is, where to put the configuration value, the AWS name of the value, and the JSON key,
+		   if any. */
+		ArrayList<String>   infoAwsAccessKeyId =	new ArrayList<String>(Arrays.asList("awsAccessKeyId", 
+				                                                                          "AwsAccessKeyId", "")); 	
+		ArrayList<String>   infoAwsSecretAccessKey =	new ArrayList<String>(Arrays.asList("awsSecretAccessKey", "AwsSecretAccessKey", ""));
+		ArrayList<String>   infoOpenAiKey = new ArrayList<String>(Arrays.asList("openAIApiKey", "OpenApiAiKeySchaeffer", ""));
+		ArrayList<String>   infoAwsDatabaseUserid = new ArrayList<String>(Arrays.asList("entriesDatabaseUserid", "Main9Auroa", "username"));
+		ArrayList<String>   infoAwsDatabasePassword = new ArrayList<String>(Arrays.asList("entriesDatabasePassword", "Main9Auroa", "password"));
+		/* The value that was obtained below was not the actual database name. It is not clear what this
+		   value really is/was. */ 
+		/*
+		ArrayList<String>   infoAwsDatabaseName = new ArrayList<String>(Arrays.asList("entriesDatabaseDatabaseNameProd", 
+				                                                                          "Main9Auroa", 
+				                                                                          "dbClusterIdentifier"));
+		*/
+		ArrayList<String>   infoAwsDatabaseHost = new ArrayList<String>(Arrays.asList("entriesDatabaseDomainNameProd", "Main9Auroa", "host"));
+		ArrayList<String>   infoAwsEntriesUserid = new ArrayList<String>(Arrays.asList("entriesBridgeUserid", "EntriesBridgeUserid", ""));
+		ArrayList<String>   infoAwsEntriesPassword = new ArrayList<String>(Arrays.asList("entriesBridgePassword", "EntriesBridgePassword", ""));
+		/* Add each set of information about an AWS secret to the main ArrayList */
+		mainList.add(infoAwsAccessKeyId);
+		mainList.add(infoAwsSecretAccessKey);
+		mainList.add(infoOpenAiKey);
+		mainList.add(infoAwsDatabaseUserid);
+		mainList.add(infoAwsDatabasePassword);
+		/* The value that was obtained below was not the actual database name. It is not clear what this
+	     value really is/was. */ 
+		/*
+		mainList.add(infoAwsDatabaseName);
+		*/
+		mainList.add(infoAwsDatabaseHost);
+		mainList.add(infoAwsEntriesUserid);
+		mainList.add(infoAwsEntriesPassword);
+	 /* Build a list of AWS secret names */
+		ArrayList<String>  secretsName = new ArrayList<String>();
+		for (ArrayList<String> secretInfo:mainList) {
+			String  secretName = secretInfo.get(1);
+			if (!secretsName.contains(secretName))
+			  secretsName.add(secretName);  		
+		}
+		/* Get the actual secrets */
+		SecretsManagerClient  client = HDLmAwsUtility.buildAwsSecretsManagerClient("us-east-2");
+		Map<String, String>   secretsMap = HDLmAwsUtility.getAMapOfSecrets(client, secretsName);
+		/* Store each of the secrets in the configuration values */
+		for (ArrayList<String> secretInfo:mainList) {
+			String  secretConfigName = secretInfo.get(0);
+			String  secretAwsName = secretInfo.get(1);
+			String  secretAwsJsonKey = secretInfo.get(2);
+			/* Get the secret value from the map */
+			String  secretAwsValue = secretsMap.get(secretAwsName);
+	   /* Check if we need to extract the actual secret from some JSON */
+			if (!secretAwsJsonKey.equals("")) {
+				/* Convert the JSON string to a set of JSON objects */
+		     JsonParser   parser = new JsonParser();
+		     JsonElement  topNode = parser.parse(secretAwsValue);
+				 String       actualSecretValue = HDLmJson.getJsonString(topNode, secretAwsJsonKey);
+				 HDLmConfig.setConfigString(secretConfigName, actualSecretValue);
+			}
+			else
+				HDLmConfig.setConfigString(secretConfigName, secretAwsValue);  		 		
+		}  	
+	}  
 }

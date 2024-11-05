@@ -58,7 +58,7 @@ class HDLmSignatureTest {
 		/* Get another AWS signature using fixed values. This signature
 		   won't change over time and can (hence) be checked. */ 
 		accessKeyID = "us-east-2";
-		secretAccessKey = "8yLJjOw2MPvbzyax9IjHiYQUwf+f3i3dAXlZcbuv";  
+		secretAccessKey = HDLmConfigInfo.getSecretAccessKey();    
 		regionName = "us-east-2";
 		serviceName = "cognito-idp";
 		httpMethodName = "POST"; 

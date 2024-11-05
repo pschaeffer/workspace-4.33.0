@@ -228,8 +228,10 @@
             let curNode = nodeList[i];
             HDLmClassAddSpecialClass(curNode, curType, curModExtra);
             matchFound = true;
+            /* console.log('Increment curType is', curType); */
             if (HDLmIncrementUpdateCount(curNode, matchModifiedName, readyState) > 0)
               break;
+            /* console.log('Increment curType is', curType); */
             HDLmIncrementUpdateCount(curNode, matchModifiedName);
             if (attributeRequest.toUpperCase() == 'USEPROXYHOST') {
               let attributeValue = curNode.getAttribute(attributeName);
@@ -272,6 +274,7 @@
                executed */
             if (HDLmGetUpdateCount(curNode, matchModifiedName, readyState) > 0)
               break;
+            /* console.log('Increment curType is', curType); */
             HDLmIncrementUpdateCount(curNode, matchModifiedName);
             /* Extract the text value of the current node and save it as a change.
                Of course, it is not really a change at all. However, the change
@@ -324,6 +327,7 @@
             matchFound = true;
             if (HDLmGetUpdateCount(curNode, matchModifiedName, readyState) > 0)
               break;
+            /* console.log('Increment curType is', curType); */
             HDLmIncrementUpdateCount(curNode, matchModifiedName);
             let nodeSrc = curNode.getAttribute('src');
             let oldText = nodeSrc;
@@ -411,6 +415,7 @@
                already been added */
             if (HDLmGetUpdateCount(curNode, matchModifiedName, readyState) > 0)
               break;
+            /* console.log('Increment curType is', curType); */
             HDLmIncrementUpdateCount(curNode, matchModifiedName);
             /* The code below uses JavaScript closures. The outer function
                is run and returns the inner function as the return value of
@@ -663,22 +668,14 @@
                once. However, testing has shown that this may not be true for
                images and some other types. Strangely, the src attribute seems
                to change back to its original value in some cases. */
+            /* console.log(readyState, curType); */
             let matchUpdateCount = HDLmGetUpdateCount(curNode, matchModifiedName, readyState);
-            if (curType == 'image') {
-              if (matchUpdateCount > 2)
-                if (oldText == newText ||
-                    oldText.startsWith('data:'))
-                  break;
-            }
-            else if (curType == 'textchecked') {
-              if (matchUpdateCount > 1)
-                break;
-            }
+            /* console.log(readyState, curType, matchUpdateCount); */
             /* In one very important case, we want to ignore (not quite, the
                update count is one of the parameters below) the update count
                here. One rule type is used for many different things. How the
                update count is handled is different for different cases. */
-            else if (curType == 'changenodes') {
+            if (curType == 'changenodes') {
               /* The check below is really just a placeholder. The match update
                  count will almost certainly never get that high. */
               if (matchUpdateCount > 255)
@@ -696,6 +693,30 @@
               if (forceBreak == true)
                 break;
             }
+            else if (curType == 'image') {
+              if (matchUpdateCount > 2)
+                if (oldText == newText ||
+                    oldText.startsWith('data:'))
+                  break;
+            }
+            /* The above algorithm is great in most cases. However, it
+               won't really work for remove or replace processing. For
+               remove or replace rules, we actually remove and/or replace
+               the element where the updated attribute might be set. As a
+               consequence, we need to check and set the attribute in the
+               parent of the current node. */
+            else if (curType == 'remove' ||
+                curType == 'replace') {
+              let parentNode = curNode.parentNode;
+              if (parentNode != null) {
+                if (HDLmGetUpdateCount(parentNode, matchModifiedName, readyState) > 0)
+                  break;
+              }
+            }
+            else if (curType == 'textchecked') {
+              if (matchUpdateCount > 1)
+                break;
+            }
             /* If the update count is greater than zero (an update has already
                been done) we want to exit at this point. The critical exception
                is for images and a few other rule types. For some reason, this
@@ -704,26 +725,20 @@
               if (matchUpdateCount > 0)
                 break;
             }
-            /* The above algorithm is great in most cases. However, it
-               won't really work for remove or replace processing. For
-               remove or replace rules, we actually remove and/or replace
-               the element where the updated attribute might be set. As a
-               consequence, we need to check and set the attribute in the
-               parent of the current node. */
             if (curType == 'remove' ||
                 curType == 'replace') {
               let parentNode = curNode.parentNode;
-              if (parentNode != null) {
-                if (HDLmGetUpdateCount(parentNode, matchModifiedName, readyState) > 0)
-                  break;
-              }
-            }
-            if (curType != 'remove' &&
-                curType != 'replace')
-              HDLmIncrementUpdateCount(curNode, matchModifiedName);
-            else {
-              let parentNode = curNode.parentNode;
+              /* console.log('Increment curType is', curType); */
               HDLmIncrementUpdateCount(parentNode, matchModifiedName);
+            }
+            else if (curType == 'script') {
+              /* console.log('CurType is script', readyState, curType); */
+              if (readyState == 'complete')
+                HDLmIncrementUpdateCount(curNode, matchModifiedName);
+            }
+            else {
+              /* console.log('Increment curType is', curType); */
+              HDLmIncrementUpdateCount(curNode, matchModifiedName);
             }
             /* Use the new text in the correct way for each type. The
                procedure for using the new text varies considerably
@@ -787,8 +802,9 @@
                 parentNode.replaceChild(newNode, curNode);
               }
             }
-            else if (curType == 'script') {
+            else if (curType == 'script' && readyState == 'complete') {
               let functionStr = 'HDLmExecute' + HDLmReplaceInString(curMod.name) + finalLookupIndex;
+              /* console.log('Show function string for script', functionStr); */
               window[functionStr]();
             }
             /* Most style values are handled by just setting the style.
@@ -2421,12 +2437,18 @@
      of zero is returned to the caller. If the count value already
      exists, then it is returned to the caller. */
   function HDLmGetUpdateCount(curNode, matchModifiedName, readyState) {
+    /* console.log('In HDLmGetUpdateCount()'); */
     /* console.log(readyState); */
-    let attributeName = 'HDLmUpdated'+matchModifiedName;
-    if (curNode.hasAttribute(attributeName) == false)
+    /* The attribute name is in all lowercase. It appears that
+       Windows forces all attribute names to be in lower case. */
+    let attributeName = 'hdlmupdated'+matchModifiedName;
+    if (curNode.hasAttribute(attributeName) == false) {
+      /* console.log('H G U 0'); */
       return 0;
+    }
     /* Get the current count value and return it to the caller */
     let currentCount = curNode.getAttribute(attributeName);
+    /* console.log('H G U', currentCount); */
     return currentCount;
   }
   /* This is the base Hamming Distance algorithm. This code
@@ -2533,7 +2555,10 @@
      the count value is set to one. If the count value
      already exists, then it is incremented.by one. */
   function HDLmIncrementUpdateCount(curNode, matchModifiedName) {
-    let attributeName = 'HDLmUpdated'+matchModifiedName;
+    /* console.log('In HDLmIncrementUpdateCount()'); */
+    /* The attribute name is in all lowercase. It appears that
+       Windows forces all attribute names to be in lower case. */
+    let attributeName = 'hdlmupdated'+matchModifiedName;
     if (curNode.hasAttribute(attributeName) == false) {
       curNode.setAttribute(attributeName, 1);
       return 1;
@@ -2951,6 +2976,10 @@
   }
   function HDLmExecuteSwitch(modName, choiceNumber) {
     switch (modName) {
+      default:
+        let errorText = "Invalid rule name value - " + modName;
+        HDLmBuildError('Error', 'RuleName', 62, errorText);
+        break;
     }
   }
   function HDLmGetAttributesString(curNode) {

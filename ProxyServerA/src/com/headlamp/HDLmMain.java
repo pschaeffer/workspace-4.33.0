@@ -9,6 +9,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +22,8 @@ import java.util.TreeSet;
 import java.util.UUID;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
+
 import org.apache.commons.lang3.SystemUtils;
 import org.eclipse.jetty.alpn.server.ALPNServerConnectionFactory;
 import org.eclipse.jetty.http2.parser.WindowRateControl;
@@ -2338,7 +2341,7 @@ public class HDLmMain {
 		/* Set a boolean (not a Boolean) based on whether debug logging 
        is enabled or not. This is used to avoid the overhead of
        logging, when debug logging is not enabled. */
-     boolean   logIsDebugEnabled = LOG.isDebugEnabled();
+    boolean   logIsDebugEnabled = LOG.isDebugEnabled();
 		/* Add some debugging information */
 		if (logIsDebugEnabled)
 			LOG.debug("in HDLmMain.main near the start");
@@ -2360,6 +2363,12 @@ public class HDLmMain {
 		  LOG.debug(HDLmConfigInfo.getCurrentEnvironment());
 		  LOG.debug(HDLmConfigInfo.getServerName());
 		}
+		/* Set some of the configuration values from secrets stored inside
+		   AWS. We get the AWS secrets using the AWS secrets manager. Note
+		   that some of the secrets are used to establish database connections.
+		   As a consequence, this step must come before any database 
+		   connections are established. */
+		HDLmConfig.setConfigurationValues();
 		/* Get the Hikari data source. This call has the effect
 		   of building the JDBC connection pool. */
 		HDLmHikariPool.getDataSource();
@@ -2380,15 +2389,25 @@ public class HDLmMain {
 		/* Set a set of system properties. This properties allow the Graal engine
 		   to run JavaScript code, without any reported errors. This call is only
 		   needed once, which is why it is made here. */ 
-		HDLmHtml.setProperties();		
-		
+		HDLmHtml.setProperties();	
+		/*
+		SecretsManagerClient  client = HDLmAwsSecrets.buildAwsSecretsManagerClient("us-east-2");
+		ArrayList<String>     actualNames = new ArrayList<String>(Arrays.asList("AwsAccessKeyId", "AwsSecretAccessKey", "Main9Auroa"));
+		Map<String, String>   actualSecrets = HDLmAwsSecrets.getAMapOfSecrets(client, actualNames);
+		*/
+		/* 
+		HDLmAwsSecrets.setConfigurationValues();
+		*/
+		/*
+		String  secretName = "AwsAccessKeyId";
+		String  actualSecret = HDLmAwsSecrets.getJustOneSecretFromAws(null, secretName);
+		/*
 		/*
 		String  script = "return 'abcd';";
 		script = "";
 		boolean   rvBoolean = HDLmHtml.checkIfJavaScriptValid(script, 
 				                                                  HDLmReportErrors.DONTREPORTERRORS);
-    */	
-		
+    */			
 		/* In the Windows environment, logging initialization won't look
 		   in the correct directory for the right properties file. As a
 		   consequence, we must specify the correct location. Note that

@@ -57,21 +57,7 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmOpenAI.class);
 	private HDLmOpenAI() {}	
 	/* Build an Open AI authorization header */ 
 	protected static String  buildAuthorizationHeader() {
-		/* Note that this is the old API key. This is the API key that Peter
-	     Schaeffer obtained from Open AI. */ 
-  	/* String  apiKeyStr = "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"; */
-	  /* Note that this is the new API key. This is the API key that a 
-	     group of folks obtained from Open AI. */   
-	  /* apiKeyStr = "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"; */
-	  /* Note that this is the new API key. This is the API key provided 
-       on 2023/06/04 by Ron Britvich */    
-    /* apiKeyStr = "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"; */
-		/* Note that this is the new API key. This is the API key provided
-		   on 2023/11/17 by Chris Cole. */
-		/* apiKeyStr = "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" */
-		/* A new key was obtain by P. Schaeffer on 2023/11/23 from the Open 
-		   AI web site. The old key is saved below. */
-		/* apiKeyStr = "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"; */
+		/* Get the Open AI key from the configuration values */ 
 		String  apiKeyStr = HDLmConfigInfo.getOpenAIApiKey();
     /* Build an authorization header using an API key string */
 	  return HDLmOpenAI.buildAuthorizationHeaderUsingAPIKeyStr(apiKeyStr);

@@ -54,6 +54,12 @@ class HDLmOpenAITest {
   private static final Logger LOG = LoggerFactory.getLogger(HDLmOpenAITest.class); 
   @BeforeAll
 	static void HDLmUtilityBeforeAll() {
+		/* Set some of the configuration values from secrets stored inside
+	     AWS. We get the AWS secrets using the AWS secrets manager. Note
+	     that some of the secrets are used to establish database connections.
+	     As a consequence, this step must come before any database 
+	     connections are established. */
+  	HDLmConfig.setConfigurationValues();
 	  /* Add all of the general events to the events map */
 	  HDLmEvent.addEventsList(HDLmEvent.eventNames);
 	}

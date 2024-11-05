@@ -42,12 +42,6 @@ import org.eclipse.jetty.util.UrlEncoded;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
-import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
-import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;	
-import software.amazon.awssdk.services.secretsmanager.model.SecretsManagerException;
-
 import com.eatthepath.imagehash.PHashImageHash;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -69,18 +63,6 @@ public class HDLmUtility {
   private static final Logger LOG = LoggerFactory.getLogger(HDLmUtility.class);
 	/* This class can never be instantiated */
 	private HDLmUtility() {}
-  /* Build a secret manager client for accessing secrets
-     stored by the AWS Secrets Manager */
-  protected static SecretsManagerClient  buildAwsSecretsManagerClient(String regionName) {
-    /* Create a Secrets Manager client */
-  	Region  region = Region.of("us-east-2");
-    /* Create a Secrets Manager client */
-    SecretsManagerClient  client = null;
-    /*
-    client = SecretsManagerClient.builder().region(region).build(); 
-    */   
-    return client;
-  }
   /* Build a bridge rest API query from values passed by
      the caller. The returned value is the query string. */
 	protected static String buildBridgeRestQuery(String colName, HDLmEditorTypes editorType) {

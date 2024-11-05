@@ -26,5 +26,6 @@ import org.junit.runner.RunWith;
 	              HDLmOpenAITest.class, HDLmTimingTest.class,
 	              HDLmHikariPoolTest.class, HDLmSecurityTest.class,
 	              HDLmSignatureTest.class, HDLmUnReTest.class,
-	              HDLmTransferSomethingTest.class, HDLmChangeTest.class})
+	              HDLmTransferSomethingTest.class, HDLmChangeTest.class,
+	              HDLmAwsUtilityTest.class})
 class HDLmAllTests {}
