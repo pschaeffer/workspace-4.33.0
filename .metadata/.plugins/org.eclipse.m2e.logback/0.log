@@ -4266,3 +4266,6 @@
 2024-12-01 18:00:24,144 [Worker-12: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\pscha\HeadlampJetty\workspace-4.33.0\Secrets\src\main\resources
 2024-12-01 18:00:24,155 [Worker-12: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\pscha\HeadlampJetty\workspace-4.33.0\Secrets\src\test\resources
 2024-12-14 14:14:04,914 [Worker-0: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
+2024-12-16 13:59:36,405 [Worker-6: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
+2024-12-16 13:59:53,482 [Worker-25: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\pscha\HeadlampJetty\workspace-4.33.0\Secrets\src\main\resources
+2024-12-16 13:59:53,491 [Worker-25: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\pscha\HeadlampJetty\workspace-4.33.0\Secrets\src\test\resources

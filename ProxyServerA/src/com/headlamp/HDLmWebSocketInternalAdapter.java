@@ -379,7 +379,7 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 		/* Loop over and process each element of the JSON array.
 		   Each element is a configuration name for which the 
 		   value is needed.  */
-		for (JsonElement arrayEntry : configNamesJson) {
+		for (JsonElement arrayEntry  :  configNamesJson) {
 			String  configNamesEntry = arrayEntry.getAsString();
 			/* Check if the configuration name is in the list 
 			   of allowed configuration names. If not, generate
