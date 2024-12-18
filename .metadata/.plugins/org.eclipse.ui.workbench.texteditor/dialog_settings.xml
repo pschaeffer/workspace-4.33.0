@@ -3,6 +3,11 @@
 	<item key="hasShownOverlayPopupBefore" value="true"/>
 	<item key="replaceBarOpen" value="false"/>
 	<list key="searchhistory">
+		<item value=".gettext"/>
+		<item value="getTextChoices("/>
+		<item value="buildheaders("/>
+		<item value="buildAuthorizationHeader("/>
+		<item value="headlamp"/>
 		<item value="treemap"/>
 		<item value="new "/>
 		<item value="map"/>
@@ -13,11 +18,6 @@
 		<item value="hdlmgetup"/>
 		<item value="hdlmincre"/>
 		<item value="hdlmin"/>
-		<item value="HDLmIncrementUpdateCount"/>
-		<item value="&apos;script&apos;"/>
-		<item value="hdlmincrementupdate"/>
-		<item value=".setattribute("/>
-		<item value="hdlmu"/>
 	</list>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item key="selection" value="HDLmGetUpdate"/>

@@ -58,7 +58,7 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmOpenAI.class);
 	/* Build an Open AI authorization header */ 
 	protected static String  buildAuthorizationHeader() {
 		/* Get the Open AI key from the configuration values */ 
-		String  apiKeyStr = HDLmConfigInfo.getOpenAIApiKey();
+		String  apiKeyStr = HDLmConfigInfo.getOpenAIApiKeySchaeffer();
     /* Build an authorization header using an API key string */
 	  return HDLmOpenAI.buildAuthorizationHeaderUsingAPIKeyStr(apiKeyStr);
 	}
@@ -624,7 +624,7 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmOpenAI.class);
 		 
 	}
 	/* Get a list of text variations from some output (output of Open AI) JSON */
-	protected static ArrayList<String> getTextVariations(String  outputJson) {
+	protected static ArrayList<String>  getTextVariations(String  outputJson) {
 		/* Check one or more values passed by the caller */
 		if (outputJson == null) {
 			String   errorText = "Output JSON string reference passed to getTextVariations is null";

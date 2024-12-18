@@ -4,6 +4,7 @@ import static com.headlamp.HDLmAssert.HDLmAssertAction;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.eclipse.jetty.websocket.api.*;
 import org.slf4j.Logger;
@@ -121,6 +122,9 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 			  break;
 		  case "deleteTreeNode":
 			  handleMessageDeleteTreeNode(topNodeJsonElement);
+			  break;
+		  case "getConfigValues":
+			  handleMessageGetConfigValues(topNodeJsonElement);
 			  break;
 		  case "getModPart":
 			  handleMessageGetModPart();
@@ -300,7 +304,7 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 		}
 		/* Get the node path length */
 		int pathLength = HDLmDefines.getNumber("HDLMRULESNODEPATHLENGTH");
-		JsonArray nodePathJson = HDLmJson.getJsonArray(jsonElement, "nodePath");
+		JsonArray  nodePathJson = HDLmJson.getJsonArray(jsonElement, "nodePath");
 		int nodePathJsonSize = nodePathJson.size();
 		/* Check if the node path length is invalid */
 		if (nodePathJsonSize <= 0 ||
@@ -346,6 +350,77 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 		/* Send a success message back to the caller */
 		String  successJson = HDLmUtility.buildResultSuccessJsonString(null);
 		HDLmWebSocketInternalAdapter.sendString(session, successJson);
+	}
+	/* This routine is invoked to handle inbound web sockets get configuration 
+     values messages. These messages should be in JSON format and should be
+     handleable via JSON. */
+	public void handleMessageGetConfigValues(JsonElement jsonElement) {
+		/* Check if the JSON element instance passed by the caller is null */
+		if (jsonElement == null) {
+			String  errorText = "JSON element instance passed to handleMessageGetConfigValues is null";
+			throw new NullPointerException(errorText);
+		}
+		/* Get the configuration names length */
+		JsonArray  configNamesJson = HDLmJson.getJsonArray(jsonElement, "configNames");
+		int  configNamesJsonSize = configNamesJson.size();
+		/* Check if the configuration names length is invalid */
+		if (configNamesJsonSize <= 0) {
+			String  errorFormat = "Get configuration names length (%d) is incorrect";
+			String  errorText = String.format(errorFormat, configNamesJsonSize);
+			HDLmAssertAction(false, errorText);
+		}
+		/* Build an array list with the configuration names that
+		   are allowed to be requested. Configuration names not 
+		   in this list will not be returned. */ 
+		final ArrayList<String>  allowedConfigNames = new ArrayList<String>(
+		                           Arrays.asList("entriesBridgePassword", "entriesBridgeUserid"));
+		/* create a new configuration object */
+		HDLmConfigValues  configValues = new HDLmConfigValues();
+		/* Loop over and process each element of the JSON array.
+		   Each element is a configuration name for which the 
+		   value is needed.  */
+		for (JsonElement arrayEntry : configNamesJson) {
+			String  configNamesEntry = arrayEntry.getAsString();
+			/* Check if the configuration name is in the list 
+			   of allowed configuration names. If not, generate
+			   an exception. */
+			if (!allowedConfigNames.contains(configNamesEntry)) {
+				String  errorFormat = "Configuration name (%s) is not allowed";
+				String  errorText = String.format(errorFormat, configNamesEntry);
+				HDLmAssertAction(false, errorText);
+			}
+			/* Get the configuration value for the configuration name */
+			String  configValueEntry = HDLmConfig.getConfigValue(configNamesEntry);
+			/* Build a configuration object */
+			HDLmConfigValue  configValue = new HDLmConfigValue(configNamesEntry, configValueEntry);
+			/* Add the new configuration entry to the list of configurations */
+			configValues.addConfig(configValue);
+		}
+		/* Build a JSON string with all of the configurations in it */
+	  Gson    gsonInstance = HDLmMain.gsonMain; 
+	  String  jsonString = gsonInstance.toJson(configValues);
+		/* Get the remote endpoint we need to send a reply to */
+		RemoteEndpoint remote = session.getRemote();
+		try {
+			remote.sendString(jsonString);
+			LOG.info("sendString" + " - " + jsonString);
+		} 
+		catch (IOException ioException) {
+			if (jsonString != null)
+				LOG.info("JSON String - " + jsonString);
+			LOG.info("IOException while executing handleMessageGetConfigValues");
+			LOG.info(ioException.getMessage(), ioException);
+			HDLmEvent.eventOccurred("IOException");
+			return;
+		} 
+		catch (Exception exception) {
+			if (jsonString != null)
+				LOG.info("JSON String - " + jsonString);
+			LOG.info("Exception while executing handleMessageGetConfigValues");
+			LOG.info(exception.getMessage(), exception);
+			HDLmEvent.eventOccurred("Exception");
+			return;
+		}
 	}
 	/* This routine is invoked to handle inbound web sockets get image 
      choices messages. These messages should be in JSON format and   
@@ -403,7 +478,7 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 			HDLmEvent.eventOccurred("Exception");
 			return;
 		}
-	}
+	}	
 	/* This routine is invoked to handle inbound web sockets get modifications
 	   partial tree messages. These messages should be in JSON format and should be
 	   handleable via JSON. */

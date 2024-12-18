@@ -141,29 +141,28 @@ public class HDLmConfig {
 	static {
 		/* Define a few configuration constants for use in our code.  
 		   Note that the JavaScript code has another copy of these 
-		   values. */ 
-		
+		   values. */ 		
 		final Map<String, HDLmConfig>   configImmutable = Map.ofEntries(	
-		  Map.entry("awsAccessKeyId",                       new HDLmConfig(HDLmConfigTypes.STRING,  "")),
-			Map.entry("awsCognitoAcceptEncoding",             new HDLmConfig(HDLmConfigTypes.STRING,  "identity")),
-			Map.entry("awsCognitoApiAdminGetUser",            new HDLmConfig(HDLmConfigTypes.STRING,  "AWSCognitoIdentityProviderService.AdminGetUser")),
-			Map.entry("awsCognitoApiAdminSetUserPassword",    new HDLmConfig(HDLmConfigTypes.STRING,  "AWSCognitoIdentityProviderService.AdminSetUserPassword")),
-			Map.entry("awsCognitoApiGetUser",                 new HDLmConfig(HDLmConfigTypes.STRING,  "AWSCognitoIdentityProviderService.GetUser")),
-			Map.entry("awsCognitoApiInitiateAuth",            new HDLmConfig(HDLmConfigTypes.STRING,  "AWSCognitoIdentityProviderService.InitiateAuth")),
-			Map.entry("awsCognitoApiRespondToAuthChallenge",  new HDLmConfig(HDLmConfigTypes.STRING,  "AWSCognitoIdentityProviderService.RespondToAuthChallenge")),
-			Map.entry("awsCognitoCanonicalUri",               new HDLmConfig(HDLmConfigTypes.STRING,  "/")),
-			Map.entry("awsCognitoContentType",                new HDLmConfig(HDLmConfigTypes.STRING,  "application/x-amz-json-1.1")),
-			Map.entry("awsCognitoHost",                       new HDLmConfig(HDLmConfigTypes.STRING,  "cognito-idp.us-east-2.amazonaws.com")),
-			Map.entry("awsCognitoHttpMethod",                 new HDLmConfig(HDLmConfigTypes.STRING,  "POST")),
-			Map.entry("awsCognitoServiceName",                new HDLmConfig(HDLmConfigTypes.STRING,  "cognito-idp")),
+		  Map.entry("AWSAccessKeyId",                       new HDLmConfig(HDLmConfigTypes.STRING,  "")),
+			Map.entry("AWSCognitoAcceptEncoding",             new HDLmConfig(HDLmConfigTypes.STRING,  "identity")),
+			Map.entry("AWSCognitoApiAdminGetUser",            new HDLmConfig(HDLmConfigTypes.STRING,  "AWSCognitoIdentityProviderService.AdminGetUser")),
+			Map.entry("AWSCognitoApiAdminSetUserPassword",    new HDLmConfig(HDLmConfigTypes.STRING,  "AWSCognitoIdentityProviderService.AdminSetUserPassword")),
+			Map.entry("AWSCognitoApiGetUser",                 new HDLmConfig(HDLmConfigTypes.STRING,  "AWSCognitoIdentityProviderService.GetUser")),
+			Map.entry("AWSCognitoApiInitiateAuth",            new HDLmConfig(HDLmConfigTypes.STRING,  "AWSCognitoIdentityProviderService.InitiateAuth")),
+			Map.entry("AWSCognitoApiRespondToAuthChallenge",  new HDLmConfig(HDLmConfigTypes.STRING,  "AWSCognitoIdentityProviderService.RespondToAuthChallenge")),
+			Map.entry("AWSCognitoCanonicalUri",               new HDLmConfig(HDLmConfigTypes.STRING,  "/")),
+			Map.entry("AWSCognitoContentType",                new HDLmConfig(HDLmConfigTypes.STRING,  "application/x-amz-json-1.1")),
+			Map.entry("AWSCognitoHost",                       new HDLmConfig(HDLmConfigTypes.STRING,  "cognito-idp.us-east-2.amazonaws.com")),
+			Map.entry("AWSCognitoHttpMethod",                 new HDLmConfig(HDLmConfigTypes.STRING,  "POST")),
+			Map.entry("AWSCognitoServiceName",                new HDLmConfig(HDLmConfigTypes.STRING,  "cognito-idp")),
 		  /* The user agent value below is not accurate (at all). However, AWS Cognito
 		     demands a user agent value and the value below actually works. */
-			Map.entry("awsCognitoUserAgent",                  new HDLmConfig(HDLmConfigTypes.STRING,  "Boto3/1.26.83 Python/3.9.13 Windows/10 Botocore/1.29.83")),
-			Map.entry("awsCognitoUserPoolClientAppId",        new HDLmConfig(HDLmConfigTypes.STRING,  "4aa1bqd057v64omjq84hc4pnvl")),
-			Map.entry("awsCognitoUserPoolId",                 new HDLmConfig(HDLmConfigTypes.STRING,  "us-east-2_xTvIIRtgB")),
-			Map.entry("awsCognitoUserPoolName",               new HDLmConfig(HDLmConfigTypes.STRING,  "HeadlampUserPool1")),
-			Map.entry("awsCognitoUserPoolRegion",             new HDLmConfig(HDLmConfigTypes.STRING,  "us-east-2")),
-			Map.entry("awsSecretAccessKey",                   new HDLmConfig(HDLmConfigTypes.STRING,  "")),
+			Map.entry("AWSCognitoUserAgent",                  new HDLmConfig(HDLmConfigTypes.STRING,  "Boto3/1.26.83 Python/3.9.13 Windows/10 Botocore/1.29.83")),
+			Map.entry("AWSCognitoUserPoolClientAppId",        new HDLmConfig(HDLmConfigTypes.STRING,  "4aa1bqd057v64omjq84hc4pnvl")),
+			Map.entry("AWSCognitoUserPoolId",                 new HDLmConfig(HDLmConfigTypes.STRING,  "us-east-2_xTvIIRtgB")),
+			Map.entry("AWSCognitoUserPoolName",               new HDLmConfig(HDLmConfigTypes.STRING,  "HeadlampUserPool1")),
+			Map.entry("AWSCognitoUserPoolRegion",             new HDLmConfig(HDLmConfigTypes.STRING,  "us-east-2")),
+			Map.entry("AWSSecretAccessKey",                   new HDLmConfig(HDLmConfigTypes.STRING,  "")),
 			Map.entry("clustersMaxCount",                     new HDLmConfig(HDLmConfigTypes.INT,     "10")),		  
 			Map.entry("clustersSampleSize",                   new HDLmConfig(HDLmConfigTypes.INT,     "100")),
 			Map.entry("clustersThreshold",                    new HDLmConfig(HDLmConfigTypes.DOUBLE,  "0.10")),
@@ -216,7 +215,7 @@ public class HDLmConfig {
 	    Map.entry("logFileName",                          new HDLmConfig(HDLmConfigTypes.STRING,  "info.log")),
 	    Map.entry("logRuleMatching",                      new HDLmConfig(HDLmConfigTypes.BOOLEAN, "false")),
 	    Map.entry("openAIMaximumStringLength",            new HDLmConfig(HDLmConfigTypes.INT,     "6000")),	
-	    Map.entry("openAIApiKey",                         new HDLmConfig(HDLmConfigTypes.STRING,  "")),	
+	    Map.entry("openAIApiKeySchaeffer",                new HDLmConfig(HDLmConfigTypes.STRING,  "")),	
 	    Map.entry("parametersAccessMethod",               new HDLmConfig(HDLmConfigTypes.STRING,  "cgi-bin/get-set.py?get")),
 	    Map.entry("parametersInternetMethod",             new HDLmConfig(HDLmConfigTypes.STRING,  "http")),
 	    Map.entry("parametersUpdateMethod",               new HDLmConfig(HDLmConfigTypes.STRING,  "cgi-bin/get-set.py?set")),
@@ -337,6 +336,27 @@ public class HDLmConfig {
 	protected String       getConfigValue() {
 		return configValue;
 	}
+	/* This static method returns the value of a configuration name if the
+	   configuration name is valid (exists). This method can be used to obtain
+	   values of any type. The string value of a configuration value is always
+	   returned. */
+  protected static String  getConfigValue(String configName) {
+		/* Check a few values passed by the caller */
+		if (configName == null) {
+			String   errorText = "Configuration name reference passed to getConfigValue is null";
+			throw new NullPointerException(errorText);		
+		}
+		/* Check if the configuration name passed by the caller is valid
+		   or not. We need to raise an exception if the configuration name
+		   passed by the caller is unknown. */
+		if (!configValues.containsKey(configName)) {
+			String  errorText = String.format("Invalid configuration name (%s) passed to getConfigValue", configName);
+			throw new IllegalArgumentException(errorText);
+		}
+		/* Get the entry from the map and extract the value from the entry */
+	  HDLmConfig  currentConfigEntry = configValues.get(configName);
+	  return currentConfigEntry.getConfigValue();
+  }
 	/* This static method returns the double value of a configuration
 	   value if the configuration name is valid (exists) and if the 
 	   configuration value is actually a double (floating-point value). */
@@ -524,12 +544,16 @@ public class HDLmConfig {
 		ArrayList<ArrayList<String>> mainList = new ArrayList<ArrayList<String>>();
 		/* The order here is, where to put the configuration value, the AWS name of the value, and the JSON key,
 		   if any. */
-		ArrayList<String>   infoAwsAccessKeyId =	new ArrayList<String>(Arrays.asList("awsAccessKeyId", 
+		ArrayList<String>   infoAwsAccessKeyId =	new ArrayList<String>(Arrays.asList("AWSAccessKeyId", 
 				                                                                          "AwsAccessKeyId", "")); 	
-		ArrayList<String>   infoAwsSecretAccessKey =	new ArrayList<String>(Arrays.asList("awsSecretAccessKey", "AwsSecretAccessKey", ""));
-		ArrayList<String>   infoOpenAiKey = new ArrayList<String>(Arrays.asList("openAIApiKey", "OpenApiAiKeySchaeffer", ""));
-		ArrayList<String>   infoAwsDatabaseUserid = new ArrayList<String>(Arrays.asList("entriesDatabaseUserid", "Main9Auroa", "username"));
-		ArrayList<String>   infoAwsDatabasePassword = new ArrayList<String>(Arrays.asList("entriesDatabasePassword", "Main9Auroa", "password"));
+		ArrayList<String>   infoAwsSecretAccessKey =	new ArrayList<String>(Arrays.asList("AWSSecretAccessKey",
+				                                                                              "AwsSecretAccessKey", ""));
+		ArrayList<String>   infoOpenAiKeySchaeffer = new ArrayList<String>(Arrays.asList("openAIApiKeySchaeffer", 
+				                                                                             "OpenApiAiKeySchaeffer", ""));
+		ArrayList<String>   infoAwsDatabaseUserid = new ArrayList<String>(Arrays.asList("entriesDatabaseUserid", 
+				                                                                            "Main9Auroa", "username"));
+		ArrayList<String>   infoAwsDatabasePassword = new ArrayList<String>(Arrays.asList("entriesDatabasePassword", 
+				                                                                              "Main9Auroa", "password"));
 		/* The value that was obtained below was not the actual database name. It is not clear what this
 		   value really is/was. */ 
 		/*
@@ -537,13 +561,16 @@ public class HDLmConfig {
 				                                                                          "Main9Auroa", 
 				                                                                          "dbClusterIdentifier"));
 		*/
-		ArrayList<String>   infoAwsDatabaseHost = new ArrayList<String>(Arrays.asList("entriesDatabaseDomainNameProd", "Main9Auroa", "host"));
-		ArrayList<String>   infoAwsEntriesUserid = new ArrayList<String>(Arrays.asList("entriesBridgeUserid", "EntriesBridgeUserid", ""));
-		ArrayList<String>   infoAwsEntriesPassword = new ArrayList<String>(Arrays.asList("entriesBridgePassword", "EntriesBridgePassword", ""));
+		ArrayList<String>   infoAwsDatabaseHost = new ArrayList<String>(Arrays.asList("entriesDatabaseDomainNameProd", 
+				                                                                          "Main9Auroa", "host"));
+		ArrayList<String>   infoAwsEntriesUserid = new ArrayList<String>(Arrays.asList("entriesBridgeUserid", 
+				                                                                           "EntriesBridgeUserid", ""));
+		ArrayList<String>   infoAwsEntriesPassword = new ArrayList<String>(Arrays.asList("entriesBridgePassword", 
+				                                                                             "EntriesBridgePassword", ""));
 		/* Add each set of information about an AWS secret to the main ArrayList */
 		mainList.add(infoAwsAccessKeyId);
 		mainList.add(infoAwsSecretAccessKey);
-		mainList.add(infoOpenAiKey);
+		mainList.add(infoOpenAiKeySchaeffer);
 		mainList.add(infoAwsDatabaseUserid);
 		mainList.add(infoAwsDatabasePassword);
 		/* The value that was obtained below was not the actual database name. It is not clear what this

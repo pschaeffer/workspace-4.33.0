@@ -15,101 +15,101 @@ public class HDLmConfigInfo {
   /* Get the AWS access key Id value. The access key 
      Id value is returned to the caller. */
   protected static String  getAccessKeyId() {
-    return HDLmConfig.getString("awsAccessKeyId");
+    return HDLmConfig.getString("AWSAccessKeyId");
   }
   /* Get the AWS Cognito accept encoding value. The 
 	   accept encoding value is returned to the caller. */
 	protected static String  getAwsCognitoAcceptEncoding() {
-	  return HDLmConfig.getString("awsCognitoAcceptEncoding");
+	  return HDLmConfig.getString("AWSCognitoAcceptEncoding");
 	}
 	/* Get the AWS Cognito admin get user attributes API name. 
      This is actually a string. The string is returned to 
      the caller. */
   protected static String  getAwsCognitoApiAdminGetUser() {
-    return HDLmConfig.getString("awsCognitoApiAdminGetUser");
+    return HDLmConfig.getString("AWSCognitoApiAdminGetUser");
   }
 	/* Get the AWS Cognito admin set user password API name. 
      This is actually a string. The string is returned to 
      the caller. */
   protected static String  getAwsCognitoApiAdminSetUserPassword() {
-    return HDLmConfig.getString("awsCognitoApiAdminSetUserPassword");
+    return HDLmConfig.getString("AWSCognitoApiAdminSetUserPassword");
   }
 	/* Get the AWS Cognito get user attributes API name. 
 	   This is actually a string. The string is returned 
 	   to the caller. */
 	protected static String  getAwsCognitoApiGetUser() {
-	  return HDLmConfig.getString("awsCognitoApiGetUser");
+	  return HDLmConfig.getString("AWSCognitoApiGetUser");
 	}
 	/* Get the AWS Cognito initiate authentication API name. 
 	   This is actually a string. The string is returned to 
 	   the caller. */
 	protected static String  getAwsCognitoApiInitiateAuth() {
-	  return HDLmConfig.getString("awsCognitoApiInitiateAuth");
+	  return HDLmConfig.getString("AWSCognitoApiInitiateAuth");
 	}
 	/* Get the AWS Cognito respond to challenge API name. 
 	   This is actually a string. The string is returned to 
 	   the caller. */
 	protected static String  getAwsCognitoApiRespondToAuthChallenge() {
-	  return HDLmConfig.getString("awsCognitoApiRespondToAuthChallenge");
+	  return HDLmConfig.getString("AWSCognitoApiRespondToAuthChallenge");
 	}
 	/* Get the AWS Cognito canonical URI. The URI is 
 	   sometimes called the path value. The canonical
 	   URI string is returned to the caller. */
   protected static String  getAwsCognitoCanonicalUri() {
-    return HDLmConfig.getString("awsCognitoCanonicalUri");
+    return HDLmConfig.getString("AWSCognitoCanonicalUri");
   }
 	/* Get the AWS Cognito content type value. The content 
 	   type value is returned to the caller. */
 	protected static String  getAwsCognitoContentType() {
-	  return HDLmConfig.getString("awsCognitoContentType");
+	  return HDLmConfig.getString("AWSCognitoContentType");
 	}
 	/* Get the AWS Cognito host name. This is actually a domain name.
 	   The domain name is returned to the caller. */
 	protected static String  getAwsCognitoHost() {
-	  return HDLmConfig.getString("awsCognitoHost");
+	  return HDLmConfig.getString("AWSCognitoHost");
 	}
 	/* Get the AWS Cognito method. This is actually an HTTP method.
      The method string is returned to the caller. */
   protected static String  getAwsCognitoHttpMethod() {
-    return HDLmConfig.getString("awsCognitoHttpMethod");
+    return HDLmConfig.getString("AWSCognitoHttpMethod");
   }
 	/* Get the AWS Cognito service name. The service name
      string is returned to the caller. */
   protected static String  getAwsCognitoServiceName() {
-    return HDLmConfig.getString("awsCognitoServiceName");
+    return HDLmConfig.getString("AWSCognitoServiceName");
   }	
 	/* Get the AWS Cognito user agent value. This is actually 
 	   a string. The value is not correct, but does work with 
 	   AWS Cognito. The user agent value is returned to the 
 	   caller. */ 
 	protected static String  getAwsCognitoUserAgent() {
-	  return HDLmConfig.getString("awsCognitoUserAgent");
+	  return HDLmConfig.getString("AWSCognitoUserAgent");
 	}
   /* Get the AWS Cognito user pool app Id. This is actually a value
      that identifies the user pool app. */
   protected static String  getAwsCognitoUserPoolClientAppId() {
-    return HDLmConfig.getString("awsCognitoUserPoolClientAppId");
+    return HDLmConfig.getString("AWSCognitoUserPoolClientAppId");
   }
 	/* Get the AWS Cognito user pool Id value. This is actually 
      a string. The user pool Id value is returned to the 
      caller. */ 
   protected static String  getAwsCognitoUserPoolId() {
-    return HDLmConfig.getString("awsCognitoUserPoolId");
+    return HDLmConfig.getString("AWSCognitoUserPoolId");
   }
 	/* Get the AWS Cognito user pool name. This is actually the 
      name of the user pool. */
   protected static String  getAwsCognitoUserPoolName() {
-    return HDLmConfig.getString("awsCognitoUserPoolName");
+    return HDLmConfig.getString("AWSCognitoUserPoolName");
   } 
 	/* Get the AWS Cognito user pool region. This is actually the 
      region where the user pool lives. */
   protected static String  getAwsCognitoUserPoolRegion() {
-    return HDLmConfig.getString("awsCognitoUserPoolRegion");
+    return HDLmConfig.getString("AWSCognitoUserPoolRegion");
   } 
 	/* Get the AWS secret access key value. The secret access 
      key value is returned to the caller. */
   protected static String  getSecretAccessKey() {
-    return HDLmConfig.getString("awsSecretAccessKey");
+    return HDLmConfig.getString("AWSSecretAccessKey");
   }
 	/* Get the standard maximum number of clusters and return
 	   it to the caller. The maximum number of clusters is
@@ -381,10 +381,9 @@ public class HDLmConfigInfo {
   protected static int   getOpenAIMaximumStringLength() {
 	  return HDLmConfig.getInteger("openAIMaximumStringLength");
   }
-	/* Get the Open AI API key. If the string 
-     exceeds this length, it will be truncated. */  
-  protected static String  getOpenAIApiKey() {
-    return HDLmConfig.getString("openAIApiKey");
+	/* Get the Open AI API key for Schaeffer */  
+  protected static String  getOpenAIApiKeySchaeffer() {
+    return HDLmConfig.getString("openAIApiKeySchaeffer");
   }
   /* Get the method that is used to access the parameters */
   protected static String  getParametersAccessMethod() {

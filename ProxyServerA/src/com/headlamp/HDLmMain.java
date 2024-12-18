@@ -2368,7 +2368,13 @@ public class HDLmMain {
 		   that some of the secrets are used to establish database connections.
 		   As a consequence, this step must come before any database 
 		   connections are established. */
-		HDLmConfig.setConfigurationValues();
+		HDLmConfig.setConfigurationValues(); 
+		/* The next set of lines were used to verify that we can 
+		   get secrets from AWS. This code is commented out for now. */
+		/* 
+		String  AWSAccessKeyId = HDLmConfigInfo.getAccessKeyId();
+		System.out.println(AWSAccessKeyId);
+		*/
 		/* Get the Hikari data source. This call has the effect
 		   of building the JDBC connection pool. */
 		HDLmHikariPool.getDataSource();

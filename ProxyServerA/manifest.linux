@@ -28,6 +28,7 @@ Class-Path:
  ../../../HeadlampJetty/TwelveMonkeys/common-image-3.8.1.jar 
  ../../../HeadlampJetty/TwelveMonkeys/imageio-core-3.8.1.jar 
  ../../../HeadlampJetty/TwelveMonkeys/imageio-metadata-3.8.1.jar 
+ ../../../HeadlampJetty/TwelveMonkeys/imageio-webp-3.8.1.jar 
  ../../../HeadlampJetty/TwelveMonkeys/batik-1.16/lib/xmlgraphics-commons-2.7.jar 
  ../../../HeadlampJetty/TwelveMonkeys/batik-1.16/lib/xml-apis-ext-1.3.04.jar 
  ../../../HeadlampJetty/TwelveMonkeys/imageio-batik-3.8.1.jar 
@@ -74,6 +75,7 @@ Class-Path:
  ../../../HeadlampJetty/graal/polyglot-24.0.0.jar 
  ../../../HeadlampJetty/graal/truffle-api-24.0.0.jar 
  ../../../HeadlampJetty/graal/nativeimage-24.0.0.jar 
+ ../../../HeadlampJetty/AWS/mergedsecretsmanager.jar 
 Main-Class: com.headlamp.HDLmMain
 
 
