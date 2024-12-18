@@ -2,8 +2,13 @@
 target/
 *.class
 
-# Log file
+# Log files
 *.log
+
+# Skip a few more file types
+*.index
+*.jar
+*.msi
 
 # BlueJ files
 *.ctxt

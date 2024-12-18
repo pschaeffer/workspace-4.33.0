@@ -1,4 +1,6 @@
 /.metadata/
+
+# Skip a few file types
 *.log
 *.index
 *.jar

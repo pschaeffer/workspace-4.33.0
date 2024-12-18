@@ -5,6 +5,12 @@ target/
 *.tar
 *.tar.gz
 
+# Skip a few file types
+*.log
+*.index
+*.jar
+*.msi
+
 # eclipse ignore
 .settings/
 .project
