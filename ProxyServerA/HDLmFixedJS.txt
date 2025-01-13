@@ -1,0 +1,2825 @@
+<script>
+  "use strict";
+  let HDLmNodeIdenTracing = {
+    "none":  0,
+    "off":   1,
+    "error": 2,
+    "all":   3
+  };
+  /* Create a keyboard event listener for the keydown event. Check if the
+     keydown event was used to enter a Ctrl-B or a Ctrl-I. The Ctrl-B key
+     combination is used to enable rule matching trace. The Ctrl-I key
+     combination is used to enable node identifier tracing. */
+  document.addEventListener("keydown", event => {
+    if (event.key == 'b' && event.ctrlKey == true)
+      sessionStorage.setItem("HDLmSessionDebugRulesEnabled", 'true');
+    if (event.key == 'i' && event.ctrlKey == true)
+      sessionStorage.setItem("HDLmSessionDebugNodeIdenEnabled", 'all');
+    if (event.key == 'q' && event.ctrlKey == true)
+      sessionStorage.setItem("HDLmSessionPostRuleTracingEnabled", 'true');
+  });
+  /* Start the JavaScript function that applies just one modification */
+  function HDLmApplyMod(pathValueStr,
+                        curMod,
+                        sessionIdJS,
+                        parametersArray,
+                        proxyDomain,
+                        hostNameValue,
+                        divisionNameValue,
+                        siteNameValue,
+                        proxySecureDomain,
+                        forceSelectStringValue,
+                        logRuleMatching,
+                        readyState) {
+    /* console.log('In HDLmApplyMod'); */
+    /* console.log(readyState); */
+    /* Save a few values passed by the caller in session storage. These
+       values may be used later to construct new rules or for other
+       purposes. */
+    sessionStorage.setItem("HDLmSessionRuleInfoHostName", hostNameValue);
+    sessionStorage.setItem("HDLmSessionRuleInfoDivisionName", divisionNameValue);
+    sessionStorage.setItem("HDLmSessionRuleInfoSiteName", siteNameValue);
+    /* Check if rule matching trace has been enabled from the keyboard.
+       If it has, force the rule matching trace variable to the needed
+       value. */
+    if (sessionStorage.getItem('HDLmSessionDebugRulesEnabled') == 'true')
+      logRuleMatching = true;
+    /* Check if node identifier tracing has been enabled from the keyboard.
+       If it has, force the node identifier tracing variable to the needed
+       value. */
+    let nodeIdenTracing = HDLmNodeIdenTracing.off;
+    if (sessionStorage.getItem('HDLmSessionDebugNodeIdenEnabled') == 'all')
+      nodeIdenTracing = HDLmNodeIdenTracing.all;
+      nodeIdenTracing = HDLmNodeIdenTracing.error;
+    /* Check if post rule tracing has been enabled from the keyboard.
+       If it has, force the post rule tracing variable to the needed
+       value. */
+    let postRuleTracing = false;
+    if (sessionStorage.getItem('HDLmSessionPostRuleTracingEnabled') == 'true')
+      postRuleTracing = true;
+    let matchFound = false;
+    let matchError = '';
+    /* console.log('s1'); */
+    /* The characters used below are Lao letters. These value were chosen
+       because they are in the BMP, obscure (to English speakers), and do
+       not cause exceptions. The current modification name might have
+       parenthesis in it. The code below will handle this case. */
+    let matchModifiedName = hostNameValue + '/' + divisionNameValue + '/' + siteNameValue + '/' + curMod.name
+    matchModifiedName = HDLmReplaceInString(matchModifiedName);
+    let curType = curMod.type;
+    /* The dummy loop below is used to allow break to work */
+    while (true) {
+      let postTrace = new Object();
+      /* console.log('s2'); */
+      /* If the current modification is not enabled, then we really
+         don't have any more work to do */
+      if (curMod.enabled != true) {
+        matchError = 'disabled';
+        /* console.log('s3'); */
+        /* Report that the current rule was not enabled */
+        if (postRuleTracing == true) {
+          let localUpdates = new Object();
+          HDLmSaveChange(localUpdates, parametersArray, sessionIdJS, null, null,
+                         hostNameValue, divisionNameValue, siteNameValue, curMod.name,
+                         curMod.path, curMod.type, pathValueStr, null, null);
+          postTrace.matcherror = matchError;
+          HDLmSendUpdates(localUpdates, 'failure', '1.0', postTrace);
+        }
+        break;
+      }
+      let matchRes;
+      let matchRe;
+      if (curMod.pathre === true) {
+        let curModLen = curMod.path.length;
+        matchRe = new RegExp(curMod.path.substr(2, curModLen-3));
+        matchRes = matchRe.test(pathValueStr);
+        if (postRuleTracing == true) {
+          postTrace.matchpathre = curMod.pathre;
+          postTrace.matchpath = curMod.path;
+          postTrace.matchpathvalue = pathValueStr;
+          postTrace.matchmatch = matchRes;
+        }
+      }
+      else {
+        matchRes = (curMod.path === pathValueStr);
+        if (postRuleTracing == true) {
+          postTrace.matchpathre = curMod.pathre;
+          postTrace.matchpath = curMod.path;
+          postTrace.matchpathvalue = pathValueStr;
+          postTrace.matchmatch = matchRes;
+        }
+      }
+      /* console.log('s4'); */
+      /* console.log(curMod.pathre, matchRe); */
+      /* Check if we were able to match the current path value in some
+         way. Store an error string and break if the path value did not
+         match. */
+      /* console.log('s5'); */
+      if (matchRes == false) {
+        matchError = 'Path value mismatch';
+        /* Report that the path value did not match */
+        if (postRuleTracing == true) {
+          let localUpdates = new Object();
+          HDLmSaveChange(localUpdates, parametersArray, sessionIdJS, null, null,
+                         hostNameValue, divisionNameValue, siteNameValue, curMod.name,
+                         curMod.path, curMod.type, pathValueStr, null, null);
+          postTrace.matcherror = matchError;
+          HDLmSendUpdates(localUpdates, 'failure', '1.0', postTrace);
+        }
+        break;
+      }
+      /* The current rule did match the current path value. We need to report
+         this fact for debugging purposes. Note the special error number
+         used below. This value is reserved for reporting events that are
+         not really errors. */
+      else {
+        if (logRuleMatching == true) {
+          let errorText = HDLmBuildErrorRule(curMod, 'match', pathValueStr);
+          HDLmBuildError('Trace', 'Mod', 35, errorText);
+        }
+      }
+      const fontNames = {
+                          'fontcolor':'color',
+                          'fontfamily':'font-family',
+                          'fontkerning':'font-kerning',
+                          'fontsize':'font-size',
+                          'fontstyle':'font-style',
+                          'fontweight':'font-weight'
+                        }
+      /* console.log('s6'); */
+      /* If possible, get the parameter value from the parameter
+         array. Note that a default parameter value is always set.
+         The parameter number can only be used to determine the
+         parameter value, if the parameter number is set and valid. */
+      let parameterNumber = curMod.parameter;
+      let parameterValue = 0.0;
+      if (parameterNumber != null &&
+          parameterNumber >= 0 &&
+          parameterNumber < parametersArray.length)
+          parameterValue = parametersArray[parameterNumber];
+      /* console.log('s7'); */
+      /* console.log(parameterNumber, parameterValue); */
+      /* Get the node list for the current modification and the length
+         of the node list. Check if the length of the node list is zero.
+         Set the match error string if no matching nodes were found. */
+      let nodeList = HDLmFind(curMod, nodeIdenTracing, postRuleTracing, postTrace);
+      let nodeListLength = nodeList.length;
+      if (nodeListLength == 0 && curType != 'visit') {
+        matchError = 'nonodes';
+        /* Report that no nodes were found */
+        if (postRuleTracing == true) {
+          let   localUpdates = new Object();
+          HDLmSaveChange(localUpdates, parametersArray, sessionIdJS, null, null,
+                         hostNameValue, divisionNameValue, siteNameValue, curMod.name,
+                         curMod.path, curMod.type, pathValueStr, null, null);
+          postTrace.matcherror = matchError;
+          HDLmSendUpdates(localUpdates, 'failure', '1.0', postTrace);
+        }
+        break;
+      }
+      /* console.log('s8'); */
+      /* console.log(curType, nodeList); */
+      /* Handle each type of modification */
+      switch (curType) {
+        case 'attribute': {
+          /* Get the extra value and break it into two substrings. The first
+             substring is the attribute to be modified. The second substring
+             describes the type of modification. */
+          let curModExtra = curMod.extra;
+          let curModExtraArray = curModExtra.split('/');
+          let attributeName = curModExtraArray[0];
+          let attributeRequest = curModExtraArray[1]
+          /* Process all of the matching nodes */
+          for (let i = 0; i < nodeListLength; i++) {
+            /* Get a single node and add a class or classes to the node */
+            let curNode = nodeList[i];
+            HDLmClassAddClass(curNode, curType, curModExtra);
+            matchFound = true;
+            if (HDLmIncrementUpdateCount(curNode, matchModifiedName, readyState) > 0)
+              break;
+            HDLmIncrementUpdateCount(curNode, matchModifiedName);
+            if (attributeRequest.toUpperCase() == 'USEPROXYHOST') {
+              let attributeValue = curNode.getAttribute(attributeName);
+              let oldText = attributeValue;
+              let nodeURL = new URL(attributeValue);
+              nodeURL.host = proxyDomain;
+              let newText = nodeURL.href;
+              curNode.setAttribute(attributeName, nodeURL.href);
+              /* Treat the current attribute change as an update */
+              let localUpdates = new Object();
+              HDLmSaveChange(localUpdates, parametersArray, sessionIdJS, null, null,
+                             hostNameValue, divisionNameValue, siteNameValue, curMod.name,
+                             curMod.path, curMod.type, pathValueStr,
+                             oldText, newText);
+              postTrace.matcherror = 'attribute';
+              HDLmSendUpdates(localUpdates, 'href', '1.0', postTrace);
+            }
+            break;
+          }
+          break;
+        }
+        /* The extract modification type is somewhat unusual in that it
+           takes more or less immediate effect. Note that extract does
+           not actually change anything on/in an HTML page. However, the
+           extracted data is sent immediately back to the server as a
+           change. Of course, no actual change is ever made by an extract.
+           Note that extracts do not have a real parameter number or value.
+           Null is used for these values below. */
+        case 'extract': {
+          /* Process all of the matching nodes */
+          for (let i = 0; i < nodeListLength; i++) {
+            /* Get a single node and add a class or classes to the node */
+            let curNode = nodeList[i];
+            let curModExtra = curMod.extra;
+            HDLmClassAddClass(curNode, curType, curModExtra);
+            matchFound = true;
+            /* Check if the special parameter related event has already been
+               added */
+            if (HDLmGetUpdateCount(curNode, matchModifiedName, readyState) > 0)
+              break;
+            HDLmIncrementUpdateCount(curNode, matchModifiedName);
+            /* Extract the text value of the current node and save it as a change.
+               Of course, it is not really a change at all. However, the change
+               mechanism is used to keep the value and send it to the server. */
+            /* Get the saved extract value. We can't obtain the extract
+               value at this point, because the value may have been changed
+               by one or more rules. Hence the use of the saved value. */
+            let oldText;
+            if (HDLmSavedExtracts.hasOwnProperty(curMod.name))
+              oldText = HDLmSavedExtracts[curMod.name];
+            else
+              oldText = null;
+            let localUpdates = new Object();
+            /* Save the extracted value as a simulated change */
+            HDLmSaveChange(localUpdates, parametersArray, sessionIdJS, null, null,
+                           hostNameValue, divisionNameValue, siteNameValue, curMod.name,
+                           curMod.path, curMod.type, pathValueStr,
+                           oldText, null);
+            /* Get the reason value. Check a number of sources */
+            let localReason = 'extract';
+            if ((typeof curModExtra) != 'undefined' &&
+                curModExtra          != null        &&
+                curModExtra          != '')
+              localReason = curModExtra;
+            postTrace.matcherror = 'extract';
+            HDLmSendUpdates(localUpdates, localReason, '1.0', postTrace);
+            break;
+          }
+          break;
+        }
+        case 'modify': {
+          /* Check if secure host name is set or not, this code use
+             the secure host name and the secure host name must be
+             set in this case. */
+          if (proxySecureDomain == null) {
+            let   errorText = `No secure host name for (${hostNameValue})`;
+            HDLmBuildError('Error', 'Mod', 16, errorText);
+            break;
+          }
+          /* Process all of the matching nodes */
+          for (let i = 0; i < nodeListLength; i++) {
+            /* Get a single node and add a class or classes to the node */
+            let curNode = nodeList[i];
+            let curModExtra = curMod.extra;
+            HDLmClassAddClass(curNode, curType, curModExtra);
+            if (curModExtra.toUpperCase() !== 'FIXIFRAMESRC')
+              break;
+            matchFound = true;
+            if (HDLmGetUpdateCount(curNode, matchModifiedName, readyState) > 0)
+              break;
+            HDLmIncrementUpdateCount(curNode, matchModifiedName);
+            let nodeSrc = curNode.getAttribute('src');
+            let oldText = nodeSrc;
+            let nodeURL = new URL(nodeSrc);
+            /* Note that we change the URL to point to the secure version
+               of the proxy server. We also add the session ID to the path
+               value so that the session ID can be extracted later. */
+            nodeURL.host = proxySecureDomain;
+            let newText = nodeURL.href + '&HDLmSessionId=' + sessionIdJS;
+            curNode.setAttribute('src', newText);
+            /* Create a local updates object. The current change is stored
+               in the local updates object. */
+            let localUpdates = new Object();
+            /* Save the modified value as a simulated change */
+            HDLmSaveChange(localUpdates, parametersArray, sessionIdJS, null, null,
+                           hostNameValue, divisionNameValue, siteNameValue, curMod.name,
+                           curMod.path, curMod.type, pathValueStr,
+                           null, null);
+            /* Get the reason value. Check a number of sources */
+            let localReason = 'modify';
+            if ((typeof curModExtra) != 'undefined' &&
+                curModExtra          != null        &&
+                curModExtra          != '')
+              localReason = curModExtra;
+            postTrace.matcherror = 'modify';
+            HDLmSendUpdates(localUpdates, localReason, '1.0', postTrace);
+            break;
+          }
+          break;
+        }
+        /* The notify modification type is somewhat unusual in that it
+           takes effect when a button is clicked. This modification type
+           is implemented by adding a 'click' event listener to the button
+           specified by the modification. When the button is clicked, zero
+           or more extracts are attempted. Note that the extracts are not
+           done when this modification is executed. They are done when the
+           button is clicked. This requires a JavaScript closure as implemented
+           below. */
+        case 'notify': {
+          /* Check if a node exists that has an update count of zero.
+             If the answer is yes, then we will end up, attaching an
+             event listener to the node. If the answer is no, then we
+             will not end up attaching an event listener to the node.
+             We really only want to send an update, if we are actually
+             going to attach an event listener. */
+          let sendUpdates = false;
+          for (let i = 0; i < nodeListLength; i++) {
+            let nodeSend = nodeList[i];
+            if (HDLmGetUpdateCount(nodeSend, matchModifiedName, readyState) == 0) {
+              sendUpdates = true;
+              break;
+            }
+          }
+          /* Check if the send updates flag is set. If the flag is set,
+             then we can and should build an update and send it. If the
+             flag is not set, then we can skip sending the update to the
+             server. */
+          let curModExtra = curMod.extra;
+          if (sendUpdates) {
+            /* Report that a node was found for notify */
+            let localUpdates = new Object();
+            HDLmSaveChange(localUpdates, parametersArray, sessionIdJS, null, null,
+                           hostNameValue, divisionNameValue, siteNameValue, curMod.name,
+                           curMod.path, curMod.type, pathValueStr,
+                           null, null);
+            let localReason = 'notify';
+            if ((typeof curModExtra) != 'undefined' &&
+                curModExtra          != null        &&
+                curModExtra          != '')
+              localReason = curModExtra;
+            postTrace.matcherror = 'notify';
+            HDLmSendUpdates(localUpdates, localReason, '1.0', postTrace);
+          }
+          /* Process all of the matching nodes */
+          for (let i = 0; i < nodeListLength; i++) {
+            /* Get a single node and add a class or classes to the node */
+            let curNode = nodeList[i];
+            HDLmClassAddClass(curNode, curType, curModExtra);
+            matchFound = true;
+            /* Check if the special parameter related event has already been
+               added */
+            if (HDLmGetUpdateCount(curNode, matchModifiedName, readyState) > 0)
+              break;
+            HDLmIncrementUpdateCount(curNode, matchModifiedName);
+            /* The code below uses JavaScript closures. The outer function
+               is run and returns the inner function as the return value of
+               the output function. The inner function is run when the notify
+               event occurs. */
+            curNode.addEventListener('click', (function() {
+              return function() {
+                let localUpdates = new Object();
+                /* If we don't have any values to extract, create
+                   a dummy simulated update. This step is required
+                   so that we will know that the event listener
+                   ran after the user clicked on something. */
+                if (curMod.valuesCount <= 0) {
+                  HDLmSaveChange(localUpdates, parametersArray, sessionIdJS, null, null,
+                                 hostNameValue, divisionNameValue, siteNameValue, curMod.name,
+                                 curMod.path, curMod.type, pathValueStr,
+                                 null, null);
+                }
+                /* Extract each of the values and save each of them as
+                   a simulated update */
+                for (let j = 0; j < curMod.valuesCount; j++) {
+                  let searchText = curMod.values[j];
+                  searchText = HDLmModifySearch(searchText);
+                  /* Get the saved extract value. We can't obtain the extract
+                     value at this point, because the value may have been changed
+                     by one or more rules. Hence the use of the saved value. */
+                  let searchValue;
+                  if (HDLmSavedNotifies.hasOwnProperty(searchText))
+                    searchValue = HDLmSavedNotifies[searchText];
+                  else
+                    searchValue = null;
+                  HDLmSaveChange(localUpdates, parametersArray, sessionIdJS, null, null,
+                                 hostNameValue, divisionNameValue, siteNameValue, curMod.name,
+                                 curMod.path, curMod.type, pathValueStr,
+                                 searchValue, null);
+                }
+                /* Set the local reason value to something appropriate */
+                let localReason = 'notify';
+                let curModExtra = curMod.extra;
+                if ((typeof curModExtra) != 'undefined' &&
+                    curModExtra          != null        &&
+                    curModExtra          != '')
+                  localReason = curModExtra;
+                postTrace.matcherror = 'click';
+                HDLmSendUpdates(localUpdates, localReason, '1.0', postTrace);
+              }
+            })());
+            break;
+          }
+          break;
+        }
+        /* Handle a 'visit' rule type. We need to send an update to the server
+           with some information for the execution of a 'visit' rule. */
+        case 'visit': {
+          /* Report that a 'visit' rule has been executed. Of course, a
+             'visit' event also happens when the JavaScript program is
+             loaded. */
+          let testFlag = false;
+          HDLmHandleVisitRequest(curMod.extra, postTrace, testFlag,
+                                 parametersArray, sessionIdJS,
+                                 curMod.parameter, parameterValue,
+                                 hostNameValue, divisionNameValue, siteNameValue, curMod,
+                                 pathValueStr);
+          break;
+        }
+        case 'changeattrs':
+        case 'changenodes':
+        case 'fontcolor':
+        case 'fontfamily':
+        case 'fontkerning':
+        case 'fontsize':
+        case 'fontstyle':
+        case 'fontweight':
+        case 'height':
+        case 'image':
+        case 'order':
+        case 'remove':
+        case 'replace':
+        case 'style':
+        case 'text':
+        case 'textchecked':
+        case 'title':
+        case 'width': {
+          let newTexts = curMod.values;
+          let newCount = curMod.valuesCount;
+          let parameterIndex;
+          if (parameterValue != null) {
+            parameterIndex = Math.floor(newCount * parameterValue);
+            parameterIndex = Math.min(parameterIndex, newCount - 1);
+          }
+          /* Get the new text value based on the parameter index.
+             Check if one of the new text values has a special prefix.
+             If this is true, then we must use the text entry with the
+             special prefix. Note that the special prefix is removed
+             from the text entry before it is used. */
+          let forceSelectFound = false;
+          let newText;
+          if (parameterValue != null) {
+            if (parameterIndex >= 0)
+              newText = newTexts[parameterIndex];
+          }
+          for (let i = 0; i < newCount; i++) {
+            if (newTexts[i].startsWith(forceSelectStringValue)) {
+              newText = newTexts[i].substring(forceSelectStringValue.length);
+              forceSelectFound = true;
+              break;
+            }
+          }
+          /* Check if the parameter value is really set. If the parameter
+             value is not really set, then we have no more work to do.
+             It turns out that we will ignore this error if a force
+             select value is used. */
+          if (parameterValue == null &&
+              forceSelectFound == false) {
+            matchError = 'Null parm value';
+            /* Report that the parameter value was not set */
+            if (postRuleTracing == true) {
+              let localUpdates = new Object();
+              HDLmSaveChange(localUpdates, parametersArray, sessionIdJS,
+                             null, null,
+                             hostNameValue, divisionNameValue, siteNameValue, curMod.name,
+                             curMod.path, curMod.type, pathValueStr,
+                             null, null);
+              postTrace.matcherror = matchError;
+              HDLmSendUpdates(localUpdates, 'failure', '1.0', postTrace);
+            }
+            break;
+          }
+          /* Process all of the matching nodes */
+          for (let i = 0; i < nodeListLength; i++) {
+            /* Get a single node and add a class or classes to the node */
+            let curNode = nodeList[i];
+            let curModExtra = curMod.extra;
+            HDLmClassAddClass(curNode, curType, curModExtra);
+            let oldText;
+            /* Get the old text in the correct way for each type. The
+               procedure for getting the old text varies considerably
+               for each type of modification. */
+            if (curType == 'changeattrs') {
+              oldText = HDLmGetAttributesString(curNode);
+            }
+            else if (curType == 'changenodes') {
+              oldText = curNode.outerHTML;
+            }
+            else if (curType == 'fontcolor'   ||
+                     curType == 'fontfamily'  ||
+                     curType == 'fontkerning' ||
+                     curType == 'fontsize'    ||
+                     curType == 'fontstyle'   ||
+                     curType == 'fontweight') {
+              let newName = fontNames[curType];
+              oldText = '';
+              if (curNode.style.hasOwnProperty(newName))
+                oldText = curNode.style.getPropertyValue(newName);
+              else if (curNode.hasAttribute(newName))
+                oldText = curNode.getAttribute(newName);
+            }
+            else if (curType == 'height' ||
+                     curType == 'width') {
+              oldText = '';
+              if (curNode.hasAttribute(curType))
+                oldText = curNode.getAttribute(curType);
+            }
+            else if (curType == 'image') {
+              oldText = '';
+              if (curNode.hasAttribute('src')) {
+                oldText = curNode.getAttribute('src');
+                if (oldText.startsWith('http'))
+                  oldText = HDLmRemoveProtocol(oldText);
+              }
+            }
+            else if (curType == 'order') {
+              oldText = '';
+              /* oldText = curNode.textContent; */
+            }
+            else if (curType == 'remove') {
+              oldText = '';
+            }
+            else if (curType == 'replace') {
+              oldText = '';
+            }
+            else if (curType == 'style') {
+              oldText = '';
+              /* Try to split the extra value into several different
+                 strings. This may not yield multiple values, in which
+                 case we have just one string to deal with. */
+              let curModSplit = HDLmStyleSplitString(curModExtra);
+              let curModSplitLength = curModSplit.length;
+              /* The extra value has one or more different strings (each
+                 of which is a style). Handle this case. */
+              for (let i = 0; i < curModSplitLength; i++) {
+                let curStyle = curModSplit[i];
+                let curValue = '';
+                if (curNode.hasAttribute('style')) {
+                  if (curNode.style.hasOwnProperty(curStyle))
+                    curValue = curNode.style.getPropertyValue(curStyle);
+                }
+                if (curValue == '' &&
+                    curNode.hasAttribute(curStyle)) {
+                  curValue = curNode.getAttribute(curStyle);
+                }
+                if (curValue != '') {
+                  if (oldText != '')
+                    oldText += ' '
+                  oldText += curValue;
+                }
+              }
+            }
+            else if (curType == 'text'        ||
+                     curType == 'textchecked' ||
+                     curType == 'title') {
+              oldText = curNode.textContent;
+            }
+            /* Check if the current node should be skipped */
+            if (curType == 'textchecked') {
+              /* Check if the acutal text matches what we are looking for */
+              let textMatch = HDLmCheckTextMatches(oldText, curModExtra,
+                                                   matchError, postTrace, postRuleTracing,
+                                                   parametersArray, sessionIdJS,
+                                                   parameterNumber, parameterValue,
+                                                   hostNameValue, divisionNameValue, siteNameValue, curMod,
+                                                   pathValueStr);
+              /* Check if the text match worked */
+              if (!textMatch) {
+                matchError = 'textunequal';
+                continue;
+              }
+            }
+            matchFound = true;
+            /* Generally we can just quit if the updates attribute is already
+               set. Generally, we don't want to make the same changes more than
+               once. However, testing has shown that this may not be true for
+               images and some other types. Strangely, the src attribute seems
+               to change back to its original value in some cases. */
+            let matchUpdateCount = HDLmGetUpdateCount(curNode, matchModifiedName, readyState);
+            if (curType == 'image') {
+              if (matchUpdateCount > 2)
+                if (oldText == newText ||
+                    oldText.startsWith('data:'))
+                  break;
+            }
+            else if (curType == 'textchecked') {
+              if (matchUpdateCount > 1)
+                break;
+            }
+            /* In one very important case, we want to ignore (not quite, the
+               update count is one of the parameters below) the update count
+               here. One rule type is used for many different things. How the
+               update count is handled is different for different cases. */
+            else if (curType == 'changenodes') {
+              /* The check below is really just a placeholder. The match update
+                 count will almost certainly never get that high. */
+              if (matchUpdateCount > 255)
+                break;
+              /* Run the change node code in test mode. This invocation
+                 doesn't change anything, but does return a flag showing
+                 if break is needed. */
+              let testFlag = true;
+              let forceBreak = HDLmChangeNodes(curNode, newText, matchUpdateCount, testFlag,
+                                               matchError, postTrace, postRuleTracing,
+                                               parametersArray, sessionIdJS,
+                                               parameterNumber, parameterValue,
+                                               hostNameValue, divisionNameValue, siteNameValue,
+                                               curMod, pathValueStr, oldText);
+              if (forceBreak == true)
+                break;
+            }
+            /* If the update count is greater than zero (an update has already
+               been done) we want to exit at this point. The critical exception
+               is for images and a few other rule types. For some reason, this
+               basic idea does not work for images and a few other rule types. */
+            else {
+              if (matchUpdateCount > 0)
+                break;
+            }
+            /* The above algorithm is great in most cases. However, it
+               won't really work for remove or replace processing. For
+               remove or replace rules, we actually remove and/or replace
+               the element where the updated attribute might be set. As a
+               consequence, we need to check and set the attribute in the
+               parent of the current node. */
+            if (curType == 'remove' ||
+                curType == 'replace') {
+              let parentNode = curNode.parentNode;
+              if (parentNode != null) {
+                if (HDLmGetUpdateCount(parentNode, matchModifiedName, readyState) > 0)
+                  break;
+              }
+            }
+            if (curType != 'remove' &&
+                curType != 'replace')
+              HDLmIncrementUpdateCount(curNode, matchModifiedName);
+            else {
+              let parentNode = curNode.parentNode;
+              HDLmIncrementUpdateCount(parentNode, matchModifiedName);
+            }
+            /* Use the new text in the correct way for each type. The
+               procedure for using the new text varies considerably
+               for each type of modification. */
+            if (curType == 'changeattrs') {
+              if (newText.trim() != '')
+                HDLmChangeAttributes(curNode, newText);
+            }
+            else if (curType == 'changenodes') {
+              let testFlag = false;
+              HDLmChangeNodes(curNode, newText, matchUpdateCount, testFlag,
+                              matchError, postTrace, postRuleTracing,
+                              parametersArray, sessionIdJS,
+                              parameterNumber, parameterValue,
+                              hostNameValue, divisionNameValue, siteNameValue,
+                              curMod, pathValueStr, oldText);
+            }
+            else if (curType == 'fontcolor'   ||
+                     curType == 'fontfamily'  ||
+                     curType == 'fontkerning' ||
+                     curType == 'fontsize'    ||
+                     curType == 'fontstyle'   ||
+                     curType == 'fontweight') {
+              if (curType == 'fontsize')
+                newText = HDLmBuildSuffix(newText, 'px');
+              let newName = fontNames[curType];
+              curNode.style.setProperty(newName, newText);
+            }
+            else if (curType == 'height' ||
+                     curType == 'width') {
+              newText = HDLmBuildSuffix(newText, 'px');
+              curNode.setAttribute(curType, newText);
+            }
+            else if (curType == 'image') {
+              if (newText.startsWith('//'))
+                curNode.setAttribute('src', 'https:' + newText);
+              if (newText.startsWith('data:'))
+                curNode.setAttribute('src', newText);
+              if (1 == 1) {
+                curNode.style.setProperty('background-repeat', 'no-repeat');
+                curNode.style.setProperty('background-size', 'cover');
+                curNode.style.setProperty('text-align', 'center');
+              }
+            }
+            else if (curType == 'order') {
+              let nodeChildrenLength = curNode.children.length;
+              let newOrder = HDLmBuildOrder(newText, nodeChildrenLength);
+              for (let j = 0; j < newOrder.length; j++) {
+                curNode.appendChild(curNode.children[newOrder[j]]);
+              }
+            }
+            else if (curType == 'remove') {
+              if (HDLmCompareCaseInsensitive(newText, 'yes'))
+                curNode.remove();
+            }
+            else if (curType == 'replace') {
+              if (newText != '') {
+                let parentNode = curNode.parentNode;
+                let newNodeObj = JSON.parse(newText);
+                let newNode = HDLmBuildNodeFromObject(newNodeObj);
+                parentNode.replaceChild(newNode, curNode);
+              }
+            }
+            /* Most style values are handled by just setting the style.
+               However, we need a somewhat different approach for
+               background-image's. */
+            else if (curType == 'style') {
+              if (curModExtra == 'background-image') {
+                let newData = newText;
+                if (newData.startsWith('url')) {
+                }
+                else if (newData.startsWith('data:')) {
+                  newData = 'url(' + newData + ')';
+                }
+                else if (newData.startsWith('http')) {
+                  newData = 'url(' + newData + ')';
+                }
+                else {
+                  if (newData.startsWith('//'))
+                    newData = 'url(https:' + newData + ')';
+                }
+                if (1 == 1) {
+                  curNode.style.setProperty(curModExtra, newData);
+                  curNode.style.setProperty('background-repeat', 'no-repeat');
+                  curNode.style.setProperty('background-size', 'cover');
+                  /* curNode.style.setProperty('background-position', 'center'); */
+                }
+                if (1 == 2) {
+                  let finalUrl = HDLmGetBackground(curNode, 'junk.jpg');
+                }
+              }
+              else {
+                let curModSplit = HDLmStyleSplitString(curModExtra);
+                let newTextSplit = HDLmStyleFixValues(newText);
+                for (let i in curModSplit) {
+                  let newValue = newTextSplit[i];
+                  if (newValue == 'none')
+                    continue;
+                  curNode.style.setProperty(curModSplit[i], newValue);
+                }
+              }
+            }
+            else if (curType == 'title' ||
+                     curType == 'text'  ||
+                     curType == 'textchecked') {
+              curNode.textContent = newText;
+            }
+            let localUpdates = new Object();
+            HDLmSaveChange(localUpdates, parametersArray, sessionIdJS,
+                           parameterNumber, parameterValue,
+                           hostNameValue, divisionNameValue, siteNameValue, curMod.name,
+                           curMod.path, curMod.type, pathValueStr,
+                           oldText, newText);
+            postTrace.matcherror = 'fired';
+            HDLmSendUpdates(localUpdates, curType, '1.0', postTrace);
+            break;
+          }
+          break;
+        }
+        default: {
+          let errorText = "Invalid modification type value - " + curType;
+          HDLmBuildError('Error', 'Mod', 31, errorText);
+          break;
+        }
+      }
+      if (matchFound === false) {
+        if (matchError === '') {
+          matchError = 'nomatch';
+          /* Report that no match was found */
+          if (postRuleTracing == true) {
+            let localUpdates = new Object();
+            HDLmSaveChange(localUpdates, parametersArray, sessionIdJS,
+                           null, null,
+                           hostNameValue, divisionNameValue, siteNameValue, curMod.name,
+                           curMod.path, curMod.type, pathValueStr,
+                           null, null);
+            postTrace.matcherror = matchError;
+            HDLmSendUpdates(localUpdates, 'failure', '1.0', postTrace);
+          }
+        }
+      }
+      break;
+    }
+    /* The log rule matching check below uses a double equals rather
+       than a triple equals because the variable may contain a zero
+       or 1 rather than a boolean value */
+    if (matchError != '' &&
+        logRuleMatching == true) {
+      let errorText = HDLmBuildErrorRule(curMod, matchError, pathValueStr);
+      HDLmBuildError('Trace', 'Mod', 2, errorText);
+    }
+    return matchFound;
+  }
+  /* This function builds a string that represents an array.
+     The array value may be null or undefined or have zero
+     elements in it. All cases are (hopefully) covered below. */
+  function HDLmArrayJoin(curArray, joinChar) {
+    let rv = "";
+    let arrayType = typeof(curArray);
+    /* Check if the array is undefined */
+    if (arrayType == 'undefined') {
+      rv = 'undefined';
+      return rv;
+    }
+    /* Check if the array is a null value */
+    if (curArray == null) {
+      rv = null;
+      return rv;
+    }
+    /* Get an check the array length */
+    let arrayLength = curArray.length;
+    if (arrayLength <= 0)
+      return rv;
+    /* Handle each value of the array */
+    for (let i = 0; i < arrayLength; i++) {
+      if (i > 0)
+        rv += joinChar;
+      let curValue = curArray[i];
+      if (curValue == null)
+        rv += 'null';
+      else
+        rv += String(curValue);
+    }
+    return rv;
+  }
+  /* Build an error text string describing a rule that was not
+     used for some reason. Note that this code is also used to
+     build text strings for rules that are used as well. */
+  function HDLmBuildErrorRule(curMod, matchError, pathValueStr) {
+    let errorText = "Modification " + matchError + " - ";
+    errorText += "name (";
+    errorText += curMod.name;
+    errorText += ")";
+    if (Array.isArray(curMod.find) &&
+        curMod.find.length > 0) {
+      errorText += " key (";
+      let findFirst = curMod.find[0];
+      errorText += findFirst.attributeName;
+      errorText += ")";
+      errorText += " value (";
+      errorText += findFirst.attributeValue;
+      errorText += ")";
+    }
+    /* Add the path value string to the error message. This step facilitates
+       debugging of various kinds. */
+    errorText += ' - ' + pathValueStr;
+    return errorText;
+  }
+  /* This routine builds a DOM node (probably an element) from a
+     JavaScript object. The caller passes the JavaScript object.
+     This routine builds the DOM node (probably an element) from
+     the JavaScript object and all of the children of the JavaScript
+     object. Note that this routine recursively calls itself to
+     handle nested JavaScript objects. The result is (in most cases)
+     a node with subnodes that is returned to the caller. */
+  function HDLmBuildNodeFromObject(domObj) {
+    /* Check if the DOM node is really an element. We only handle
+       elements for now. */
+    if (domObj.type != 'Element')
+      return null;
+    /* First we must check for an actual tag. Without a tag, we can
+       not do much of anything. */
+    if (domObj.tag == null)
+      return null;
+    /* Now we can at least create the element DOM node */
+    let domNode = document.createElement(domObj.tag);
+    /* We now try add all of the attributes (if any) to the newly
+       created DOM element node */
+    let attrObj = domObj.attributes;
+    if (attrObj != null) {
+      for (let attrObjName in attrObj) {
+        domNode.setAttribute(attrObjName, attrObj[attrObjName]);
+      }
+    }
+    /* We can now try to add the text to the corrent element. This
+       actually requires createing a text DOM node and adding it to
+       the current DOM element. */
+    let domText = domObj.text;
+    if (domText != null) {
+      let textNode = document.createTextNode(domText);
+      domNode.appendChild(textNode);
+    }
+    /* We can now try to create DOM nodes (probably DOM elements) for
+       all of the subnodes of the current node (probably an element) */
+    let domSubNodes = domObj.subnodes;
+    if (domSubNodes != null) {
+      let domSubNodesLength = domSubNodes.length;
+      for (let i = 0; i < domSubNodesLength; i++) {
+        let domSubNode = domSubNodes[i];
+        let domSubNodeNode = HDLmBuildNodeFromObject(domSubNode);
+        if (domSubNodeNode != null)
+          domNode.appendChild(domSubNodeNode);
+      }
+    }
+    /* Return the final node value to the caller */
+    return domNode;
+  }
+  /* Build an array of numbers that can be used to change the
+     order of a set of subnode. This routine supports orders
+     that start with zero and orders that do not start with
+     zero. */
+  function HDLmBuildOrder(newText, totalLength) {
+    /* Convert commas to blanks to help the split below.
+       Commas are easier to read. However, getting rid of
+       them makes handling the array simpler. */
+    newText = newText.replace(/,/g, ' ');
+    /* Split the original text into an array of text strings */
+    let newTextArray = newText.split(' ');
+    /* The array created below is used for each value after
+       it is converted to an integer */
+    let newIntArray = [];
+    /* The array created below is returned to the caller.
+       This array contains a set of integers that can be
+       used to impose the desired order. */
+    let outIntArray = [];
+    /* Build a temporary array with a series of ascending numbers.
+       The temporary array created below will be something like
+       [0,1,2,3,4,5,6]. */
+    let tempIntArray = (function(a, b) {while(a--) b[a] = a; return b})(totalLength, []);
+    /* Build an array of integers from the text array */
+    for (let i = 0; i < newTextArray.length; i++) {
+      if (newTextArray[i] == '')
+        continue;
+      let tempInt = parseInt(newTextArray[i]);
+      if (typeof(tempInt) != 'number')
+        continue;
+      newIntArray.push(tempInt);
+    }
+    /* Check if the new integer array has all of the needed values.
+        if any values are missing, they are added here. This set of
+        code adds any missing numbers in the range of zero to total
+        length minus one to the new integer array. */
+    for (let i = 0; i < totalLength; i++)
+      if (newIntArray.includes(i) == false)
+        newIntArray.push(i);
+    /* Build the final output array */
+    for (let i = 0; i < totalLength; i++) {
+      let ix = tempIntArray.indexOf(newIntArray[i]);
+      outIntArray.push(ix);
+      tempIntArray.splice(ix, 1);
+      tempIntArray.push(ix)
+    }
+    return outIntArray;
+  }
+  /* Build a new value with a suffix if need be. This code
+     checks if the value passed by the caller already has
+     a suffix. If the value already has a suffix, then no
+     suffix is added. The caller provides the suffix value
+     that is used (if need be). Note that the above comment
+     is wrong. The actual code does something entirely
+     different. The check for a number is also wrong,
+     but may have been fixed using typeof. */
+  function HDLmBuildSuffix(newValue, suffixStr) {
+    if ((typeof(newValue) == 'number') &&
+        newValue != '')
+      newValue += suffixStr;
+    return newValue
+  }
+  /* This Java code builds the HDLmChangeNodes function. The name is a bit
+     wrong. This function only handles one node at a time. Of course, this
+     function could be invoked with many different node values. This function
+     can be invoked in test mode where no actual changes will be made. The
+     force break return value will be set in all cases. */
+  /* Start the JavaScript function that changes exactly one (the current) node */
+  function HDLmChangeNodes(curNode, jsonText, matchUpdateCount, testFlag,
+                           matchError, postTrace, postRuleTracing,
+                           parametersArray, sessionIdJS,
+                           parameterNumber, parameterValue,
+                           hostNameValue, divisionNameValue, siteNameValue,
+                           curMod, pathValueStr, oldText) {
+    let changesObj = JSON.parse(jsonText);
+    let forceBreak = false;
+    for (const keyValue in changesObj) {
+      if (!changesObj.hasOwnProperty(keyValue))
+        continue;
+      let changesValue = changesObj[keyValue];
+      switch (keyValue) {
+        case 'text':
+        case 'title': {
+          if (matchUpdateCount > 0) {
+            forceBreak = true;
+            break;
+          }
+          if (testFlag == false)
+            curNode.textContent = changesValue;
+          break;
+        }
+        case 'textchecked': {
+          let actualText = curNode.textContent;
+          let requiredText = changesValue[0];
+          let changesMatch = HDLmCheckTextMatches(actualText, requiredText,
+                                                  matchError, postTrace, postRuleTracing,
+                                                  parametersArray, sessionIdJS,
+                                                  parameterNumber, parameterValue,
+                                                  hostNameValue, divisionNameValue, siteNameValue, curMod,
+                                                  pathValueStr);
+          if (matchUpdateCount > 1) {
+            forceBreak = true;
+            break;
+          }
+          if (changesMatch && testFlag == false)
+            curNode.textContent = changesValue[1];
+          break;
+        }
+        case 'visit': {
+          let countHigh = HDLmHandleVisitRequest(changesValue, postTrace, testFlag,
+                                                 parametersArray, sessionIdJS,
+                                                 parameterNumber, parameterValue,
+                                                 hostNameValue, divisionNameValue, siteNameValue, curMod,
+                                                 pathValueStr);
+          if (countHigh == true)
+            forceBreak = true;
+          break;
+        }
+        default: {
+          if (matchUpdateCount > 0) {
+            forceBreak = true;
+            break;
+          }
+          if (changesValue == null) {
+            if (testFlag == false)
+              curNode.style.removeProperty(keyValue);
+          }
+          else  {
+            let changesType = typeof changesValue;
+            if (changesType == 'number') {
+              changesValue = changesValue.toString();
+              changesValue += 'px';
+            }
+            if (testFlag == false)
+              curNode.style.setProperty(keyValue, changesValue);
+          }
+          break;
+        }
+      }
+    }
+    /* Finish the current JavaScript function */
+    return forceBreak;
+  }
+  /* This function checks if a set of text matches a value passed
+     by the caller. If a match is found, then a true value is returned
+     to the caller. If the text does not match, then a false value is
+     returned to the caller and a note is made of the error. */
+  function HDLmCheckTextMatches(actualText, requiredText,
+                                matchError, postTrace, postRuleTracing,
+                                parametersArray, sessionIdJS,
+                                parameterNumber, parameterValue,
+                                hostNameValue, divisionNameValue, siteNameValue, curMod,
+                                pathValueStr) {
+    /* Define the return value */
+    let rv;
+    /* Check if the actual text matches the required text */
+    let requiredTextLower = requiredText.toLowerCase();
+    let actualTextLower = actualText.toLowerCase();
+    if (actualTextLower.indexOf(requiredTextLower) === -1) {
+      if (postRuleTracing == true) {
+        let localUpdates = new Object();
+        matchError = 'textunequal';
+        HDLmSaveChange(localUpdates, parametersArray, sessionIdJS,
+                       parameterNumber, parameterValue,
+                       hostNameValue, divisionNameValue, siteNameValue, curMod.name,
+                       curMod.path, curMod.type, pathValueStr, actualText, requiredText);
+        postTrace.matcherror = matchError;
+        HDLmSendUpdates(localUpdates, 'failure', '1.0', postTrace);
+      }
+      rv = false;;
+    }
+    else
+      rv = true;
+    return rv;
+  }
+  /* This function adds a class to a node in some
+     cases. The class is selected based on the
+     node type and the rule type passed by the
+     caller. */
+  function HDLmClassAddClass(curNode, curType, extraStr) {
+    /* Check if the rule type is order. We don't need to do
+       anything for order rules. */
+    if (curType == 'order')
+      return;
+    /* Check for a very special case */
+    if (curType == 'style' && extraStr == 'background-image') {
+      HDLmClassAddEntry(curNode, 'HDLmClassBackground');
+      return;
+    }
+    HDLmClassAddEntry(curNode, 'HDLmClassPrimary');
+  }
+  /* This function creates a CSS entry from scratch and
+     makes it part of the DOM. The new CSS entry is by
+     default, disabled or enabled at the outset. Of course,
+     it can be enabled or disabled later. */
+  function HDLmClassAddCss(passedName, passedRules) {
+    /* Create the new style sheet */
+    var styleTitle = 'HDLmSessionClasses';
+    var styleVar = document.createElement('style');
+    styleVar.type = 'text/css';
+    styleVar.title = styleTitle;
+    document.getElementsByTagName('head')[0].appendChild(styleVar);
+    styleVar.sheet.insertRule(passedName+"{"+passedRules+"}", 0);
+    /* Try to get the enablement status of the new style sheet */
+    var disabledStatus = sessionStorage.getItem(styleTitle + 'Disabled');
+    if (disabledStatus == null)
+      disabledStatus = true;
+    if (disabledStatus == 'true')
+      disabledStatus = true;
+    if (disabledStatus == 'false')
+      disabledStatus = false;
+    /* Find and disable or enabled the style sheet */
+    var styleSheetList = document.styleSheets;
+    for (let i = 0; i < styleSheetList.length; i++) {
+      var styleSheet = styleSheetList[i];
+      if (styleSheet.title != null &&
+          styleSheet.title == styleTitle) {
+        if (styleSheet.disabled != disabledStatus)
+          styleSheet.disabled = disabledStatus;
+      }
+    }
+  }
+  /* This function adds a class name to a DOM element, if need be.
+     If the DOM element has no classes (the class list is empty), then
+     a class list is created. If the DOM element already has a class
+     list than a check for a duplicate entry is done. Duplicate
+     entries are never created. */
+  function HDLmClassAddEntry(elementNodeReference, newClass) {
+    const elementClasses = elementNodeReference.classList;
+    /* Add the new HTML class, but only if it has not already been
+       added */
+    if (elementClasses.length == 0)
+      elementClasses.add(newClass);
+    else if (elementClasses.contains(newClass) == false)
+      elementClasses.add(newClass);
+  }
+  /* This function does a case insensitive string comparison. Of course,
+     this function can be changed as need be to use better case insensitive
+     string comparisons. This routine will return true if the strings
+     are equal. This routine will return false if the strings are not
+     equal. */
+  function HDLmCompareCaseInsensitive(firstStr, secondStr) {
+    return firstStr.localeCompare(secondStr, undefined, { sensitivity: 'accent' }) === 0;
+  }
+  /* Build a (JSON) string from an error object. The error object may
+     be an actual error object or just a string containing an error
+     message. The code below handles both cases and returns a JSON
+     string to the caller. */
+  function HDLmErrorToString(errorObj) {
+    let newObj = {};
+    if (typeof errorObj === 'string') {
+      newObj.name = '';
+      newObj.message = errorObj;
+      newObj.reason = 'exception';
+    }
+    else {
+      newObj.name = errorObj.name;
+      newObj.message = errorObj.message;
+      newObj.reason = 'exception';
+    }
+    return JSON.stringify(newObj);
+  }
+  /* Start the JavaScript function that finds a set of matching elements.
+     This function either searches using a CSS Selector value or an XPath
+     search value or uses a set of node identifier values or uses a set
+     of finds. The CSS Selector value is used in preference to any other
+     value, if the CSS Selector value is specified. If the CSS Selector
+     value is not specified, then the XPath search value is used, if it
+     is specified. The finds (the finds array) are used if they are specified.
+     This will only be true if no CSS Selector and/or XPath information and/or
+     node identifier information has been provided. */
+  function HDLmFind(curMod, nodeIdenTracing, postRuleTracing, postTrace) {
+    let nodeList = [];
+    /* Check if we should search by CSS Selector, XPath, or using one
+       or more finds */
+    if (curMod.cssselector !== '') {
+      if (postRuleTracing) {
+        postTrace.findtype = 'CSS Selector';
+        postTrace.findvalue = curMod.cssselector;
+      }
+      nodeList = document.querySelectorAll(curMod.cssselector);
+    }
+    /* Check if the XPath search value has been specified */
+    else if (curMod.xpath !== '') {
+      if (postRuleTracing) {
+        postTrace.findtype = 'XPath';
+        postTrace.findvalue = curMod.xpath;
+      }
+      let nodeIter = document.evaluate(curMod.xpath, document, null,
+                                       XPathResult.ORDERED_NODE_ITERATOR_TYPE,
+                                       null);
+      /* The above call produces an iterator that can be used obtain a set
+         of elements. Each element is added to the output node list array. */
+      let thisNode = nodeIter.iterateNext();
+      while (thisNode) {
+        nodeList.push(thisNode);
+        thisNode = nodeIter.iterateNext();
+      }
+    }
+    /* Check if a set of node identifier has been specified */
+    else if (curMod.nodeiden !== null) {
+      if (postRuleTracing) {
+        postTrace.findtype = 'Node identifier';
+        postTrace.findvalue = curMod.nodeiden;
+      }
+      nodeList = HDLmFindNodeIden(curMod, nodeIdenTracing, postRuleTracing, postTrace);
+    }
+    /* We must search using one or more finds */
+    else {
+      let findsArray = curMod.find;
+      nodeList = [document];
+      if (postRuleTracing) {
+        postTrace.findtype = 'Finds';
+        postTrace.findvalues = curMod.find;
+      }
+      let findsArrayLength = findsArray.length
+      for (let i = 0; i < findsArrayLength; i++) {
+        let findEntry = findsArray[i];
+        nodeList = HDLmFindOneLevel(nodeList, findEntry);
+      }
+    }
+    return nodeList;
+  }
+  /* This JavaScript function tries to find a set of HTML elements
+     (DOM elements) that match the node identifier passed by the
+     caller. The DOM is always searched using one of the built-in
+     DOM functions.
+
+     A copy of this code is use to test for ambiguous sets of node
+     identifier information in the browser extension code. The code
+     in the copy is a slightly modified version of this code. */
+  function HDLmFindNodeIden(curMod, nodeIdenTracing, postRuleTracing, postTrace) {
+    let   nodeElement;
+    let   nodeElements = [];
+    let   nodeIden = curMod.nodeiden;
+    let   nodeList = [];
+    let   nodeAttributes = nodeIden.attributes;
+    let   nodeCounts = nodeIden.counts;
+    let   nodeType = nodeIden.type;
+    /* We need to use a different function depending on the type
+       of node identifier */
+    switch (nodeType) {
+      /* We may be searching by tag name. This might work in some
+         cases. */
+      case 'tag': {
+        let nodeTag = nodeAttributes.tag;
+        nodeElements = document.getElementsByTagName(nodeTag);
+        /* Check if post rule tracing is active or note. Trace the number
+           of nodes, and how they were found, if need be. */
+        if (postRuleTracing) {
+          postTrace.nodegetby = 'tag';
+          postTrace.nodegetvalue = nodeTag;
+          postTrace.nodecount = nodeElements.length;
+        }
+        break;
+      }
+      /* We may be searching by id. This will only work if the id
+         values are permanent, rather than generated. Generated id
+         values change each time a web page is loaded. As a consequence,
+         they can not be used. */
+      case 'id': {
+        let nodeId = nodeAttributes.id;
+        nodeElement = document.getElementById(nodeId);
+        if (nodeElement != null)
+          nodeElements = [nodeElement];
+        else
+          nodeElements = [];
+        /* Check if post rule tracing is active or note. Trace the number
+           of nodes, and how they were found, if need be. */
+        if (postRuleTracing) {
+          postTrace.nodegetby = 'id';
+          postTrace.nodegetvalue = nodeId;
+          postTrace.nodecount = nodeElements.length;
+        }
+        break;
+      }
+      /* We may be searching by class name. Class names tend to be
+         relatively permanent and hence are a good thing to search
+         for. Of course, an HTML DOM node can have more than one
+         class name. The first class name is always used. */
+      case 'class': {
+        let nodeClass;
+        /* Check if the 'bestclass' (without the quotes) attribute was
+           specified. If so, use the 'bestclass' (without the quotes)
+           value, instead of the first class. The best class is the
+           class that matches the fewest DOM elements. */
+        if (nodeAttributes.hasOwnProperty('bestclass'))
+          nodeClass = nodeAttributes['bestclass'];
+        else {
+          let nodeClassList = nodeAttributes.class;
+          nodeClass = nodeClassList[0];
+        }
+        nodeElements = document.getElementsByClassName(nodeClass);
+        /* Check if node identifier tracing is active or not. Trace the
+           node class, if need be. */
+        if (nodeIdenTracing == HDLmNodeIdenTracing.all ||
+            (nodeIdenTracing == HDLmNodeIdenTracing.error && nodeClass == '')) {
+          let   errorText = `Node identifier - node class is (${nodeClass})`;
+          HDLmBuildError('Trace', 'NodeIden', 41, errorText);
+        }
+        /* Check if post rule tracing is active or note. Trace the number
+           of nodes, and how they were found, if need be. */
+        if (postRuleTracing) {
+          postTrace.nodegetby = 'class';
+          postTrace.nodegetvalue = nodeClass;
+          postTrace.nodecount = nodeElements.length;
+        }
+        break;
+      }
+      /* We may be searching by name. This will work in some cases. */
+      case 'name': {
+        let nodeName = nodeAttributes.name;
+        nodeElements = document.getElementsByName(nodeName);
+        /* Check if post rule tracing is active or note. Trace the number
+           of nodes, and how they were found, if need be. */
+        if (postRuleTracing) {
+          postTrace.nodegetby = 'name';
+          postTrace.nodegetvalue = nodeName;
+          postTrace.nodecount = nodeElements.length;
+        }
+        break;
+      }
+      default: {
+        let errorText = "Invalid node identifier type value - " + nodeType;
+        HDLmBuildError('Error', 'NodeIden', 40, errorText);
+        break;
+      }
+    }
+    /* Save the number of node elements found in a local variable. This variable
+       is used in several places below. */
+    let   nodeElementsLength = nodeElements.length;
+    /* Check if node identifier tracing is active or not. Trace the
+       number of nodes, if need be. */
+    if (nodeIdenTracing == HDLmNodeIdenTracing.all ||
+        (nodeIdenTracing == HDLmNodeIdenTracing.error && nodeElementsLength == 0)) {
+      let   errorText = `Node identifier - get for (${nodeType}) returned (${nodeElementsLength}) nodes`;
+      HDLmBuildError('Trace', 'NodeIden', 41, errorText);
+    }
+    /* Check for a very special case. If the original node identifier collection
+       found just one DOM HTML element for the current type and if current document
+       search also found just one DOM HTML element for the current type, then we
+       may be done. We specify a different type of attribute check in this case. */
+    let nodeIdenCheckType = 'full';
+    if (nodeCounts[nodeType] == 1 && nodeElementsLength == 1)
+      nodeIdenCheckType = 'partial';
+    /* At this point we have a set of HTML node elements. Some of them
+       may really match the node identifier criteria. Others may not. */
+    nodeList = HDLmFindNodeIdenCheck(nodeElements,
+                                     nodeIden,
+                                     nodeIdenCheckType,
+                                     nodeIdenTracing,
+                                     postRuleTracing,
+                                     postTrace);
+    return nodeList;
+  }
+  /* This routine takes a list of HTML node elements and checks each one.
+     If an HTML node matches the current attributes (well enough), it is
+     added to the output list of HTML nodes that is returned to the caller. */
+  function HDLmFindNodeIdenCheck(nodeElements,
+                                 nodeIden,
+                                 nodeIdenCheckType,
+                                 nodeIdenTracing,
+                                 postRuleTracing,
+                                 postTrace) {
+    let nodeList = [];
+    let nodeCounter = 0;
+    let postTraceName;
+    let nodeElementsLength = nodeElements.length;
+    elementLoop:for (let i = 0; i < nodeElementsLength; i++) {
+      let currentElement = nodeElements[i];
+      /* Declare and define a few variables */
+      let   grandParentElement;
+      let   parentElement;
+      /* Increment the node counter */
+      nodeCounter++;
+      postTraceName = 'nodetarget';
+      if (nodeCounter > 1)
+        postTraceName += String(nodeCounter-1)
+      let   nodeCurrentAttributes = nodeIden.attributes;
+      let   currentMatchValue = HDLmFindNodeIdenMatch(currentElement,
+                                                      nodeCurrentAttributes,
+                                                      nodeIdenTracing,
+                                                      postRuleTracing,
+                                                      postTrace,
+                                                      postTraceName);
+      /* Check if node identifier tracing is active or not. Trace the
+         match value, if need be. */
+      if (nodeIdenTracing == HDLmNodeIdenTracing.all ||
+          (nodeIdenTracing == HDLmNodeIdenTracing.error && currentMatchValue < 0.95)) {
+        let   errorText = `Node identifier - current match value (${currentMatchValue}) for element (${currentElement})`;
+        HDLmBuildError('Trace', 'NodeIden', 41, errorText);
+      }
+      if (currentMatchValue < 0.95)
+        continue elementLoop;
+      /* The dummy loop below is used to allow break to work */
+      while (true) {
+        /* We now need to get the parent element, if possible */
+        parentElement = currentElement.parentElement;
+        if (typeof parentElement == 'undefined' ||
+            parentElement == null)
+          break;
+        /* Check if the node identifier has parent information */
+        if (nodeIden.hasOwnProperty('parent') == false)
+          break;
+        /* We now need to check the attributes of the parent of the current
+           HTML DOM element, if possible */
+        postTraceName = 'nodeparent';
+        if (nodeCounter > 1)
+          postTraceName += String(nodeCounter-1);
+        let   nodeParentAttributes = nodeIden.parent;
+        if (typeof nodeParentAttributes == 'undefined' ||
+            nodeParentAttributes == null)
+          break;
+        let   parentMatchValue = HDLmFindNodeIdenMatch(parentElement,
+                                                       nodeParentAttributes,
+                                                       nodeIdenTracing,
+                                                       postRuleTracing,
+                                                       postTrace,
+                                                       postTraceName);
+        /* Check if node identifier tracing is active or not. Trace the
+           match value, if need be. */
+        if (nodeIdenTracing == HDLmNodeIdenTracing.all ||
+            (nodeIdenTracing == HDLmNodeIdenTracing.error && parentMatchValue < 0.95)) {
+          let   errorText = `Node identifier - parent match value (${parentMatchValue}) for element (${parentElement})`;
+          HDLmBuildError('Trace', 'NodeIden', 41, errorText);
+        }
+        if (parentMatchValue < 0.95)
+          continue elementLoop;
+        break;
+      }
+      /* The dummy loop below is used to allow break to work */
+      while (true) {
+        /* We now need to get the grand parent element, if possible */
+        if (typeof parentElement == 'undefined' ||
+            parentElement == null)
+          break;
+        /* Check if the node identifier has grand parent information */
+        if (nodeIden.hasOwnProperty('grandparent') == false)
+          break;
+        /* Get and check the grand parent node element */
+        grandParentElement = parentElement.parentElement;
+        if (typeof grandParentElement == 'undefined' ||
+            grandParentElement == null)
+          break;
+        postTraceName = 'nodegrandparent';
+        if (nodeCounter > 1)
+          postTraceName += String(nodeCounter-1);
+        /* We now need to check the attributes of the grandparent of the current
+           HTML DOM element, if need be, and if possible */
+        let   nodeGrandParentAttributes = nodeIden.grandparent;
+        if (typeof nodeGrandParentAttributes == 'undefined' ||
+            nodeGrandParentAttributes == null)
+          break;
+        let   grandParentMatchValue = HDLmFindNodeIdenMatch(grandParentElement,
+                                                            nodeGrandParentAttributes,
+                                                            nodeIdenTracing,
+                                                            postRuleTracing,
+                                                            postTrace,
+                                                            postTraceName);
+        /* Check if node identifier tracing is active or not. Trace the
+            match value, if need be. */
+        if (nodeIdenTracing == HDLmNodeIdenTracing.all ||
+            (nodeIdenTracing == HDLmNodeIdenTracing.error && grandParentMatchValue < 0.95)) {
+          let   errorText = `Node identifier - grandparent match value (${grandParentMatchValue}) for element (${grandParentElement})`;
+          HDLmBuildError('Trace', 'NodeIden', 41, errorText);
+        }
+        if (grandParentMatchValue < 0.95)
+          continue elementLoop;
+        break;
+      }
+      nodeList.push(currentElement);
+    }
+    return nodeList;
+  }
+  /* This routine takes one HTML node element and checks how well it matches
+     a set of attributes. The final match score is returned to the caller.
+     The final match score is a floating-point value in the range of 0.0
+     to 1.0. The HTML DOM element (node element) and the expected node
+     attributes are passed by the caller. */
+  function HDLmFindNodeIdenMatch(nodeElement,
+                                 nodeAttributes,
+                                 nodeIdenTracing,
+                                 postRuleTracing,
+                                 postTrace,
+                                 postName) {
+    let   denominator = 0.0;
+    let   nodeActualValue;
+    let   nodeAttributeValue;
+    let   nodeAttributeChecks = [];
+    let   numerator = 0.0;
+    let   numeratorIncrementValue;
+    /* Check if post rule tracing is active or not. Trace the
+       attribute values, if need be. */
+    if (postRuleTracing) {
+      nodeActualValue = nodeElement.tagName;
+      nodeAttributeValue = nodeAttributes.tag
+      let   nodeAttributeCheck = new Object();
+      nodeAttributeCheck.type = 'tag';
+      nodeAttributeCheck.attributevalue = nodeAttributeValue;
+      nodeAttributeCheck.actualvalue = nodeActualValue;
+      let   traceValue = 0.0;
+      if (HDLmCompareCaseInsensitive(nodeElement.tagName, nodeAttributes.tag))
+        traceValue = 1.0;
+      nodeAttributeCheck.matchvalue = traceValue;
+      postTrace[postName + 'tag'] = nodeAttributeCheck;
+    }
+    /* Check for a quick exit. If the tag name doesn't match, then
+       we are done. We insist that the tag name match immediately
+       and exactly (the actual tag name comparison is caseless). */
+    if (HDLmCompareCaseInsensitive(nodeElement.tagName, nodeAttributes.tag) == false) {
+      return 0.0;
+    }
+    /* Check all of the attributes passed by the caller. Get the
+       set of keys for each of the attributes. The keys are used
+       to obtain the expected and actual value of each attribute. */
+    let nodeAttributeKeys = Object.keys(nodeAttributes);
+    let nodeAttributeKeysLength = nodeAttributeKeys.length;
+    for (let i = 0; i < nodeAttributeKeysLength; i++) {
+      let nodeAttributeKey = nodeAttributeKeys[i];
+      /* Check if the current attribute key is one that we
+         don't want to consider all. Just skip this key if
+         we find it. The best class is the class that matches
+         the fewest DOM elements. */
+      if (nodeAttributeKey == 'bestclass')
+        continue;
+      let   nodeAttributeCheck = new Object();
+      numeratorIncrementValue = 0.0;
+      /* Always bump the denominator. This is done for all
+         attributes including those that don't match. */
+      denominator++;
+      /* Get the current node attributes expected value from the node
+         attributes passed by the caller. Note that these are the
+         expected values. For most attributes this is a string. For
+         class attributes, this is an array of class names. */
+      nodeAttributeValue = nodeAttributes[nodeAttributeKey];
+      /* Check if the attribute we want is the tag. The tag is not really
+         an attribute. Special case code is needed to handle the tag.
+         A special call is needed to get the actual tag name of the
+         DOM element. This call will always return the tag name in
+         uppercase. As a consequence, the expected value must also be
+         changed to uppercase. */
+      if (nodeAttributeKey == 'tag') {
+        nodeActualValue = nodeElement.tagName;
+        /* Check if node identifier tracing is active or not. Trace the
+           attribute values, if need be. */
+        if (nodeIdenTracing == HDLmNodeIdenTracing.all ||
+            nodeIdenTracing == HDLmNodeIdenTracing.error) {
+          let   errorText;
+          let   traceValue = 0.0;
+          if (nodeActualValue != null &&
+              HDLmCompareCaseInsensitive(nodeActualValue, nodeAttributeValue))
+            traceValue = 1.0;
+          /* Check if node identifier tracing should actually happen */
+          if (nodeIdenTracing == HDLmNodeIdenTracing.all ||
+              (nodeIdenTracing == HDLmNodeIdenTracing.error && traceValue != 1.0)) {
+            errorText = `Node identifier - key (${nodeAttributeKey}) actual (${nodeActualValue}) expected (${nodeAttributeValue})`;
+            HDLmBuildError('Trace', 'NodeIden', 41, errorText);
+            errorText = `Node identifier - key (${nodeAttributeKey}) comparison value (${traceValue})`;
+            HDLmBuildError('Trace', 'NodeIden', 41, errorText);
+          }
+        }
+        /* Check if post rule tracing is active or not. Trace the
+           attribute values, if need be. */
+        if (postRuleTracing) {
+          nodeAttributeCheck.type = nodeAttributeKey;
+          nodeAttributeCheck.attributevalue = nodeAttributeValue;
+          nodeAttributeCheck.actualvalue = nodeActualValue;
+          let   traceValue = 0.0;
+          if (nodeActualValue != null &&
+              HDLmCompareCaseInsensitive(nodeActualValue, nodeAttributeValue))
+            traceValue = 1.0;
+          nodeAttributeCheck.matchvalue = traceValue;
+          nodeAttributeChecks.push(nodeAttributeCheck);
+        }
+        /* If we don't have a value that we can compare, then we are done */
+        if (nodeActualValue == null)
+          continue;
+        /* Compare the expected value and the actual value. If they are the
+           same, then we can increment the numerator. */
+        if (HDLmCompareCaseInsensitive(nodeActualValue, nodeAttributeValue))
+          numeratorIncrementValue = 1.0;
+      }
+      /* Check if the attribute we want is the class. The class in the
+         DOM element is always just one string. However, the DOM class
+         string can have several class names in it. The set of all of
+         the actual class names from the DOM node is checked below. */
+      else if (nodeAttributeKey == 'class') {
+        /* Check if the node attribute value is an array or not. If
+           the node attribute value is an array, then we just want
+           to use the first element of the array and to convert the
+           node attribute value to something that is not an array. */
+        if (Array.isArray(nodeAttributeValue) &&
+            nodeAttributeValue.length > 0)
+          nodeAttributeValue = nodeAttributeValue[0];
+        let nodeActualValueString = nodeElement.getAttribute('class');
+        if (nodeActualValueString != null) {
+          /* Split the class attribute into an array of values */
+          let nodeActualValueSplitArray = nodeActualValueString.split(' ');
+          let nodeActualValueSplitArrayLen = nodeActualValueSplitArray.length;
+          let nodeActualValueSplit = [];
+          /* Check if each value ends with a newline. Remove the newline. Add
+             all of the remaining entries to the output array, if the remaining
+             length is greater than zero. */
+          for (let i = 0; i < nodeActualValueSplitArrayLen; i++) {
+            /* Get the current value */
+            let nodeActualValueSplitValue = nodeActualValueSplitArray[i];
+            /* Remove the trailing newline character, if need be */
+            if (nodeActualValueSplitValue.endsWith('\n')) {
+              let nodeActualValueSplitValueLen = nodeActualValueSplitValue.length;
+              nodeActualValueSplitValue = nodeActualValueSplitValue.substr(0, nodeActualValueSplitValueLen-1);
+            }
+            /* If the remaining length is greater than zero, add the value to the
+               output array */
+            if (nodeActualValueSplitValue.length > 0)
+              nodeActualValueSplit.push(nodeActualValueSplitValue);
+          }
+          /* Check if we can actually get the actual value from the output
+             array. The actual value will be an array of the class values
+             for a node element. */
+          if (nodeActualValueSplit.length > 0) {
+            nodeActualValue = [...nodeActualValueSplit];
+          }
+          else
+            nodeActualValue = null;
+        }
+        else
+          nodeActualValue = null;
+        /* Check if node identifier tracing is active or not. Trace the
+           attribute values, if need be. */
+        if (nodeIdenTracing == HDLmNodeIdenTracing.all ||
+            nodeIdenTracing == HDLmNodeIdenTracing.error) {
+          let   errorText;
+          let   traceValue = 0.0;
+          if (nodeActualValue != null &&
+              nodeActualValue.includes(nodeAttributeValue))
+            traceValue = 1.0;
+          /* Check if node identifier tracing should actually happen */
+          if (nodeIdenTracing == HDLmNodeIdenTracing.all ||
+              (nodeIdenTracing == HDLmNodeIdenTracing.error && traceValue != 1.0)) {
+            errorText = `Node identifier - key (${nodeAttributeKey}) actual (${nodeActualValue}) expected (${nodeAttributeValue})`;
+            HDLmBuildError('Trace', 'NodeIden', 41, errorText);
+            errorText = `Node identifier - key (${nodeAttributeKey}) comparison value (${traceValue})`;
+            HDLmBuildError('Trace', 'NodeIden', 41, errorText);
+          }
+        }
+        /* Check if post rule tracing is active or not. Trace the
+           attribute values, if need be. */
+        if (postRuleTracing) {
+          nodeAttributeCheck.type = nodeAttributeKey;
+          nodeAttributeCheck.attributevalue = nodeAttributeValue;
+          nodeAttributeCheck.actualvalue = nodeActualValue;
+          let   traceValue = 0.0;
+          if (nodeActualValue != null &&
+              nodeActualValue.includes(nodeAttributeValue))
+            traceValue = 1.0;
+          nodeAttributeCheck.matchvalue = traceValue;
+          nodeAttributeChecks.push(nodeAttributeCheck);
+        }
+        /* If we don't have a value that we can compare, then we are done */
+        if (nodeActualValue == null)
+          continue;
+        /* Check if the actual value (the first actual class value) is one of
+           the expected class values. If this is true, then we can increment
+           the numerator. */
+        if (nodeActualValue.includes(nodeAttributeValue))
+          numeratorIncrementValue = 1.0;
+      }
+      /* Check if the attribute we want is the inner text. The inner
+         text is not really an attribute. Special case code is needed
+         to handle the inner text. A special call is needed to get the
+         actual inner text (if any) for a DOM element. Note that the
+         inner text (if any) is always converted to lower case. This
+         is because the inner text has a bad habit of changing case,
+         as the browser window changes size. To make the inner text
+         more stable, we always convert it to lower case. */
+      else if (nodeAttributeKey == 'innertext') {
+        let nodeIndexOf;
+        let nodeInnerText = nodeElement.innerText;
+        if ((typeof nodeInnerText) == 'undefined')
+          nodeInnerText = null;
+        if (nodeInnerText != null) {
+          nodeIndexOf = nodeInnerText.indexOf('ï¿½');
+          if (nodeIndexOf >= 0)
+            nodeInnerText = nodeInnerText.substring(0, nodeIndexOf);
+          nodeIndexOf = nodeInnerText.indexOf('\n');
+          if (nodeIndexOf >= 0)
+            nodeInnerText = nodeInnerText.substring(0, nodeIndexOf);
+          nodeInnerText = nodeInnerText.toLowerCase().trim();
+          if (nodeInnerText.length > 20)
+            nodeInnerText = nodeInnerText.substring(0, 20);
+        }
+        nodeActualValue = nodeInnerText;
+        /* Check if node identifier tracing is active or not. Trace the
+           attribute values, if need be. */
+        if (nodeIdenTracing == HDLmNodeIdenTracing.all ||
+            nodeIdenTracing == HDLmNodeIdenTracing.error) {
+          let   errorText;
+          let   traceValue = 0.0;
+          if (nodeActualValue != null &&
+              HDLmCompareCaseInsensitive(nodeAttributeValue, nodeActualValue))
+            traceValue = 1.0;
+          /* Check if node identifier tracing should actually happen */
+          if (nodeIdenTracing == HDLmNodeIdenTracing.all ||
+              (nodeIdenTracing == HDLmNodeIdenTracing.error && traceValue != 1.0)) {
+            errorText = `Node identifier - key (${nodeAttributeKey}) actual (${nodeActualValue}) expected (${nodeAttributeValue})`;
+            HDLmBuildError('Trace', 'NodeIden', 41, errorText);
+            errorText = `Node identifier - key (${nodeAttributeKey}) comparison value (${traceValue})`;
+            HDLmBuildError('Trace', 'NodeIden', 41, errorText);
+          }
+        }
+        /* Check if post rule tracing is active or not. Trace the
+           attribute values, if need be. */
+        if (postRuleTracing) {
+          nodeAttributeCheck.type = nodeAttributeKey;
+          nodeAttributeCheck.attributevalue = nodeAttributeValue;
+          nodeAttributeCheck.actualvalue = nodeActualValue;
+          let   traceValue = 0.0;
+          if (nodeActualValue != null &&
+              HDLmCompareCaseInsensitive(nodeAttributeValue, nodeActualValue))
+            traceValue = 1.0;
+          nodeAttributeCheck.matchvalue = traceValue;
+          nodeAttributeChecks.push(nodeAttributeCheck);
+        }
+        /* If we don't have a value that we can compare, then we are done */
+        if (nodeActualValue == null)
+          continue;
+        /* Compare the expected value and the actual value. If they are the
+           same, then we can increment the numerator. */
+        if (HDLmCompareCaseInsensitive(nodeAttributeValue, nodeActualValue))
+          numeratorIncrementValue = 1.0;
+      }
+      /* Check if the attribute we want is the perceptual hash. The
+         perceptual hash is not really an attribute and cannot be
+         compared. Note that the actual DOM will naver have a node
+         with a perceptual hash value. */
+      else if (nodeAttributeKey == 'phash') {
+        /* Use the attribute value as the actual value. This way they
+           will always compare as equal. */
+        nodeActualValue = nodeAttributeValue;
+        /* Check if node identifier tracing is active or not. Trace the
+           attribute values, if need be. */
+        if (nodeIdenTracing == HDLmNodeIdenTracing.all ||
+            nodeIdenTracing == HDLmNodeIdenTracing.error) {
+          let   errorText;
+          let   traceValue = 0.0;
+          if (nodeActualValue != null &&
+              HDLmCompareCaseInsensitive(nodeAttributeValue, nodeActualValue))
+            traceValue = 1.0;
+          /* Check if node identifier tracing should actually happen */
+          if (nodeIdenTracing == HDLmNodeIdenTracing.all ||
+              (nodeIdenTracing == HDLmNodeIdenTracing.error && traceValue != 1.0)) {
+            errorText = `Node identifier - key (${nodeAttributeKey}) actual (${nodeActualValue}) expected (${nodeAttributeValue})`;
+            HDLmBuildError('Trace', 'NodeIden', 41, errorText);
+            errorText = `Node identifier - key (${nodeAttributeKey}) comparison value (${traceValue})`;
+            HDLmBuildError('Trace', 'NodeIden', 41, errorText);
+          }
+        }
+        /* Check if post rule tracing is active or not. Trace the
+           attribute values, if need be. */
+        if (postRuleTracing) {
+          nodeAttributeCheck.type = nodeAttributeKey;
+          nodeAttributeCheck.attributevalue = nodeAttributeValue;
+          nodeAttributeCheck.actualvalue = nodeActualValue;
+          let   traceValue = 0.0;
+          if (nodeActualValue != null &&
+              HDLmCompareCaseInsensitive(nodeAttributeValue, nodeActualValue))
+            traceValue = 1.0;
+          nodeAttributeCheck.matchvalue = traceValue;
+          nodeAttributeChecks.push(nodeAttributeCheck);
+        }
+        /* If we don't have a value that we can compare, then we are done */
+        if (nodeActualValue == null)
+          continue;
+        /* Compare the expected value and the actual value. If they are the
+           same, then we can increment the numerator. */
+        if (HDLmCompareCaseInsensitive(nodeAttributeValue, nodeActualValue))
+          numeratorIncrementValue = 1.0;
+      }
+      /* Check if the attribute we want is the source (src). Generally
+         src values can be compared in a completely conventional way.
+         However, if the source is a URL (very common) and if we have
+         a perceptual hash value for the URL, then we really want to
+         compare the perceptual hash value, not the URL for the image.
+         This is a very complex process (to say the least). */
+      else if (nodeAttributeKey == 'src') {
+        nodeActualValue = nodeElement.getAttribute(nodeAttributeKey);
+        let   nodePHashCheck = false;
+        /* The dummy loop below is used to allow break to work */
+        while (true) {
+          let   nodeActualIndex;
+          let   nodeActualPHash;
+          let   nodeActualUrl;
+          let   nodeAttributesPHashSimilarity;
+          /* Check if the actual node value is null. This can happen
+             if the source is provided by CSS. */
+          if (nodeActualValue == null)
+            break;
+          /* Try to find the URL in the actual source */
+          nodeActualIndex = nodeActualValue.indexOf('http');
+          if (nodeActualIndex < 0)
+            break;
+          nodeActualUrl = HDLmRemoveProtocol(nodeActualValue);
+          /* Try to get the perceptual hash value for the current URL */
+          nodeActualPHash = HDLmFindPHash(nodeActualUrl);
+          if (nodeActualPHash == null) {
+            HDLmGetPHash(nodeActualUrl);
+            break;
+          }
+          /* Get the current node attributes perceptual hash expected value
+             from the node attributes passed by the caller. Note that this
+             is an expected value. This should be a 64-bit number returned
+             as a 16-digit hexadecimal string. */
+          if (nodeAttributes.hasOwnProperty('phash') == false)
+            break;
+          let nodeAttributesPHashValue = nodeAttributes['phash'];
+          /* At this point we can compare the perceptual hash values and
+             show that a perceptual hash comparison was completed */
+          nodeAttributesPHashSimilarity = HDLmHammingDistanceAdjusted(nodeAttributesPHashValue,
+                                                                      nodeActualPHash);
+          nodePHashCheck = true;
+          /* Check if node identifier tracing is active or not. Trace the
+             perceptual hash values, if need be. */
+          if (nodeIdenTracing == HDLmNodeIdenTracing.all ||
+              nodeIdenTracing == HDLmNodeIdenTracing.error) {
+            let   errorText;
+            /* Check if node identifier tracing should actually happen */
+            if (nodeIdenTracing == HDLmNodeIdenTracing.all ||
+                (nodeIdenTracing == HDLmNodeIdenTracing.error && nodeAttributesPHashSimilarity >= 0.10)) {
+              errorText = `Node identifier - key (perceptual hash) actual (${nodeActualPHash}) expected (${nodeAttributesPHashValue})`;
+              HDLmBuildError('Trace', 'NodeIden', 41, errorText);
+              errorText = `Node identifier - key (perceptual hash) comparison value (${nodeAttributesPHashSimilarity})`;
+              HDLmBuildError('Trace', 'NodeIden', 41, errorText);
+            }
+          }
+          /* Check if post rule tracing is active or not. Trace the
+             attribute values, if need be. */
+          if (postRuleTracing) {
+            nodeAttributeCheck.type = nodeAttributeKey;
+            nodeAttributeCheck.attributevalue = nodeAttributesPHashValue;
+            nodeAttributeCheck.actualvalue = nodeActualPHash;
+            nodeAttributeCheck.matchvalue = nodeAttributesPHashSimilarity;
+            nodeAttributeChecks.push(nodeAttributeCheck);
+          }
+          /* Check if the perceptual hash simularity value is low enough */
+          if (nodeAttributesPHashSimilarity < 0.10) {
+            numeratorIncrementValue = 1.0;
+          }
+          break;
+        }
+        /* The code below only needs to be executed if we were not able
+           to compare the perceptual hash values */
+        if (nodePHashCheck == false) {
+          /* Check if node identifier tracing is active or not. Trace the
+             attribute values, if need be. */
+          if (nodeIdenTracing == HDLmNodeIdenTracing.all ||
+              nodeIdenTracing == HDLmNodeIdenTracing.error) {
+            let   errorText;
+            let   traceValue = 0.0;
+            if (nodeActualValue != null &&
+                nodeAttributeValue == nodeActualValue)
+              traceValue = 1.0;
+            /* Check if node identifier tracing should actually happen */
+            if (nodeIdenTracing == HDLmNodeIdenTracing.all ||
+                (nodeIdenTracing == HDLmNodeIdenTracing.error && traceValue != 1.0)) {
+              errorText = `Node identifier - key (${nodeAttributeKey}) actual (${nodeActualValue}) expected (${nodeAttributeValue})`;
+              HDLmBuildError('Trace', 'NodeIden', 41, errorText);
+              errorText = `Node identifier - key (${nodeAttributeKey}) comparison value (${traceValue})`;
+              HDLmBuildError('Trace', 'NodeIden', 41, errorText);
+            }
+          }
+          /* Check if post rule tracing is active or not. Trace the
+             attribute values, if need be. */
+          if (postRuleTracing) {
+            nodeAttributeCheck.type = nodeAttributeKey;
+            nodeAttributeCheck.attributevalue = nodeAttributeValue;
+            nodeAttributeCheck.actualvalue = nodeActualValue;
+            let   traceValue = 0.0;
+            if (nodeActualValue != null &&
+                nodeAttributeValue == nodeActualValue)
+              traceValue = 1.0;
+            nodeAttributeCheck.matchvalue = traceValue;
+            nodeAttributeChecks.push(nodeAttributeCheck);
+          }
+          /* If we don't have a value that we can compare, then we are done */
+          if (nodeActualValue == null)
+            continue;
+          /* Compare the expected value and the actual value. If they are the
+             same, then we can increment the numerator. */
+          if (nodeAttributeValue == nodeActualValue)
+            numeratorIncrementValue = 1.0;
+        }
+      }
+      /* Check if the attribute we want is the style. Generally styles
+         can be compared in a completely conventional way. However, if
+         the style uses a background image and if we have a perceptual
+         hash value for the background image, then we really want to
+         compare the perceptual hash value, not the URL for the image.
+         This is a very complex process (to say the least). */
+      else if (nodeAttributeKey == 'style') {
+        nodeActualValue = nodeElement.getAttribute(nodeAttributeKey);
+        let   nodePHashCheck = false;
+        /* The dummy loop below is used to allow break to work */
+        while (true) {
+          let   nodeActualIndex;
+          let   nodeActualPHash;
+          let   nodeActualUrl;
+          let   nodeAttributesPHashSimilarity;
+          /* Check if the actual node value is null. This can happen
+             if the style is provided by CSS. */
+          if (nodeActualValue == null)
+            break;
+          /* Check for a required keyword in the style */
+          nodeActualIndex = nodeActualValue.indexOf('background-image');
+          if (nodeActualIndex < 0)
+            break;
+          /* Try to find the URL in the actual style */
+          nodeActualIndex = nodeActualValue.indexOf('url("http');
+          if (nodeActualIndex < 0)
+            break;
+          nodeActualUrl = nodeActualValue.substr(nodeActualIndex+5);
+          /* Get rid of the trailing part of the URL */
+          nodeActualIndex = nodeActualUrl.indexOf('")');
+          if (nodeActualIndex < 0)
+            break
+          nodeActualUrl = nodeActualUrl.substring(0, nodeActualIndex);
+          nodeActualUrl = HDLmRemoveProtocol(nodeActualUrl);
+          /* Try to get the perceptual hash value for the current URL */
+          nodeActualPHash = HDLmFindPHash(nodeActualUrl);
+          if (nodeActualPHash == null) {
+            HDLmGetPHash(nodeActualUrl);
+            break;
+          }
+          /* Get the current node attributes perceptual hash expected value
+             from the node attributes passed by the caller. Note that this
+             is an expected value. This should be a 64-bit number returned
+             as a 16-digit hexadecimal string. */
+          if (nodeAttributes.hasOwnProperty('phash') == false)
+            break;
+          let nodeAttributesPHashValue = nodeAttributes['phash'];
+          /* At this point we can compare the perceptual hash values and
+             show that a perceptual hash comparison was completed */
+          nodeAttributesPHashSimilarity = HDLmHammingDistanceAdjusted(nodeAttributesPHashValue,
+                                                                      nodeActualPHash);
+          nodePHashCheck = true;
+          /* Check if node identifier tracing is active or not. Trace the
+             perceptual hash values, if need be. */
+          if (nodeIdenTracing == HDLmNodeIdenTracing.all ||
+              nodeIdenTracing == HDLmNodeIdenTracing.error) {
+            let   errorText;
+            /* Check if node identifier tracing should actually happen */
+            if (nodeIdenTracing == HDLmNodeIdenTracing.all ||
+                (nodeIdenTracing == HDLmNodeIdenTracing.error && nodeAttributesPHashSimilarity >= 0.10)) {
+              errorText = `Node identifier - key (perceptual hash) actual (${nodeActualPHash}) expected (${nodeAttributesPHashValue})`;
+              HDLmBuildError('Trace', 'NodeIden', 41, errorText);
+              errorText = `Node identifier - key (perceptual hash) comparison value (${nodeAttributesPHashSimilarity})`;
+              HDLmBuildError('Trace', 'NodeIden', 41, errorText);
+            }
+          }
+          /* Check if post rule tracing is active or not. Trace the
+             attribute values, if need be. */
+          if (postRuleTracing) {
+            nodeAttributeCheck.type = nodeAttributeKey;
+            nodeAttributeCheck.attributevalue = nodeAttributesPHashValue;
+            nodeAttributeCheck.actualvalue = nodeActualPHash;
+            nodeAttributeCheck.matchvalue = nodeAttributesPHashSimilarity;
+            nodeAttributeChecks.push(nodeAttributeCheck);
+          }
+          /* Check if the perceptual hash simularity value is low enough */
+          if (nodeAttributesPHashSimilarity < 0.10) {
+            numeratorIncrementValue = 1.0;
+          }
+          break;
+        }
+        /* The code below only needs to be executed if we were not able
+           to compare the perceptual hash values */
+        if (nodePHashCheck == false) {
+          /* Check if node identifier tracing is active or not. Trace the
+             attribute values, if need be. */
+          if (nodeIdenTracing == HDLmNodeIdenTracing.all ||
+              nodeIdenTracing == HDLmNodeIdenTracing.error) {
+            let   errorText;
+            let   traceValue = 0.0;
+            if (nodeActualValue != null &&
+                nodeAttributeValue == nodeActualValue)
+              traceValue = 1.0;
+            /* Check if node identifier tracing should actually happen */
+            if (nodeIdenTracing == HDLmNodeIdenTracing.all ||
+                (nodeIdenTracing == HDLmNodeIdenTracing.error && traceValue != 1.0)) {
+              errorText = `Node identifier - key (${nodeAttributeKey}) actual (${nodeActualValue}) expected (${nodeAttributeValue})`;
+              HDLmBuildError('Trace', 'NodeIden', 41, errorText);
+              errorText = `Node identifier - key (${nodeAttributeKey}) comparison value (${traceValue})`;
+              HDLmBuildError('Trace', 'NodeIden', 41, errorText);
+            }
+          }
+          /* Check if post rule tracing is active or not. Trace the
+             attribute values, if need be. */
+          if (postRuleTracing) {
+            nodeAttributeCheck.type = nodeAttributeKey;
+            nodeAttributeCheck.attributevalue = nodeAttributeValue;
+            nodeAttributeCheck.actualvalue = nodeActualValue;
+            let   traceValue = 0.0;
+            if (nodeActualValue != null &&
+                nodeAttributeValue == nodeActualValue)
+              traceValue = 1.0;
+            nodeAttributeCheck.matchvalue = traceValue;
+            nodeAttributeChecks.push(nodeAttributeCheck);
+          }
+          /* If we don't have a value that we can compare, then we are done */
+          if (nodeActualValue == null)
+            continue;
+          /* Compare the expected value and the actual value. If they are the
+             same, then we can increment the numerator. */
+          if (nodeAttributeValue == nodeActualValue)
+            numeratorIncrementValue = 1.0;
+        }
+      }
+      /* For all other attributes, we can just extract the actual
+         attribute value from the DOM element */
+      else {
+        nodeActualValue = nodeElement.getAttribute(nodeAttributeKey);
+        /* Check if the attribute we want is href. Special case code
+           is needed for handling href. Basically, we need to remove
+           the protocol and host before we do any matching on href.
+           This was done in building the node identifier. */
+        if (nodeAttributeKey == 'href' &&
+            nodeActualValue != null)
+          nodeActualValue = HDLmRemoveHost(nodeActualValue);
+        /* Check if node identifier tracing is active or not. Trace the
+           attribute values, if need be. */
+        if (nodeIdenTracing == HDLmNodeIdenTracing.all ||
+            nodeIdenTracing == HDLmNodeIdenTracing.error) {
+          let   errorText;
+          let   traceValue = 0.0;
+          if (nodeActualValue != null &&
+              nodeAttributeValue == nodeActualValue)
+            traceValue = 1.0;
+          /* Check if node identifier tracing should actually happen */
+          if (nodeIdenTracing == HDLmNodeIdenTracing.all ||
+              (nodeIdenTracing == HDLmNodeIdenTracing.error && traceValue != 1.0)) {
+            errorText = `Node identifier - key (${nodeAttributeKey}) actual (${nodeActualValue}) expected (${nodeAttributeValue})`;
+            HDLmBuildError('Trace', 'NodeIden', 41, errorText);
+            errorText = `Node identifier - key (${nodeAttributeKey}) comparison value (${traceValue})`;
+            HDLmBuildError('Trace', 'NodeIden', 41, errorText);
+          }
+        }
+        /* Check if post rule tracing is active or not. Trace the
+           attribute values, if need be. */
+        if (postRuleTracing) {
+          nodeAttributeCheck.type = nodeAttributeKey;
+          nodeAttributeCheck.attributevalue = nodeAttributeValue;
+          nodeAttributeCheck.actualvalue = nodeActualValue;
+          let   traceValue = 0.0;
+          if (nodeActualValue != null &&
+              nodeAttributeValue == nodeActualValue)
+            traceValue = 1.0;
+          nodeAttributeCheck.matchvalue = traceValue;
+          nodeAttributeChecks.push(nodeAttributeCheck);
+        }
+        /* If we don't have a value that we can compare, then we are done */
+        if (nodeActualValue == null)
+          continue;
+        /* Compare the expected value and the actual value. If they are the
+           same, then we can increment the numerator. */
+        if (nodeAttributeValue == nodeActualValue)
+          numeratorIncrementValue = 1.0;
+      }
+      /* Possibly increment the numerator */
+      numerator += numeratorIncrementValue;
+    }
+    /* Check if post rule tracing is active or not. Trace the
+       attribute values, if need be. */
+    if (postRuleTracing)
+      postTrace[postName] = nodeAttributeChecks;
+    return numerator / denominator;
+  }
+  /* Start the JavaScript function that handles just one find. Note
+     that this function is always passed a list (array) of nodes.
+     The list may have just one entry and that one entry may be
+     the document level node. This is not an error condition. */
+  function HDLmFindOneLevel(nodeList, findEntry) {
+    let outArray = [];
+    /* Check all of the nodes pass by the caller. The caller may
+       have passed an array with just one node (the document). */
+    let nodeListLength = nodeList.length;
+    for (let i = 0; i < nodeListLength; i++) {
+      let curNode = nodeList[i];
+      let nodeType = curNode.constructor.name;
+      /* Try to search by ID. This should be the fastest and best
+         approach. ID values are supposed to be unique for an entire
+         HTML page. Hence, this code should return just one value.
+         Note that the code below does not test the tag value in
+         the first stage. */
+        if (typeof curNode.getElementById === 'function' &&
+            findEntry.attributeName       === 'id' &&
+            findEntry.attributeValue      !== '') {
+        /* Search by ID value. The call below may or may not return an
+           array. It may just return one node. Note that the documentation
+           says that the call below will only return one element or a
+           null value if no matching elements are found. */
+        let newNode = curNode.getElementById(findEntry.attributeValue);
+        /* Check if we actually got an element back from the caller.
+           We can only check/use the element, if we actually got one. */
+        if (newNode !== null) {
+          if (findEntry.tag !== '') {
+            if (findEntry.tag.toUpperCase() === newNode.tagName.toUpperCase())
+              outArray.push(newNode);
+          }
+          else
+            outArray.push(newNode);
+        }
+        continue;
+      }
+      /* Try to search by class name. This should be a relatively fast
+         approach. Class name values are not required to be unique for
+         an entire HTML page. Hence, this code will always return an
+         array-like value. The array-like value may or may not be empty.
+         Note that the code below does not test the tag value in the
+         first stage. */
+      if (typeof curNode.getElementByClassName === 'function' &&
+          findEntry.attributeName              === 'class'    &&
+          findEntry.attributeValue             !== '') {
+        /* Search by class name value. The call below will always return an
+           array-like object. The array-like object may or may not be empty. */
+        let newNodeList = curNode.getElementByClassName(findEntry.attributeValue);
+        let newNodeListLength = newNodeList.length;
+        for (let i = 0; i < newNodeListLength; i++) {
+          newNode = newNodeList[i];
+          if (findEntry.tag !== '') {
+            if (findEntry.tag.toUpperCase() === newNode.tagName.toUpperCase())
+              outArray.push(newNode);
+          }
+          else
+            outArray.push(newNode);
+        }
+        continue;
+      }
+      /* Try to search by tag name. This should be a relatively fast
+         approach. Tag name values are not required to be unique for
+         an entire HTML page. Hence, this code will always return an
+         array-like value. The array-like value may or may not be empty. */
+      if (typeof curNode.getElementsByTagName === 'function' &&
+          findEntry.tag !== '') {
+        let newNodesList = curNode.getElementsByTagName(findEntry.tag);
+        let newNodesListLength = newNodesList.length;
+        /* Now that we have a list of nodes with the correct tag
+           name, we need to keep checking */
+        if (findEntry.attributeName  !== '' &&
+            findEntry.attributeValue !== '') {
+          for (let i = 0; i < newNodesListLength; i++) {
+            let newNode = newNodesList[i];
+            if (!newNode.hasAttribute(findEntry.attributeName))
+              continue;
+            if (newNode.getAttribute(findEntry.attributeName) !== findEntry.attributeValue)
+              continue;
+            outArray.push(newNode);
+          }
+        }
+        /* Since the attribute name and value were not set, we can
+           just copy all of the nodes into the output node list */
+        else {
+          for (let i = 0; i < newNodesListLength; i++) {
+            let newNode = newNodesList[i];
+            outArray.push(newNode);
+          }
+        }
+        continue;
+      }
+      /* At this point, we must scan the subnodes of the current node.
+         This is messy and slow, but we don't have any other choice. */
+      let curChildren = curNode.childNodes;
+      let curChildrenLength = curChildren.length;
+      for (let i = 0; i < curChildrenLength; i++) {
+        let curChild = curChildren[i];
+        if (typeof curChild.hasAttribute !== 'function')
+          continue;
+        if (typeof curChild.getAttribute !== 'function')
+          continue;
+        if (!curChild.hasAttribute(findEntry.attributeName))
+          continue;
+        if (curChild.getAttribute(findEntry.attributeName) !== findEntry.attributeValue)
+          continue;
+        outArray.push(curChild);
+      }
+    }
+    return outArray;
+  }
+  /* Start the JavaScript function that tries to find perceptual hash
+     value for a URL. This routine returns null if no matching URL is
+     found. This is not an error condition. Note that the URL string
+     is modified by changing the plus signs to blanks. This step is
+     required. */
+  function HDLmFindPHash(urlStr) {
+    let urlStrMod = urlStr.replace(/\+/g, ' ');
+    if (HDLmPHashObject.hasOwnProperty(urlStrMod))
+      return HDLmPHashObject[urlStrMod];
+    return null;
+  }
+  /* The code below tries to find and fix the URL used for the
+     background-image. This is not always possible. But some of
+     the times it possible to replace the background image. */
+  function HDLmGetBackground(domElement, replacementImageName) {
+    let firstElement = domElement;
+    let finalUrl = null;
+    while (domElement != null) {
+      /* Try to get the computer style from the computed element.
+         If no computed style is available, then we are done. */
+      let computedStyle = window.getComputedStyle(domElement);
+      if (computedStyle == null)
+        break;
+      /* Try to get the background image from the computed style.
+         Not all computed styles have a background image. */
+      let backStr = computedStyle['background-image'];
+      let backType = typeof backStr;
+      /* Check if we have a backgroup image that is a URL. If
+         not, we search parent elements until we find an element
+         that has a URL background image. */
+      if (backStr == null || backStr == 'none' || backType != 'string' || backStr.indexOf('url(') < 0) {
+        domElement = domElement.parentElement;
+        continue;
+      }
+      /* Handle the background image URL */
+      let backLast = backStr.lastIndexOf('/');
+      if (backLast > 0)
+        finalUrl = backStr.substring(0, backLast+1) + replacementImageName + '")';
+      break;
+    }
+    return finalUrl;
+  }
+  /* This is the base Hamming Distance algorithm. This code
+     assumes both input values can be stored in a JavaScript
+     variables. */
+  function HDLmHammingDistance(firstVal, secondVal) {
+    /* Run the first XOR */
+    let xorValue = firstVal ^ secondVal;
+    let distanceCount = 0;
+    /* Find all of the bit mismatches */
+    while (xorValue > 0) {
+      xorValue &= xorValue - 1;
+      distanceCount++;
+    }
+    /* Return the final count value */
+    return distanceCount;
+  };
+  /* This is the adjusted Hamming Distance algorithm. This code
+     assumes both input values are (possibly long) hexadecimal
+     strings. These strings can be of any length. However, they
+     must be the same length. The Hamming Distance is calculated
+     and then divided by the length of each input string in bits. */
+  function HDLmHammingDistanceAdjusted(firstVal, secondVal) {
+    /* Run the raw Hamming Distance value */
+    let distanceValue = HDLmHammingDistanceLong(firstVal, secondVal);
+    /* Return the final distance value */
+    return distanceValue/(4.0 * firstVal.length);
+  };
+  /* This is the long Hamming Distance algorithm. This code
+     assumes both input values are (possibly long) hexadecimal
+     strings. These strings can be of any length. However, they
+     must be the same length. */
+  function HDLmHammingDistanceLong(firstVal, secondVal) {
+    let distanceFinal = 0;
+    let firstSub, secondSub;
+    /* Process each string value */
+    while (firstVal.length > 0) {
+      /* Check if we have more than 8 hexadecimal digits left */
+      if (firstVal.length > 8) {
+        firstSub = firstVal.substr(0, 8);
+        firstVal = firstVal.substr(8);
+        secondSub = secondVal.substr(0, 8);
+        secondVal = secondVal.substr(8);
+      }
+      /* Use the first set of hexadecimal digits */
+      else {
+        firstSub = firstVal;
+        firstVal = '';
+        secondSub = secondVal;
+        secondVal = '';
+      }
+      /* Get the Hamming Distance between the two integers */
+      let firstInt = parseInt(firstSub, 16);
+      let secondInt = parseInt(secondSub, 16);
+      distanceFinal += HDLmHammingDistance(firstInt, secondInt);
+    }
+    /* Return the final count value */
+    return distanceFinal;
+  };
+  /* This function handles a visit request. The actual visit
+     is skipped, if we are in test mode or if the count is
+     too high. */
+  function HDLmHandleVisitRequest(visitText, postTrace, testFlag,
+                                  parametersArray, sessionIdJS,
+                                  parameterNumber, parameterValue,
+                                  hostNameValue, divisionNameValue, siteNameValue, curMod,
+                                  pathValueStr) {
+    /* Assume that the count is not too high. This assumption may
+       not be correct. */
+    let countHigh = false;
+    /* Get the update count for the document and the current rule */
+    let updateName = 'HDLmUpdateCount' + curMod.name;
+    if (isNaN(window[updateName]))
+      window[updateName] = 0;
+    else
+      if (window[updateName] > 0)
+        countHigh = true;
+    /* If we are in test mode or if the count is too
+       high, just return to the caller at this point */
+    if (countHigh || testFlag)
+      return countHigh;
+    window[updateName] += 1;
+    let localUpdates = new Object();
+    let oldText = null;
+    let newText = null;
+    if ((typeof visitText) != 'undefined' &&
+        visitText          != null        &&
+        visitText          != '')
+      oldText = visitText;
+    HDLmSaveChange(localUpdates, parametersArray, sessionIdJS,
+                   curMod.parameter, parameterValue,
+                   hostNameValue, divisionNameValue, siteNameValue, curMod.name,
+                   curMod.path, curMod.type, pathValueStr,
+                   oldText, newText);
+    /* Set the local reason value to something appropriate */
+    let localReason = curMod.type;
+    postTrace.matcherror = 'fired';
+    HDLmSendUpdates(localUpdates, localReason, '1.0', postTrace);
+    return countHigh;
+  }
+  /* This JavaScript function obtains one value (tried to obtain one
+     value from the current HTML page. Of course, this value may not
+     be found. In that case, a null value will be returned to the caller. */
+  function HDLmObtainValue(searchValue) {
+    let textValue = null;
+    let localMod = {};
+    /* Check if the search value is a CSS selector, a set of node identifier,
+       or an XPath expression */
+    if (searchValue.length > 0 && searchValue.charAt(0) == '/') {
+      localMod.cssselector = '';
+      localMod.nodeiden = null;
+      localMod.xpath = searchValue;
+    }
+    else if (searchValue.length > 0 && searchValue.charAt(0) == '{') {
+      localMod.cssselector = '';
+      localMod.nodeiden = JSON.parse(searchValue);
+      localMod.xpath = "";
+    }
+    else {
+      localMod.cssselector = searchValue;
+      localMod.nodeiden = null;
+      localMod.xpath = '';
+    }
+    let localNodeList = HDLmFind(localMod, false, null, null);
+    let localNodeListLen = localNodeList.length;
+    /* Process all of the found nodes */
+    for (let i = 0; i < localNodeListLen; i++) {
+      let localNode = localNodeList[i];
+      textValue = localNode.textContent;
+      break;
+    }
+    return textValue;
+  }
+  /* The next routine takes an input URL and removes the protocol
+     and the host name from it (if they are present). The returned
+     value is the path string followed by the search string followed
+     by the fragment string. */
+  function HDLmRemoveHost(urlStr) {
+    /* Check if the passed URL string has a colon in it. If it does
+       not have a colon, then we can just return the input string
+       to the caller. */
+    let urlStrIndexOfColon = urlStr.indexOf(':');
+    if (urlStrIndexOfColon < 0 ||
+        urlStrIndexOfColon > 6)
+      return urlStr;
+    /* Build a URL object from the input string */
+    let urlObj = new URL(urlStr);
+    /* Return the part of the URL after the protocol, host name,
+       and port number */
+    return urlStr.substring(urlObj.origin.length);
+  }
+  /* The next routine takes an input URL and removes the protocol
+     from it (if it is present). The colon after the protocol is
+     also removed. The returned value is the two slashes followed
+     by everything after the two slashes. */
+  function HDLmRemoveProtocol(urlStr) {
+    /* Check if the passed URL string has a colon in it. If it does
+       not have a colon, then we can just return the input string
+       to the caller. */
+    let urlIndex = urlStr.indexOf(':');
+    if (urlIndex < 0)
+      return urlStr;
+    /* Return the part of the URL after the protocol and the colon */
+    return urlStr.substring(urlIndex+1);
+  }
+  /* The next routine replaces some characters in a string with
+     other characters. The replacement process produces a string
+     that can be used as an attribute name (among other things). */
+  function HDLmReplaceInString(inStr) {
+    /* The characters used below are Lao letters. These value were chosen
+       because they are in the BMP, obscure (to English speakers), and do
+       not cause exceptions. */
+    inStr = inStr.replace(/A/g,'\u0e81');
+    inStr = inStr.replace(/B/g,'\u0e82');
+    inStr = inStr.replace(/C/g,'\u0e84');
+    inStr = inStr.replace(/D/g,'\u0e87');
+    inStr = inStr.replace(/E/g,'\u0e88');
+    inStr = inStr.replace(/F/g,'\u0e8a');
+    inStr = inStr.replace(/G/g,'\u0e8d');
+    inStr = inStr.replace(/H/g,'\u0e94');
+    inStr = inStr.replace(/I/g,'\u0e97');
+    inStr = inStr.replace(/J/g,'\u0e99');
+    inStr = inStr.replace(/K/g,'\u0e9f');
+    inStr = inStr.replace(/L/g,'\u0ea1');
+    inStr = inStr.replace(/M/g,'\u0ea3');
+    inStr = inStr.replace(/N/g,'\u0ea5');
+    inStr = inStr.replace(/O/g,'\u0ea7');
+    inStr = inStr.replace(/P/g,'\u0eaa');
+    inStr = inStr.replace(/Q/g,'\u0eab');
+    inStr = inStr.replace(/R/g,'\u0ead');
+    inStr = inStr.replace(/S/g,'\u0eb9');
+    inStr = inStr.replace(/T/g,'\u0ebb');
+    inStr = inStr.replace(/U/g,'\u0ebd');
+    inStr = inStr.replace(/V/g,'\u0ec0');
+    inStr = inStr.replace(/W/g,'\u0ec4');
+    inStr = inStr.replace(/X/g,'\u0ec6');
+    inStr = inStr.replace(/Y/g,'\u0ec8');
+    inStr = inStr.replace(/Z/g,'\u0ecd');
+    inStr = inStr.replace(/\s/g,'\u0ed0');
+    inStr = inStr.replace(/\$/g,'\u0ed1');
+    inStr = inStr.replace(/\./g,'\u0ed2');
+    inStr = inStr.replace(/\//g,'\u0ed3');
+    inStr = inStr.replace(/\(/g,'\u0ed4');
+    inStr = inStr.replace(/\)/g,'\u0ed5');
+    return inStr;
+  }
+  /* This JavaScript function saves one change from one modification */
+  function HDLmSaveChange(savedUpdates, parametersArray, sessionIdJS,
+                          parmNumber, parmValue,
+                          hostNameValue, divisionNameValue, siteNameValue, modName,
+                          modPathValue, modType,
+                          pathValue, oldValue, newValue) {
+    /* Save all of the values passed by the caller in a local
+       object */
+    let updateObj = {};
+    updateObj.parameters = HDLmArrayJoin(parametersArray, ' ');
+    updateObj.sessionId = sessionIdJS;
+    updateObj.parmNumber = parmNumber;
+    updateObj.parmValue = parmValue;
+    updateObj.hostName = hostNameValue;
+    updateObj.divisionName = divisionNameValue;
+    updateObj.siteName = siteNameValue;
+    updateObj.modName = modName;
+    updateObj.modPathValue = modPathValue;
+    updateObj.modType = modType;
+    updateObj.pathValue = pathValue;
+    updateObj.oldValue = oldValue;
+    updateObj.newValue = newValue;
+    /* Check if the updates array has already been created. Create the
+       updates array if need be. */
+    if (!savedUpdates.hasOwnProperty('updates'))
+      savedUpdates.updates = [];
+    /* Add the current update to the updates array */
+    savedUpdates.updates.push(updateObj);
+  }
+  /* This JavaScript function gets the current update count value.
+     If a count value does not already exist, then a count value
+     of zero is returned to the caller. If the count value already
+     exists, then it is returned to the caller. */
+  function HDLmGetUpdateCount(curNode, matchModifiedName, readyState) {
+    /* console.log(readyState); */
+    let attributeName = 'HDLmUpdated'+matchModifiedName;
+    if (curNode.hasAttribute(attributeName) == false)
+      return 0;
+    /* Get the current count value and return it to the caller */
+    let currentCount = curNode.getAttribute(attributeName);
+    return currentCount;
+  }
+  /* This JavaScript function updates (increments) count
+     values. If a count value does not already exist, then
+     the count value is set to one. If the count value
+     already exists, then it is incremented.by one. */
+  function HDLmIncrementUpdateCount(curNode, matchModifiedName) {
+    let attributeName = 'HDLmUpdated'+matchModifiedName;
+    if (curNode.hasAttribute(attributeName) == false) {
+      curNode.setAttribute(attributeName, 1);
+      return 1;
+    }
+    /* Get the current count and increment the count */
+    let currentCount = curNode.getAttribute(attributeName);
+    currentCount++;
+    curNode.setAttribute(attributeName, currentCount);
+    return currentCount;
+  }
+  /* This JavaScript function changes some search text if need be.
+     Check if the inner text has a dollar sign in it. If so, remove the
+     inner text from the node identifier. Dollar values tend to change
+     a lot, so matching on them does not make sense. */
+  function HDLmModifySearch(searchText) {
+    let searchObj = JSON.parse(searchText);
+    let searchAttrs = searchObj.attributes;
+    if (searchAttrs.hasOwnProperty('innertext')) {
+      let searchInner = searchAttrs.innertext;
+      let searchIndex = searchInner.indexOf('$');
+      if (searchIndex >= 0) {
+        delete searchAttrs['innertext'];
+        searchObj['attributes'] = searchAttrs;
+      };
+      searchText = JSON.stringify(searchObj);
+    }
+    return searchText;
+  }
+  /* This function takes a 'style' (without the quotes)
+     value and returns an array with each individual
+     style value. If the input only had one style value,
+     then the array will only have one entry. If the
+     input had several style values, then the output array
+     will have several entries. Each entry will be a valid
+     style value (or 'none' without the quotes). */
+  function HDLmStyleFixValues(inputStyles) {
+    /* Get rid of any leading and trailing blanks */
+    inputStyles = inputStyles.trim();
+    /* Get a lowercase version of this string */
+    inputStyles = inputStyles.toLowerCase();
+    /* Change all sequences of whitespace to blanks */
+    inputStyles = inputStyles.replace(/\s+/g, ' ');
+    /* The style string may or may not contain one or more
+       semicolons. Semicolons mean that we should split the
+       style string on semicolons, not blanks. */
+    let splitOn;
+    if (inputStyles.indexOf(';') >= 0)
+      splitOn = ';'
+    else
+      splitOn = ' ';
+    /* Split the input string, as need be */
+    let inputSplit = inputStyles.split(splitOn);
+    for (let i in inputSplit) {
+      let styleValue = inputSplit[i];
+      /* Check if we split on semicolons. Special case
+         code is needed to handle this case. */
+      if (splitOn == ';')
+        styleValue = styleValue.trim();
+      /* Check for some value that really means we should
+         use the existing value. In other words, we should
+         not specify a new value. */
+      if (styleValue == 'unchanged' ||
+          styleValue == 'novalue'   ||
+          styleValue == 'none'      ||
+          styleValue.trim().length == 0) {
+        styleValue = 'none';
+        inputSplit[i] = styleValue;
+      }
+      /* Check for some value that is missing the pixel suffix.
+         Add the pixel suffix, if need be. */
+      if (Number.isInteger(Number(styleValue)) == true) {
+        styleValue += 'px';
+        inputSplit[i] = styleValue;
+      }
+    }
+    return inputSplit;
+  }
+  /* This function takes a string value value and returns
+     an array with each individual word in the string. For
+     now we are using this function to split up curModExtra
+     values. Of course, this function could be used for anything. */
+  function HDLmStyleSplitString(inputString) {
+    /* Get rid of any leading and trailing blanks */
+    inputString = inputString.trim();
+    /* Get a lowercase version of this string */
+    inputString = inputString.toLowerCase();
+    /* Change all sequences of whitespace to blanks */
+    inputString = inputString.replace(/\s+/g, ' ');
+    /* Split the input string, as need be */
+    let inputSplit = inputString.split(' ');
+    return inputSplit;
+  }
+  /* This method tries to update a JSON string with a new value. The caller
+     passes the old JSON string and the update values. This routine converts
+     the JSON string to an object and then updates the object. The object is
+     then converted back to a JSON string. */
+  function HDLmUpdateJsonStr(jsonStr, keyStr, valueStr) {
+    /* console.log('In HDLmUpdateJsonStr'); */
+    /* console.log(jsonStr, keyStr, valueStr); */
+    /* Check the JSON string passed the caller */
+    if (jsonStr == null)
+      jsonStr = '{}';
+    /* Convert the JSON string back to an object so we can add the key
+       and the value for the key */
+    let jsonObj = JSON.parse(jsonStr);
+    jsonObj[keyStr] = valueStr;
+    /* console.log(jsonObj); */
+    jsonStr = JSON.stringify(jsonObj);
+    /* console.log(jsonStr, keyStr, valueStr); */
+    return jsonStr;
+  }
+  HDLmClassAddCss('.HDLmClassPrimary','background-color: yellow');
+  HDLmClassAddCss('.HDLmClassBackground','filter: grayscale(100%)');
+  function HDLmApplyMods(readyState) {
+    let pathValueStr = document.location.pathname;
+    const modsArray = [
+                        {"find":[],"valuesCount":8,"values":["rgb(55,86,218); ; 0","rgb(55,86,218); 20; 0","rgb(55,86,218) ;  ;","rgb(19,91,21) ; ;","rgb(247,202,0) ;  ;","rgb(19,91,21) ; 20 ;","rgb(19,91,21) ;  ; 0","rgb(247,202,0) ; 20 ; 0"],"enabled":true,"pathre":true,"type":"style","parameter":1,"cssselector":"","extra":"background-color border-radius border","name":"Change Add To Cart","nodeiden":{"enabled":true,"type":"id","attributes":{"innertext":"add to cart","onclick":"check_and_add(document.add);","id":"Add","tag":"button","type":"button","class":["btn","btn-default","btn-inverse","btn-addcart"]},"counts":{"id":1,"tag":29,"class":31},"grandparent":{"tag":"div","innertext":"quantity","class":["addToCartBlock","sub-section"]},"parent":{"tag":"div","innertext":"quantity","class":["qtybox-addcart","form-group"]}},"path":"//.*/","value":"","valueSuffix":"","xpath":""},
+                        {"find":[],"valuesCount":2,"values":["0,1,3","0,3,1"],"enabled":false,"pathre":true,"type":"order","parameter":0,"cssselector":"","extra":"","name":"Change Order","nodeiden":{"enabled":true,"type":"class","attributes":{"class":["home-page-content"],"tag":"section"},"counts":{"class":1,"tag":320},"parent":{"class":["content-holder"],"tag":"div"}},"path":"//.*/","value":"","valueSuffix":"","xpath":""},
+                        {"find":[],"valuesCount":0,"values":[],"enabled":true,"pathre":true,"type":"notify","parameter":null,"cssselector":"","extra":"Yoga mats, Add to Cart","name":"Notify Add To Cart","nodeiden":{"enabled":true,"type":"id","attributes":{"innertext":"add to cart","onclick":"check_and_add(document.add);","id":"Add","tag":"button","type":"button","class":["btn","btn-default","btn-inverse","btn-addcart"]},"counts":{"id":1,"tag":32,"class":31},"grandparent":{"tag":"div","innertext":"quantity","class":["addToCartBlock","sub-section"]},"parent":{"tag":"div","innertext":"quantity","class":["qtybox-addcart","form-group"]}},"path":"//.*/","value":"","valueSuffix":"","xpath":""},
+                        {"find":[],"valuesCount":1,"values":["{\"type\":\"class\",\"attributes\":{\"class\":[\"total_total\",\"col-xs-6\",\"text-right\",\"total_due_amount\"],\"bestclass\":\"total_total\",\"tag\":\"div\",\"innertext\":\"$240.37\"},\"counts\":{\"tag\":224,\"class\":1},\"parent\":{\"class\":[\"clearfix\",\"total_div\",\"remaining-balance\"],\"tag\":\"div\",\"innertext\":\"total\"},\"grandparent\":{\"class\":[\"row\",\"cart-grandtotal\"],\"tag\":\"div\",\"innertext\":\"total\"}}"],"enabled":true,"pathre":true,"type":"notify","parameter":null,"cssselector":"","extra":"","name":"Notify Check Out","nodeiden":{"enabled":true,"type":"id","attributes":{"innertext":"check out","onclick":"doCheckout(this.form,\u0027checkoutButton\u0027);","bestclass":"btn-lg","id":"submit-button","tag":"button","type":"button","class":["btn","btn-lg","btn-primary"]},"counts":{"id":1,"tag":16,"class":1},"grandparent":{"id":"spanCheckout","tag":"div","innertext":"return to cart","class":["checkout-section","clearfix"]},"parent":{"tag":"div","innertext":"check out","class":["pull-right"]}},"path":"//.*/","value":"","valueSuffix":"","xpath":""},
+                        {"find":[],"valuesCount":1,"values":["{\"type\":\"class\",\"attributes\":{\"class\":[\"col-xs-6\",\"carttotal-price\"],\"bestclass\":\"carttotal-price\",\"tag\":\"div\",\"innertext\":\"$37.98\"},\"counts\":{\"tag\":130,\"class\":2},\"parent\":{\"class\":[\"row\",\"total-details\",\"carttotal-cols\"],\"tag\":\"div\",\"innertext\":\"total\"},\"grandparent\":{\"class\":[\"cart-box-sticky\"],\"tag\":\"div\",\"innertext\":\"order summary\"}}"],"enabled":true,"pathre":true,"type":"notify","parameter":null,"cssselector":"","extra":"Proceed to Checkout Number 1","name":"Notify Prc Check Nmbr 1","nodeiden":{"enabled":true,"type":"class","attributes":{"bestclass":"btn-checkout","tag":"a","href":"checkout.asp?step\u003d1","innertext":"proceed to checkout","class":["btn","btn-primary","btn-checkout"]},"counts":{"class":2,"tag":87},"grandparent":{"tag":"div","innertext":"order summary","class":["cart-box-sticky"]},"parent":{"tag":"div","innertext":"proceed to checkout","class":["checkout-btns"]}},"path":"//.*/","value":"","valueSuffix":"","xpath":""}
+                      ];
+    const sessionIdJS = '62d65a6b-fec3-4398-8125-24e714ac5838';
+    const parametersArray = HDLmGetParametersArray();
+    let modsArrayLength = modsArray.length;
+    for (let i=0; i < modsArrayLength; i++) {
+      let curMod = modsArray[i];
+      try {
+        switch (curMod.type) {
+          case 'extract': {
+            let nodeList = HDLmFind(curMod, false);
+            let nodeListLen = nodeList.length;
+            for (let j = 0; j < nodeListLen; j++) {
+              let curNode = nodeList[j];
+              if (HDLmSavedExtracts.hasOwnProperty(curMod.name) &&
+                  HDLmSavedExtracts[curMod.name] != null)
+                continue;
+              let oldText = curNode.textContent;
+              HDLmSavedExtracts[curMod.name] = oldText;
+            }
+            break;
+          }
+          case 'notify': {
+            for (let j = 0; j < curMod.valuesCount; j++) {
+              let searchText = curMod.values[j];
+              searchText = HDLmModifySearch(searchText);
+              if (HDLmSavedNotifies.hasOwnProperty(searchText) &&
+                  HDLmSavedNotifies[searchText] != null)
+                continue;
+              let searchValue = HDLmObtainValue(searchText);
+              HDLmSavedNotifies[searchText] = searchValue;
+            }
+            break;
+          }
+          default: {
+            break;
+          }
+        }
+      }
+      catch(errorObj) {
+        console.log(errorObj);
+        let errorStr = HDLmErrorToString(errorObj);
+        let nameStr = curMod.name;
+        let hostNameStr = location.hostname;
+        let builtStr = 'Modification (' + nameStr + ') Host (' + hostNameStr + ') Error (' + errorStr + ')';
+        console.log(builtStr);
+        errorStr = HDLmUpdateJsonStr(errorStr, 'modification', nameStr);
+        errorStr = HDLmUpdateJsonStr(errorStr, 'hostName', hostNameStr);
+        HDLmSendData(errorStr);
+        break;
+      }
+    }
+    for (let i=0; i < modsArrayLength; i++) {
+      let curMod = modsArray[i];
+      try {
+        HDLmApplyMod(pathValueStr,
+                     curMod,
+                     sessionIdJS,
+                     parametersArray,
+                     'www.yogadirect.com',
+                     'www.yogadirect.com',
+                     'example.com',
+                     'example.com',
+                     'www.secure.yogadirect.com',
+                     'TCELESECROF',
+                     false,
+                     readyState);
+      }
+      catch(errorObj) {
+        console.log(errorObj);
+        let errorStr = HDLmErrorToString(errorObj);
+        let nameStr = curMod.name;
+        let hostNameStr = 'www.yogadirect.com';
+        let builtStr = 'Modification (' + nameStr + ') Host (' + hostNameStr + ') Error (' + errorStr + ')';
+        console.log(builtStr);
+        errorStr = HDLmUpdateJsonStr(errorStr, 'modification', nameStr);
+        errorStr = HDLmUpdateJsonStr(errorStr, 'hostName', hostNameStr);
+        HDLmSendData(errorStr);
+        break;
+      }
+    }
+  }
+  function HDLmBuildError(errSeverity, curType, errNumber, errText) {
+    let errorStr = '';
+    errorStr += 'HDLm' + ' ';
+    errorStr += errSeverity + ' ';
+    errorStr += curType + ' ';
+    errorStr += errNumber.toString() + ' ';
+    errorStr += errText;
+    console.log(errorStr);
+  }
+  function HDLmChangeAttributes(curNode, jsonText) {
+    let changesObj = JSON.parse(jsonText);
+    for (const keyValue in changesObj) {
+      if (!changesObj.hasOwnProperty(keyValue))
+        continue;
+      let changesValue = changesObj[keyValue];
+      if (changesValue == null)
+        curNode.removeAttribute(keyValue);
+      else
+        curNode.setAttribute(keyValue, changesValue);
+    }
+  }
+  function HDLmGetAttributesString(curNode) {
+    let outputStr = '';
+    if (!curNode.hasAttributes())
+      return outputStr;
+    let attrs = curNode.attributes;
+    let attrsLength = attrs.length;
+    for (let i = attrsLength - 1; i >= 0; i--) {
+      if (outputStr != '')
+       outputStr += ' ';
+       outputStr += attrs[i].name + '=' + "'" + attrs[i].value + "'";
+    }
+    return outputStr;
+  }
+  function HDLmGetParametersArray() {
+    let outputStr = '';
+    const parametersArray = [
+                              0.5923274393869672,
+                              0.39907292494519975
+                            ];
+    return parametersArray;
+  }
+  function HDLmGetPHash(urlStr) {
+    /* Build the AJAX object */
+    let xHttpReq = new XMLHttpRequest();
+    let hostNameValue = 'javaproxya.dnsalias.com';
+    let urlVal = 'https://' + hostNameValue + '/HDLmPHash';
+    xHttpReq.open('POST', urlVal);
+    urlStr = encodeURIComponent(urlStr);
+    xHttpReq.send(urlStr);
+  }
+  let HDLmSavedUpdates = new Object();
+  let HDLmSavedExtracts = new Object();
+  let HDLmSavedNotifies = new Object();
+  var HDLmCheckVariable = true;
+  const HDLmPHashObject = {
+                            "//legends-cloudinary.corebine.com/legends-production/image/upload/c_fill,dpr_2.0,f_webp,g_auto,q_auto,w_1170/v1/owo-prod/oneworldnyc-20160926-denoizy-20160924-pzg72y":"cc36f2a57ed1b448",
+                            "//elasticbeanstalk-us-east-2-546307548583.s3.us-east-2.amazonaws.com/Wizard of Oz - The Lion.jpg":"ab8dc030b452e52a",
+                            "//legends-cloudinary.corebine.com/legends-production/image/upload/c_fit,dpr_2.0,f_webp,g_center,q_auto,w_3840/v1/owo-prod/141027_EJ_dusk_OWO_pano_0067-Edit":"ce273873bf9c76fb",
+                            "//legends-cloudinary.corebine.com/legends-production/image/upload/c_fit,dpr_2.0,f_webp,g_center,q_auto,w_3840/v1/owo-prod/141027_EJ_dusk_OWO_pano_0079-Edit-2":"ccc644cc94b2298a"
+                          };
+  function HDLmSendData(dataStr) {
+    dataStr = 'HDLmPostData=' + dataStr;
+    let httpReq = new XMLHttpRequest();
+    let hostNameValue = 'javaproxya.dnsalias.com';
+    let urlStr = 'https://' + hostNameValue + '/HDLmPostData';
+    httpReq.open('POST', urlStr);
+    httpReq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    dataStr = encodeURIComponent(dataStr);
+    httpReq.send(dataStr);
+  }
+  function HDLmSendUpdates(savedUpdates, reasonStr, weightStr, errorStr) {
+    savedUpdates.reason = reasonStr;
+    savedUpdates.weight = weightStr;
+    savedUpdates.error = errorStr;
+    let updateStr = JSON.stringify(savedUpdates);
+    HDLmSendData(updateStr);
+  }
+  let HDLmObsTargetNode = document;
+  let HDLmObsConfig = {attributes: true, childList: true, subtree: true};
+  let HDLmObsCallback = function (mutationsList, HDLmObsObserver) {
+    /* console.log(document.readyState); */
+    let forceReadyState = false;
+    if (document.location.hostname == 'www.themarvelouslandofoz.com' &&
+        document.readyState == 'interactive')
+      forceReadyState = true;
+    HDLmApplyMods(document.readyState);
+    if (document.readyState == 'complete' ||
+        forceReadyState == true) {
+      HDLmApplyMods(document.readyState);
+    };
+  };
+  let HDLmObsObserver = new MutationObserver(HDLmObsCallback);
+  HDLmObsObserver.observe(HDLmObsTargetNode, HDLmObsConfig);
+  let pathValueStr = document.location.pathname;
+  let curMod = {};
+  curMod.enabled = true;
+  curMod.name = 'load';
+  curMod.parameter = 0;
+  curMod.path = '//.*/';
+  curMod.pathre = true;
+  curMod.type = 'visit';
+  curMod.values = [ 'Yes' ];
+  curMod.valuesCount = 1;
+  const sessionIdJS = '62d65a6b-fec3-4398-8125-24e714ac5838';
+  const parametersArray = HDLmGetParametersArray()
+  const readyState = 'unknown';
+  HDLmApplyMod(pathValueStr,
+               curMod,
+               sessionIdJS,
+               parametersArray,
+               'www.yogadirect.com',
+               'www.yogadirect.com',
+               'example.com',
+               'example.com',
+               'www.secure.yogadirect.com',
+               'TCELESECROF',
+               'false',
+               readyState);
+</script>

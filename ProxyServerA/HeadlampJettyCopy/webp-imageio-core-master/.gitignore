@@ -1,0 +1,42 @@
+# maven ignore
+target/
+*.war
+*.zip
+*.tar
+*.tar.gz
+
+# Skip a few file types
+*.log
+*.index
+*.jar
+*.msi
+
+# eclipse ignore
+.settings/
+.project
+.classpath
+.tern-project
+
+# idea ignore
+.idea/
+*.ipr
+*.iml
+*.iws
+
+# temp ignore
+.svn/
+generated/
+.externalToolBuilders/
+logs/
+*.log
+*.cache
+*.diff
+*.patch
+*.tmp
+*.java~
+*.properties~
+*.xml~
+
+# system ignore
+.DS_Store
+Thumbs.db
