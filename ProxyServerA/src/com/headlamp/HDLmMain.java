@@ -58,6 +58,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import jakarta.servlet.Servlet;
 /**
  * HDLmMain short summary.
@@ -2396,9 +2401,91 @@ public class HDLmMain {
 		   to run JavaScript code, without any reported errors. This call is only
 		   needed once, which is why it is made here. */ 
 		HDLmHtml.setProperties();	
+		
+		String  message = "{\"rules\":[{\"tooltip\":\"Script modification\",\"type\":\"mod\",\"children\":[],\"containerWidget\":null,\"details\":{\"name\":\"Mod These Changes Enhance Readability And Clearly Define The Script\",\"extra\":\"\",\"enabled\":true,\"type\":\"script\",\"created\":\"2025-01-26T22:53:07.162Z\",\"lastmodified\":\"2025-01-26T22:53:07.162Z\",\"pathvalue\":\"/yoga-direct-1-4-inch-yoga-mat.html\",\"comments\":\"\",\"usemode\":\"test\",\"cssselector\":\"\",\"xpath\":\"\",\"find\":[],\"nodeiden\":{\"type\":\"tag\",\"attributes\":{\"tag\":\"head\"},\"counts\":{\"tag\":1},\"parent\":{\"tag\":\"html\"}},\"parameter\":0,\"scripts\":[\"\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = 'body { font-family: \\\\'Roboto Condensed\\\\', sans-serif; font-size: 14px; line-height: 1.6; color: #333; }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = 'h1.page_headers, .saleprice.price { color: #2D5C73; }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.saleprice.price { font-weight: bold; font-size: 18px; }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.product-details h1.page_headers { margin-bottom: 20px; }';\\n  document.head.appendChild(styleSheet);\\n}\"],\"updated\":false},\"nodePath\":[\"Top\",\"Companies\",\"www.yogadirect.com\",\"Rules\",\"example.com\",\"example.com\",\"Mod These Changes Enhance Readability And Clearly Define The Script\"]},{\"tooltip\":\"Script modification\",\"type\":\"mod\",\"children\":[],\"containerWidget\":null,\"details\":{\"name\":\"Mod Storytelling Humanizes The Product, Making It Relatable Script\",\"extra\":\"\",\"enabled\":true,\"type\":\"script\",\"created\":\"2025-01-26T22:53:07.167Z\",\"lastmodified\":\"2025-01-26T22:53:07.167Z\",\"pathvalue\":\"/yoga-direct-1-4-inch-yoga-mat.html\",\"comments\":\"\",\"usemode\":\"test\",\"cssselector\":\"\",\"xpath\":\"\",\"find\":[],\"nodeiden\":{\"type\":\"tag\",\"attributes\":{\"tag\":\"head\"},\"counts\":{\"tag\":1},\"parent\":{\"tag\":\"html\"}},\"parameter\":0,\"scripts\":[\"    document.addEventListener(\\\"DOMContentLoaded\\\", function() {\\n        var productStoryHTML = \\\"<div id='product-story' class='product-story'><h2>Why Our Customers Love This Mat</h2><p>Our 1/4 Inch Yoga Mat is trusted by yoga practitioners worldwide for its perfect balance of comfort and durability. It's praised for transforming yoga practices into a beautiful experience. Join our community of wellness with every pose.</p></div>\\\";\\n        var descriptionSection = document.querySelector(\\\".short-description\\\");\\n        if (descriptionSection) {\\n            descriptionSection.insertAdjacentHTML('beforebegin', productStoryHTML);\\n        }\\n    });\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.product-story {\\\\n        background-color: #f9f9f9;\\\\n        padding: 20px;\\\\n        margin-bottom: 30px;\\\\n        border-radius: 8px;\\\\n        box-shadow: 0 2px 4px rgba(0,0,0,0.1);\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.product-story h2 {\\\\n        font-family: \\\\'Roboto Condensed\\\\', sans-serif;\\\\n        color: #333;\\\\n        font-size: 24px;\\\\n        margin-bottom: 10px;\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.product-story p {\\\\n        font-family: \\\\'Lato\\\\', sans-serif;\\\\n        color: #555;\\\\n        line-height: 1.6;\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\"],\"updated\":false},\"nodePath\":[\"Top\",\"Companies\",\"www.yogadirect.com\",\"Rules\",\"example.com\",\"example.com\",\"Mod Storytelling Humanizes The Product, Making It Relatable Script\"]},{\"tooltip\":\"Script modification\",\"type\":\"mod\",\"children\":[],\"containerWidget\":null,\"details\":{\"name\":\"Mod Improving The Use Of Whitespace Around Product Details Script\",\"extra\":\"\",\"enabled\":true,\"type\":\"script\",\"created\":\"2025-01-26T22:53:07.169Z\",\"lastmodified\":\"2025-01-26T22:53:07.169Z\",\"pathvalue\":\"/yoga-direct-1-4-inch-yoga-mat.html\",\"comments\":\"\",\"usemode\":\"test\",\"cssselector\":\"\",\"xpath\":\"\",\"find\":[],\"nodeiden\":{\"type\":\"tag\",\"attributes\":{\"tag\":\"head\"},\"counts\":{\"tag\":1},\"parent\":{\"tag\":\"html\"}},\"parameter\":0,\"scripts\":[\"\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.product-details, .product-cols { padding: 20px; }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.main-image, .addl-images { margin-bottom: 20px; }';\\n  document.head.appendChild(styleSheet);\\n}\"],\"updated\":false},\"nodePath\":[\"Top\",\"Companies\",\"www.yogadirect.com\",\"Rules\",\"example.com\",\"example.com\",\"Mod Improving The Use Of Whitespace Around Product Details Script\"]}],\"HDLmRequestType\":\"storeTreeNodes\"}\r\n"
+				+ "";
+		message = "{\"rules\":[{\"tooltip\":\"Script modification\",\"type\":\"mod\",\"children\":[],\"containerWidget\":null,\"details\":{\"name\":\"Mod Enhancing Whitespace Between Elements Helps In Better Visual Script\",\"extra\":\"\",\"enabled\":true,\"type\":\"script\",\"created\":\"2025-01-27T19:45:15.935Z\",\"lastmodified\":\"2025-01-27T19:45:15.935Z\",\"pathvalue\":\"/yoga-direct-1-4-inch-yoga-mat.html\",\"comments\":\"\",\"usemode\":\"test\",\"cssselector\":\"\",\"xpath\":\"\",\"find\":[],\"nodeiden\":{\"type\":\"tag\",\"attributes\":{\"tag\":\"head\"},\"counts\":{\"tag\":1},\"parent\":{\"tag\":\"html\"}},\"parameter\":0,\"scripts\":[\"\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.product-details { margin-top: 20px; }';\\n  document.head.appendChild(styleSheet);\\n}\"],\"updated\":false},\"nodePath\":[\"Top\",\"Companies\",\"www.yogadirect.com\",\"Rules\",\"example.com\",\"example.com\",\"Mod Enhancing Whitespace Between Elements Helps In Better Visual Script\"]},{\"tooltip\":\"Script modification\",\"type\":\"mod\",\"children\":[],\"containerWidget\":null,\"details\":{\"name\":\"Mod Storytelling Helps In Creating An Emotional Connection Script\",\"extra\":\"\",\"enabled\":true,\"type\":\"script\",\"created\":\"2025-01-27T19:45:15.940Z\",\"lastmodified\":\"2025-01-27T19:45:15.940Z\",\"pathvalue\":\"/yoga-direct-1-4-inch-yoga-mat.html\",\"comments\":\"\",\"usemode\":\"test\",\"cssselector\":\"\",\"xpath\":\"\",\"find\":[],\"nodeiden\":{\"type\":\"tag\",\"attributes\":{\"tag\":\"head\"},\"counts\":{\"tag\":1},\"parent\":{\"tag\":\"html\"}},\"parameter\":0,\"scripts\":[\"    (function() {\\n        var storytellingDiv = document.createElement('div');\\n        storytellingDiv.className = 'storytelling';\\n        storytellingDiv.innerHTML = \\\"<h2>Discover Your Perfect Yoga Companion</h2><p>Embrace every pose with comfort and stability on our premium yoga mat, designed to inspire confidence in every practice. Join thousands of satisfied customers and take your yoga journey to new heights.</p><p><a href='#buy-now' class='call-to-action'>Buy Now</a></p>\\\";\\n        var productDetails = document.querySelector('.product-details');\\n        if (productDetails) {\\n            productDetails.insertAdjacentElement('beforebegin', storytellingDiv);\\n        }\\n    })();\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.storytelling {\\\\n        background-color: #f5f5f5;\\\\n        padding: 20px;\\\\n        margin: 20px 0;\\\\n        border-radius: 5px;\\\\n        text-align: center;\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.storytelling h2 {\\\\n        font-family: \\\\'Playfair Display\\\\', serif;\\\\n        color: #333;\\\\n        font-weight: 700;\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.storytelling p {\\\\n        font-family: \\\\'Lato\\\\', sans-serif;\\\\n        color: #555;\\\\n        font-size: 16px;\\\\n        margin: 10px 0;\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.storytelling .call-to-action {\\\\n        display: inline-block;\\\\n        padding: 10px 20px;\\\\n        color: #fff;\\\\n        background-color: #f57c00;\\\\n        border-radius: 3px;\\\\n        text-decoration: none;\\\\n        font-weight: 700;\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.storytelling .call-to-action:hover {\\\\n        background-color: #e65100;\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\"],\"updated\":false},\"nodePath\":[\"Top\",\"Companies\",\"www.yogadirect.com\",\"Rules\",\"example.com\",\"example.com\",\"Mod Storytelling Helps In Creating An Emotional Connection Script\"]},{\"tooltip\":\"Script modification\",\"type\":\"mod\",\"children\":[],\"containerWidget\":null,\"details\":{\"name\":\"Mod A Consistent Button Style With Contrasting Colors Will Script\",\"extra\":\"\",\"enabled\":true,\"type\":\"script\",\"created\":\"2025-01-27T19:45:15.942Z\",\"lastmodified\":\"2025-01-27T19:45:15.942Z\",\"pathvalue\":\"/yoga-direct-1-4-inch-yoga-mat.html\",\"comments\":\"\",\"usemode\":\"test\",\"cssselector\":\"\",\"xpath\":\"\",\"find\":[],\"nodeiden\":{\"type\":\"tag\",\"attributes\":{\"tag\":\"head\"},\"counts\":{\"tag\":1},\"parent\":{\"tag\":\"html\"}},\"parameter\":0,\"scripts\":[\"document.querySelectorAll('button').forEach(function(btn) { btn.style.backgroundColor = '#2a9d8f'; btn.style.color = '#fff'; btn.style.borderRadius = '5px'; btn.addEventListener('mouseover', function() { this.style.backgroundColor = '#21867a'; }); btn.addEventListener('mouseout', function() { this.style.backgroundColor = '#2a9d8f'; }); });\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = 'button { background-color: #2a9d8f; color: #fff; border-radius: 5px; }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = 'button:hover { background-color: #21867a; }';\\n  document.head.appendChild(styleSheet);\\n}\"],\"updated\":false},\"nodePath\":[\"Top\",\"Companies\",\"www.yogadirect.com\",\"Rules\",\"example.com\",\"example.com\",\"Mod A Consistent Button Style With Contrasting Colors Will Script\"]}],\"HDLmRequestType\":\"storeTreeNodes\"}\r\n"
+				+ "";
+		JsonParser  parser = new JsonParser();	
+		JsonElement   topNodeJsonElement = null; 
+		try {			
+			topNodeJsonElement = parser.parse(message);			
+		} 
+		catch (Exception exception) {			 
+			LOG.info("Exception while executing handleMessage");
+			LOG.info(exception.getMessage(), exception); 
+		}
+		int pathLength = HDLmDefines.getNumber("HDLMRULESNODEPATHLENGTH");
+		JsonArray   rulesArrayJson = HDLmJson.getJsonArray(topNodeJsonElement,"rules");
+		int  rulesArraySize = rulesArrayJson.size();
+		for (int i = 0; i < rulesArraySize; i++) {		
+			JsonElement   jsonElementRule = rulesArrayJson.get(i);
+			boolean   scriptsValid = true;
+			
+			/* Check if we have mod entry. We should always
+			   have a mod entry. */
+		  
+			String  modEntry = HDLmJson.getJsonString(jsonElementRule, "type");
+			if (modEntry.equals("mod") == false) {
+				String errorText = "Mod entry not found in storeTreeNode";
+				HDLmAssertAction(false, errorText);
+			}
+			
+			/* Get the rule details */
+		 
+			JsonObject  modDetaisObject = HDLmJson.getJsonObject(jsonElementRule, "details");
+			if (modDetaisObject == null) {
+				String errorText = "Mod details object not found in storeTreeNode";
+				HDLmAssertAction(false, errorText);
+			}
+			
+			/* Get the rule name */
+		   
+			JsonElement   modDetailsElement = (JsonElement) modDetaisObject;
+			String  ruleName = HDLmJson.getJsonString(modDetailsElement, "name");
+			
+			/* Get the rule type */
+		    
+			String  ruleType = HDLmJson.getJsonString(modDetailsElement, "type");
+			 
+			/* We have a lot more work to do for script rules */
+		     
+			if (ruleType.equals("script")) {
+				JsonArray   scriptsArrayJson = HDLmJson.getJsonArray(modDetailsElement,"scripts");
+				int   scriptsArraySize = scriptsArrayJson.size();
+				 
+				/* Process each script */
+		      
+				for (int j = 0; j < scriptsArraySize; j++) {		
+					JsonElement   scriptJson = scriptsArrayJson.get(j); 
+					String  scriptString = scriptJson.getAsString();
+					boolean   scriptValid = HDLmHtml.checkIfJavaScriptValid(scriptString, 
+							                                                    HDLmReportErrors.REPORTERRORS);
+					 
+					/* Check if the current script is invalid, if it is, then 
+					   the entire set of scripts is treated as invalid */
+		        
+					if (scriptValid == false)
+						scriptsValid = false;
+				   
+		        
+				}
+			}		
+			 
+			/* Skip the current rule if the invalid scripts flag is set */
+			/*
+			scriptsValid = true;
+			*/
+		   
+			if (scriptsValid == false)
+				continue;
+			JsonArray   nodePathJson = HDLmJson.getJsonArray(jsonElementRule,"nodePath");
+			int nodePathJsonSize = nodePathJson.size();
+		}
+		 
 		/*
-		SecretsManagerClient  client = HDLmAwsSecrets.buildAwsSecretsManagerClient("us-east-2");
-		ArrayList<String>     actualNames = new ArrayList<String>(Arrays.asList("AwsAccessKeyId", "AwsSecretAccessKey", "Main9Auroa"));
+		SecretsManagerClient  client = HDLmAwsSecrets.buildAwsSecretsManagerClient(\"us-east-2\");
+		ArrayList<String>     actualNames = new ArrayList<String>(Arrays.asList(\"AwsAccessKeyId", "AwsSecretAccessKey", "Main9Auroa"));
 		Map<String, String>   actualSecrets = HDLmAwsSecrets.getAMapOfSecrets(client, actualNames);
 		*/
 		/* 

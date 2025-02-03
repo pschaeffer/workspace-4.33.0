@@ -56,7 +56,7 @@ public class HDLmEvent {
 	  		    "NumberFormatException", "PatternSyntaxException",   /* 19-20 */
 	  		    "UnsupportedEncodingException", "AssertionError",    /* 21-22 */
 	  		    "ExecuteException", "SQLException",                  /* 23-24 */
-	  		    "ScriptExecption"));                                 /* 25-25 */
+	  		    "ScriptException, EvaluatorException"));             /* 25-26 */
   /* The map below is used to convert event names to event numbers. This map
      is constructed as part of product startup. All of the event names listed
      above are added to map. */ 

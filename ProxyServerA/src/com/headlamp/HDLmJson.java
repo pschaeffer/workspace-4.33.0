@@ -692,7 +692,7 @@ public class HDLmJson {
 	protected static String  getStringJsonNulls(JsonElement jsonElement) {
 	  /* Check if the JSON element passed by the caller is null */	 
 		if (jsonElement == null) {
-		  String  errorText = "JSON element passed to getStringJson is null";
+		  String  errorText = "JSON element passed to getStringJsonNulls is null";
 			throw new NullPointerException(errorText);
 		}
 		/* Obtain a Gson instance with serialize nulls set */

@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 /**
  * HDLmWebSocketInternalAdapter short summary.
@@ -506,7 +507,7 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 		
 		/* Build a JSON string with all of the rows in it. We have a routine that does
 		   exactly that. */
-		String outTree = HDLmTree.buildJsonStringTree(HDLmTree.getNodePassTreeTop());
+		String  outTree = HDLmTree.buildJsonStringTree(HDLmTree.getNodePassTreeTop());
 		/* Build a JSON element with the entire rule tree and more */
 		JsonParser    parser = new JsonParser();
 		JsonElement   jsonTopElement = null;
@@ -703,8 +704,49 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 		int  rulesArraySize = rulesArrayJson.size();
 		/* Process each rule */
 		for (int i = 0; i < rulesArraySize; i++) {		
-			jsonElement  = rulesArrayJson.get(i);
-			JsonArray   nodePathJson = HDLmJson.getJsonArray(jsonElement,"nodePath");
+			JsonElement   jsonElementRule = rulesArrayJson.get(i);
+			boolean   scriptsValid = true;
+			/* Check if we have mod entry. We should always
+			   have a mod entry. */
+			String  modEntry = HDLmJson.getJsonString(jsonElementRule, "type");
+			if (modEntry.equals("mod") == false) {
+				String errorText = "Mod entry not found in storeTreeNode";
+				HDLmAssertAction(false, errorText);
+			}
+			/* Get the rule details */
+			JsonObject  modDetaisObject = HDLmJson.getJsonObject(jsonElementRule, "details");
+			if (modDetaisObject == null) {
+				String errorText = "Mod details object not found in storeTreeNode";
+				HDLmAssertAction(false, errorText);
+			}
+			/* Get the rule name */
+			JsonElement   modDetailsElement = (JsonElement) modDetaisObject;
+			String  ruleName = HDLmJson.getJsonString(modDetailsElement, "name");
+			/* Get the rule type */
+			String  ruleType = HDLmJson.getJsonString(modDetailsElement, "type");
+			/* We have a lot more work to do for script rules */
+			if (ruleType.equals("script")) {
+				JsonArray   scriptsArrayJson = HDLmJson.getJsonArray(modDetailsElement,"scripts");
+				int   scriptsArraySize = scriptsArrayJson.size();
+				/* Process each script */
+				for (int j = 0; j < scriptsArraySize; j++) {		
+					JsonElement   scriptJson = scriptsArrayJson.get(j); 
+					String  scriptString = scriptJson.getAsString();
+					boolean   scriptValid = HDLmHtml.checkIfJavaScriptValid(scriptString, 
+							                                                    HDLmReportErrors.REPORTERRORS);
+					/* Check if the current script is invalid, if it is, then 
+					   the entire set of scripts is treated as invalid */
+					if (scriptValid == false)
+						scriptsValid = false;
+				}
+			}		
+			/* Skip the current rule if the invalid scripts flag is set */
+			/*
+			scriptsValid = true;
+			*/
+			if (scriptsValid == false)
+				continue;
+			JsonArray   nodePathJson = HDLmJson.getJsonArray(jsonElementRule,"nodePath");
 			int nodePathJsonSize = nodePathJson.size();
 			/* Check if the node path length is invalid */
 			if (nodePathJsonSize != pathLength) {
@@ -733,12 +775,12 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 		  if (storeNode == null) {
 		  	String  hostName = storeNodePath.get(2);
 				/* Pass the JSON element to another routine for further handling */
-				HDLmTree.addTreeNode(jsonElement, hostName, storeNodePath);
+				HDLmTree.addTreeNode(jsonElementRule, hostName, storeNodePath);
 				/* Log the current change */		  
 				HDLmChange.recordChange(HDLmChangeSourceTypes.CHANGESOURCESOCKETS, 
 								                HDLmChangeTypes.CHANGETYPEADD,
 								                storeNodePath, 
-								                jsonElement); 
+								                jsonElementRule); 
 				/* Show that work has been done */
 				workDone = true;	  	
 		  }
@@ -749,12 +791,12 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 				  LOG.debug("In HDLmWebSocketInternalAdapter.handleMessageUpdateTreeNode - about to update tree node");
 				/* LOG.info("In HDLmWebSocketInternalAdapter.handleMessageUpdateTreeNode"); */
 				/* Pass the JSON element to another routine for further handling */
-				HDLmTree.updateTreeNode(storeNode, jsonElement);
+				HDLmTree.updateTreeNode(storeNode, jsonElementRule);
 				/* Log the current change */		  
 				HDLmChange.recordChange(HDLmChangeSourceTypes.CHANGESOURCESOCKETS, 
 								                HDLmChangeTypes.CHANGETYPEMODIFY,
 								                storeNodePath, 
-								                jsonElement); 
+								                jsonElementRule); 
 				/* Show that work has been done */
 				workDone = true;
 		  }

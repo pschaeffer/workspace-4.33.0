@@ -719,6 +719,33 @@ public class HDLmTree {
       HDLmTree.addPendingInserts(childArray.get(i), processSubNodes);
     }
 	}
+	/* Add a string to a string builder. A comma may also be 
+	   added. */
+	protected static void  addStringBuilder(StringBuilder outBuilder,
+			                                    MutableInt counter,
+			                                    String addString) {
+	  /* Check if the string builder reference passed by the caller is null */		 
+		if (outBuilder == null) {
+			String  errorText = "String builder reference passed by the caller to addStringBuilder is null";
+			throw new NullPointerException(errorText);
+		}
+	  /* Check if the counter reference passed by the caller is null */		 
+		if (counter == null) {
+			String  errorText = "Counter reference passed by the caller to addStringBuilder is null";
+			throw new NullPointerException(errorText);
+		}
+		/* Check if the string (to be added) reference passed by the caller is null */		 
+		if (counter == null) {
+		  String  errorText = "String reference passed by the caller to addStringBuilder is null";
+		  throw new NullPointerException(errorText);
+		}
+		/* Increment and check the counter */
+		counter.increment();
+		if (counter.getValue() > 1)
+			outBuilder.append(',');
+		/* Add the string passed by the caller */ 
+		outBuilder.append(addString);
+	}
 	/* Build the top node of the node tree. This must only be done once. 
 	   This method is in use at this time. This routine initializes the 
 	   tree top node and returns the tree top node to the caller. This 
@@ -1501,6 +1528,8 @@ public class HDLmTree {
 		int         i;
 		MutableInt  rowCounter = new MutableInt();
 		for (i = 0; i < infoArraySize; i++) {
+			if (i == 285)
+				i = i;
 			/* Reset the counter for the current row for each row */
 			rowCounter.setValue(0);
 			/* Check if we need to add a comma */
@@ -1541,8 +1570,22 @@ public class HDLmTree {
 			if (!jsonPrimitive.isString()) {
 				HDLmAssertAction(false, "JSON field element is not a JSON string value");
 			}	
-		  String  nameStr = jsonPrimitive.getAsString();		   
-		  HDLmTree.buildJsonStrings(outBuilder, rowCounter, "name", nameStr);
+			/* Get the rule name as a string. Note that this string 
+			   does not have double quotes around it nor does it have 
+			   escapes before each double quote. */ 
+		  String  nameStr = jsonPrimitive.getAsString();	
+		  /* Build an object with the rule name in it. The rule
+		     name is passed to the object constructor as a string. */ 
+		  HDLmJsonName  nameObject = new HDLmJsonName(nameStr);		
+		  /* Convert the new object instance to JSON */
+			Gson    gsonInstance = HDLmMain.gsonMain;
+			String  nameJson = gsonInstance.toJson(nameObject);	 
+			/* Remove the leading and trailing braces from the JSON string. 
+			   The leading and trailing braces are added because an object  
+			   is converted to JSON. */ 	
+			int   nameJsonlen = nameJson.length();
+			nameJson = nameJson.substring(1, nameJsonlen-1);
+		  HDLmTree.addStringBuilder(outBuilder, rowCounter, nameJson);
 		  outBuilder.append('}');
 		}
 		/* Finish the output string */

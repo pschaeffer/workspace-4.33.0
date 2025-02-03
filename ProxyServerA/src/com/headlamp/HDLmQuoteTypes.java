@@ -12,7 +12,7 @@ import com.google.gson.annotations.SerializedName;
  * @author Peter
  */
 /* The enum below defines the types of quotes supported by this
-   code. Two types of quotes are supported. Java uses double 
+   code. Three types of quotes are supported. Java uses double 
    quotes for strings and single quotes for characters. Other
    computer languages are more flexible. The only general rule
    is that anything that starts with one type of quote must 
@@ -20,9 +20,10 @@ import com.google.gson.annotations.SerializedName;
 public enum HDLmQuoteTypes {
 	NONE(0), 
 	DOUBLE(1),  
-	SINGLE(2);
+	SINGLE(2),
+	ACCENT(3);
 	private static final ArrayList<String>  typeValues = new ArrayList<String>(
-		List.of("NONE", "DOUBLE", "SINGLE"));	 
+		List.of("NONE", "DOUBLE", "SINGLE", "ACCENT")); 
 	/* Add a field to each enum */
 	private final int enumValue;
 	/* Provide a constructor for the enum */

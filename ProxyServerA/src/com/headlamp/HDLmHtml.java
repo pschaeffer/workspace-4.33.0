@@ -1,6 +1,8 @@
 package com.headlamp;
 import static com.headlamp.HDLmAssert.HDLmAssertAction;
 import java.lang.reflect.Array;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +16,7 @@ import org.graalvm.polyglot.*;
 import org.graalvm.polyglot.proxy.*;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.mozilla.javascript.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 /**
@@ -584,19 +587,161 @@ public class HDLmHtml {
 			throw new NullPointerException(errorText);			
 		}
     return buildHeader("X-Amz-Target", targetStr);
-  }
-  /* This routine checks if some JavaScript is valid or not. This routine 
-     returns true, if the JavaScript is valid. This routine returns false, 
-     if the JavaScript is not valid. The caller can specify if errors should
-     be reported or not. */  
-	protected static boolean  checkIfJavaScriptValid(String script, 
+  }  
+	/* This routine checks if some JavaScript is valid or not. This routine 
+	   returns true, if the JavaScript is valid. This routine returns false, 
+	   if the JavaScript is not valid. The caller can specify if errors should
+	   be reported or not. */  
+	protected static boolean  checkIfJavaScriptValid(final String script, 
 			                                             final HDLmReportErrors reportErrors) {
 		/* Check if the JavaScript string is null */
 		if (script == null) {
 			String errorText = "Script string passed to checkIfJavaScriptValid is null";
 			throw new NullPointerException(errorText);
 		}
+		/* Check if the report errors enum is null */
+		if (reportErrors == null) {
+			String errorText = "Report errors enum passed to checkIfJavaScriptValid is null";
+			throw new NullPointerException(errorText);
+		}
+		/* Check if the report errors enum is set to NONE */
+		if (reportErrors == HDLmReportErrors.NONE) {
+			String errorText = "Report errors enum passed to checkIfJavaScriptValid is set to NONE";
+			throw new NullPointerException(errorText);
+		}		 
+		String  rvStr = null; 
+		/* Build the new script string */
+		String  newScript = script; 
+		/* Build the final JavaScript string using the new JavaScript */
+		String  finalScript = newScript; 
+		/* Build the context used to check the JavaScript */
+		org.mozilla.javascript.ContextFactory  contextFactory = new org.mozilla.javascript.ContextFactory();		
+    org.mozilla.javascript.Context  context = contextFactory.enterContext();
+    /* Try to compile the JavaScript (create an AST) */
+    try {
+      /* Disable optimizations for syntax checking */
+    	context.setOptimizationLevel(-1); 
+    	context.compileString(finalScript, "your_javascript_file.js", 1, null);
+    } 
+    /* Check if any exceptions occurred while compiling the JavaScript */
+    catch (EvaluatorException evaluatorException) {
+    	rvStr = evaluatorException.getMessage();	
+    	rvStr = "SyntaxError: " + rvStr;
+			/* Check if we should report errors. In some cases, this routine
+		     is called when we expect errors. These errors should not be
+		     reported. */
+	  	if (reportErrors == HDLmReportErrors.REPORTERRORS) { 
+			  if (script != null)
+			    LOG.info("script value - " + script);
+	  		LOG.info("Evaluator exception while compiling script in checkIfJavaScriptValid");
+			  LOG.info(evaluatorException.getMessage(), evaluatorException);
+			  HDLmEvent.eventOccurred("EvaluatorException");
+		  }
+    }
+  	catch (Exception exception) {
+    	rvStr = exception.getMessage();	
+    	rvStr = "SyntaxError: " + rvStr;
+			/* Check if we should report errors. In some cases, this routine
+		     is called when we expect errors. These errors should not be
+		     reported. */
+	  	if (reportErrors == HDLmReportErrors.REPORTERRORS) { 
+			  if (script != null)
+			    LOG.info("script value - " + script);
+	  		LOG.info("Exception while compiling script in checkIfJavaScriptValid");
+			  LOG.info(exception.getMessage(), exception);
+			  HDLmEvent.eventOccurred("Exception");
+		  }
+    }   	
+    /* As a final step, get rid of the context that was created
+       earlier */ 
+    finally {
+    	org.mozilla.javascript.Context.exit();
+    }
+    /* Optionaly log some debugging information */
+	  boolean   logIsDebugEnabled=LOG.isDebugEnabled();
+		if (logIsDebugEnabled) {
+		  LOG.info("Original script - " + script);
+		  if (rvStr != null)
+		    LOG.info("Return string - " + rvStr);
+		}
+		/* Check if the JavaScript passed by the caller is valid or not */
+		String  syntaxErrorStr = HDLmDefines.getString("HDLMRHINOSYNTAXERROR");
+		if (rvStr != null && 
+				rvStr.contains(syntaxErrorStr))
+			return false;
+		return true;
+	}		
+  /* This routine checks if some JavaScript is valid or not. This routine 
+     returns true, if the JavaScript is valid. This routine returns false, 
+     if the JavaScript is not valid. The caller can specify if errors should
+     be reported or not. */  
+	protected static boolean  checkIfJavaScriptValidNotInUse(final String script, 
+			                                                     final HDLmReportErrors reportErrors) {
+		/* Check if the JavaScript string is null */
+		if (script == null) {
+			String errorText = "Script string passed to checkIfJavaScriptValidOld is null";
+			throw new NullPointerException(errorText);
+		}
   	/* Check if the report errors enum is null */
+		if (reportErrors == null) {
+			String errorText = "Report errors enum passed to checkIfJavaScriptValidOld is null";
+			throw new NullPointerException(errorText);
+		}
+		/* Check if the report errors enum is set to NONE */
+		if (reportErrors == HDLmReportErrors.NONE) {
+			String errorText = "Report errors enum passed to checkIfJavaScriptValidOld is set to NONE";
+			throw new NullPointerException(errorText);
+		}
+		if (1 == 2)
+		  return true;
+		/*
+		HDLmHtml.checkIfJavaScriptValidRhino(script, reportErrors);
+		*/
+		/*
+		int  lenScript = script.length();
+		if (lenScript > 59 &&
+				script.charAt(59) == '{') { 
+			script = script.substring(0, 60) +  " console.log('Hxllo') ; " + script.substring(60);
+		}
+	  */
+		/* Build the new script string, replacing all of the single quote 
+		   characters with an escape sequence. The x22 is an ASCII double
+		   quote. The x27 is an ASCII single quote. The ASCII single 
+		   quote (apostrophe) is used for many things. The code below does 
+		   not work. */
+		String  newScript = HDLmAi.changeJavaScriptNotInUse(script); 
+		/* Build the final JavaScript string using the passed JavaScript */
+		String  finalScript = "new Function(`" + newScript + "`);"; 
+		/* Try to execute the final JavaScript */
+		String  rvStr = HDLmHtml.executeJavaScriptNotInUse(finalScript, reportErrors);
+    boolean   logIsDebugEnabled=LOG.isDebugEnabled();
+		if (logIsDebugEnabled) {
+		  LOG.info("Original script - " + script);
+		  LOG.info("New script - " + newScript);
+		  LOG.info("Final script - " + finalScript);
+		  LOG.info("Return string - " + rvStr);
+		}
+		/* Check if the JavaScript passed by the caller is valid or not */
+		String  syntaxErrorStr = HDLmDefines.getString("HDLMGRAALSYNTAXERROR");
+		if (rvStr.contains(syntaxErrorStr))
+			return false;
+		return true;
+	}	
+	/* This routine checks if some JavaScript is valid or not. This routine 
+	   returns true, if the JavaScript is valid. This routine returns false, 
+	   if the JavaScript is not valid. The caller can specify if errors should
+	   be reported or not. 
+	  
+     Rhino is in the name of this code. It is quite unclear if Rhino is 
+	   actually used by this code. */     
+	protected static boolean  checkIfJavaScriptValidRhinoNotInUse(final String script, 
+			                                                          final HDLmReportErrors reportErrors) {
+		/* Check if the JavaScript string is null */
+		if (script == null) {
+			String errorText = "Script string passed to checkIfJavaScriptValid is null";
+			throw new NullPointerException(errorText);
+		}
+		/* Check if the report errors enum is null */
 		if (reportErrors == null) {
 			String errorText = "Report errors enum passed to checkIfJavaScriptValid is null";
 			throw new NullPointerException(errorText);
@@ -606,32 +751,47 @@ public class HDLmHtml {
 			String errorText = "Report errors enum passed to checkIfJavaScriptValid is set to NONE";
 			throw new NullPointerException(errorText);
 		}
-		/*
-		int  lenScript = script.length();
-		if (lenScript > 59 &&
-				script.charAt(59) == '{') { 
-			script = script.substring(0, 60) +  " console.log('Hxllo') ; " + script.substring(60);
-		}
-	  */
-		/* Build the new script string, replacing all of the single quote 
-		   characters with an escape sequence. The x27 is an ASCII single
-		   quote. */
-		String  newScript = HDLmAi.changeJavaScript(script); 
+	  /* Create a script engine manager */
+	  ScriptEngineManager   factory = new ScriptEngineManager();
+	  /* Create a JavaScript engine */
+	  ScriptEngine  engine = factory.getEngineByName("JavaScript");
+		String  newScript = HDLmAi.changeJavaScriptNotInUse(script); 
 		/* Build the final JavaScript string using the passed JavaScript */
 		String  finalScript = "new Function(`" + newScript + "`);"; 
-		/* Try to execute the final JavaScript */
-		String  rvStr = HDLmHtml.executeJavaScript(finalScript, reportErrors);
+		/* Execute some JavaScript */
+		Object  rvObj = null;
+		String  rvStr = null;
+		try {
+			rvObj = engine.eval(finalScript);
+			rvStr = rvObj.toString();
+		} 
+	  catch (ScriptException scriptException) {
+	 	  /* Check if we should report errors. In some cases, this routine
+		     is called when we expect errors. These errors should not be
+		     reported. */
+	 	  if (reportErrors == HDLmReportErrors.REPORTERRORS) { 
+			  if (script != null)
+			    LOG.info("script value - " + script);
+			  LOG.info("Script exception while executing eval in executeJavaScriptUsingEngine");
+			  LOG.info(scriptException.getMessage(), scriptException);
+			  HDLmEvent.eventOccurred("ScriptException");
+	 	  }
+	 	  rvStr = scriptException.getMessage();
+		}
+	  /* 
+		Context  cx = Context.getCurrent();
+		*/
 		/* Check if the JavaScript passed by the caller is valid or not */
-		String  syntaxErrorStr = HDLmDefines.getString("HDLMGRAALSYNTAXERROR");
+		String  syntaxErrorStr = HDLmDefines.getString("HDLMSCRIPTSYNTAXERROR");
 		if (rvStr.contains(syntaxErrorStr))
 			return false;
 		return true;
-	}		
+	}
   /* This routine executes some JavaScript using the scripting 
      engine loaded by this routine. The caller can specify if
      errors should be reported or not. */ 
-	protected static String executeJavaScript(final String script, 
-			                                      final HDLmReportErrors reportErrors) {
+	protected static String executeJavaScriptNotInUse(final String script, 
+			                                              final HDLmReportErrors reportErrors) {
 		/* Check if the JavaScript string is null */
 		if (script == null) {
 			String errorText = "Script string passed to executeJavaScript is null";
@@ -666,15 +826,15 @@ public class HDLmHtml {
 		if (engine == null)
 			HDLmAssertAction(false, "JavaScript scripting engine was not loaded");		
 		/* Execute the passed JavaScript */
-		String  rvStr = HDLmHtml.executeJavaScriptUsingEngine(engine, script, reportErrors);
+		String  rvStr = HDLmHtml.executeJavaScriptUsingEngineNotInUse(engine, script, reportErrors);
 		return rvStr;
 	}		
   /* This routine executes some JavaScript using the scripting 
      engine passed to it. The caller can specify iferrors should
      be reported or not.*/ 
-  protected static String  executeJavaScriptUsingEngine(final ScriptEngine engine, 
-  		                                                  final String script,
-  		                                                  final HDLmReportErrors reportErrors) {
+  protected static String  executeJavaScriptUsingEngineNotInUse(final ScriptEngine engine, 
+  		                                                          final String script,
+  		                                                          final HDLmReportErrors reportErrors) {
   	/* Check if the scripting engine is null */
 		if (engine == null) {
 			String errorText = "Scripting engine reference passed to executeJavaScriptUsingEngine is null";
@@ -709,7 +869,7 @@ public class HDLmHtml {
 			if (reportErrors == HDLmReportErrors.REPORTERRORS) { 
 				if (script != null)
 				  LOG.info("script value - " + script);
-				LOG.info("HDLmHtml while executing eval in executeJavaScriptUsingEngine");
+				LOG.info("Script exception while executing eval in executeJavaScriptUsingEngine");
 				LOG.info(scriptException.getMessage(), scriptException);
 				HDLmEvent.eventOccurred("ScriptException");
 			}

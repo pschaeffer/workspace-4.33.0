@@ -76,6 +76,7 @@ Class-Path:
  ../../../HeadlampJetty/graal/truffle-api-24.0.0.jar 
  ../../../HeadlampJetty/graal/nativeimage-24.0.0.jar 
  ../../../HeadlampJetty/AWS/mergedsecretsmanager.jar 
+ ../../../HeadlampJetty/Mozilla-Rhino/rhino-1.8.0.jar 
 Main-Class: com.headlamp.HDLmMain
 
 

@@ -5833,10 +5833,10 @@ static String HDLmModTreeInfoString = "{" +
 			/* Report that the script is not valid */
 			rv = false;
 			HDLmMod.reportErrorValue(editorType, errors, 
-	                           jsonObject, name, 
-	                           curValue, 
-	                           "Modification JSON invalid script value", 
-	                           4, reportErrors);			
+	                             jsonObject, name, 
+	                             curValue, 
+	                             "Modification JSON invalid script value", 
+	                             4, reportErrors);			
 		}
 		return rv;
 	}

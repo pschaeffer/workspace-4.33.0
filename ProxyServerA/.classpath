@@ -84,5 +84,6 @@
 	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/graal/nativeimage-24.0.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/AWS/mergedsecretsmanager.jar"/>
 	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/TwelveMonkeys/common-image-3.8.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/Mozilla-Rhino/rhino-1.8.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
