@@ -513,6 +513,10 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 		JsonElement   jsonTopElement = null;
 		try {
 			jsonTopElement = parser.parse(outTree);
+			/*
+			if (outTree != null)
+				HDLmUtility.logStringInParts("GetModPart", outTree);
+		  */
 		} 
 		catch (Exception exception) {
 			if (outTree != null)
