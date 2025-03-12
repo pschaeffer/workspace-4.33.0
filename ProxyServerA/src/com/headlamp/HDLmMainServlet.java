@@ -51,7 +51,7 @@ public class HDLmMainServlet extends HttpServlet {
 		/* In some cases, users try to connect using an unsecured port.
 	     We need to redirect them to the secured port immediately.
 	     The secured port using SSL/TLS (these days HTTP2 over SSL/TLS). */ 
-    int  requestLocalPort =  HDLmJetty.getLocalPort(request);
+    int  requestLocalPort = HDLmJetty.getLocalPort(request);
     String  requestPostPayload = null;
     /* At this point we need to build an access message for all requests.
        This message is generated for all requests and should be helpful
