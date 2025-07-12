@@ -1,5 +1,7 @@
 package com.headlamp;
 import static com.headlamp.HDLmAssert.HDLmAssertAction;
+
+import java.lang.management.ManagementFactory;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.KeyStore;
@@ -16,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.NoSuchElementException;
+import java.util.Properties;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -149,7 +152,8 @@ public class HDLmMain {
   /* This code gets a list of application threads and some application
      information about each thread. The information is returned to the
      user. */
-	protected static String appthrContents(String localServer, String clientStr) {
+	protected static String appthrContents(final String localServer, 
+			                                   final String clientStr) {
 		int     threadCount = 0;
 		int     threadLimit = 5000;
 		String  tableHtml;
@@ -203,7 +207,8 @@ public class HDLmMain {
 	  return rv.toString();
 	}
   /* This code returns some application thread statistics HTML to the caller */
-  protected static String appthrStatus(String localServer, String clientStr) {
+  protected static String appthrStatus(final String localServer, 
+  		                                 final String clientStr) {
 		String  tableHtml;
 		/* Create a new string builder for the output HTML */
 		StringBuilder  rv = new StringBuilder();
@@ -245,7 +250,8 @@ public class HDLmMain {
 	   Note that the DOM ia passed by reference here. This is required
 	   because the DOM is actually built in this code. The modified value
 	   must be available to the caller for use later. */
-	protected static boolean beforeFirst(String htmlStr, Document dom) {
+	protected static boolean beforeFirst(final String htmlStr, 
+			                                 final Document dom) {
 	  boolean  firstOk = false;
 	  /* Build a DOM from the HTML */
 	  Document   htmlDoc = Jsoup.parse(htmlStr);
@@ -259,12 +265,13 @@ public class HDLmMain {
 	   data (in JSON form) is then used to build the actual tree of
 	   nodes. Note that this routine does not set or reset the top
 	   tree node value. */
-	protected static HDLmTree  buildNodeTreeMain(HDLmEditorTypes editorType, HDLmStartupMode startupMode) {
+	protected static HDLmTree  buildNodeTreeMain(final HDLmEditorTypes editorType, 
+			                                         final HDLmStartupMode startupMode) {
 		return HDLmMain.buildNodeTreeMain(null, editorType, startupMode);
 	}
-	protected static HDLmTree  buildNodeTreeMain(String jsonStr,
-			                                         HDLmEditorTypes editorType,
-			                                         HDLmStartupMode startupMode) {
+	protected static HDLmTree  buildNodeTreeMain(final String jsonStr,
+		                                           final HDLmEditorTypes editorType,
+			                                         final HDLmStartupMode startupMode) {
 		/* Check a few values passed by the caller */
 		if (jsonStr == null && jsonStr != null) {
 			String   errorText = "JSON string reference passed to buildNodeTreeMain is null";
@@ -306,6 +313,16 @@ public class HDLmMain {
 			if (logIsDebugEnabled)
 		  	LOG.debug(editorType.toString());
 			jsonOut = HDLmMain.getJsonAllRowsFromSource(colName, editorType);
+			/* The following statements were added for testing purposes only */
+			/* 			
+			boolean   jsonContainScript = jsonOut.contains("Script Modification 5");
+			if (jsonContainScript == true) {
+				int  jsonIndexScript = jsonOut.indexOf("17425");   
+				jsonIndexScript = jsonOut.indexOf("17425");   
+				String  jsonSubset = jsonOut.substring(jsonIndexScript-1000, jsonIndexScript+0);
+				String  jsonTemp = "";				
+			}	
+			*/			
 			if (logIsDebugEnabled)
 			  LOG.debug(jsonOut);
 		}
@@ -319,17 +336,6 @@ public class HDLmMain {
 	  HDLmTree.processTree(topNode, pHashInstance);
 		return topNode;
 	}
-	/* Check if we are running under Eclipse. This is done by looking for
-	   a rather specific property that will be set, if we are running
-	   under Eclipse. This code does not appear to work. We do not set
-	   the system property and at present we don't know how to set the
-	   system property. */
-	protected static boolean checkForEclipse() {
-		String  hdlmRunUnderEclipse = System.getProperty("HDLmRunUnderEclipse");
-		if (hdlmRunUnderEclipse == null)
-			return false;
-		return "true".equalsIgnoreCase(hdlmRunUnderEclipse);
-	}
 	/* Process all of the values associated with one replace modification.
 	   We need to consider three cases. Fisrt, the value may be a zero-
 	   length string. This is not an error condition. Zero-length strings
@@ -341,7 +347,7 @@ public class HDLmMain {
 	protected static void  changeReplaceValues(final String company,
 																				     final String division,
 																				     final String site,
-																				     HDLmMod mod) {
+																				     final HDLmMod mod) {
 		/* Check a few values passed by the caller */
 		if (company == null) {
 		  String   errorText = "Modification company reference passed to changeReplaceValues is null";
@@ -415,13 +421,46 @@ public class HDLmMain {
 		if (valuesChange)
 		  mod.setValues(values);
   }
+	/* Check if we are running locally. This is done by looking for
+	   a rather specific environmental variable that will be set, if 
+	   we are running locally. This code does not appear to work. We 
+	   do not set the environmental variable and at present we don't 
+	   know how to set the environmental variable. 
+	   	   
+	   This is no longer true (as of 2025-6-8). We now set the environmental
+	   variable as need be. */  
+	protected static boolean  checkForRunningLocally() {		
+		/* Get the string value for the running locally environment name. 
+	     The current value of the environment variable name is something
+	     (if it exists) like 'true' (without the quotes). */
+  	String  curEnvNameString = HDLmDefines.getString("HDLMRUNNINGLOCALLY");
+		if (curEnvNameString == null) {
+			  String   errorFormat = "Define value for current environment name not found (%s)";
+			  String   errorText = String.format(errorFormat, "HDLMRUNNINGLOCALLY");
+			  HDLmAssertAction(false, errorText);
+		}
+		/* Try to get the value of the current environment variable */
+		String  hdlmRunningLocally = HDLmUtility.getEnvironmentVariableUpper(curEnvNameString);
+		/* Properties  xyzzy = System.getProperties(); */
+		/* LOG.info(xyzzy.toString()); */
+		boolean   logDebugEnabled = LOG.isDebugEnabled();
+    if (logDebugEnabled) {
+			if (hdlmRunningLocally == null)
+				LOG.debug("HDLmRunningLocally - null");
+			else
+			  LOG.debug("HDLmRunningLocally - " + hdlmRunningLocally);
+    }
+		if (hdlmRunningLocally == null)
+			return false;
+		return true;
+	}
 	/* Scan a list of modifications looking for modifications with
 	   a type of replace. Replace modifications are copied and the
-	  c opies are changed to include actual saved data values. */
+	   copies are changed to include actual saved data values. */
 	protected static void  checkForReplace(final String company,
 	                                       final String division,
 	                                       final String site,
-	                                       ArrayList<HDLmMod> mods) {
+	                                       final ArrayList<HDLmMod> mods) {
 		/* Check a few values passed by the caller */
 		if (company == null) {
 			String   errorText = "Modifications company reference passed to checkForReplace is null";
@@ -475,9 +514,9 @@ public class HDLmMain {
 	   the current rules unless pass-through is set at the
 	   company level. In other words, pass-through mode is
 	   turned off. */
-	protected static String checkPassThru(String localServer,
-			                                  String clientStr,
-			                                  HttpServletRequest request) {
+	protected static String checkPassThru(final String localServer,
+         			                          final String clientStr,
+			                                  final HttpServletRequest request) {
 		/* Check a few values passed by the caller */
 		if (localServer == null) {
 			String   errorText = "Local server reference passed to checkPassThru is null";
@@ -638,7 +677,8 @@ public class HDLmMain {
      the clusters. Note that the clusters are not saved anywhere. They are
      determined dynamically. The function below is one of those mechanisms
      for reporting on the clusters. */
-	protected static String clustersContents(String localServer, String clientStr) {
+	protected static String clustersContents(final String localServer, 
+			                                     final String clientStr) {
 		int     clustersCount = 0;
 		int     clustersLimit = 100;
 		String  tableHtml;
@@ -687,7 +727,8 @@ public class HDLmMain {
     return rv.toString();
   }
 	/* This code returns some connection statistics HTML to the caller */
-	protected static String connectionStatus(String localServer, String clientStr) {
+	protected static String connectionStatus(final String localServer, 
+			                                     final String clientStr) {
 		int  connectorCount = 0;
 		String  tableHtml;
 		/* Create a new string builder for the output HTML */
@@ -741,7 +782,8 @@ public class HDLmMain {
 	   the current rules unless pass-through is set at the
 	   company level. In other words, pass-through mode is
 	   turned off at the server level. */
-	protected static String disablePassThruCmdResponse(String localServer, String clientStr) {
+	protected static String disablePassThruCmdResponse(final String localServer, 
+			                                               final String clientStr) {
 		/* Check if the local server string passed by the caller is null */
 		if (localServer == null) {
 			String  errorText = "Local server string passed to disablePassThru is null";
@@ -791,10 +833,10 @@ public class HDLmMain {
 	/* This code starts the pass-through display. This code obtains
 	   an HTML file and returns it to the client. The HTML file
 	   manages the pass-through display. */
-	protected static String displayPassThruCmdResponse(String localServer,
-									                                   String clientStr,
-									                                   HttpServletRequest request,
-									                                   HttpServletResponse response) {
+	protected static String displayPassThruCmdResponse(final String localServer,
+																										 final String clientStr,
+																										 final HttpServletRequest request,
+																										 final HttpServletResponse response) {
 		/* Check if the local server string passed by the caller is null */
 		if (localServer == null) {
 			String  errorText = "Local server string passed to displayPassThruCmdResponse is null";
@@ -821,7 +863,8 @@ public class HDLmMain {
 	  return "";
 	}
 	/* This code returns some elapsed time statistics HTML to the caller */
-	protected static String elapsedStatus(String localServer, String clientStr) {
+	protected static String elapsedStatus(final String localServer, 
+			                                  final String clientStr) {
 		String  tableHtml;
 		/* Create a new string builder for the output HTML */
 		StringBuilder  rv = new StringBuilder();
@@ -926,7 +969,8 @@ public class HDLmMain {
 	   server. This code has the effect of disabling all of
 	   the current rules for all companies. In other words,
 	   pass-through mode is turned on at the server level. */
-	protected static String enablePassThruCmdResponse(String localServer, String clientStr) {
+	protected static String enablePassThruCmdResponse(final String localServer, 
+			                                              final String clientStr) {
 		/* Check if the local server string passed by the caller is null */
 		if (localServer == null) {
 			String  errorText = "Local server string passed to enablePassThru is null";
@@ -975,7 +1019,8 @@ public class HDLmMain {
 	}
 	/* This code checks for rule firing anomalies and returns a HTML
 	   response with all of the rules that have not fired */
-	protected static String eventsCheckAnomalies(String localServer, String clientStr) {
+	protected static String eventsCheckAnomalies(final String localServer, 
+			                                         final String clientStr) {
 		String  tableHtml;
 		/* Create a new string builder for the output HTML */
 		StringBuilder  rv = new StringBuilder();
@@ -1028,7 +1073,8 @@ public class HDLmMain {
 	/* This code checks for JavaScript exceptions and returns a HTML
 	   response with the JavaScript event, if the event count is
 	   greater than zero */
-	protected static String eventsCheckExceptions(String localServer, String clientStr) {
+	protected static String eventsCheckExceptions(final String localServer, 
+			                                          final String clientStr) {
 		HDLmEvent   targetEvent = null;
 		String      tableHtml;
 		/* Create a new string builder for the output HTML */
@@ -1095,7 +1141,8 @@ public class HDLmMain {
 	  return rv.toString();
 	}
 	/* This code returns some events statistics HTML to the caller */
-	protected static String eventsStatus(String localServer, String clientStr) {
+	protected static String eventsStatus(final String localServer, 
+			                                 final String clientStr) {
 		String  tableHtml;
 		/* Create a new string builder for the output HTML */
 		StringBuilder  rv = new StringBuilder();
@@ -1148,9 +1195,9 @@ public class HDLmMain {
 	   is passed by the caller. The caller provides the existing array list of
 	   doubles and the new size. This routine returns true, if no errors were
 	   encountered. This routine returns false, if any error occurred. */
-	protected static boolean  extendArrayList(boolean forceNull,
-			                                      int newSize,
-			                                      ArrayList<Double> doublesArray) {
+	protected static boolean  extendArrayList(final boolean forceNull,
+		                            	          final int newSize,
+			                                      final ArrayList<Double> doublesArray) {
 		/* Check if the new array list size passed by the caller is invalid */
 		if (newSize <= 0) {
 			String  errorText = "New array size value passed to extendArrayList is invalid";
@@ -1216,7 +1263,7 @@ public class HDLmMain {
 	/* Do all of the work needed to get an index value. An array list
      is used here so that it can be modified to return a value to the
      caller. */
-  protected static boolean getIndex(ArrayList<Double> indexArray) {
+  protected static boolean getIndex(final ArrayList<Double> indexArray) {
 	  /* Check if the index array list passed by the caller is null */
 	  if (indexArray == null) {
 	  	String  errorText = "Index array list reference passed to getindex is null";
@@ -1238,7 +1285,7 @@ public class HDLmMain {
 	/* Do all of the work needed to get an index value. An array list
 	   is used here so that it can be modified to return a value to the
 	   caller. */
-  protected static boolean getIndexPossiblyNull(ArrayList<Double> indexArray) {
+  protected static boolean getIndexPossiblyNull(final ArrayList<Double> indexArray) {
   	/* Check if the index array list passed by the caller is null */
 	  if (indexArray == null) {
 		  String  errorText = "Index array list reference passed to getIndexPossiblyNull is null";
@@ -1264,7 +1311,8 @@ public class HDLmMain {
 	   level routine to do the actual work. This routine reports an error
 	   if a JSON string is not returned. The output has all of the rows
 	   for one editor type.*/
-	protected static String  getJsonAllRowsFromSource(String colName, HDLmEditorTypes editorType) {
+	protected static String  getJsonAllRowsFromSource(final String colName, 
+			                                              final HDLmEditorTypes editorType) {
 		/* Check a few values passed by the caller */
 		if (colName == null) {
 			String   errorText = "Column name reference passed to getJsonAllRowsFromSource is null";
@@ -1313,7 +1361,8 @@ public class HDLmMain {
 	   could change. The caller indicates what should be obtained. The
 	   output JSON string is returned to the caller. The output has all
 	   of the rows for one editor type. */
-	protected static String  getJsonStringFromSource(String colName, HDLmEditorTypes editorType) {
+	protected static String  getJsonStringFromSource(final String colName, 
+			                                             final HDLmEditorTypes editorType) {
 		/* Check a few values passed by the caller */
 		if (colName == null) {
 			String   errorText = "Column name reference passed to getJsonStringFromSource is null";
@@ -1377,20 +1426,20 @@ public class HDLmMain {
      functions could not be built for some reason. This should
      not happen, but might happen anyways. */
   @SuppressWarnings("unused")
-	protected static String getJsMain(HttpServletRequest request,
-		  		                          HttpServletResponse response,
-		  		                          HDLmProtocolTypes protocol,
-		  		                          HDLmPassThruStatus passThru,
-		  		                          String clientStr,
-		  		                          String timeStamp,
-		                                String companySecure,
-		                                String company,
-		                                String division,
-		                                String site,
-		                                String referrerPathValueStr,
-		                                HDLmLogMatchingTypes logMatching,
-		                                HDLmUsePathValue usePathValue,
-		                                String serverName) {
+	protected static String getJsMain(final HttpServletRequest request,
+																		final HttpServletResponse response,
+																		final HDLmProtocolTypes protocol,
+																		final HDLmPassThruStatus passThru,
+																		final String clientStr,
+																		final String timeStamp,
+																		final String companySecure,
+																		final String company,
+																		final String division,
+																		final String site,
+																	  String referrerPathValueStr,
+																		final HDLmLogMatchingTypes logMatching,
+																		final HDLmUsePathValue usePathValue,
+																		final String serverName) {
   	boolean       cacheFetchFailed = false;
   	boolean       forceNewExperiment = false;
   	boolean       logIsDebugEnabled = LOG.isDebugEnabled();
@@ -1815,13 +1864,13 @@ public class HDLmMain {
      Another possibility is that both company entries don't exist. In that
      case, neither company entry is going to be used because they both
      don't exist. */
-  protected static boolean  getMods(ArrayList<HDLmMod> mods,
-  		                              HDLmPassThruStatus passThru,
-  		                              String company,
-                                    String division,
-                                    String site,
-                                    String referrerPathValueStr,
-                                    HDLmUsePathValue usePathValue) {
+  protected static boolean  getMods(final ArrayList<HDLmMod> mods,
+															  		final HDLmPassThruStatus passThru,
+															  		String company,
+															  		final String division,
+															  		final String site,
+															  		final String referrerPathValueStr,
+															  		final  HDLmUsePathValue usePathValue) {
   	HDLmTiming.addTiming(HDLmTimingTypes.GENERAL, "After entry to getMods");
     boolean  modsStatusOkNotOk = false;
     /* Clear the array list of modifications */
@@ -2004,7 +2053,7 @@ public class HDLmMain {
      by the caller. The return value is used to show if this routine
      worked, or not. */
   protected static boolean getParameters(ArrayList<Double> parametersArray,
-  		                                   int parametersCount) {
+  		                                   final int parametersCount) {
   	/* Check if the parameters array list passed by the caller is null */
 		if (parametersArray == null) {
 			String  errorText = "Parameters array list reference passed to getParameters is null";
@@ -2095,8 +2144,8 @@ public class HDLmMain {
      product parameter values may be set (reset) to null values
      depending on the current limit value and a random number
      generator. */
-	protected static boolean getParametersPossiblyNull(ArrayList<Double> parametersArray,
-			                                               int parametersCount) {
+	protected static boolean getParametersPossiblyNull(final ArrayList<Double> parametersArray,
+			                                               final int parametersCount) {
   	/* Check if the parameters array list passed by the caller is null */
 		if (parametersArray == null) {
 			String  errorText = "Parameters array list reference passed to getParametersPossiblyNull is null";
@@ -2151,10 +2200,10 @@ public class HDLmMain {
 	}
 	/* This code gets some information for the pass-through display.
 	   The type of information is specified as part of the request. */
-	protected static String getPassThruStatusCmdResponse(String localServer,
-			                                                 String clientStr,
-			                                                 HttpServletRequest request,
-			                                                 HttpServletResponse response) {
+	protected static String getPassThruStatusCmdResponse(final String localServer,
+																											 final String clientStr,
+																											 final HttpServletRequest request,
+																											 final HttpServletResponse response) {
 		/* Check if the local server string passed by the caller is null */
 		if (localServer == null) {
 			String  errorText = "Local server string passed to getPassThruStatusCmdResponse is null";
@@ -2380,8 +2429,12 @@ public class HDLmMain {
 		String  AWSAccessKeyId = HDLmConfigInfo.getAccessKeyId();
 		System.out.println(AWSAccessKeyId);
 		*/
+		/* The following statement was used to test database connections. 
+		   This statement is not really needed. Note, that the return 
+		   value is not saved and used. */ 
+		/* HDLmDatabase.getConnection(); */    
 		/* Get the Hikari data source. This call has the effect
-		   of building the JDBC connection pool. */
+		   of building the JDBC connection pool. */ 
 		HDLmHikariPool.getDataSource();
 		/* Initialize undo/redo processing. This is done by calling
 		   an initialization routine to the undo/redo module. */ 
@@ -2401,88 +2454,98 @@ public class HDLmMain {
 		   to run JavaScript code, without any reported errors. This call is only
 		   needed once, which is why it is made here. */ 
 		HDLmHtml.setProperties();	
-		
-		String  message = "{\"rules\":[{\"tooltip\":\"Script modification\",\"type\":\"mod\",\"children\":[],\"containerWidget\":null,\"details\":{\"name\":\"Mod These Changes Enhance Readability And Clearly Define The Script\",\"extra\":\"\",\"enabled\":true,\"type\":\"script\",\"created\":\"2025-01-26T22:53:07.162Z\",\"lastmodified\":\"2025-01-26T22:53:07.162Z\",\"pathvalue\":\"/yoga-direct-1-4-inch-yoga-mat.html\",\"comments\":\"\",\"usemode\":\"test\",\"cssselector\":\"\",\"xpath\":\"\",\"find\":[],\"nodeiden\":{\"type\":\"tag\",\"attributes\":{\"tag\":\"head\"},\"counts\":{\"tag\":1},\"parent\":{\"tag\":\"html\"}},\"parameter\":0,\"scripts\":[\"\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = 'body { font-family: \\\\'Roboto Condensed\\\\', sans-serif; font-size: 14px; line-height: 1.6; color: #333; }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = 'h1.page_headers, .saleprice.price { color: #2D5C73; }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.saleprice.price { font-weight: bold; font-size: 18px; }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.product-details h1.page_headers { margin-bottom: 20px; }';\\n  document.head.appendChild(styleSheet);\\n}\"],\"updated\":false},\"nodePath\":[\"Top\",\"Companies\",\"www.yogadirect.com\",\"Rules\",\"example.com\",\"example.com\",\"Mod These Changes Enhance Readability And Clearly Define The Script\"]},{\"tooltip\":\"Script modification\",\"type\":\"mod\",\"children\":[],\"containerWidget\":null,\"details\":{\"name\":\"Mod Storytelling Humanizes The Product, Making It Relatable Script\",\"extra\":\"\",\"enabled\":true,\"type\":\"script\",\"created\":\"2025-01-26T22:53:07.167Z\",\"lastmodified\":\"2025-01-26T22:53:07.167Z\",\"pathvalue\":\"/yoga-direct-1-4-inch-yoga-mat.html\",\"comments\":\"\",\"usemode\":\"test\",\"cssselector\":\"\",\"xpath\":\"\",\"find\":[],\"nodeiden\":{\"type\":\"tag\",\"attributes\":{\"tag\":\"head\"},\"counts\":{\"tag\":1},\"parent\":{\"tag\":\"html\"}},\"parameter\":0,\"scripts\":[\"    document.addEventListener(\\\"DOMContentLoaded\\\", function() {\\n        var productStoryHTML = \\\"<div id='product-story' class='product-story'><h2>Why Our Customers Love This Mat</h2><p>Our 1/4 Inch Yoga Mat is trusted by yoga practitioners worldwide for its perfect balance of comfort and durability. It's praised for transforming yoga practices into a beautiful experience. Join our community of wellness with every pose.</p></div>\\\";\\n        var descriptionSection = document.querySelector(\\\".short-description\\\");\\n        if (descriptionSection) {\\n            descriptionSection.insertAdjacentHTML('beforebegin', productStoryHTML);\\n        }\\n    });\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.product-story {\\\\n        background-color: #f9f9f9;\\\\n        padding: 20px;\\\\n        margin-bottom: 30px;\\\\n        border-radius: 8px;\\\\n        box-shadow: 0 2px 4px rgba(0,0,0,0.1);\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.product-story h2 {\\\\n        font-family: \\\\'Roboto Condensed\\\\', sans-serif;\\\\n        color: #333;\\\\n        font-size: 24px;\\\\n        margin-bottom: 10px;\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.product-story p {\\\\n        font-family: \\\\'Lato\\\\', sans-serif;\\\\n        color: #555;\\\\n        line-height: 1.6;\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\"],\"updated\":false},\"nodePath\":[\"Top\",\"Companies\",\"www.yogadirect.com\",\"Rules\",\"example.com\",\"example.com\",\"Mod Storytelling Humanizes The Product, Making It Relatable Script\"]},{\"tooltip\":\"Script modification\",\"type\":\"mod\",\"children\":[],\"containerWidget\":null,\"details\":{\"name\":\"Mod Improving The Use Of Whitespace Around Product Details Script\",\"extra\":\"\",\"enabled\":true,\"type\":\"script\",\"created\":\"2025-01-26T22:53:07.169Z\",\"lastmodified\":\"2025-01-26T22:53:07.169Z\",\"pathvalue\":\"/yoga-direct-1-4-inch-yoga-mat.html\",\"comments\":\"\",\"usemode\":\"test\",\"cssselector\":\"\",\"xpath\":\"\",\"find\":[],\"nodeiden\":{\"type\":\"tag\",\"attributes\":{\"tag\":\"head\"},\"counts\":{\"tag\":1},\"parent\":{\"tag\":\"html\"}},\"parameter\":0,\"scripts\":[\"\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.product-details, .product-cols { padding: 20px; }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.main-image, .addl-images { margin-bottom: 20px; }';\\n  document.head.appendChild(styleSheet);\\n}\"],\"updated\":false},\"nodePath\":[\"Top\",\"Companies\",\"www.yogadirect.com\",\"Rules\",\"example.com\",\"example.com\",\"Mod Improving The Use Of Whitespace Around Product Details Script\"]}],\"HDLmRequestType\":\"storeTreeNodes\"}\r\n"
+		/* The following looks like debugging code, added for testing 
+		   purposed only. This comment was added on 2025/06/04. */ 
+		/* 		
+		String  message = "{\"rules\":[{\"tooltip\":\"Script modification\",\"type\":\"mod\",\"children\":[],\"containerWidget\":null,\"details\":{\"name\":\"Mod These Changes Enhance Readability And Clearly Define The Script\",\"extra\":\"\",\"enabled\":true,\"type\":\"script\",\"created\":\"2025-01-26T22:53:07.162Z\",\"lastmodified\":\"2025-01-26T22:53:07.162Z\",\"pathvalue\":\"/yoga-direct-1-4-inch-yoga-mat.html\",\"comments\":\"\",\"prob\":100.0,\"usemode\":\"test\",\"cssselector\":\"\",\"xpath\":\"\",\"find\":[],\"nodeiden\":{\"type\":\"tag\",\"attributes\":{\"tag\":\"head\"},\"counts\":{\"tag\":1},\"parent\":{\"tag\":\"html\"}},\"parameter\":0,\"scripts\":[\"\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = 'body { font-family: \\\\'Roboto Condensed\\\\', sans-serif; font-size: 14px; line-height: 1.6; color: #333; }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = 'h1.page_headers, .saleprice.price { color: #2D5C73; }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.saleprice.price { font-weight: bold; font-size: 18px; }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.product-details h1.page_headers { margin-bottom: 20px; }';\\n  document.head.appendChild(styleSheet);\\n}\"],\"updated\":false},\"nodePath\":[\"Top\",\"Companies\",\"www.yogadirect.com\",\"Rules\",\"example.com\",\"example.com\",\"Mod These Changes Enhance Readability And Clearly Define The Script\"]},{\"tooltip\":\"Script modification\",\"type\":\"mod\",\"children\":[],\"containerWidget\":null,\"details\":{\"name\":\"Mod Storytelling Humanizes The Product, Making It Relatable Script\",\"extra\":\"\",\"enabled\":true,\"type\":\"script\",\"created\":\"2025-01-26T22:53:07.167Z\",\"lastmodified\":\"2025-01-26T22:53:07.167Z\",\"pathvalue\":\"/yoga-direct-1-4-inch-yoga-mat.html\",\"comments\":\"\",\"prob\":100.0,\"usemode\":\"test\",\"cssselector\":\"\",\"xpath\":\"\",\"find\":[],\"nodeiden\":{\"type\":\"tag\",\"attributes\":{\"tag\":\"head\"},\"counts\":{\"tag\":1},\"parent\":{\"tag\":\"html\"}},\"parameter\":0,\"scripts\":[\"    document.addEventListener(\\\"DOMContentLoaded\\\", function() {\\n        var productStoryHTML = \\\"<div id='product-story' class='product-story'><h2>Why Our Customers Love This Mat</h2><p>Our 1/4 Inch Yoga Mat is trusted by yoga practitioners worldwide for its perfect balance of comfort and durability. It's praised for transforming yoga practices into a beautiful experience. Join our community of wellness with every pose.</p></div>\\\";\\n        var descriptionSection = document.querySelector(\\\".short-description\\\");\\n        if (descriptionSection) {\\n            descriptionSection.insertAdjacentHTML('beforebegin', productStoryHTML);\\n        }\\n    });\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.product-story {\\\\n        background-color: #f9f9f9;\\\\n        padding: 20px;\\\\n        margin-bottom: 30px;\\\\n        border-radius: 8px;\\\\n        box-shadow: 0 2px 4px rgba(0,0,0,0.1);\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.product-story h2 {\\\\n        font-family: \\\\'Roboto Condensed\\\\', sans-serif;\\\\n        color: #333;\\\\n        font-size: 24px;\\\\n        margin-bottom: 10px;\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.product-story p {\\\\n        font-family: \\\\'Lato\\\\', sans-serif;\\\\n        color: #555;\\\\n        line-height: 1.6;\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\"],\"updated\":false},\"nodePath\":[\"Top\",\"Companies\",\"www.yogadirect.com\",\"Rules\",\"example.com\",\"example.com\",\"Mod Storytelling Humanizes The Product, Making It Relatable Script\"]},{\"tooltip\":\"Script modification\",\"type\":\"mod\",\"children\":[],\"containerWidget\":null,\"details\":{\"name\":\"Mod Improving The Use Of Whitespace Around Product Details Script\",\"extra\":\"\",\"enabled\":true,\"type\":\"script\",\"created\":\"2025-01-26T22:53:07.169Z\",\"lastmodified\":\"2025-01-26T22:53:07.169Z\",\"pathvalue\":\"/yoga-direct-1-4-inch-yoga-mat.html\",\"comments\":\"\",\"prob\":100.0,\"usemode\":\"test\",\"cssselector\":\"\",\"xpath\":\"\",\"find\":[],\"nodeiden\":{\"type\":\"tag\",\"attributes\":{\"tag\":\"head\"},\"counts\":{\"tag\":1},\"parent\":{\"tag\":\"html\"}},\"parameter\":0,\"scripts\":[\"\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.product-details, .product-cols { padding: 20px; }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.main-image, .addl-images { margin-bottom: 20px; }';\\n  document.head.appendChild(styleSheet);\\n}\"],\"updated\":false},\"nodePath\":[\"Top\",\"Companies\",\"www.yogadirect.com\",\"Rules\",\"example.com\",\"example.com\",\"Mod Improving The Use Of Whitespace Around Product Details Script\"]}],\"HDLmRequestType\":\"storeTreeNodes\"}\r\n"
 				+ "";
-		message = "{\"rules\":[{\"tooltip\":\"Script modification\",\"type\":\"mod\",\"children\":[],\"containerWidget\":null,\"details\":{\"name\":\"Mod Enhancing Whitespace Between Elements Helps In Better Visual Script\",\"extra\":\"\",\"enabled\":true,\"type\":\"script\",\"created\":\"2025-01-27T19:45:15.935Z\",\"lastmodified\":\"2025-01-27T19:45:15.935Z\",\"pathvalue\":\"/yoga-direct-1-4-inch-yoga-mat.html\",\"comments\":\"\",\"usemode\":\"test\",\"cssselector\":\"\",\"xpath\":\"\",\"find\":[],\"nodeiden\":{\"type\":\"tag\",\"attributes\":{\"tag\":\"head\"},\"counts\":{\"tag\":1},\"parent\":{\"tag\":\"html\"}},\"parameter\":0,\"scripts\":[\"\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.product-details { margin-top: 20px; }';\\n  document.head.appendChild(styleSheet);\\n}\"],\"updated\":false},\"nodePath\":[\"Top\",\"Companies\",\"www.yogadirect.com\",\"Rules\",\"example.com\",\"example.com\",\"Mod Enhancing Whitespace Between Elements Helps In Better Visual Script\"]},{\"tooltip\":\"Script modification\",\"type\":\"mod\",\"children\":[],\"containerWidget\":null,\"details\":{\"name\":\"Mod Storytelling Helps In Creating An Emotional Connection Script\",\"extra\":\"\",\"enabled\":true,\"type\":\"script\",\"created\":\"2025-01-27T19:45:15.940Z\",\"lastmodified\":\"2025-01-27T19:45:15.940Z\",\"pathvalue\":\"/yoga-direct-1-4-inch-yoga-mat.html\",\"comments\":\"\",\"usemode\":\"test\",\"cssselector\":\"\",\"xpath\":\"\",\"find\":[],\"nodeiden\":{\"type\":\"tag\",\"attributes\":{\"tag\":\"head\"},\"counts\":{\"tag\":1},\"parent\":{\"tag\":\"html\"}},\"parameter\":0,\"scripts\":[\"    (function() {\\n        var storytellingDiv = document.createElement('div');\\n        storytellingDiv.className = 'storytelling';\\n        storytellingDiv.innerHTML = \\\"<h2>Discover Your Perfect Yoga Companion</h2><p>Embrace every pose with comfort and stability on our premium yoga mat, designed to inspire confidence in every practice. Join thousands of satisfied customers and take your yoga journey to new heights.</p><p><a href='#buy-now' class='call-to-action'>Buy Now</a></p>\\\";\\n        var productDetails = document.querySelector('.product-details');\\n        if (productDetails) {\\n            productDetails.insertAdjacentElement('beforebegin', storytellingDiv);\\n        }\\n    })();\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.storytelling {\\\\n        background-color: #f5f5f5;\\\\n        padding: 20px;\\\\n        margin: 20px 0;\\\\n        border-radius: 5px;\\\\n        text-align: center;\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.storytelling h2 {\\\\n        font-family: \\\\'Playfair Display\\\\', serif;\\\\n        color: #333;\\\\n        font-weight: 700;\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.storytelling p {\\\\n        font-family: \\\\'Lato\\\\', sans-serif;\\\\n        color: #555;\\\\n        font-size: 16px;\\\\n        margin: 10px 0;\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.storytelling .call-to-action {\\\\n        display: inline-block;\\\\n        padding: 10px 20px;\\\\n        color: #fff;\\\\n        background-color: #f57c00;\\\\n        border-radius: 3px;\\\\n        text-decoration: none;\\\\n        font-weight: 700;\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.storytelling .call-to-action:hover {\\\\n        background-color: #e65100;\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\"],\"updated\":false},\"nodePath\":[\"Top\",\"Companies\",\"www.yogadirect.com\",\"Rules\",\"example.com\",\"example.com\",\"Mod Storytelling Helps In Creating An Emotional Connection Script\"]},{\"tooltip\":\"Script modification\",\"type\":\"mod\",\"children\":[],\"containerWidget\":null,\"details\":{\"name\":\"Mod A Consistent Button Style With Contrasting Colors Will Script\",\"extra\":\"\",\"enabled\":true,\"type\":\"script\",\"created\":\"2025-01-27T19:45:15.942Z\",\"lastmodified\":\"2025-01-27T19:45:15.942Z\",\"pathvalue\":\"/yoga-direct-1-4-inch-yoga-mat.html\",\"comments\":\"\",\"usemode\":\"test\",\"cssselector\":\"\",\"xpath\":\"\",\"find\":[],\"nodeiden\":{\"type\":\"tag\",\"attributes\":{\"tag\":\"head\"},\"counts\":{\"tag\":1},\"parent\":{\"tag\":\"html\"}},\"parameter\":0,\"scripts\":[\"document.querySelectorAll('button').forEach(function(btn) { btn.style.backgroundColor = '#2a9d8f'; btn.style.color = '#fff'; btn.style.borderRadius = '5px'; btn.addEventListener('mouseover', function() { this.style.backgroundColor = '#21867a'; }); btn.addEventListener('mouseout', function() { this.style.backgroundColor = '#2a9d8f'; }); });\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = 'button { background-color: #2a9d8f; color: #fff; border-radius: 5px; }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = 'button:hover { background-color: #21867a; }';\\n  document.head.appendChild(styleSheet);\\n}\"],\"updated\":false},\"nodePath\":[\"Top\",\"Companies\",\"www.yogadirect.com\",\"Rules\",\"example.com\",\"example.com\",\"Mod A Consistent Button Style With Contrasting Colors Will Script\"]}],\"HDLmRequestType\":\"storeTreeNodes\"}\r\n"
+		message = "{\"rules\":[{\"tooltip\":\"Script modification\",\"type\":\"mod\",\"children\":[],\"containerWidget\":null,\"details\":{\"name\":\"Mod Enhancing Whitespace Between Elements Helps In Better Visual Script\",\"extra\":\"\",\"enabled\":true,\"type\":\"script\",\"created\":\"2025-01-27T19:45:15.935Z\",\"lastmodified\":\"2025-01-27T19:45:15.935Z\",\"pathvalue\":\"/yoga-direct-1-4-inch-yoga-mat.html\",\"comments\":\"\",\"prob\":100.0,\"usemode\":\"test\",\"cssselector\":\"\",\"xpath\":\"\",\"find\":[],\"nodeiden\":{\"type\":\"tag\",\"attributes\":{\"tag\":\"head\"},\"counts\":{\"tag\":1},\"parent\":{\"tag\":\"html\"}},\"parameter\":0,\"scripts\":[\"\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.product-details { margin-top: 20px; }';\\n  document.head.appendChild(styleSheet);\\n}\"],\"updated\":false},\"nodePath\":[\"Top\",\"Companies\",\"www.yogadirect.com\",\"Rules\",\"example.com\",\"example.com\",\"Mod Enhancing Whitespace Between Elements Helps In Better Visual Script\"]},{\"tooltip\":\"Script modification\",\"type\":\"mod\",\"children\":[],\"containerWidget\":null,\"details\":{\"name\":\"Mod Storytelling Helps In Creating An Emotional Connection Script\",\"extra\":\"\",\"enabled\":true,\"type\":\"script\",\"created\":\"2025-01-27T19:45:15.940Z\",\"lastmodified\":\"2025-01-27T19:45:15.940Z\",\"pathvalue\":\"/yoga-direct-1-4-inch-yoga-mat.html\",\"comments\":\"\",\"prob\":100.0,\"usemode\":\"test\",\"cssselector\":\"\",\"xpath\":\"\",\"find\":[],\"nodeiden\":{\"type\":\"tag\",\"attributes\":{\"tag\":\"head\"},\"counts\":{\"tag\":1},\"parent\":{\"tag\":\"html\"}},\"parameter\":0,\"scripts\":[\"    (function() {\\n        var storytellingDiv = document.createElement('div');\\n        storytellingDiv.className = 'storytelling';\\n        storytellingDiv.innerHTML = \\\"<h2>Discover Your Perfect Yoga Companion</h2><p>Embrace every pose with comfort and stability on our premium yoga mat, designed to inspire confidence in every practice. Join thousands of satisfied customers and take your yoga journey to new heights.</p><p><a href='#buy-now' class='call-to-action'>Buy Now</a></p>\\\";\\n        var productDetails = document.querySelector('.product-details');\\n        if (productDetails) {\\n            productDetails.insertAdjacentElement('beforebegin', storytellingDiv);\\n        }\\n    })();\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.storytelling {\\\\n        background-color: #f5f5f5;\\\\n        padding: 20px;\\\\n        margin: 20px 0;\\\\n        border-radius: 5px;\\\\n        text-align: center;\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.storytelling h2 {\\\\n        font-family: \\\\'Playfair Display\\\\', serif;\\\\n        color: #333;\\\\n        font-weight: 700;\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.storytelling p {\\\\n        font-family: \\\\'Lato\\\\', sans-serif;\\\\n        color: #555;\\\\n        font-size: 16px;\\\\n        margin: 10px 0;\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.storytelling .call-to-action {\\\\n        display: inline-block;\\\\n        padding: 10px 20px;\\\\n        color: #fff;\\\\n        background-color: #f57c00;\\\\n        border-radius: 3px;\\\\n        text-decoration: none;\\\\n        font-weight: 700;\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.storytelling .call-to-action:hover {\\\\n        background-color: #e65100;\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\"],\"updated\":false},\"nodePath\":[\"Top\",\"Companies\",\"www.yogadirect.com\",\"Rules\",\"example.com\",\"example.com\",\"Mod Storytelling Helps In Creating An Emotional Connection Script\"]},{\"tooltip\":\"Script modification\",\"type\":\"mod\",\"children\":[],\"containerWidget\":null,\"details\":{\"name\":\"Mod A Consistent Button Style With Contrasting Colors Will Script\",\"extra\":\"\",\"enabled\":true,\"type\":\"script\",\"created\":\"2025-01-27T19:45:15.942Z\",\"lastmodified\":\"2025-01-27T19:45:15.942Z\",\"pathvalue\":\"/yoga-direct-1-4-inch-yoga-mat.html\",\"comments\":\"\",\"prob\":100.0,\"usemode\":\"test\",\"cssselector\":\"\",\"xpath\":\"\",\"find\":[],\"nodeiden\":{\"type\":\"tag\",\"attributes\":{\"tag\":\"head\"},\"counts\":{\"tag\":1},\"parent\":{\"tag\":\"html\"}},\"parameter\":0,\"scripts\":[\"document.querySelectorAll('button').forEach(function(btn) { btn.style.backgroundColor = '#2a9d8f'; btn.style.color = '#fff'; btn.style.borderRadius = '5px'; btn.addEventListener('mouseover', function() { this.style.backgroundColor = '#21867a'; }); btn.addEventListener('mouseout', function() { this.style.backgroundColor = '#2a9d8f'; }); });\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = 'button { background-color: #2a9d8f; color: #fff; border-radius: 5px; }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = 'button:hover { background-color: #21867a; }';\\n  document.head.appendChild(styleSheet);\\n}\"],\"updated\":false},\"nodePath\":[\"Top\",\"Companies\",\"www.yogadirect.com\",\"Rules\",\"example.com\",\"example.com\",\"Mod A Consistent Button Style With Contrasting Colors Will Script\"]}],\"HDLmRequestType\":\"storeTreeNodes\"}\r\n"
 				+ "";
 		JsonParser  parser = new JsonParser();	
-		JsonElement   topNodeJsonElement = null; 
+		JsonElement   topNodeJsonElement = null;
+		*/ 
+		/* The following looks like debugging code, added for testing 
+       purposed only. This comment was added on 2025/06/04. */ 
+    /*
 		try {			
 			topNodeJsonElement = parser.parse(message);			
 		} 
 		catch (Exception exception) {			 
-			LOG.info("Exception while executing handleMessage");
+			LOG.info("Exception while JSON parsing a message");
 			LOG.info(exception.getMessage(), exception); 
 		}
 		int pathLength = HDLmDefines.getNumber("HDLMRULESNODEPATHLENGTH");
 		JsonArray   rulesArrayJson = HDLmJson.getJsonArray(topNodeJsonElement,"rules");
+		*/
+		/* The following looks like debugging code, added for testing 
+	     purposed only. This comment was added on 2025/06/04. */ 
+	  /*
 		int  rulesArraySize = rulesArrayJson.size();
 		for (int i = 0; i < rulesArraySize; i++) {		
 			JsonElement   jsonElementRule = rulesArrayJson.get(i);
 			boolean   scriptsValid = true;
-			
+			*/
 			/* Check if we have mod entry. We should always
 			   have a mod entry. */
-		  
+		  /*
 			String  modEntry = HDLmJson.getJsonString(jsonElementRule, "type");
 			if (modEntry.equals("mod") == false) {
 				String errorText = "Mod entry not found in storeTreeNode";
 				HDLmAssertAction(false, errorText);
 			}
-			
+			*/
 			/* Get the rule details */
-		 
+		  /*
 			JsonObject  modDetaisObject = HDLmJson.getJsonObject(jsonElementRule, "details");
 			if (modDetaisObject == null) {
 				String errorText = "Mod details object not found in storeTreeNode";
 				HDLmAssertAction(false, errorText);
 			}
-			
+			*/
 			/* Get the rule name */
-		   
+		  /*
 			JsonElement   modDetailsElement = (JsonElement) modDetaisObject;
 			String  ruleName = HDLmJson.getJsonString(modDetailsElement, "name");
-			
+			*/
 			/* Get the rule type */
-		    
+		  /*  
 			String  ruleType = HDLmJson.getJsonString(modDetailsElement, "type");
-			 
+			*/
 			/* We have a lot more work to do for script rules */
-		     
+		  /* 
 			if (ruleType.equals("script")) {
 				JsonArray   scriptsArrayJson = HDLmJson.getJsonArray(modDetailsElement,"scripts");
 				int   scriptsArraySize = scriptsArrayJson.size();
-				 
+	  		*/ 
 				/* Process each script */
-		      
+		    /*  
 				for (int j = 0; j < scriptsArraySize; j++) {		
 					JsonElement   scriptJson = scriptsArrayJson.get(j); 
 					String  scriptString = scriptJson.getAsString();
 					boolean   scriptValid = HDLmHtml.checkIfJavaScriptValid(scriptString, 
-							                                                    HDLmReportErrors.REPORTERRORS);
-					 
+					                                                    HDLmReportErrors.REPORTERRORS);
+		  	  */		 
 					/* Check if the current script is invalid, if it is, then 
 					   the entire set of scripts is treated as invalid */
-		        
+		      /*  
 					if (scriptValid == false)
 						scriptsValid = false;
-				   
-		        
+				  */ 
+		      /*
 				}
 			}		
-			 
+			*/
 			/* Skip the current rule if the invalid scripts flag is set */
 			/*
 			scriptsValid = true;
 			*/
-		   
+		  /* 
 			if (scriptsValid == false)
 				continue;
 			JsonArray   nodePathJson = HDLmJson.getJsonArray(jsonElementRule,"nodePath");
 			int nodePathJsonSize = nodePathJson.size();
 		}
-		 
+		*/
 		/*
 		SecretsManagerClient  client = HDLmAwsSecrets.buildAwsSecretsManagerClient(\"us-east-2\");
 		ArrayList<String>     actualNames = new ArrayList<String>(Arrays.asList(\"AwsAccessKeyId", "AwsSecretAccessKey", "Main9Auroa"));
@@ -2521,8 +2584,8 @@ public class HDLmMain {
   	/* In the Windows environment, we don't want to use the cache
 	     for rules. We want a fresh copy of the rules every time.
 	     This makes testing under Windows easier. The check for
-	     Eclipse below does not appear to work. */
-	  if (HDLmMain.checkForEclipse() == true)
+	     running locally does appear to work. */
+	  if (HDLmMain.checkForRunningLocally() == true)
 	  	HDLmConfig.setConfigString("entriesDatabaseUseCache", "NEVER");
   	/* In the Windows or Docker environments, we don't want to use
   	   the cache for rules. We want a fresh copy of the rules every
@@ -2851,14 +2914,51 @@ public class HDLmMain {
 		*/
 		/* 		
 		String  outTest = null;
-		*/		 
+		*/		
+		/*
+		String  addTreeNodeString = "";
+    addTreeNodeString += "{\"tooltip\":\"Script modification from web-page improver\"," +
+                         "\"nodePath\":[\"Top\",\"Companies\",\"www.yogadirect.com\",\"Rules\"," +
+                         "\"www.yogadirect.com\",\"www.yogadirect.com\",\"Script Modification 6/6/2025, 1:24:17 PM\"]," +
+                         "\"type\":\"mod\"," +
+                         "\"details\":{" +  
+                         "\"type\":\"script\"," +
+                         "\"name\":\"Script Modification 6/6/2025, 1:24:17 PM\"," +
+                         "\"extra\":\"\"," +
+                         "\"enabled\":true," +
+                         "\"created\":\"2025-06-03T05:57:13.345Z\"," +
+                         "\"lastModified\":\"2025-06-03T05:57:13.345Z\"," +
+                         "\"pathvalue\":\"\",\"comments\":\"From variant variant_1747833857020.js\"," +
+                         "\"prob\":100.0," +
+                         "\"usemode\":\"test\"," +
+                         "\"cssselector\":\"\"," +
+                         "\"xpath\":\"\"," +
+                         "\"find\":[]," +
+                         "\"nodeiden\":{\"type\":\"tag\"," + 
+                         "\"attributes\":{\"tag\":\"head\"},\"counts\":{\"tag\":1},\"parent\":{\"tag\":\"html\"}}," +
+                         "\"parameter\":0," +
+                         "\"scripts\":[\"\"]," +
+                         "\"updated\":false," +
+                         "\"path\":\"\"," +
+                         "\"pathre\":false}}";
+    */
+		/* Create a new JSON parser for use below */
+		/*
+    JsonParser    parser = new JsonParser();  
+    */
+    /* Make sure the inbound payload has the required key */
+		/*
+    JsonElement   addTreeNodeElement = parser.parse(addTreeNodeString);
+    HDLmTree.checkTreeJsonObj(addTreeNodeElement);	
+    */	
 	}
   /* This code uses the memory storage mechanism for finding and using
 	   memory storage. As a consequence, we need mechanisms for monitoring
 	   memory storage. Note that the memory storage is stored in memory.
 	   The function below is one of those mechanisms for reporting on
 	   memory storage. */
-	protected static String  memoryContents(String localServer, String clientStr) {
+	protected static String  memoryContents(final String localServer, 
+			                                    final String clientStr) {
 		int     memoryCount = 0;
 		int     memoryLimit = 100;
 		String  tableHtml;
@@ -2904,7 +3004,8 @@ public class HDLmMain {
 	  return rv.toString();
 	}
 	/* This code returns some memory storage statistics HTML to the caller */
-	protected static String memoryStatus(String localServer, String clientStr) {
+	protected static String memoryStatus(final String localServer, 
+			                                 final String clientStr) {
 		String  tableHtml;
 		/* Create a new string builder for the output HTML */
 		StringBuilder  rv = new StringBuilder();
@@ -2942,7 +3043,8 @@ public class HDLmMain {
 	/* This code reports the overall pass-through status for the
 	   server. This method returns the overall pass-through status
 	   of the server to the caller. */
-	protected static String passThruStatus(String localServer, String clientStr) {
+	protected static String passThruStatus(final String localServer, 
+			                                   final String clientStr) {
 		/* Declare and define a few variables */
 		HDLmPassThruStatus  passThruStatus = HDLmMain.getPassThruStatusServer();
 		String              tableHtml;
@@ -2983,7 +3085,8 @@ public class HDLmMain {
      As a consequence, we need mechanisms for monitoring the status
      of the perceptual hash cache. The function below is one of those
      mechanisms. */
-	protected static String phashContents(String localServer, String clientStr) {
+	protected static String phashContents(final String localServer, 
+			                                  final String clientStr) {
 		int     phashCount = 0;
 		int     phashLimit = 100;
 		String  tableHtml;
@@ -3046,7 +3149,8 @@ public class HDLmMain {
 	   As a consequence, we need mechanisms for monitoring the status
 	   of the perceptual hash cache. The function below is one of those
 	   mechanisms. */
-	protected static String phashStatus(String localServer, String clientStr) {
+	protected static String phashStatus(final String localServer, 
+			                                final String clientStr) {
 		String  tableHtml;
 		/* Create a new string builder for the output HTML */
 		StringBuilder  rv = new StringBuilder();
@@ -3089,7 +3193,7 @@ public class HDLmMain {
 	  return rv.toString();
 	}
 	/* Process the arguments passed to this program (if any) */
-	protected static void  processArguments(String[] args) {
+	protected static void  processArguments(final String[] args) {
 		/* Set a boolean (not a Boolean) based on whether debug logging 
        is enabled or not. This is used to avoid the overhead of
        logging, when debug logging is not enabled. */
@@ -3239,7 +3343,7 @@ public class HDLmMain {
           localModUseMode.equals("always")) 
 				localUseTheMod = true;
 			/* Check for a couple of values that always cause the 
-		     rule/currrent modification not to be used*/
+		     rule/current modification not to be used*/
 	  	if (localModUseMode.equals("off")  ||
 				  localModUseMode.equals("none") ||
           localModUseMode.equals("never")) 
@@ -3431,7 +3535,8 @@ public class HDLmMain {
 	  return outResponse;
 	}
 	/* This code returns some server statistics HTML to the caller */
-	protected static String serverStatus(String localServer, String clientStr) {
+	protected static String serverStatus(final String localServer, 
+			                                 final String clientStr) {
 		String  tableHtml;
 		/* Create a new string builder for the output HTML */
 		StringBuilder  rv = new StringBuilder();
@@ -3470,7 +3575,8 @@ public class HDLmMain {
   /* This code uses a Guava cache to store session ID information.
      As a consequence, we need mechanisms for monitoring the status
      of the cache. The function below is one of those mechanisms. */
-	protected static String sessionIdContents(String localServer, String clientStr) {
+	protected static String sessionIdContents(final String localServer, 
+			                                      final String clientStr) {
 		int     sessionCount = 0;
 		int     sessionLimit = 100;
 		String  tableHtml;
@@ -3515,7 +3621,8 @@ public class HDLmMain {
 	/* This code uses a cache to store session ID information. As a consequence,
 	   we need mechanisms for monitoring the status of the cache. The function
 	   below is one of those mechanisms. */
-	protected static String sessionIdStatus(String localServer, String clientStr) {
+	protected static String sessionIdStatus(final String localServer, 
+			                                    final String clientStr) {
 		String  tableHtml;
 		/* Create a new string builder for the output HTML */
 		StringBuilder  rv = new StringBuilder();
@@ -3601,7 +3708,8 @@ public class HDLmMain {
 	}
 	/* This code gets a list of system threads and some information
 	   about each thread. The information is returned to the user. */
-	protected static String systhrContents(String localServer, String clientStr) {
+	protected static String systhrContents(final String localServer, 
+			                                   final String clientStr) {
 		int     systhrCount = 0;
 		int     systhrLimit = 5000;
 		String  tableHtml;
@@ -3662,7 +3770,8 @@ public class HDLmMain {
 	  return rv.toString();
 	}
 	/* This code returns some thread statistics HTML to the caller */
-	protected static String systhrStatus(String localServer, String clientStr) {
+	protected static String systhrStatus(final String localServer, 
+			                                 final String clientStr) {
 		String  tableHtml;
 		/* Create a new string builder for the output HTML */
 		StringBuilder  rv = new StringBuilder();
@@ -3703,7 +3812,8 @@ public class HDLmMain {
 	  return rv.toString();
 	}
 	/* This code returns some timings information to the caller */
-	protected static String timingsStatus(String localServer, String clientStr) {
+	protected static String timingsStatus(final String localServer, 
+			                                  final String clientStr) {
 		String  tableHtml;
 		/* Create a new string builder for the output HTML */
 		StringBuilder  rv = new StringBuilder();

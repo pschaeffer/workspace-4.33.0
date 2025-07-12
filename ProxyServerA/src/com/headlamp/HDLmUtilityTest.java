@@ -47,7 +47,7 @@ class HDLmUtilityTest {
 					                               () -> {HDLmUtility.buildBridgeRestQuery(null, HDLmEditorTypes.PASS);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Column name reference passed to buildBridgeRestQuery is null",
+			assertEquals("Column name reference passed to buildBridgeRestQuery is null", execMsg,
 					         "Unexpected exception message");
 		}
 		{
@@ -55,7 +55,7 @@ class HDLmUtilityTest {
 					                               () -> {HDLmUtility.buildBridgeRestQuery(colName, null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Editor type value passed to buildBridgeRestQuery is null",
+			assertEquals("Editor type value passed to buildBridgeRestQuery is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -83,7 +83,7 @@ class HDLmUtilityTest {
 					                               () -> {HDLmUtility.buildDreamRestQuery(null, HDLmEditorTypes.PASS);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Column name reference passed to buildDreamRestQuery is null",
+			assertEquals("Column name reference passed to buildDreamRestQuery is null", execMsg,
 					         "Unexpected exception message");
 		}
 		{
@@ -91,7 +91,7 @@ class HDLmUtilityTest {
 					                               () -> {HDLmUtility.buildDreamRestQuery(colName, null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Editor type value passed to buildDreamRestQuery is null",
+			assertEquals("Editor type value passed to buildDreamRestQuery is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -120,7 +120,7 @@ class HDLmUtilityTest {
 					                               () -> {HDLmUtility.combineLinesSuffix(null, "");},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Input lines array passed to combineLinesSuffix is null",
+			assertEquals("Input lines array passed to combineLinesSuffix is null", execMsg,
 					         "Unexpected exception message");
 		}
 		{ 
@@ -129,7 +129,7 @@ class HDLmUtilityTest {
 					                               () -> {HDLmUtility.combineLinesSuffix(arrayLinesLocal, null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Suffix string passed to combineLinesSuffix is null",
+			assertEquals("Suffix string passed to combineLinesSuffix is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -150,7 +150,7 @@ class HDLmUtilityTest {
 					                               () -> {HDLmUtility.convertDouble(null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "String passed to double conversion is null",
+			assertEquals("String passed to double conversion is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -171,7 +171,7 @@ class HDLmUtilityTest {
 					                               () -> {HDLmUtility.convertInteger(null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "String passed to integer conversion is null",
+			assertEquals("String passed to integer conversion is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -197,7 +197,7 @@ class HDLmUtilityTest {
 					                               () -> {HDLmUtility.fileClearContents(null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "File name string passed to fileClearContents is null",
+			assertEquals("File name string passed to fileClearContents is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -218,7 +218,7 @@ class HDLmUtilityTest {
 					                               () -> {HDLmUtility.fileGetBytes(null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "File name string passed to fileGetBytes is null",
+			assertEquals("File name string passed to fileGetBytes is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -237,7 +237,7 @@ class HDLmUtilityTest {
 					                               () -> {HDLmUtility.fileGetContents(null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "File name string passed to fileGetContents is null",
+			assertEquals("File name string passed to fileGetContents is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -258,7 +258,7 @@ class HDLmUtilityTest {
 					                               () -> {HDLmUtility.fileGetLines(null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "File name string passed to fileGetLines is null",
+			assertEquals("File name string passed to fileGetLines is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -287,7 +287,7 @@ class HDLmUtilityTest {
 					                               () -> {HDLmUtility.fileGetSuffix(null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "File name string passed to fileGetSuffix is null",
+			assertEquals("File name string passed to fileGetSuffix is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -308,7 +308,7 @@ class HDLmUtilityTest {
 					                               () -> {HDLmUtility.filePutAppend(null, fileContents);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "File name string passed to filePutAppend is null",
+			assertEquals("File name string passed to filePutAppend is null", execMsg,
 					         "Unexpected exception message");
 		}
 		{
@@ -316,7 +316,7 @@ class HDLmUtilityTest {
 					                               () -> {HDLmUtility.filePutAppend(fileName, null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Output data string passed to filePutAppend is null",
+			assertEquals("Output data string passed to filePutAppend is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -337,7 +337,7 @@ class HDLmUtilityTest {
 					                               () -> {HDLmUtility.filePutAppendLine(null, fileContents);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "File name string passed to filePutAppendLine is null",
+			assertEquals("File name string passed to filePutAppendLine is null", execMsg,
 					         "Unexpected exception message");
 		}
 		{
@@ -345,7 +345,7 @@ class HDLmUtilityTest {
 					                               () -> {HDLmUtility.filePutAppendLine(fileName, null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Output data string passed to filePutAppendLine is null",
+			assertEquals("Output data string passed to filePutAppendLine is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -356,7 +356,7 @@ class HDLmUtilityTest {
 					                               () -> {HDLmUtility.filePutAppendLineLogs(null, null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Output line passed to filePutAppendLineLogs is null",
+			assertEquals("Output line passed to filePutAppendLineLogs is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -384,7 +384,7 @@ class HDLmUtilityTest {
 					                               () -> {HDLmUtility.getRandomDoubleList(-1);},
 					                               "Expected AssertionError");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Number of values passed to getRandomDoubleList is less than zero",
+			assertEquals("Number of values passed to getRandomDoubleList is less than zero", execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -429,7 +429,7 @@ class HDLmUtilityTest {
 					                               () -> {HDLmUtility.getMimeType(null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "File suffix string passed to getMimeType is null",
+			assertEquals("File suffix string passed to getMimeType is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -454,7 +454,7 @@ class HDLmUtilityTest {
 					                               () -> {HDLmUtility.isTypeBinary(null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "File suffix string passed to isTypeBinary is null",
+			assertEquals("File suffix string passed to isTypeBinary is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}	
@@ -520,7 +520,8 @@ class HDLmUtilityTest {
 					                               () -> {HDLmUtility.splitLinesSuffix(null, "");},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Input string passed to splitLinesSuffix is null",
+			assertEquals("Input string passed to splitLinesSuffix is null", 
+					         execMsg,
 					         "Unexpected exception message");
 		}
 		{
@@ -528,7 +529,8 @@ class HDLmUtilityTest {
 					                               () -> {HDLmUtility.splitLinesSuffix(fileName, null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Suffix string passed to splitLinesSuffix is null",
+			assertEquals("Suffix string passed to splitLinesSuffix is null", 
+					          execMsg,
 					         "Unexpected exception message");
 		}
 		{
@@ -536,7 +538,8 @@ class HDLmUtilityTest {
 					                               () -> {HDLmUtility.splitLinesSuffix(fileName, "");},
 					                               "Expected AssertionError");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Suffix string passed to splitLinesSuffix is empty",
+			assertEquals("Suffix string passed to splitLinesSuffix is empty", 
+					         execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -561,7 +564,7 @@ class HDLmUtilityTest {
 					                               () -> {HDLmUtility.trimLinesRight(null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Input lines array passed to trimLinesRight is null",
+			assertEquals("Input lines array passed to trimLinesRight is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}

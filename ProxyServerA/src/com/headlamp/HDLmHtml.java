@@ -609,6 +609,12 @@ public class HDLmHtml {
 			String errorText = "Report errors enum passed to checkIfJavaScriptValid is set to NONE";
 			throw new NullPointerException(errorText);
 		}		 
+		/*
+		long  curMillisTime = System.currentTimeMillis();
+		String  curMillisTimeStr = Long.toString(curMillisTime);
+		String  curFileName = "output" + curMillisTimeStr + ".txt";
+		HDLmUtility.writeToFile(curFileName, script);
+		*/		
 		String  rvStr = null; 
 		/* Build the new script string */
 		String  newScript = script; 
@@ -625,6 +631,10 @@ public class HDLmHtml {
     } 
     /* Check if any exceptions occurred while compiling the JavaScript */
     catch (EvaluatorException evaluatorException) {
+    	/* Show the invalid JavaScript */
+    	if (finalScript != null)
+      	HDLmUtility.logStringInParts("JavaScript", finalScript);
+    	/* Get some information about the exception */
     	rvStr = evaluatorException.getMessage();	
     	rvStr = "SyntaxError: " + rvStr;
 			/* Check if we should report errors. In some cases, this routine
@@ -675,8 +685,8 @@ public class HDLmHtml {
      returns true, if the JavaScript is valid. This routine returns false, 
      if the JavaScript is not valid. The caller can specify if errors should
      be reported or not. */  
-	protected static boolean  checkIfJavaScriptValidNotInUse(final String script, 
-			                                                     final HDLmReportErrors reportErrors) {
+	protected static boolean  checkIfJavaScriptValidNotUsed(final String script, 
+			                                                    final HDLmReportErrors reportErrors) {
 		/* Check if the JavaScript string is null */
 		if (script == null) {
 			String errorText = "Script string passed to checkIfJavaScriptValidOld is null";
@@ -709,11 +719,11 @@ public class HDLmHtml {
 		   quote. The x27 is an ASCII single quote. The ASCII single 
 		   quote (apostrophe) is used for many things. The code below does 
 		   not work. */
-		String  newScript = HDLmAi.changeJavaScriptNotInUse(script); 
+		String  newScript = HDLmAi.changeJavaScriptNotUsed(script); 
 		/* Build the final JavaScript string using the passed JavaScript */
 		String  finalScript = "new Function(`" + newScript + "`);"; 
 		/* Try to execute the final JavaScript */
-		String  rvStr = HDLmHtml.executeJavaScriptNotInUse(finalScript, reportErrors);
+		String  rvStr = HDLmHtml.executeJavaScriptNotUsed(finalScript, reportErrors);
     boolean   logIsDebugEnabled=LOG.isDebugEnabled();
 		if (logIsDebugEnabled) {
 		  LOG.info("Original script - " + script);
@@ -734,8 +744,8 @@ public class HDLmHtml {
 	  
      Rhino is in the name of this code. It is quite unclear if Rhino is 
 	   actually used by this code. */     
-	protected static boolean  checkIfJavaScriptValidRhinoNotInUse(final String script, 
-			                                                          final HDLmReportErrors reportErrors) {
+	protected static boolean  checkIfJavaScriptValidRhinoNotUsed(final String script, 
+			                                                         final HDLmReportErrors reportErrors) {
 		/* Check if the JavaScript string is null */
 		if (script == null) {
 			String errorText = "Script string passed to checkIfJavaScriptValid is null";
@@ -755,7 +765,7 @@ public class HDLmHtml {
 	  ScriptEngineManager   factory = new ScriptEngineManager();
 	  /* Create a JavaScript engine */
 	  ScriptEngine  engine = factory.getEngineByName("JavaScript");
-		String  newScript = HDLmAi.changeJavaScriptNotInUse(script); 
+		String  newScript = HDLmAi.changeJavaScriptNotUsed(script); 
 		/* Build the final JavaScript string using the passed JavaScript */
 		String  finalScript = "new Function(`" + newScript + "`);"; 
 		/* Execute some JavaScript */
@@ -790,8 +800,8 @@ public class HDLmHtml {
   /* This routine executes some JavaScript using the scripting 
      engine loaded by this routine. The caller can specify if
      errors should be reported or not. */ 
-	protected static String executeJavaScriptNotInUse(final String script, 
-			                                              final HDLmReportErrors reportErrors) {
+	protected static String executeJavaScriptNotUsed(final String script, 
+			                                             final HDLmReportErrors reportErrors) {
 		/* Check if the JavaScript string is null */
 		if (script == null) {
 			String errorText = "Script string passed to executeJavaScript is null";
@@ -826,15 +836,15 @@ public class HDLmHtml {
 		if (engine == null)
 			HDLmAssertAction(false, "JavaScript scripting engine was not loaded");		
 		/* Execute the passed JavaScript */
-		String  rvStr = HDLmHtml.executeJavaScriptUsingEngineNotInUse(engine, script, reportErrors);
+		String  rvStr = HDLmHtml.executeJavaScriptUsingEngineNotUsed(engine, script, reportErrors);
 		return rvStr;
 	}		
   /* This routine executes some JavaScript using the scripting 
      engine passed to it. The caller can specify iferrors should
      be reported or not.*/ 
-  protected static String  executeJavaScriptUsingEngineNotInUse(final ScriptEngine engine, 
-  		                                                          final String script,
-  		                                                          final HDLmReportErrors reportErrors) {
+  protected static String  executeJavaScriptUsingEngineNotUsed(final ScriptEngine engine, 
+  		                                                         final String script,
+  		                                                         final HDLmReportErrors reportErrors) {
   	/* Check if the scripting engine is null */
 		if (engine == null) {
 			String errorText = "Scripting engine reference passed to executeJavaScriptUsingEngine is null";
@@ -904,7 +914,7 @@ public class HDLmHtml {
 		/* Process all of the uppercase characters by replacing them
 		   with either the corresponding lowercase character or a 
 		   hyphen followed by the corresponding lowercase character */
-		for (int i = matchesList.size()-1; i >= 0; i--) {
+		for (int i = matchesList.size() - 1; i >= 0; i--) {
 			int  matchOffset = matchesList.get(i);
 			if (matchOffset > 0)
 				matchReplace = "-" + Character.toLowerCase(name.charAt(matchOffset));

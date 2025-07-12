@@ -30,14 +30,14 @@ class HDLmStringTest {
 					                               () -> {HDLmString.endsWith(null, "");},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Haystack value passed to endsWith is null");
+			assertEquals("Haystack value passed to endsWith is null",  execMsg,"Unexpected exception message");
 		}
 		{
 			Throwable exception = assertThrows(NullPointerException.class, 
 	                                       () -> {HDLmString.endsWith("", null);},
 	                                      "Expected NullPointerException");
 	    String execMsg = exception.getMessage();
-	    assertEquals(execMsg, "Needle value passed to endsWith is null");
+	    assertEquals("Needle value passed to endsWith is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -71,7 +71,7 @@ class HDLmStringTest {
 					                               () -> {HDLmString.explodeWhitespace(null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Input string value passed to explodeWhitespace is null");
+			assertEquals("Input string value passed to explodeWhitespace is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -94,7 +94,7 @@ class HDLmStringTest {
 					                               () -> {HDLmString.fromArray(null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Input string array list value passed to fromArray is null");
+			assertEquals("Input string array list value passed to fromArray is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -121,7 +121,7 @@ class HDLmStringTest {
 					                               () -> {HDLmString.fromDoublesArray(null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Input Doubles array list value passed to fromDoublesArray is null");
+			assertEquals("Input Doubles array list value passed to fromDoublesArray is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -135,14 +135,14 @@ class HDLmStringTest {
 					                               () -> {HDLmString.getTokens(null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Input string value passed to getTokens is null");
+			assertEquals("Input string value passed to getTokens is null",  execMsg,"Unexpected exception message");
 		}
 		{
 			Throwable exception = assertThrows(IllegalArgumentException.class, 
 					                               () -> {HDLmString.getTokens("", 'a');},
 					                               "Expected IllegalArgumentException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Quote character (a) passed to getTokens is invalid");
+			assertEquals("Quote character (a) passed to getTokens is invalid",  execMsg,"Unexpected exception message");
 		}
 		inStr = "";
 		al = HDLmString.getTokens(inStr);
@@ -334,14 +334,14 @@ class HDLmStringTest {
 					                               () -> {HDLmString.getTokensNonWhite(null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Input string value passed to getTokensNonWhite is null");
+			assertEquals("Input string value passed to getTokensNonWhite is null",  execMsg,"Unexpected exception message");
 		}
 		{
 			Throwable exception = assertThrows(IllegalArgumentException.class, 
 					                               () -> {HDLmString.getTokensNonWhite("", 'a');},
 					                               "Expected IllegalArgumentException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Quote character (a) passed to getTokensNonWhite is invalid");
+			assertEquals("Quote character (a) passed to getTokensNonWhite is invalid",  execMsg,"Unexpected exception message");
 		}
 		inStr = "";
 		al = HDLmString.getTokensNonWhite(inStr);
@@ -420,7 +420,7 @@ class HDLmStringTest {
 					                               () -> {HDLmString.getTrailingDigits(null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Input string value passed to getTrailingDigits is null");
+			assertEquals("Input string value passed to getTrailingDigits is null",  execMsg,"Unexpected exception message");
 		}		
 	}
 	@Test
@@ -496,7 +496,7 @@ class HDLmStringTest {
 					                               () -> {HDLmString.removeFileNumberTail(null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Input string value passed to removeFileNumberTail is null");
+			assertEquals("Input string value passed to removeFileNumberTail is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -513,14 +513,14 @@ class HDLmStringTest {
 					                               () -> {HDLmString.startsWith(null, "");},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Haystack value passed to startsWith is null");
+			assertEquals("Haystack value passed to startsWith is null",  execMsg,"Unexpected exception message");
 		}
 		{
 			Throwable exception = assertThrows(NullPointerException.class, 
 	                                       () -> {HDLmString.startsWith("", null);},
 	                                      "Expected NullPointerException");
 	    String execMsg = exception.getMessage();
-	    assertEquals(execMsg, "Needle value passed to startsWith is null");
+	    assertEquals("Needle value passed to startsWith is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -534,21 +534,21 @@ class HDLmStringTest {
 					                               () -> {HDLmString.strReplaceOnce(null, "", "");},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Needle value passed to strReplaceOnce is null");
+			assertEquals("Needle value passed to strReplaceOnce is null",  execMsg,"Unexpected exception message");
 		}
 		{
 			Throwable exception = assertThrows(NullPointerException.class, 
 	                                       () -> {HDLmString.strReplaceOnce("", null, "");},
 	                                      "Expected NullPointerException");
 	    String execMsg = exception.getMessage();
-	    assertEquals(execMsg, "Replacement value passed to strReplaceOnce is null");
+	    assertEquals("Replacement value passed to strReplaceOnce is null",  execMsg,"Unexpected exception message");
 		}
 		{
 			Throwable exception = assertThrows(NullPointerException.class, 
 	                                       () -> {HDLmString.strReplaceOnce("", "", null);},
 	                                      "Expected NullPointerException");
 	    String execMsg = exception.getMessage();
-	    assertEquals(execMsg, "Haystack value passed to strReplaceOnce is null");
+	    assertEquals("Haystack value passed to strReplaceOnce is null",  execMsg,"Unexpected exception message");
 		}
 		assertEquals(" nay hay ", HDLmString.strReplaceOnce("hay", "nay", " hay hay "), "HDLmString.strReplaceOnce did not return correct value");
 		assertEquals(" say hay ", HDLmString.strReplaceOnce("hay", "say", " hay hay "), "HDLmString.strReplaceOnce did not return correct value");
@@ -565,14 +565,14 @@ class HDLmStringTest {
 					                               () -> {HDLmString.strTruncate(null, 15);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Input string value passed to strTruncate is null");
+			assertEquals("Input string value passed to strTruncate is null",  execMsg,"Unexpected exception message");
 		}
 		{
 			Throwable exception = assertThrows(IllegalArgumentException.class, 
 	                                       () -> {HDLmString.strTruncate("", -2);},
 	                                      "Expected IllegalArgumentException");
 	    String execMsg = exception.getMessage();
-	    assertEquals(execMsg, "Maximum length (-2) passed to strTruncate is less than zero");
+	    assertEquals("Maximum length (-2) passed to strTruncate is less than zero",  execMsg,"Unexpected exception message");
 		}
     inStr = "abcd";
     assertEquals("abcd", HDLmString.strTruncate(inStr, 5), "HDLmString.strTruncate did not return correct value");
@@ -626,7 +626,7 @@ class HDLmStringTest {
 					                               () -> {HDLmString.ucFirst(null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Input string passed to ucFirst is null",
+			assertEquals("Input string passed to ucFirst is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}

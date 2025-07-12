@@ -39,7 +39,10 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmMenus.class);
 			                                           ArrayList<HDLmTree> childList, 
 	                                               String newUrlStr, 
 	                                               String newDetailsType) {
-		LOG.info("In buildModificationName"); 
+	  boolean   logIsDebugEnabled = LOG.isDebugEnabled();
+		if (logIsDebugEnabled) {
+		  LOG.debug("In buildModificationName");
+		}
 		/* Check if the parent tree node value is null */
 		if (parentTreeNode == null) {
 			String  errorText = "Parent tree node passed to buildModificationName is null";

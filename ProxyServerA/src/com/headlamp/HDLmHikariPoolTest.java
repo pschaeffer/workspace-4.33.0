@@ -79,7 +79,7 @@ class HDLmHikariPoolTest {
 					                               () -> {HDLmHikariPool.releaseConnectionHikari(null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Connection reference passed to releaseConnectionHikari is null",
+			assertEquals("Connection reference passed to releaseConnectionHikari is null", execMsg,
 					         "Unexpected exception message");
 		}			
 	}

@@ -27,7 +27,7 @@ class HDLmBuildLinesTest {
 					                               () -> {new HDLmBuildLines(null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Build type reference passed to build lines constructor is null",
+			assertEquals("Build type reference passed to build lines constructor is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -57,7 +57,7 @@ class HDLmBuildLinesTest {
 					                               () -> {newBuildLines.addLine(null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "New line reference passed to addLine is null",
+			assertEquals("New line reference passed to addLine is null", execMsg,
 					         "Unexpected exception message");
 		}	
 	}
@@ -87,7 +87,7 @@ class HDLmBuildLinesTest {
 					                               () -> {newBuildLines.getLinesWithSuffix(null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Suffix reference passed to getLinesWithSuffix is null",
+			assertEquals("Suffix reference passed to getLinesWithSuffix is null", execMsg,
 					         "Unexpected exception message");
 		}	
 	}

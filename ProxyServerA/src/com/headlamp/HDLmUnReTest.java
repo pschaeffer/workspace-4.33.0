@@ -37,7 +37,7 @@ class HDLmUnReTest {
                                          () -> {HDLmUnRe.unReAddOperation(null);}, 
                                          "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "New undo/redo object passed to unReAddOperation is null",
+			assertEquals("New undo/redo object passed to unReAddOperation is null", execMsg,
 					         "Unexpected exception message");
 		}	
   }
@@ -48,7 +48,7 @@ class HDLmUnReTest {
                                          () -> {HDLmUnRe.unReStartup(0);}, 
                                          "Expected IllegalArgumentException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Integer value (0) for undo/redo limit passed to unReStartup is invalid",
+			assertEquals("Integer value (0) for undo/redo limit passed to unReStartup is invalid", execMsg,
 					         "Unexpected exception message");
 		}	
 		{   
@@ -56,7 +56,7 @@ class HDLmUnReTest {
                                          () -> {HDLmUnRe.unReStartup(-1);}, 
                                          "Expected IllegalArgumentException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Integer value (-1) for undo/redo limit passed to unReStartup is invalid",
+			assertEquals("Integer value (-1) for undo/redo limit passed to unReStartup is invalid", execMsg,
 					         "Unexpected exception message");
 		}	
   }
@@ -67,7 +67,7 @@ class HDLmUnReTest {
                                          () -> {HDLmUnRe.unReUnDoOperation(null);}, 
                                          "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Change number passed to unReUnDoOperation is null",
+			assertEquals("Change number passed to unReUnDoOperation is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{   
@@ -75,7 +75,7 @@ class HDLmUnReTest {
                                          () -> {HDLmUnRe.unReUnDoOperation(0);}, 
                                          "Expected IllegalArgumentException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Change number (0) for undo/redo passed to unReUnDoOperation is invalid",
+			assertEquals("Change number (0) for undo/redo passed to unReUnDoOperation is invalid", execMsg,
 					         "Unexpected exception message");
 		}	
 		{   
@@ -83,7 +83,7 @@ class HDLmUnReTest {
                                          () -> {HDLmUnRe.unReUnDoOperation(-1);}, 
                                          "Expected IllegalArgumentException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Change number (-1) for undo/redo passed to unReUnDoOperation is invalid",
+			assertEquals("Change number (-1) for undo/redo passed to unReUnDoOperation is invalid", execMsg,
 					         "Unexpected exception message");
 		}	
   }
@@ -199,7 +199,7 @@ class HDLmUnReTest {
                                          () -> {HDLmUnRe.unReStartup(0);}, 
                                          "Expected IllegalArgumentException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Integer value (0) for undo/redo limit passed to unReStartup is invalid",
+			assertEquals("Integer value (0) for undo/redo limit passed to unReStartup is invalid", execMsg,
 					         "Unexpected exception message");
 		}	
 		{   
@@ -207,7 +207,7 @@ class HDLmUnReTest {
                                          () -> {HDLmUnRe.unReStartup(-1);}, 
                                          "Expected IllegalArgumentException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Integer value (-1) for undo/redo limit passed to unReStartup is invalid",
+			assertEquals("Integer value (-1) for undo/redo limit passed to unReStartup is invalid", execMsg,
 					         "Unexpected exception message");
 		}
   }  

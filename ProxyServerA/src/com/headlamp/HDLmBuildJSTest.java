@@ -97,6 +97,7 @@ class HDLmBuildJSTest {
 		  "\"dummyType\":null,\"updated\":null," +
 	 	  "\"extra\":\"\"," +		  
 		  "\"name\":\"Add to Cart Text\",\"nodeiden\":null,\"path\":\"/neve-studio-dance-jacket.html\"," + 
+		  "\"prob\":100.0," +
 		  "\"usemode\":\"prod\"," +
 		  "\"value\":\"\",\"valueSuffix\":" +
 		  "\"\",\"xpath\":\"\"}";				 
@@ -161,7 +162,7 @@ class HDLmBuildJSTest {
 									                              	     	                              serverName);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Protocol string passed to getJsBuildJs is null",
+			assertEquals("Protocol string passed to getJsBuildJs is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  /* At this point, we used to set the secure host name to null and make sure 
@@ -180,7 +181,7 @@ class HDLmBuildJSTest {
 									                              		                                  serverName);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Secure host name string passed to getJsBuildJs is null",
+			assertEquals("Secure host name string passed to getJsBuildJs is null", execMsg,
 					         "Unexpected exception message");
 		}	  
 	  {
@@ -192,7 +193,7 @@ class HDLmBuildJSTest {
 										                                                                  serverName);},
 									                       "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Host name string passed to getJsBuildJs is null",
+			assertEquals("Host name string passed to getJsBuildJs is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
@@ -204,7 +205,7 @@ class HDLmBuildJSTest {
 										                                                                  serverName);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Division name string passed to getJsBuildJs is null",
+			assertEquals("Division name string passed to getJsBuildJs is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
@@ -216,7 +217,7 @@ class HDLmBuildJSTest {
 					                                                                            serverName);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Site name string passed to getJsBuildJs is null",
+			assertEquals("Site name string passed to getJsBuildJs is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
@@ -228,7 +229,7 @@ class HDLmBuildJSTest {
 					                                                                            serverName);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Modifications array passed to getJsBuildJs is null",
+			assertEquals("Modifications array passed to getJsBuildJs is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
@@ -240,7 +241,7 @@ class HDLmBuildJSTest {
 					                                                                            serverName);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Session object passed to getJsBuildJs is null",
+			assertEquals("Session object passed to getJsBuildJs is null", execMsg,
 					         "Unexpected exception message");
 		}
  	}

@@ -79,10 +79,15 @@ class HDLmCurlJettyTest {
 		type = HDLmHttpTypes.POST;
 		/* We can't really do this. This would change a production system. We 
 		   need to skip this test for now. Since the table name is set to "test",
-		   we won't change any production data */		 
+		   we won't change any production data */		
+		/* This test can no longer be used. The test data no long exists. This
+		   test will fail if run. We need to comment it out for now.
+		   This change was made of 2025-6-5. */ 
+		/* 
 		curlOut = HDLmCurlJetty.runCurl(url, userid, password, type, HDLmTreeData.jsonPostStr,
-				                       HDLmReportErrors.REPORTERRORS);		  
-		assertNotNull(curlOut, "Null response recieved from run Curl routine"); 
+				                            HDLmReportErrors.REPORTERRORS);		  
+		assertNotNull(curlOut, "Null response recieved from run Curl routine");
+		*/  
 		{ 
 			HDLmHttpTypes  typeLocal = type;
 			Throwable exception = assertThrows(RuntimeException.class, 
@@ -92,7 +97,7 @@ class HDLmCurlJettyTest {
 					                              		                          typeLocal);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "URL reference passed to runCurl is null",
+			assertEquals("URL reference passed to runCurl is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{
@@ -105,7 +110,7 @@ class HDLmCurlJettyTest {
 					                              		                          typeLocal);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Userid reference passed to runCurl is null",
+			assertEquals("Userid reference passed to runCurl is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{
@@ -118,7 +123,7 @@ class HDLmCurlJettyTest {
 					                              		                          typeLocal);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Password reference passed to runCurl is null",
+			assertEquals("Password reference passed to runCurl is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{
@@ -130,7 +135,7 @@ class HDLmCurlJettyTest {
 					                              		                          null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Type reference passed to runCurl is null",
+			assertEquals("Type reference passed to runCurl is null", execMsg,
 					         "Unexpected exception message");
 		}
 		{
@@ -142,7 +147,7 @@ class HDLmCurlJettyTest {
 					                              		                          HDLmHttpTypes.NONE);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Type value (NONE) passed to runCurl is invalid",
+			assertEquals("Type value (NONE) passed to runCurl is invalid", execMsg,
 					         "Unexpected exception message");
 		}
 		{
@@ -157,7 +162,7 @@ class HDLmCurlJettyTest {
 					                              		                          HDLmReportErrors.REPORTERRORS);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Extra information reference passed to runCurl is null",
+			assertEquals("Extra information reference passed to runCurl is null", execMsg,
 					         "Unexpected exception message");
 		}	
 	}
@@ -175,7 +180,7 @@ class HDLmCurlJettyTest {
 					                               () -> {HDLmCurlJetty.reportCurlError(null, HDLmReportErrors.REPORTERRORS);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Error message reference passed to reportCurlError is null",
+			assertEquals("Error message reference passed to reportCurlError is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{
@@ -183,7 +188,7 @@ class HDLmCurlJettyTest {
 					                               () -> {HDLmCurlJetty.reportCurlError("", null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Error reporting reference passed to reportCurlError is null",
+			assertEquals("Error reporting reference passed to reportCurlError is null", execMsg,
 					         "Unexpected exception message");
 		}	
 	}

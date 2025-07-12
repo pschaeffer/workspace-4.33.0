@@ -91,7 +91,7 @@ class HDLmMatchTest {
 					                               () -> {HDLmMatch.globCheck(null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Match string passed to globCheck is null",
+			assertEquals("Match string passed to globCheck is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -265,7 +265,7 @@ class HDLmMatchTest {
 					                               () -> {HDLmMatch.globToRegex(testStrLocal);},
 					                               "Expected AssertionError");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Some type of glob class has already been started",
+			assertEquals("Some type of glob class has already been started", execMsg,
 					         "Unexpected exception message");
 		}
 		/* Run a globToRegex test */
@@ -275,7 +275,7 @@ class HDLmMatchTest {
 					                               () -> {HDLmMatch.globToRegex(testStrLocal);},
 					                               "Expected AssertionError");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "No glob class is currently active",
+			assertEquals("No glob class is currently active", execMsg,
 					         "Unexpected exception message");
 		}	
 		/* Run a globToRegex test */
@@ -285,7 +285,7 @@ class HDLmMatchTest {
 					                               () -> {HDLmMatch.globToRegex(testStrLocal);},
 					                               "Expected AssertionError");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Some type of glob class is active at end of input",
+			assertEquals("Some type of glob class is active at end of input", execMsg,
 					         "Unexpected exception message");
 		}		
 		/* Run a globToRegex test */
@@ -295,7 +295,7 @@ class HDLmMatchTest {
 					                               () -> {HDLmMatch.globToRegex(testStrLocal);},
 					                               "Expected AssertionError");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "No glob class is currently active",
+			assertEquals("No glob class is currently active", execMsg,
 					         "Unexpected exception message");
 		}	
 		{
@@ -303,7 +303,7 @@ class HDLmMatchTest {
 					                               () -> {HDLmMatch.globToRegex(null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Glob string passed to globToRegex is null",
+			assertEquals("Glob string passed to globToRegex is null", execMsg,
 					         "Unexpected exception message");
 		}
 		{
@@ -312,7 +312,7 @@ class HDLmMatchTest {
 					                               () -> {HDLmMatch.globToRegex(testStrLocal);},
 					                               "Expected AssertionError");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Unescaped exclamation mark does not follow left bracket",
+			assertEquals("Unescaped exclamation mark does not follow left bracket", execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -413,7 +413,7 @@ class HDLmMatchTest {
 					                               () -> {HDLmMatch.likeCheck(null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Match string passed to likeCheck is null",
+			assertEquals("Match string passed to likeCheck is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -612,7 +612,7 @@ class HDLmMatchTest {
 					                               () -> {HDLmMatch.likeToRegex(testStrLocal);},
 					                               "Expected AssertionError");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Some type of like class has already been started",
+			assertEquals("Some type of like class has already been started", execMsg,
 					         "Unexpected exception message");
 		}
 		/* Run a likeToRegex test */
@@ -622,7 +622,7 @@ class HDLmMatchTest {
 					                               () -> {HDLmMatch.likeToRegex(testStrLocal);},
 					                               "Expected AssertionError");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "No like class is currently active",
+			assertEquals("No like class is currently active", execMsg,
 					         "Unexpected exception message");
 		}	
 		/* Run a likeToRegex test */
@@ -632,7 +632,7 @@ class HDLmMatchTest {
 					                               () -> {HDLmMatch.likeToRegex(testStrLocal);},
 					                               "Expected AssertionError");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Some type of like class is active at end of input",
+			assertEquals("Some type of like class is active at end of input", execMsg,
 					         "Unexpected exception message");
 		}		
 		/* Run a likeToRegex test */
@@ -642,7 +642,7 @@ class HDLmMatchTest {
 					                               () -> {HDLmMatch.likeToRegex(testStrLocal);},
 					                               "Expected AssertionError");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "No like class is currently active",
+			assertEquals("No like class is currently active", execMsg,
 					         "Unexpected exception message");
 		}	
 		{
@@ -650,7 +650,7 @@ class HDLmMatchTest {
 					                               () -> {HDLmMatch.likeToRegex(null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Like string passed to likeToRegex is null",
+			assertEquals("Like string passed to likeToRegex is null", execMsg,
 					         "Unexpected exception message");
 		}
 		{
@@ -659,7 +659,7 @@ class HDLmMatchTest {
 					                               () -> {HDLmMatch.likeToRegex(testStrLocal);},
 					                               "Expected AssertionError");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Unescaped not sign does not follow left bracket",
+			assertEquals("Unescaped not sign does not follow left bracket", execMsg,
 					         "Unexpected exception message");
 		}
 	}

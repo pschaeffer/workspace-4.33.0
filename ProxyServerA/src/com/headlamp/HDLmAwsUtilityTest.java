@@ -30,14 +30,14 @@ class HDLmAwsUtilityTest {
 					                               () -> {HDLmAwsUtility.buildAwsSecretsManagerClient(null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Region name reference passed to buildAwsSecretsManagerClient is null");
+			assertEquals("Region name reference passed to buildAwsSecretsManagerClient is null", execMsg);
 		}
 		{
 			Throwable exception = assertThrows(IllegalArgumentException.class, 
 					                               () -> {HDLmAwsUtility.buildAwsSecretsManagerClient("");},
 					                               "Expected IllegalArgumentException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Region name is invalid in buildAwsSecretsManagerClient");
+			assertEquals("Region name is invalid in buildAwsSecretsManagerClient", execMsg);
 		}		
 	}
 	@Test
@@ -57,13 +57,13 @@ class HDLmAwsUtilityTest {
 	  /* Check the value returned from the AWS Secrets Manager */
 	  String  secretValue = null; 
     secretValue = secretsMap.get(secretName);
-    assertEquals(secretValue, "admin", "Unexpected value returned from AWS Secrets Manager get a map of secrets");
+    assertEquals("admin", secretValue, "Unexpected value returned from AWS Secrets Manager get a map of secrets");
 		{
 			Throwable exception = assertThrows(NullPointerException.class, 
 					                               () -> {HDLmAwsUtility.getAMapOfSecrets(null, null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Secrets client reference passed to getASetOfSecrets is null");
+			assertEquals("Secrets client reference passed to getASetOfSecrets is null", execMsg);
 		}
 		{
 			final SecretsManagerClient  clientFinal = client;
@@ -71,7 +71,7 @@ class HDLmAwsUtilityTest {
 					                               () -> {HDLmAwsUtility.getAMapOfSecrets(clientFinal, null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Secrets name reference passed to getASetOfSecrets is null");
+			assertEquals("Secrets name reference passed to getASetOfSecrets is null", execMsg);
 		}
 		{
 			final SecretsManagerClient  clientFinal = client;
@@ -80,7 +80,7 @@ class HDLmAwsUtilityTest {
 					                               () -> {HDLmAwsUtility.getAMapOfSecrets(clientFinal, secretsName);},
 					                               "Expected IllegalArgumentException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Secrets name is invalid in getASetOfSecrets");
+			assertEquals("Secrets name is invalid in getASetOfSecrets", execMsg);
 		}
 	}
 	@Test
@@ -90,20 +90,20 @@ class HDLmAwsUtilityTest {
 	  String  secretValue = null;   
 	  secretValue = HDLmAwsUtility.getJustOneSecretFromAws(null, secretName);	   
 	  assertNotNull(secretValue, "Null returned from AWS Secrets Manager get secret");
-	  assertEquals(secretValue, "admin", "Unexpected value returned from AWS Secrets Manager get secret");
+	  assertEquals("admin", secretValue, "Unexpected value returned from AWS Secrets Manager get secret");
 		{
 			Throwable exception = assertThrows(NullPointerException.class, 
 					                               () -> {HDLmAwsUtility.getJustOneSecretFromAws(null, null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Secret name reference passed to getJustOneSecretFromAws is null");
+			assertEquals("Secret name reference passed to getJustOneSecretFromAws is null", execMsg);
 		}
 		{
 			Throwable exception = assertThrows(IllegalArgumentException.class, 
 					                               () -> {HDLmAwsUtility.getJustOneSecretFromAws(null, "");},
 					                               "Expected IllegalArgumentException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Secret name is invalid in getJustOneSecretFromAws");
+			assertEquals("Secret name is invalid in getJustOneSecretFromAws", execMsg);
 		}
 	}
 }

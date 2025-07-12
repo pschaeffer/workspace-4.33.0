@@ -60,7 +60,7 @@ class HDLmTransferSomethingTest {
 																                                          toRuleNameValue);}, 
                                          "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "From system value passed to transfer object constructor is null",
+			assertEquals("From system value passed to transfer object constructor is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{   
@@ -87,7 +87,7 @@ class HDLmTransferSomethingTest {
 																                                          toRuleNameValue);}, 
                                          "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "To system value passed to transfer object constructor is null",
+			assertEquals("To system value passed to transfer object constructor is null", execMsg,
 					         "Unexpected exception message");
 		}
 		{   
@@ -114,7 +114,7 @@ class HDLmTransferSomethingTest {
 																                                          toRuleNameValue);}, 
                                          "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "From domain name value passed to transfer object constructor is null",
+			assertEquals("From domain name value passed to transfer object constructor is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{   
@@ -141,7 +141,7 @@ class HDLmTransferSomethingTest {
 																                                          toRuleNameValue);}, 
                                          "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "From division name value passed to transfer object constructor is null",
+			assertEquals("From division name value passed to transfer object constructor is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{   
@@ -168,7 +168,7 @@ class HDLmTransferSomethingTest {
 																                                          toRuleNameValue);}, 
                                          "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "From site name value passed to transfer object constructor is null",
+			assertEquals("From site name value passed to transfer object constructor is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{   
@@ -195,7 +195,7 @@ class HDLmTransferSomethingTest {
 																                                          toRuleNameValue);}, 
                                          "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "From rule name value passed to transfer object constructor is null",
+			assertEquals("From rule name value passed to transfer object constructor is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{   
@@ -222,7 +222,7 @@ class HDLmTransferSomethingTest {
 																                                          toRuleNameValue);}, 
                                          "Expected InstantiationException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "System value length (5) is invalid",
+			assertEquals("System value length (5) is invalid", execMsg,
 					         "Unexpected exception message");
 		}
 		{   
@@ -249,7 +249,7 @@ class HDLmTransferSomethingTest {
 																                                          toRuleNameValue);}, 
                                          "Expected InstantiationException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "System value length (5) is invalid",
+			assertEquals("System value length (5) is invalid", execMsg,
 					         "Unexpected exception message");
 		}
 		{   
@@ -276,7 +276,7 @@ class HDLmTransferSomethingTest {
 																                                          toRuleNameValue);}, 
                                          "Expected InstantiationException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "From and to systems are equal",
+			assertEquals("From and to systems are equal", execMsg,
 					         "Unexpected exception message");
 		}
 		{   
@@ -303,7 +303,7 @@ class HDLmTransferSomethingTest {
 																                                          toRuleNameValue);}, 
                                          "Expected InstantiationException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Domain name string length (0) is invalid",
+			assertEquals("Domain name string length (0) is invalid", execMsg,
 					         "Unexpected exception message");
 		}
 		{   
@@ -330,7 +330,7 @@ class HDLmTransferSomethingTest {
 																                                          toRuleNameValue);}, 
                                          "Expected InstantiationException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Division value passed to checkValue is zero-length",
+			assertEquals("Division value passed to checkValue is zero-length", execMsg,
 					         "Unexpected exception message");
 		}
 		{   
@@ -357,7 +357,7 @@ class HDLmTransferSomethingTest {
 																                                          toRuleNameValue);}, 
                                          "Expected InstantiationException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Site value passed to checkValue is zero-length",
+			assertEquals("Site value passed to checkValue is zero-length", execMsg,
 					         "Unexpected exception message");
 		}
 		{   
@@ -384,7 +384,7 @@ class HDLmTransferSomethingTest {
 																                                          toRuleNameValue);}, 
                                          "Expected InstantiationException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Rule value passed to checkValue is zero-length",
+			assertEquals("Rule value passed to checkValue is zero-length", execMsg,
 					         "Unexpected exception message");
 		}
 		{   
@@ -411,7 +411,7 @@ class HDLmTransferSomethingTest {
 																                                          toRuleNameValue);}, 
                                          "Expected InstantiationException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Domain name string length (0) is invalid",
+			assertEquals("Domain name string length (0) is invalid", execMsg,
 					         "Unexpected exception message");
 		}
 		{   
@@ -438,7 +438,7 @@ class HDLmTransferSomethingTest {
 																                                          toRuleNameValue);}, 
                                          "Expected InstantiationException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Division value passed to checkValueNotAsterisk starts with an asterisk",
+			assertEquals("Division value passed to checkValueNotAsterisk starts with an asterisk", execMsg,
 					         "Unexpected exception message");
 		}
 		{   
@@ -465,7 +465,7 @@ class HDLmTransferSomethingTest {
 																                                          toRuleNameValue);}, 
                                          "Expected InstantiationException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Site value passed to checkValueNotAsterisk starts with an asterisk",
+			assertEquals("Site value passed to checkValueNotAsterisk starts with an asterisk", execMsg,
 					         "Unexpected exception message");
 		}
 		{   
@@ -492,7 +492,7 @@ class HDLmTransferSomethingTest {
 																                                          "*");}, 
                                          "Expected InstantiationException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Rule value passed to checkValueNotAsterisk starts with an asterisk",
+			assertEquals("Rule value passed to checkValueNotAsterisk starts with an asterisk", execMsg,
 					         "Unexpected exception message");
 		}
   }  
@@ -526,7 +526,7 @@ class HDLmTransferSomethingTest {
                                                         		transferObject);}, 
           "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "JSON elements passed to buildTransferRequest is null",
+			assertEquals("JSON elements passed to buildTransferRequest is null", execMsg,
 					         "Unexpected exception message");
 		}
   	{   
@@ -557,7 +557,7 @@ class HDLmTransferSomethingTest {
                                                         		null);}, 
           "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Empty transfer object passed to buildTransferRequest is null",
+			assertEquals("Empty transfer object passed to buildTransferRequest is null", execMsg,
 					         "Unexpected exception message");
 		}
   	{   
@@ -980,7 +980,7 @@ class HDLmTransferSomethingTest {
                                                                                 	  inputRows);}, 
                                          "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Transfer object passed to filterRowList is null",
+			assertEquals("Transfer object passed to filterRowList is null", execMsg,
 					         "Unexpected exception message");
 		}  	
   	{   
@@ -992,7 +992,7 @@ class HDLmTransferSomethingTest {
                                                                                 		null);}, 
                                          "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Input row list passed to filterRowList is null",
+			assertEquals("Input row list passed to filterRowList is null", execMsg,
 					         "Unexpected exception message");
 		} 
   }
@@ -1008,7 +1008,7 @@ class HDLmTransferSomethingTest {
                                                                                 	  inputRows);}, 
                                          "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Transfer object passed to insertRowList is null",
+			assertEquals("Transfer object passed to insertRowList is null", execMsg,
 					         "Unexpected exception message");
 		}  	
   	{   
@@ -1020,7 +1020,7 @@ class HDLmTransferSomethingTest {
                                                                                 		null);}, 
                                          "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Input row list passed to insertRowList is null",
+			assertEquals("Input row list passed to insertRowList is null", execMsg,
 					         "Unexpected exception message");
 		} 
   }
@@ -1034,7 +1034,7 @@ class HDLmTransferSomethingTest {
                                          () -> {HDLmTransferSomething.runTransferRequest(null);}, 
                                          "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Transfer object passed to runTransferRequest is null",
+			assertEquals("Transfer object passed to runTransferRequest is null", execMsg,
 					         "Unexpected exception message");
 		}  	
   }
@@ -1047,7 +1047,7 @@ class HDLmTransferSomethingTest {
                                          () -> {HDLmTransferSomething.transferSomething(null);}, 
                                          "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "JSON elements passed to transferSomething is null",
+			assertEquals("JSON elements passed to transferSomething is null", execMsg,
 					         "Unexpected exception message");
 		}  	
   }

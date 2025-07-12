@@ -46,6 +46,13 @@ public class HDLmNodeIden {
 	private Map<String, Object>   nodeAttributes = null;
   @SerializedName("counts")
 	private Map<String, Integer>  nodeCounts = null;
+	/* An error message ArrayList<String> is used to store error messages. This
+     ArrayList is used to store error messages that are generated during the 
+     construction of the node identifier instance from JSON. The field is 
+     transient so that is is not serialized. The error messages are not 
+     serialized because they are not needed after the node identifier the
+     node identifier instance is built. */
+  private transient ArrayList<String>   nodeMessages = null;
   @SerializedName("grandparent")
 	private Map<String, Object>   nodeGrand = null;
   @SerializedName("parent")
@@ -123,6 +130,13 @@ public class HDLmNodeIden {
 		   below so that the error count can be updated by the routines called using 
 		   error count.*/
 		MutableInt  mutableErrorCounter = new MutableInt(0);
+		/* Build an array list for error message strings. Each error
+	     message is stored in this array list. */
+		ArrayList<String>   errorMessages = new ArrayList<String>();
+		if (errorMessages == null) {
+			String  errorText = "Error message ArrayList allocation in HDLmNodeIden constructor is null";
+			throw new NullPointerException(errorText);
+		}		
 		/* Get the list of keywords and values in the JSON object */
 		if (jsonElement.isJsonNull()) {
 			HDLmAssertAction(false, "JSON element used to build node identifier is JSON null");
@@ -132,47 +146,66 @@ public class HDLmNodeIden {
 		/* Make sure the JSON object has exactly four or five keys */
 		if (jsonKeys.size() != 4 &&
 				jsonKeys.size() != 5) {
-			HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-                                 jsonObject, name, 
-                                 "Modification JSON node identifier invalid key set size", 
-                                 39, reportErrors);				
+			HDLmField.reportErrorNoValue(editorType, 
+					                         mutableErrorCounter, 
+					                         errorMessages,
+                                   jsonObject, 
+                                   name, 
+                                   "Modification JSON node identifier invalid key set size", 
+                                   39, 
+                                   reportErrors);				
 		}
 		/* Check if we have a required key */ 
 		if (jsonKeys.contains("type") == false) {			
-			HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-          jsonObject, name, 
-          "Modification JSON node identifier does not contain \"type\" key", 
-          39, reportErrors);				
+			HDLmField.reportErrorNoValue(editorType, 
+																	 mutableErrorCounter,
+																	 errorMessages,
+													         jsonObject, 
+													         name, 
+													         "Modification JSON node identifier does not contain \"type\" key", 
+													         39, 
+													         reportErrors);				
 		}
 		/* Check if we have a required key */ 
 		if (jsonKeys.contains("attributes") == false) {			
-			HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-          jsonObject, name, 
-          "Modification JSON node identifier does not contain \"attributes\" key", 
-          39, reportErrors);				
+			HDLmField.reportErrorNoValue(editorType, 
+	                          			 mutableErrorCounter,
+																	 errorMessages,
+													         jsonObject, name, 
+													         "Modification JSON node identifier does not contain \"attributes\" key", 
+													         39, 
+													         reportErrors);				
 		}
 		/* Check if we have a required key */ 
 		if (jsonKeys.contains("counts") == false) {			
-			HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-          jsonObject, name, 
-          "Modification JSON node identifier does not contain \"counts\" key", 
-          39, reportErrors);				
+			HDLmField.reportErrorNoValue(editorType, 
+																	 mutableErrorCounter,
+																	 errorMessages,
+												           jsonObject, name, 
+												           "Modification JSON node identifier does not contain \"counts\" key", 
+												           39, 
+												           reportErrors);				
 		}
 		/* Check if we have a required key. Actually, this key is optional.
 		   We only have the grandparent key in some (but not all) cases. */ 
 		if (jsonKeys.contains("grandparent") == false &&
 				jsonKeys.contains("grandparent") == true) {			
-			HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-          jsonObject, name, 
-          "Modification JSON node identifier does not contain \"grandparent\" key", 
-          39, reportErrors);				
+			HDLmField.reportErrorNoValue(editorType, 
+																	 mutableErrorCounter,
+																	 errorMessages,
+												           jsonObject, name, 
+												           "Modification JSON node identifier does not contain \"grandparent\" key", 
+												           39, 
+												           reportErrors);				
 		}
 		/* Check if we have a required key */ 
 		if (jsonKeys.contains("parent") == false) {			
-			HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-          jsonObject, name, 
-          "Modification JSON node identifier does not contain \"parent\" key", 
-          39, reportErrors);				
+			HDLmField.reportErrorNoValue(editorType, 
+																	 mutableErrorCounter,
+																	 errorMessages,
+												           jsonObject, name, 
+												           "Modification JSON node identifier does not contain \"parent\" key", 
+												           39, reportErrors);				
 		}
 		/* Get and check the type value in the node identifier JSON */
 		jsonElement = jsonObject.get("type");
@@ -180,61 +213,84 @@ public class HDLmNodeIden {
 			jsonElement = jsonElement;
 		}
 		if (jsonElement.isJsonNull()) {
-			HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-          jsonObject, name, 
-          "Modification JSON node identifier for \"type\" is null", 
-          39, reportErrors);				
+			HDLmField.reportErrorNoValue(editorType, 
+																	 mutableErrorCounter,
+																	 errorMessages,
+												           jsonObject, name, 
+												           "Modification JSON node identifier for \"type\" is null", 
+												           39, 
+												           reportErrors);				
 		}
 		if (jsonElement.isJsonPrimitive() == false) {
-			HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-          jsonObject, name, 
-          "Modification JSON node identifier for \"type\" is not primitive", 
-          39, reportErrors);				
+			HDLmField.reportErrorNoValue(editorType, 
+																	 mutableErrorCounter,
+																	 errorMessages,
+												           jsonObject, name, 
+												           "Modification JSON node identifier for \"type\" is not primitive", 
+												           39, 
+												           reportErrors);				
 		}
 		JsonPrimitive   jsonPrimitive = jsonElement.getAsJsonPrimitive();
 		String          typeValue = jsonPrimitive.getAsString();
 		/* Check if the string value is zero-length or not */
 		if (typeValue.length() == 0) {
-			HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-          jsonObject, name, 
-          "Modification JSON node identifier for \"type\" is a zero-length string", 
-          39, reportErrors);			
+			HDLmField.reportErrorNoValue(editorType, 
+																	 mutableErrorCounter,
+																	 errorMessages,
+												           jsonObject, name, 
+												           "Modification JSON node identifier for \"type\" is a zero-length string", 
+												           39, 
+												           reportErrors);			
 		}		
 		/* Check if the string value is a supported type value */
 		if (supportedTypeValues.contains(typeValue) == false) {
-			HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-          jsonObject, name, 
-          "Modification JSON node identifier for \"type\" is an unknown string", 
-          39, reportErrors);			
+			HDLmField.reportErrorNoValue(editorType, 
+																	 mutableErrorCounter,
+																	 errorMessages,
+													         jsonObject, name, 
+													         "Modification JSON node identifier for \"type\" is an unknown string", 
+													         39, 
+													         reportErrors);			
 		}		
 		this.nodeType = typeValue;
 		/* Get and check the current element attributes value in the 
 		   node identifier JSON */		
-		this.nodeAttributes = this.checkAttributes(editorType, mutableErrorCounter,
-				                                       name, reportErrors,
+		this.nodeAttributes = this.checkAttributes(editorType, 
+				                                       mutableErrorCounter,
+				                                       errorMessages,
+				                                       name, 
+				                                       reportErrors,
 				                                       "attributes", 
 				                                       typeValue,
 				                                       true,
 				                                       jsonObject);
 		/* Get and check the counts values in the node identifier JSON */		
-		this.nodeCounts = this.checkCounts(editorType, mutableErrorCounter,
-		                                   name, reportErrors,
+		this.nodeCounts = this.checkCounts(editorType, 
+				                               mutableErrorCounter,
+				                               errorMessages,
+		                                   name, 
+		                                   reportErrors,
 		                                   "counts",  
 		                                   jsonObject);
 		/* Get and check the grand parent element attributes value in the 
        node identifier JSON */		
 		if (jsonKeys.contains("grandparent") == true) {		
-			this.nodeGrand = this.checkAttributes(editorType, mutableErrorCounter,
-																		         name, reportErrors,
-																		         "grandparent", 
-																		         null,
-																		         false,
-																		         jsonObject);
+			this.nodeGrand = this.checkAttributes(editorType, 
+					                                  mutableErrorCounter,
+					                                  errorMessages,
+																		        name, reportErrors,
+																		        "grandparent", 
+																		        null,
+																		        false,
+																		        jsonObject);
 		}
 		/* Get and check the parent element attributes value in the 
 	     node identifier JSON */		
-		this.nodeParent = this.checkAttributes(editorType, mutableErrorCounter,
-				                                   name, reportErrors,
+		this.nodeParent = this.checkAttributes(editorType, 
+				                                   mutableErrorCounter,
+				                                   errorMessages,
+				                                   name, 
+				                                   reportErrors,
 				                                   "parent", 
 				                                   null,
 				                                   false,
@@ -244,6 +300,7 @@ public class HDLmNodeIden {
 		   field to false. */
     if (mutableErrorCounter.intValue() > 0) {
 	    this.nodeEnabled = false;
+	    this.nodeMessages = errorMessages;
     }	
   }
 	/* Add a perceptual hash value to the attributes for the current set of
@@ -266,14 +323,15 @@ public class HDLmNodeIden {
 	   are correct, return a non-null Map to the caller. The attributes might
 	   come form a DOM element or they might come from a parent of a DOM
 	   element or they might come from a grand parent of a DOM element. */
-	protected Map<String, Object> checkAttributes(HDLmEditorTypes  editorType, 
-			                                          MutableInt       mutableErrorCounter, 
-			                                          String           informationTypeName,
-			                                          HDLmReportErrors reportErrors,
-			                                          String           sourceKeyName,
-			                                          String           searchTypeValue,
-			                                          boolean          primaryAttribute,
-			                                          JsonObject       jsonObject) {
+	protected Map<String, Object> checkAttributes(HDLmEditorTypes   editorType, 
+			                                          MutableInt        mutableErrorCounter, 
+			                                          ArrayList<String> errorMessages,
+			                                          String            informationTypeName,
+			                                          HDLmReportErrors  reportErrors,
+			                                          String            sourceKeyName,
+			                                          String            searchTypeValue,
+			                                          boolean           primaryAttribute,
+			                                          JsonObject        jsonObject) {
 		/* Declare and define a few local values */
 		boolean               tagAttributeFound = false;
 		JsonElement           jsonElement = null;
@@ -287,20 +345,28 @@ public class HDLmNodeIden {
 		if (jsonElement.isJsonNull()) {
 			String  format = "Modification JSON node identifier for \"%s\" is null";
 			String  errorText = String.format(format, sourceKeyName);	
-			HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-	                               jsonObject, informationTypeName, 
-	                               errorText, 
-	                               39, reportErrors);		
+			HDLmField.reportErrorNoValue(editorType, 
+					                         mutableErrorCounter,
+					                         errorMessages,
+	                                 jsonObject, 
+	                                 informationTypeName, 
+	                                 errorText, 
+	                                 39, 
+	                                 reportErrors);		
 			return null;
 		}
 		/* Make sure that the JSON element is really a JSON object */
 		if (jsonElement.isJsonObject() == false) {
 			String  format = "Modification JSON node identifier for \"%s\" is not an object";
 			String  errorText = String.format(format, sourceKeyName);	
-			HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-													       jsonObject, informationTypeName, 
-													       errorText,
-													       39, reportErrors);			
+			HDLmField.reportErrorNoValue(editorType, 
+					                         mutableErrorCounter,
+					                         errorMessages,
+													         jsonObject, 
+													         informationTypeName, 
+													         errorText,
+													         39, 
+													         reportErrors);			
 			return null;
 		}
 	  /* Get a JSON object for the (current or parent) attribute keys */
@@ -313,10 +379,14 @@ public class HDLmNodeIden {
 		  if (jsonElement.isJsonNull()) {
 			  String  format = "Modification JSON node identifier for attribute (%s) is null";
 			  String  errorText = String.format(format, jsonKey);						
-			  HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-												           jsonObject, informationTypeName, 
-												           errorText, 
-												           39, reportErrors);
+			  HDLmField.reportErrorNoValue(editorType, 
+			  		                         mutableErrorCounter,
+			  		                         errorMessages,
+												             jsonObject, 
+												             informationTypeName, 
+												             errorText, 
+												             39, 
+												             reportErrors);
 			  return null;
 		  }
 		  /* We need to check for a special case here. The JSON element for a 
@@ -326,10 +396,13 @@ public class HDLmNodeIden {
 		  	if (jsonElement.isJsonArray() == false) {
 		  		String  format = "Modification JSON node identifier for attribute (%s) is not an array";
 		  		String  errorText = String.format(format, "class");						
-		  		HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-	            jsonObject, informationTypeName, 
-	            errorText, 
-	            39, reportErrors);	
+		  		HDLmField.reportErrorNoValue(editorType, 
+														  				 mutableErrorCounter,
+														  				 errorMessages,
+													             jsonObject, informationTypeName, 
+													             errorText, 
+													             39, 
+													             reportErrors);	
 		  		return null;
 			  }				
 			  /* We need to build an array list with all of the class values
@@ -345,10 +418,14 @@ public class HDLmNodeIden {
 					if (jsonArrayElement.isJsonNull()) {
 						String  format = "Modification JSON node identifier for \"%s\" class array entry is null";
 						String  errorText = String.format(format, sourceKeyName);	
-						HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-				       jsonObject, informationTypeName, 
-				       errorText, 
-				       39, reportErrors);		
+						HDLmField.reportErrorNoValue(editorType, 
+																				 mutableErrorCounter,
+																				 errorMessages,
+																         jsonObject, 
+																         informationTypeName, 
+																         errorText, 
+																         39, 
+																         reportErrors);		
 						return null;
 					}
 				  /* Check if the current JSON class array entry is a JSON primitive value.
@@ -358,10 +435,14 @@ public class HDLmNodeIden {
 				  if (jsonArrayElement.isJsonPrimitive() == false) {
 					  String  format = "Modification JSON node identifier for \"%s\" class array entry is not primitive";
 					  String  errorText = String.format(format, sourceKeyName);		
-					  HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-		           jsonObject, informationTypeName, 
-		           errorText, 
-		           39, reportErrors);
+					  HDLmField.reportErrorNoValue(editorType, 
+																	  		 mutableErrorCounter,
+																	  		 errorMessages,
+														             jsonObject, 
+														             informationTypeName, 
+														             errorText, 
+														             39, 
+														             reportErrors);
 					  return null;
 				  }
 				  /* Convert the JSON element for the attributes class array entry to a 
@@ -374,10 +455,14 @@ public class HDLmNodeIden {
 				  if (jsonArrayPrimitive.isString() == false) {
 					  String  format = "Modification JSON node identifier for \"%s\" class array entry is not a string";					  
 					  String  errorText = String.format(format, sourceKeyName);		
-					  HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-		           jsonObject, informationTypeName, 
-		           errorText, 
-		           39, reportErrors);
+					  HDLmField.reportErrorNoValue(editorType, 
+																	  		 mutableErrorCounter,
+																	  		 errorMessages,
+														             jsonObject, 
+														             informationTypeName, 
+														             errorText, 
+														             39, 
+														             reportErrors);
 					  return null;
 				  }
           /* Get the actual string value and add it to the array of class
@@ -386,10 +471,14 @@ public class HDLmNodeIden {
 					if (classEntryValue.length() == 0) {
 						String  format = "Modification JSON node identifier for \"%s\" class array entry is a zero-length string";
 						String  errorText = String.format(format, sourceKeyName);		
-						HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-			          jsonObject, informationTypeName, 
-			          errorText, 
-			          39, reportErrors);	
+						HDLmField.reportErrorNoValue(editorType, 
+																				 mutableErrorCounter,
+																				 errorMessages,
+															           jsonObject, 
+															           informationTypeName, 
+															           errorText, 
+															           39, 
+															           reportErrors);	
 						return null;
 					}	
 				  attributeValueArray.add(classEntryValue);
@@ -402,10 +491,12 @@ public class HDLmNodeIden {
 		  if (jsonElement.isJsonPrimitive() == false) {
 			  String  format = "Modification JSON node identifier for attribute (%s) is not primitive";
 			  String  errorText = String.format(format, jsonKey);		
-			  HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-           jsonObject, informationTypeName, 
-           errorText, 
-           39, reportErrors);
+			  HDLmField.reportErrorNoValue(editorType, 
+															  		 mutableErrorCounter,
+															  		 errorMessages,
+												             jsonObject, informationTypeName, 
+												             errorText, 
+												             39, reportErrors);
 			  return null;
 		  }
 		  /* Convert the JSON element for the attribute value to a JSON
@@ -419,10 +510,13 @@ public class HDLmNodeIden {
 		  if (jsonPrimitive.isString() == false) {
 			  String  format = "Modification JSON node identifier for attribute (%s) is not a string";					  
 			  String  errorText = String.format(format, jsonKey);		
-			  HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-	        jsonObject, informationTypeName, 
-	        errorText, 
-	        39, reportErrors);
+			  HDLmField.reportErrorNoValue(editorType, 
+																  	 mutableErrorCounter,
+																  	 errorMessages,
+														         jsonObject, informationTypeName, 
+														         errorText, 
+														         39, 
+														         reportErrors);
 			  return null;
 		  }
 		  String  attributeValue = jsonPrimitive.getAsString();
@@ -440,10 +534,14 @@ public class HDLmNodeIden {
 	  if (tagAttributeFound == false) {
 		  String  format = "Modification JSON node identifier for attribute (%s) was not found";
 	  	String  errorText = String.format(format, "tag");		
-		  HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-												         jsonObject, informationTypeName, 
-												         errorText, 
-												         39, reportErrors);	
+		  HDLmField.reportErrorNoValue(editorType, 
+		  		                         mutableErrorCounter,
+		  		                         errorMessages,
+												           jsonObject, 
+												           informationTypeName, 
+												           errorText, 
+												           39, 
+												           reportErrors);	
 		  return null;
 	  }
 		/* Make sure the tag value in the node identifier attributes 
@@ -456,10 +554,14 @@ public class HDLmNodeIden {
 			if (jsonElement.isJsonNull()) {
 				String  format = "Modification JSON node identifier for attribute (%s) is null";
 				String  errorText = String.format(format, "tag");	
-				HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-		       jsonObject, informationTypeName, 
-		       errorText, 
-		       39, reportErrors);		
+				HDLmField.reportErrorNoValue(editorType, 
+						                         mutableErrorCounter,
+						                         errorMessages,
+		                                 jsonObject, 
+		                                 informationTypeName, 
+		                                 errorText, 
+		                                 39, 
+		                                 reportErrors);		
 				return null;
 			}
 	  /* Check if the current JSON class array entry is a JSON primitive 
@@ -468,20 +570,26 @@ public class HDLmNodeIden {
 		  if (jsonElement.isJsonPrimitive() == false) {
 			  String  format = "Modification JSON node identifier for attribute (%s) is not primitive";
 			  String  errorText = String.format(format, "tag");		
-			  HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-	       jsonObject, informationTypeName, 
-	       errorText, 
-	       39, reportErrors);
-			  return null;
+			  HDLmField.reportErrorNoValue(editorType, 
+			  		                         mutableErrorCounter,
+			  		                         errorMessages,
+	                                   jsonObject, informationTypeName, 
+	                                   errorText, 
+	                                   39, reportErrors);
+		                            	   return null;
 		  }
 		  jsonPrimitive = jsonElement.getAsJsonPrimitive();
 		  if (jsonPrimitive.isString() == false) {
 			  String  format = "Modification JSON node identifier for attribute (%s) is not a string";
 			  String  errorText = String.format(format, "tag");		
-			  HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-           jsonObject, informationTypeName, 
-           errorText, 
-           39, reportErrors);
+			  HDLmField.reportErrorNoValue(editorType, 
+			  		                         mutableErrorCounter,
+			  		                         errorMessages,
+                                     jsonObject, 
+                                     informationTypeName, 
+                                     errorText, 
+                                     39, 
+                                     reportErrors);
 			  return null;
 		  }
 		  /* Get the value of the tag from the node identifier attributes. The tag
@@ -490,10 +598,14 @@ public class HDLmNodeIden {
 		  if (attributeTagValue.length() == 0) {
 			  String  format = "Modification JSON node identifier for attribute (%s) is a zero-length string";
 			  String  errorText = String.format(format, "tag");		
-			  HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-           jsonObject, informationTypeName, 
-           errorText, 
-           39, reportErrors);
+			  HDLmField.reportErrorNoValue(editorType, 
+			  		                         mutableErrorCounter,
+			  		                         errorMessages,
+                                     jsonObject, 
+                                     informationTypeName, 
+                                     errorText, 
+                                     39, 
+                                     reportErrors);
 			  return null;
 		  }
 	  }
@@ -508,10 +620,14 @@ public class HDLmNodeIden {
 			if (jsonKeys.contains(searchTypeValue) == false) {
 				String  format = "Modification JSON node identifier attributes doesn't have an entry for type (%s)";
 				String  errorText = String.format(format, searchTypeValue);		
-				HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-														       jsonObject, informationTypeName, 
-														       errorText, 
-														       39, reportErrors);		
+				HDLmField.reportErrorNoValue(editorType, 
+						                         mutableErrorCounter,
+						                         errorMessages,
+														         jsonObject, 
+														         informationTypeName, 
+														         errorText, 
+														         39, 
+														         reportErrors);		
 				return null;
 			}
 			/* Make sure the value in the node identifier attributes for the current search type 
@@ -526,10 +642,13 @@ public class HDLmNodeIden {
 					if (jsonElement.isJsonArray() == false) {
 						String  format = "Modification JSON node identifier for attribute (%s) is not an array";
 						String  errorText = String.format(format, searchTypeValue);						
-						HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-			          jsonObject, informationTypeName, 
-			          errorText, 
-			          39, reportErrors);		
+						HDLmField.reportErrorNoValue(editorType, 
+								                         mutableErrorCounter,
+								                         errorMessages,
+			                                   jsonObject, informationTypeName, 
+			                                   errorText, 
+			                                   39, 
+			                                   reportErrors);		
 						return null;
 					}				
 				}	
@@ -542,10 +661,14 @@ public class HDLmNodeIden {
 					if (jsonElement.isJsonNull()) {
 						String  format = "Modification JSON node identifier for attribute (%s) is null";
 						String  errorText = String.format(format, searchTypeValue);	
-						HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-				       jsonObject, informationTypeName, 
-				       errorText, 
-				       39, reportErrors);		
+						HDLmField.reportErrorNoValue(editorType, 
+								                         mutableErrorCounter,
+								                         errorMessages,
+				                                 jsonObject, 
+				                                 informationTypeName, 
+				                                 errorText, 
+				                                 39, 
+				                                 reportErrors);		
 						return null;
 					}
 				  /* Check if the current JSON class array entry is a JSON primitive 
@@ -554,20 +677,28 @@ public class HDLmNodeIden {
 				  if (jsonElement.isJsonPrimitive() == false) {
 					  String  format = "Modification JSON node identifier for attribute (%s) is not primitive";
 					  String  errorText = String.format(format, searchTypeValue);		
-					  HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-		          jsonObject, informationTypeName, 
-		          errorText, 
-		          39, reportErrors);
+					  HDLmField.reportErrorNoValue(editorType, 
+					  		                         mutableErrorCounter,
+					  		                         errorMessages,
+		                                     jsonObject, 
+		                                     informationTypeName, 
+		                                     errorText, 
+		                                     39, 
+		                                     reportErrors);
 					  return null;
 				  }
 					jsonPrimitive = jsonElement.getAsJsonPrimitive();
 					if (jsonPrimitive.isString() == false) {
 						String  format = "Modification JSON node identifier for attribute (%s) is not a string";
 						String  errorText = String.format(format, searchTypeValue);		
-						HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-			         jsonObject, informationTypeName, 
-			         errorText, 
-			         39, reportErrors);
+						HDLmField.reportErrorNoValue(editorType, 
+								                         mutableErrorCounter,
+								                         errorMessages,
+			                                   jsonObject, 
+			                                   informationTypeName, 
+			                                   errorText, 
+			                                   39, 
+			                                   reportErrors);
 						return null;
 					}
 					/* Get the value of the node identifier attribute. The attribute 
@@ -576,10 +707,14 @@ public class HDLmNodeIden {
 					if (attributeTagValue.length() == 0) {
 						String  format = "Modification JSON node identifier for attribute (%s) is a zero-length string";
 						String  errorText = String.format(format, searchTypeValue);		
-						HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-			         jsonObject, informationTypeName, 
-			         errorText, 
-			         39, reportErrors);				
+						HDLmField.reportErrorNoValue(editorType, 
+								                         mutableErrorCounter,
+								                         errorMessages,
+			                                   jsonObject, 
+			                                   informationTypeName, 
+			                                   errorText, 
+			                                   39, 
+			                                   reportErrors);				
 						return null;
 					}
 				}
@@ -593,10 +728,14 @@ public class HDLmNodeIden {
 			if (jsonElement.isJsonArray() == false) {
 				String  format = "Modification JSON node identifier for attribute (%s) is not an array";
 				String  errorText = String.format(format, "class");		
-				HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-	         jsonObject, informationTypeName, 
-	         errorText, 
-	         39, reportErrors);			
+				HDLmField.reportErrorNoValue(editorType, 
+						                         mutableErrorCounter,
+						                         errorMessages,
+	                                   jsonObject, 
+	                                   informationTypeName, 
+	                                   errorText, 
+	                                   39, 
+	                                   reportErrors);			
 				return null;
 			}			
 			/* We need to make sure that the attributes class array is not empty. In other words,
@@ -606,10 +745,13 @@ public class HDLmNodeIden {
 			if (jsonArraySize == 0) {
 				String  format = "Modification JSON node identifier for attribute (%s) is an empty array";
 				String  errorText = String.format(format, "class");		
-				HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-	         jsonObject, informationTypeName, 
-	         errorText, 
-	         39, reportErrors);			
+				HDLmField.reportErrorNoValue(editorType, 
+						                         mutableErrorCounter,
+						                         errorMessages,
+	                                   jsonObject, 
+	                                   informationTypeName, 
+	                                   errorText, 
+	                                   39, reportErrors);			
 				return null;
 			}	
 			/* We now need to check all of the values in the node identifier attributes class array. 
@@ -621,10 +763,14 @@ public class HDLmNodeIden {
 				if (jsonArrayElement.isJsonNull()) {
 					String  format = "Modification JSON node identifier for \"%s\" class array entry is null";
 					String  errorText = String.format(format, sourceKeyName);	
-					HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-			       jsonObject, informationTypeName, 
-			       errorText, 
-			       39, reportErrors);		
+					HDLmField.reportErrorNoValue(editorType, 
+							                         mutableErrorCounter,
+							                         errorMessages,
+			                                 jsonObject, 
+			                                 informationTypeName, 
+			                                 errorText, 
+			                                 39, 
+			                                 reportErrors);		
 					return null;
 				}
 			  /* Check if the current JSON class array entry is a JSON primitive 
@@ -633,20 +779,28 @@ public class HDLmNodeIden {
 			  if (jsonArrayElement.isJsonPrimitive() == false) {
 				  String  format = "Modification JSON node identifier for \"%s\" class array entry is not primitive";
 				  String  errorText = String.format(format, sourceKeyName);		
-				  HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-	          jsonObject, informationTypeName, 
-	          errorText, 
-	          39, reportErrors);
+				  HDLmField.reportErrorNoValue(editorType, 
+				  		                         mutableErrorCounter,
+				  		                         errorMessages,
+	                                     jsonObject, 
+	                                     informationTypeName, 
+	                                     errorText, 
+	                                     39, 
+	                                     reportErrors);
 				  return null;
 			  }
 				JsonPrimitive jsonArrayPrimitive = jsonArrayElement.getAsJsonPrimitive();
 				if (jsonArrayPrimitive.isString() == false) {
 					String  format = "Modification JSON node identifier for \"%s\" class array entry is not a string";
 					String  errorText = String.format(format,  sourceKeyName);		
-					HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-		          jsonObject, informationTypeName, 
-		          errorText, 
-		          39, reportErrors);		
+					HDLmField.reportErrorNoValue(editorType, 
+							                         mutableErrorCounter,
+							                         errorMessages,
+		                                   jsonObject, 
+		                                   informationTypeName, 
+		                                   errorText, 
+		                                   39, 
+		                                   reportErrors);		
 					return null;
 				}
 				/* Get the value of the class entry from the class array. The class entry 
@@ -655,10 +809,14 @@ public class HDLmNodeIden {
 				if (classEntryValue.length() == 0) {
 					String  format = "Modification JSON node identifier for \"%s\" class array entry is a zero-length string";
 					String  errorText = String.format(format, sourceKeyName);		
-					HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-		          jsonObject, informationTypeName, 
-		          errorText, 
-		          39, reportErrors);	
+					HDLmField.reportErrorNoValue(editorType, 
+							                         mutableErrorCounter, 
+							                         errorMessages,
+		                                   jsonObject, 
+		                                   informationTypeName, 
+		                                   errorText, 
+		                                   39, 
+		                                   reportErrors);	
 					return null;
 				}				
 			}			
@@ -668,12 +826,13 @@ public class HDLmNodeIden {
   /* Check the JSON version of the counts values. If the JSON counts values 
 	   are correct, return a non-null Map to the caller. The counts are
 	   always part of the node identifier JSON. */
-	protected Map<String, Integer> checkCounts(HDLmEditorTypes  editorType, 
-			                                       MutableInt       mutableErrorCounter, 
-			                                       String           informationTypeName,
-			                                       HDLmReportErrors reportErrors,
-			                                       String           sourceKeyName,
-			                                       JsonObject       jsonObject) {
+	protected Map<String, Integer> checkCounts(HDLmEditorTypes   editorType, 
+			                                       MutableInt        mutableErrorCounter,
+			                                       ArrayList<String> errorMessages,
+			                                       String            informationTypeName,
+			                                       HDLmReportErrors  reportErrors,
+			                                       String            sourceKeyName,
+			                                       JsonObject        jsonObject) {
 		/* Declare and define a few local values */
 		JsonElement           jsonElement = null;
 		JsonPrimitive         jsonPrimitive = null;
@@ -687,20 +846,28 @@ public class HDLmNodeIden {
 		if (jsonElement.isJsonNull()) {
 			String  format = "Modification JSON node identifier for \"%s\" is null";
 			String  errorText = String.format(format, sourceKeyName);	
-			HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-	      jsonObject, informationTypeName, 
-	      errorText, 
-	      39, reportErrors);		
+			HDLmField.reportErrorNoValue(editorType, 
+					                         mutableErrorCounter,
+					                         errorMessages,
+	                                 jsonObject, 
+	                                 informationTypeName, 
+	                                 errorText, 
+	                                 39, 
+	                                 reportErrors);		
 			return null;
 		}
 		/* Make sure that the JSON element is really a JSON object */
 		if (jsonElement.isJsonObject() == false) {
 			String  format = "Modification JSON node identifier for \"%s\" is not an object";
 			String  errorText = String.format(format, sourceKeyName);	
-			HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-														     jsonObject, informationTypeName, 
-														     errorText,
-														     39, reportErrors);			
+			HDLmField.reportErrorNoValue(editorType, 
+					                         mutableErrorCounter,
+					                         errorMessages,
+														       jsonObject, 
+														       informationTypeName, 
+														       errorText,
+														       39, 
+														       reportErrors);			
 			return null;
 		}
 	  /* Get a JSON object for the counts values */
@@ -711,19 +878,26 @@ public class HDLmNodeIden {
 	  if (jsonKeysSize < 1) {
 		  String  format = "Modification JSON node identifier for \"%s\" is empty";
 		  String  errorText = String.format(format, sourceKeyName);	
-			HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-          jsonObject, informationTypeName, 
-          errorText, 
-          39, reportErrors);	
+			HDLmField.reportErrorNoValue(editorType, 
+					                         mutableErrorCounter,
+					                         errorMessages,
+                                   jsonObject, informationTypeName, 
+                                   errorText, 
+                                   39, 
+                                   reportErrors);	
 			return null;	  	
 	  }
 	  if (jsonKeysSize > 4) {
 		  String  format = "Modification JSON node identifier for \"%s\" has too many entries";
 		  String  errorText = String.format(format, sourceKeyName);	
-			HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-          jsonObject, informationTypeName, 
-          errorText, 
-          39, reportErrors);	
+			HDLmField.reportErrorNoValue(editorType, 
+					                         mutableErrorCounter,
+					                         errorMessages,
+                                   jsonObject, 
+                                   informationTypeName, 
+                                   errorText, 
+                                   39, 
+                                   reportErrors);	
 			return null;	  	
 	  }
 	  /* Process each of the counts values */
@@ -732,10 +906,14 @@ public class HDLmNodeIden {
 			if (supportedTypeValues.contains(jsonKey) == false) {
 			  String  format = "Modification JSON node identifier for count value (%s) is not supported";
 			  String  errorText = String.format(format, jsonKey);		
-				HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-	          jsonObject, informationTypeName, 
-	          errorText, 
-	          39, reportErrors);	
+				HDLmField.reportErrorNoValue(editorType, 
+						                         mutableErrorCounter,
+						                         errorMessages,
+	                                   jsonObject, 
+	                                   informationTypeName, 
+	                                   errorText, 
+	                                   39, 
+	                                   reportErrors);	
 				return null;
 			}	
 		  /* Get and check the count value in the node identifier JSON */
@@ -743,20 +921,28 @@ public class HDLmNodeIden {
 		  if (jsonElement.isJsonNull()) {
 			  String  format = "Modification JSON node identifier for count value (%s) is null";
 			  String  errorText = String.format(format, jsonKey);						
-			  HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-	        jsonObject, informationTypeName, 
-	        errorText, 
-	        39, reportErrors);
+			  HDLmField.reportErrorNoValue(editorType, 
+			  		                         mutableErrorCounter,
+			  		                         errorMessages,
+	                                   jsonObject, 
+	                                   informationTypeName, 
+	                                   errorText, 
+	                                   39, 
+	                                   reportErrors);
 			  return null;
 		  }		  
 		  /* We should always have a JSON primitive value here */ 
 		  if (jsonElement.isJsonPrimitive() == false) {
 			  String  format = "Modification JSON node identifier for count value (%s) is not primitive";
 			  String  errorText = String.format(format, jsonKey);		
-			  HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-	        jsonObject, informationTypeName, 
-	        errorText, 
-	        39, reportErrors);
+			  HDLmField.reportErrorNoValue(editorType, 
+			  		                         mutableErrorCounter,
+			  		                         errorMessages,
+	                                   jsonObject, 
+	                                   informationTypeName, 
+	                                   errorText, 
+	                                   39, 
+	                                   reportErrors);
 			  return null;
 		  }
 		  /* Convert the JSON element for the count value to a JSON
@@ -770,10 +956,14 @@ public class HDLmNodeIden {
 		  if (jsonPrimitive.isNumber() == false) {
 			  String  format = "Modification JSON node identifier for count value (%s) is not a number";					  
 			  String  errorText = String.format(format, jsonKey);		
-			  HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-	       jsonObject, informationTypeName, 
-	       errorText, 
-	       39, reportErrors);
+			  HDLmField.reportErrorNoValue(editorType, 
+			  		                         mutableErrorCounter,
+			  		                         errorMessages,
+	                                   jsonObject, 
+	                                   informationTypeName, 
+	                                   errorText, 
+	                                   39, 
+	                                   reportErrors);
 			  return null;
 		  }
 		  /* Get and check the actual integer value */
@@ -781,16 +971,83 @@ public class HDLmNodeIden {
 		  if (integerValue <= 0) {
 			  String  format = "Modification JSON node identifier for count value (%s) is invalid (%d)";					  
 			  String  errorText = String.format(format, jsonKey, integerValue);		
-			  HDLmMod.reportErrorNoValue(editorType, mutableErrorCounter, 
-	       jsonObject, informationTypeName, 
-	       errorText, 
-	       39, reportErrors);
+			  HDLmField.reportErrorNoValue(editorType, 
+			  		                         mutableErrorCounter,
+			  		                         errorMessages,
+	                                   jsonObject, informationTypeName, 
+	                                   errorText, 
+	                                   39, 
+	                                   reportErrors);
 			  return null;
 		  }
 		  countsValues.put(jsonKey, integerValue);       				
 	  } 
 		return countsValues;
 	}	
+	/* This routine checks if it is passed a valid node identifier JSON object.
+	   All of the node identifier JSON object fields must be present and they 
+	   must be valid). The return value is a class instance that may (or may 
+	   not) contain an error message. */  
+	@SuppressWarnings("unused")
+	protected static HDLmResponse  checkNodeIdenJsonObj(final JsonElement jsonElement) {
+		/* Check if the JSON element passed by the caller is null */
+		if (jsonElement == null) {
+			String  errorText = "JSON element used to check tree JSON is null";
+			throw new NullPointerException(errorText);
+		}
+		/* Define a few fields for use below */
+		String  jsonFieldName;
+		/* Allocate the response object. This object is used to 
+ 	     return error messages to the caller. */
+	  HDLmResponse  outResponse = new HDLmResponse();
+		/* Set the error count to zero. The error count is incremented each time an
+		   error is detected. If the final error count (for the current tree element) 
+		   is greater than zero, the current modification object is disabled (the enabled
+		   field is set false). Note that a reference is used below so that the error
+		   count can be updated by the routines called using error count.*/
+		MutableInt  errorCounter = new MutableInt(0);		
+		/* Build an array list for error message strings. Each error
+		   message is stored in this array list. */
+		ArrayList<String>   errorMessages = new ArrayList<String>();
+		if (errorMessages == null) {
+			String  errorText = "Error message ArrayList allocation in checkNodeIdenJsonObj is null";
+			throw new NullPointerException(errorText);
+		}	
+		HDLmEditorTypes  editorType = HDLmEditorTypes.PASS;
+		if (!jsonElement.isJsonObject()) {
+			HDLmAssertAction(false, "JSON element passed to checkNodeIdenJsonObj is not a JSON object");
+		}
+		/* Check if the JSON element is a JSON null */
+		if (jsonElement.isJsonNull()) {
+			HDLmAssertAction(false, "JSON element used to checkNodeIdenJsonObj is JSON null");
+		}
+		/* Get the list of keywords and values in the JSON object */
+		JsonObject    jsonObject = jsonElement.getAsJsonObject();
+		Set<String>   jsonKeys = jsonObject.keySet();		
+		/* Try to convert the JSON object to a node identifer. 
+		   This will have the effect of checking each field
+		   and setting error value as need be. */
+		HDLmNodeIden  localNodeIden = new HDLmNodeIden(jsonElement);  
+		/* Check if the JSON node identifier object is valid */
+	  if (localNodeIden.isUsable() == false) {
+	  	errorCounter.increment();
+	  	ArrayList<String>   localNodeMessages = localNodeIden.getNodeMessages();
+	  	if (localNodeMessages != null) 
+	  		errorMessages = localNodeMessages;
+	  }	
+		/* Check if any errors were found. If any errors were found, store 
+		   them in the response object */ 
+		int     errorCountInt = errorCounter.intValue(); 
+		if (errorCountInt > 0) {
+			outResponse.setReturnNumber(errorCountInt);
+			outResponse.setErrorMessage(errorMessages.get(0));			
+		}
+		else {
+			outResponse.setReturnCodeZero();	
+			outResponse.setReturnNumberZero();
+		}
+		return outResponse;
+	}	   	
 	/* Get a copy of the current node identifier. The copy is returned to the
 	   caller as a standard object. Note that this process should remove all of
 	   the permissions from the returned object. In other words, the all of the
@@ -818,9 +1075,14 @@ public class HDLmNodeIden {
   protected Map<String, Object> getNodeGrand() {
 	  return this.nodeGrand;
   }
+	/* Get the node messages (if any) from a node identifier object
+	   and return them to the caller */
+  protected ArrayList<String>  getNodeMessages() {
+    return this.nodeMessages;
+  }
 	/* Get the parent node attributes from a node identifier object and 
 	   return them to the caller */
-	protected Map<String, Object> getNodeParent() {
+	protected Map<String, Object>  getNodeParent() {
 		return this.nodeParent;
 	}
 	/* This routine returns a reference to the one and only empty static 

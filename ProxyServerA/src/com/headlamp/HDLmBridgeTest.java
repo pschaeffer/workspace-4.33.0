@@ -181,7 +181,7 @@ class HDLmBridgeTest {
 					                              		                             localHttpType);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Servlet request passed to handleRequest is null",
+			assertEquals("Servlet request passed to handleRequest is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{
@@ -199,7 +199,7 @@ class HDLmBridgeTest {
 					                              		                             localHttpType);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Servlet response passed to handleRequest is null",
+			assertEquals("Servlet response passed to handleRequest is null", execMsg,
 					         "Unexpected exception message");
 		}		 	
 		{
@@ -217,7 +217,7 @@ class HDLmBridgeTest {
 					                              		                             localHttpType);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Inbound path value string reference passed to handleRequest is null",
+			assertEquals("Inbound path value string reference passed to handleRequest is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{
@@ -235,7 +235,7 @@ class HDLmBridgeTest {
 					                              		                             localHttpType);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Request post payload value string reference passed to handleRequest is null",
+			assertEquals("Request post payload value string reference passed to handleRequest is null", execMsg,
 					         "Unexpected exception message");
 		}		
 		{
@@ -253,7 +253,7 @@ class HDLmBridgeTest {
 					                              		                             null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "HTTP type enum reference passed to handleRequest is null",
+			assertEquals("HTTP type enum reference passed to handleRequest is null", execMsg,
 					         "Unexpected exception message");
 		}	
 	}
@@ -392,7 +392,7 @@ class HDLmBridgeTest {
 					                                                                     localRequestPostPayload);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Servlet request passed to handleRequestDelete is null",
+			assertEquals("Servlet request passed to handleRequestDelete is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{
@@ -407,7 +407,7 @@ class HDLmBridgeTest {
 					                                                                     localRequestPostPayload);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Inbound path value string reference passed to handleRequestDelete is null",
+			assertEquals("Inbound path value string reference passed to handleRequestDelete is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{
@@ -422,7 +422,7 @@ class HDLmBridgeTest {
 					                                                                     localRequestPostPayload);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Table name string reference passed to handleRequestDelete is null",
+			assertEquals("Table name string reference passed to handleRequestDelete is null", execMsg,
 					         "Unexpected exception message");
 		}		
 		{
@@ -437,7 +437,7 @@ class HDLmBridgeTest {
 					                                                                     null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Request post payload (JSON) string reference passed to handleRequestDelete is null",
+			assertEquals("Request post payload (JSON) string reference passed to handleRequestDelete is null", execMsg,
 					         "Unexpected exception message");
 		}	
 	}
@@ -576,7 +576,7 @@ class HDLmBridgeTest {
 					                                                                     localRequestPostPayload);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Servlet request passed to handleRequestInsert is null",
+			assertEquals("Servlet request passed to handleRequestInsert is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{
@@ -591,7 +591,7 @@ class HDLmBridgeTest {
 					                                                                     localRequestPostPayload);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Inbound path value string reference passed to handleRequestInsert is null",
+			assertEquals("Inbound path value string reference passed to handleRequestInsert is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{
@@ -606,7 +606,7 @@ class HDLmBridgeTest {
 					                                                                     localRequestPostPayload);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Table name string reference passed to handleRequestInsert is null",
+			assertEquals("Table name string reference passed to handleRequestInsert is null", execMsg,
 					         "Unexpected exception message");
 		}		
 		{
@@ -621,7 +621,7 @@ class HDLmBridgeTest {
 					                                                                     null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Request post payload (JSON) string reference passed to handleRequestInsert is null",
+			assertEquals("Request post payload (JSON) string reference passed to handleRequestInsert is null", execMsg,
 					         "Unexpected exception message");
 		}		
 	}
@@ -675,7 +675,7 @@ class HDLmBridgeTest {
 					                              		                                 localTableName);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Servlet request passed to handleRequestRead is null",
+			assertEquals("Servlet request passed to handleRequestRead is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{
@@ -690,7 +690,7 @@ class HDLmBridgeTest {
       		                                                                   localTableName);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Content value passed to handleRequestRead is null",
+			assertEquals("Content value passed to handleRequestRead is null", execMsg,
 					         "Unexpected exception message");
 		}		
 		{
@@ -705,7 +705,7 @@ class HDLmBridgeTest {
       		                                                                   null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Table name string reference passed to handleRequestRead is null",
+			assertEquals("Table name string reference passed to handleRequestRead is null", execMsg,
 					         "Unexpected exception message");
 		}
   }
@@ -963,7 +963,7 @@ class HDLmBridgeTest {
 					                                                                     localRequestPostPayload);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Servlet request passed to handleRequestUpdate is null",
+			assertEquals("Servlet request passed to handleRequestUpdate is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{
@@ -978,7 +978,7 @@ class HDLmBridgeTest {
   				                                                                     localRequestPostPayload);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Inbound path value string reference passed to handleRequestUpdate is null",
+			assertEquals("Inbound path value string reference passed to handleRequestUpdate is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{
@@ -993,7 +993,7 @@ class HDLmBridgeTest {
   				                                                                     localRequestPostPayload);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Table name string reference passed to handleRequestUpdate is null",
+			assertEquals("Table name string reference passed to handleRequestUpdate is null", execMsg,
 					         "Unexpected exception message");
 		}		
 		{
@@ -1008,7 +1008,7 @@ class HDLmBridgeTest {
   				                                                                     null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Request post payload (JSON) string reference passed to handleRequestUpdate is null",
+			assertEquals("Request post payload (JSON) string reference passed to handleRequestUpdate is null", execMsg,
 					         "Unexpected exception message");
 		}		
 	}

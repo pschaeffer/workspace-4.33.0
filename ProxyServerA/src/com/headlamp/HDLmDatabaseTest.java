@@ -127,7 +127,7 @@ class HDLmDatabaseTest {
 					                              		                                 localTableName);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Row list value string passed to deleteTableRows is null",
+			assertEquals("Row list value string passed to deleteTableRows is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{
@@ -138,7 +138,7 @@ class HDLmDatabaseTest {
       		                                                                   null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Table name string passed to deleteTableRows is null",
+			assertEquals("Table name string passed to deleteTableRows is null", execMsg,
 					         "Unexpected exception message");
 		}			
 	}
@@ -233,7 +233,7 @@ class HDLmDatabaseTest {
 					                              		                                     localTableName);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Json string value passed to deleteTableRowsJson is null",
+			assertEquals("Json string value passed to deleteTableRowsJson is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{
@@ -244,7 +244,7 @@ class HDLmDatabaseTest {
       		                                                                       null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Table name string passed to deleteTableRowsJson is null",
+			assertEquals("Table name string passed to deleteTableRowsJson is null", execMsg,
 					         "Unexpected exception message");
 		}			
 	}
@@ -292,7 +292,7 @@ class HDLmDatabaseTest {
 					                              		                                 localSql);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Statement reference passed to executeSqlQuery is null",
+			assertEquals("Statement reference passed to executeSqlQuery is null", execMsg,
 					         "Unexpected exception message");
 			/* Release the used connection */
 			HDLmDatabase.releaseConnection(localNullTestConnection);
@@ -306,7 +306,7 @@ class HDLmDatabaseTest {
       		                                                                   null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "SQL string reference passed to executeSqlQuery is null",
+			assertEquals("SQL string reference passed to executeSqlQuery is null", execMsg,
 					         "Unexpected exception message");
 			/* Release the used connection */
 			HDLmDatabase.releaseConnection(localNullTestConnection);
@@ -340,7 +340,7 @@ class HDLmDatabaseTest {
 					                               () -> {HDLmDatabase.getStatement(null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Connection reference passed to getStatement is null",
+			assertEquals("Connection reference passed to getStatement is null", execMsg,
 					         "Unexpected exception message");
 			/* Release the used connection */
 			HDLmDatabase.releaseConnection(localNullTestConnection);
@@ -370,7 +370,7 @@ class HDLmDatabaseTest {
 					                              		                              null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Content value string passed to getTableRows is null",
+			assertEquals("Content value string passed to getTableRows is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{
@@ -382,7 +382,7 @@ class HDLmDatabaseTest {
       		                                                                null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Table name string passed to getTableRows is null",
+			assertEquals("Table name string passed to getTableRows is null", execMsg,
 					         "Unexpected exception message");
 		}			
 	}
@@ -441,7 +441,7 @@ class HDLmDatabaseTest {
 					                              		                                     localCompanyName);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Content value string passed to getTableRowsCompany is null",
+			assertEquals("Content value string passed to getTableRowsCompany is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{
@@ -454,7 +454,7 @@ class HDLmDatabaseTest {
       		                                                                       localCompanyName);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Table name string passed to getTableRowsCompany is null",
+			assertEquals("Table name string passed to getTableRowsCompany is null", execMsg,
 					         "Unexpected exception message");
 		}			
 		{
@@ -467,7 +467,7 @@ class HDLmDatabaseTest {
       		                                                                       null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Company name string passed to getTableRowsCompany is null",
+			assertEquals("Company name string passed to getTableRowsCompany is null", execMsg,
 					         "Unexpected exception message");
 		}		
 	}
@@ -498,7 +498,7 @@ class HDLmDatabaseTest {
 					                              		                                  null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Content value string passed to getTableRowsJson is null",
+			assertEquals("Content value string passed to getTableRowsJson is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{
@@ -510,7 +510,7 @@ class HDLmDatabaseTest {
       		                                                                    null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Table name string passed to getTableRowsJson is null",
+			assertEquals("Table name string passed to getTableRowsJson is null", execMsg,
 					         "Unexpected exception message");
 		}			
 	}
@@ -616,7 +616,7 @@ class HDLmDatabaseTest {
 					                              		                                 localTableName);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Row list value string passed to insertTableRows is null",
+			assertEquals("Row list value string passed to insertTableRows is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{
@@ -629,7 +629,7 @@ class HDLmDatabaseTest {
       		                                                                   localTableName);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Row keys value string passed to insertTableRows is null",
+			assertEquals("Row keys value string passed to insertTableRows is null", execMsg,
 					         "Unexpected exception message");
 		}			
 		{
@@ -642,7 +642,7 @@ class HDLmDatabaseTest {
       		                                                                   null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Table name string passed to insertTableRows is null",
+			assertEquals("Table name string passed to insertTableRows is null", execMsg,
 					         "Unexpected exception message");
 		}		
 	}
@@ -679,7 +679,7 @@ class HDLmDatabaseTest {
 					                              		                                     localTableName);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Json string value passed to insertTableRowsJson is null",
+			assertEquals("Json string value passed to insertTableRowsJson is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{
@@ -690,7 +690,7 @@ class HDLmDatabaseTest {
       		                                                                       null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Table name string passed to insertTableRowsJson is null",
+			assertEquals("Table name string passed to insertTableRowsJson is null", execMsg,
 					         "Unexpected exception message");
 		}	
 	}
@@ -720,7 +720,7 @@ class HDLmDatabaseTest {
 					                              		                                  localSql);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Connection reference passed to prepareStatement is null",
+			assertEquals("Connection reference passed to prepareStatement is null", execMsg,
 					         "Unexpected exception message");
 			/* Release the used connection */
 			HDLmDatabase.releaseConnection(localNullTestConnection);
@@ -733,7 +733,7 @@ class HDLmDatabaseTest {
       		                                                                    null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "SQL string reference passed to prepareStatement is null",
+			assertEquals("SQL string reference passed to prepareStatement is null", execMsg,
 					         "Unexpected exception message");
 			/* Release the used connection */
 			HDLmDatabase.releaseConnection(localNullTestConnection);
@@ -862,7 +862,7 @@ class HDLmDatabaseTest {
 					                              		                                 localTableName);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Row list value string passed to updateTableRows is null",
+			assertEquals("Row list value string passed to updateTableRows is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{
@@ -875,7 +875,7 @@ class HDLmDatabaseTest {
       		                                                                   localTableName);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Row keys value string passed to updateTableRows is null",
+			assertEquals("Row keys value string passed to updateTableRows is null", execMsg,
 					         "Unexpected exception message");
 		}			
 		{
@@ -888,7 +888,7 @@ class HDLmDatabaseTest {
       		                                                                   null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Table name string passed to updateTableRows is null",
+			assertEquals("Table name string passed to updateTableRows is null", execMsg,
 					         "Unexpected exception message");
 		}		
 	}
@@ -1091,7 +1091,7 @@ class HDLmDatabaseTest {
 					                              		                                     localTableName);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Json string value passed to updateTableRowsJson is null",
+			assertEquals("Json string value passed to updateTableRowsJson is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{
@@ -1102,7 +1102,7 @@ class HDLmDatabaseTest {
       		                                                                       null );}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Table name string passed to updateTableRowsJson is null",
+			assertEquals("Table name string passed to updateTableRowsJson is null", execMsg,
 					         "Unexpected exception message");
 		}	
 	}

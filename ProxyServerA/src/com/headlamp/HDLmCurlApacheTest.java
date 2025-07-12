@@ -107,7 +107,7 @@ class HDLmCurlApacheTest {
 					                              		                     password, typeLocal);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "URL reference passed to runCurl is null",
+			assertEquals("URL reference passed to runCurl is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{
@@ -118,7 +118,7 @@ class HDLmCurlApacheTest {
 					                              		                           password, typeLocal);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Userid reference passed to runCurl is null",
+			assertEquals("Userid reference passed to runCurl is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{
@@ -129,7 +129,7 @@ class HDLmCurlApacheTest {
 					                              		                           null, typeLocal);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Password reference passed to runCurl is null",
+			assertEquals("Password reference passed to runCurl is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{
@@ -139,7 +139,7 @@ class HDLmCurlApacheTest {
 					                              		                           password, null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Type reference passed to runCurl is null",
+			assertEquals("Type reference passed to runCurl is null", execMsg,
 					         "Unexpected exception message");
 		}
 		{
@@ -149,7 +149,7 @@ class HDLmCurlApacheTest {
 					                              		                           password, HDLmHttpTypes.NONE);},
 					                               "Expected AssertionError");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Type value (NONE) passed to runCurl is invalid",
+			assertEquals("Type value (NONE) passed to runCurl is invalid", execMsg,
 					         "Unexpected exception message");
 		}
 		{
@@ -167,7 +167,7 @@ class HDLmCurlApacheTest {
 					                              		                           HDLmReportErrors.REPORTERRORS);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Header list reference passed to runCurl is null",
+			assertEquals("Header list reference passed to runCurl is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{
@@ -185,7 +185,7 @@ class HDLmCurlApacheTest {
 					                              		                           HDLmReportErrors.REPORTERRORS);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Extra information string reference passed to runCurl is null",
+			assertEquals("Extra information string reference passed to runCurl is null", execMsg,
 					         "Unexpected exception message");
 		}			
 	}
@@ -203,7 +203,7 @@ class HDLmCurlApacheTest {
 					                               () -> {HDLmCurlApache.reportCurlError(null, HDLmReportErrors.REPORTERRORS);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Error message reference passed to reportCurlError is null",
+			assertEquals("Error message reference passed to reportCurlError is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{
@@ -211,7 +211,7 @@ class HDLmCurlApacheTest {
 					                               () -> {HDLmCurlApache.reportCurlError("", null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Error reporting reference passed to reportCurlError is null",
+			assertEquals("Error reporting reference passed to reportCurlError is null", execMsg,
 					         "Unexpected exception message");
 		}	
 	}

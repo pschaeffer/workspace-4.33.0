@@ -11,11 +11,15 @@ import org.junit.runner.RunWith;
  * @author Peter
  */
 @RunWith(JUnitPlatform.class)
-@SelectClasses({HDLmConfigTest.class, HDLmDefinesTest.class,	 
-                HDLmErrorTest.class, HDLmStringTest.class, 
+@SelectClasses({HDLmConfigTest.class, 
+	              HDLmDefinesTest.class,	 
+                HDLmErrorTest.class, 
+                HDLmStringTest.class, 
                 HDLmTree1Test.class,
-                HDLmTree2Test.class, HDLmTree3Test.class,
-	              HDLmModTest.class, HDLmBuildJSTest.class, HDLmFindTest.class,
+                HDLmTree2Test.class, 
+                HDLmTree3Test.class,
+	              HDLmModTest.class, 
+	              HDLmBuildJSTest.class, HDLmFindTest.class,
 	              HDLmAssertTest.class, HDLmBuildLinesTest.class, HDLmUtilityTest.class,
 	              HDLmSavedChangeTest.class, HDLmCurlApacheTest.class, HDLmMainTest.class,
 	              HDLmJettyTest.class, HDLmCurlJettyTest.class, HDLmEditorServletTest.class,
@@ -24,8 +28,9 @@ import org.junit.runner.RunWith;
 	              HDLmClusteringTest.class, HDLmJsonTest.class, 
 	              HDLmBridgeTest.class, HDLmDatabaseTest.class,
 	              HDLmOpenAITest.class, HDLmTimingTest.class,
-	              HDLmHikariPoolTest.class, HDLmSecurityTest.class,
+	              HDLmHikariPoolTest.class, HDLmSecurityTest.class, 
 	              HDLmSignatureTest.class, HDLmUnReTest.class,
 	              HDLmTransferSomethingTest.class, HDLmChangeTest.class,
-	              HDLmAwsUtilityTest.class})
+	              HDLmAwsUtilityTest.class,
+	              HDLmFieldTest.class})
 class HDLmAllTests {}

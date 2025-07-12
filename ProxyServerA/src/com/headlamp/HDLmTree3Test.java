@@ -58,8 +58,7 @@ class HDLmTree3Test {
 							                                  		         newTreeArray);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, 
-					         "New type value passed to tree object constructor is null", 
+			assertEquals("New type value passed to tree object constructor is null",  execMsg,
 					         "Unexpected exception message");
 		}
 		{
@@ -69,8 +68,7 @@ class HDLmTree3Test {
 								                                		         newTreeArray);}, 
 					                               "Expected AssertionError");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, 
-					         "New type value passed to tree object constructor is not set",
+			assertEquals("New type value passed to tree object constructor is not set", execMsg,
 				           "Unexpected exception message");
 		}
 		{
@@ -80,8 +78,7 @@ class HDLmTree3Test {
 				                                		                 newTreeArray);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, 
-					         "New tooltip value passed to tree object constructor is null",
+			assertEquals("New tooltip value passed to tree object constructor is null", execMsg,
 					         "Unexpected exception message");
 		}
 		{
@@ -91,8 +88,7 @@ class HDLmTree3Test {
 								                                		         null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, 
-					         "New node path value passed to tree object constructor is null",
+			assertEquals("New node path value passed to tree object constructor is null", execMsg,
 				           "Unexpected exception message");
 		}
 	}
@@ -117,8 +113,7 @@ class HDLmTree3Test {
 					                               () -> {newTree.addOrReplaceChild(subTreeCopy);
 			}, "Expected AssertionError");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, 
-					         "Parent level (2) and child level (4) are wrong", 
+			assertEquals("Parent level (2) and child level (4) are wrong",  execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -407,8 +402,7 @@ class HDLmTree3Test {
 					                               () -> {HDLmTree.addToTree(null, HDLmEditorTypes.PASS, HDLmStartupMode.STARTUPMODENO);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, 
-					         "JSON string value passed by caller is null", 
+			assertEquals("JSON string value passed by caller is null",  execMsg,
 					         "Unexpected exception message");
 		}
 		{
@@ -416,8 +410,7 @@ class HDLmTree3Test {
 					                               () -> {HDLmTree.addToTree("", null, HDLmStartupMode.STARTUPMODENO);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, 
-					         "Editor type value is null", 
+			assertEquals("Editor type value is null",  execMsg,
 					         "Unexpected exception message");
 		}
 		{
@@ -425,8 +418,7 @@ class HDLmTree3Test {
 					                               () -> {HDLmTree.addToTree("", HDLmEditorTypes.NONE, HDLmStartupMode.STARTUPMODENO);}, 
 					                               "Expected AssertionError");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, 
-					         "Editor type value is invalid", 
+			assertEquals("Editor type value is invalid",  execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -497,8 +489,7 @@ class HDLmTree3Test {
 					                               () -> {HDLmTree.buildModDetailsFromJson(null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, 
-					         "JSON object value is null", 
+			assertEquals("JSON object value is null",  execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -511,15 +502,11 @@ class HDLmTree3Test {
 		JsonObject topNodeObject = topNode.getAsJsonObject();
 		Set<String> topKeys = topNodeObject.keySet();
 		JsonObject topObject = topNode.getAsJsonObject();
-		/*
-		 * We need to extract the number of data rows. The number of data rows should
-		 * always be equal to the number of nodes.
-		 */
+		/* We need to extract the number of data rows. The number of data rows should
+		   always be equal to the number of nodes. */
 		Integer dataRowsCount = HDLmTree.getIntegerFromJson(topObject, "rows_returned");
-		/*
-		 * Get the array of data rows from JSON object. Of course, we really have many
-		 * data rows at this point.
-		 */
+		/* Get the array of data rows from JSON object. Of course, we really have many
+		   data rows at this point. */
 		JsonArray dataRowsArray = HDLmTree.getArrayFromJson(topObject, "data");
 		/* We can now obtain one of the rows from the JSON array */
 		JsonElement dataRowElement = dataRowsArray.get(0);
@@ -559,8 +546,7 @@ class HDLmTree3Test {
 					                               () -> {HDLmTree.buildNodePathFromJson(null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, 
-					         "JSON object value is null", 
+			assertEquals("JSON object value is null",  execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -573,15 +559,11 @@ class HDLmTree3Test {
 		JsonObject topNodeObject = topNode.getAsJsonObject();
 		Set<String> topKeys = topNodeObject.keySet();
 		JsonObject topObject = topNode.getAsJsonObject();
-		/*
-		 * We need to extract the number of data rows. The number of data rows should
-		 * always be equal to the number of nodes.
-		 */
+		/* We need to extract the number of data rows. The number of data rows should
+		   always be equal to the number of nodes.*/
 		Integer dataRowsCount = HDLmTree.getIntegerFromJson(topObject, "rows_returned");
-		/*
-		 * Get the array of data rows from JSON object. Of course, we really have many
-		 * data rows at this point.
-		 */
+		/* Get the array of data rows from JSON object. Of course, we really have many
+		   data rows at this point. */
 		JsonArray dataRowsArray = HDLmTree.getArrayFromJson(topObject, "data");
 		/* We can now obtain one of the rows from the JSON array */
 		JsonElement dataRowElement = dataRowsArray.get(0);
@@ -667,29 +649,24 @@ class HDLmTree3Test {
 					                              		                               HDLmEditorTypes.PASS);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, 
-					         "JSON element value is null", 
+			assertEquals("JSON element value is null",  execMsg,
 					         "Unexpected exception message");
 		}
 	}
 	@Test
-	void buildTreeFromJsonNotInUse() {
-		/* Run a few buildTreeFromJsonNotInUse tests */
+	void buildTreeFromJsonNotUsed() {
+		/* Run a few buildTreeFromJsonNotUsed tests */
 		String ruleName = "OWO Buy Tickets Gradient Combo";
 		JsonParser parser = new JsonParser();
 		JsonElement topNode = parser.parse(HDLmTreeData.jsonGetPassStr);
 		JsonObject topNodeObject = topNode.getAsJsonObject();
 		Set<String> topKeys = topNodeObject.keySet();
 		JsonObject topObject = topNode.getAsJsonObject();
-		/*
-		 * We need to extract the number of data rows. The number of data rows should
-		 * always be equal to the number of nodes.
-		 */
+		/* We need to extract the number of data rows. The number of data rows should
+		   always be equal to the number of nodes.*/
 		Integer dataRowsCount = HDLmTree.getIntegerFromJson(topObject, "rows_returned");
-		/*
-		 * Get the array of data rows from JSON object. Of course, we really have many
-		 * data rows at this point.
-		 */
+		/* Get the array of data rows from JSON object. Of course, we really have many
+		   data rows at this point. */
 		JsonArray dataRowsArray = HDLmTree.getArrayFromJson(topObject, "data");
 		/* We can now obtain one of the rows from the JSON array */
 		JsonElement dataRowElement = dataRowsArray.get(0);
@@ -758,12 +735,11 @@ class HDLmTree3Test {
 		assertNull(modDetails.getXPath(), "Modification XPath value must not null");
 		{
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmTree.buildTreeFromJsonNotInUse(null, 
-					                              		                                       HDLmEditorTypes.PASS);}, 
+					                               () -> {HDLmTree.buildTreeFromJsonNotUsed(null, 
+					                              		                                      HDLmEditorTypes.PASS);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, 
-					         "JSON element value is null", 
+			assertEquals("JSON element value is null",  execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -776,15 +752,11 @@ class HDLmTree3Test {
 		JsonObject topNodeObject = topNode.getAsJsonObject();
 		Set<String> topKeys = topNodeObject.keySet();
 		JsonObject topObject = topNode.getAsJsonObject();
-		/*
-		 * We need to extract the number of data rows. The number of data rows should
-		 * always be equal to the number of nodes.
-		 */
+		/* We need to extract the number of data rows. The number of data rows should
+		   always be equal to the number of nodes. */
 		Integer dataRowsCount = HDLmTree.getIntegerFromJson(topObject, "rows_returned");
-		/*
-		 * Get the array of data rows from JSON object. Of course, we really have many
-		 * data rows at this point.
-		 */
+		/* Get the array of data rows from JSON object. Of course, we really have many
+		   data rows at this point. */
 		JsonArray dataRowsArray = HDLmTree.getArrayFromJson(topObject, "data");
 		/* We can now obtain one of the rows from the JSON array */
 		JsonElement dataRowElement = dataRowsArray.get(0);
@@ -818,8 +790,7 @@ class HDLmTree3Test {
 					                               () -> {HDLmTree.getArrayFromJson(null, null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, 
-					         "JSON object value is null", 
+			assertEquals("JSON object value is null",  execMsg,
 					         "Unexpected exception message");
 		}
 		{
@@ -828,8 +799,7 @@ class HDLmTree3Test {
 					                               () -> {HDLmTree.getArrayFromJson(localObject, null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, 
-					         "JSON member name value is null", 
+			assertEquals("JSON member name value is null",  execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -843,15 +813,11 @@ class HDLmTree3Test {
 		JsonObject topNodeObject = topNode.getAsJsonObject();
 		Set<String> topKeys = topNodeObject.keySet();
 		JsonObject topObject = topNode.getAsJsonObject();
-		/*
-		 * We need to extract the number of data rows. The number of data rows should
-		 * always be equal to the number of nodes.
-		 */
+		/* We need to extract the number of data rows. The number of data rows should
+		   always be equal to the number of nodes. */
 		Integer dataRowsCount = HDLmTree.getIntegerFromJson(topObject, "rows_returned");
-		/*
-		 * Get the array of data rows from JSON object. Of course, we really have many
-		 * data rows at this point.
-		 */
+		/* Get the array of data rows from JSON object. Of course, we really have many
+		   data rows at this point. */
 		JsonArray dataRowsArray = HDLmTree.getArrayFromJson(topObject, "data");
 		/* We can now obtain one of the rows from the JSON array */
 		JsonElement dataRowElement = dataRowsArray.get(0);
@@ -885,8 +851,7 @@ class HDLmTree3Test {
 					                               () -> {HDLmTree.getIntegerFromJson(null, null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, 
-					         "JSON object value is null", 
+			assertEquals("JSON object value is null",  execMsg,
 					         "Unexpected exception message");
 		}
 		{
@@ -895,8 +860,7 @@ class HDLmTree3Test {
 					                               () -> {HDLmTree.getIntegerFromJson(localObject, null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, 
-					         "JSON member name value is null", 
+			assertEquals("JSON member name value is null",  execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -926,10 +890,8 @@ class HDLmTree3Test {
 		assertEquals(divisionName, subTree.getNodePath().get(4), "Site tree node should have a node path that is correct");
 		assertEquals(siteName, subTree.getNodePath().get(5), "Site tree node should have a node path that is correct");
 		assertEquals(38, subTree.getChildren().size(), "Site tree node should have thirtyeight children");
-		/*
-		 * Get the modification nodes under the site node under the division node under
-		 * the sixth company node
-		 */
+		/* Get the modification nodes under the site node under the division node under
+		   the sixth company node */
 		ArrayList<HDLmTree> modNodes = subTree.getChildren();
 		/* The actual tests follow here */
 		assertEquals(0, HDLmTree.getNodeIndexGE(modNodes, " "), "Wrong index value returned");
@@ -947,8 +909,7 @@ class HDLmTree3Test {
 					                               () -> {HDLmTree.getNodeIndexGE(null, null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, 
-					         "Node array value is null", 
+			assertEquals("Node array value is null",  execMsg,
 					         "Unexpected exception message");
 		}
 		{
@@ -956,12 +917,11 @@ class HDLmTree3Test {
 					                               () -> {HDLmTree.getNodeIndexGE(modNodes, null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, 
-					         "Name value is null", 
+			assertEquals("Name value is null",  execMsg,
 					         "Unexpected exception message");
 		}
 	}
-
+	
 	@Test
 	void getStringFromJson() {
 		/* Run a few getStringFromJson tests */
@@ -971,15 +931,11 @@ class HDLmTree3Test {
 		JsonObject topNodeObject = topNode.getAsJsonObject();
 		Set<String> topKeys = topNodeObject.keySet();
 		JsonObject topObject = topNode.getAsJsonObject();
-		/*
-		 * We need to extract the number of data rows. The number of data rows should
-		 * always be equal to the number of nodes.
-		 */
+		/* We need to extract the number of data rows. The number of data rows should
+		   always be equal to the number of nodes. */
 		Integer dataRowsCount = HDLmTree.getIntegerFromJson(topObject, "rows_returned");
-		/*
-		 * Get the array of data rows from JSON object. Of course, we really have many
-		 * data rows at this point.
-		 */
+		/* Get the array of data rows from JSON object. Of course, we really have many
+		   data rows at this point. */
 		JsonArray dataRowsArray = HDLmTree.getArrayFromJson(topObject, "data");
 		/* We can now obtain one of the rows from the JSON array */
 		JsonElement dataRowElement = dataRowsArray.get(0);
@@ -1013,8 +969,7 @@ class HDLmTree3Test {
 					                               () -> {HDLmTree.getStringFromJson(null, null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, 
-					         "JSON object value is null", 
+			assertEquals("JSON object value is null",  execMsg,
 					         "Unexpected exception message");
 		}
 		{
@@ -1023,8 +978,7 @@ class HDLmTree3Test {
 					                               () -> {HDLmTree.getStringFromJson(localObject, null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, 
-					         "JSON member name value is null", 
+			assertEquals("JSON member name value is null",  execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -1035,16 +989,12 @@ class HDLmTree3Test {
 		assertEquals("Company node", tooltip, "Company tooltip should be correct");
 		tooltip = HDLmTree.getTooltipString("newtop");
 		assertEquals("Top node of the node tree", tooltip, "Top node tooltip should be correct");
-		/*
-		 * This is a test of passing a type that won't match any of the if clauses but
-		 * will be found in the tree information JSON structure
-		 */
+		/* This is a test of passing a type that won't match any of the if clauses but
+		   will be found in the tree information JSON structure */
 		tooltip = HDLmTree.getTooltipString("top");
 		assertEquals("Top modification", tooltip, "Top node tooltip should be correct");
-		/*
-		 * This is a test of passing a type that won't match any of the if clauses but
-		 * will not be found in the tree information JSON structure
-		 */
+		/* This is a test of passing a type that won't match any of the if clauses but
+		   will not be found in the tree information JSON structure */
 		tooltip = HDLmTree.getTooltipString("toor");
 		assertEquals("Toor modification", tooltip, "Toor node tooltip should be correct");
 		/* Run a few getTootipString tests */
@@ -1053,8 +1003,7 @@ class HDLmTree3Test {
 					                               () -> {HDLmTree.getTooltipString(null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, 
-					         "Node type value passed to getTooltipString is null", 
+			assertEquals("Node type value passed to getTooltipString is null",  execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -1084,10 +1033,8 @@ class HDLmTree3Test {
 		assertEquals(divisionName, subTree.getNodePath().get(4), "Site tree node should have a node path that is correct");
 		assertEquals(siteName, subTree.getNodePath().get(5), "Site tree node should have a node path that is correct");
 		assertEquals(38, subTree.getChildren().size(), "Site tree node should have thirtyeight children");
-		/*
-		 * Get the modification nodes under the site node under the division node under
-		 * the sixth company node
-		 */
+		/* Get the modification nodes under the site node under the division node under
+		   the sixth company node */
 		ArrayList<HDLmTree> modNodes = subTree.getChildren();
 		/* The actual tests follow here */
 		assertEquals(null, HDLmTree.hasNode(modNodes, " "), "Invalid node name match");
@@ -1102,8 +1049,7 @@ class HDLmTree3Test {
 					                               () -> {HDLmTree.hasNode(null, null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, 
-					         "Node array value is null", 
+			assertEquals("Node array value is null",  execMsg,
 					         "Unexpected exception message");
 		}
 		{
@@ -1111,8 +1057,7 @@ class HDLmTree3Test {
 					                               () -> {HDLmTree.hasNode(modNodes, null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, 
-					         "Name value is null", 
+			assertEquals("Name value is null",  execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -1154,8 +1099,7 @@ class HDLmTree3Test {
 					                               () -> {HDLmTree.locateTreeNode(null, null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, 
-					         "Top tree node value is null", 
+			assertEquals("Top tree node value is null",  execMsg,
 					         "Unexpected exception message");
 		}
 		{
@@ -1164,8 +1108,7 @@ class HDLmTree3Test {
 					                              		                            null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, 
-					         "Node path value is null", 
+			assertEquals("Node path value is null",  execMsg,
 					         "Unexpected exception message");
 		}
 	}

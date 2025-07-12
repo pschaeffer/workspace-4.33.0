@@ -19,6 +19,8 @@
       HDLmToggleStyleSheetEnablement();
     if (event.key == 'q' && event.ctrlKey == true)
       sessionStorage.setItem("HDLmSessionPostRuleTracingEnabled", 'true');
+    if (event.key == 'x' && event.ctrlKey == true)
+      sessionStorage.setItem("HDLmSessionIgnoreProbability", 'true');
   });
   /* Start the JavaScript function that applies just one modification */
   function HDLmApplyMod(pathValueStr,
@@ -73,6 +75,33 @@
     while (true) {
       let postTrace = new Object();
       /* console.log('s2'); */
+      /* Check if the current modification should be skipped because
+         of probability. This check is skipped if the probability is
+         100.0. */
+      if (curMod.prob < 100.0) {
+        /* console.log('Probability is less than 100.0'); */
+        let localRandomValue = Math.random();
+        let ignoreProbability = sessionStorage.getItem('HDLmSessionIgnoreProbability');
+        if (ignoreProbability == null)
+          ignoreProbability = 'false';
+        if (localRandomValue * 100.0 > curMod.prob &&
+            ignoreProbability != 'true') {
+          matchError = 'probability';
+          /* Report that the current rule was skipped because
+             of probability */
+          if (postRuleTracing == true) {
+            let localUpdates = new Object();
+            HDLmSaveChange(localUpdates, null,
+                          sessionIndexValue, parametersArray, sessionIdJS,
+                          null, null,
+                          hostNameValue, divisionNameValue, siteNameValue, curMod.name,
+                          curMod.path, curMod.type, pathValueStr, null, null);
+            postTrace.matcherror = matchError;
+            HDLmSendUpdates(localUpdates, 'failure', '1.0', postTrace);
+          }
+          break;
+        }
+      }
       /* If the current modification is not enabled, then we really
          don't have any more work to do */
       if (curMod.enabled != true) {
@@ -2846,17 +2875,17 @@
   function HDLmApplyMods(readyState, HDLmIndexValue) {
     let pathValueStr = document.location.pathname;
     const modsArray = [
-                        {"find":[{"tag":"button","attribute":"id","value":"product-addtocart-button"}],"valuesCount":2,"values":["ADD TO CART","TCELESECROFAdd to ala-carte"],"enabled":true,"pathre":false,"type":"title","parameter":9,"cssselector":"","lastmodified":null,"extra":"","name":"Add to Cart Text","nodeiden":null,"path":"/neve-studio-dance-jacket.html","usemode":"prod","value":"","valueSuffix":"","xpath":""},
-                        {"find":[{"tag":"span","attribute":"itemprop","value":"name"}],"valuesCount":4,"values":["#000000","#0000ff","#00ff00","#ff0000"],"enabled":true,"pathre":false,"type":"fontcolor","parameter":1,"cssselector":"","lastmodified":"2022-11-18T02:04:30.296Z","extra":"","name":"Font Color","nodeiden":null,"path":"/neve-studio-dance-jacket.html","usemode":"prod","value":"","valueSuffix":"","xpath":""},
-                        {"find":[{"tag":"span","attribute":"itemprop","value":"name"}],"valuesCount":3,"values":["arial","arial","cursive"],"enabled":true,"pathre":false,"type":"fontfamily","parameter":3,"cssselector":"","lastmodified":"2022-11-18T02:04:30.296Z","extra":"","name":"Font Family","nodeiden":null,"path":"/neve-studio-dance-jacket.html","usemode":"prod","value":"","valueSuffix":"","xpath":""},
-                        {"find":[{"tag":"span","attribute":"itemprop","value":"name"}],"valuesCount":3,"values":["auto","TCELESECROFnone","normal"],"enabled":true,"pathre":false,"type":"fontkerning","parameter":4,"cssselector":"","lastmodified":"2022-11-18T02:04:30.296Z","extra":"","name":"Font Kerning","nodeiden":null,"path":"/neve-studio-dance-jacket.html","usemode":"prod","value":"","valueSuffix":"","xpath":""},
-                        {"find":[{"tag":"span","attribute":"itemprop","value":"name"}],"valuesCount":5,"values":["100px","TCELESECROF20px","30","40px","50px"],"enabled":true,"pathre":false,"type":"fontsize","parameter":0,"cssselector":"","lastmodified":"2022-11-18T02:04:30.296Z","extra":"","name":"Font Size","nodeiden":null,"path":"/neve-studio-dance-jacket.html","usemode":"prod","value":"","valueSuffix":"","xpath":""},
-                        {"find":[{"tag":"span","attribute":"itemprop","value":"name"}],"valuesCount":3,"values":["italic","normal","TCELESECROFoblique"],"enabled":true,"pathre":false,"type":"fontstyle","parameter":5,"cssselector":"","lastmodified":"2022-11-18T02:04:30.296Z","extra":"","name":"Font Style","nodeiden":null,"path":"/neve-studio-dance-jacket.html","usemode":"prod","value":"","valueSuffix":"","xpath":""},
-                        {"find":[],"valuesCount":3,"values":["TCELESECROFVery Cuter","Very Cute","Not so cute"],"enabled":true,"pathre":false,"type":"text","parameter":2,"cssselector":"","lastmodified":"2022-11-18T02:04:30.296Z","extra":"","name":"Font Text","nodeiden":null,"path":"/neve-studio-dance-jacket.html","usemode":"prod","value":"","valueSuffix":"","xpath":"/html/body/div[1]/main/div[2]/div[1]/div[1]/div[1]/h1/span"},
-                        {"find":[{"tag":"span","attribute":"itemprop","value":"name"}],"valuesCount":3,"values":["normal","bold","lighter"],"enabled":true,"pathre":false,"type":"fontweight","parameter":6,"cssselector":"","lastmodified":"2022-11-18T02:04:30.296Z","extra":"","name":"Font Weight","nodeiden":null,"path":"/neve-studio-dance-jacket.html","usemode":"prod","value":"","valueSuffix":"","xpath":""},
-                        {"find":[{"tag":"a","attribute":"class","value":"logo"},{"tag":"img","attribute":"","value":""}],"valuesCount":4,"values":["145px","45px","50%","TCELESECROFauto"],"enabled":true,"pathre":false,"type":"height","parameter":8,"cssselector":"","lastmodified":"2022-11-18T02:04:30.296Z","extra":"","name":"Logo Height","nodeiden":null,"path":"/neve-studio-dance-jacket.html","usemode":"prod","value":"","valueSuffix":"","xpath":""},
-                        {"find":[{"tag":"a","attribute":"class","value":"logo"},{"tag":"img","attribute":"","value":""}],"valuesCount":3,"values":["TCELESECROF250px","450px","auto"],"enabled":true,"pathre":false,"type":"width","parameter":7,"cssselector":"","lastmodified":"2022-11-18T02:04:30.296Z","extra":"","name":"Logo Width","nodeiden":null,"path":"/neve-studio-dance-jacket.html","usemode":"prod","value":"","valueSuffix":"","xpath":""},
-                        {"find":[{"tag":"form","attribute":"id","value":"product_addtocart_form"}],"valuesCount":0,"values":[],"enabled":true,"pathre":false,"type":"notify","parameter":null,"cssselector":"","lastmodified":"2022-11-18T02:04:30.296Z","extra":"","name":"Parameters","nodeiden":null,"path":"/neve-studio-dance-jacket.html","usemode":"prod","value":"","valueSuffix":"","xpath":""}
+                        {"find":[{"tag":"button","attribute":"id","value":"product-addtocart-button"}],"valuesCount":2,"values":["ADD TO CART","TCELESECROFAdd to ala-carte"],"enabled":true,"pathre":false,"type":"title","parameter":9,"cssselector":"","lastmodified":null,"extra":"","name":"Add to Cart Text","nodeiden":null,"path":"/neve-studio-dance-jacket.html","prob":100.0,"usemode":"prod","value":"","valueSuffix":"","xpath":""},
+                        {"find":[{"tag":"span","attribute":"itemprop","value":"name"}],"valuesCount":4,"values":["#000000","#0000ff","#00ff00","#ff0000"],"enabled":true,"pathre":false,"type":"fontcolor","parameter":1,"cssselector":"","lastmodified":"2022-11-18T02:04:30.296Z","extra":"","name":"Font Color","nodeiden":null,"path":"/neve-studio-dance-jacket.html","prob":100.0,"usemode":"prod","value":"","valueSuffix":"","xpath":""},
+                        {"find":[{"tag":"span","attribute":"itemprop","value":"name"}],"valuesCount":3,"values":["arial","arial","cursive"],"enabled":true,"pathre":false,"type":"fontfamily","parameter":3,"cssselector":"","lastmodified":"2022-11-18T02:04:30.296Z","extra":"","name":"Font Family","nodeiden":null,"path":"/neve-studio-dance-jacket.html","prob":100.0,"usemode":"prod","value":"","valueSuffix":"","xpath":""},
+                        {"find":[{"tag":"span","attribute":"itemprop","value":"name"}],"valuesCount":3,"values":["auto","TCELESECROFnone","normal"],"enabled":true,"pathre":false,"type":"fontkerning","parameter":4,"cssselector":"","lastmodified":"2022-11-18T02:04:30.296Z","extra":"","name":"Font Kerning","nodeiden":null,"path":"/neve-studio-dance-jacket.html","prob":100.0,"usemode":"prod","value":"","valueSuffix":"","xpath":""},
+                        {"find":[{"tag":"span","attribute":"itemprop","value":"name"}],"valuesCount":5,"values":["100px","TCELESECROF20px","30","40px","50px"],"enabled":true,"pathre":false,"type":"fontsize","parameter":0,"cssselector":"","lastmodified":"2022-11-18T02:04:30.296Z","extra":"","name":"Font Size","nodeiden":null,"path":"/neve-studio-dance-jacket.html","prob":100.0,"usemode":"prod","value":"","valueSuffix":"","xpath":""},
+                        {"find":[{"tag":"span","attribute":"itemprop","value":"name"}],"valuesCount":3,"values":["italic","normal","TCELESECROFoblique"],"enabled":true,"pathre":false,"type":"fontstyle","parameter":5,"cssselector":"","lastmodified":"2022-11-18T02:04:30.296Z","extra":"","name":"Font Style","nodeiden":null,"path":"/neve-studio-dance-jacket.html","prob":100.0,"usemode":"prod","value":"","valueSuffix":"","xpath":""},
+                        {"find":[],"valuesCount":3,"values":["TCELESECROFVery Cuter","Very Cute","Not so cute"],"enabled":true,"pathre":false,"type":"text","parameter":2,"cssselector":"","lastmodified":"2022-11-18T02:04:30.296Z","extra":"","name":"Font Text","nodeiden":null,"path":"/neve-studio-dance-jacket.html","prob":100.0,"usemode":"prod","value":"","valueSuffix":"","xpath":"/html/body/div[1]/main/div[2]/div[1]/div[1]/div[1]/h1/span"},
+                        {"find":[{"tag":"span","attribute":"itemprop","value":"name"}],"valuesCount":3,"values":["normal","bold","lighter"],"enabled":true,"pathre":false,"type":"fontweight","parameter":6,"cssselector":"","lastmodified":"2022-11-18T02:04:30.296Z","extra":"","name":"Font Weight","nodeiden":null,"path":"/neve-studio-dance-jacket.html","prob":100.0,"usemode":"prod","value":"","valueSuffix":"","xpath":""},
+                        {"find":[{"tag":"a","attribute":"class","value":"logo"},{"tag":"img","attribute":"","value":""}],"valuesCount":4,"values":["145px","45px","50%","TCELESECROFauto"],"enabled":true,"pathre":false,"type":"height","parameter":8,"cssselector":"","lastmodified":"2022-11-18T02:04:30.296Z","extra":"","name":"Logo Height","nodeiden":null,"path":"/neve-studio-dance-jacket.html","prob":100.0,"usemode":"prod","value":"","valueSuffix":"","xpath":""},
+                        {"find":[{"tag":"a","attribute":"class","value":"logo"},{"tag":"img","attribute":"","value":""}],"valuesCount":3,"values":["TCELESECROF250px","450px","auto"],"enabled":true,"pathre":false,"type":"width","parameter":7,"cssselector":"","lastmodified":"2022-11-18T02:04:30.296Z","extra":"","name":"Logo Width","nodeiden":null,"path":"/neve-studio-dance-jacket.html","prob":100.0,"usemode":"prod","value":"","valueSuffix":"","xpath":""},
+                        {"find":[{"tag":"form","attribute":"id","value":"product_addtocart_form"}],"valuesCount":0,"values":[],"enabled":true,"pathre":false,"type":"notify","parameter":null,"cssselector":"","lastmodified":"2022-11-18T02:04:30.296Z","extra":"","name":"Parameters","nodeiden":null,"path":"/neve-studio-dance-jacket.html","prob":100.0,"usemode":"prod","value":"","valueSuffix":"","xpath":""}
                       ];
     const sessionIdJS = '';
     const parametersArray = HDLmGetParametersArray();

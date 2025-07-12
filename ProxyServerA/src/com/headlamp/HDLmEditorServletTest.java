@@ -67,7 +67,7 @@ class HDLmEditorServletTest {
 					                              		                                    null, null, null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Servlet request passed to simulateProxy is null");
+			assertEquals("Servlet request passed to simulateProxy is null",  execMsg,"Unexpected exception message");
 		}
 		{
 			Throwable exception = assertThrows(NullPointerException.class, 
@@ -76,7 +76,7 @@ class HDLmEditorServletTest {
 					                              		                                    null, null, null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Servlet response passed to simulateProxy is null");
+			assertEquals("Servlet response passed to simulateProxy is null",  execMsg,"Unexpected exception message");
 		}
 		{
 			Throwable exception = assertThrows(NullPointerException.class, 
@@ -86,7 +86,7 @@ class HDLmEditorServletTest {
 					                              		                                    null, null, null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Request type string passed to simulateProxy is null");
+			assertEquals("Request type string passed to simulateProxy is null",  execMsg,"Unexpected exception message");
 		}
 	}
 }

@@ -77,7 +77,7 @@ class HDLmOpenAITest {
 					                               () -> {HDLmOpenAI.buildAuthorizationHeaderUsingAPIKeyStr(null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "API key string reference passed to buildAuthorizationHeaderUsingAPIKeyStr is null",
+			assertEquals("API key string reference passed to buildAuthorizationHeaderUsingAPIKeyStr is null", execMsg,
 					         "Unexpected exception message");
 		}					
 	}	
@@ -95,7 +95,7 @@ class HDLmOpenAITest {
 					                               () -> {HDLmOpenAI.buildContentTypeHeader(null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Content type string reference passed to buildContentTypeHeader is null",
+			assertEquals("Content type string reference passed to buildContentTypeHeader is null", execMsg,
 					         "Unexpected exception message");
 		}					
 	}
@@ -122,7 +122,7 @@ class HDLmOpenAITest {
 					                               () -> {HDLmOpenAI.buildMultipartFormContentTypeHeader(null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Boundary string reference passed to buildMultipartFormContentTypeHeader is null",
+			assertEquals("Boundary string reference passed to buildMultipartFormContentTypeHeader is null", execMsg,
 					         "Unexpected exception message");
 		}					
 	}
@@ -154,7 +154,7 @@ class HDLmOpenAITest {
 					                               () -> {HDLmOpenAI.getImageChoices(null, urlStr, pathValueStr);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Input image URL reference passed to getImageChoices is null",
+			assertEquals("Input image URL reference passed to getImageChoices is null", execMsg,
 					         "Unexpected exception message");
 		}		
 		{  
@@ -162,7 +162,7 @@ class HDLmOpenAITest {
 					                               () -> {HDLmOpenAI.getImageChoices(inputImageUrl, null, pathValueStr);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Web page URL string reference passed to getImageChoices is null",
+			assertEquals("Web page URL string reference passed to getImageChoices is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{  
@@ -170,7 +170,7 @@ class HDLmOpenAITest {
 					                               () -> {HDLmOpenAI.getImageChoices(inputImageUrl, urlStr, null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Web page Path value string reference passed to getImageChoices is null",
+			assertEquals("Web page Path value string reference passed to getImageChoices is null", execMsg,
 					         "Unexpected exception message");
 		}	
 	}
@@ -215,7 +215,7 @@ class HDLmOpenAITest {
 					                              		                                      localDataEntity);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Path string reference passed to getSomeOpenAIImageData is null",
+			assertEquals("Path string reference passed to getSomeOpenAIImageData is null", execMsg,
 					         "Unexpected exception message");
 		}		
 		{  
@@ -228,7 +228,7 @@ class HDLmOpenAITest {
 															                                                    localDataEntity);},  
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Header list reference passed to getSomeOpenAIImageData is null",
+			assertEquals("Header list reference passed to getSomeOpenAIImageData is null", execMsg,
 					         "Unexpected exception message");
 		}
 		{  
@@ -241,7 +241,7 @@ class HDLmOpenAITest {
 					                              		                                      null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Data entity reference passed to getSomeOpenAIImageData is null",
+			assertEquals("Data entity reference passed to getSomeOpenAIImageData is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}	
@@ -285,7 +285,7 @@ class HDLmOpenAITest {
 					                              		                                     localJsonData);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Path string reference passed to getSomeOpenAITextData is null",
+			assertEquals("Path string reference passed to getSomeOpenAITextData is null", execMsg,
 					         "Unexpected exception message");
 		}		
 		{  
@@ -298,7 +298,7 @@ class HDLmOpenAITest {
 															                                                   localJsonData);},  
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Header list reference passed to getSomeOpenAITextData is null",
+			assertEquals("Header list reference passed to getSomeOpenAITextData is null", execMsg,
 					         "Unexpected exception message");
 		}
 		{  
@@ -311,7 +311,7 @@ class HDLmOpenAITest {
 					                              		                                     null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Json data reference passed to getSomeOpenAITextData is null",
+			assertEquals("Json data reference passed to getSomeOpenAITextData is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -352,7 +352,7 @@ class HDLmOpenAITest {
 					                               () -> {HDLmOpenAI.getSquareImage(null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Buffered image reference passed to getSquareImage is null",
+			assertEquals("Buffered image reference passed to getSquareImage is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -381,7 +381,7 @@ class HDLmOpenAITest {
 					                               () -> {HDLmOpenAI.getTextChoices(null, urlStr, pathValueStr);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Input string reference passed to getTextChoices is null",
+			assertEquals("Input string reference passed to getTextChoices is null", execMsg,
 					         "Unexpected exception message");
 		}
 		{ 
@@ -389,7 +389,7 @@ class HDLmOpenAITest {
 					                               () -> {HDLmOpenAI.getTextChoices(inputStr, null, pathValueStr);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "URL string reference passed to getTextChoices is null",
+			assertEquals("URL string reference passed to getTextChoices is null", execMsg,
 					         "Unexpected exception message");
 		}
 		{ 
@@ -397,7 +397,7 @@ class HDLmOpenAITest {
 					                               () -> {HDLmOpenAI.getTextChoices(inputStr, urlStr, null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Path value string reference passed to getTextChoices is null",
+			assertEquals("Path value string reference passed to getTextChoices is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}

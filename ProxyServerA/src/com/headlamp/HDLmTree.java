@@ -73,7 +73,7 @@ public class HDLmTree {
 	   The map now stores saved information for modifications and any other content
 	   types we need to care about. The key is the content type (all in uppercase).
 	   The object is the actual saved details. Since order does not make any
-	   difference, we can use a hash amp here. */
+	   difference, we can use a hash map here. */
 	private static Map<String, Map<String, Object>> savedDetailsMap = new HashMap<String, Map<String, Object>>();
 	/* The next field (an array) contains all of the pending deletes from
      the database maintained by the server. Each delete is a string which 
@@ -114,7 +114,9 @@ public class HDLmTree {
 	   The details are not set by this constructor. They can be set later as need
 	   be. The node path passed by the caller is copied below. This means that the
 	   node path passed by the caller can be changed as need be. */
-	protected HDLmTree(HDLmTreeTypes newType, String newTooltip, ArrayList<String> newNodePath) {
+	protected HDLmTree(final HDLmTreeTypes newType, 
+			               final String newTooltip, 
+			               ArrayList<String> newNodePath) {
 		if (newType == null) {
 			String  errorText = "New type value passed to tree object constructor is null";
 			throw new NullPointerException(errorText);
@@ -150,9 +152,9 @@ public class HDLmTree {
 	   several levels. The intermediate levels (company, Data or Rules,
 	   division, site) may or may not exist. Create these levels if 
 	   need be using the information provided by the caller.  */
-	protected static ArrayList<String>  addLevels(HDLmTree topTreeNode, 
-			                                          String hostName,
-			                                          HDLmTreeTypes nodeType) {
+	protected static ArrayList<String>  addLevels(final HDLmTree topTreeNode, 
+			                                          final String hostName,
+			                                          final HDLmTreeTypes nodeType) {
 		/* Check if the top tree node passed by the caller is null */
 		if (topTreeNode == null) {
 			String  errorText = "Top tree node value passed to addLevels is null";
@@ -384,10 +386,11 @@ public class HDLmTree {
 	   Build a new rule using the information provided by the caller and add
 	   the new rule in the correct place. The higher levels may or may not 
 	   have been created by this routine. */
-	protected static void  addNodeIden(JsonElement jsonElements, 
-			                               String hostName,
-			                               String urlValue,
-			                               boolean nodeCopyElements) {
+	@SuppressWarnings("unused")
+	protected static HDLmTree  addNodeIden(final JsonElement jsonElements, 
+														     				 final String hostName,
+																		     final String urlValue,
+																		     final boolean nodeCopyElements) {
 		/* Check if the JSON element value passed by the caller is null */
 		if (jsonElements == null) {
 			String  errorText = "JSON elements passed to addNodeIden is null";
@@ -502,13 +505,14 @@ public class HDLmTree {
 		     used for all future work. */  
 		  HDLmTree.setNodePassTreeTop(topTreeNode); 
 		}
+		return newTreeNode;
 	}
 	/* Add a child HDLmTree node to the children array. This routine will not always
 	   add a new child HDLmTree node to the children array. If a name match is
 	   found, then an existing child node will be replaced. Note that this is not a
 	   static method, the current object (this) must be an HDLmTree object that has
 	   a child array. */
-	protected void addOrReplaceChild(HDLmTree newChildNode) {
+	protected void         addOrReplaceChild(final HDLmTree newChildNode) {
 		if (newChildNode == null) {
 			String  errorText = "New tree child node value is null";
 			throw new NullPointerException(errorText);
@@ -569,10 +573,11 @@ public class HDLmTree {
 	   tree node passed by the caller (and all of it's children) are added
 	   to the pending deletes array. Eventually the passed tree node (and 
 	   the possible children) will be deleted by other code. */
-	protected static void  addPendingDeletes(HDLmTree treePos) { 
+	protected static void  addPendingDeletes(final HDLmTree treePos) { 
 	  HDLmTree.addPendingDeletes(treePos, false); 
 	}
-	protected static void  addPendingDeletes(HDLmTree treePos, boolean processSubNodes) { 
+	protected static void  addPendingDeletes(final HDLmTree treePos, 
+			                                     final boolean processSubNodes) { 
 	  /* Check the tree position value passed by the caller */		 
 		if (treePos == null) {
 			String  errorText = "Tree position reference passed by the caller to addPendingDeletes is null";
@@ -603,10 +608,11 @@ public class HDLmTree {
 		 by the database server. A variety of unneeded information is (if present)
 		 removed from the temporary copy of the tree node (and it's children) 
 		 passed by the caller. */
-	protected static void  addPendingInserts(HDLmTree treePos) { 
+	protected static void  addPendingInserts(final HDLmTree treePos) { 
 	  HDLmTree.addPendingInserts(treePos, false); 
 	}
-	protected static void  addPendingInserts(HDLmTree treePos, boolean processSubNodes) {
+	protected static void  addPendingInserts(final HDLmTree treePos, 
+			                                     final boolean processSubNodes) {
 	  /* Check the tree position value passed by the caller */		 
 		if (treePos == null) {
 			String  errorText = "Tree position reference passed by the caller to addPendingInserts is null";
@@ -658,10 +664,11 @@ public class HDLmTree {
 	   contents of the updated node. A variety of unneeded information 
 	   is (if present) removed from the temporary copy of the tree node
 	   passed by the caller. */
-	protected static void  addPendingUpdates(HDLmTree treePos) { 
+	protected static void  addPendingUpdates(final HDLmTree treePos) { 
 	  HDLmTree.addPendingUpdates(treePos, false); 
 	}
-	protected static void  addPendingUpdates(HDLmTree treePos, boolean processSubNodes) {
+	protected static void  addPendingUpdates(final HDLmTree treePos, 
+			                                     final boolean processSubNodes) {
 		/* Check the tree position value passed by the caller */		 
 		if (treePos == null) {
 		  String  errorText = "Tree position reference passed by the caller to addPendingUpdates is null";
@@ -721,9 +728,9 @@ public class HDLmTree {
 	}
 	/* Add a string to a string builder. A comma may also be 
 	   added. */
-	protected static void  addStringBuilder(StringBuilder outBuilder,
-			                                    MutableInt counter,
-			                                    String addString) {
+	protected static void  addStringBuilder(final StringBuilder outBuilder,
+			                                    final MutableInt counter,
+			                                    final String addString) {
 	  /* Check if the string builder reference passed by the caller is null */		 
 		if (outBuilder == null) {
 			String  errorText = "String builder reference passed by the caller to addStringBuilder is null";
@@ -764,7 +771,9 @@ public class HDLmTree {
 	   that this routine can be used to build any of the trees. That includes the
 	   modifications tree, the proxy tree, the configuration tree, and/or the
 	   ignore-lists tree. Of course, additional trees may be added over time. */
-	protected static HDLmTree addToTree(String jsonStr, HDLmEditorTypes editorType, HDLmStartupMode startupMode) {
+	protected static HDLmTree addToTree(final String jsonStr, 
+			                                final HDLmEditorTypes editorType, 
+			                                final HDLmStartupMode startupMode) {
 		/* Declare and define a few variables */
 		HDLmTree topTreeNode = null;
 		/* Check if the JSON string passed by the caller is null */
@@ -944,7 +953,8 @@ public class HDLmTree {
 	   that this routine can be used to build any of the trees. That includes the
 	   modifications tree, the proxy tree, the configuration tree, and/or the
 	   ignore-lists tree. Of course, additional trees may be added over time. */
-	protected static HDLmTree addToTreeMod(String jsonStr, HDLmEditorTypes editorType) {
+	protected static HDLmTree addToTreeMod(final String jsonStr, 
+			                                   final HDLmEditorTypes editorType) {
 		HDLmTree topTreeNode = null;
 		/* Check if the JSON string passed by the caller is null */
 		if (jsonStr == null) {
@@ -1082,7 +1092,8 @@ public class HDLmTree {
 	   that this routine can be used to build any of the trees. That includes the
 	   modifications tree, the proxy tree, the configuration tree, and/or the
 	   ignore-lists tree. Of course, additional trees may be added over time. */
-	protected static HDLmTree addToTreeProxy(String jsonStr, HDLmEditorTypes editorType) {
+	protected static HDLmTree addToTreeProxy(final String jsonStr, 
+			                                     final HDLmEditorTypes editorType) {
 		HDLmTree topTreeNode = null;
 		/* Check if the JSON string passed by the caller is null */
 		if (jsonStr == null) {
@@ -1219,9 +1230,10 @@ public class HDLmTree {
 	  
 	   Add the new rule in the correct place. The higher levels may or may not 
 	   have been created by this routine. */
-	protected static void  addTreeNode(JsonElement jsonElements, 
-			                               String curHostName, 
-			                               ArrayList<String> curNodePath) {
+	@SuppressWarnings("unused")
+	protected static void  addTreeNode(final JsonElement jsonElements, 
+			                               final String curHostName, 
+			                               final ArrayList<String> curNodePath) {
 		/* Check if the JSON element value passed by the caller is null */
 		if (jsonElements == null) {
 			String  errorText = "JSON elements passed to addTreeNode is null";
@@ -1327,9 +1339,9 @@ public class HDLmTree {
      passed to it. The HDLmTree is used and not modified by this call. 
      Each HDLmTree element is used to build one JSON string. The final
      array will contain one entry for each HDLmTree element. */
-	protected static void  buildInfoArray(ArrayList<String> infoArray, 
-			                                  ArrayList<Integer> idArray,
-			                                  HDLmTree treePos) {
+	protected static void  buildInfoArray(final ArrayList<String> infoArray, 
+			                                  final ArrayList<Integer> idArray,
+			                                  final HDLmTree treePos) {
 	  /* Check if the information array reference passed by the caller is null */		 
 	  if (infoArray == null) {
 		  String  errorText = "Information array reference passed by the caller to buildInfoArray is null";
@@ -1376,7 +1388,8 @@ public class HDLmTree {
 	   extracted and added to a list. The list is returned to the caller. Stated
 	   differently, this routine builds a list of numbers used to create unique rule
 	   names. */
-	protected static ArrayList<Integer> buildIntegerListName(String ruleNamePrefix, ArrayList<HDLmTree> childList) {
+	protected static ArrayList<Integer> buildIntegerListName(final String ruleNamePrefix, 
+			                                                     final ArrayList<HDLmTree> childList) {
 		/* Check if the rule name prefix string passed by the caller is null */
 		if (ruleNamePrefix == null) {
 			String  errorText = "Rule name prefix value passed to buildIntegerListName is null";
@@ -1417,10 +1430,10 @@ public class HDLmTree {
 	}
 	/* Add a set of string to the output string builder followed
 	   by an integer */
-	protected static void  buildJsonInteger(StringBuilder outBuilder,
-			                                    MutableInt  counter,
-		                                      String keyStr,
-		                                      Integer intValue) {
+	protected static void  buildJsonInteger(final StringBuilder outBuilder,
+		                             	        final MutableInt  counter,
+			                                    final String keyStr,
+		                                      final Integer intValue) {
 	  /* Check if the string builder reference passed by the caller is null */		 
 		if (outBuilder == null) {
 			String  errorText = "String builder reference passed by the caller to buildJsonInteger is null";
@@ -1445,10 +1458,10 @@ public class HDLmTree {
 	}
 	/* Add a set of strings to the output string builder. Either string
      can be a null value in which case the value will not be used. */
-	protected static void  buildJsonStrings(StringBuilder outBuilder,
-			                                    MutableInt counter,
-			                                    String firstString,
-			                                    String secondString) {
+	protected static void  buildJsonStrings(final StringBuilder outBuilder,
+			                                    final MutableInt counter,
+			                                    final String firstString,
+			                                    final String secondString) {
 	  /* Check if the string builder reference passed by the caller is null */		 
 		if (outBuilder == null) {
 			String  errorText = "String builder reference passed by the caller to buildJsonStrings is null";
@@ -1483,7 +1496,7 @@ public class HDLmTree {
 	   request. The caller passes a starting tree position. This routine converts
 	   the starting tree position into a row and all of the children (indirect 
 	   included) into rows. */
-	protected static String  buildJsonStringTree(HDLmTree treePos) {
+	protected static String  buildJsonStringTree(final HDLmTree treePos) {
 	  /* Check if the tree position value passed by the caller is null */		 
 		if (treePos == null) {
 			String  errorText = "Tree position reference passed by the caller to buildJsonStringTree is null";
@@ -1659,7 +1672,7 @@ public class HDLmTree {
 		return modResponse;		
 	}
 	/* This routine builds a HDLmMod object from some JSON, if possible */
-	protected static HDLmMod  buildModDetailsFromJson(JsonObject jsonObject) {
+	protected static HDLmMod  buildModDetailsFromJson(final JsonObject jsonObject) {
 		if (jsonObject == null) {
 			String  errorText = "JSON object value is null";
 			throw new NullPointerException(errorText);
@@ -1679,7 +1692,7 @@ public class HDLmTree {
 		return newMod;
 	}
 	/* This routine builds a node path array from some JSON */
-	protected static ArrayList<String>  buildNodePathFromJson(JsonObject jsonObject) {
+	protected static ArrayList<String>  buildNodePathFromJson(final JsonObject jsonObject) {
 		if (jsonObject == null) {
 			String  errorText = "JSON object value is null";
 			throw new NullPointerException(errorText);
@@ -1709,9 +1722,9 @@ public class HDLmTree {
 	   first invoked, it is passed a null value for the current node. The null value
 	   causes this routine to find and build the top node. All other nodes are built
 	   as direct and indirect children of the top node. */
-	protected static HDLmTree buildNodeTree(ArrayList<JsonObject> jsonData, 
-			                                    HDLmTree curNode,
-			                                    HDLmEditorTypes editorType) {
+	protected static HDLmTree buildNodeTree(final ArrayList<JsonObject> jsonData, 
+		                                    	HDLmTree curNode,
+			                                    final HDLmEditorTypes editorType) {
 		/* Check if the JSON data array list passed by the caller is null */
 		if (jsonData == null) {
 			String  errorText = "JSON data array list value is null";
@@ -1794,6 +1807,16 @@ public class HDLmTree {
 				String  errorText = "JSON data array list entry info value is null";
 				throw new NullPointerException(errorText);
 			}
+			/* The following code waw added just for debugging. This code
+			   is commented out for now. */ 
+			/*
+			{
+				if (jsonArrayEntryId.equals("17425") ||
+					  jsonArrayEntryId.equals("17426")) { 
+					editorType = editorType;					
+				}
+			}			
+			*/
 			HDLmTree jsonArrayEntryTree = HDLmTree.buildTreeFromJson(jsonArrayEntryInfo,
 					                                                     jsonArrayEntryId,
 					                                                     editorType);
@@ -1813,7 +1836,7 @@ public class HDLmTree {
 	   number usage map. For example, if the child nodes used the parameter number
 	   3, two times, then the returned map would have an entry with a key of 3 and a
 	   value of two. */
-	protected static Map<Integer, Integer> buildParameterMap(ArrayList<HDLmTree> childList) {
+	protected static Map<Integer, Integer> buildParameterMap(final ArrayList<HDLmTree> childList) {
 		/* Get the number of children in the child list passed by the caller */
 		int childListLen = childList.size();
 		/* Build a map that shows how many times each parameter number is used */
@@ -1844,7 +1867,7 @@ public class HDLmTree {
 	}
 	/* This routine builds a HDLmPassThruCompanies object from some JSON, if
 	   possible. This routine actually builds a companies instance from JSON. */
-	protected static HDLmPassThruCompanies buildPassThruCompaniesDetailsFromJson(JsonObject jsonObject) {
+	protected static HDLmPassThruCompanies buildPassThruCompaniesDetailsFromJson(final JsonObject jsonObject) {
 		if (jsonObject == null) {
 			String  errorText = "JSON object value is null";
 			throw new NullPointerException(errorText);
@@ -1864,7 +1887,7 @@ public class HDLmTree {
 	}
 	/* This routine builds a HDLmPassThruCompany object from some JSON, if possible.
 	   This routine actually builds a company instance from JSON. */
-	protected static HDLmPassThruCompany buildPassThruCompanyDetailsFromJson(JsonObject jsonObject) {
+	protected static HDLmPassThruCompany buildPassThruCompanyDetailsFromJson(final JsonObject jsonObject) {
 		if (jsonObject == null) {
 			String  errorText = "JSON object value is null";
 			throw new NullPointerException(errorText);
@@ -1884,7 +1907,7 @@ public class HDLmTree {
 	}
 	/* This routine builds a HDLmPassThruData object from some JSON, if possible.
  	   This routine actually builds a data instance from JSON. */
-	protected static HDLmPassThruData buildPassThruDataDetailsFromJson(JsonObject jsonObject) {
+	protected static HDLmPassThruData buildPassThruDataDetailsFromJson(final JsonObject jsonObject) {
 		if (jsonObject == null) {
 			String  errorText = "JSON object value is null";
 			throw new NullPointerException(errorText);
@@ -1904,7 +1927,7 @@ public class HDLmTree {
 	}
 	/* This routine builds a HDLmPassThruDivision object from some JSON, if possible.
 	   This routine actually builds a division instance from JSON. */
-	protected static HDLmPassThruDivision  buildPassThruDivisionDetailsFromJson(JsonObject jsonObject) {
+	protected static HDLmPassThruDivision  buildPassThruDivisionDetailsFromJson(final JsonObject jsonObject) {
 		if (jsonObject == null) {
 			String  errorText = "JSON object value is null";
 			throw new NullPointerException(errorText);
@@ -1961,7 +1984,7 @@ public class HDLmTree {
 	}
 	/* This routine builds a HDLmPassThruIgnore object from some JSON, if possible.
 	   This routine actually builds an ignore-list entry instance from JSON. */
-	protected static HDLmPassThruIgnore buildPassThruIgnoreDetailsFromJson(JsonObject jsonObject) {
+	protected static HDLmPassThruIgnore buildPassThruIgnoreDetailsFromJson(final JsonObject jsonObject) {
 		if (jsonObject == null) {
 			String  errorText = "JSON object value is null";
 			throw new NullPointerException(errorText);
@@ -1981,7 +2004,7 @@ public class HDLmTree {
 	}
 	/* This routine builds a HDLmPassThruLine object from some JSON, if possible.
 	   This routine actually builds a line instance from JSON. */
-	protected static HDLmPassThruLine buildPassThruLineDetailsFromJson(JsonObject jsonObject) {
+	protected static HDLmPassThruLine buildPassThruLineDetailsFromJson(final JsonObject jsonObject) {
 		if (jsonObject == null) {
 			String  errorText = "JSON object value is null";
 			throw new NullPointerException(errorText);
@@ -2001,7 +2024,7 @@ public class HDLmTree {
 	}
 	/* This routine builds a HDLmPassThruLines object from some JSON, if possible.
 	   This routine actually builds a lines instance from JSON. */
-	protected static HDLmPassThruLines buildPassThruLinesDetailsFromJson(JsonObject jsonObject) {
+	protected static HDLmPassThruLines buildPassThruLinesDetailsFromJson(final JsonObject jsonObject) {
 		if (jsonObject == null) {
 			String  errorText = "JSON object value is null";
 			throw new NullPointerException(errorText);
@@ -2021,7 +2044,7 @@ public class HDLmTree {
 	}
 	/* This routine builds a HDLmPassThruList object from some JSON, if possible.
 	   This routine actually builds a list instance from JSON. */
-	protected static HDLmPassThruList buildPassThruListDetailsFromJson(JsonObject jsonObject) {
+	protected static HDLmPassThruList buildPassThruListDetailsFromJson(final JsonObject jsonObject) {
 		if (jsonObject == null) {
 			String  errorText = "JSON object value is null";
 			throw new NullPointerException(errorText);
@@ -2041,7 +2064,7 @@ public class HDLmTree {
 	}
 	/* This routine builds a HDLmPassThruLists object from some JSON, if possible.
 	   This routine actually builds a lists instance from JSON. */
-	protected static HDLmPassThruLists buildPassThruListsDetailsFromJson(JsonObject jsonObject) {
+	protected static HDLmPassThruLists buildPassThruListsDetailsFromJson(final JsonObject jsonObject) {
 		if (jsonObject == null) {
 			String  errorText = "JSON object value is null";
 			throw new NullPointerException(errorText);
@@ -2061,7 +2084,7 @@ public class HDLmTree {
 	}
 	/* This routine builds a HDLmPassThruReport object from some JSON, if possible.
 	   This routine actually builds a report instance from JSON. */
-	protected static HDLmPassThruReport buildPassThruReportDetailsFromJson(JsonObject jsonObject) {
+	protected static HDLmPassThruReport buildPassThruReportDetailsFromJson(final JsonObject jsonObject) {
 		if (jsonObject == null) {
 			String  errorText = "JSON object value is null";
 			throw new NullPointerException(errorText);
@@ -2081,7 +2104,7 @@ public class HDLmTree {
 	}
 	/* This routine builds a HDLmPassThruReports object from some JSON, if possible.
 	   This routine actually builds a reports instance from JSON. */
-	protected static HDLmPassThruReports buildPassThruReportsDetailsFromJson(JsonObject jsonObject) {
+	protected static HDLmPassThruReports buildPassThruReportsDetailsFromJson(final JsonObject jsonObject) {
 		if (jsonObject == null) {
 			String  errorText = "JSON object value is null";
 			throw new NullPointerException(errorText);
@@ -2101,7 +2124,7 @@ public class HDLmTree {
 	}
 	/* This routine builds a HDLmPassThruRules object from some JSON, if possible.
 	   This routine actually builds a rules instance from JSON. */
-	protected static HDLmPassThruRules  buildPassThruRulesDetailsFromJson(JsonObject jsonObject) {
+	protected static HDLmPassThruRules  buildPassThruRulesDetailsFromJson(final JsonObject jsonObject) {
 		if (jsonObject == null) {
 			String  errorText = "JSON object value is null";
 			throw new NullPointerException(errorText);
@@ -2121,7 +2144,7 @@ public class HDLmTree {
 	}
 	/* This routine builds a HDLmPassThruSite object from some JSON, if possible.
 	   This routine actually builds a site instance from JSON. */
-	protected static HDLmPassThruSite  buildPassThruSiteDetailsFromJson(JsonObject jsonObject) {
+	protected static HDLmPassThruSite  buildPassThruSiteDetailsFromJson(final JsonObject jsonObject) {
 		if (jsonObject == null) {
 			String  errorText = "JSON object value is null";
 			throw new NullPointerException(errorText);
@@ -2178,7 +2201,7 @@ public class HDLmTree {
 	}
 	/* This routine builds a HDLmPassThruTop object from some JSON, if possible.
 	   This routine actually builds an top instance from JSON. */
-	protected static HDLmPassThruTop buildPassThruTopDetailsFromJson(JsonObject jsonObject) {
+	protected static HDLmPassThruTop buildPassThruTopDetailsFromJson(final JsonObject jsonObject) {
 		if (jsonObject == null) {
 			String  errorText = "JSON object value is null";
 			throw new NullPointerException(errorText);
@@ -2198,7 +2221,7 @@ public class HDLmTree {
 	}
 	/* This routine builds a HDLmPassThruValue object from some JSON, if possible.
 	   This routine actually builds a value instance from JSON. */
-	protected static HDLmPassThruValue buildPassThruValueDetailsFromJson(JsonObject jsonObject) {
+	protected static HDLmPassThruValue buildPassThruValueDetailsFromJson(final JsonObject jsonObject) {
 		if (jsonObject == null) {
 			String  errorText = "JSON object value is null";
 			throw new NullPointerException(errorText);
@@ -2217,7 +2240,7 @@ public class HDLmTree {
 		return newValue;
 	}
 	/* This routine builds a HDLmProxy object from some JSON, if possible */
-	protected static HDLmProxy buildProxyDetailsFromJson(JsonObject jsonObject) {
+	protected static HDLmProxy buildProxyDetailsFromJson(final JsonObject jsonObject) {
 		if (jsonObject == null) {
 			String  errorText = "JSON object value is null";
 			throw new NullPointerException(errorText);
@@ -2238,7 +2261,8 @@ public class HDLmTree {
 	/* This routine builds a tree node for something (an HDLmMod or something that
 	   extends HDLmMod) and returns the final tree node to the caller. caller. The
 	   something reference is used to set the details of the new tree node. */
-	protected static <T extends HDLmMod> HDLmTree buildTree(ArrayList<String> oldNodePath, T newValue) {
+	protected static <T extends HDLmMod> HDLmTree buildTree(final ArrayList<String> oldNodePath, 
+			                                                    final T newValue) {
 		/* Check if the old node path reference passed by the caller is null */
 		if (oldNodePath == null) {
 			String  errorText = "Old node path reference passed to buildTree is null";
@@ -2270,9 +2294,9 @@ public class HDLmTree {
 	/* This routine builds an HDLmTree object from some JSON. This is the
 	   routine that does most of the work of actually building and HDLm
 	   tree entry. */
-	protected static HDLmTree buildTreeFromJson(JsonElement jsonElement, 
-			                                        String idString,
-			                                        HDLmEditorTypes editorType) {
+	protected static HDLmTree buildTreeFromJson(final JsonElement jsonElement, 
+		                               	          final String idString,
+			                                        final HDLmEditorTypes editorType) {
 		/* Check a few values passed by the caller */
 		if (jsonElement == null) {
 			String  errorText = "JSON element value is null";
@@ -2453,7 +2477,8 @@ public class HDLmTree {
 	   itself recursively to build the children array of each HDLmTree element.
 	   This is the routine that does most of the work of actually build the HDLm
 	   tree. */
-	protected static HDLmTree buildTreeFromJsonMod(JsonElement jsonElement, HDLmEditorTypes editorType) {
+	protected static HDLmTree buildTreeFromJsonMod(final JsonElement jsonElement, 
+			                                           final HDLmEditorTypes editorType) {
 		if (jsonElement == null) {
 			String  errorText = "JSON element value is null";
 			throw new NullPointerException(errorText);
@@ -2643,7 +2668,8 @@ public class HDLmTree {
 	/* This routine builds an HDLm modification object from some JSON. The
 	   modification object is returned to the caller. This routine does not 
 	   appear to be in use other than by some test code, which does use it. */
-	protected static HDLmTree buildTreeFromJsonNotInUse(JsonElement jsonElement, HDLmEditorTypes editorType) {
+	protected static HDLmTree  buildTreeFromJsonNotUsed(final JsonElement jsonElement, 
+			                                                final HDLmEditorTypes editorType) {
 		if (jsonElement == null) {
 			String  errorText = "JSON element value is null";
 			throw new NullPointerException(errorText);
@@ -2711,7 +2737,7 @@ public class HDLmTree {
 			newTree.setDetails(newMod);
 		/* Process each of the children */
 		for (JsonElement subElement : jsonArray) {
-			HDLmTree subTree = buildTreeFromJsonNotInUse(subElement, editorType);
+			HDLmTree subTree = buildTreeFromJsonNotUsed(subElement, editorType);
 			newTree.addOrReplaceChild(subTree);
 		}
 		return newTree;
@@ -2720,7 +2746,8 @@ public class HDLmTree {
 	   itself recursively to build the children array of each HDLmTree element.
 	   This is the routine that does most of the work of actually build the HDLm
 	   tree. */
-	protected static HDLmTree buildTreeFromJsonProxy(JsonElement jsonElement, HDLmEditorTypes editorType) {
+	protected static HDLmTree buildTreeFromJsonProxy(final JsonElement jsonElement, 
+			                                             final HDLmEditorTypes editorType) {
 		if (jsonElement == null) {
 			String  errorText = "JSON element value is null";
 			throw new NullPointerException(errorText);
@@ -2907,6 +2934,420 @@ public class HDLmTree {
 		}
 		return newTree;
 	}
+	/* Try to access a field in the JSON used to build the current object.
+     Report an error if the field is not found. If an error is reported,
+     the error count is also incremented. The return value from this function 
+     is the value of the field, if the field is found. This routine checks 
+     the actual details (which should be an HDLmMod). */
+	protected static HDLmMod  checkFieldDetails(final HDLmEditorTypes editorType, 
+																					    final MutableInt errorCounter,
+																					    final ArrayList<String> errorMessages,
+																					    final JsonObject jsonObject, 
+																					    final Set<String> jsonKeys,
+																					    final String name, 
+																					    final HDLmReportErrors reportErrors) {
+		/* Check a few fields passed by the caller */
+		if (errorCounter == null) {
+			String  errorText = "Mutable int for error counter passed to checkFieldDetails is null";
+			throw new NullPointerException(errorText);
+		}
+		if (errorMessages == null) {
+			String  errorText = "ArrayList for error messages passed to checkFieldDetails is null";
+			throw new NullPointerException(errorText);
+		}
+		if (jsonObject == null) {
+			String  errorText = "JSON object passed to checkFieldDetails is null";
+			throw new NullPointerException(errorText);
+		}
+		if (jsonKeys == null) {
+			String  errorText = "Set of keys passed to checkFieldDetails is null";
+			throw new NullPointerException(errorText);
+		}
+		if (name == null) {
+			String  errorText = "Name string passed to checkFieldDetails is null";
+			throw new NullPointerException(errorText);
+		} 
+		if (reportErrors == null) {
+			String  errorText = "Report errors enum passed to checkFieldDetails is null";
+			throw new NullPointerException(errorText);
+		}
+		if (reportErrors == HDLmReportErrors.NONE) {
+			String  errorText = "Report errors enum passed to checkFieldDetails is NONE";
+			throw new NullPointerException(errorText);
+		}
+		/* Run the checkFieldObject method. This method returns a JsonObject
+		   and may set various error field. */ 
+		{
+	    String  errorMessagePrefix = "Tree";
+	    int     errorNumberMissing = 64;
+	    int     errorNumberIsNull = 65;
+	    int     errorNumberIsPrimitive = 65;
+	    int     errorNumberNotObject = 65;
+	    int     errorNumberException = 65;  
+			HDLmField.checkFieldJsonObject(editorType, 
+					                           errorCounter, 
+					                           errorMessages, 
+					                           jsonObject, 
+					                           jsonKeys, 
+					                           name, 
+					                 		       errorMessagePrefix,
+															       errorNumberMissing,
+															       errorNumberIsNull,
+															       errorNumberIsPrimitive,
+															       errorNumberNotObject,
+															       errorNumberException,
+					                           reportErrors);
+			/* Check if any errors were found */ 
+		  int   errorCountInt = errorCounter.intValue(); 
+		  if (errorCountInt > 0) 
+		  	return null;			
+		}
+	  boolean   fieldFound = false;
+	  HDLmMod   newDetails = null;   
+		/* What follows is a dummy loop used only to allow break to work */
+		while (true) {
+			/* Check if we have the field in the JSON */
+			if (!jsonKeys.contains(name))
+				break;
+			/* Show that the field was found */
+			fieldFound = true;
+			/* Get they array of JSON objects for the strings */
+			JsonElement   jsonElement = jsonObject.get(name);
+			if (jsonElement.isJsonNull()) {
+		    HDLmField.reportError(editorType, 
+		    		                  errorCounter, 
+									            errorMessages,
+									            jsonObject, 
+									            name,
+									            "Tree JSON field is null", 
+									            65, 
+									            reportErrors);
+				break;
+			}
+			/* Get some values from the input JSON */
+			if (!jsonElement.isJsonObject()) {
+		    HDLmField.reportError(editorType, 
+		    		                  errorCounter, 
+	                            errorMessages,
+	                            jsonObject,
+	                            "name",
+	                            "Tree JSON field is not an object", 
+	                            65, 
+	                            reportErrors);			
+				break;
+		  }
+			/* Check the actual details (and HDLmMod). This routine
+			   produced many error messages if the details are in 
+			   error. */
+			newDetails = new HDLmMod(jsonElement);
+			/* Check if any errors were found in the details (the 
+			   HDLmMod). Copy the errors out of the HDLmod into  
+			   the parent error reporting areas. */ 
+			if (newDetails.getErrorCount() > 0) {
+				errorCounter.add(newDetails.getErrorCount());
+				errorMessages.addAll(newDetails.getErrorMsgs());
+			}
+			break;
+		}
+		/* Since we do not have the field in the JSON, report an error */
+		if (fieldFound == false)
+	  	HDLmField.reportErrorNoValue(editorType, 
+	  			                         errorCounter,
+		                               errorMessages,
+		                               jsonObject, 
+		                               name, 
+		                               "Tree JSON missing field", 
+		                               64, 
+		                               reportErrors);
+		return newDetails;
+	}	
+	/* Try to access a field in the JSON used to build the current object.
+	   Report an error if the field is not found. If an error is reported,
+	   the error count is also incremented. The return value from this function 
+	   is the value of the field, if the field is found. */
+	protected static HDLmTreeTypes  checkFieldTreeType(final HDLmEditorTypes editorType, 
+																								     final MutableInt errorCounter,
+																								     final ArrayList<String> errorMessages,
+																								     final JsonObject jsonObject, 
+																								     final Set<String> jsonKeys,
+																								     final String name, 
+																								     final HDLmReportErrors reportErrors) {
+		/* Check a few fields passed by the caller */
+		if (errorCounter == null) {
+			String  errorText = "Mutable int for error counter passed to checkFieldTreeType is null";
+			throw new NullPointerException(errorText);
+		}
+		if (errorMessages == null) {
+			String  errorText = "ArrayList for error messages passed to checkFieldTreeType is null";
+			throw new NullPointerException(errorText);
+		}
+		if (jsonObject == null) {
+			String  errorText = "JSON object passed to checkFieldTreeType is null";
+			throw new NullPointerException(errorText);
+		}
+		if (jsonKeys == null) {
+			String  errorText = "Set of keys passed to checkFieldTreeType is null";
+			throw new NullPointerException(errorText);
+		}
+		if (name == null) {
+			String  errorText = "Name string passed to checkFieldTreeType is null";
+			throw new NullPointerException(errorText);
+		} 
+		if (reportErrors == null) {
+			String  errorText = "Report errors enum passed to checkFieldTreeType is null";
+			throw new NullPointerException(errorText);
+		}
+		if (reportErrors == HDLmReportErrors.NONE) {
+			String  errorText = "Report errors enum passed to checkFieldTreeType is NONE";
+			throw new NullPointerException(errorText);
+		}
+    boolean         fieldFound = false;
+    HDLmTreeTypes   modTreeType = HDLmTreeTypes.NONE;
+		/* What follows is a dummy loop used only to allow break to work */
+		while (true) {
+			/* Check if we have the field in the JSON */
+			if (!jsonKeys.contains(name))
+				break;
+			/* Show that the field was found */
+			fieldFound = true;
+			/* Get they array of JSON objects for the strings */
+			JsonElement jsonElement = jsonObject.get(name);
+			if (jsonElement.isJsonNull()) {
+		    HDLmField.reportError(editorType, 
+		    		                  errorCounter, 
+									            errorMessages,
+									            jsonObject, 
+									            "Tree JSON field is null",
+									            name,
+									            65, 
+									            reportErrors);
+				break;
+			}
+			/* Get some values from the input JSON */
+			if (!jsonElement.isJsonPrimitive()) {
+		    HDLmField.reportError(editorType, 
+		    		                  errorCounter, 
+	                            errorMessages,
+	                            jsonObject,
+	                            name,
+	                            "Tree JSON field is not a primitive", 
+	                            65, 
+	                            reportErrors);			
+				break;
+		  }
+			/* Get the value of the type field */
+			String  localTypeString = jsonElement.getAsString();	 
+			/* Get the tree type and check the value */ 
+			modTreeType = HDLmTreeTypes.valueOfString(localTypeString);
+			if (modTreeType == HDLmTreeTypes.NONE) {
+		  	String  value = localTypeString;
+			  HDLmField.reportErrorValue(editorType, 
+			  		                       errorCounter,
+			                             errorMessages,
+			                             jsonObject, 
+			                             name, 
+			                             value, 
+			                             "Tree JSON invalid field", 
+			                             66, 
+			                             reportErrors);
+			}		
+			if (modTreeType == null) {
+		  	String  value = localTypeString;
+			  HDLmField.reportErrorValue(editorType, 
+			  		                       errorCounter,
+			                             errorMessages,
+			                             jsonObject, 
+			                             name, 
+			                             value, 
+			                             "Tree JSON invalid field", 
+			                             67, 
+			                             reportErrors);
+			}	
+			break;
+		}
+		/* Since we do not have the field in the JSON, report an error */
+		if (fieldFound == false)
+	  	HDLmField.reportErrorNoValue(editorType, 
+	  			                         errorCounter,
+		                               errorMessages,
+		                               jsonObject, 
+		                               name, 
+		                               "Tree JSON missing field", 
+		                               64, 
+		                               reportErrors);
+		return modTreeType;
+  }
+	/* This routine checks if it is passed a valid tree JSON object. All of the 
+	   tree fields must be present and they must be valid. The checks include
+	   checking the HDLmMod instance contained in the tree JSON object. The 
+	   HDLmMod instance is called 'details' (without the quotes). The return
+	   value is a class instance that may (or may not) contain an error message. */ 
+	@SuppressWarnings("unused")
+	protected static HDLmResponse  checkTreeJsonObj(final JsonElement jsonElement) {
+		/* Check if the JSON element passed by the caller is null */
+		if (jsonElement == null) {
+			String  errorText = "JSON element used to check tree JSON is null";
+			throw new NullPointerException(errorText);
+		}
+		/* Define a few fields for use below */
+		String  jsonFieldName;
+		/* Allocate the response object. This object is used to 
+	     return error messages to the caller. */
+    HDLmResponse  outResponse = new HDLmResponse();
+		/* Set the error count to zero. The error count is incremented each time an
+		   error is detected. If the final error count (for the current tree element) 
+		   is greater than zero, the current modification object is disabled (the enabled
+		   field is set false). Note that a reference is used below so that the error
+		   count can be updated by the routines called using error count.*/
+		MutableInt  errorCounter = new MutableInt(0);		
+		/* Build an array list for error message strings. Each error
+		   message is stored in this array list. */
+		ArrayList<String>   errorMessages = new ArrayList<String>();
+		if (errorMessages == null) {
+			String  errorText = "Error message ArrayList allocation in checkTreeJsonObj is null";
+			throw new NullPointerException(errorText);
+		}	
+		HDLmEditorTypes  editorType = HDLmEditorTypes.PASS;
+		if (!jsonElement.isJsonObject()) {
+			HDLmAssertAction(false, "JSON element passed to checkTreeJsonObj is not a JSON object");
+		}
+		/* Check if the JSON element is a JSON null */
+		if (jsonElement.isJsonNull()) {
+			HDLmAssertAction(false, "JSON element used to checkTreeJsonObj is JSON null");
+		}
+		/* Get the list of keywords and values in the JSON object */
+		JsonObject    jsonObject = jsonElement.getAsJsonObject();
+		Set<String>   jsonKeys = jsonObject.keySet();		
+		/* Check the tooltip value. The tooltip must be present and 
+		   a non-zero length string. */ 
+		{
+			String  errorMessagePrefix = "Tree";
+			int     errorNumberMissing = 64; 
+	    int     errorNumberIsNull = 65;
+	    int     errorNumberNotPrimitive = 65;
+	    int     errorNumberException = 65;
+	    int     errorNumberInvalidLength = 65;
+	    int     errorNumberInvalidWhiteSpace = 65;
+			String  localToolTip = HDLmField.checkFieldString(editorType, 
+					                                              errorCounter, 		
+																							          errorMessages, 
+																							          jsonObject, 
+																							          jsonKeys, 
+																							          "tooltip", 
+																							          errorMessagePrefix,
+																							     		  errorNumberMissing,
+																							          errorNumberIsNull,
+																							          errorNumberNotPrimitive,
+																							          errorNumberException,
+																							          errorNumberInvalidLength,
+																							          errorNumberInvalidWhiteSpace, 
+																							          HDLmWhiteSpace.WHITESPACENOTOK,
+																							          HDLmReportErrors.REPORTERRORS,
+																							          HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+		}
+		/* Check the nodePath value. The node path must be present and 
+	     must contain non-zero length strings. */ 
+		Integer   minArraylength = HDLmDefines.getNumber("HDLMMINPASSNODEPATHLENGTH");
+		Integer   maxArraylength = HDLmDefines.getNumber("HDLMMAXPASSNODEPATHLENGTH");
+		ArrayList<String>  localNodePath = null;
+		{
+	    String  errorMessagePrefix = "Tree";
+	    int     errorNumberMissing = 64;
+	    int     errorNumberIsNull = 65;
+	    int     errorNumberIsPrimitive = 65;
+	    int     errorNumberNotPrimitive = 65;
+	    int     errorNumberNotArray = 65;
+	    int     errorNumberException = 65;
+	    int     errorNumberTooSmall = 70;
+	    int     errorNumberTooLarge = 71; 
+	    int     errorNumberInvalidLength = 65;
+	    int     errorNumberInvalidWhiteSpace = 65;
+		  localNodePath = HDLmField.checkFieldStringArray(editorType, 
+                                                      errorCounter, 		
+												                              errorMessages, 
+																						          jsonObject, 
+																						          jsonKeys, 
+																						          "nodePath", 
+																						          minArraylength,
+																						          maxArraylength,			
+																						          errorMessagePrefix,
+																						          errorNumberMissing,
+																						          errorNumberIsNull,
+																						          errorNumberIsPrimitive,
+																						          errorNumberNotPrimitive,
+																						          errorNumberNotArray,
+																						          errorNumberException,
+																						          errorNumberTooSmall,
+																						          errorNumberTooLarge, 
+																						          errorNumberInvalidLength,
+																						          errorNumberInvalidWhiteSpace,
+																						          HDLmWhiteSpace.WHITESPACENOTOK,
+																						          HDLmReportErrors.REPORTERRORS,
+																						          HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+		}
+	  /* Check the division value. Only some values are allowed. If the value
+	     is invalid, report an error. */
+	  int     localDivisionIndex = HDLmDefines.getNumber("HDLMDIVISIONNODEPATHINDEX");
+	  String  localDivisionStr = localNodePath.get(localDivisionIndex);
+	  String  localDivisionExpected = HDLmDefines.getString("HDLMDIVISIONNODENAME");
+	  if (!localDivisionStr.equals(localDivisionExpected)) {
+			HDLmField.reportErrorValue(editorType, 
+                                 errorCounter, 
+                                 errorMessages,
+                                 jsonObject, 
+                                 "division", 
+                                 localDivisionStr, 
+                                 "nodePath division is invalid",
+                                 66,
+                                 HDLmReportErrors.REPORTERRORS);  	
+	  }	
+	  /* Check the site value. Only some values are allowed. If the value
+       is invalid, report an error. */
+    int     localSiteIndex = HDLmDefines.getNumber("HDLMSITENODEPATHINDEX");
+    String  localSiteStr = localNodePath.get(localSiteIndex);
+    String  localSiteExpected = HDLmDefines.getString("HDLMSITENODENAME");
+		if (!localSiteStr.equals(localSiteExpected)) {
+			HDLmField.reportErrorValue(editorType, 
+		                             errorCounter, 
+		                             errorMessages,
+		                             jsonObject, 
+		                             "site", 
+		                             localSiteStr, 
+		                             "nodePath site is invalid",
+		                             66,
+		                             HDLmReportErrors.REPORTERRORS);  	
+		}	
+		/* Check the tree type value. The tree type must be present and 
+	     a valid string. */ 
+		HDLmTreeTypes   localTreeType = HDLmTree.checkFieldTreeType(editorType, 
+				                                                        errorCounter, 		
+																												        errorMessages, 
+																												        jsonObject, 
+																												        jsonKeys, 
+																												        "type",  
+																												        HDLmReportErrors.REPORTERRORS);
+		/* Check if the details (HDLmMod) are present and if any errors
+		   can be found */ 
+		HDLmMod  localMod = HDLmTree.checkFieldDetails(editorType, 
+				                                           errorCounter, 		
+																						       errorMessages, 
+																						       jsonObject, 
+																						       jsonKeys, 
+																						       "details",  
+																						       HDLmReportErrors.REPORTERRORS);		
+		/* Check if any errors were found. If any errors were found, store 
+		   them in the response object */ 
+		int     errorCountInt = errorCounter.intValue(); 
+		if (errorCountInt > 0) {
+			outResponse.setReturnNumber(errorCountInt);
+			outResponse.setErrorMessage(errorMessages.get(0));			
+		}
+		else {
+			outResponse.setReturnCodeZero();	
+			outResponse.setReturnNumberZero();
+		}
+		return outResponse;
+	}	    
 	/* This routine checks all of the subnodes of the parent node passed to it and
 	   counts the number of subnodes with matching names. The number of subnodes
 	   with matching names may be zero or greater than zero. The name matching
@@ -2921,7 +3362,9 @@ public class HDLmTree {
 	   caller passes a flag that controls this behavior. If the flag is set to true,
 	   then file number tails are removed. If this flag is set to false, then file
 	   number tails are not removed. */
-	protected static HDLmNameMatch countSubNodeNames(String nodeName, HDLmTree parentTreeNode, HDLmTree currentTreeNode,
+	protected static HDLmNameMatch countSubNodeNames(String nodeName, 
+			                                             final HDLmTree parentTreeNode, 
+			                                             final HDLmTree currentTreeNode,
 			boolean removeTails) {
 		/* Check if the node name passed by the caller is null */
 		if (nodeName == null) {
@@ -2975,8 +3418,8 @@ public class HDLmTree {
 	   deleted first. Note also that the current node is removed from the children
 	   array of the parent node (if any). When the aforementioned steps have been 
 	   completed, the node is (Java) deleted to free any storage used by the node. */
-	protected static void  deleteNode(HDLmTree treePos,
-			                              ArrayList<Integer> idArray) {
+	protected static void  deleteNode(final HDLmTree treePos,
+			                              final ArrayList<Integer> idArray) {
 		/* Check if the tree position reference passed by the caller is null */
 		if (treePos == null) {
 			String  errorText = "Tree position reference passed to deleteNode is null";
@@ -3047,7 +3490,7 @@ public class HDLmTree {
 	   deleted first. Note also that the current node is removed from the children
 	   array of the parent node (if any). When the aforementioned steps have been 
 	   completed, the node is (Java) deleted to free any storage used by the node. */
-	protected static void  deleteNodeTreeDatabase(HDLmTree treePos) {
+	protected static void  deleteNodeTreeDatabase(final HDLmTree treePos) {
 		/* Check if the tree position reference passed by the caller is null */
 		if (treePos == null) {
 			String  errorText = "Tree position reference passed to deleteNode is null";
@@ -3067,8 +3510,8 @@ public class HDLmTree {
 	/* This routine does all of the work needed to delete the subnodes of 
 	   the current node. The passed node may, or may not, have any actual 
 	   subnodes. The lack of subnode is not an error condition  */
-  protected static void  deleteSubNodes(HDLmTree treePos,
-  		                                  ArrayList<Integer> idArray) {
+  protected static void  deleteSubNodes(final HDLmTree treePos,
+  		                                  final ArrayList<Integer> idArray) {
 		/* Check if the tree position reference passed by the caller is null */
 		if (treePos == null) {
 			String  errorText = "Tree position reference passed to deleteSubNodes is null";
@@ -3096,7 +3539,7 @@ public class HDLmTree {
 	   that is used the least. The least used parameter number is returned to the
 	   caller. Note that if the parameter map does not have any information for a
 	   parameter number, then the usage is assumed to be zero. */
-	protected static int findLowestParameter(Map<Integer, Integer> parmMap) {
+	protected static int findLowestParameter(final Map<Integer, Integer> parmMap) {
 		int currentCount;
 		int maxParameterCount = HDLmDefines.getNumber("HDLMMAXPARAMETERCOUNT");
 		int maxValue = Integer.MAX_VALUE;
@@ -3124,7 +3567,8 @@ public class HDLmTree {
 	/* Get an array of JSON elements from the JSON object, if possible. Note that
 	   this routine returns a null value if the array of JSON elements could not be
 	   obtained. This routine does not issue any error messages. */
-	protected static JsonArray getArrayFromJson(JsonObject jsonObject, String memberName) {
+	protected static JsonArray getArrayFromJson(final JsonObject jsonObject, 
+			                                        final String memberName) {
 		JsonArray localArray = null;
 		if (jsonObject == null) {
 			String  errorText = "JSON object value is null";
@@ -3177,7 +3621,7 @@ public class HDLmTree {
 	   of rows passed by the caller and returns an array of 
 	   ID values The row came from a read all operation that 
 	   returned all of the rows with a specific content value. */
-	protected static ArrayList<Integer>  getIdArray(ArrayList<HDLmDatabaseRow> rowList) {
+	protected static ArrayList<Integer>  getIdArray(final ArrayList<HDLmDatabaseRow> rowList) {
 		/* Check if the row list reference passed by the caller is null */
 		if (rowList == null) {
 			String  errorText = "Row list reference passed to getIdArray is null";
@@ -3201,7 +3645,8 @@ public class HDLmTree {
 	}
   /* This routine extracts ID values from the node tree 
 	   and stores the ID values in an array */ 
-	protected static void  getIdValuesFromNodeTree(ArrayList<Integer> treeIdArray, HDLmTree treePos) {
+	protected static void  getIdValuesFromNodeTree(final ArrayList<Integer> treeIdArray, 
+			                                           final HDLmTree treePos) {
 		/* Check if the ID array reference passed by the caller is null */
 		if (treeIdArray == null) {
 			String  errorText = "ID array reference passed to getIdValuesFromNodeTree is null";
@@ -3235,7 +3680,8 @@ public class HDLmTree {
 	/* Get the integer value of a JSON element, if possible. If the integer value
 	   can not be obtained, a null value will be returned to the caller. No error
 	   messages will be issued. */
-	protected static Integer  getIntegerFromJson(JsonObject jsonObject, String memberName) {
+	protected static Integer  getIntegerFromJson(final JsonObject jsonObject, 
+			                                         final String memberName) {
 		Integer localInt = null;
 		if (jsonObject == null) {
 			String  errorText = "JSON object value is null";
@@ -3270,7 +3716,7 @@ public class HDLmTree {
 	   HDLmTree instance. A different routine must handle the children. 
 	   The name of this routine was changed to make it clear which routine
 	   is being executed. */
-	protected static String  getJsonStringTree(HDLmTree treePos) {
+	protected static String  getJsonStringTree(final HDLmTree treePos) {
 		/* Check if the tree position reference passed by the caller is null */		 
 	  if (treePos == null) {
 		  String  errorText = "Tree position reference passed by the caller to getJsonString is null";
@@ -3889,7 +4335,8 @@ public class HDLmTree {
 	   
 	   Tree was added to the method name to help distinguish between different
 	   routines that used to have the same name. */
-	protected static JsonElement getJsonTreeTree(final String contentType, final HDLmTree nodeTree) {
+	protected static JsonElement getJsonTreeTree(final String contentType, 
+			                                         final HDLmTree nodeTree) {
 		/* Check if the content type reference passed by the caller is null */
 		if (contentType == null) {
 			String  errorText = "Content type reference passed to getJsonTreeTree is null";
@@ -3929,8 +4376,9 @@ public class HDLmTree {
 	   level number and the node array passed by the caller must match the node
 	   array of the entry. The node array passed by the caller is compared to the
 	   node array of each entry by comparing each entry in both arrays. */
-	protected static ArrayList<JsonObject> getMatchingEntries(ArrayList<JsonObject> inArray, int matchLevel,
-			                                                      JsonArray jsonNodeArray) {
+	protected static ArrayList<JsonObject> getMatchingEntries(final ArrayList<JsonObject> inArray, 
+			                                                      final int matchLevel,
+			                                                      final JsonArray jsonNodeArray) {
 		/* Check the values passed by the caller */
 		if (inArray == null) {
 			String  errorText = "Array list of JSON objects is null";
@@ -4024,7 +4472,8 @@ public class HDLmTree {
 	   passed by the caller. If no such node is found, return a minus one value to
 	   the caller. This method appears to be only used by the add node routine which
 	   is apparently no longer in use. */
-	protected static int getNodeIndexGE(ArrayList<HDLmTree> nodeArray, String searchName) {
+	protected static int getNodeIndexGE(final ArrayList<HDLmTree> nodeArray, 
+			                                final String searchName) {
 		int subPos = 0;
 		if (nodeArray == null) {
 			String  errorText = "Node array value is null";
@@ -4066,6 +4515,114 @@ public class HDLmTree {
 	protected ArrayList<String>  getNodePath() {
 		return nodePath;
 	}
+	/* Get the node path for the current node */ 
+	protected static ArrayList<String>  getNodePath(final HDLmTree topTreeNode, 
+			                                            final String hostName,
+			                                            final HDLmTreeTypes nodeType) {
+		/* Check if the top tree node passed by the caller is null */
+		if (topTreeNode == null) {
+			String  errorText = "Top tree node value passed to getNodePath is null";
+			throw new NullPointerException(errorText);
+		}
+		/* Check if the host name value passed by the caller is null */
+		if (hostName == null) {
+			String  errorText = "Host name value passed to getNodePath is null";
+			throw new NullPointerException(errorText);
+		}
+		/* Check if the node type value passed by the caller is null */
+		if (nodeType == null) {
+			String  errorText = "Node type value passed to getNodePath is null";
+			throw new NullPointerException(errorText);
+		}
+		/* Build the node path */  
+		ArrayList<String>   nodePath = new ArrayList<String>();
+		HDLmTree  nodeParent = null;
+		int       nodeLevels = 6;
+		for (int i = 0; i < nodeLevels; i++) {
+			String  nodeName = null;
+			/* Create an enum for the node type */
+			HDLmTreeTypes   nodeEnum = null;
+			/* Set the correct node enum value based on the loop index */
+			if ((i+1) == 1)
+				nodeEnum = HDLmTreeTypes.TOP;
+			else if ((i+1) == 2)
+				nodeEnum = HDLmTreeTypes.COMPANIES;
+			else if ((i+1) == 3)
+				nodeEnum = HDLmTreeTypes.COMPANY;
+			else if ((i+1) == 4) {
+				if (nodeType == HDLmTreeTypes.DATA)
+				  nodeEnum = HDLmTreeTypes.DATA;
+				if (nodeType == HDLmTreeTypes.MOD)
+				  nodeEnum = HDLmTreeTypes.RULES;
+				if (nodeType == HDLmTreeTypes.RULES)
+				  nodeEnum = HDLmTreeTypes.RULES;
+				if (nodeType == HDLmTreeTypes.VALUE)
+				  nodeEnum = HDLmTreeTypes.DATA;
+			}
+			else if ((i+1) == 5)
+				nodeEnum = HDLmTreeTypes.DIVISION;
+			else if ((i+1) == 6)
+				nodeEnum = HDLmTreeTypes.SITE;
+			else if ((i+1) == 7) {
+				if (nodeType == HDLmTreeTypes.DATA)
+				  nodeEnum = HDLmTreeTypes.VALUE;
+				if (nodeType == HDLmTreeTypes.RULES)
+				  nodeEnum = HDLmTreeTypes.MOD;
+			}
+			/* Determine what we need to add to the node path */
+			switch (nodeEnum) {
+			  case TOP: {
+			  	nodeName = HDLmDefines.getString("HDLMTOPNODENAME");
+			  	break;
+			  }
+			  case COMPANIES: {
+			  	nodeName = HDLmDefines.getString("HDLMCOMPANIESNODENAME");
+			  	break;
+			  }
+			  case COMPANY: {
+			  	nodeName = hostName;
+			  	break;
+			  }
+			  case DATA: {
+			  	nodeName = HDLmDefines.getString("HDLMDATANODENAME");
+			  	break;
+			  }
+			  case RULES: {
+			  	nodeName = HDLmDefines.getString("HDLMRULESNODENAME");
+			  	break;
+			  }
+			  case DIVISION: {
+			  	nodeName = HDLmDefines.getString("HDLMDIVISIONNODENAME");
+			  	break;
+			  }
+			  case SITE: {
+			  	nodeName = HDLmDefines.getString("HDLMSITENODENAME");
+			  	break;
+			  }
+			  case MOD: {
+			  	nodeName = null;
+			  	break;
+			  }
+			  case VALUE: {
+			  	nodeName = null;
+			  	break;
+			  }
+			  /* Report an error if none of the cases matched. At least
+			     one of the cases should have matched. The error text
+			     actually shows the loop index value (plus one) that
+			     failed. This is likely to be more informative than 
+			     actual enum that did not match. */
+			  default: {
+		    	String  errorFormat = "No tree type enum value (%d) matched in getNodePath";
+					String  errorText = String.format(errorFormat, i+1);
+					HDLmAssertAction(false, errorText);			  	
+			  }
+			}
+			/* Update the node path with the new name value */
+			nodePath.add(nodeName);					
+		}    
+		return nodePath;
+	}		
 	/* Get the node path from the information string and return the node path
 	   to the caller. A null value is returned to the caller, if the node path
 	   can not be extracted. */ 
@@ -4139,7 +4696,8 @@ public class HDLmTree {
 	/* Get the JSON object value of a JSON element, if possible. If the JSON object
 	   value can not be obtained, a null value will be returned to the caller. No
 	   error messages will be issued. */
-	protected static JsonObject getObjectFromJson(JsonObject jsonObject, String memberName) {
+	protected static JsonObject getObjectFromJson(final JsonObject jsonObject, 
+			                                          final String memberName) {
 		JsonObject  localJsonObject = null;
 		/* Check a few values passed by the caller */
 		if (jsonObject == null) {
@@ -4186,7 +4744,8 @@ public class HDLmTree {
 	/* Get the string value of a JSON element, if possible. If the string value can
 	   not be obtained, a null value will be returned to the caller. No error
 	   messages will be issued. */
-	protected static String getStringFromJson(JsonObject jsonObject, String memberName) {
+	protected static String getStringFromJson(final JsonObject jsonObject, 
+			                                      final String memberName) {
 		String localString = null;
 		if (jsonObject == null) {
 			String  errorText = "JSON object value is null";
@@ -4222,7 +4781,7 @@ public class HDLmTree {
 	/* Get the Tooltip value for the current node. This code is in a separate
 	   routine so that it can be invoked from several places. This code only works
 	   for leaf nodes. Leaf nodes are modification nodes in this case. */
-	protected static String getTooltipString(String type) {
+	protected static String getTooltipString(final String type) {
 		/* Check if the node type value passed by the caller is null */
 		if (type == null) {
 			String  errorText = "Node type value passed to getTooltipString is null";
@@ -4288,7 +4847,8 @@ public class HDLmTree {
 	/* Check if an array of nodes (possibly an empty array) has a node with the name
 	   passed by the caller. If a node with the same name is found, the node is
 	   returned to the caller. Otherwise, a null value is returned to the caller. */
-	protected static HDLmTree hasNode(ArrayList<HDLmTree> nodeArray, String searchName) {
+	protected static HDLmTree hasNode(final ArrayList<HDLmTree> nodeArray, 
+			                              final String searchName) {
 		HDLmTree node = null;
 		if (nodeArray == null) {
 			String  errorText = "Node array value is null";
@@ -4317,7 +4877,8 @@ public class HDLmTree {
 	   required so that this function can find the top node. This routine will
 	   return the target node if it is found. If the target node can not be found,
 	   this routine will return a null value. */
-	protected static HDLmTree locateTreeNode(HDLmTree topTreeNode, ArrayList<String> nodePath) {
+	protected static HDLmTree locateTreeNode(final HDLmTree topTreeNode, 
+			                                     final ArrayList<String> nodePath) {
 		if (topTreeNode == null) {
 			String  errorText = "Top tree node value is null";
 			throw new NullPointerException(errorText);
@@ -4592,7 +5153,7 @@ public class HDLmTree {
 	   All of the rows with the specified ID values are deleted
 	   by this code. This code returns nothing to the caller and
 	   is synchronous. */
-	protected static void  passDeleteRows(ArrayList<Integer> idArray) {
+	protected static void  passDeleteRows(final ArrayList<Integer> idArray) {
 		/* Check if the ID array reference passed by the caller is null */
 		if (idArray == null) {
 			String  errorText = "ID array reference passed to passDeleteRows is null";
@@ -4634,7 +5195,7 @@ public class HDLmTree {
 	   This routine is no longer in use. A new routine is used to
 	   delete nodes from the in-memory node trae and rows from the
 	   database. */
-	protected static void  passDeleteTree(HDLmTree treePos) {
+	protected static void  passDeleteTree(final HDLmTree treePos) {
 	  /* Check if the tree position value passed by the caller is null */		 
 		if (treePos == null) {
 			String  errorText = "Tree position reference passed by the caller to passDeleteTree is null";
@@ -4652,7 +5213,7 @@ public class HDLmTree {
 	   is created for each node of the tree. The caller passes the top
 	   node of the tree. Note that this may not be the overall top node
 	   of the tree. */
-	protected static void  passInsertOneTreePos(HDLmTree treePos) {
+	protected static void  passInsertOneTreePos(final HDLmTree treePos) {
 	  /* Check if the tree position value passed by the caller is null */		 
 		if (treePos == null) {
 			String  errorText = "Tree position reference passed by the caller to passInsertOneTreePos is null";
@@ -4674,7 +5235,8 @@ public class HDLmTree {
 	/* This code inserts zero or more rows into the database. The caller  
 	   passes an array with zero or more entries. This routine returns
 	   a list of integers that are the new row ID values. */
-	protected static ArrayList<Integer>  passInsertRows(String content, ArrayList<String> infoArray) {
+	protected static ArrayList<Integer>  passInsertRows(final String content, 
+			                                                final ArrayList<String> infoArray) {
 	  /* Check if the content reference passed by the caller is null */		 
 		if (content == null) {
 			String  errorText = "Content reference passed by the caller to passInsertRows is null";
@@ -4749,7 +5311,7 @@ public class HDLmTree {
 	   the current editor type which will always be pass for this
 	   routine. This routine returns all of the rows from one specific
 	   editor type. The editor type is hard coded below. */
-	protected static ArrayList<HDLmDatabaseRow>  passReadAllRows(HDLmEditorTypes editorType) {
+	protected static ArrayList<HDLmDatabaseRow>  passReadAllRows(final HDLmEditorTypes editorType) {
 	  /* Check if the editor type reference passed by the caller is null */		 
 		if (editorType == null) {
 			String  errorText = "Editor type reference passed by the caller to passReadAllRows is null";
@@ -4767,7 +5329,9 @@ public class HDLmTree {
 	   database, that match the content string passed by the caller. 
 	   The second step (if need be) is to delete all of those rows.
 	   The third step is to insert all of the new rows. */
-  protected static void  passUpdateAllRows(String content, HDLmTree treeTop, boolean force) {
+  protected static void  passUpdateAllRows(final String content, 
+  		                                     final HDLmTree treeTop, 
+  		                                     final boolean force) {
 	  /* Check if the content reference passed by the caller is null */		 
 		if (content == null) {
 			String  errorText = "Content reference passed by the caller to passUpdateAllRows is null";
@@ -4853,7 +5417,8 @@ public class HDLmTree {
 	/* This code updates zero or more rows (zero or more nodes) in the server.
 	   The nodes could be any type of node. For example, one of the nodes, 
 	   could be a report node. */
-	protected static void  passUpdateRows(ArrayList<Integer> idArray, ArrayList<String> dataArray) {
+	protected static void  passUpdateRows(final ArrayList<Integer> idArray, 
+			                                  final ArrayList<String> dataArray) {
 		/* Check if the ID array reference passed by the caller is null */
 		if (idArray == null) {
 			String  errorText = "ID array reference passed to passUpdateRows is null";
@@ -5079,8 +5644,8 @@ public class HDLmTree {
 	   should be invoked using the current tree position. All of the
 	   children of the current tree node are handled recursively. The
 	   function is passed using an object that has the method we need. */ 
-	protected static void  processTree(HDLmTree treePos, 
-	   	                               HDLmProcessTreeInterface processTreeInstance) {
+	protected static void  processTree(final HDLmTree treePos, 
+                			               final HDLmProcessTreeInterface processTreeInstance) {
 		/* Check a few values passed by the caller */
 		if (treePos == null) {			 
 	    String  errorText = "Passed tree position is null in processTree";
@@ -5103,7 +5668,8 @@ public class HDLmTree {
 	  }	
 	}
 	/* This routine replaces the entire modification rule tree */
-	protected static void  replaceEntireTree(final String contentType, final HDLmTree topTreeNode) {
+	protected static void  replaceEntireTree(final String contentType, 
+			                                     final HDLmTree topTreeNode) {
 		/* Check if the content type reference passed by the caller is null */
 		if (contentType == null) {
 			String  errorText = "Content type reference passed to replaceEntireTree is null";
@@ -5167,7 +5733,8 @@ public class HDLmTree {
 	   and/or updated. This routine is passed an array of ID values and
 	   an array of node information. The node information is used to find
 	   the actual nodes that are then updated with current ID information. */
-	protected static boolean resetIdValues(ArrayList<Integer> idArray, ArrayList<String> infoArray) {
+	protected static boolean resetIdValues(final ArrayList<Integer> idArray, 
+			                                   final ArrayList<String> infoArray) {
 		/* Check if the ID array reference passed by the caller is null */
 		if (idArray == null) {
 			String  errorText = "ID array reference passed to resetIdValues is null";
@@ -5219,7 +5786,8 @@ public class HDLmTree {
 	   the modifications. This routine processes the current node.
 	   Not all tree nodes (the associated modification) types have 
 	   subnode counts. */
-	protected static void  resetSubnodeCounts(final HDLmStartupMode startupMode, final HDLmTree treePos) { 
+	protected static void  resetSubnodeCounts(final HDLmStartupMode startupMode, 
+			                                      final HDLmTree treePos) { 
 		/* Check if the startup mode value passed by the caller is null */
 		if (startupMode == null) {
 			String   errorText = "Startup mode value passed to modifyPassThruTree is null";
@@ -5370,8 +5938,8 @@ public class HDLmTree {
 	 
 	   Add or replace the new or existing data value in the correct place. The 
 	   higher levels may or may not have been created by this routine. */
-	protected static void  saveDataValue(JsonElement jsonElements, 
-			                                 String hostName) {
+	protected static void  saveDataValue(final JsonElement jsonElements, 
+			                                 final String hostName) {
 		/* Check if the JSON element value passed by the caller is null */
 		if (jsonElements == null) {
 			String  errorText = "JSON elements passed to saveDataValue is null";
@@ -5458,7 +6026,7 @@ public class HDLmTree {
 		}
 	}
 	/* Set the HDLmTree children value */
-	private void setChildren(ArrayList<HDLmTree> newChildren) {
+	private void setChildren(final ArrayList<HDLmTree> newChildren) {
 		if (newChildren == null) {
 			String  errorText = "New tree children value is null";
 			throw new NullPointerException(errorText);
@@ -5473,7 +6041,7 @@ public class HDLmTree {
 	   modification HDLmTree elements. The details object passed here must be
 	   unique. It must not be altered by any other change to any other modification
 	   object. */
-	protected void setDetails(HDLmMod newDetails) {
+	protected void setDetails(final HDLmMod newDetails) {
 		if (newDetails == null) {
 			String  errorText = "New tree details value is null";
 			throw new NullPointerException(errorText);
@@ -5490,7 +6058,7 @@ public class HDLmTree {
 		details = newDetails;
 	}
 	/* Set the HDLmTree ID string value */
-	protected void setId(String newId) {
+	protected void setId(final String newId) {
 		if (newId == null) {
 			String  errorText = "New tree ID value is null";
 			throw new NullPointerException(errorText);
@@ -5502,7 +6070,7 @@ public class HDLmTree {
 		id = null;
 	}
 	/* Set the tooltip field, if it is not set */
-	protected void setIfNotSetTooltip(String newTooltip) {
+	protected void setIfNotSetTooltip(final String newTooltip) {
 		/* Check if the new tooltip value passed by the caller is null */
 		if (newTooltip == null) {
 			String  errorText = "New tooltip string value passed to setIfNotSetTooltip is null";
@@ -5513,7 +6081,7 @@ public class HDLmTree {
 			this.tooltip = newTooltip;
 	}
 	/* Set the node tree (with modifications) top value */
-	protected static void setNodeModTreeTop(HDLmTree newNodeTreeTop) {
+	protected static void setNodeModTreeTop(final HDLmTree newNodeTreeTop) {
 		if (newNodeTreeTop == null) {
 			String  errorText = "New tree top value is null";
 			throw new NullPointerException(errorText);
@@ -5523,7 +6091,7 @@ public class HDLmTree {
 	/* Set the HDLmTree node path array value. The node path array passed here must
 	   be unique. It must not be altered by any other change to any other
 	   modification object or node path array. */
-	private void setNodePath(ArrayList<String> newNodePath) {
+	private void setNodePath(final ArrayList<String> newNodePath) {
 		if (newNodePath == null) {
 			String  errorText = "New tree node path value is null";
 			throw new NullPointerException(errorText);
@@ -5535,7 +6103,7 @@ public class HDLmTree {
 		nodePath = null;
 	}
 	/* Set the node tree (with modifications) top value */
-	protected static void setNodePassTreeTop(HDLmTree newNodeTreeTop) {
+	protected static void setNodePassTreeTop(final HDLmTree newNodeTreeTop) {
 		if (newNodeTreeTop == null) {
 			String  errorText = "New tree top value is null";
 			throw new NullPointerException(errorText);
@@ -5547,7 +6115,8 @@ public class HDLmTree {
 		HDLmTree.nodePassTreeTop = null;
 	}
 	/* The next routine sets the saved details (if any) */
-	protected static void setSavedDetails(final String contentType, Map<String, Object> newSavedDetails) {
+	protected static void setSavedDetails(final String contentType, 
+			                                  final Map<String, Object> newSavedDetails) {
 		/* Check if the content type string reference passed by the caller is null */
 		if (contentType == null) {
 			String  errorText = "Content type reference passed to setSavedDetails is null";
@@ -5561,7 +6130,7 @@ public class HDLmTree {
 		HDLmTree.savedDetailsMap.put(contentType, newSavedDetails);
 	}
 	/* Set the HDLmTree tooltip value */
-	protected void setTooltip(String newTooltip) {
+	protected void         setTooltip(final String newTooltip) {
 		if (newTooltip == null) {
 			String  errorText = "New tree tooltip value is null";
 			throw new NullPointerException(errorText);
@@ -5573,7 +6142,7 @@ public class HDLmTree {
 		tooltip = null;
 	}
 	/* Set the HDLmTree type value */
-	protected void setType(HDLmTreeTypes newType) {
+	protected void         setType(final HDLmTreeTypes newType) {
 		type = newType;
 	}
 	/* The code below is the new code. The new code converts the entire node tree 
@@ -5584,7 +6153,8 @@ public class HDLmTree {
 	 
 	   Tree was added to the method name to help distinguish between different
 	   routines that used to have the same name. */
-	protected static void updateEntireTree(final String contentType, HDLmTree topTreeNode) {
+	protected static void updateEntireTree(final String contentType, 
+			                                   final HDLmTree topTreeNode) {
 		/* Check if the content type reference passed by the caller is null */
 		if (contentType == null) {
 			String  errorText = "Content type reference passed to updateEntireTree is null";
@@ -5603,7 +6173,8 @@ public class HDLmTree {
 	}
 	/* Update a tree node value in the node tree. In practice only the 
 	   details (and HDLmMod instance) change. */  
-	protected static void  updateTreeNode(HDLmTree treePos, JsonElement jsonElements) {
+	protected static void  updateTreeNode(final HDLmTree treePos, 
+			                                  final JsonElement jsonElements) {
 		/* Check if the tree position reference passed by the caller is null */
 		if (treePos == null) {
 			String  errorText = "Tree position reference passed to updateTreeNode is null";
@@ -5647,7 +6218,7 @@ public class HDLmTree {
 	   
 	   This routine is no longer in use. A new routine is used to
 	   update the in-memory node tree and a row in the database */  
-	protected static void  updateTreeNodeNotUsed(JsonElement jsonElements) {
+	protected static void  updateTreeNodeNotUsed(final JsonElement jsonElements) {
 		/* Check if the JSON element value passed by the caller is null */
 		if (jsonElements == null) {
 			String  errorText = "JSON elements passed to updateTreeNodeNotUsed is null";
@@ -5708,7 +6279,7 @@ public class HDLmTree {
 		 routines that used to have the same name. */
 	protected static void  updateTreePassThru(final String contentType,
 			                                      final String hostName,
-			                                      JsonElement jsonElement) {
+			                                      final JsonElement jsonElement) {
 		/* Check if the content type string reference passed by the caller is null */
 		if (contentType == null) {
 			String  errorText = "Content type reference passed to updateTreePassThru is null";

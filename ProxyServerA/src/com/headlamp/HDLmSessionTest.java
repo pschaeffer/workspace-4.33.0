@@ -46,7 +46,7 @@ class HDLmSessionTest {
 					                               () -> {HDLmSession.buildSession(null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Session JSON string reference passed to buildSession is null");
+			assertEquals("Session JSON string reference passed to buildSession is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -72,7 +72,7 @@ class HDLmSessionTest {
 					                               () -> {sessionObj.setParameters(null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "New parameters string is null");
+			assertEquals("New parameters string is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -98,7 +98,7 @@ class HDLmSessionTest {
 					                               () -> {sessionObj.setParameters(null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "New parameters string is null");
+			assertEquals("New parameters string is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -124,7 +124,7 @@ class HDLmSessionTest {
 					                               () -> {sessionObj.setSessionId(null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "New session ID string is null");
+			assertEquals("New session ID string is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -150,7 +150,7 @@ class HDLmSessionTest {
 					                               () -> {sessionObj.setParameters(null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "New parameters string is null");
+			assertEquals("New parameters string is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -176,7 +176,7 @@ class HDLmSessionTest {
 					                               () -> {sessionObj.setParameters(null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "New parameters string is null");
+			assertEquals("New parameters string is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -202,7 +202,7 @@ class HDLmSessionTest {
 					                               () -> {sessionObj.setSessionId(null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "New session ID string is null");
+			assertEquals("New session ID string is null",  execMsg,"Unexpected exception message");
 		}
 	}
 }

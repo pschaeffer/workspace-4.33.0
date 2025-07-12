@@ -86,7 +86,14 @@ public class HDLmPassThruIgnore extends HDLmMod {
 			 greater than zero, the current definition object is disabled (the enabled
 			 field is set false). Note that a reference is used below so that the error
 			 count can be updated by the routines called using error count.*/
-	  MutableInt   errors = new MutableInt(0);
+	  MutableInt   errorCounter = new MutableInt(0);
+		/* Build an array list for error message strings. Each error
+	     message is stored in this array list. */
+  	ArrayList<String>   errorMessages = new ArrayList<String>();
+	  if (errorMessages == null) {
+		  String  errorText = "Error message ArrayList allocation in HDLmPassThruIgnore is null";
+		  throw new NullPointerException(errorText);
+	  }
 	  /* Get the list of keywords and values in the JSON object */
 	  if (jsonElement.isJsonNull()) {
 		  HDLmAssertAction(false, "JSON element used to build ignore definition is JSON null");
@@ -108,7 +115,7 @@ public class HDLmPassThruIgnore extends HDLmMod {
 	  	HDLmAssertAction(false, errorText);
 	  }
 	  /* Update the error count with the response value */
-	  errors.add(response.getErrorCount()); 
+	  errorCounter.add(response.getErrorCount()); 
 	  /* Extract the fields from the build standard fields response */
 	  setName(response.getName());
 		/* Log the new name. This code is bypassed for now */
@@ -142,97 +149,306 @@ public class HDLmPassThruIgnore extends HDLmMod {
 		/* Get the last modified date and time and use them to set an instance field */
 		lastModified = response.getLastModified();
 		/* Get a string and use it to set a instance field */ 
-    curString  = HDLmMod.modFieldString(editorType, errors, 
-	                                      jsonObject, jsonKeys, 
-		                                    "createdFromVerificationCheck", 
-		                                    HDLmWhiteSpace.WHITESPACENOTOK,
-		                                    HDLmReportErrors.REPORTERRORS,
-		                                    HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+	  { 
+			String  errorMessagePrefix = "Ignore";
+			int     errorNumberMissing = 3; 
+	    int     errorNumberIsNull = 4;
+	    int     errorNumberNotPrimitive = 4;
+	    int     errorNumberException = 4;
+	    int     errorNumberInvalidLength = 4;
+	    int     errorNumberInvalidWhiteSpace = 4;	
+	    curString  = HDLmField.checkFieldString(editorType, 
+			    		                                errorCounter, 
+			    		                                errorMessages,
+				                                      jsonObject, 
+				                                      jsonKeys, 
+					                                    "createdFromVerificationCheck", 
+					                                    errorMessagePrefix,
+															     	     	    errorNumberMissing,
+															                errorNumberIsNull,
+															                errorNumberNotPrimitive,
+															                errorNumberException,
+																              errorNumberInvalidLength,
+																              errorNumberInvalidWhiteSpace, 
+					                                    HDLmWhiteSpace.WHITESPACENOTOK,
+					                                    HDLmReportErrors.REPORTERRORS,
+					                                    HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+	  }
     createdFromVerificationCheck = curString;
 		/* Get a string and use it to set a instance field */ 
-    curString  = HDLmMod.modFieldString(editorType, errors, 
-	                                      jsonObject, jsonKeys, 
-		                                    "scriptId", 
-		                                    HDLmWhiteSpace.WHITESPACENOTOK,
-		                                    HDLmReportErrors.REPORTERRORS,
-		                                    HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+	  { 
+			String  errorMessagePrefix = "Ignore";
+			int     errorNumberMissing = 3; 
+	    int     errorNumberIsNull = 4;
+	    int     errorNumberNotPrimitive = 4;
+	    int     errorNumberException = 4;
+	    int     errorNumberInvalidLength = 4;
+	    int     errorNumberInvalidWhiteSpace = 4;	
+	    curString  = HDLmField.checkFieldString(editorType, 
+			    		                                errorCounter, 
+			                                        errorMessages,
+				                                      jsonObject, 
+				                                      jsonKeys, 
+					                                    "scriptId", 
+					                                    errorMessagePrefix,
+															     	     	    errorNumberMissing,
+															                errorNumberIsNull,
+															                errorNumberNotPrimitive,
+															                errorNumberException,
+																              errorNumberInvalidLength,
+																              errorNumberInvalidWhiteSpace, 
+					                                    HDLmWhiteSpace.WHITESPACENOTOK,
+					                                    HDLmReportErrors.REPORTERRORS,
+					                                    HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+	  }
     scriptId = curString;
 		/* Get a string and use it to set a instance field */ 
-    curString  = HDLmMod.modFieldString(editorType, errors, 
-	                                      jsonObject, jsonKeys, 
-		                                    "testCase", 
-		                                    HDLmWhiteSpace.WHITESPACENOTOK,
-		                                    HDLmReportErrors.REPORTERRORS,
-		                                    HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+	  {
+			String  errorMessagePrefix = "Ignore";
+			int     errorNumberMissing = 3; 
+	    int     errorNumberIsNull = 4;
+	    int     errorNumberNotPrimitive = 4;
+	    int     errorNumberException = 4;
+	    int     errorNumberInvalidLength = 4;
+	    int     errorNumberInvalidWhiteSpace = 4;	
+	    curString  = HDLmField.checkFieldString(editorType, 
+			    		                                errorCounter, 
+			                                        errorMessages,
+				                                      jsonObject, 
+				                                      jsonKeys, 
+					                                    "testCase", 
+					                                    errorMessagePrefix,
+															     	     	    errorNumberMissing,
+															                errorNumberIsNull,
+															                errorNumberNotPrimitive,
+															                errorNumberException,
+																              errorNumberInvalidLength,
+																              errorNumberInvalidWhiteSpace, 		                                    
+					                                    HDLmWhiteSpace.WHITESPACENOTOK,
+					                                    HDLmReportErrors.REPORTERRORS,
+					                                    HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+	  }  
     testCase = curString;
 		/* Get a string and use it to set a instance field */ 
-    curString  = HDLmMod.modFieldString(editorType, errors, 
-	                                      jsonObject, jsonKeys, 
-		                                    "stepNumber", 
-		                                    HDLmWhiteSpace.WHITESPACENOTOK,
-		                                    HDLmReportErrors.REPORTERRORS,
-		                                    HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+	  { 
+			String  errorMessagePrefix = "Ignore";
+			int     errorNumberMissing = 3; 
+	    int     errorNumberIsNull = 4;
+	    int     errorNumberNotPrimitive = 4;
+	    int     errorNumberException = 4;
+	    int     errorNumberInvalidLength = 4;
+	    int     errorNumberInvalidWhiteSpace = 4;	
+      curString  = HDLmField.checkFieldString(editorType, 
+			    		                                errorCounter, 
+			    		                                errorMessages,
+				                                      jsonObject, 
+				                                      jsonKeys, 
+					                                    "stepNumber", 
+					                                    errorMessagePrefix,
+															     	     	    errorNumberMissing,
+															                errorNumberIsNull,
+															                errorNumberNotPrimitive,
+															                errorNumberException,
+																              errorNumberInvalidLength,
+																              errorNumberInvalidWhiteSpace, 	
+					                                    HDLmWhiteSpace.WHITESPACENOTOK,
+					                                    HDLmReportErrors.REPORTERRORS,
+					                                    HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+	  }
     stepNumber = curString;
 		/* Get a string and use it to set a instance field */ 
-    curString  = HDLmMod.modFieldString(editorType, errors, 
-	                                      jsonObject, jsonKeys, 
-		                                    "description", 
-		                                    HDLmWhiteSpace.WHITESPACENOTOK,
-		                                    HDLmReportErrors.REPORTERRORS,
-		                                    HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+	  { 
+			String  errorMessagePrefix = "Ignore";
+			int     errorNumberMissing = 3; 
+	    int     errorNumberIsNull = 4;
+	    int     errorNumberNotPrimitive = 4;
+	    int     errorNumberException = 4;
+	    int     errorNumberInvalidLength = 4;
+	    int     errorNumberInvalidWhiteSpace = 4;	
+      curString  = HDLmField.checkFieldString(editorType, 
+			    		                                errorCounter, 
+			    		                                errorMessages,
+				                                      jsonObject, 
+				                                      jsonKeys, 
+					                                    "description", 
+					                                    errorMessagePrefix,
+															     	     	    errorNumberMissing,
+															                errorNumberIsNull,
+															                errorNumberNotPrimitive,
+															                errorNumberException,
+																              errorNumberInvalidLength,
+																              errorNumberInvalidWhiteSpace, 
+					                                    HDLmWhiteSpace.WHITESPACENOTOK,
+					                                    HDLmReportErrors.REPORTERRORS,
+					                                    HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+	  }
     description = curString;
 		/* Get a string and use it to set a instance field */ 
-    curString  = HDLmMod.modFieldString(editorType, errors, 
-	                                      jsonObject, jsonKeys, 
-		                                    "language", 
-		                                    HDLmWhiteSpace.WHITESPACENOTOK,
-		                                    HDLmReportErrors.REPORTERRORS,
-		                                    HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+	  { 
+			String  errorMessagePrefix = "Ignore";
+			int     errorNumberMissing = 3; 
+	    int     errorNumberIsNull = 4;
+	    int     errorNumberNotPrimitive = 4;
+	    int     errorNumberException = 4;
+	    int     errorNumberInvalidLength = 4;
+	    int     errorNumberInvalidWhiteSpace = 4;	
+      curString  = HDLmField.checkFieldString(editorType, 
+			    		                                errorCounter, 
+			    		                                errorMessages,
+				                                      jsonObject, 
+				                                      jsonKeys, 
+					                                    "language", 
+					                                    errorMessagePrefix,
+															     	     	    errorNumberMissing,
+															                errorNumberIsNull,
+															                errorNumberNotPrimitive,
+															                errorNumberException,
+																              errorNumberInvalidLength,
+																              errorNumberInvalidWhiteSpace, 
+					                                    HDLmWhiteSpace.WHITESPACENOTOK,
+					                                    HDLmReportErrors.REPORTERRORS,
+					                                    HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+	  }
     language = curString;
 		/* Get a string and use it to set a instance field */ 
-    curString  = HDLmMod.modFieldString(editorType, errors, 
-	                                      jsonObject, jsonKeys, 
-		                                    "ticketPackage", 
-		                                    HDLmWhiteSpace.WHITESPACENOTOK,
-		                                    HDLmReportErrors.REPORTERRORS,
-		                                    HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+	  { 
+			String  errorMessagePrefix = "Ignore";
+			int     errorNumberMissing = 3; 
+	    int     errorNumberIsNull = 4;
+	    int     errorNumberNotPrimitive = 4;
+	    int     errorNumberException = 4;
+	    int     errorNumberInvalidLength = 4;
+	    int     errorNumberInvalidWhiteSpace = 4;	
+      curString = HDLmField.checkFieldString(editorType, 
+			    		                               errorCounter, 
+			    		                               errorMessages,
+				                                     jsonObject, 
+				                                     jsonKeys, 
+					                                   "ticketPackage", 
+					                                   errorMessagePrefix,
+															     	     	   errorNumberMissing,
+															               errorNumberIsNull,
+															               errorNumberNotPrimitive,
+															               errorNumberException,
+																             errorNumberInvalidLength,
+																             errorNumberInvalidWhiteSpace, 
+					                                   HDLmWhiteSpace.WHITESPACENOTOK,
+					                                   HDLmReportErrors.REPORTERRORS,
+					                                   HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+	  }
     ticketPackage = curString;
 		/* Get a string and use it to set a instance field */ 
-    curString  = HDLmMod.modFieldString(editorType, errors, 
-	                                      jsonObject, jsonKeys, 
-		                                    "testResults", 
-		                                    HDLmWhiteSpace.WHITESPACENOTOK,
-		                                    HDLmReportErrors.REPORTERRORS,
-		                                    HDLmZeroLengthOk.ZEROLENGTHNOTOK);
-    testResults = curString;
+	  { 
+			String  errorMessagePrefix = "Ignore";
+			int     errorNumberMissing = 3; 
+	    int     errorNumberIsNull = 4;
+	    int     errorNumberNotPrimitive = 4;
+	    int     errorNumberException = 4;
+	    int     errorNumberInvalidLength = 4;
+	    int     errorNumberInvalidWhiteSpace = 4;	
+      curString = HDLmField.checkFieldString(editorType, 
+			    		                               errorCounter, 
+			                                       errorMessages,
+				                                     jsonObject, 
+				                                     jsonKeys, 
+					                                   "testResults", 
+					                                   errorMessagePrefix,
+															     	     	   errorNumberMissing,
+															               errorNumberIsNull,
+															               errorNumberNotPrimitive,
+															               errorNumberException,
+																             errorNumberInvalidLength,
+																             errorNumberInvalidWhiteSpace, 
+					                                   HDLmWhiteSpace.WHITESPACENOTOK,
+					                                   HDLmReportErrors.REPORTERRORS,
+					                                   HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+	  }
+		testResults = curString;
 		/* Get a string and use it to set a instance field */ 
-    curString  = HDLmMod.modFieldString(editorType, errors, 
-	                                      jsonObject, jsonKeys, 
-		                                    "detailsOne", 
-		                                    HDLmWhiteSpace.WHITESPACENOTOK,
-		                                    HDLmReportErrors.REPORTERRORS,
-		                                    HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+	  { 
+			String  errorMessagePrefix = "Ignore";
+			int     errorNumberMissing = 3; 
+	    int     errorNumberIsNull = 4;
+	    int     errorNumberNotPrimitive = 4;
+	    int     errorNumberException = 4;
+	    int     errorNumberInvalidLength = 4;
+	    int     errorNumberInvalidWhiteSpace = 4;	
+      curString = HDLmField.checkFieldString(editorType, 
+		    		                                 errorCounter, 
+		    		                                 errorMessages,
+			                                       jsonObject, 
+			                                       jsonKeys, 
+				                                     "detailsOne", 
+				                                     errorMessagePrefix,
+														     	     	     errorNumberMissing,
+														                 errorNumberIsNull,
+														                 errorNumberNotPrimitive,
+														                 errorNumberException,
+															               errorNumberInvalidLength,
+															               errorNumberInvalidWhiteSpace, 
+				                                     HDLmWhiteSpace.WHITESPACENOTOK,
+				                                     HDLmReportErrors.REPORTERRORS,
+				                                     HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+	  }
     detailsOne = curString;
-		/* Get a string and use it to set a instance field */ 
-    curString  = HDLmMod.modFieldString(editorType, errors, 
-	                                      jsonObject, jsonKeys, 
-		                                    "detailsTwo", 
-		                                    HDLmWhiteSpace.WHITESPACENOTOK,
-		                                    HDLmReportErrors.REPORTERRORS,
-		                                    HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+		/* Get a string and use it to set a instance field */
+	  { 
+			String  errorMessagePrefix = "Ignore";
+			int     errorNumberMissing = 3; 
+	    int     errorNumberIsNull = 4;
+	    int     errorNumberNotPrimitive = 4;
+	    int     errorNumberException = 4;
+	    int     errorNumberInvalidLength = 4;
+	    int     errorNumberInvalidWhiteSpace = 4;	
+      curString = HDLmField.checkFieldString(editorType, 
+			    		                               errorCounter, 
+			                                       errorMessages,
+				                                     jsonObject, 
+				                                     jsonKeys, 
+					                                   "detailsTwo", 
+					                                   errorMessagePrefix,
+															     	     	   errorNumberMissing,
+															               errorNumberIsNull,
+															               errorNumberNotPrimitive,
+															               errorNumberException,
+																             errorNumberInvalidLength,
+																             errorNumberInvalidWhiteSpace, 
+					                                   HDLmWhiteSpace.WHITESPACENOTOK,
+					                                   HDLmReportErrors.REPORTERRORS,
+					                                   HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+	  }  
     detailsTwo = curString;
-		/* Get a string and use it to set a instance field */ 
-    curString  = HDLmMod.modFieldString(editorType, errors, 
-	                                      jsonObject, jsonKeys, 
-		                                    "detailsThree", 
-		                                    HDLmWhiteSpace.WHITESPACENOTOK,
-		                                    HDLmReportErrors.REPORTERRORS,
-		                                    HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+		/* Get a string and use it to set a instance field */
+	  { 
+			String  errorMessagePrefix = "Ignore";
+			int     errorNumberMissing = 3; 
+	    int     errorNumberIsNull = 4;
+	    int     errorNumberNotPrimitive = 4;
+	    int     errorNumberException = 4;
+	    int     errorNumberInvalidLength = 4;
+	    int     errorNumberInvalidWhiteSpace = 4;	
+      curString = HDLmField.checkFieldString(editorType, 
+			    		                               errorCounter,
+			    		                               errorMessages,
+				                                     jsonObject, 
+				                                     jsonKeys, 
+					                                   "detailsThree", 
+					                                   errorMessagePrefix,
+															     	     	   errorNumberMissing,
+															               errorNumberIsNull,
+															               errorNumberNotPrimitive,
+															               errorNumberException,
+																             errorNumberInvalidLength,
+																             errorNumberInvalidWhiteSpace, 
+					                                   HDLmWhiteSpace.WHITESPACENOTOK,
+					                                   HDLmReportErrors.REPORTERRORS,
+					                                   HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+	  }
     detailsThree = curString;
 		/* Mark the current ignore definition object as disabled if the error count
 		   was greater than zero. This is actually done by setting the enabled
 		   field to false. */
-		if (errors.intValue() > 0) {
+		if (errorCounter.intValue() > 0) {
 			setEnabled((Boolean) false);
 	  }
 	}	

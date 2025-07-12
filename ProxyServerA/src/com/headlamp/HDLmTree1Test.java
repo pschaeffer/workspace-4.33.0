@@ -64,7 +64,7 @@ class HDLmTree1Test {
 				                                                     newTreeArray);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "New type value passed to tree object constructor is null",
+			assertEquals("New type value passed to tree object constructor is null", execMsg,
 					         "Unexpected exception message");
 		}
 		{
@@ -74,7 +74,7 @@ class HDLmTree1Test {
 				                                                     newTreeArray);},
 					                               "Expected AssertionError");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "New type value passed to tree object constructor is not set",
+			assertEquals("New type value passed to tree object constructor is not set", execMsg,
 					         "Unexpected exception message");
 		}
 		{
@@ -84,7 +84,7 @@ class HDLmTree1Test {
 				                                                     newTreeArray);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "New tooltip value passed to tree object constructor is null",
+			assertEquals("New tooltip value passed to tree object constructor is null", execMsg,
 				         	 "Unexpected exception message");
 		}
 		{
@@ -94,7 +94,7 @@ class HDLmTree1Test {
 				                                                     null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "New node path value passed to tree object constructor is null",
+			assertEquals("New node path value passed to tree object constructor is null", execMsg,
 				         	 "Unexpected exception message");
 		}
 	}
@@ -128,7 +128,7 @@ class HDLmTree1Test {
 					                               () -> {newTree.addOrReplaceChild(subTreeCopy);},
 					                               "Expected AssertionError");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Parent level (2) and child level (4) are wrong",
+			assertEquals("Parent level (2) and child level (4) are wrong", execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -402,21 +402,21 @@ class HDLmTree1Test {
 					                               () -> {HDLmTree.addToTree(null, HDLmEditorTypes.PASS, HDLmStartupMode.STARTUPMODENO);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "JSON string value passed by caller is null", "Unexpected exception message");
+			assertEquals("JSON string value passed by caller is null",  execMsg,"Unexpected exception message");
 		}
 	  {
 			Throwable exception = assertThrows(RuntimeException.class,
 					                               () -> {HDLmTree.addToTree("", null, HDLmStartupMode.STARTUPMODENO);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Editor type value is null", "Unexpected exception message");
+			assertEquals("Editor type value is null",  execMsg,"Unexpected exception message");
 		}
 	  {
 			Throwable exception = assertThrows(AssertionError.class,
 					                               () -> {HDLmTree.addToTree("", HDLmEditorTypes.NONE, HDLmStartupMode.STARTUPMODENO);},
 					                               "Expected AssertionError");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Editor type value is invalid", "Unexpected exception message");
+			assertEquals("Editor type value is invalid",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -512,7 +512,7 @@ class HDLmTree1Test {
 					                               () -> {HDLmTree.buildModDetailsFromJson(null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "JSON object value is null", "Unexpected exception message");
+			assertEquals("JSON object value is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -595,7 +595,7 @@ class HDLmTree1Test {
 					                               () -> {HDLmTree.buildNodePathFromJson(null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "JSON object value is null", "Unexpected exception message");
+			assertEquals("JSON object value is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -718,12 +718,12 @@ class HDLmTree1Test {
 					                              		                               HDLmEditorTypes.PASS);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "JSON element value is null", "Unexpected exception message");
+			assertEquals("JSON element value is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
-	void buildTreeFromJsonNotInUse() {
-		/* Run a few buildTreeFromJsonNotInUse tests */
+	void buildTreeFromJsonNotUsed() {
+		/* Run a few buildTreeFromJsonNotUsed tests */
 		String       ruleName = "OWO Home Bottom Parameters";
     JsonParser   parser = new JsonParser();
     JsonElement  topNode = parser.parse(HDLmTreeData.jsonGetPassStrSaved1);
@@ -787,7 +787,7 @@ class HDLmTree1Test {
     JsonObject modsElementObject = modsElementDetails.getAsJsonObject();
     Set<String>  modsElementKeys = modsElementObject.keySet();
     /* Build the modification tree instance */
-    HDLmTree modTree = HDLmTree.buildTreeFromJsonNotInUse(modsObject, HDLmEditorTypes.PASS);
+    HDLmTree modTree = HDLmTree.buildTreeFromJsonNotUsed(modsObject, HDLmEditorTypes.PASS);
   	String companyName = "oneworldobservatory.com";
 		String divisionName = "example.com";
 		String siteName = "example.com";
@@ -829,11 +829,11 @@ class HDLmTree1Test {
 		assertNotNull(modDetails.getXPath(), "Modification XPath value must not be null");
 	  {
 			Throwable exception = assertThrows(RuntimeException.class,
-					                               () -> {HDLmTree.buildTreeFromJsonNotInUse(null,
-					                              		                                       HDLmEditorTypes.PASS);},
+					                               () -> {HDLmTree.buildTreeFromJsonNotUsed(null,
+					                              		                                      HDLmEditorTypes.PASS);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "JSON element value is null", "Unexpected exception message");
+			assertEquals("JSON element value is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -910,7 +910,7 @@ class HDLmTree1Test {
 					                               () -> {HDLmTree.getArrayFromJson(null, null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "JSON object value is null", "Unexpected exception message");
+			assertEquals("JSON object value is null",  execMsg,"Unexpected exception message");
 		}
 	  {
 	  	JsonObject localObject = modsObject;
@@ -918,7 +918,7 @@ class HDLmTree1Test {
 					                               () -> {HDLmTree.getArrayFromJson(localObject, null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "JSON member name value is null", "Unexpected exception message");
+			assertEquals("JSON member name value is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -992,7 +992,7 @@ class HDLmTree1Test {
 					                               () -> {HDLmTree.getIntegerFromJson(null, null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "JSON object value is null", "Unexpected exception message");
+			assertEquals("JSON object value is null",  execMsg,"Unexpected exception message");
 		}
 	  {
 	  	JsonObject localObject = modsObject;
@@ -1000,7 +1000,7 @@ class HDLmTree1Test {
 					                               () -> {HDLmTree.getIntegerFromJson(localObject, null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "JSON member name value is null", "Unexpected exception message");
+			assertEquals("JSON member name value is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -1050,14 +1050,14 @@ class HDLmTree1Test {
 					                               () -> {HDLmTree.getNodeIndexGE(null, null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Node array value is null", "Unexpected exception message");
+			assertEquals("Node array value is null",  execMsg,"Unexpected exception message");
 		}
 	  {
 			Throwable exception = assertThrows(RuntimeException.class,
 					                               () -> {HDLmTree.getNodeIndexGE(modNodes, null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Name value is null", "Unexpected exception message");
+			assertEquals("Name value is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -1136,7 +1136,7 @@ class HDLmTree1Test {
 					                               () -> {HDLmTree.getStringFromJson(null, null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "JSON object value is null", "Unexpected exception message");
+			assertEquals("JSON object value is null",  execMsg,"Unexpected exception message");
 		}
 	  {
 	  	JsonObject localObject = modsObject;
@@ -1144,7 +1144,7 @@ class HDLmTree1Test {
 					                               () -> {HDLmTree.getStringFromJson(localObject, null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "JSON member name value is null", "Unexpected exception message");
+			assertEquals("JSON member name value is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -1168,7 +1168,7 @@ class HDLmTree1Test {
 					                               () -> {HDLmTree.getTooltipString(null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Node type value passed to getTooltipString is null",
+			assertEquals("Node type value passed to getTooltipString is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -1219,14 +1219,14 @@ class HDLmTree1Test {
 					                               () -> {HDLmTree.hasNode(null, null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Node array value is null", "Unexpected exception message");
+			assertEquals("Node array value is null",  execMsg,"Unexpected exception message");
 		}
 	  {
 			Throwable exception = assertThrows(RuntimeException.class,
 					                               () -> {HDLmTree.hasNode(modNodes, null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Name value is null", "Unexpected exception message");
+			assertEquals("Name value is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -1273,7 +1273,7 @@ class HDLmTree1Test {
 					                              		                            null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Top tree node value is null", "Unexpected exception message");
+			assertEquals("Top tree node value is null",  execMsg,"Unexpected exception message");
 		}
     {
 			Throwable exception = assertThrows(RuntimeException.class,
@@ -1281,7 +1281,7 @@ class HDLmTree1Test {
 					                              		                            null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Node path value is null", "Unexpected exception message");
+			assertEquals("Node path value is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test

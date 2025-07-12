@@ -24,7 +24,7 @@ class HDLmAssertTest {
 					                               () -> {HDLmAssert.HDLmAssertAction(false, errorText);},
 					                               "Expected AssertionError");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "This is an error test",
+			assertEquals("This is an error test", execMsg,
 					         "Unexpected exception message");
 		}
 		{
@@ -32,7 +32,7 @@ class HDLmAssertTest {
 					                               () -> {HDLmAssert.HDLmAssertAction(false, null);},
 					                               "Expected AssertionError");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Null Error Text",
+			assertEquals("Null Error Text", execMsg,
 					         "Unexpected exception message");
 		}
 	}

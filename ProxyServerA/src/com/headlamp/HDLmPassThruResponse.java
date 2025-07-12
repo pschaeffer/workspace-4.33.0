@@ -1,6 +1,7 @@
 package com.headlamp; 
 import static com.headlamp.HDLmAssert.HDLmAssertAction;
-import java.time.Instant; 
+import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.mutable.MutableInt;
@@ -152,7 +153,14 @@ public class HDLmPassThruResponse {
 		   each time an error is detected. The final error count is returned to the
 		   caller. Note that a reference is used below so that the error count can
 		   be updated by the routines called using error count.*/
-    MutableInt   errors = new MutableInt(response.errorCount);
+    MutableInt   errorCounter = new MutableInt(response.errorCount);
+		/* Build an array list for error message strings. Each error
+	     message is stored in this array list. */
+	  ArrayList<String>   errorMessages = new ArrayList<String>();
+		if (errorMessages == null) {
+			String  errorText = "Error message ArrayList allocation in getStandardFields is null";
+			throw new NullPointerException(errorText);
+		}
 		/* Show that we are handling a pass-through definition */
 		HDLmEditorTypes   editorType = HDLmEditorTypes.PASS;
 	  JsonObject        jsonObject = jsonElement.getAsJsonObject();
@@ -161,19 +169,39 @@ public class HDLmPassThruResponse {
   	 /* Get the name value from the JSON. The name field does not
   	    exist in an HDLmTree. The name field is only part of an HDLmMod. */
 	  String   newName;
-	  newName = HDLmMod.modFieldString(editorType, errors, 
-	  		                             jsonObject, jsonKeys, 
-	  		                             "name", 
-		  	                             HDLmWhiteSpace.WHITESPACENOTOK, 
-		  	                             HDLmReportErrors.REPORTERRORS,
-		  	                             HDLmZeroLengthOk.ZEROLENGTHNOTOK);
-		if (newName == null || StringUtils.isWhitespace(newName)) {
-			HDLmAssertAction(false, "Name value not obtained from JSON element");
-		}
+	  {
+	    String  errorMessagePrefix = "Response";
+			int     errorNumberMissing = 3; 
+	    int     errorNumberIsNull = 4;
+	    int     errorNumberNotPrimitive = 4;
+	    int     errorNumberException = 4;
+	    int     errorNumberInvalidLength = 4;
+	    int     errorNumberInvalidWhiteSpace = 4;	
+		  newName = HDLmField.checkFieldString(editorType, 
+				  		                             errorCounter,
+				  		                             errorMessages, 
+				  		                             jsonObject, jsonKeys, 
+				  		                             "name", 
+				  		                             errorMessagePrefix,
+															     	     	 errorNumberMissing,
+															             errorNumberIsNull,
+															             errorNumberNotPrimitive,
+															             errorNumberException,
+																           errorNumberInvalidLength,
+																           errorNumberInvalidWhiteSpace, 
+					  	                             HDLmWhiteSpace.WHITESPACENOTOK, 
+					  	                             HDLmReportErrors.REPORTERRORS,
+					  	                             HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+			if (newName == null || StringUtils.isWhitespace(newName)) {
+				HDLmAssertAction(false, "Name value not obtained from JSON element");
+			}
+	  }
 		response.name = newName;
 		/* Get and check the current type */
 		HDLmTreeTypes   curType = HDLmTreeTypes.NONE;
-		curType = HDLmMod.modFieldTreeType(editorType, errors, 
+		curType = HDLmMod.modFieldTreeType(editorType, 
+				                               errorCounter,
+				                               errorMessages,
 				                               jsonObject, jsonKeys, 
 				                               "type");
 		if (curType != expectedType) {
@@ -184,8 +212,11 @@ public class HDLmPassThruResponse {
 		/* Get and check the current pass-through status */
 		if (getStatus == HDLmGetPassThruStatus.GETSTATUSYES) {
 			HDLmPassThruStatus  curStatus = HDLmPassThruStatus.NONE;
-			curStatus = HDLmMod.modFieldStatus(editorType, errors, 
-					                               jsonObject, jsonKeys, 
+			curStatus = HDLmMod.modFieldStatus(editorType, 
+					                               errorCounter,
+					                               errorMessages,
+					                               jsonObject, 
+					                               jsonKeys, 
 					                               "passThru");
 			response.passThruStatus = curStatus;
 		}
@@ -194,8 +225,11 @@ public class HDLmPassThruResponse {
 				!jsonKeys.contains("enabled")) {}
 		else { 
 		  /* Get a few fields from the JSON object */
-			Boolean enabledBoolean = HDLmMod.modFieldBoolean(editorType, errors, 
-					                                             jsonObject, jsonKeys, 
+			Boolean enabledBoolean = HDLmMod.modFieldBoolean(editorType, 
+					                                             errorCounter,
+					                                             errorMessages, 
+					                                             jsonObject, 
+					                                             jsonKeys, 
 					                                             "enabled");
 			if (enabledBoolean != null)
 				response.enabled = enabledBoolean;
@@ -203,7 +237,9 @@ public class HDLmPassThruResponse {
 		/* Check if the updated field is required */
 		if (getUpdated == HDLmGetUpdated.GETUPDATEDYES) {
 		  /* Get a few fields from the JSON object */
-			Boolean  updatedBoolean = HDLmMod.modFieldBoolean(editorType, errors, 
+			Boolean  updatedBoolean = HDLmMod.modFieldBoolean(editorType, 
+					                                              errorCounter,
+					                                              errorMessages, 
 						                                            jsonObject, jsonKeys, 
 						                                            "updated");
 		  if (updatedBoolean != null)
@@ -216,12 +252,29 @@ public class HDLmPassThruResponse {
 		   field is actually missing from the JSON. This does not appear
 		   to be true in any actual case. */
 	  if (getComments == HDLmGetComments.GETCOMMENTSYES) {
-		  String commentsInfo = HDLmMod.modFieldString(editorType, errors, 
-			  	                                         jsonObject, jsonKeys, 
-				                                           "comments", 
-				                                           HDLmWhiteSpace.WHITESPACEOK, 
-				                                           HDLmReportErrors.REPORTERRORS,
-				                                           HDLmZeroLengthOk.ZEROLENGTHNOTOK);			 
+		  String  errorMessagePrefix = "Response";
+			int     errorNumberMissing = 3; 
+	    int     errorNumberIsNull = 4;
+	    int     errorNumberNotPrimitive = 4;
+	    int     errorNumberException = 4;
+	    int     errorNumberInvalidLength = 4;
+	    int     errorNumberInvalidWhiteSpace = 4;	
+		  String  commentsInfo = HDLmField.checkFieldString(editorType,
+				  		                                          errorCounter,
+				  		                                          errorMessages, 
+					  	                                          jsonObject, 
+					  	                                          jsonKeys, 
+						                                            "comments", 
+						                                            errorMessagePrefix,
+																					     	     	  errorNumberMissing,
+																					              errorNumberIsNull,
+																					              errorNumberNotPrimitive,
+																					              errorNumberException,
+																						            errorNumberInvalidLength,
+																						            errorNumberInvalidWhiteSpace, 
+						                                            HDLmWhiteSpace.WHITESPACEOK, 
+						                                            HDLmReportErrors.REPORTERRORS,
+						                                            HDLmZeroLengthOk.ZEROLENGTHNOTOK);			 
 		  if (commentsInfo != null && !StringUtils.isWhitespace(commentsInfo)) {
 		  	response.comments = commentsInfo;
 		  }
@@ -235,12 +288,29 @@ public class HDLmPassThruResponse {
 				   Note that the call below will never report an error unless the
 				   extra information field is actually missing from the JSON.
 				   This does not appear to be true in any actual case. */
-				String extraInfo = HDLmMod.modFieldString(editorType, errors, 
-						                                      jsonObject, jsonKeys, 
-						                                      "extra", 
-						                                      HDLmWhiteSpace.WHITESPACEOK, 
-						                                      HDLmReportErrors.REPORTERRORS,
-						                                      HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+			  String  errorMessagePrefix = "Response";
+				int     errorNumberMissing = 3; 
+		    int     errorNumberIsNull = 4;
+		    int     errorNumberNotPrimitive = 4;
+		    int     errorNumberException = 4;
+		    int     errorNumberInvalidLength = 4;
+		    int     errorNumberInvalidWhiteSpace = 4;	
+				String  extraInfo = HDLmField.checkFieldString(editorType, 
+								                                       errorCounter, 
+								                                       errorMessages,
+								                                       jsonObject, 
+								                                       jsonKeys, 
+								                                      "extra", 
+								                                       errorMessagePrefix,
+																				     	     	   errorNumberMissing,
+																				               errorNumberIsNull,
+																				               errorNumberNotPrimitive,
+																				               errorNumberException,
+																					             errorNumberInvalidLength,
+																					             errorNumberInvalidWhiteSpace, 
+								                                       HDLmWhiteSpace.WHITESPACEOK, 
+								                                       HDLmReportErrors.REPORTERRORS,
+								                                       HDLmZeroLengthOk.ZEROLENGTHNOTOK);
 				if (extraInfo != null && !StringUtils.isWhitespace(extraInfo)) {
 					response.extra = extraInfo;
 				}
@@ -248,24 +318,58 @@ public class HDLmPassThruResponse {
 	  }
 		/* Get the created date and time and use them to set an instance field */
 		if (getCreated == HDLmGetCreated.GETCREATEDYES) {
-			curStringDateTime = HDLmMod.modFieldString(editorType, errors, 
-					  																     jsonObject, jsonKeys, 
-																								 "created", 
-																								 HDLmWhiteSpace.WHITESPACENOTOK, 
-																								 HDLmReportErrors.REPORTERRORS,
-																								 HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+		  String  errorMessagePrefix = "Response";
+			int     errorNumberMissing = 3; 
+	    int     errorNumberIsNull = 4;
+	    int     errorNumberNotPrimitive = 4;
+	    int     errorNumberException = 4;
+	    int     errorNumberInvalidLength = 4;
+	    int     errorNumberInvalidWhiteSpace = 4;	
+			curStringDateTime = HDLmField.checkFieldString(editorType, 
+							                                       errorCounter,
+							                                       errorMessages,
+							  																     jsonObject, 
+							  																     jsonKeys, 
+																										 "created", 
+																										 errorMessagePrefix,
+																				     	     	 errorNumberMissing,
+																				             errorNumberIsNull,
+																				             errorNumberNotPrimitive,
+																				             errorNumberException,
+																					           errorNumberInvalidLength,
+																					           errorNumberInvalidWhiteSpace, 
+																										 HDLmWhiteSpace.WHITESPACENOTOK, 
+																										 HDLmReportErrors.REPORTERRORS,
+																										 HDLmZeroLengthOk.ZEROLENGTHNOTOK);
 	    /* Convert a date-time string into an Instant */
       Instant  curInstant = Instant.parse(curStringDateTime);
 			response.created = curInstant;
 		}
 		/* Get the  date and time and use them to set an instance field */
 		if (getLastModified == HDLmGetLastModified.GETLASTMODIFIEDYES) {
-			curStringDateTime = HDLmMod.modFieldString(editorType, errors, 
-																								 jsonObject, jsonKeys, 
-																								 "lastmodified",
-																								 HDLmWhiteSpace.WHITESPACENOTOK, 
-																								 HDLmReportErrors.REPORTERRORS,
-																								 HDLmZeroLengthOk.ZEROLENGTHNOTOK); 
+		  String  errorMessagePrefix = "Response";
+			int     errorNumberMissing = 3; 
+	    int     errorNumberIsNull = 4;
+	    int     errorNumberNotPrimitive = 4;
+	    int     errorNumberException = 4;
+	    int     errorNumberInvalidLength = 4;
+	    int     errorNumberInvalidWhiteSpace = 4;	
+			curStringDateTime = HDLmField.checkFieldString(editorType, 
+							                                       errorCounter,
+							                                       errorMessages,
+																										 jsonObject, 
+																										 jsonKeys, 
+																										 "lastmodified",
+																										 errorMessagePrefix,
+																				     	     	 errorNumberMissing,
+																				             errorNumberIsNull,
+																				             errorNumberNotPrimitive,
+																				             errorNumberException,
+																					           errorNumberInvalidLength,
+																					           errorNumberInvalidWhiteSpace, 
+																										 HDLmWhiteSpace.WHITESPACENOTOK, 
+																										 HDLmReportErrors.REPORTERRORS,
+																										 HDLmZeroLengthOk.ZEROLENGTHNOTOK); 
 	    /* Convert a date-time string into an Instant */
       Instant  curInstant = Instant.parse(curStringDateTime);
 			response.lastModified = curInstant;;  	

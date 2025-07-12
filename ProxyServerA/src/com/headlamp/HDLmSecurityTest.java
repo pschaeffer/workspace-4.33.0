@@ -249,7 +249,7 @@ class HDLmSecurityTest {
 					                               () -> {HDLmSecurity.convertScopeString(null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Scope string passed to convertScopeString is null",
+			assertEquals("Scope string passed to convertScopeString is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{ 
@@ -258,7 +258,7 @@ class HDLmSecurityTest {
 					                               () -> {HDLmSecurity.convertScopeString(localScopeStr);}, 
 					                               "Expected AssertionError");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "The number of scope vector entries (0) is invalid",
+			assertEquals("The number of scope vector entries (0) is invalid", execMsg,
 					         "Unexpected error message");
 		}	
 		{ 
@@ -267,7 +267,7 @@ class HDLmSecurityTest {
 					                               () -> {HDLmSecurity.convertScopeString(localScopeStr);}, 
 					                               "Expected AssertionError");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "The number of scope vector entries (4) is invalid",
+			assertEquals("The number of scope vector entries (4) is invalid", execMsg,
 					         "Unexpected error message");
 		}	
 		{ 
@@ -276,7 +276,7 @@ class HDLmSecurityTest {
 					                               () -> {HDLmSecurity.convertScopeString(localScopeStr);}, 
 					                               "Expected AssertionError");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "The final parenthesis count (1) is not zero",
+			assertEquals("The final parenthesis count (1) is not zero", execMsg,
 					         "Unexpected error message");
 		}	
 		{ 
@@ -285,7 +285,7 @@ class HDLmSecurityTest {
 					                               () -> {HDLmSecurity.convertScopeString(localScopeStr);}, 
 					                               "Expected AssertionError");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Invalid token (19) found at position (1)",
+			assertEquals("Invalid token (19) found at position (1)", execMsg,
 					         "Unexpected error message");
 		}	
 		{ 
@@ -294,7 +294,7 @@ class HDLmSecurityTest {
 					                               () -> {HDLmSecurity.convertScopeString(localScopeStr);}, 
 					                               "Expected AssertionError");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Invalid operator token (=) detected at position (5)",
+			assertEquals("Invalid operator token (=) detected at position (5)", execMsg,
 					         "Unexpected error message");
 		}	
 		{ 
@@ -303,7 +303,7 @@ class HDLmSecurityTest {
 					                               () -> {HDLmSecurity.convertScopeString(localScopeStr);}, 
 					                               "Expected AssertionError");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Invalid parse state (AFTERLPAREN), right parenthesis found in invalid location",
+			assertEquals("Invalid parse state (AFTERLPAREN), right parenthesis found in invalid location", execMsg,
 					         "Unexpected error message");
 		}
 		{ 
@@ -312,7 +312,7 @@ class HDLmSecurityTest {
 					                               () -> {HDLmSecurity.convertScopeString(localScopeStr);}, 
 					                               "Expected AssertionError");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Invalid parse state (BEFOREENTRY), right parenthesis found in invalid location",
+			assertEquals("Invalid parse state (BEFOREENTRY), right parenthesis found in invalid location", execMsg,
 					         "Unexpected error message");
 		}
 		{ 
@@ -321,7 +321,7 @@ class HDLmSecurityTest {
 					                               () -> {HDLmSecurity.convertScopeString(localScopeStr);}, 
 					                               "Expected AssertionError");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Invalid parse state (AFTERLPAREN), left parenthesis found in invalid location",
+			assertEquals("Invalid parse state (AFTERLPAREN), left parenthesis found in invalid location", execMsg,
 					         "Unexpected error message");
 		}
 		{ 
@@ -330,7 +330,7 @@ class HDLmSecurityTest {
 					                               () -> {HDLmSecurity.convertScopeString(localScopeStr);}, 
 					                               "Expected AssertionError");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Invalid parse state (AFTERLPAREN), comma found in invalid location",
+			assertEquals("Invalid parse state (AFTERLPAREN), comma found in invalid location", execMsg,
 					         "Unexpected error message");
 		}
 		{ 
@@ -339,7 +339,7 @@ class HDLmSecurityTest {
 					                               () -> {HDLmSecurity.convertScopeString(localScopeStr);}, 
 					                               "Expected AssertionError");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Invalid parse state (AFTERIDENINPARENS), asterisk found in invalid location",
+			assertEquals("Invalid parse state (AFTERIDENINPARENS), asterisk found in invalid location", execMsg,
 					         "Unexpected error message");
 		}
 		{ 
@@ -348,7 +348,7 @@ class HDLmSecurityTest {
 					                               () -> {HDLmSecurity.convertScopeString(localScopeStr);}, 
 					                               "Expected AssertionError");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Invalid parse state (AFTERENTRY), asterisk found in invalid location",
+			assertEquals("Invalid parse state (AFTERENTRY), asterisk found in invalid location", execMsg,
 					         "Unexpected error message");
 		}
 	}
@@ -382,7 +382,7 @@ class HDLmSecurityTest {
 					                              		                                         3);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Host name string passed to getHeadersGetAttributes is null",
+			assertEquals("Host name string passed to getHeadersGetAttributes is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{  
@@ -391,7 +391,7 @@ class HDLmSecurityTest {
 					                              		                                         -3);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Content length passed to getHeadersGetAttributes is invalid",
+			assertEquals("Content length passed to getHeadersGetAttributes is invalid", execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -410,7 +410,7 @@ class HDLmSecurityTest {
 					                              		                                        3);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Host name string passed to getHeadersInitiateAuth is null",
+			assertEquals("Host name string passed to getHeadersInitiateAuth is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{  
@@ -419,7 +419,7 @@ class HDLmSecurityTest {
 					                              		                                        -3);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Content length passed to getHeadersInitiateAuth is invalid",
+			assertEquals("Content length passed to getHeadersInitiateAuth is invalid", execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -438,7 +438,7 @@ class HDLmSecurityTest {
 					                              		                                              3);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Host name string passed to getHeadersRespondToChallenge is null",
+			assertEquals("Host name string passed to getHeadersRespondToChallenge is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{  
@@ -447,7 +447,7 @@ class HDLmSecurityTest {
 					                              		                                              -3);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Content length passed to getHeadersRespondToChallenge is invalid",
+			assertEquals("Content length passed to getHeadersRespondToChallenge is invalid", execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -466,7 +466,7 @@ class HDLmSecurityTest {
 					                              		                                    3);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Host name string passed to getHeadersStandard is null",
+			assertEquals("Host name string passed to getHeadersStandard is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{  
@@ -475,7 +475,7 @@ class HDLmSecurityTest {
 					                              		                                    -3);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Content length passed to getHeadersStandard is invalid",
+			assertEquals("Content length passed to getHeadersStandard is invalid", execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -504,7 +504,7 @@ class HDLmSecurityTest {
 					                              		                                     "test1234");}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Client ID string passed to getJsonInitiateAuth is null",
+			assertEquals("Client ID string passed to getJsonInitiateAuth is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{  
@@ -514,7 +514,7 @@ class HDLmSecurityTest {
 					                              		                                     "test1234");}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "User name string passed to getJsonInitiateAuth is null",
+			assertEquals("User name string passed to getJsonInitiateAuth is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{  
@@ -524,7 +524,7 @@ class HDLmSecurityTest {
 					                              		                                     null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Password string passed to getJsonInitiateAuth is null",
+			assertEquals("Password string passed to getJsonInitiateAuth is null", execMsg,
 					         "Unexpected exception message");
 		}	
 	}
@@ -574,7 +574,7 @@ class HDLmSecurityTest {
 					                              		                                  "test1234");}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "API headers array passed to invokeCognitoApi is null",
+			assertEquals("API headers array passed to invokeCognitoApi is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{  
@@ -584,7 +584,7 @@ class HDLmSecurityTest {
 					                              		                                  null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "API JSON string passed to invokeCognitoApi is null",
+			assertEquals("API JSON string passed to invokeCognitoApi is null", execMsg,
 					         "Unexpected exception message");
 		}	
 	}

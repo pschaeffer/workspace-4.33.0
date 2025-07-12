@@ -7,6 +7,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 /**
  * HDLmSignatureTest short summary.
@@ -17,6 +18,15 @@ import org.junit.jupiter.api.Test;
  * @author Peter Schaeffer
  */
 class HDLmSignatureTest {
+  @BeforeAll
+  static void HDLmUnReBeforeAll() {
+		/* Set some of the configuration values from secrets stored inside
+	     AWS. We get the AWS secrets using the AWS secrets manager. Note
+	     that some of the secrets are used to establish database connections.
+	     As a consequence, this step must come before any database 
+	     connections are established. */
+	  HDLmConfig.setConfigurationValues();
+  }
 	@Test
 	void build() throws Exception {
 		/* Run a few build tests */
@@ -57,9 +67,9 @@ class HDLmSignatureTest {
 		headers = hdlmSignature.getHeaders();
 		/* Get another AWS signature using fixed values. This signature
 		   won't change over time and can (hence) be checked. */ 
-		accessKeyID = "us-east-2";
+		accessKeyID = HDLmConfigInfo.getAccessKeyId();
 		secretAccessKey = HDLmConfigInfo.getSecretAccessKey();    
-		regionName = "us-east-2";
+		regionName = HDLmConfigInfo.getAwsCognitoUserPoolRegion();
 		serviceName = "cognito-idp";
 		httpMethodName = "POST"; 
 		canonicalUri = "/"; 
@@ -95,10 +105,14 @@ class HDLmSignatureTest {
 		String  authHeader = headers.get("Authorization");
 		String  dateHeader = headers.get("x-amz-date");
 		assertEquals(2, headersLength, "Length of the headers returned from signature object is not valid");
-		String  authValueExpected = "AWS4-HMAC-SHA256 Credential=us-east-2/20230415/us-east-2/cognito-idp/aws4_request, " + 
-		                            "SignedHeaders=content-type;host;x-amz-date;x-amz-target, " + 
-				                        "Signature=6c69710cc182de6fc7e14174d00943825dbdcea61d7c9249974e23589e8b35e4";
-		assertEquals(authHeader, authValueExpected, "Actual authorization header does not match expected value");
+		/* Build the expected value. The expected value contains the access key ID. 
+		   As a consequence the expected value must be constructed. */ 
+		String  authValueExpected = "AWS4-HMAC-SHA256 Credential=";
+		authValueExpected += accessKeyID;
+		authValueExpected += "/20230415/us-east-2/cognito-idp/aws4_request, " + 
+		                     "SignedHeaders=content-type;host;x-amz-date;x-amz-target, " + 
+				                 "Signature=f24a202b41b280d254c0d88586c4b03fb880199cf8a4659de843894c3ab2964a";
+		assertEquals(authValueExpected, authHeader, "Actual authorization header does not match expected value");
 		String  dateValueExpected = "20230415T121341Z";
 		assertEquals(dateHeader, dateValueExpected, "Actual date header does not match expected value");
 	}	

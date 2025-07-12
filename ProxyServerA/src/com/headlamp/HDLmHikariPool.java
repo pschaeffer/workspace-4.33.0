@@ -57,19 +57,22 @@ public class HDLmHikariPool {
 	}	 
 	/* Build the data source that will be used to get and release 
 	   JDBC connections from the connection pool */
-  public static DataSource getDataSource() {
+  @SuppressWarnings("unused")
+	public static DataSource getDataSource() {
 		/* Declare/define a few variables */  
-		int             portNumber = HDLmConfigInfo.getEntriesDatabasePortNumber();
 		StringBuilder   connectBuilder = new StringBuilder();
 		String          connectStr = "";
 		String          database = HDLmConfigInfo.getEntriesDatabaseDatabaseName();
 		String          domainName = HDLmConfigInfo.getEntriesDatabaseDomainName();
 		String          passwordStr = HDLmConfigInfo.getEntriesDatabasePassword();
+		int             portNumber = HDLmConfigInfo.getEntriesDatabasePortNumber();
 		String          useridStr = HDLmConfigInfo.getEntriesDatabaseUserid();
+		/* domainName = "192.168.4.198"; */
+		/* useridStr = "admin"; */ 
   	/* Check if the data source has already been created. Create
   	   the data source if need be. */ 
     if (HDLmHikariPool.dataSource == null) {
-    	/* Create a Hakari configuration instance for use below */
+    	/* Create a Hikari configuration instance for use below */
       HikariConfig  config = new HikariConfig();
 			if (config == null) { ;
 			  String  errorText = "Hikari config not obtained using new";

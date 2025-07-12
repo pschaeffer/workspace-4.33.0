@@ -44,7 +44,7 @@ public class HDLmEvent {
      also use for event logging. These names should not be changed without
      finding all uses for a specific event name and changing it. */ 
   public static final ArrayList<String>  eventNames = new ArrayList<String>(
-	  List.of("Aaaa1", "Aaaa2", "Bbbb", "Cccc", "Dddd",            /*  0-4 */
+	  List.of("Aaaa1", "Aaaa2", "Bbbb", "Cccc", "Dddd",            /*  0-4  */
 	  		    "Eeee1", "Eeee2", "Eeee3",                           /*  5-7  */
 	  		    "Ffff", "JavaScript Exception", "Inbound Request",   /*  8-10 */
 	  		    "Exception", "EofException",                         /* 11-12 */
@@ -56,7 +56,10 @@ public class HDLmEvent {
 	  		    "NumberFormatException", "PatternSyntaxException",   /* 19-20 */
 	  		    "UnsupportedEncodingException", "AssertionError",    /* 21-22 */
 	  		    "ExecuteException", "SQLException",                  /* 23-24 */
-	  		    "ScriptException, EvaluatorException"));             /* 25-26 */
+	  		    "ScriptException", "EvaluatorException",             /* 25-26 */           
+	  		    "UnsupportedEncodingException",                      /* 27-27 */   
+	  		    "UnknownHostException",                              /* 28-28 */
+	  		    "ClassCastException"));                              /* 29-29 */
   /* The map below is used to convert event names to event numbers. This map
      is constructed as part of product startup. All of the event names listed
      above are added to map. */ 

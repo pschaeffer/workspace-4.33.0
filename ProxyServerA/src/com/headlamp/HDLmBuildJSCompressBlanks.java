@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 class HDLmBuildJsCompressBlanks {
   private static final Logger LOG=LoggerFactory.getLogger(HDLmBuildJsCompressBlanks.class);
 	private HDLmBuildJsCompressBlanks() {}
+  @SuppressWarnings("unused")
   public static String getJsBuildJs(HDLmProtocolTypes protocol,
                                     String secureHostName,
                                     String hostName,
@@ -97,6 +98,8 @@ class HDLmBuildJsCompressBlanks {
     builder.addLine("HDLmToggleStyleSheetEnablement();");
     builder.addLine("if (event.key=='q'&&event.ctrlKey==true)");
     builder.addLine("sessionStorage.setItem(\"HDLmSessionPostRuleTracingEnabled\",'true');");
+    builder.addLine("if (event.key=='x'&&event.ctrlKey==true)");
+    builder.addLine("sessionStorage.setItem(\"HDLmSessionIgnoreProbability\",'true');");
     builder.addLine("});");
     builder.addLine("function HDLmApplyMod(pathValueStr,");
     builder.addLine("curMod,");
@@ -129,6 +132,27 @@ class HDLmBuildJsCompressBlanks {
     builder.addLine("let curType=curMod.type;");
     builder.addLine("while (true) {");
     builder.addLine("let postTrace=new Object();");
+    builder.addLine("if (curMod.prob<100.0) {");
+    builder.addLine("let localRandomValue=Math.random();");
+    builder.addLine("let ignoreProbability=sessionStorage.getItem('HDLmSessionIgnoreProbability');");
+    builder.addLine("if (ignoreProbability==null)");
+    builder.addLine("ignoreProbability='false';");
+    builder.addLine("if (localRandomValue*100.0>curMod.prob&&");
+    builder.addLine("ignoreProbability!='true') {");
+    builder.addLine("matchError='probability';");
+    builder.addLine("if (postRuleTracing==true) {");
+    builder.addLine("let localUpdates=new Object();");
+    builder.addLine("HDLmSaveChange(localUpdates,null,");
+    builder.addLine("sessionIndexValue,parametersArray,sessionIdJS,");
+    builder.addLine("null,null,");
+    builder.addLine("hostNameValue,divisionNameValue,siteNameValue,curMod.name,");
+    builder.addLine("curMod.path,curMod.type,pathValueStr,null,null);");
+    builder.addLine("postTrace.matcherror=matchError;");
+    builder.addLine("HDLmSendUpdates(localUpdates,'failure','1.0',postTrace);");
+    builder.addLine("}");
+    builder.addLine("break;");
+    builder.addLine("}");
+    builder.addLine("}");
     builder.addLine("if (curMod.enabled!=true) {");
     builder.addLine("matchError='disabled';");
     builder.addLine("if (postRuleTracing==true) {");
@@ -471,6 +495,7 @@ class HDLmBuildJsCompressBlanks {
     builder.addLine("break;");
     builder.addLine("}");
     builder.addLine("for (let i=0;i<nodeListLength;i++) {");
+    builder.addLine("matchError='Fired';");
     builder.addLine("let curNode=nodeList[i];");
     builder.addLine("let curModExtra=curMod.extra;");
     builder.addLine("HDLmClassAddSpecialClass(curNode,curType,curModExtra);");
@@ -667,9 +692,12 @@ class HDLmBuildJsCompressBlanks {
     builder.addLine("parentNode.replaceChild(newNode,curNode);");
     builder.addLine("}");
     builder.addLine("}");
-    builder.addLine("else if (curType=='script'&&readyState=='complete') {");
+    builder.addLine("else if (curType=='script') {");
+    builder.addLine("if (readyState=='complete') {");
     builder.addLine("let functionStr='HDLmExecute'+HDLmReplaceInString(curMod.name) +finalLookupIndex;");
     builder.addLine("window[functionStr]();");
+    builder.addLine("}");
+    builder.addLine("matchError=readyState;");
     builder.addLine("}");
     builder.addLine("else if (curType=='style') {");
     builder.addLine("if (curModExtra=='background-image') {");
@@ -718,7 +746,7 @@ class HDLmBuildJsCompressBlanks {
     builder.addLine("hostNameValue,divisionNameValue,siteNameValue,curMod.name,");
     builder.addLine("curMod.path,curMod.type,pathValueStr,");
     builder.addLine("oldText,newText);");
-    builder.addLine("postTrace.matcherror='fired';");
+    builder.addLine("postTrace.matcherror=matchError;");
     builder.addLine("HDLmSendUpdates(localUpdates,curType,'1.0',postTrace);");
     builder.addLine("break;");
     builder.addLine("}");
@@ -1905,7 +1933,7 @@ class HDLmBuildJsCompressBlanks {
     builder.addLine("curMod.path,curMod.type,pathValueStr,");
     builder.addLine("oldText,newText);");
     builder.addLine("let localReason=curMod.type;");
-    builder.addLine("postTrace.matcherror='fired';");
+    builder.addLine("postTrace.matcherror='visit';");
     builder.addLine("HDLmSendUpdates(localUpdates,localReason,'1.0',postTrace);");
     builder.addLine("return countHigh;");
     builder.addLine("}");
@@ -2108,7 +2136,7 @@ class HDLmBuildJsCompressBlanks {
     counter=0;
     for (HDLmMod mod:mods) {
       counter++;
-      newLine=" ".repeat(24);
+      newLine="".repeat(24);
       newLine+=mod.getJsonSpecialSerializeNulls();
       if (counter<modsCount)
         newLine+=",";
@@ -2248,62 +2276,17 @@ class HDLmBuildJsCompressBlanks {
         int   valueCount=mod.getValues().size();
         for (int i=0;i<valueCount;i++) {
           String  curValue=mod.getValues().get(i);
-          newLine="  function HDLmExecute"+newName+i+"() {";
+          newLine="function HDLmExecute"+newName+i+"() {";
           builder.addLine(newLine);
           ArrayList<String>curValues=new ArrayList<String>(Arrays.asList(curValue.split("/n")));
           for (int j=0;j<curValues.size();j++) {
             String  curLine=curValues.get(j);
             builder.addLine(""+curLine);
           }
-          newLine="  }";
+          newLine="}";
           builder.addLine(newLine);
       }
     }
-    newLine="  function HDLmExecuteSwitch(modName,choiceNumber) {";
-		builder.addLine(newLine);
-    newLine="    switch (modName) {";
-		builder.addLine(newLine);
-    for (HDLmMod mod:mods) {
-    	if (mod.getType() !=HDLmModTypes.SCRIPT)
-        continue;
-    	String  curModName=mod.getName();
-      newLine="      case'"+curModName+"':";
-		  builder.addLine(newLine);
-    	String  curModNameInternal=HDLmMod.replaceInString(curModName);
-      newLine="        switch (choiceNumber) {";
-		  builder.addLine(newLine);
-    	int   valueCount=mod.getValues().size();
-	  	for (int i=0;i<valueCount;i++) {
-      newLine="          case"+i+":";
-		  builder.addLine(newLine);
-        newLine="            HDLmExecute"+curModNameInternal+i+"();";
-		    builder.addLine(newLine);
-        newLine="            break;";
-		    builder.addLine(newLine);
-      }
-      newLine="          default:";
-	  	builder.addLine(newLine);
-      newLine="            let errorText=\"Invalid choice value-\"+choiceNumber"+";";
-  		builder.addLine(newLine);
-      newLine="            HDLmBuildError('Error','Choice',63,errorText);";
-	  	builder.addLine(newLine);
-      newLine="            break;";
-	  	builder.addLine(newLine);
-      newLine="        }";
-	  	builder.addLine(newLine);
-    }
-      newLine="      default:";
-	  	builder.addLine(newLine);
-      newLine="        let errorText=\"Invalid rule name value-\"+modName;";
-  		builder.addLine(newLine);
-      newLine="        HDLmBuildError('Error','RuleName',62,errorText);";
-	  	builder.addLine(newLine);
-      newLine="        break;";
-	  	builder.addLine(newLine);
-    newLine="    }";
-		builder.addLine(newLine);
-    newLine="  }";
-		builder.addLine(newLine);
     builder.addLine("function HDLmGetAttributesString(curNode) {");
     builder.addLine("let outputStr='';");
     builder.addLine("if (!curNode.hasAttributes())");
@@ -2369,7 +2352,7 @@ class HDLmBuildJsCompressBlanks {
       			HDLmAssert.HDLmAssertAction(false,"JSON element is not a JSON primitive value");
       		}
         	String        ruleName=ruleJsonElement.getAsString();
-          newLine=" ".repeat(23);
+          newLine="".repeat(23);
           newLine+="'";
           newLine+=ruleName;
           newLine+="':";
@@ -2401,7 +2384,7 @@ class HDLmBuildJsCompressBlanks {
     int   sessionParametersArrayLength=sessionParametersArray.size();
     for (int i=0;i<sessionParametersArrayLength;i++) {
       counter++;
-      newLine=" ".repeat(30);
+      newLine="".repeat(30);
       arrayEntry=sessionParametersArray.get(i);
       if (arrayEntry==null)
         newLine+="null";
@@ -2455,7 +2438,7 @@ class HDLmBuildJsCompressBlanks {
 	    String  key=entry.getKey();
 	    String  value=entry.getValue();
       counter++;
-      newLine=" ".repeat(28);
+      newLine="".repeat(28);
         newLine+="\"";
         newLine+=key;
         newLine+="\":\"";

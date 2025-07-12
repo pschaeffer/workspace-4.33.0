@@ -610,7 +610,8 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmOpenAI.class);
 	  if (errorMessage != null) {
 	  	getTextResponse.setErrorMessage(errorMessage);
 	  	return getTextResponse;	  	
-	  }	      /* Check if obtained any output JSON from the Open AI API */ 
+	  }	  
+    /* Check if obtained any output JSON from the Open AI API */ 
 	  if (outputJson == null) {
 	  	errorMessage = "Output JSON from Open AI API is null";
 	  	getTextResponse.setErrorMessage(errorMessage);

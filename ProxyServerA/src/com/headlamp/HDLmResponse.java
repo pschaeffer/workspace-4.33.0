@@ -79,6 +79,10 @@ public class HDLmResponse {
 		}
 		returnCode = newReturnCode;
 	}
+	/* Set the return code to zero */
+	protected void         setReturnCodeZero() {
+		returnCode = 0;
+	}
 	/* Set or reset the return context. Note that the caller can 
      not pass an invalid context (null) for the new return context.
      This is an error condition. */
@@ -108,6 +112,10 @@ public class HDLmResponse {
 	  }
 	  returnNumber = newReturnNumber;
   }
+	/* Set the return number to zero */
+	protected void         setReturnNumberZero() {
+	 returnNumber = 0;
+	}
 	/* Set or reset the return string. Note that the caller can 
 	   not pass an invalid string (null) for the new return string.
 	   This is an error condition. */

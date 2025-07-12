@@ -993,7 +993,7 @@ class HDLmImageInformationTest {
 					                               () -> {HDLmImageInformation.processDataUrl(null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "URL string passed to processDataUrl is null");
+			assertEquals("URL string passed to processDataUrl is null",  execMsg,"Unexpected exception message");
 		}
 	}	
 }

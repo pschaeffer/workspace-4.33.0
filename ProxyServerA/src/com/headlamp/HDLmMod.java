@@ -79,6 +79,12 @@ static String HDLmModInfoDataString =
 "                              \"subtype\":       \"extraAttribute\"" +
 "                            }," +
 "														 {" +
+"															 \"description\":   \"Probability\"," +
+"															 \"source\":        \"probability\"," +
+"															 \"fieldtype\":     \"float\"," +
+"															 \"subtype\":       \"probability\"" +
+"														 }," +
+"														 {" +
 "															 \"description\":   \"Use Mode\"," +
 "															 \"source\":        \"usemode\"," +
 "															 \"fieldtype\":     \"usemode\"," +
@@ -160,6 +166,12 @@ static String HDLmModInfoDataString =
 "                              \"fieldtype\":     \"extrainfo\"," +
 "                              \"subtype\":       \"extra\"" +
 "                            }," +
+"														 {" +
+"															 \"description\":   \"Probability\"," +
+"															 \"source\":        \"probability\"," +
+"															 \"fieldtype\":     \"float\"," +
+"															 \"subtype\":       \"probability\"" +
+"														 }," +
 "														 {" +
 "															 \"description\":   \"Use Mode\"," +
 "															 \"source\":        \"usemode\"," +
@@ -256,6 +268,12 @@ static String HDLmModInfoDataString =
 "                              \"subtype\":       \"extra\"" +
 "                            }," +
 "														 {" +
+"															 \"description\":   \"Probability\"," +
+"															 \"source\":        \"probability\"," +
+"															 \"fieldtype\":     \"float\"," +
+"															 \"subtype\":       \"probability\"" +
+"														 }," +
+"														 {" +
 "															 \"description\":   \"Use Mode\"," +
 "															 \"source\":        \"usemode\"," +
 "															 \"fieldtype\":     \"usemode\"," +
@@ -337,6 +355,12 @@ static String HDLmModInfoDataString =
 "                              \"fieldtype\":     \"extrainfo\"," +
 "                              \"subtype\":       \"extra\"" +
 "                            }," +
+"														 {" +
+"															 \"description\":   \"Probability\"," +
+"															 \"source\":        \"probability\"," +
+"															 \"fieldtype\":     \"float\"," +
+"															 \"subtype\":       \"probability\"" +
+"														 }," +
 "														 {" +
 "															 \"description\":   \"Use Mode\"," +
 "															 \"source\":        \"usemode\"," +
@@ -433,6 +457,12 @@ static String HDLmModInfoDataString =
 "                              \"subtype\":       \"extra\"" +
 "                            }," +
 "														 {" +
+"															 \"description\":   \"Probability\"," +
+"															 \"source\":        \"probability\"," +
+"															 \"fieldtype\":     \"float\"," +
+"															 \"subtype\":       \"probability\"" +
+"														 }," +
+"														 {" +
 "															 \"description\":   \"Use Mode\"," +
 "															 \"source\":        \"usemode\"," +
 "															 \"fieldtype\":     \"usemode\"," +
@@ -527,6 +557,12 @@ static String HDLmModInfoDataString =
 "                              \"fieldtype\":     \"extrainfo\"," +
 "                              \"subtype\":       \"extra\"" +
 "                            }," +
+"														 {" +
+"															 \"description\":   \"Probability\"," +
+"															 \"source\":        \"probability\"," +
+"															 \"fieldtype\":     \"float\"," +
+"															 \"subtype\":       \"probability\"" +
+"														 }," +
 "														 {" +
 "															 \"description\":   \"Use Mode\"," +
 "															 \"source\":        \"usemode\"," +
@@ -623,6 +659,12 @@ static String HDLmModInfoDataString =
 "                              \"subtype\":       \"extra\"" +
 "                            }," +
 "														 {" +
+"															 \"description\":   \"Probability\"," +
+"															 \"source\":        \"probability\"," +
+"															 \"fieldtype\":     \"float\"," +
+"															 \"subtype\":       \"probability\"" +
+"														 }," +
+"														 {" +
 "															 \"description\":   \"Use Mode\"," +
 "															 \"source\":        \"usemode\"," +
 "															 \"fieldtype\":     \"usemode\"," +
@@ -717,6 +759,12 @@ static String HDLmModInfoDataString =
 "                              \"fieldtype\":     \"extrainfo\"," +
 "                              \"subtype\":       \"extra\"" +
 "                            }," +
+"														 {" +
+"															 \"description\":   \"Probability\"," +
+"															 \"source\":        \"probability\"," +
+"															 \"fieldtype\":     \"float\"," +
+"															 \"subtype\":       \"probability\"" +
+"														 }," +
 "														 {" +
 "															 \"description\":   \"Use Mode\"," +
 "															 \"source\":        \"usemode\"," +
@@ -813,6 +861,12 @@ static String HDLmModInfoDataString =
 "                              \"subtype\":       \"extra\"" +
 "                            }," +
 "														 {" +
+"															 \"description\":   \"Probability\"," +
+"															 \"source\":        \"probability\"," +
+"															 \"fieldtype\":     \"float\"," +
+"															 \"subtype\":       \"probability\"" +
+"														 }," +
+"														 {" +
 "															 \"description\":   \"Use Mode\"," +
 "															 \"source\":        \"usemode\"," +
 "															 \"fieldtype\":     \"usemode\"," +
@@ -907,6 +961,12 @@ static String HDLmModInfoDataString =
 "                              \"fieldtype\":     \"extrainfo\"," +
 "                              \"subtype\":       \"extra\"" +
 "                            }," +
+"														 {" +
+"															 \"description\":   \"Probability\"," +
+"															 \"source\":        \"probability\"," +
+"															 \"fieldtype\":     \"float\"," +
+"															 \"subtype\":       \"probability\"" +
+"														 }," +
 "														 {" +
 "															 \"description\":   \"Use Mode\"," +
 "															 \"source\":        \"usemode\"," +
@@ -1003,6 +1063,12 @@ static String HDLmModInfoDataString =
 "                              \"subtype\":       \"extra\"" +
 "                            }," +
 "														 {" +
+"															 \"description\":   \"Probability\"," +
+"															 \"source\":        \"probability\"," +
+"															 \"fieldtype\":     \"float\"," +
+"															 \"subtype\":       \"probability\"" +
+"														 }," +
+"														 {" +
 "															 \"description\":   \"Use Mode\"," +
 "															 \"source\":        \"usemode\"," +
 "															 \"fieldtype\":     \"usemode\"," +
@@ -1097,6 +1163,12 @@ static String HDLmModInfoDataString =
 "                              \"fieldtype\":     \"extrainfo\"," +
 "                              \"subtype\":       \"extra\"" +
 "                            }," +
+"														 {" +
+"															 \"description\":   \"Probability\"," +
+"															 \"source\":        \"probability\"," +
+"															 \"fieldtype\":     \"float\"," +
+"															 \"subtype\":       \"probability\"" +
+"														 }," +
 "														 {" +
 "															 \"description\":   \"Use Mode\"," +
 "															 \"source\":        \"usemode\"," +
@@ -1200,6 +1272,12 @@ static String HDLmModInfoDataString =
 "                              \"subtype\":       \"extra\"" +
 "                            }," +
 "														 {" +
+"															 \"description\":   \"Probability\"," +
+"															 \"source\":        \"probability\"," +
+"															 \"fieldtype\":     \"float\"," +
+"															 \"subtype\":       \"probability\"" +
+"														 }," +
+"														 {" +
 "															 \"description\":   \"Use Mode\"," +
 "															 \"source\":        \"usemode\"," +
 "															 \"fieldtype\":     \"usemode\"," +
@@ -1298,6 +1376,12 @@ static String HDLmModInfoDataString =
 "                              \"subtype\":       \"extra\"" +
 "                            }," +
 "														 {" +
+"															 \"description\":   \"Probability\"," +
+"															 \"source\":        \"probability\"," +
+"															 \"fieldtype\":     \"float\"," +
+"															 \"subtype\":       \"probability\"" +
+"														 }," +
+"														 {" +
 "															 \"description\":   \"Use Mode\"," +
 "															 \"source\":        \"usemode\"," +
 "															 \"fieldtype\":     \"usemode\"," +
@@ -1386,6 +1470,12 @@ static String HDLmModInfoDataString =
 "                              \"fieldtype\":     \"extrainfo\"," +
 "                              \"subtype\":       \"extra\"" +
 "                            }," +
+"														 {" +
+"															 \"description\":   \"Probability\"," +
+"															 \"source\":        \"probability\"," +
+"															 \"fieldtype\":     \"float\"," +
+"															 \"subtype\":       \"probability\"" +
+"														 }," +
 "														 {" +
 "															 \"description\":   \"Use Mode\"," +
 "															 \"source\":        \"usemode\"," +
@@ -1482,6 +1572,12 @@ static String HDLmModInfoDataString =
 "                              \"subtype\":       \"extra\"" +
 "                            }," +
 "														 {" +
+"															 \"description\":   \"Probability\"," +
+"															 \"source\":        \"probability\"," +
+"															 \"fieldtype\":     \"float\"," +
+"															 \"subtype\":       \"probability\"" +
+"														 }," +
+"														 {" +
 "															 \"description\":   \"Use Mode\"," +
 "															 \"source\":        \"usemode\"," +
 "															 \"fieldtype\":     \"usemode\"," +
@@ -1576,6 +1672,12 @@ static String HDLmModInfoDataString =
 "                              \"fieldtype\":     \"extrainfo\"," +
 "                              \"subtype\":       \"extra\"" +
 "                            }," +
+"														 {" +
+"															 \"description\":   \"Probability\"," +
+"															 \"source\":        \"probability\"," +
+"															 \"fieldtype\":     \"float\"," +
+"															 \"subtype\":       \"probability\"" +
+"														 }," +
 "														 {" +
 "															 \"description\":   \"Use Mode\"," +
 "															 \"source\":        \"usemode\"," +
@@ -1672,6 +1774,12 @@ static String HDLmModInfoDataString =
 "                              \"subtype\":       \"extra\"" +
 "                            }," +
 "														 {" +
+"															 \"description\":   \"Probability\"," +
+"															 \"source\":        \"probability\"," +
+"															 \"fieldtype\":     \"float\"," +
+"															 \"subtype\":       \"probability\"" +
+"														 }," +
+"														 {" +
 "															 \"description\":   \"Use Mode\"," +
 "															 \"source\":        \"usemode\"," +
 "															 \"fieldtype\":     \"usemode\"," +
@@ -1766,6 +1874,12 @@ static String HDLmModInfoDataString =
 "                              \"fieldtype\":     \"extrainfo\"," +
 "                              \"subtype\":       \"extraStyle\"" +
 "                            }," +
+"														 {" +
+"															 \"description\":   \"Probability\"," +
+"															 \"source\":        \"probability\"," +
+"															 \"fieldtype\":     \"float\"," +
+"															 \"subtype\":       \"probability\"" +
+"														 }," +
 "														 {" +
 "															 \"description\":   \"Use Mode\"," +
 "															 \"source\":        \"usemode\"," +
@@ -1862,6 +1976,12 @@ static String HDLmModInfoDataString =
 "                              \"subtype\":       \"extra\"" +
 "                            }," +
 "														 {" +
+"															 \"description\":   \"Probability\"," +
+"															 \"source\":        \"probability\"," +
+"															 \"fieldtype\":     \"float\"," +
+"															 \"subtype\":       \"probability\"" +
+"														 }," +
+"														 {" +
 "															 \"description\":   \"Use Mode\"," +
 "															 \"source\":        \"usemode\"," +
 "															 \"fieldtype\":     \"usemode\"," +
@@ -1956,6 +2076,12 @@ static String HDLmModInfoDataString =
 "                              \"fieldtype\":     \"extrainfo\"," +
 "                              \"subtype\":       \"extra\"" +
 "                            }," +
+"														 {" +
+"															 \"description\":   \"Probability\"," +
+"															 \"source\":        \"probability\"," +
+"															 \"fieldtype\":     \"float\"," +
+"															 \"subtype\":       \"probability\"" +
+"														 }," +
 "														 {" +
 "															 \"description\":   \"Use Mode\"," +
 "															 \"source\":        \"usemode\"," +
@@ -2052,6 +2178,12 @@ static String HDLmModInfoDataString =
 "                              \"subtype\":       \"extra\"" +
 "                            }," +
 "														 {" +
+"															 \"description\":   \"Probability\"," +
+"															 \"source\":        \"probability\"," +
+"															 \"fieldtype\":     \"float\"," +
+"															 \"subtype\":       \"probability\"" +
+"														 }," +
+"														 {" +
 "															 \"description\":   \"Use Mode\"," +
 "															 \"source\":        \"usemode\"," +
 "															 \"fieldtype\":     \"usemode\"," +
@@ -2147,6 +2279,12 @@ static String HDLmModInfoDataString =
 "                              \"subtype\":       \"extra\"" +
 "                            }," +
 "														 {" +
+"															 \"description\":   \"Probability\"," +
+"															 \"source\":        \"probability\"," +
+"															 \"fieldtype\":     \"float\"," +
+"															 \"subtype\":       \"probability\"" +
+"														 }," +
+"														 {" +
 "															 \"description\":   \"Use Mode\"," +
 "															 \"source\":        \"usemode\"," +
 "															 \"fieldtype\":     \"usemode\"," +
@@ -2241,6 +2379,12 @@ static String HDLmModInfoDataString =
 "                              \"fieldtype\":     \"extrainfo\"," +
 "                              \"subtype\":       \"extra\"" +
 "                            }," +
+"														 {" +
+"															 \"description\":   \"Probability\"," +
+"															 \"source\":        \"probability\"," +
+"															 \"fieldtype\":     \"float\"," +
+"															 \"subtype\":       \"probability\"" +
+"														 }," +
 "														 {" +
 "															 \"description\":   \"Use Mode\"," +
 "															 \"source\":        \"usemode\"," +
@@ -2495,6 +2639,14 @@ static String HDLmModTreeInfoString = "{" +
 	   The transient attribute is used below to prevent JSON 
 	   serialization of this field */
 	private transient int   errorCount = 0;
+	/* The next field contains the error messages for the
+	   current modification. If the error count is zero, 
+	   then this field is null. If the error count is greater
+	   than zero, then this field contains the error messages.
+	  
+	   The transient attribute is used below to prevent JSON 
+	   serialization of this field  */
+	private transient ArrayList<String>   errorMsgs = null;
 	/* We assume that the path value is not a regex. However, if the path value 
 	   actually is a regex, the regex flag below is set to true. Note that most 
 	   of the work of actually matching path values is done with the match object. 
@@ -2550,8 +2702,19 @@ static String HDLmModTreeInfoString = "{" +
 	   The field below is used more for communication with JavaScript. */
 	@SerializedName("path")
   private String          pathValue = null;
+	/* The probability field controls the probability of a modification being
+	   applied. The value must be between 0.0 and 100.0 (inclusive). A value 
+	   of 100.0 means that the modification will always be applied. A value 
+	   of 0.0 means that the modification will never be applied. Values between
+	   0.0 and 100.0 mean that the modification will be applied with the specified 
+	   probability. Of course, the parameter value can still be set to a null 
+	   value to disable the modification. */
+	@SerializedName("prob")
+	private float           probability = (float) 100.0;
 	@SerializedName("usemode")
 	private String          useMode = null;
+	/* Value (note the singular) is used to store data value information.
+	   The data value information is used in some rule types */ 
 	private String          value = null;
 	private String          valueSuffix = null;
 	@SerializedName("xpath")
@@ -2572,7 +2735,7 @@ static String HDLmModTreeInfoString = "{" +
 	/* This constructor copies all of the fields from another modification instance.
 	   Note that the copy is a deep copy of sorts. All of the fields should actually
 	   be copied or should be immutable. */
-	protected HDLmMod(HDLmMod oldMod) {
+	protected HDLmMod(final HDLmMod oldMod) {
 		/* Check if the old modification passed to this routine is null or not */
 		if (oldMod == null) {
 			String  errorText = "Old details reference used to build modification details is null";
@@ -2585,7 +2748,8 @@ static String HDLmModTreeInfoString = "{" +
 	}
 	/* This is a constructor for the HTML modifications class. It must be passed a
 	   JSON element that contains all of the details of the modification. */
-	protected HDLmMod(JsonElement jsonElement) {
+	@SuppressWarnings("unused")
+	protected HDLmMod(final JsonElement jsonElement) {
 		/* Check if the JSON element passed by the caller is null */
 		if (jsonElement == null) {
 			String  errorText = "JSON element used to build modification details is null";
@@ -2598,7 +2762,14 @@ static String HDLmModTreeInfoString = "{" +
 		   greater than zero, the current modification object is disabled (the enabled
 		   field is set false). Note that a reference is used below so that the error
 		   count can be updated by the routines called using error count.*/
-		MutableInt errors = new MutableInt(0);
+		MutableInt  errorCounter = new MutableInt(0);		
+		/* Build an array list for error message strings. Each error
+		   message is stored in this array list. */
+		ArrayList<String>   errorMessages = new ArrayList<String>();
+		if (errorMessages == null) {
+			String  errorText = "Error message ArrayList allocation in HDLmMod constructor is null";
+			throw new NullPointerException(errorText);
+		}	
 		HDLmEditorTypes  editorType = HDLmEditorTypes.PASS;
 		/* Get the list of keywords and values in the JSON object */
 		if (jsonElement.isJsonNull()) {
@@ -2617,12 +2788,31 @@ static String HDLmModTreeInfoString = "{" +
 	    HDLmAssertAction(false, "JSON type element is JSON null");
 	  }
 		/* Set the class instance variables */
-		this.name = HDLmMod.modFieldString(editorType, errors, 
-				                               jsonObject, jsonKeys, 
-				                               "name", 
-				                               HDLmWhiteSpace.WHITESPACENOTOK,
-				                               HDLmReportErrors.REPORTERRORS,
-				                               HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+	  {
+			String  errorMessagePrefix = "Modification";
+			int     errorNumberMissing = 3; 
+	    int     errorNumberIsNull = 4;
+	    int     errorNumberNotPrimitive = 4;
+	    int     errorNumberException = 4;
+	    int     errorNumberInvalidLength = 4;
+	    int     errorNumberInvalidWhiteSpace = 4;
+			this.name = HDLmField.checkFieldString(editorType, 
+							                               errorCounter, 		
+							                               errorMessages, 
+							                               jsonObject, jsonKeys, 
+							                               "name", 
+							                               errorMessagePrefix,
+																		     		 errorNumberMissing,
+																		         errorNumberIsNull,
+																		         errorNumberNotPrimitive,
+																		         errorNumberException,
+																		         errorNumberInvalidLength,
+																		         errorNumberInvalidWhiteSpace, 
+							                               HDLmWhiteSpace.WHITESPACENOTOK,
+							                               HDLmReportErrors.REPORTERRORS,
+							                               HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+	  }
+		/* LOG.info(this.name); */
 		/* Get the path value string and check if it is really a regex. We treat the path 
 		   value string as a regex, if the first, second and last characters are forward
 		   slashes. Note that the first actual character will always be a forward slash.
@@ -2632,12 +2822,31 @@ static String HDLmModTreeInfoString = "{" +
 			jsonFieldName = "pathvalue";
 		else if (jsonObject.has("path"))
 			jsonFieldName = "path";	
-		String  pathValueString  = HDLmMod.modFieldString(editorType, errors, 
-							                                        jsonObject, jsonKeys, 
-							                                        jsonFieldName,
-							                                        HDLmWhiteSpace.WHITESPACENOTOK,
-							                                        HDLmReportErrors.REPORTERRORS,
-							                                        HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+		String  pathValueString = null;
+	  {
+			String  errorMessagePrefix = "Modification";
+			int     errorNumberMissing = 3; 
+	    int     errorNumberIsNull = 4;
+	    int     errorNumberNotPrimitive = 4;
+	    int     errorNumberException = 4;
+	    int     errorNumberInvalidLength = 4;
+	    int     errorNumberInvalidWhiteSpace = 4;
+			pathValueString = HDLmField.checkFieldString(editorType, 
+	                                                 errorCounter, 
+	                                                 errorMessages, 
+				                                           jsonObject, jsonKeys, 
+				                                           jsonFieldName,
+				                                           errorMessagePrefix,
+																		     	     	   errorNumberMissing,
+																		               errorNumberIsNull,
+																		               errorNumberNotPrimitive,
+																		               errorNumberException,
+																			             errorNumberInvalidLength,
+																			             errorNumberInvalidWhiteSpace, 
+				                                           HDLmWhiteSpace.WHITESPACENOTOK,
+				                                           HDLmReportErrors.REPORTERRORS,
+				                                           HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+	  }
 		this.pathValue = pathValueString; 
 		/* Use the path value string (if any) to build the path value match object. 
 		   The path value match object supports all of the different types of matching. */ 
@@ -2648,39 +2857,84 @@ static String HDLmModTreeInfoString = "{" +
 			String  valid = HDLmMatch.check(pathValueString);
 			if (valid != null) {
 				String  errorText = valid;
-				HDLmMod.reportError(editorType, errors, 
-						                jsonObject, errorText, 
-						                36, HDLmReportErrors.REPORTERRORS);				
+				HDLmField.reportError(editorType, 
+						                  errorCounter, 
+						                  errorMessages, 
+						                  jsonObject, 
+						                  jsonFieldName,
+						                  errorText, 
+						                  36, 
+						                  HDLmReportErrors.REPORTERRORS);				
 			}
 			else
 			  this.pathMatch = new HDLmMatch(pathValueString);
 		}
 		/* Get a few fields from the JSON object */
-		Boolean   enabledBoolean = HDLmMod.modFieldBoolean(editorType, errors, 
-				                                               jsonObject, jsonKeys, 
+		Boolean   enabledBoolean = HDLmMod.modFieldBoolean(editorType, 
+				                                               errorCounter, 
+				                                               errorMessages, 
+				                                               jsonObject,
+				                                               jsonKeys, 
 				                                               "enabled");
 		if (enabledBoolean != null)
 		  this.enabled = enabledBoolean;
 		/* Get a few fields from the JSON object */
-		jsonFieldName = "useMode";
-		if (jsonObject.has("usemode"))
-			jsonFieldName = "usemode";
+		jsonFieldName = "prob";
+		/* Check if any JSON element exists for 'prob' without 
+		   the quotes). Prob (actually the first letter is lower
+		   case) is quite optional. If 'prob' is not found, we 
+		   don't want to increment the error counter or generate 
+		   any error messages. */ 		
+		if (jsonObject.has(jsonFieldName)) {
+			Float   probValue = HDLmMod.modFieldFloat(editorType, 
+			                                          errorCounter, 
+			                                          errorMessages, 
+			                                          jsonObject, 
+			                                          jsonKeys, 
+			                                          jsonFieldName, 
+			                                          HDLmReportErrors.REPORTERRORS);
+			if (probValue != null)
+			  this.probability = probValue;
+		}
+		/* Get a few fields from the JSON object */
+		jsonFieldName = "usemode";
+		if (jsonObject.has("useMode"))
+			jsonFieldName = "useMode";
 		else if (jsonObject.has("use"))
 			jsonFieldName = "use";	
-		/* Check if any JSON element exists for any variation of 'useMode'
-		   (without the quotes). UseMode (actually the first letter is 
-		   lower case) is quite optional. If 'useMode' (or some other 
+		/* Check if any JSON element exists for any variation of 'usemode'
+		   (without the quotes). Usemode (actually the first letter is 
+		   lower case) is quite optional. If 'usemode' (or some other 
 		   variant) is not found, we don't want to increment the error 
 		   counter or generate any error messages. */ 		
 		if (jsonObject.has(jsonFieldName)) {
-			String  useModeString = HDLmMod.modFieldString(editorType, errors, 
-					                                           jsonObject, jsonKeys, 
-					                                           jsonFieldName,
-					                                           HDLmWhiteSpace.WHITESPACENOTOK, 
-					                                           HDLmReportErrors.REPORTERRORS,
-					                                           HDLmZeroLengthOk.ZEROLENGTHOK);
+		  {
+				String  errorMessagePrefix = "Modification";
+				int     errorNumberMissing = 3; 
+		    int     errorNumberIsNull = 4;
+		    int     errorNumberNotPrimitive = 4;
+		    int     errorNumberException = 4;
+		    int     errorNumberInvalidLength = 4;
+		    int     errorNumberInvalidWhiteSpace = 4;
+	  		String  useModeString = HDLmField.checkFieldString(editorType, 
+								                                           errorCounter, 
+								                                           errorMessages, 
+								                                           jsonObject, 
+								                                           jsonKeys, 
+								                                           jsonFieldName,
+								                                           errorMessagePrefix,
+																						     	     	   errorNumberMissing,
+																						               errorNumberIsNull,
+																						               errorNumberNotPrimitive,
+																						               errorNumberException,
+																							             errorNumberInvalidLength,
+																							             errorNumberInvalidWhiteSpace, 
+								                                           HDLmWhiteSpace.WHITESPACENOTOK, 
+								                                           HDLmReportErrors.REPORTERRORS,
+								                                           HDLmZeroLengthOk.ZEROLENGTHOK);
 			if (useModeString != null)
 			  this.useMode = useModeString;
+		  }
 		}
 		/* Try to get the comments value from the JSON element. Note that
 		   the call below will never report an error unless the comments
@@ -2688,35 +2942,76 @@ static String HDLmModTreeInfoString = "{" +
 		   to be true in any actual case. Note that the comments are
 		   optional. Skip this code is we don't have any comments. */
 		if (HDLmJson.hasJsonKey(jsonObject, "comments")) { 
-		  String commentsInfo = HDLmMod.modFieldString(editorType, errors, 
-			  	                                         jsonObject, jsonKeys, 
-				                                           "comments", 
-				                                           HDLmWhiteSpace.WHITESPACEOK, 
-				                                           HDLmReportErrors.REPORTERRORS,
-				                                           HDLmZeroLengthOk.ZEROLENGTHNOTOK);			 
-		  if (commentsInfo != null && !StringUtils.isWhitespace(commentsInfo)) {
-			  this.comments = commentsInfo;
+		  {
+				String  errorMessagePrefix = "Modification";
+				int     errorNumberMissing = 3; 
+		    int     errorNumberIsNull = 4;
+		    int     errorNumberNotPrimitive = 4;
+		    int     errorNumberException = 4;
+		    int     errorNumberInvalidLength = 4;
+		    int     errorNumberInvalidWhiteSpace = 4; 
+		    String commentsInfo = HDLmField.checkFieldString(editorType, 
+					  		                                         errorCounter, 
+					  		                                         errorMessages, 
+						  	                                         jsonObject, 
+						  	                                         jsonKeys, 
+							                                           "comments", 
+							                                           errorMessagePrefix,
+																					     	     	   errorNumberMissing,
+																					               errorNumberIsNull,
+																					               errorNumberNotPrimitive,
+																					               errorNumberException,
+																						             errorNumberInvalidLength,
+																						             errorNumberInvalidWhiteSpace, 
+							                                           HDLmWhiteSpace.WHITESPACEOK, 
+							                                           HDLmReportErrors.REPORTERRORS,
+							                                           HDLmZeroLengthOk.ZEROLENGTHNOTOK);			 
+			  if (commentsInfo != null && !StringUtils.isWhitespace(commentsInfo)) {
+				  this.comments = commentsInfo;
+			  }
 		  }
 		}
 		/* Try to get the extra information value from the JSON element.
 		   Note that the call below will never report an error unless the
 		   extra information field is actually missing from the JSON.
 		   This does not appear to be true in any actual case. */
-		String  extraInfo = HDLmMod.modFieldString(editorType, errors, 
-				                                       jsonObject, jsonKeys, 
-				                                       "extra", 
-				                                       HDLmWhiteSpace.WHITESPACEOK, 
-				                                       HDLmReportErrors.REPORTERRORS,
-				                                       HDLmZeroLengthOk.ZEROLENGTHNOTOK);
-		if (extraInfo != null && !StringUtils.isWhitespace(extraInfo)) {
-			this.extra = extraInfo;
-		}
+		{
+			String  errorMessagePrefix = "Modification";
+			int     errorNumberMissing = 3; 
+	    int     errorNumberIsNull = 4;
+	    int     errorNumberNotPrimitive = 4;
+	    int     errorNumberException = 4;
+	    int     errorNumberInvalidLength = 4;
+	    int     errorNumberInvalidWhiteSpace = 4; 
+			String  extraInfo = HDLmField.checkFieldString(editorType, 
+							                                       errorCounter, 
+						                                         errorMessages, 
+							                                       jsonObject, 
+							                                       jsonKeys, 
+							                                       "extra", 
+							                                       errorMessagePrefix,
+																			     	     	   errorNumberMissing,
+																			               errorNumberIsNull,
+																			               errorNumberNotPrimitive,
+																			               errorNumberException,
+																				             errorNumberInvalidLength,
+																				             errorNumberInvalidWhiteSpace, 
+							                                       HDLmWhiteSpace.WHITESPACEOK, 
+							                                       HDLmReportErrors.REPORTERRORS,
+							                                       HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+			if (extraInfo != null && !StringUtils.isWhitespace(extraInfo)) {
+				this.extra = extraInfo;
+			}
+  	}
 		/* Try to get the created time-date from the JSON element.
 	     Note that the call below will never report an error unless the
 	     created date-time field is actually missing from the JSON.
 	     This does not appear to be true in any actual case. */
-		Instant   createdInfo = HDLmMod.modFieldDateTime(editorType, errors, 
-								                                     jsonObject, jsonKeys, 
+		Instant   createdInfo = HDLmMod.modFieldDateTime(editorType, 
+				                                             errorCounter, 
+				                                             errorMessages, 
+								                                     jsonObject, 
+								                                     jsonKeys, 
 								                                     "created",  
 								                                     HDLmReportErrors.REPORTERRORS);
 		if (createdInfo != null) {
@@ -2728,8 +3023,11 @@ static String HDLmModTreeInfoString = "{" +
        Note that the call below will never report an error unless the
        last modified date-time field is actually missing from the JSON.
        This does not appear to be true in any actual case. */
-		Instant   lastModifiedInfo = HDLmMod.modFieldDateTime(editorType, errors, 
-								                                          jsonObject, jsonKeys, 
+		Instant   lastModifiedInfo = HDLmMod.modFieldDateTime(editorType, 
+				                                                  errorCounter, 
+				                                                  errorMessages,
+								                                          jsonObject, 
+								                                          jsonKeys, 
 								                                          "lastmodified",  
 								                                          HDLmReportErrors.REPORTERRORS);
 		if (lastModifiedInfo != null) {
@@ -2740,43 +3038,92 @@ static String HDLmModTreeInfoString = "{" +
 		/* Check if we have CSS Selector information, XPath search information, or if we
 		   have find information. All are supported. We give preference to CSS Selector
 		   information, then XPath search information, and finally to find information. */
-		String cssInfo = HDLmMod.modFieldString(editorType, errors, 
-				                                    jsonObject, jsonKeys, 
-				                                    "cssselector", 
-				                                    HDLmWhiteSpace.WHITESPACEOK,
-				                                    HDLmReportErrors.REPORTERRORS,
-				                                    HDLmZeroLengthOk.ZEROLENGTHNOTOK);
-		if (cssInfo != null && !StringUtils.isWhitespace(cssInfo)) {
-			this.cssSelector = cssInfo;
-		}
+		String  cssInfo = null;
+	  {
+			String  errorMessagePrefix = "Modification";
+			int     errorNumberMissing = 3; 
+	    int     errorNumberIsNull = 4;
+	    int     errorNumberNotPrimitive = 4;
+	    int     errorNumberException = 4;
+	    int     errorNumberInvalidLength = 4;
+	    int     errorNumberInvalidWhiteSpace = 4;
+		  cssInfo = HDLmField.checkFieldString(editorType, 
+				                                   errorCounter, 
+				                                   errorMessages, 
+				                                   jsonObject, 
+				                                   jsonKeys, 
+				                                   "cssselector", 
+				                                   errorMessagePrefix,
+															     	     	 errorNumberMissing,
+															             errorNumberIsNull,
+															             errorNumberNotPrimitive,
+															             errorNumberException,
+																           errorNumberInvalidLength,
+																           errorNumberInvalidWhiteSpace, 
+				                                   HDLmWhiteSpace.WHITESPACEOK,
+				                                   HDLmReportErrors.REPORTERRORS,
+				                                   HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+			if (cssInfo != null && !StringUtils.isWhitespace(cssInfo)) {
+				this.cssSelector = cssInfo;
+			}
+	  }
 		/* Check for possible XPath search information */
-		String xpathInfo = HDLmMod.modFieldString(editorType, errors, 
-				                                      jsonObject, jsonKeys, 
-				                                      "xpath", 
-				                                      HDLmWhiteSpace.WHITESPACEOK, 
-				                                      HDLmReportErrors.REPORTERRORS,
-				                                      HDLmZeroLengthOk.ZEROLENGTHNOTOK);
-		if (xpathInfo != null && !StringUtils.isWhitespace(xpathInfo)) {
-			this.xPath = xpathInfo;
-		}
+	  String  xpathInfo = null;
+	  {
+			String  errorMessagePrefix = "Modification";
+			int     errorNumberMissing = 3; 
+	    int     errorNumberIsNull = 4;
+	    int     errorNumberNotPrimitive = 4;
+	    int     errorNumberException = 4;
+	    int     errorNumberInvalidLength = 4;
+	    int     errorNumberInvalidWhiteSpace = 4;
+		  xpathInfo = HDLmField.checkFieldString(editorType, 
+				                                     errorCounter, 
+                                             errorMessages, 
+				                                     jsonObject, 
+				                                     jsonKeys, 
+				                                     "xpath", 
+				                                     errorMessagePrefix,
+																     	     	 errorNumberMissing,
+																             errorNumberIsNull,
+																             errorNumberNotPrimitive,
+																             errorNumberException,
+																	           errorNumberInvalidLength,
+																	           errorNumberInvalidWhiteSpace, 
+				                                     HDLmWhiteSpace.WHITESPACEOK, 
+				                                     HDLmReportErrors.REPORTERRORS,
+				                                     HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+			if (xpathInfo != null && !StringUtils.isWhitespace(xpathInfo)) {
+				this.xPath = xpathInfo;
+			}
+	  }
 		/* Get some values for locating what needs to be changed. The find criteria may
 		   specify one level or multiple levels. */
-		ArrayList<HDLmFind> findInfo = HDLmMod.modFieldFindArray(editorType, errors, 
-				                                                     jsonObject, jsonKeys,
+		ArrayList<HDLmFind> findInfo = HDLmMod.modFieldFindArray(editorType, 
+				                                                     errorCounter, 
+                                                             errorMessages,
+				                                                     jsonObject, 
+				                                                     jsonKeys,
 				                                                     "find");
 		if (findInfo != null) {
 			this.finds = findInfo;
 		}
 		/* Get some node identifier values, if possible */
-		HDLmNodeIden  nodeIden = HDLmMod.modFieldNodeIden(editorType, errors, 
-                                                      jsonObject, jsonKeys,
+		HDLmNodeIden  nodeIden = HDLmMod.modFieldNodeIden(editorType, 
+				                                              errorCounter, 
+                                                      errorMessages,
+                                                      jsonObject, 
+                                                      jsonKeys,
                                                       "nodeiden");
 		if (nodeIden != null && nodeIden.isUsable()) {
 			this.nodeIden = nodeIden;
 		}
 		/* Get the modification type */
-		this.type = HDLmMod.modFieldModType(editorType, errors, 
-				                                jsonObject, jsonKeys, 
+		this.type = HDLmMod.modFieldModType(editorType, 
+				                                errorCounter, 
+                                        errorMessages, 
+				                                jsonObject, 
+				                                jsonKeys, 
 				                                "type");
 		/* Make sure that at least one type of locate information was provided. 
 		   No type of locate information is needed or allowed for visit rules.
@@ -2786,14 +3133,20 @@ static String HDLmModTreeInfoString = "{" +
 		   rules, for which they must all be empty.  */
 		HDLmMod.modLocateCheck(editorType, 
 				                   this.type,
-				                   errors, 
-				                   jsonObject, cssInfo, 
-				                   xpathInfo, findInfo,
+				                   errorCounter, 
+                           errorMessages,				                   
+				                   jsonObject, 
+				                   cssInfo, 
+				                   xpathInfo, 
+				                   findInfo,
 				                   nodeIden);
 		/* Set the parameter number, if it was provided */
 		if (jsonKeys.contains("parameter"))
-			this.parameter = HDLmMod.modFieldInteger(editorType, errors, 
-					                                     jsonObject, jsonKeys,
+			this.parameter = HDLmMod.modFieldInteger(editorType, 
+					                                     errorCounter, 
+                                               errorMessages,
+					                                     jsonObject, 
+					                                     jsonKeys,
 					                                     "parameter");		
 		/* Generally we have to obtain a parameter number for each modification.
 		   However, for a few specific modification types, this is not correct. These
@@ -2805,22 +3158,28 @@ static String HDLmModTreeInfoString = "{" +
 				this.type == HDLmModTypes.NOTIFY) {
 			if (this.parameter != null) {
 				String valueString = this.parameter.toString();
-				HDLmMod.reportErrorValue(editorType, errors, 
-						                     jsonObject, "parameter", 
-						                     valueString, 
-						                     "Modification parameter number not allowed", 
-						                     2, 
-						                     HDLmReportErrors.REPORTERRORS);
+				HDLmField.reportErrorValue(editorType, 
+						                       errorCounter, 
+                                   errorMessages,
+						                       jsonObject, 
+						                       "parameter", 
+						                       valueString, 
+						                       "Modification parameter number not allowed", 
+						                       2, 
+						                       HDLmReportErrors.REPORTERRORS);
 			}
 		}
     /* For all other modification types the parameter number is required.
        Report an error, if we don't have a parameter number. */
 		else {			
 			if (this.parameter == null) {
-				HDLmMod.reportErrorNoValue(editorType, errors, 
-            jsonObject, "parameter", 
-            "Modification JSON missing field", 
-            3, HDLmReportErrors.REPORTERRORS);
+				HDLmField.reportErrorNoValue(editorType, 
+						                         errorCounter, 
+                                     errorMessages,
+                                     jsonObject, 
+                                     "parameter", 
+                                     "Modification JSON missing field", 
+                                     3, HDLmReportErrors.REPORTERRORS);
 			}
 		}
 		/* Handle each type of modification. Some modification specific code is needed
@@ -2831,64 +3190,151 @@ static String HDLmModTreeInfoString = "{" +
 				/* Try to get the extra information value from the JSON element.
 				   Note that an actual extra information value is required here.
 				   A zero-length value or a value of blanks is not OK. */
-				String extraInfoLocal = HDLmMod.modFieldString(editorType, errors, 
-						                                           jsonObject, jsonKeys, 
-						                                           "extra", 
-						                                           HDLmWhiteSpace.WHITESPACENOTOK, 
-						                                           HDLmReportErrors.REPORTERRORS,
-						                                           HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+				{
+					String  errorMessagePrefix = "Modification";
+					int     errorNumberMissing = 3;
+					int     errorNumberIsNull = 4;
+					int     errorNumberNotPrimitive = 4;
+					int     errorNumberNotArray = 4;
+					int     errorNumberException = 4;
+					int     errorNumberInvalidLength = 4;
+					int     errorNumberInvalidWhiteSpace = 4;
+					String  extraInfoLocal = HDLmField.checkFieldString(editorType, 
+									                                            errorCounter, 
+			                                                        errorMessages,
+									                                            jsonObject, 
+									                                            jsonKeys, 
+									                                            "extra", 
+									                                            errorMessagePrefix,
+																							     	     	    errorNumberMissing,
+																							                errorNumberIsNull,
+																							                errorNumberNotPrimitive,
+																							                errorNumberException,
+																								              errorNumberInvalidLength,
+																								              errorNumberInvalidWhiteSpace, 
+									                                            HDLmWhiteSpace.WHITESPACENOTOK, 
+									                                            HDLmReportErrors.REPORTERRORS,
+									                                            HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+				}
 				break;
 			}
 			/* Handle a change attributes modification (probably a DOM attributes modification) */
 			case CHANGEATTRS: {
-				/* LOG.info("In HDLmMod.<init>"); */
-				this.values = HDLmMod.modFieldStringArray(editorType, errors, 
-                                                  jsonObject, jsonKeys, 
-                                                  "changeattrsvalues");
-				/* Check each of the values and make sure it is a valid change attributes value */
-				if (this.values != null)
-				  HDLmMod.modFieldStringArrayChangeAttrs(this.values,
-                                                 editorType, 
-						                                     errors, 
-				                                         jsonObject, 
-						                                     name, 
-						                                     HDLmReportErrors.REPORTERRORS);			
-				Integer arraySize = null;
-				if (this.values != null)
-		  		arraySize = this.values.size();
-				Integer valuesCountLocal = HDLmMod.modArrayCheck(editorType, errors, 
-				                                                 jsonObject, "changeattrsvalues", 
-				                                                 arraySize,
-				                                                 HDLmZeroLengthOk.ZEROLENGTHNOTOK);
-				if (valuesCountLocal != null)
-			  	this.valuesCount = valuesCountLocal;
+				{
+					/* LOG.info("In HDLmMod.<init>"); */
+					String  errorMessagePrefix = "Modification";
+					int     errorNumberMissing = 3;
+					int     errorNumberIsNull = 4;
+					int     errorNumberIsPrimitive = 4;
+					int     errorNumberNotPrimitive = 4;
+					int     errorNumberNotArray = 4;
+					int     errorNumberException = 4;
+					int     errorNumberTooSmall = 70;
+					int     errorNumberTooLarge = 71; 
+					int     errorNumberInvalidLength = 4;
+					int     errorNumberInvalidWhiteSpace = 4;
+					this.values = HDLmField.checkFieldStringArray(editorType, 
+							                                          errorCounter, 
+	                                                      errorMessages,
+	                                                      jsonObject, 
+	                                                      jsonKeys, 
+	                                                      "changeattrsvalues",
+	                                                      null,
+	                                                      null,
+											  											          errorMessagePrefix,
+																						            errorNumberMissing,
+																						            errorNumberIsNull,
+																						            errorNumberIsPrimitive,
+																						            errorNumberNotPrimitive,
+																						            errorNumberNotArray,
+																						            errorNumberException,
+																						            errorNumberTooSmall,
+																						            errorNumberTooLarge, 
+																						            errorNumberInvalidLength,
+																						            errorNumberInvalidWhiteSpace);
+					/* Check each of the values and make sure it is a valid change attributes value */
+					if (this.values != null)
+					  HDLmMod.modFieldStringArrayChangeAttrs(this.values,
+	                                                 editorType, 
+	                                                 errorCounter, 
+	                                                 errorMessages,
+					                                         jsonObject, 
+							                                     name, 
+							                                     HDLmReportErrors.REPORTERRORS);			
+					Integer  arraySize = null;
+					if (this.values != null)
+			  		arraySize = this.values.size();
+					Integer valuesCountLocal = HDLmMod.modArrayCheck(editorType, 
+							                                             errorCounter, 
+	                                                         errorMessages,
+					                                                 jsonObject, 
+					                                                 "changeattrsvalues", 
+					                                                 arraySize,
+					                                                 HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+					if (valuesCountLocal != null)
+				  	this.valuesCount = valuesCountLocal;
+				}
 				break;
 			}
 			/* Handle some type of a change nodes operation */
 			case CHANGENODES: {
-				this.values = HDLmMod.modFieldStringArray(editorType, errors, 
-                                                  jsonObject, jsonKeys, 
-                                                  "changenodesvalues");
-				/* Check each of the values and make sure it is a valid change attributes value */
-				if (this.values != null) {
-					/*
-			  	HDLmMod.modFieldStringArrayChangeNodes(this.values,
-				                                         editorType, 
-		                               		           errors, 
-				                                         jsonObject, 
-		                              		           name, 
-		                               		           HDLmReportErrors.REPORTERRORS);	
-		      */                         		            	
+				{
+					String  errorMessagePrefix = "Modification";
+					int     errorNumberMissing = 3;
+					int     errorNumberIsNull = 4;
+					int     errorNumberIsPrimitive = 4;
+					int     errorNumberNotPrimitive = 4;
+					int     errorNumberNotArray = 4;
+					int     errorNumberException = 4;
+					int     errorNumberTooSmall = 70;
+					int     errorNumberTooLarge = 71; 
+					int     errorNumberInvalidLength = 4;
+					int     errorNumberInvalidWhiteSpace = 4;
+					this.values = HDLmField.checkFieldStringArray(editorType, 
+									                                      errorCounter,
+			                                                  errorMessages,
+			                                                  jsonObject, 
+			                                                  jsonKeys, 
+			                                                  "changenodesvalues",
+			                                                  null,
+			                                                  null,
+											  											          errorMessagePrefix,
+																						            errorNumberMissing,
+																						            errorNumberIsNull,
+																						            errorNumberIsPrimitive,
+																						            errorNumberNotPrimitive,
+																						            errorNumberNotArray,
+																						            errorNumberException,
+																						            errorNumberTooSmall,
+																						            errorNumberTooLarge, 
+																						            errorNumberInvalidLength,
+																						            errorNumberInvalidWhiteSpace);
+					/* Check each of the values and make sure it is a valid change attributes value */
+					if (this.values != null) {
+						/*
+				  	HDLmMod.modFieldStringArrayChangeNodes(this.values,
+					                                         editorType, 
+			                               		           errorCounter,
+			                               		           errorMessages, 
+					                                         jsonObject, 
+			                              		           name, 
+			                               		           HDLmReportErrors.REPORTERRORS);	
+			      */                         		            	
+					}
+	        Integer  arraySize = null;
+	        if (this.values != null)
+	          arraySize = this.values.size();
+				
+	        Integer valuesCountLocal = HDLmMod.modArrayCheck(editorType, 
+	        		                                             errorCounter, 
+	                                                         errorMessages,
+	                                                         jsonObject, 
+	                                                         "changenodesvalues", 
+	                                                         arraySize,
+	                                                         HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+	        if (valuesCountLocal != null)
+	          this.valuesCount = valuesCountLocal;
 				}
-        Integer arraySize = null;
-        if (this.values != null)
-          arraySize = this.values.size();
-        Integer valuesCountLocal = HDLmMod.modArrayCheck(editorType, errors, 
-                                                         jsonObject, "changenodesvalues", 
-                                                         arraySize,
-                                                         HDLmZeroLengthOk.ZEROLENGTHNOTOK);
-        if (valuesCountLocal != null)
-          this.valuesCount = valuesCountLocal;
 				break;
 			}
 			/* Handle some type of an extract operation */
@@ -2897,44 +3343,126 @@ static String HDLmModTreeInfoString = "{" +
 				   Note that an actual extra information value is not required here.
 				   A zero-length value or a value of blanks is OK. A default value
 				   will be used, if an actual value is not provided. */
-				String extraInfoLocal = HDLmMod.modFieldString(editorType, errors, 
-						                                           jsonObject, jsonKeys, 
-						                                           "extra", 
-						                                           HDLmWhiteSpace.WHITESPACEOK,
-						                                           HDLmReportErrors.REPORTERRORS,
-						                                           HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+				{
+					String  errorMessagePrefix = "Modification";
+					int     errorNumberMissing = 3;
+					int     errorNumberIsNull = 4;
+					int     errorNumberNotPrimitive = 4;
+					int     errorNumberNotArray = 4;
+					int     errorNumberException = 4; 
+					int     errorNumberInvalidLength = 4;
+					int     errorNumberInvalidWhiteSpace = 4;
+					String  extraInfoLocal = HDLmField.checkFieldString(editorType, 
+									                                            errorCounter, 
+			                                                        errorMessages,
+									                                            jsonObject, 
+									                                            jsonKeys, 
+									                                            "extra", 
+									                                            errorMessagePrefix,
+																							     	     	    errorNumberMissing,
+																							                errorNumberIsNull,
+																							                errorNumberNotPrimitive,
+																							                errorNumberException,
+																								              errorNumberInvalidLength,
+																								             errorNumberInvalidWhiteSpace, 
+									                                           HDLmWhiteSpace.WHITESPACEOK,
+									                                           HDLmReportErrors.REPORTERRORS,
+									                                           HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+				}
 				break;
 			}
 			/* Handle style font colors */
 			case FONTCOLOR: {
-				this.values = HDLmMod.modFieldStringArray(editorType, errors, 
-						                                      jsonObject, jsonKeys, 
-						                                      "colors");
-				Integer arraySize = null;
+				{
+					String  errorMessagePrefix = "Modification";
+					int     errorNumberMissing = 3;
+					int     errorNumberIsNull = 4;
+					int     errorNumberIsPrimitive = 4;
+					int     errorNumberNotPrimitive = 4;
+					int     errorNumberNotArray = 4;
+					int     errorNumberException = 4;
+					int     errorNumberTooSmall = 70;
+					int     errorNumberTooLarge = 71; 
+					int     errorNumberInvalidLength = 4;
+					int     errorNumberInvalidWhiteSpace = 4;
+					this.values = HDLmField.checkFieldStringArray(editorType, 
+						   		                                      errorCounter,
+		                                                    errorMessages,
+								                                        jsonObject, 
+								                                        jsonKeys, 
+								                                        "colors",
+		                                                    null,
+		                                                    null,
+										  			  								          errorMessagePrefix,
+															  						            errorNumberMissing,
+																  					            errorNumberIsNull,
+																  					            errorNumberIsPrimitive,
+																	  				            errorNumberNotPrimitive,
+																		  			            errorNumberNotArray,
+																			  		            errorNumberException,
+																				  	            errorNumberTooSmall,
+																					              errorNumberTooLarge, 
+																					              errorNumberInvalidLength,
+																					              errorNumberInvalidWhiteSpace);
+				Integer  arraySize = null;
 				if (this.values != null)
 					arraySize = this.values.size();
 				Integer valuesCountLocal = HDLmMod.modArrayCheck(editorType, 
-	                                                       errors,					
+				                                              	 errorCounter,		
+				                                                 errorMessages,
 	                                                       jsonObject, 
 	                                                       "colors", 
 	                                                       arraySize, 
 	                                                       HDLmZeroLengthOk.ZEROLENGTHNOTOK);
-				if (valuesCountLocal != null)
-					this.valuesCount = valuesCountLocal;
+					if (valuesCountLocal != null)
+						this.valuesCount = valuesCountLocal;
+				}
 				break;
 			}
 			/* Handle style font family. This is something like "Arial, Helvetica,
 			   sans-serif". Note that "Arial, Helvetica, sans-serif" is just one font
 			   family. */
 			case FONTFAMILY: {
-				this.values = HDLmMod.modFieldStringArray(editorType, errors, 
-						                                      jsonObject, jsonKeys, 
-						                                      "families");
-				Integer arraySize = null;
+				{
+					String  errorMessagePrefix = "Modification";
+					int     errorNumberMissing = 3;
+					int     errorNumberIsNull = 4;
+					int     errorNumberIsPrimitive = 4;
+					int     errorNumberNotPrimitive = 4;
+					int     errorNumberNotArray = 4;
+					int     errorNumberException = 4;
+					int     errorNumberTooSmall = 70;
+					int     errorNumberTooLarge = 71; 
+					int     errorNumberInvalidLength = 4;
+					int     errorNumberInvalidWhiteSpace = 4;
+					this.values = HDLmField.checkFieldStringArray(editorType, 
+							                                          errorCounter,
+							                                          errorMessages,
+							                                          jsonObject, 
+							                                          jsonKeys, 
+							                                          "families",
+							                                          null,
+							                                          null,
+							                                          errorMessagePrefix,
+							                                          errorNumberMissing,
+							                                          errorNumberIsNull,
+							                                          errorNumberIsPrimitive,
+							                                          errorNumberNotPrimitive,
+							                                          errorNumberNotArray,
+							                                          errorNumberException,
+							                                          errorNumberTooSmall,
+							                                          errorNumberTooLarge, 
+							                                          errorNumberInvalidLength,
+							                                          errorNumberInvalidWhiteSpace);
+				}
+				Integer  arraySize = null;
 				if (this.values != null)
 					arraySize = this.values.size();
-				Integer valuesCountLocal = HDLmMod.modArrayCheck(editorType, errors, 
-						                                             jsonObject, "families", 
+				Integer valuesCountLocal = HDLmMod.modArrayCheck(editorType, 
+						                                             errorCounter,
+                                                         errorMessages,
+						                                             jsonObject, 
+						                                             "families", 
 						                                             arraySize,
 						                                             HDLmZeroLengthOk.ZEROLENGTHNOTOK);
 				if (valuesCountLocal != null)
@@ -2944,14 +3472,46 @@ static String HDLmModTreeInfoString = "{" +
 			/* Handle style font kerning. The values are things like "auto", "normal" or
 			   "none". */
 			case FONTKERNING: {
-				this.values = HDLmMod.modFieldStringArray(editorType, errors, 
-						                                      jsonObject, jsonKeys, 
-						                                      "kernings");
-				Integer arraySize = null;
+				{
+					String  errorMessagePrefix = "Modification";
+					int     errorNumberMissing = 3;
+					int     errorNumberIsNull = 4;
+					int     errorNumberIsPrimitive = 4;
+					int     errorNumberNotPrimitive = 4;
+					int     errorNumberNotArray = 4;
+					int     errorNumberException = 4;
+					int     errorNumberTooSmall = 70;
+					int     errorNumberTooLarge = 71; 
+					int     errorNumberInvalidLength = 4;
+					int     errorNumberInvalidWhiteSpace = 4;
+					this.values = HDLmField.checkFieldStringArray(editorType, 
+							                                          errorCounter,
+	                                                      errorMessages,
+							                                          jsonObject, 
+							                                          jsonKeys, 
+							                                          "kernings",
+							                                          null,
+							                                          null,
+							                                          errorMessagePrefix,
+							                                          errorNumberMissing,
+							                                          errorNumberIsNull,
+							                                          errorNumberIsPrimitive,
+							                                          errorNumberNotPrimitive,
+							                                          errorNumberNotArray,
+							                                          errorNumberException,
+							                                          errorNumberTooSmall,
+							                                          errorNumberTooLarge, 
+							                                          errorNumberInvalidLength,
+							                                          errorNumberInvalidWhiteSpace);
+				}
+				Integer  arraySize = null;
 				if (this.values != null)
 					arraySize = this.values.size();
-				Integer valuesCountLocal = HDLmMod.modArrayCheck(editorType, errors, 
-						                                             jsonObject, "kernings", 
+				Integer valuesCountLocal = HDLmMod.modArrayCheck(editorType, 
+						                                             errorCounter,
+                                                         errorMessages,
+						                                             jsonObject, 
+						                                             "kernings", 
 						                                             arraySize,
 						                                             HDLmZeroLengthOk.ZEROLENGTHNOTOK);
 				if (valuesCountLocal != null)
@@ -2962,19 +3522,51 @@ static String HDLmModTreeInfoString = "{" +
 			   a percentage suffix (as in 150%) or a pixel suffix (as in 25px) or with no
 			   suffix at all. If no suffix is specified, than a pixel value is assumed. */
 			case FONTSIZE: {
-				this.values = HDLmMod.modFieldStringArray(editorType, errors, 
-						                                      jsonObject, jsonKeys, 
-						                                      "sizes");
-				Integer arraySize = null;
-				if (this.values != null)
-					arraySize = this.values.size();
-				Integer valuesCountLocal = HDLmMod.modArrayCheck(editorType, errors, 
-										                                     jsonObject, "sizes", 
-										                                     arraySize,
-										                                     HDLmZeroLengthOk.ZEROLENGTHNOTOK,
-										                                     HDLmReportErrors.REPORTERRORS);
-				if (valuesCountLocal != null)
-					this.valuesCount = valuesCountLocal;
+				{
+					String  errorMessagePrefix = "Modification";
+					int     errorNumberMissing = 3;
+					int     errorNumberIsNull = 4;
+					int     errorNumberIsPrimitive = 4;
+					int     errorNumberNotPrimitive = 4;
+					int     errorNumberNotArray = 4;
+					int     errorNumberException = 4;
+					int     errorNumberTooSmall = 70;
+					int     errorNumberTooLarge = 71; 
+					int     errorNumberInvalidLength = 4;
+					int     errorNumberInvalidWhiteSpace = 4;
+					this.values = HDLmField.checkFieldStringArray(editorType, 
+									                                      errorCounter,
+			                                                  errorMessages,
+									                                      jsonObject, 
+									                                      jsonKeys, 
+									                                      "sizes",
+							                                          null,
+							                                          null,
+							                                          errorMessagePrefix,
+							                                          errorNumberMissing,
+							                                          errorNumberIsNull,
+							                                          errorNumberIsPrimitive,
+							                                          errorNumberNotPrimitive,
+							                                          errorNumberNotArray,
+							                                          errorNumberException,
+							                                          errorNumberTooSmall,
+							                                          errorNumberTooLarge, 
+							                                          errorNumberInvalidLength,
+							                                          errorNumberInvalidWhiteSpace);
+					Integer  arraySize = null;
+					if (this.values != null)
+						arraySize = this.values.size();
+					Integer  valuesCountLocal = HDLmMod.modArrayCheck(editorType, 
+							                                             errorCounter,
+	                                                         errorMessages,
+											                                     jsonObject, 
+											                                     "sizes", 
+											                                     arraySize,
+											                                     HDLmZeroLengthOk.ZEROLENGTHNOTOK,
+											                                     HDLmReportErrors.REPORTERRORS);
+					if (valuesCountLocal != null)
+					  this.valuesCount = valuesCountLocal;
+			  }
 				/* Check if an array of values was found. We can't do anymore checking
 				   if no array of values was found. */
 				if (this.values == null)
@@ -3001,8 +3593,11 @@ static String HDLmModTreeInfoString = "{" +
 	          if (fontValue.startsWith(forceSelectString)) 
 	            fontValueLocal = fontValue.substring(forceSelectString.length());
 	          Integer  fontValueInteger = HDLmUtility.convertInteger(fontValueLocal);
-	          HDLmMod.rangeField(editorType, errors, 
-	          		               jsonObject, "font size", 
+	          HDLmMod.rangeField(editorType, 
+	          		               errorCounter,
+                               errorMessages,
+	          		               jsonObject, 
+	          		               "font size", 
 	          		               fontValueInteger,
 	          		               HDLmDefines.getNumber("HDLMFONTSIZEMIN"),
 	          		               HDLmDefines.getNumber("HDLMFONTSIZEMAX"));
@@ -3012,8 +3607,11 @@ static String HDLmModTreeInfoString = "{" +
 	          String   fontValueSuffix = fontSizeArray.get(1);
 	          /* Check if the suffix value */
 	          if (!fontValueSuffix.equals(""))
-	            HDLmMod.modSuffixCheck(editorType, errors, 
-	            		                   jsonObject, "font size", 
+	            HDLmMod.modSuffixCheck(editorType, 
+	            		                   errorCounter, 
+	            		                   errorMessages,
+	            		                   jsonObject, 
+	            		                   "font size", 
 	                                   fontSuffixValues, fontValueSuffix);                                   
 	        }
 	      }
@@ -3022,35 +3620,99 @@ static String HDLmModTreeInfoString = "{" +
 			/* Handle style font style. The values are things like "normal", "italic" or
 			   "oblique". */
 			case FONTSTYLE: {
-				this.values = HDLmMod.modFieldStringArray(editorType, errors, 
-						                                      jsonObject, jsonKeys, 
-						                                      "styles");
-				Integer arraySize = null;
-				if (this.values != null)
-					arraySize = this.values.size();
-				Integer valuesCountLocal = HDLmMod.modArrayCheck(editorType, errors, 
-										                                     jsonObject, "styles", 
-										                                     arraySize,
-										                                     HDLmZeroLengthOk.ZEROLENGTHNOTOK);
-				if (valuesCountLocal != null)
-					this.valuesCount = valuesCountLocal;
+				{
+					String  errorMessagePrefix = "Modification";
+					int     errorNumberMissing = 3;
+					int     errorNumberIsNull = 4;
+					int     errorNumberIsPrimitive = 4;
+					int     errorNumberNotPrimitive = 4;
+					int     errorNumberNotArray = 4;
+					int     errorNumberException = 4;
+					int     errorNumberTooSmall = 70;
+					int     errorNumberTooLarge = 71; 
+					int     errorNumberInvalidLength = 4;
+					int     errorNumberInvalidWhiteSpace = 4;
+					this.values = HDLmField.checkFieldStringArray(editorType, 
+									                                      errorCounter,
+			                                                  errorMessages,
+									                                      jsonObject, 
+									                                      jsonKeys, 
+									                                      "styles",
+							                                          null,
+							                                          null,
+							                                          errorMessagePrefix,
+							                                          errorNumberMissing,
+							                                          errorNumberIsNull,
+							                                          errorNumberIsPrimitive,
+							                                          errorNumberNotPrimitive,
+							                                          errorNumberNotArray,
+							                                          errorNumberException,
+							                                          errorNumberTooSmall,
+							                                          errorNumberTooLarge, 
+							                                          errorNumberInvalidLength,
+							                                          errorNumberInvalidWhiteSpace);
+					Integer  arraySize = null;
+					if (this.values != null)
+						arraySize = this.values.size();
+					Integer  valuesCountLocal = HDLmMod.modArrayCheck(editorType, 
+							                                              errorCounter,
+	                                                          errorMessages,
+											                                      jsonObject, 
+											                                      "styles", 
+											                                      arraySize,
+											                                      HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+					if (valuesCountLocal != null)
+						this.valuesCount = valuesCountLocal;
+				}
 				break;
 			}
 			/* Handle style font weight. The values are things like "normal", "lighter",
 			   "bold" or 900. */
 			case FONTWEIGHT: {
-				this.values = HDLmMod.modFieldStringArray(editorType, errors, 
-						                                      jsonObject, jsonKeys, 
-						                                      "weights");
-				Integer arraySize = null;
-				if (this.values != null)
-					arraySize = this.values.size();
-				Integer valuesCountLocal = HDLmMod.modArrayCheck(editorType, errors, 
-										                                     jsonObject, "weights", 
-										                                     arraySize,
-										                                     HDLmZeroLengthOk.ZEROLENGTHNOTOK);
-				if (valuesCountLocal != null)
-					this.valuesCount = valuesCountLocal;
+				{
+					String  errorMessagePrefix = "Modification";
+					int     errorNumberMissing = 3;
+					int     errorNumberIsNull = 4;
+					int     errorNumberIsPrimitive = 4;
+					int     errorNumberNotPrimitive = 4;
+					int     errorNumberNotArray = 4;
+					int     errorNumberException = 4;
+					int     errorNumberTooSmall = 70;
+					int     errorNumberTooLarge = 71; 
+					int     errorNumberInvalidLength = 4;
+					int     errorNumberInvalidWhiteSpace = 4;
+					this.values = HDLmField.checkFieldStringArray(editorType, 
+									                                      errorCounter,
+			                                                  errorMessages,
+									                                      jsonObject, 
+									                                      jsonKeys, 
+									                                      "weights",
+							                                          null,
+							                                          null,
+							                                          errorMessagePrefix,
+							                                          errorNumberMissing,
+							                                          errorNumberIsNull,
+							                                          errorNumberIsPrimitive,
+							                                          errorNumberNotPrimitive,
+							                                          errorNumberNotArray,
+							                                          errorNumberException,
+							                                          errorNumberTooSmall,
+							                                          errorNumberTooLarge, 
+							                                          errorNumberInvalidLength,
+							                                          errorNumberInvalidWhiteSpace);
+					Integer  arraySize = null;
+					if (this.values != null)
+						arraySize = this.values.size();				
+					Integer  valuesCountLocal = HDLmMod.modArrayCheck(editorType, 
+								                                            errorCounter,
+		                                                        errorMessages,
+												                                    jsonObject, 
+												                                    "weights", 
+												                                    arraySize,
+												                                    HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+					if (valuesCountLocal != null)
+						this.valuesCount = valuesCountLocal;
+				}
 				break;
 			}
 			/* Handle a height of some kind. The height values may be specified with a
@@ -3059,19 +3721,51 @@ static String HDLmModTreeInfoString = "{" +
 			   that the height value can be specified as "auto". If a height value of "auto"
 			   is specified, then the aspect ratio will be preserved, if possible. */
 			case HEIGHT: {
-				this.values = HDLmMod.modFieldStringArray(editorType, errors, 
-						                                      jsonObject, jsonKeys, 
-						                                      "heights");
-				Integer arraySize = null;
-				if (this.values != null)
-					arraySize = this.values.size();
-				Integer valuesCountLocal = HDLmMod.modArrayCheck(editorType, errors, 
-										                                     jsonObject, "heights", 
-										                                     arraySize, 
-										                                     HDLmZeroLengthOk.ZEROLENGTHNOTOK,
-										                                     HDLmReportErrors.REPORTERRORS);
-				if (valuesCountLocal != null)
-					this.valuesCount = valuesCountLocal;
+				{
+					String  errorMessagePrefix = "Modification";
+					int     errorNumberMissing = 3;
+					int     errorNumberIsNull = 4;
+					int     errorNumberIsPrimitive = 4;
+					int     errorNumberNotPrimitive = 4;
+					int     errorNumberNotArray = 4;
+					int     errorNumberException = 4;
+					int     errorNumberTooSmall = 70;
+					int     errorNumberTooLarge = 71; 
+					int     errorNumberInvalidLength = 4;
+					int     errorNumberInvalidWhiteSpace = 4;
+					this.values = HDLmField.checkFieldStringArray(editorType, 
+									                                      errorCounter,
+			                                                  errorMessages,
+									                                      jsonObject, 
+									                                      jsonKeys, 
+									                                      "heights",
+							                                          null,
+							                                          null,
+							                                          errorMessagePrefix,
+							                                          errorNumberMissing,
+							                                          errorNumberIsNull,
+							                                          errorNumberIsPrimitive,
+							                                          errorNumberNotPrimitive,
+							                                          errorNumberNotArray,
+							                                          errorNumberException,
+							                                          errorNumberTooSmall,
+							                                          errorNumberTooLarge, 
+							                                          errorNumberInvalidLength,
+							                                          errorNumberInvalidWhiteSpace);
+					Integer  arraySize = null;
+					if (this.values != null)
+						arraySize = this.values.size(); 
+					Integer  valuesCountLocal = HDLmMod.modArrayCheck(editorType, 
+							                                              errorCounter,
+	                                                          errorMessages,
+											                                      jsonObject, 
+											                                      "heights", 
+											                                      arraySize, 
+											                                      HDLmZeroLengthOk.ZEROLENGTHNOTOK,
+											                                      HDLmReportErrors.REPORTERRORS);
+					if (valuesCountLocal != null)
+						this.valuesCount = valuesCountLocal;
+				}
 	      /* Check if an array of values was found. We can't do anymore checking
 	         if no array of values was found. */
 	      if (this.values == null)
@@ -3094,8 +3788,11 @@ static String HDLmModTreeInfoString = "{" +
 	            heightValueLocal = heightValue.substring(forceSelectString.length());
 	          if (!heightValueLocal.equals("auto")) {
 	          Integer  heightValueInteger = HDLmUtility.convertInteger(heightValueLocal);
-	          HDLmMod.rangeField(editorType, errors, 
-	          		               jsonObject, "height", 
+	          HDLmMod.rangeField(editorType, 
+	          		               errorCounter, 
+                               errorMessages,
+	          		               jsonObject, 
+	          		               "height", 
 	          		               heightValueInteger,
 	          		               HDLmDefines.getNumber("HDLMHEIGHTMIN"),
 	          		               HDLmDefines.getNumber("HDLMHEIGHTMAX"));
@@ -3106,8 +3803,11 @@ static String HDLmModTreeInfoString = "{" +
 	          String   heightValueSuffix = heightArray.get(1);
 	          /* Check if the suffix value */
 	          if (!heightValueSuffix.equals(""))
-	            HDLmMod.modSuffixCheck(editorType, errors, 
-	            		                   jsonObject, "height", 
+	            HDLmMod.modSuffixCheck(editorType, 
+	            		                   errorCounter, 
+                                     errorMessages,
+	            		                   jsonObject, 
+	            		                   "height", 
 	                                   heightSuffixValues, 
 	                                   heightValueSuffix);                                   
 	        }
@@ -3116,200 +3816,577 @@ static String HDLmModTreeInfoString = "{" +
 			}
 			/* Handle images. Images can be many types of image files. */
 		  case IMAGE: {
-				this.values = HDLmMod.modFieldStringArray(editorType, errors, 
-						                                      jsonObject, jsonKeys, 
-						                                      "images");
-				Integer arraySize = null;
-				if (this.values != null)
-					arraySize = this.values.size();
-				Integer valuesCountLocal = HDLmMod.modArrayCheck(editorType, errors, 
-						                                             jsonObject, "images", 
-						                                             arraySize,
-						                                             HDLmZeroLengthOk.ZEROLENGTHNOTOK);
-				if (valuesCountLocal != null)
-					this.valuesCount = valuesCountLocal;
+		  	{
+					String  errorMessagePrefix = "Modification";
+					int     errorNumberMissing = 3;
+					int     errorNumberIsNull = 4;
+					int     errorNumberIsPrimitive = 4;
+					int     errorNumberNotPrimitive = 4;
+					int     errorNumberNotArray = 4;
+					int     errorNumberException = 4;
+					int     errorNumberTooSmall = 70;
+					int     errorNumberTooLarge = 71; 
+					int     errorNumberInvalidLength = 4;
+					int     errorNumberInvalidWhiteSpace = 4;
+					this.values = HDLmField.checkFieldStringArray(editorType, 
+									                                      errorCounter,
+			                                                  errorMessages,
+									                                      jsonObject, 
+									                                      jsonKeys, 
+									                                      "images",
+							                                          null,
+							                                          null,
+							                                          errorMessagePrefix,
+							                                          errorNumberMissing,
+							                                          errorNumberIsNull,
+							                                          errorNumberIsPrimitive,
+							                                          errorNumberNotPrimitive,
+							                                          errorNumberNotArray,
+							                                          errorNumberException,
+							                                          errorNumberTooSmall,
+							                                          errorNumberTooLarge, 
+							                                          errorNumberInvalidLength,
+							                                          errorNumberInvalidWhiteSpace);
+					Integer   arraySize = null;
+					if (this.values != null)
+						arraySize = this.values.size();
+					Integer valuesCountLocal = HDLmMod.modArrayCheck(editorType, 
+							                                             errorCounter,
+	                                                         errorMessages,
+							                                             jsonObject, 
+							                                             "images", 
+							                                             arraySize,
+							                                             HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+					if (valuesCountLocal != null)
+						this.valuesCount = valuesCountLocal;
+		  	}
 				break;
 		  }
 			/* Handle a modification (probably a DOM modification) */
 			case MODIFY: {
 				/* Try to get the extra information value from the JSON element */
-				String extraInfoLocal = HDLmMod.modFieldString(editorType, errors, 
-						                                           jsonObject, jsonKeys, 
-						                                           "extra", 
-						                                           HDLmWhiteSpace.WHITESPACENOTOK,
-						                                           HDLmReportErrors.REPORTERRORS,
-						                                           HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+				{
+					String  errorMessagePrefix = "Modification";
+					int     errorNumberMissing = 3;
+					int     errorNumberIsNull = 4;
+					int     errorNumberNotPrimitive = 4;
+					int     errorNumberNotArray = 4;
+					int     errorNumberException = 4; 
+					int     errorNumberInvalidLength = 4;
+					int     errorNumberInvalidWhiteSpace = 4;
+					String  extraInfoLocal = HDLmField.checkFieldString(editorType, 
+									                                            errorCounter,
+			                                                        errorMessages,
+									                                            jsonObject, 
+									                                            jsonKeys, 
+									                                            "extra", 
+									                                            errorMessagePrefix,
+																							     	     	    errorNumberMissing,
+																							                errorNumberIsNull,
+																							                errorNumberNotPrimitive,
+																							                errorNumberException,
+																								              errorNumberInvalidLength,
+																								              errorNumberInvalidWhiteSpace, 
+									                                            HDLmWhiteSpace.WHITESPACENOTOK,
+									                                            HDLmReportErrors.REPORTERRORS,
+									                                            HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+			  }
 				break;
 			}
 			/* Handle some type of a notification */
 			case NOTIFY: {
 				/* Try to get the extra information value from the JSON element */
-				String extraInfoLocal = HDLmMod.modFieldString(editorType, errors, 
-						                                           jsonObject, jsonKeys, 
-						                                           "extra", 
-						                                           HDLmWhiteSpace.WHITESPACEOK,
-						                                           HDLmReportErrors.REPORTERRORS,
-						                                           HDLmZeroLengthOk.ZEROLENGTHNOTOK);
-				this.values = HDLmMod.modFieldStringArray(editorType, errors, 
-                                                  jsonObject, jsonKeys, 
-                                                  "targets");
-				/* The notify modification type supports (but does not require) one more 
-				   extract targets. The extract targets (if any) must be processed here. */
-				Integer arraySize = null;
-				if (this.values != null)
-					arraySize = this.values.size();
-				Integer valuesCountLocal = HDLmMod.modArrayCheck(editorType, errors, 
-										                                     jsonObject, "targets", 
-										                                     arraySize,
-										                                     HDLmZeroLengthOk.ZEROLENGTHOK);
-				if (valuesCountLocal != null)
-					this.valuesCount = valuesCountLocal;
+				{
+					String  errorMessagePrefix = "Modification";
+					int     errorNumberMissing = 3;
+					int     errorNumberIsNull = 4;
+					int     errorNumberNotPrimitive = 4;
+					int     errorNumberNotArray = 4;
+					int     errorNumberException = 4; 
+					int     errorNumberInvalidLength = 4;
+					int     errorNumberInvalidWhiteSpace = 4;
+					String  extraInfoLocal = HDLmField.checkFieldString(editorType, 
+									                                            errorCounter,
+			                                                        errorMessages,
+									                                            jsonObject, 
+									                                            jsonKeys, 
+									                                            "extra", 
+									                                            errorMessagePrefix,
+																							     	     	    errorNumberMissing,
+																							                errorNumberIsNull,
+																							                errorNumberNotPrimitive,
+																							                errorNumberException,
+																								              errorNumberInvalidLength,
+																								              errorNumberInvalidWhiteSpace, 
+									                                            HDLmWhiteSpace.WHITESPACEOK,
+									                                            HDLmReportErrors.REPORTERRORS,
+									                                            HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+				}
+				{
+					String  errorMessagePrefix = "Modification";
+					int     errorNumberMissing = 3;
+					int     errorNumberIsNull = 4;
+					int     errorNumberIsPrimitive = 4;
+					int     errorNumberNotPrimitive = 4;
+					int     errorNumberNotArray = 4;
+					int     errorNumberException = 4;
+					int     errorNumberTooSmall = 70;
+					int     errorNumberTooLarge = 71; 
+					int     errorNumberInvalidLength = 4;
+					int     errorNumberInvalidWhiteSpace = 4;
+					this.values = HDLmField.checkFieldStringArray(editorType, 
+									                                      errorCounter, 
+									                                      errorMessages,
+			                                                  jsonObject, 
+			                                                  jsonKeys, 
+			                                                  "targets",
+							                                          null,
+							                                          null,
+							                                          errorMessagePrefix,
+							                                          errorNumberMissing,
+							                                          errorNumberIsNull,
+							                                          errorNumberIsPrimitive,
+							                                          errorNumberNotPrimitive,
+							                                          errorNumberNotArray,
+							                                          errorNumberException,
+							                                          errorNumberTooSmall,
+							                                          errorNumberTooLarge, 
+							                                          errorNumberInvalidLength,
+							                                          errorNumberInvalidWhiteSpace);
+					/* The notify modification type supports (but does not require) one more 
+					   extract targets. The extract targets (if any) must be processed here. */
+					Integer  arraySize = null;
+					if (this.values != null)
+						arraySize = this.values.size();
+					Integer   valuesCountLocal = HDLmMod.modArrayCheck(editorType, 
+								                                             errorCounter,
+		                                                         errorMessages,
+												                                     jsonObject, 
+												                                     "targets", 
+												                                     arraySize,
+												                                     HDLmZeroLengthOk.ZEROLENGTHOK);
+					if (valuesCountLocal != null)
+						this.valuesCount = valuesCountLocal;
+			  }
 				break;
 			}
 			/* Change (possibly) the order of a set of subnodes */
 			case ORDER: {
-				this.values = HDLmMod.modFieldStringArray(editorType, errors, 
-						                                      jsonObject, jsonKeys, 
-						                                      "orders");
-				Integer arraySize = null;
-				if (this.values != null)
-					arraySize = this.values.size();
-				Integer valuesCountLocal = HDLmMod.modArrayCheck(editorType, errors, 
-										                                     jsonObject, "orders", 
-										                                     arraySize,
-										                                     HDLmZeroLengthOk.ZEROLENGTHNOTOK);
-				if (valuesCountLocal != null)
-					this.valuesCount = valuesCountLocal;
+				{ 
+					String  errorMessagePrefix = "Modification";
+					int     errorNumberMissing = 3;
+					int     errorNumberIsNull = 4;
+					int     errorNumberIsPrimitive = 4;
+					int     errorNumberNotPrimitive = 4;
+					int     errorNumberNotArray = 4;
+					int     errorNumberException = 4;
+					int     errorNumberTooSmall = 70;
+					int     errorNumberTooLarge = 71; 
+					int     errorNumberInvalidLength = 4;
+					int     errorNumberInvalidWhiteSpace = 4;
+					this.values = HDLmField.checkFieldStringArray(editorType, 
+									                                      errorCounter,
+			                                                  errorMessages,
+									                                      jsonObject, 
+									                                      jsonKeys, 
+									                                      "orders",
+							                                          null,
+							                                          null,
+							                                          errorMessagePrefix,
+							                                          errorNumberMissing,
+							                                          errorNumberIsNull,
+							                                          errorNumberIsPrimitive,
+							                                          errorNumberNotPrimitive,
+							                                          errorNumberNotArray,
+							                                          errorNumberException,
+							                                          errorNumberTooSmall,
+							                                          errorNumberTooLarge, 
+							                                          errorNumberInvalidLength,
+							                                          errorNumberInvalidWhiteSpace);
+					Integer  arraySize = null;
+					if (this.values != null)
+						arraySize = this.values.size();
+					Integer valuesCountLocal = HDLmMod.modArrayCheck(editorType, 
+							                                             errorCounter,
+	                                                         errorMessages,
+											                                     jsonObject, 
+											                                     "orders", 
+											                                     arraySize,
+											                                     HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+					if (valuesCountLocal != null)
+						this.valuesCount = valuesCountLocal;
+				}
 				break;
 			}
 			/* Handle a remove modification (probably a DOM modification) */
 			case REMOVE: {
-				this.values = HDLmMod.modFieldStringArray(editorType, errors, 
-                                                  jsonObject, jsonKeys, 
-                                                  "removevalues");
-				/* Check each of the values and make sure it is a valid remove value */
-				if (this.values != null)
-				  HDLmMod.modFieldStringArrayRemove(this.values,
-                                            editorType, 
-						                                errors, 
-				                                    jsonObject, 
-						                                name, 
-						                                HDLmReportErrors.REPORTERRORS);			
-				Integer arraySize = null;
-				if (this.values != null)
-		  		arraySize = this.values.size();
-				Integer valuesCountLocal = HDLmMod.modArrayCheck(editorType, errors, 
-				                                                 jsonObject, "removevalues", 
-				                                                 arraySize,
-				                                                 HDLmZeroLengthOk.ZEROLENGTHNOTOK);
-				if (valuesCountLocal != null)
-			  	this.valuesCount = valuesCountLocal;
+				{
+					String  errorMessagePrefix = "Modification";
+					int     errorNumberMissing = 3;
+					int     errorNumberIsNull = 4;
+					int     errorNumberIsPrimitive = 4;
+					int     errorNumberNotPrimitive = 4;
+					int     errorNumberNotArray = 4;
+					int     errorNumberException = 4;
+					int     errorNumberTooSmall = 70;
+					int     errorNumberTooLarge = 71; 
+					int     errorNumberInvalidLength = 4;
+					int     errorNumberInvalidWhiteSpace = 4;
+					this.values = HDLmField.checkFieldStringArray(editorType, 
+									                                      errorCounter,
+			                                                  errorMessages,
+			                                                  jsonObject, 
+			                                                  jsonKeys, 
+			                                                  "removevalues",
+							                                          null,
+							                                          null,
+							                                          errorMessagePrefix,
+							                                          errorNumberMissing,
+							                                          errorNumberIsNull,
+							                                          errorNumberIsPrimitive,
+							                                          errorNumberNotPrimitive,
+							                                          errorNumberNotArray,
+							                                          errorNumberException,
+							                                          errorNumberTooSmall,
+							                                          errorNumberTooLarge, 
+							                                          errorNumberInvalidLength,
+							                                          errorNumberInvalidWhiteSpace);
+					/* Check each of the values and make sure it is a valid remove value */
+					if (this.values != null)
+					  HDLmMod.modFieldStringArrayRemove(this.values,
+	                                            editorType, 
+	                                            errorCounter,
+	                                            errorMessages,
+					                                    jsonObject, 
+							                                name, 
+							                                HDLmReportErrors.REPORTERRORS);			
+					Integer  arraySize = null;
+					if (this.values != null)
+			  		arraySize = this.values.size(); 
+					Integer valuesCountLocal = HDLmMod.modArrayCheck(editorType, 
+							                                             errorCounter,
+	                                                         errorMessages,
+					                                                 jsonObject, 
+					                                                 "removevalues", 
+					                                                 arraySize,
+					                                                 HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+					if (valuesCountLocal != null)
+				  	this.valuesCount = valuesCountLocal;
+				}
 				break;
 			}
 			/* Handle a replace modification (probably a DOM modification) */
 			case REPLACE: {
-				this.values = HDLmMod.modFieldStringArray(editorType, errors, 
-                                                  jsonObject, jsonKeys, 
-                                                  "replacevalues");
-				/* Check each of the values and make sure it is a valid replace value */
-				if (this.values != null)
-				  HDLmMod.modFieldStringArrayReplace(this.values,
-                                             editorType, 
-						                                 errors, 
-				                                     jsonObject, 
-						                                 name, 
-						                                 HDLmReportErrors.REPORTERRORS);			
-				Integer arraySize = null;
-				if (this.values != null)
-		  		arraySize = this.values.size();
-				Integer valuesCountLocal = HDLmMod.modArrayCheck(editorType, errors, 
-				                                                 jsonObject, "replacevalues", 
-				                                                 arraySize,
-				                                                 HDLmZeroLengthOk.ZEROLENGTHNOTOK);
-				if (valuesCountLocal != null)
-			  	this.valuesCount = valuesCountLocal;
+				{			 
+					String  errorMessagePrefix = "Modification";
+					int     errorNumberMissing = 3;
+					int     errorNumberIsNull = 4;
+					int     errorNumberIsPrimitive = 4;
+					int     errorNumberNotPrimitive = 4;
+					int     errorNumberNotArray = 4;
+					int     errorNumberException = 4;
+					int     errorNumberTooSmall = 70;
+					int     errorNumberTooLarge = 71; 
+					int     errorNumberInvalidLength = 4;
+					int     errorNumberInvalidWhiteSpace = 4;
+					this.values = HDLmField.checkFieldStringArray(editorType, 
+									                                      errorCounter,
+			                                                  errorMessages,
+			                                                  jsonObject, 
+			                                                  jsonKeys, 
+			                                                  "replacevalues",
+							                                          null,
+							                                          null,
+							                                          errorMessagePrefix,
+							                                          errorNumberMissing,
+							                                          errorNumberIsNull,
+							                                          errorNumberIsPrimitive,
+							                                          errorNumberNotPrimitive,
+							                                          errorNumberNotArray,
+							                                          errorNumberException,
+							                                          errorNumberTooSmall,
+							                                          errorNumberTooLarge, 
+							                                          errorNumberInvalidLength,
+							                                          errorNumberInvalidWhiteSpace,
+																									      HDLmWhiteSpace.WHITESPACENOTOK,
+																								        HDLmReportErrors.REPORTERRORS,
+																								        /* We allow zero-length replace values */
+																								        HDLmZeroLengthOk.ZEROLENGTHOK);
+					/* Check each of the values and make sure it is a valid replace value */
+					if (this.values != null)
+					  HDLmMod.modFieldStringArrayReplace(this.values,
+	                                             editorType, 
+	                                             errorCounter,
+	                                             errorMessages,
+					                                     jsonObject, 
+							                                 name, 
+							                                 HDLmReportErrors.REPORTERRORS);			
+					Integer  arraySize = null;
+					if (this.values != null)
+			  		arraySize = this.values.size();
+					Integer valuesCountLocal = HDLmMod.modArrayCheck(editorType, 
+							                                             errorCounter,
+	                                                         errorMessages,
+					                                                 jsonObject, 
+					                                                 "replacevalues", 
+					                                                 arraySize,
+					                                                 HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+					if (valuesCountLocal != null)
+				  	this.valuesCount = valuesCountLocal;
+				}
 				break;
 			}
 			/* Handle a script modification */
 			case SCRIPT: {
-				this.values = HDLmMod.modFieldStringArray(editorType, errors, 
-                                                  jsonObject, jsonKeys, 
-                                                  "scripts");
-				/* Check each of the values and make sure it is a valid script value */
-				if (this.values != null)
-				  HDLmMod.modFieldStringArrayScript(this.values,
-                                            editorType, 
-						                                errors, 
-				                                    jsonObject, 
-						                                name, 
-						                                HDLmReportErrors.REPORTERRORS);			
-				Integer arraySize = null;
-				if (this.values != null)
-		  		arraySize = this.values.size();
-				Integer valuesCountLocal = HDLmMod.modArrayCheck(editorType, errors, 
-				                                                 jsonObject, "scripts", 
-				                                                 arraySize,
-				                                                 HDLmZeroLengthOk.ZEROLENGTHNOTOK);
-				if (valuesCountLocal != null)
-			  	this.valuesCount = valuesCountLocal;
+				/* This call makes sure that we can find the scripts key in the JSON object. 
+				   The scripts key is required for a script modification. */	
+				{
+					String  errorMessagePrefix = "Modification";
+					int     errorNumberMissing = 3;
+					int     errorNumberIsNull = 4;
+					int     errorNumberIsPrimitive = 4;
+					int     errorNumberNotPrimitive = 4;
+					int     errorNumberNotArray = 4;
+					int     errorNumberException = 4;
+					int     errorNumberTooSmall = 70;
+					int     errorNumberTooLarge = 71; 
+					int     errorNumberInvalidLength = 4;
+					int     errorNumberInvalidWhiteSpace = 4;
+					this.values = HDLmField.checkFieldStringArray(editorType, 
+									                                      errorCounter,
+			                                                  errorMessages,
+			                                                  jsonObject, 
+			                                                  jsonKeys, 
+			                                                  "scripts",
+							                                          null,
+							                                          null,
+							                                          errorMessagePrefix,
+							                                          errorNumberMissing,
+							                                          errorNumberIsNull,
+							                                          errorNumberIsPrimitive,
+							                                          errorNumberNotPrimitive,
+							                                          errorNumberNotArray,
+							                                          errorNumberException,
+							                                          errorNumberTooSmall,
+							                                          errorNumberTooLarge, 
+							                                          errorNumberInvalidLength,
+							                                          errorNumberInvalidWhiteSpace);
+					/* Check each of the values and make sure it is a valid script value */
+					if (this.values != null)
+					  HDLmMod.modFieldStringArrayScript(this.values,
+	                                            editorType, 
+	                                            errorCounter,
+	                                            errorMessages,
+					                                    jsonObject, 
+							                                name, 
+							                                HDLmReportErrors.REPORTERRORS);			
+					Integer  arraySize = null;
+					if (this.values != null)
+			  		arraySize = this.values.size(); 
+					/* This call checks for an empty array */
+					Integer valuesCountLocal = HDLmMod.modArrayCheck(editorType, 
+							                                             errorCounter,
+	                                                         errorMessages,
+					                                                 jsonObject, 
+					                                                 "scripts", 
+					                                                 arraySize,
+					                                                 HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+					if (valuesCountLocal != null) {
+				  	this.valuesCount = valuesCountLocal;			  
+					}
+				}
 				break;
 			}
 			/* Handle style modifications */
-			case STYLE: {
+			case STYLE: {				
 				/* Try to get the extra information value from the JSON element */
-				String extraInfoLocal = HDLmMod.modFieldString(editorType, errors, 
-						                                           jsonObject, jsonKeys, 
-						                                           "extra", 
-						                                           HDLmWhiteSpace.WHITESPACENOTOK, 
-						                                           HDLmReportErrors.REPORTERRORS,
-						                                           HDLmZeroLengthOk.ZEROLENGTHNOTOK);
-				this.values = HDLmMod.modFieldStringArray(editorType, errors, 
-						                                      jsonObject, jsonKeys, 
-						                                      "styles");
-				Integer arraySize = null;
-				if (this.values != null)
-					arraySize = this.values.size();
-				Integer valuesCountLocal = HDLmMod.modArrayCheck(editorType, errors, 
-										                                     jsonObject, "styles", 
-										                                     arraySize,
-										                                     HDLmZeroLengthOk.ZEROLENGTHNOTOK);
-				if (valuesCountLocal != null)
-					this.valuesCount = valuesCountLocal;
+				{
+					String  errorMessagePrefix = "Modification";
+					int     errorNumberMissing = 3; 
+			    int     errorNumberIsNull = 4;
+			    int     errorNumberNotPrimitive = 4;
+			    int     errorNumberException = 4;
+			    int     errorNumberInvalidLength = 4;
+			    int     errorNumberInvalidWhiteSpace = 4;
+					String  extraInfoLocal = HDLmField.checkFieldString(editorType, 
+									                                            errorCounter,
+			                                                        errorMessages,
+									                                            jsonObject, 
+									                                            jsonKeys, 
+									                                            "extra", 
+									                                            errorMessagePrefix,
+																							     	     	    errorNumberMissing,
+																							                errorNumberIsNull,
+																							                errorNumberNotPrimitive,
+																							                errorNumberException,
+																								              errorNumberInvalidLength,
+																								              errorNumberInvalidWhiteSpace, 
+									                                            HDLmWhiteSpace.WHITESPACENOTOK, 
+									                                            HDLmReportErrors.REPORTERRORS,
+									                                            HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+				}
+				{
+					String  errorMessagePrefix = "Modification";
+					int     errorNumberMissing = 3;
+					int     errorNumberIsNull = 4;
+					int     errorNumberIsPrimitive = 4;
+					int     errorNumberNotPrimitive = 4;
+					int     errorNumberNotArray = 4;
+					int     errorNumberException = 4;
+					int     errorNumberTooSmall = 70;
+					int     errorNumberTooLarge = 71; 
+					int     errorNumberInvalidLength = 4;
+					int     errorNumberInvalidWhiteSpace = 4;
+					this.values = HDLmField.checkFieldStringArray(editorType, 
+									                                      errorCounter,
+			                                                  errorMessages,
+									                                      jsonObject, 
+									                                      jsonKeys, 
+									                                      "styles",
+							                                          null,
+							                                          null,
+							                                          errorMessagePrefix,
+							                                          errorNumberMissing,
+							                                          errorNumberIsNull,
+							                                          errorNumberIsPrimitive,
+							                                          errorNumberNotPrimitive,
+							                                          errorNumberNotArray,
+							                                          errorNumberException,
+							                                          errorNumberTooSmall,
+							                                          errorNumberTooLarge, 
+							                                          errorNumberInvalidLength,
+							                                          errorNumberInvalidWhiteSpace);
+					Integer  arraySize = null;
+					if (this.values != null)
+						arraySize = this.values.size();
+					Integer valuesCountLocal = HDLmMod.modArrayCheck(editorType, 
+							                                             errorCounter,
+	                                                         errorMessages,
+											                                     jsonObject, 
+											                                     "styles", 
+											                                     arraySize,
+											                                     HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+					if (valuesCountLocal != null)
+						this.valuesCount = valuesCountLocal;
+				}
 				break;
 			}
 			/* Handle text replacement */
 			case TEXT: {
-				this.values = HDLmMod.modFieldStringArray(editorType, errors, 
-						                                      jsonObject, jsonKeys, 
-						                                      "newtexts");
-				Integer arraySize = null;
-				if (this.values != null)
-					arraySize = this.values.size();
-				Integer valuesCountLocal = HDLmMod.modArrayCheck(editorType, errors, 
-										                                     jsonObject, "newtexts", 
-										                                     arraySize,
-										                                     HDLmZeroLengthOk.ZEROLENGTHNOTOK);
-				if (valuesCountLocal != null)
-					this.valuesCount = valuesCountLocal;
+				{			 
+					String  errorMessagePrefix = "Modification";
+					int     errorNumberMissing = 3;
+					int     errorNumberIsNull = 4;
+					int     errorNumberIsPrimitive = 4;
+					int     errorNumberNotPrimitive = 4;
+					int     errorNumberNotArray = 4;
+					int     errorNumberException = 4;
+					int     errorNumberTooSmall = 70;
+					int     errorNumberTooLarge = 71; 
+					int     errorNumberInvalidLength = 4;
+					int     errorNumberInvalidWhiteSpace = 4;
+					this.values = HDLmField.checkFieldStringArray(editorType, 
+									                                      errorCounter,
+			                                                  errorMessages,
+									                                      jsonObject, 
+									                                      jsonKeys, 
+									                                      "newtexts",
+							                                          null,
+							                                          null,
+							                                          errorMessagePrefix,
+							                                          errorNumberMissing,
+							                                          errorNumberIsNull,
+							                                          errorNumberIsPrimitive,
+							                                          errorNumberNotPrimitive,
+							                                          errorNumberNotArray,
+							                                          errorNumberException,
+							                                          errorNumberTooSmall,
+							                                          errorNumberTooLarge, 
+							                                          errorNumberInvalidLength,
+							                                          errorNumberInvalidWhiteSpace);
+					Integer  arraySize = null;
+					if (this.values != null)
+						arraySize = this.values.size();
+					Integer valuesCountLocal = HDLmMod.modArrayCheck(editorType, 
+							                                             errorCounter,
+	                                                         errorMessages,
+											                                     jsonObject, 
+											                                     "newtexts", 
+											                                     arraySize,
+											                                     HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+					if (valuesCountLocal != null)
+						this.valuesCount = valuesCountLocal;
+			  }
 				break;
 			}
 			/* Handle text replacement with original text checking */
 			case TEXTCHECKED: {
 				/* Try to get the extra information value from the JSON element */
-				String extraInfoLocal = HDLmMod.modFieldString(editorType, errors, 
-						                                           jsonObject, jsonKeys, 
-						                                           "extra", 
-						                                           HDLmWhiteSpace.WHITESPACENOTOK, 
-						                                           HDLmReportErrors.REPORTERRORS,
-						                                           HDLmZeroLengthOk.ZEROLENGTHNOTOK);
-				this.values = HDLmMod.modFieldStringArray(editorType, errors, 
-						                                      jsonObject, jsonKeys, 
-						                                      "newtexts");
-				Integer arraySize = null;
+				{
+					String  errorMessagePrefix = "Modification";
+					int     errorNumberMissing = 3; 
+			    int     errorNumberIsNull = 4;
+			    int     errorNumberNotPrimitive = 4;
+			    int     errorNumberException = 4;
+			    int     errorNumberInvalidLength = 4;
+			    int     errorNumberInvalidWhiteSpace = 4;
+					String  extraInfoLocal = HDLmField.checkFieldString(editorType, 
+									                                            errorCounter,
+			                                                        errorMessages,
+									                                            jsonObject, 
+									                                            jsonKeys, 
+									                                            "extra", 
+									                                            errorMessagePrefix,
+																							     	     	    errorNumberMissing,
+																							                errorNumberIsNull,
+																							                errorNumberNotPrimitive,
+																							                errorNumberException,
+																								              errorNumberInvalidLength,
+																								              errorNumberInvalidWhiteSpace, 
+									                                            HDLmWhiteSpace.WHITESPACENOTOK, 
+									                                            HDLmReportErrors.REPORTERRORS,
+									                                            HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+				}
+				{
+			 	  String  errorMessagePrefix = "Modification";
+					int     errorNumberMissing = 3;
+					int     errorNumberIsNull = 4;
+					int     errorNumberIsPrimitive = 4;
+					int     errorNumberNotPrimitive = 4;
+					int     errorNumberNotArray = 4;
+					int     errorNumberException = 4;
+					int     errorNumberTooSmall = 70;
+					int     errorNumberTooLarge = 71; 
+					int     errorNumberInvalidLength = 4;
+					int     errorNumberInvalidWhiteSpace = 4;
+					this.values = HDLmField.checkFieldStringArray(editorType, 
+									                                      errorCounter,
+			                                                  errorMessages,
+									                                      jsonObject, 
+									                                      jsonKeys, 
+									                                      "newtexts",
+							                                          null,
+							                                          null,
+							                                          errorMessagePrefix,
+							                                          errorNumberMissing,
+							                                          errorNumberIsNull,
+							                                          errorNumberIsPrimitive,
+							                                          errorNumberNotPrimitive,
+							                                          errorNumberNotArray,
+							                                          errorNumberException,
+							                                          errorNumberTooSmall,
+							                                          errorNumberTooLarge, 
+							                                          errorNumberInvalidLength,
+							                                          errorNumberInvalidWhiteSpace);
+				}
+				Integer  arraySize = null;
 				if (this.values != null)
 					arraySize = this.values.size();
-				Integer valuesCountLocal = HDLmMod.modArrayCheck(editorType, errors, 
-										                                     jsonObject, "newtexts", 
+				Integer valuesCountLocal = HDLmMod.modArrayCheck(editorType, 
+						                                             errorCounter,
+                                                         errorMessages,
+										                                     jsonObject, 
+										                                     "newtexts", 
 										                                     arraySize,
 										                                     HDLmZeroLengthOk.ZEROLENGTHNOTOK);
 				if (valuesCountLocal != null)
@@ -3318,61 +4395,158 @@ static String HDLmModTreeInfoString = "{" +
 			}
 			/* Handle replacing titles (for buttons and the like) */
 			case TITLE: {
-				this.values = HDLmMod.modFieldStringArray(editorType, errors, 
-						                                      jsonObject, jsonKeys, 
-						                                      "titles");
-				Integer arraySize = null;
-				if (this.values != null)
-					arraySize = this.values.size();
-				Integer valuesCountLocal = HDLmMod.modArrayCheck(editorType, errors, 
-										                                     jsonObject, "titles", 
-										                                     arraySize,
-										                                     HDLmZeroLengthOk.ZEROLENGTHNOTOK);		
-				if (valuesCountLocal != null)
-					this.valuesCount = valuesCountLocal;
+				{
+					String  errorMessagePrefix = "Modification";
+					int     errorNumberMissing = 3;
+					int     errorNumberIsNull = 4;
+					int     errorNumberIsPrimitive = 4;
+					int     errorNumberNotPrimitive = 4;
+					int     errorNumberNotArray = 4;
+					int     errorNumberException = 4;
+					int     errorNumberTooSmall = 70;
+					int     errorNumberTooLarge = 71; 
+					int     errorNumberInvalidLength = 4;
+					int     errorNumberInvalidWhiteSpace = 4;
+					this.values = HDLmField.checkFieldStringArray(editorType, 
+									                                      errorCounter,
+			                                                  errorMessages,
+									                                      jsonObject, 
+									                                      jsonKeys, 
+									                                      "titles",
+							                                          null,
+							                                          null,
+							                                          errorMessagePrefix,
+							                                          errorNumberMissing,
+							                                          errorNumberIsNull,
+							                                          errorNumberIsPrimitive,
+							                                          errorNumberNotPrimitive,
+							                                          errorNumberNotArray,
+							                                          errorNumberException,
+							                                          errorNumberTooSmall,
+							                                          errorNumberTooLarge, 
+							                                          errorNumberInvalidLength,
+							                                          errorNumberInvalidWhiteSpace);
+					Integer  arraySize = null;
+					if (this.values != null)
+						arraySize = this.values.size();
+					Integer valuesCountLocal = HDLmMod.modArrayCheck(editorType, 
+							                                             errorCounter,
+	                                                         errorMessages,
+											                                     jsonObject, 
+											                                     "titles", 
+											                                     arraySize,
+											                                     HDLmZeroLengthOk.ZEROLENGTHNOTOK);		
+					if (valuesCountLocal != null)
+						this.valuesCount = valuesCountLocal;
+				}
 				break;
 			}
 			/* Handle a visit modification (definitely not a DOM modification) */
 			case VISIT: {
-				this.values = HDLmMod.modFieldStringArray(editorType, errors, 
-                                                  jsonObject, jsonKeys, 
-                                                  "visitvalues");
-				/* Check each of the values and make sure it is a valid visit value */
-				if (this.values != null)
-				  HDLmMod.modFieldStringArrayVisit(this.values,
-                                           editorType, 
-						                               errors, 
-				                                   jsonObject, 
-						                               name, 
-						                               HDLmReportErrors.REPORTERRORS);			
-				Integer arraySize = null;
-				if (this.values != null)
-		  		arraySize = this.values.size();
-				Integer valuesCountLocal = HDLmMod.modArrayCheck(editorType, errors, 
-				                                                 jsonObject, "visitvalues", 
-				                                                 arraySize,
-				                                                 HDLmZeroLengthOk.ZEROLENGTHNOTOK);
-				if (valuesCountLocal != null)
-			  	this.valuesCount = valuesCountLocal;
+				{
+					String  errorMessagePrefix = "Modification";
+					int     errorNumberMissing = 3;
+					int     errorNumberIsNull = 4;
+					int     errorNumberIsPrimitive = 4;
+					int     errorNumberNotPrimitive = 4;
+					int     errorNumberNotArray = 4;
+					int     errorNumberException = 4;
+					int     errorNumberTooSmall = 70;
+					int     errorNumberTooLarge = 71; 
+					int     errorNumberInvalidLength = 4;
+					int     errorNumberInvalidWhiteSpace = 4;
+					this.values = HDLmField.checkFieldStringArray(editorType, 
+									                                      errorCounter,
+			                                                  errorMessages,
+			                                                  jsonObject, 
+			                                                  jsonKeys, 
+			                                                  "visitvalues",
+							                                          null,
+							                                          null,
+							                                          errorMessagePrefix,
+							                                          errorNumberMissing,
+							                                          errorNumberIsNull,
+							                                          errorNumberIsPrimitive,
+							                                          errorNumberNotPrimitive,
+							                                          errorNumberNotArray,
+							                                          errorNumberException,
+							                                          errorNumberTooSmall,
+							                                          errorNumberTooLarge, 
+							                                          errorNumberInvalidLength,
+							                                          errorNumberInvalidWhiteSpace);
+					/* Check each of the values and make sure it is a valid visit value */
+					if (this.values != null)
+					  HDLmMod.modFieldStringArrayVisit(this.values,
+	                                           editorType, 
+	                                           errorCounter,
+	                                           errorMessages,
+					                                   jsonObject, 
+							                               name, 
+							                               HDLmReportErrors.REPORTERRORS);			
+					Integer  arraySize = null;
+					if (this.values != null)
+			  		arraySize = this.values.size();
+					Integer valuesCountLocal = HDLmMod.modArrayCheck(editorType, 
+							                                             errorCounter,
+	                                                         errorMessages,
+					                                                 jsonObject, 
+					                                                 "visitvalues", 
+					                                                 arraySize,
+					                                                 HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+					if (valuesCountLocal != null)
+				  	this.valuesCount = valuesCountLocal;
+				}
 				break;
 			}
 			/* Handle a width of some kind. The width values may be specified with a
 			   percentage suffix (as in 150%) or a pixel suffix (as in 25px) or with no
 			   suffix at all. If no suffix is specified, than a pixel value is assumed. */
 			case WIDTH: {
-				this.values = HDLmMod.modFieldStringArray(editorType, errors, 
-						                                      jsonObject, jsonKeys, 
-						                                      "widths");
-				Integer arraySize = null;
-				if (this.values != null)
-					arraySize = this.values.size();
-				Integer valuesCountLocal = HDLmMod.modArrayCheck(editorType, errors, 
-										                                     jsonObject, "widths", 
-										                                     arraySize,
-										                                     HDLmZeroLengthOk.ZEROLENGTHNOTOK,
-										                                     HDLmReportErrors.REPORTERRORS);
-				if (valuesCountLocal != null)
-					this.valuesCount = valuesCountLocal;
+				{
+					String  errorMessagePrefix = "Modification";
+					int     errorNumberMissing = 3;
+					int     errorNumberIsNull = 4;
+					int     errorNumberIsPrimitive = 4;
+					int     errorNumberNotPrimitive = 4;
+					int     errorNumberNotArray = 4;
+					int     errorNumberException = 4;
+					int     errorNumberTooSmall = 70;
+					int     errorNumberTooLarge = 71; 
+					int     errorNumberInvalidLength = 4;
+					int     errorNumberInvalidWhiteSpace = 4;
+					this.values = HDLmField.checkFieldStringArray(editorType, 
+									                                      errorCounter,
+			                                                  errorMessages,
+									                                      jsonObject, 
+									                                      jsonKeys, 
+									                                      "widths",
+							                                          null,
+							                                          null,
+							                                          errorMessagePrefix,
+							                                          errorNumberMissing,
+							                                          errorNumberIsNull,
+							                                          errorNumberIsPrimitive,
+							                                          errorNumberNotPrimitive,
+							                                          errorNumberNotArray,
+							                                          errorNumberException,
+							                                          errorNumberTooSmall,
+							                                          errorNumberTooLarge, 
+							                                          errorNumberInvalidLength,
+							                                          errorNumberInvalidWhiteSpace);
+					Integer  arraySize = null;
+					if (this.values != null)
+						arraySize = this.values.size();
+					Integer valuesCountLocal = HDLmMod.modArrayCheck(editorType, 
+							                                             errorCounter,
+	                                                         errorMessages,
+											                                     jsonObject, 
+											                                     "widths", 
+											                                     arraySize,
+											                                     HDLmZeroLengthOk.ZEROLENGTHNOTOK,
+											                                     HDLmReportErrors.REPORTERRORS);
+					if (valuesCountLocal != null)
+						this.valuesCount = valuesCountLocal;
+				}
 	      /* Check if an array of values was found. We can't do anymore checking
 	         if no array of values was found. */
 	      if (this.values == null)
@@ -3395,8 +4569,11 @@ static String HDLmModTreeInfoString = "{" +
 	            widthValueLocal = widthValue.substring(forceSelectString.length());
 	          if (!widthValueLocal.equals("auto")) {
 	          Integer  widthValueInteger = HDLmUtility.convertInteger(widthValueLocal);
-	          HDLmMod.rangeField(editorType, errors, 
-	          		               jsonObject, "width", 
+	          HDLmMod.rangeField(editorType, 
+	          		               errorCounter, 
+                               errorMessages,
+	          		               jsonObject, 
+	          		               "width", 
 	          		               widthValueInteger,
 	          		               HDLmDefines.getNumber("HDLMWIDTHMIN"),
 	          		               HDLmDefines.getNumber("HDLMWIDTHMAX"));
@@ -3407,8 +4584,11 @@ static String HDLmModTreeInfoString = "{" +
 	          String   widthValueSuffix = widthArray.get(1);
 	          /* Check if the suffix value */
 	          if (!widthValueSuffix.equals(""))
-	            HDLmMod.modSuffixCheck(editorType, errors, 
-	            		                   jsonObject, "width", 
+	            HDLmMod.modSuffixCheck(editorType, 
+	            		                   errorCounter, 
+                                     errorMessages,
+	            		                   jsonObject, 
+	            		                   "width", 
 	                                   widthSuffixValues, 
 	                                   widthValueSuffix);                                   
 	        }
@@ -3421,9 +4601,14 @@ static String HDLmModTreeInfoString = "{" +
 			default: {
 				if (this.type != null) {
 					String localString = this.type.toString();
-					HDLmMod.reportField(editorType, errors, 
-							                jsonObject, "type", 
-							                localString);
+					HDLmField.reportField(editorType, 
+							                  errorCounter,
+                                errorMessages,
+							                  jsonObject,  
+							                  "type", 
+							                  localString,
+	                              "Modification JSON invalid field", 
+	                              4);
 				}
 			}
     } 
@@ -3432,8 +4617,10 @@ static String HDLmModTreeInfoString = "{" +
 		   than the current modification can not really be used. Note that only
 		   the error count field is set here. The enabled field is not changed
 		   here, based on the number of errors. */
-    if (errors.intValue() > 0)
-		  this.errorCount = errors.intValue();
+    if (errorCounter.intValue() > 0) {
+		  this.errorCount = errorCounter.intValue();
+      this.errorMsgs = errorMessages;
+    }
   }
 	/* Apply (if possible) an HTML modification to a web page. This method returns
 	   true if an actual change was mode. This method returns false if no actual
@@ -3447,8 +4634,10 @@ static String HDLmModTreeInfoString = "{" +
 	   course, this may not always be true. The modification constructor will always
 	   set the enabled field to false, if any errors are detected constructing a
 	   modification object. */
-	protected boolean apply(Document htmlDom, String pathValueStr, ArrayList<Double> parametersArray,
-		                   	  ArrayList<HDLmSavedChange> savedChangesArray) {
+	protected boolean apply(final Document htmlDom, 
+			                    final String pathValueStr, 
+			                    final ArrayList<Double> parametersArray,
+			                    final ArrayList<HDLmSavedChange> savedChangesArray) {
 		if (htmlDom == null) {
 			String  errorText = "HTML DOM passed to apply is null";
 			throw new NullPointerException(errorText);
@@ -3766,8 +4955,12 @@ static String HDLmModTreeInfoString = "{" +
 	   returns true if an actual change was mode. This method returns false if no
 	   actual change was made. This method can only be used if the new font values
 	   are selected from an array. */
-	protected boolean applyStyle(ArrayList<HDLmSavedChange> savedChangesArray, Document htmlDom, HDLmModTypes type,
-			                         String fontText, Integer parameterNumber, Double parameterValue) {
+	protected boolean applyStyle(final ArrayList<HDLmSavedChange> savedChangesArray, 
+			                         final Document htmlDom, 
+			                         final HDLmModTypes type,
+			                         final String fontText, 
+			                         final Integer parameterNumber, 
+			                         final Double parameterValue) {
 		if (savedChangesArray == null) {
 			String  errorText = "Saved changes array passed to applyStyle is null";
 			throw new NullPointerException(errorText);
@@ -3994,6 +5187,7 @@ static String HDLmModTreeInfoString = "{" +
 		this.cssSelector = oldMod.getCssSelector();
 		this.enabled = oldMod.getEnabled();
 		this.errorCount = oldMod.getErrorCount();
+		this.errorMsgs = oldMod.getErrorMsgs();
 		this.extra = oldMod.getExtra();
 		/* We need to deep copy the finds. This requires several steps. Of course, we
 		   can only copy the old finds, if we had any. If the old finds field was null,
@@ -4017,6 +5211,7 @@ static String HDLmModTreeInfoString = "{" +
 		this.pathValue = oldMod.getPathValue();
 		this.pathre = oldMod.getPathValueRe();
 		this.pathMatch = oldMod.getPathValueMatch();
+		this.probability = oldMod.getProbability();
 		this.useMode = oldMod.getUseMode();
 		this.value = oldMod.getValue();
 		this.valueSuffix = oldMod.getValueSuffix();
@@ -4032,10 +5227,10 @@ static String HDLmModTreeInfoString = "{" +
 	/* Process the Java object passed by the caller. The Java object
 	   should be for just one site. Extract all of the modifications
 	   for the site and put them in an array. */
-	protected static ArrayList<HDLmMod> extractMods(String pathValueStr, 
-			                                            HDLmTree siteObj,
-			                                            HDLmPassThruStatus passThru,
-			                                            HDLmUsePathValue usePathValue) {
+	protected static ArrayList<HDLmMod> extractMods(final String pathValueStr, 
+																									final HDLmTree siteObj,
+																									final HDLmPassThruStatus passThru,
+																									final HDLmUsePathValue usePathValue) {
 		/* Check a few values passed by the caller */
 		if (pathValueStr == null) {
 			String  errorText = "Path value string passed to extract modifications is null";
@@ -4065,7 +5260,7 @@ static String HDLmModTreeInfoString = "{" +
 			String  childPathValue = child.getDetails().getPathMatchValue();
 			if (match == false)
 				continue;
-			HDLmMod childDetails = child.getDetails();
+			HDLmMod  childDetails = child.getDetails();
 			/* If we are in pass-through mode, then mark the current modification as
 		     disabled. All modifications are disabled in pass-through mode. This
 		     doesn't really work. Some critical modifications are disabled even
@@ -4093,7 +5288,7 @@ static String HDLmModTreeInfoString = "{" +
 	   tries to use the XPath search value (if one exists). If no CSS Selector and
 	   XPath search information is available, then the modification find array is 
 	   used. */
-	protected Elements find(Document HTMLDom) {
+	protected Elements find(final Document HTMLDom) {
 		if (HTMLDom == null) {
 			String  errorText = "HTML DOM passed to find is null";
 			throw new NullPointerException(errorText);
@@ -4127,7 +5322,7 @@ static String HDLmModTreeInfoString = "{" +
 	   value if the current type does not have an array field (this
 	   is not an error). This routine will return a string if the
 	   current type does have an array field. */ 
-	protected static String getArrayName(HDLmModTypes type) {
+	protected static String  getArrayName(final HDLmModTypes type) {
 		/* Check if the type passed by the caller is a null value */
 		if (type == null) {
 			String  errorText = "Modification type value passed to getArrayName is null";
@@ -4198,6 +5393,11 @@ static String HDLmModTreeInfoString = "{" +
 	protected int          getErrorCount() {
 		return this.errorCount;
 	}
+	/* Get the modification error messages (an ArrayList) and return it to the caller.
+	   This value may be (will be) null if no errors have been detected. */
+	protected ArrayList<String> getErrorMsgs() {
+		return this.errorMsgs;
+	}
 	/* Get the modification extra information value and return it to the caller */
 	protected String       getExtra() {
 		return this.extra;
@@ -4209,7 +5409,7 @@ static String HDLmModTreeInfoString = "{" +
 	/* Process the modifications passed by the caller. Find the highest
 	   parameter number in the modifications. This routine returns a null
 	   value, if no parameter numbers can be found. */
-	protected static Integer getHighParmNumber(ArrayList<HDLmMod> mods) {
+	protected static Integer getHighParmNumber(final ArrayList<HDLmMod> mods) {
 		/* Check if the modifications array passed by the caller is null */
 		if (mods == null) {
 		  String  errorText = "Modifications array list passed to getHighParmNumber is null";
@@ -4242,7 +5442,7 @@ static String HDLmModTreeInfoString = "{" +
 	   needed to get the JSON version of a modification. Note that many of the
 	   modification properties are private or protected. This code bypasses all
 	   permission restrictions. */
-	protected String getJsonSerializeNulls() {
+	protected String       getJsonSerializeNulls() {
 		Gson gson = HDLmMain.gsonSerializeNullsMain;
 		String jsonStr = gson.toJson(this);
 		return jsonStr;
@@ -4251,7 +5451,7 @@ static String HDLmModTreeInfoString = "{" +
 		 needed to get the JSON version of a modification. Note that many of the
 		 modification properties are private or protected. This code bypasses all
 		 permission restrictions. */
-	protected String getJsonSpecialSerializeNulls() {
+	protected String       getJsonSpecialSerializeNulls() {
 		HDLmTiming.addTiming(HDLmTimingTypes.GENERAL, "After entry in getJsonSpecial");
 		Gson  gson = HDLmMain.gsonSerializeNullsMain;
 		HDLmTiming.addTiming(HDLmTimingTypes.GENERAL, "After gson create in getJsonSpecial");
@@ -4395,8 +5595,8 @@ static String HDLmModTreeInfoString = "{" +
 	   
 	   Pass-through is part of the method name to help distinguish between
 	   different routines that used to have the same name. */
-	protected static JsonElement getJsonTreePassThru(final String contentType,
-			                                             final String hostName) {
+	protected static JsonElement  getJsonTreePassThru(final String contentType,
+			                                              final String hostName) {
 		/* Check if the content type reference passed by the caller is null */
 		if (contentType == null) {
 			String  errorText = "Content type reference passed to getJsonTreePassThru is null";
@@ -4490,7 +5690,7 @@ static String HDLmModTreeInfoString = "{" +
 	   takes a modification type string and returns a boolean showing
 	   if a parameter number is needed or not. If the type is unknown,
 	   than a NULL value is returned to the caller. */
-	protected static Boolean  getModificationTypeParmNumberUsed(String typeStr) {
+	protected static Boolean  getModificationTypeParmNumberUsed(final String typeStr) {
 	  /* Check if information for type specified by the caller exists */
 	  if (HDLmJson.hasJsonKey(HDLmModTypeInfo, typeStr)) {
 	  	JsonElement   jsonElementType = HDLmJson.getJsonValue(HDLmModTypeInfo, typeStr);
@@ -4511,7 +5711,7 @@ static String HDLmModTreeInfoString = "{" +
 	   type string and returns a string that contains the values name 
 	   or a null values. If the type is unknown, than a null value is 
 	   returned to the caller. */
-	protected static String  getModificationTypeValuesName(String typeStr) {
+	protected static String  getModificationTypeValuesName(final String typeStr) {
 	  /* Check if information for type specified by the caller exists */
 	  if (HDLmJson.hasJsonKey(HDLmModTypeInfo, typeStr)) {
 	 	  JsonElement   jsonElementType = HDLmJson.getJsonValue(HDLmModTypeInfo, typeStr);
@@ -4542,16 +5742,16 @@ static String HDLmModTreeInfoString = "{" +
 	}
 	/* Get the modification information JSON element and return it
      to the caller */
-	protected static JsonElement getModInfo() {
+	protected static JsonElement  getModInfo() {
 		return HDLmModTypeInfo;
 	}
 	/* Get the modification name value return it to the caller */
-	protected String getName() {
+	protected String  getName() {
 		return this.name;
 	}
 	/* Get the modification node identifier reference and return 
 	   it to the caller */
-	protected HDLmNodeIden getNodeIden() {
+	protected HDLmNodeIden  getNodeIden() {
 		return this.nodeIden;
 	}
 	/* Get the old style value from a style string, if possible. The old style value
@@ -4559,7 +5759,8 @@ static String HDLmModTreeInfoString = "{" +
 	   returned to the caller. The caller must pass the overall old style string,
 	   and the name of the specific style we are looking for. The style name should
 	   not end with a ':'. This code will provide the ':' character as need be. */
-	protected static String getOldStyleValue(String oldStyle, String styleName) {
+	protected static String getOldStyleValue(final String oldStyle, 
+			                                     String styleName) {
 		if (oldStyle == null) {
 			String  errorText = "Old style string passed to getOldStyleValue is null";
 			throw new NullPointerException(errorText);
@@ -4614,10 +5815,10 @@ static String HDLmModTreeInfoString = "{" +
   protected String       getPathMatchValue() {  
   	return this.pathMatch.getValue();
   }
-	/* Get the tree information JSON element and return it
-     to the caller */
-	protected static JsonElement getTreeInfo() {
-		return HDLmModTreeInfo;
+	/* Get the rule probability value (a floating-point number) 
+	   and return it to the caller */
+	protected float        getProbability() {
+		return this.probability;
 	}
 	/* Get the use mode value (a string) and return it to the caller */
 	protected String       getUseMode() {
@@ -4626,6 +5827,11 @@ static String HDLmModTreeInfoString = "{" +
 	/* Get the type from a modification and return it to the caller */
 	protected HDLmModTypes  getType() {
 		return this.type;
+	}
+	/* Get the tree information JSON element and return it
+	   to the caller */
+	protected static JsonElement getTreeInfo() {
+		return HDLmModTreeInfo;
 	}
 	/* Get the modification value and return it to the caller */
 	protected String       getValue() {
@@ -4661,27 +5867,30 @@ static String HDLmModTreeInfoString = "{" +
 		 be set to a null value. That is how the caller shows that the array address
 		 is a null value. If the array size reference is not null, it will have the
 		 correct array size (which may be zero). */	
-	protected static Integer modArrayCheck(HDLmEditorTypes editorType, 
-			                                   MutableInt errors, 
-			                                   JsonObject jsonObject, 
-			                                   String name, 
-			                                   Integer arraySize, 
-			                                   HDLmZeroLengthOk zeroLengthOk) {
+	protected static Integer modArrayCheck(final HDLmEditorTypes editorType, 
+																				 final MutableInt errorCounter,
+																				 final ArrayList<String> errorMessages,
+																				 final JsonObject jsonObject, 
+																				 final String name, 
+																				 final Integer arraySize, 
+																				 final HDLmZeroLengthOk zeroLengthOk) {
 		return modArrayCheck(editorType, 
-				                 errors, 
+				                 errorCounter,
+                         errorMessages,
 				                 jsonObject, 
 				                 name, 
 				                 arraySize, 
 				                 zeroLengthOk,
 				                 HDLmReportErrors.REPORTERRORS);
 	}
-	protected static Integer modArrayCheck(HDLmEditorTypes editorType, 
-			                                   MutableInt errors, 
-			                                   JsonObject jsonObject, 
-			                                   String name, 
-			                                   Integer arraySize,
-			                                   HDLmZeroLengthOk zeroLengthOk,
-			                                   HDLmReportErrors reportErrors) {
+	protected static Integer modArrayCheck(final HDLmEditorTypes editorType, 
+																				 final MutableInt errorCounter,
+																				 final ArrayList<String> errorMessages,
+																				 final JsonObject jsonObject, 
+																				 final String name, 
+																				 final Integer arraySize,
+																				 final HDLmZeroLengthOk zeroLengthOk,
+																				 final HDLmReportErrors reportErrors) {
 		if (editorType == null) {
 			String  errorText = "Editor type value passed to modArrayCheck is null";
 			throw new NullPointerException(errorText);
@@ -4690,8 +5899,12 @@ static String HDLmModTreeInfoString = "{" +
 		if (editorType == HDLmEditorTypes.NONE) {
 		  HDLmAssertAction(false, "Editor type value is invalid");
 		}
-		if (errors == null) {
-			String  errorText = "Mutable int for errors passed to modArrayCheck is null";
+		if (errorCounter == null) {
+			String  errorText = "Mutable int for error counter passed to modArrayCheck is null";
+			throw new NullPointerException(errorText);
+		}
+		if (errorMessages == null) {
+			String  errorText = "ArrayList for error messages passed to modArrayCheck is null";
 			throw new NullPointerException(errorText);
 		}
 		if (jsonObject == null) {
@@ -4727,37 +5940,47 @@ static String HDLmModTreeInfoString = "{" +
 		/* Report the error */
 		int errorNumber = 8;
 		String  errorText = "Modification JSON not found or empty array";
-		HDLmMod.reportErrorNoValue(editorType, errors, 
-				                       jsonObject, name, 
-				                       errorText, 
-				                       errorNumber, 
-				                       reportErrors);
+		HDLmField.reportErrorNoValue(editorType, 
+				                         errorCounter, 
+                                 errorMessages,
+				                         jsonObject, 
+				                         name, 
+				                         errorText, 
+				                         errorNumber, 
+				                         reportErrors);
 		return null;
 	}
 	/* Try to access a field in the JSON used to build the current modification
 	   object. Report an error if the field is not found. If an error is reported,
 	   the error count is also incremented. The return value from this function is
 	   the value of the field, if the field is found. */
-	protected static Boolean modFieldBoolean(HDLmEditorTypes editorType, 
-			                                     MutableInt errors, 
-			                                     JsonObject jsonObject, 
-			                                     Set<String> jsonKeys,
-			                                     String name) {
+	protected static Boolean modFieldBoolean(final HDLmEditorTypes editorType, 
+																					 final MutableInt errorCounter,
+																					 final ArrayList<String> errorMessages,
+																					 final JsonObject jsonObject, 
+																					 final Set<String> jsonKeys,
+																					 final String name) {
 		return modFieldBoolean(editorType, 
-				                   errors, 
+				                   errorCounter, 
+                           errorMessages,
 				                   jsonObject, 
 				                   jsonKeys, 
 				                   name, 
 				                   HDLmReportErrors.REPORTERRORS);
 	}
-	protected static Boolean modFieldBoolean(HDLmEditorTypes editorType, 
-			                                     MutableInt errors, 
-			                                     JsonObject jsonObject, 
-			                                     Set<String> jsonKeys, 
-			                                     String name,
-			                                     HDLmReportErrors reporErrors) {
-		if (errors == null) {
-			String  errorText = "Mutable int for errors passed to modFieldBoolean is null";
+	protected static Boolean modFieldBoolean(final HDLmEditorTypes editorType, 
+																					 final MutableInt errorCounter, 
+																					 final ArrayList<String> errorMessages,
+																					 final JsonObject jsonObject, 
+																					 final Set<String> jsonKeys, 
+																					 final String name,
+																					 final HDLmReportErrors reporErrors) {
+		if (errorCounter == null) {
+			String  errorText = "Mutable int for error counter passed to modFieldBoolean is null";
+			throw new NullPointerException(errorText);
+		}
+		if (errorMessages == null) {
+			String  errorText = "ArrayList for error messages passed to modFieldBoolean is null";
 			throw new NullPointerException(errorText);
 		}
 		if (jsonObject == null) {
@@ -4784,36 +6007,42 @@ static String HDLmModTreeInfoString = "{" +
 		}
 		/* Since we do not have the field in the JSON, report an error */
 		if (fieldFound == false)
-			HDLmMod.reportErrorNoValue(editorType, 
-					                       errors, 
-					                       jsonObject, 
-					                       name, 
-					                       "Modification JSON missing field", 
-					                       3, 
-					                       reporErrors);
+			HDLmField.reportErrorNoValue(editorType, 
+		                          		 errorCounter,
+                                   errorMessages,
+					                         jsonObject, 
+					                         name, 
+					                         "Modification JSON missing field", 
+					                         3, 
+					                         reporErrors);
 		return newBoolean;
 	}
 	/* Try to access a date-time value (really an instant) */
-	protected static Instant  modFieldDateTime(HDLmEditorTypes editorType, 
-																			       MutableInt errors, 
-																			       JsonObject jsonObject, 
-																			       Set<String> jsonKeys, 
-																			       String name,
-																			       HDLmReportErrors reporErrors) {
-		if (errors == null) {
-			String  errorText = "Mutable int for errors passed to modFieldBoolean is null";
+	protected static Instant  modFieldDateTime(final HDLmEditorTypes editorType, 
+																						 final MutableInt errorCounter, 
+																						 final ArrayList<String> errorMessages,
+																						 final JsonObject jsonObject, 
+																						 final Set<String> jsonKeys, 
+																						 final String name,
+																						 final HDLmReportErrors reporErrors) {
+		if (errorCounter == null) {
+			String  errorText = "Mutable int for error counter passed to modFieldDateTime is null";
+			throw new NullPointerException(errorText);
+		}
+		if (errorMessages == null) {
+			String  errorText = "ArrayList for error messages passed to modFieldDateTime is null";
 			throw new NullPointerException(errorText);
 		}
 		if (jsonObject == null) {
-			String  errorText = "JSON object passed to modFieldBoolean is null";
+			String  errorText = "JSON object passed to modFieldDateTime is null";
 			throw new NullPointerException(errorText);
 		}
 		if (jsonKeys == null) {
-			String  errorText = "Set of keys passed to modFieldBoolean is null";
+			String  errorText = "Set of keys passed to modFieldDateTime is null";
 			throw new NullPointerException(errorText);
 		}
 		if (name == null) {
-			String  errorText = "Name string passed to modFieldBoolean is null";
+			String  errorText = "Name string passed to modFieldDateTime is null";
 			throw new NullPointerException(errorText);
 		}
 		boolean   fieldFound = false;
@@ -4837,13 +6066,14 @@ static String HDLmModTreeInfoString = "{" +
 				/* LOG.info(name); */
 			  /* return Instant.now(); */ 
 			/* } */
-	  	HDLmMod.reportErrorNoValue(editorType, 
-																 errors, 
-																 jsonObject, 
-																 name, 
-																 "Modification JSON missing field", 
-																 3, 
-																 reporErrors);
+	  	HDLmField.reportErrorNoValue(editorType, 
+	  			                         errorCounter,
+                                   errorMessages,
+										  						 jsonObject, 
+											  					 name, 
+												  				 "Modification JSON missing field", 
+													  			 3, 
+														  		 reporErrors);
 		}
 		/* Try to convert the date-time string to an instant */
 		else {
@@ -4860,14 +6090,15 @@ static String HDLmModTreeInfoString = "{" +
 				newInstant = Instant.parse(newString);
 			} 
 			catch (DateTimeParseException e) {
-				HDLmMod.reportErrorValue(editorType, 
-						                     errors, 
-						                     jsonObject, 
-						                     name, 
-						                     newString,
-                                 "Modification JSON invalid date-time value", 
-                                 4, 
-                                 reporErrors);			
+				HDLmField.reportErrorValue(editorType, 
+					                         errorCounter,
+                                   errorMessages,
+						                       jsonObject, 
+						                       name, 
+						                       newString,
+                                   "Modification JSON invalid date-time value", 
+                                   4, 
+                                   reporErrors);			
 			}
 		}
 		return newInstant;
@@ -4875,23 +6106,32 @@ static String HDLmModTreeInfoString = "{" +
 	/* Try to access all of the fields used for a find. Each find defines one level
 	   of a (possibly) multilevel search used to find nodes in the DOM. All of the
 	   fields checked below must be present in each find JSON object. */
-	protected static HDLmFind modFieldFind(HDLmEditorTypes editorType, 
-			                                   MutableInt errors, 
-			                                   JsonObject jsonObject, 
-			                                   Set<String> jsonKeys) {
-		return modFieldFind(editorType, errors, 
-				                jsonObject, jsonKeys, 
+	protected static HDLmFind modFieldFind(final HDLmEditorTypes editorType, 
+																				 final MutableInt errorCounter, 
+																				 final ArrayList<String> errorMessages,
+																				 final JsonObject jsonObject, 
+																				 final Set<String> jsonKeys) {
+		return modFieldFind(editorType, 
+				                errorCounter, 
+                        errorMessages,
+				                jsonObject, 
+				                jsonKeys, 
 				                HDLmReportErrors.REPORTERRORS);
 	}
-	protected static HDLmFind modFieldFind(HDLmEditorTypes editorType, 
-			                                   MutableInt errors, 
-			                                   JsonObject jsonObject, 
-			                                   Set<String> jsonKeys,
-			                                   HDLmReportErrors reportErrors) {
-		if (errors == null) {
-			String  errorText = "Mutable int for errors passed to modFieldFind is null";
+	protected static HDLmFind modFieldFind(final HDLmEditorTypes editorType, 
+																				 final MutableInt errorCounter,
+																				 final ArrayList<String> errorMessages,
+																				 final JsonObject jsonObject, 
+																				 final Set<String> jsonKeys,
+																				 final HDLmReportErrors reportErrors) {
+		if (errorCounter == null) {
+			String  errorText = "Mutable int for error counter passed to modFieldFind is null";
 			throw new NullPointerException(errorText);
 		}
+		if (errorMessages == null) {
+			String  errorText = "ArrayList for error messages passed to modFieldFind is null";
+			throw new NullPointerException(errorText);
+		}		
 		if (jsonObject == null) {
 			String  errorText = "JSON object passed to modFieldFind is null";
 			throw new NullPointerException(errorText);
@@ -4901,59 +6141,127 @@ static String HDLmModTreeInfoString = "{" +
 			throw new NullPointerException(errorText);
 		}
 		/* Check each of the fields in the find JSON object */
+		HDLmFind newFind = null;
 		String   newTag = null;
-		String   newTagInfo = HDLmMod.modFieldString(editorType, errors, 
-				                                         jsonObject, jsonKeys, 
-				                                         "tag", HDLmWhiteSpace.WHITESPACEOK, 
-				                                         reportErrors,
-				                                         HDLmZeroLengthOk.ZEROLENGTHNOTOK);
-		if (newTagInfo != null && !StringUtils.isWhitespace(newTagInfo)) {
-			newTag = newTagInfo;
-		}
 		String   newAttribute = null;
-		String   newAttributeInfo = HDLmMod.modFieldString(editorType, errors,
-				                                               jsonObject, jsonKeys, "attribute", 
-				                                               HDLmWhiteSpace.WHITESPACEOK, 
-				                                               reportErrors,
-				                                               HDLmZeroLengthOk.ZEROLENGTHNOTOK);
-		if (newAttributeInfo != null && !StringUtils.isWhitespace(newAttributeInfo)) {
-			newAttribute = newAttributeInfo;
-		}
 		String   newValue = null;
-		String   newValueInfo = HDLmMod.modFieldString(editorType, errors, 
-				                                           jsonObject, jsonKeys, 
-				                                           "value", 
-				                                           HDLmWhiteSpace.WHITESPACEOK, 
-				                                           reportErrors,
-				                                           HDLmZeroLengthOk.ZEROLENGTHNOTOK);
-		if (newValueInfo != null && !StringUtils.isWhitespace(newValueInfo)) {
-			newValue = newValueInfo;
+		{ 
+			String  errorMessagePrefix = "Modification";
+			int     errorNumberMissing = 3; 
+	    int     errorNumberIsNull = 4;
+	    int     errorNumberNotPrimitive = 4;
+	    int     errorNumberException = 4;
+	    int     errorNumberInvalidLength = 4;
+	    int     errorNumberInvalidWhiteSpace = 4;	 
+			String  newTagInfo = HDLmField.checkFieldString(editorType, 
+							                                        errorCounter, 
+			                                                errorMessages,
+							                                        jsonObject, jsonKeys, 
+							                                        "tag", 
+							                                        errorMessagePrefix,
+																			     	     	    errorNumberMissing,
+																			                errorNumberIsNull,
+																			                errorNumberNotPrimitive,
+																			                errorNumberException,
+																				              errorNumberInvalidLength,
+																				              errorNumberInvalidWhiteSpace, 
+							                                        HDLmWhiteSpace.WHITESPACEOK, 
+							                                        reportErrors,
+							                                        HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+			if (newTagInfo != null && !StringUtils.isWhitespace(newTagInfo)) {
+				newTag = newTagInfo;
+  		}
 		}
-		HDLmFind newFind = new HDLmFind(newTag, newAttribute, newValue);
+	  {
+			String  errorMessagePrefix = "Modification";
+			int     errorNumberMissing = 3; 
+	    int     errorNumberIsNull = 4;
+	    int     errorNumberNotPrimitive = 4;
+	    int     errorNumberException = 4;
+	    int     errorNumberInvalidLength = 4;
+	    int     errorNumberInvalidWhiteSpace = 4;	
+			String  newAttributeInfo = HDLmField.checkFieldString(editorType, 
+						                                                errorCounter,
+		                                                        errorMessages,
+						                                                jsonObject, 
+						                                                jsonKeys, 
+						                                                "attribute", 
+						                                                errorMessagePrefix,
+																						     	     	    errorNumberMissing,
+																						                errorNumberIsNull,
+																						                errorNumberNotPrimitive,
+																						                errorNumberException,
+																							              errorNumberInvalidLength,
+																							              errorNumberInvalidWhiteSpace, 
+						                                                HDLmWhiteSpace.WHITESPACEOK, 
+						                                                reportErrors,
+						                                                HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+			if (newAttributeInfo != null && !StringUtils.isWhitespace(newAttributeInfo)) {
+				newAttribute = newAttributeInfo;
+			}
+	  }
+	  {
+			String  errorMessagePrefix = "Modification";
+			int     errorNumberMissing = 3; 
+	    int     errorNumberIsNull = 4;
+	    int     errorNumberNotPrimitive = 4;
+	    int     errorNumberException = 4;
+	    int     errorNumberInvalidLength = 4;
+	    int     errorNumberInvalidWhiteSpace = 4;	
+	 	  String  newValueInfo = HDLmField.checkFieldString(editorType, 
+							                                          errorCounter,
+			                                                  errorMessages,
+							                                          jsonObject, 
+							                                          jsonKeys, 
+							                                          "value", 
+						                                            errorMessagePrefix,
+																				     	     	    errorNumberMissing,
+																				                errorNumberIsNull,
+																				                errorNumberNotPrimitive,
+																				                errorNumberException,
+																					              errorNumberInvalidLength,
+																					              errorNumberInvalidWhiteSpace, 
+						                                            HDLmWhiteSpace.WHITESPACEOK, 
+						                                            reportErrors,
+						                                            HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+			if (newValueInfo != null && !StringUtils.isWhitespace(newValueInfo)) {
+		    newValue = newValueInfo;
+		  }				
+	    newFind = new HDLmFind(newTag, newAttribute, newValue);
+	  }
 		return newFind;
 	}
 	/* Try to access the find information in the JSON used to build the current
 	   modification object. Report an error if the field is not found. If an
 	   error is reported, the error count is also incremented. The return value
 	   from this function is the find array, if the find array is found. */
-	protected static ArrayList<HDLmFind> modFieldFindArray(HDLmEditorTypes editorType, 
-			                                                   MutableInt errors, 
-			                                                   JsonObject jsonObject, 
-			                                                   Set<String> jsonKeys,
-			                                                   String name) {
-		return modFieldFindArray(editorType, errors, 
-				                     jsonObject, jsonKeys, 
+	protected static ArrayList<HDLmFind> modFieldFindArray(final HDLmEditorTypes editorType, 
+																												 final MutableInt errorCounter, 
+																												 final ArrayList<String> errorMessages,
+																												 final JsonObject jsonObject, 
+																												 final Set<String> jsonKeys,
+																												 final String name) {
+		return modFieldFindArray(editorType, 
+				                     errorCounter, 
+                             errorMessages,
+				                     jsonObject, 
+				                     jsonKeys, 
 				                     name, 
 				                     HDLmReportErrors.REPORTERRORS);
 	}
-	protected static ArrayList<HDLmFind> modFieldFindArray(HDLmEditorTypes editorType, 
-			                                                   MutableInt errors, 
-			                                                   JsonObject jsonObject, 
-			                                                   Set<String> jsonKeys,
-		                                                     String name,
-		                                                     HDLmReportErrors reportErrors) {
-		if (errors == null) {
-			String  errorText = "Mutable int for errors passed to modFieldFindArray is null";
+	protected static ArrayList<HDLmFind> modFieldFindArray(final HDLmEditorTypes editorType, 
+																												 final MutableInt errorCounter,
+																												 final ArrayList<String> errorMessages,
+																												 final JsonObject jsonObject, 
+																												 final Set<String> jsonKeys,
+																												 final String name,
+																												 final HDLmReportErrors reportErrors) {
+		if (errorCounter == null) {
+			String  errorText = "Mutable int for error counter passed to modFieldFindArray is null";
+			throw new NullPointerException(errorText);
+		}
+		if (errorMessages == null) {
+			String  errorText = "ArrayList for error messages passed to modFieldFindArray is null";
 			throw new NullPointerException(errorText);
 		}
 		if (jsonObject == null) {
@@ -4991,13 +6299,15 @@ static String HDLmModTreeInfoString = "{" +
 				JsonObject jsonObjectEntry = jsonElementEntry.getAsJsonObject();
 				Set<String> jsonKeysEntry = jsonObjectEntry.keySet();
 				HDLmFind newFind = modFieldFind(editorType, 
-						                            errors, 
+						                            errorCounter,
+			                                  errorMessages,
 						                            jsonObjectEntry, 
 						                            jsonKeysEntry, 
 						                            reportErrors);
 				if (newFind != null) {
 					modFindCheck(editorType, 
-							         errors, 
+							         errorCounter,
+							         errorMessages,
 							         jsonObjectEntry, 
 							         newFind);			
 					newFinds.add(newFind);
@@ -5007,34 +6317,114 @@ static String HDLmModTreeInfoString = "{" +
 		}
 		/* Since we do not have the field in the JSON, report an error */
 		if (fieldFound == false)
-			HDLmMod.reportErrorNoValue(editorType, errors, 
-					                       jsonObject, name, 
-					                       "Modification JSON missing field", 
-					                       3, reportErrors);
+			HDLmField.reportErrorNoValue(editorType, 
+					                         errorCounter,
+                                   errorMessages,
+					                         jsonObject, 
+					                         name, 
+					                         "Modification JSON missing field", 
+					                         3, 
+					                         reportErrors);
 		return newFinds;
 	}
 	/* Try to access a field in the JSON used to build the current modification
 	   object. Report an error if the field is not found. If an error is reported,
 	   the error count is also incremented. The return value from this function is
 	   the value of the field, if the field is found. */
-	protected static Integer modFieldInteger(HDLmEditorTypes editorType, 
-			                                     MutableInt errors, 
-			                                     JsonObject jsonObject, 
-			                                     Set<String> jsonKeys,
-			                                     String name) {
-		return modFieldInteger(editorType, errors, 
-				                   jsonObject, jsonKeys, 
+	protected static Float  modFieldFloat(final HDLmEditorTypes editorType, 
+			                                  final MutableInt errorCounter, 
+				                                final ArrayList<String> errorMessages,
+			                                  final JsonObject jsonObject, 
+			                                  final Set<String> jsonKeys,
+			                                  final String name) {
+		return modFieldFloat(editorType, 
+				                 errorCounter, 
+                         errorMessages,
+				                 jsonObject, 
+				                 jsonKeys, 
+				                 name, 
+				                 HDLmReportErrors.REPORTERRORS);
+	}
+	protected static Float  modFieldFloat(final HDLmEditorTypes editorType, 
+	                                      final MutableInt errorCounter, 
+		                                    final ArrayList<String> errorMessages,
+	                                      final JsonObject jsonObject, 
+	                                      final Set<String> jsonKeys, 
+	                                      final String name,
+	                                      final HDLmReportErrors reportErrors) {
+		if (errorCounter == null) {
+			String  errorText = "Mutable int for error counter passed to modFieldFloat is null";
+			throw new NullPointerException(errorText);
+		}
+		if (errorMessages == null) {
+			String  errorText = "ArrayList for error messages passed to modFieldFloat is null";
+			throw new NullPointerException(errorText);
+		}
+		if (jsonObject == null) {
+			String  errorText = "JSON object passed to modFieldFloat is null";
+			throw new NullPointerException(errorText);
+		}
+		if (jsonKeys == null) {
+			String  errorText = "Set of keys passed to modFieldFloat is null";
+			throw new NullPointerException(errorText);
+		}
+		if (name == null) {
+			String  errorText = "Name string passed to modFieldFloat is null";
+			throw new NullPointerException(errorText);
+		}
+		boolean   fieldFound = false;
+		Float     newFloat = null;
+		/* Check if we have the field in the JSON */
+		if (jsonKeys.contains(name)) {
+			fieldFound = true;
+			JsonElement jsonElement = jsonObject.get(name);
+			if (!jsonElement.isJsonNull()) {
+				newFloat = jsonElement.getAsFloat();
+			}
+		}
+		/* Since we do not have the field in the JSON, report an error */
+		if (fieldFound == false)
+			HDLmField.reportErrorNoValue(editorType, 
+					                         errorCounter,
+                                   errorMessages,
+					                         jsonObject, 
+					                         name, 
+					                         "Modification JSON missing field", 
+					                         3, 
+					                         reportErrors);
+		return newFloat;
+	}
+  /* Try to access a field in the JSON used to build the current modification
+	   object. Report an error if the field is not found. If an error is reported,
+	   the error count is also incremented. The return value from this function is
+	   the value of the field, if the field is found. */
+	protected static Integer modFieldInteger(final HDLmEditorTypes editorType, 
+			                                     final MutableInt errorCounter, 
+				                                   final ArrayList<String> errorMessages,
+			                                     final JsonObject jsonObject, 
+			                                     final Set<String> jsonKeys,
+			                                     final String name) {
+		return modFieldInteger(editorType, 
+				                   errorCounter, 
+	                        errorMessages,
+				                   jsonObject, 
+				                   jsonKeys, 
 				                   name, 
 				                   HDLmReportErrors.REPORTERRORS);
 	}
-	protected static Integer modFieldInteger(HDLmEditorTypes editorType, 
-			                                     MutableInt errors, 
-			                                     JsonObject jsonObject, 
-			                                     Set<String> jsonKeys, 
-			                                     String name,
-			                                     HDLmReportErrors reportErrors) {
-		if (errors == null) {
-			String  errorText = "Mutable int for errors passed to modFieldInteger is null";
+	protected static Integer modFieldInteger(final HDLmEditorTypes editorType, 
+			                                     final MutableInt errorCounter, 
+				                                   final ArrayList<String> errorMessages,
+			                                     final JsonObject jsonObject, 
+			                                     final Set<String> jsonKeys, 
+			                                     final String name,
+			                                     final HDLmReportErrors reportErrors) {
+		if (errorCounter == null) {
+			String  errorText = "Mutable int for error counter passed to modFieldInteger is null";
+			throw new NullPointerException(errorText);
+		}
+		if (errorMessages == null) {
+			String  errorText = "ArrayList for error messages passed to modFieldInteger is null";
 			throw new NullPointerException(errorText);
 		}
 		if (jsonObject == null) {
@@ -5061,36 +6451,47 @@ static String HDLmModTreeInfoString = "{" +
 		}
 		/* Since we do not have the field in the JSON, report an error */
 		if (fieldFound == false)
-			HDLmMod.reportErrorNoValue(editorType, errors, 
-					                       jsonObject, 
-					                       name, 
-					                       "Modification JSON missing field", 
-					                       3, 
-					                       reportErrors);
+			HDLmField.reportErrorNoValue(editorType, 
+					                         errorCounter,
+	                                 errorMessages,
+					                         jsonObject, 
+					                         name, 
+					                         "Modification JSON missing field", 
+					                         3, 
+					                         reportErrors);
 		return newInteger;
 	}
 	/* Try to access a field in the JSON used to build the current modification
 	   object. Report an error if the field is not found. If an error is reported,
 	   the error count is also incremented. The return value from this function is
 	   the value of the field, if the field is found. */
-	protected static HDLmModTypes modFieldModType(HDLmEditorTypes editorType, 
-			                                          MutableInt errors, 
-			                                          JsonObject jsonObject, 
-			                                          Set<String> jsonKeys,
-			                                          String name) {
-		return modFieldModType(editorType, errors, 
-				                   jsonObject, jsonKeys, 
+	protected static HDLmModTypes modFieldModType(final HDLmEditorTypes editorType, 
+			                                          final MutableInt errorCounter,
+			   		                                    final ArrayList<String> errorMessages,
+			                                          final JsonObject jsonObject, 
+			                                          final Set<String> jsonKeys,
+			                                          final String name) {
+		return modFieldModType(editorType, 
+				                   errorCounter,
+                           errorMessages,
+				                   jsonObject, 
+				                   jsonKeys, 
 				                   name, 
 				                   HDLmReportErrors.REPORTERRORS);
 	}
-	protected static HDLmModTypes modFieldModType(HDLmEditorTypes editorType, 
-			                                          MutableInt errors, 
-			                                          JsonObject jsonObject, 
-			                                          Set<String> jsonKeys,
-			                                          String name, 
-			                                          HDLmReportErrors reportErrors) {
-		if (errors == null) {
-			String  errorText = "Mutable int for errors passed to modFieldModType is null";
+	protected static HDLmModTypes modFieldModType(final HDLmEditorTypes editorType, 
+			                                          final MutableInt errorCounter,
+			   		                                    final ArrayList<String> errorMessages,
+			                                          final JsonObject jsonObject, 
+			                                          final Set<String> jsonKeys,
+			                                          final String name, 
+			                                          final HDLmReportErrors reportErrors) {
+		if (errorCounter == null) {
+			String  errorText = "Mutable int for error counter passed to modFieldModType is null";
+			throw new NullPointerException(errorText);
+		}
+		if (errorMessages == null) {
+			String  errorText = "ArrayList for error messages passed to modFieldModType is null";
 			throw new NullPointerException(errorText);
 		}
 		if (jsonObject == null) {
@@ -5117,43 +6518,61 @@ static String HDLmModTreeInfoString = "{" +
 				modType = HDLmModTypes.valueOfString(localString);
 				if (modType == HDLmModTypes.NONE) {
 					String value = localString;
-					HDLmMod.reportErrorValue(editorType, errors, 
-							                     jsonObject, name, 
-							                     value, "Modification JSON invalid field", 
-							                     4, reportErrors);
+					HDLmField.reportErrorValue(editorType, 
+							                       errorCounter, 
+							                       errorMessages,
+							                       jsonObject, 
+							                       name, 
+							                       value, "Modification JSON invalid field", 
+							                       4, 
+							                       reportErrors);
 				}
 			}
 		}
 		/* Since we do not have the field in the JSON, report an error */
 		if (fieldFound == false)
-			HDLmMod.reportErrorNoValue(editorType, errors, 
-					                       jsonObject, name, 
-					                       "Modification JSON missing field", 
-					                       3, reportErrors);
+			HDLmField.reportErrorNoValue(editorType, 
+					                         errorCounter, 
+                                   errorMessages,
+					                         jsonObject, 
+					                         name, 
+					                         "Modification JSON missing field", 
+					                         3, 
+					                         reportErrors);
 		return modType;
 	}
 	/* Try to access the node identifier in the JSON used to build the current 
 	   modification. Report an error if the field is not found. If an error is
 	   reported, the error count is also incremented. The return value from this 
 	   function is the node identifier object, if a valid node identifier is found. */ 
-	protected static HDLmNodeIden modFieldNodeIden(HDLmEditorTypes editorType, 
-			                                           MutableInt errors, 
-			                                           JsonObject jsonObject, 
-			                                           Set<String> jsonKeys,
-			                                           String name) {
-		return modFieldNodeIden(editorType, errors, 
-				                    jsonObject, jsonKeys, 
+	protected static HDLmNodeIden modFieldNodeIden(final HDLmEditorTypes editorType, 
+			                                           final MutableInt errorCounter, 
+			    		                                   final ArrayList<String> errorMessages,
+			                                           final JsonObject jsonObject, 
+			                                           final Set<String> jsonKeys,
+			                                           final String name) {
+		return modFieldNodeIden(editorType, 
+				                    errorCounter,
+                            errorMessages,
+				                    jsonObject, 
+				                    jsonKeys, 
 				                    name, 
 				                    HDLmReportErrors.REPORTERRORS);
 	}
-	protected static HDLmNodeIden modFieldNodeIden(HDLmEditorTypes editorType, 
-			                                           MutableInt errors, 
-			                                           JsonObject jsonObject, 
-			                                           Set<String> jsonKeys,
-		                                             String name,
-		                                             HDLmReportErrors reportErrors) {
-		if (errors == null) {
-			String  errorText = "Mutable int for errors passed to modFieldNodeIden is null";
+	@SuppressWarnings({ "unused", "unused" })
+	protected static HDLmNodeIden modFieldNodeIden(final HDLmEditorTypes editorType, 
+			                                           final MutableInt errorCounter, 
+			    		                                   final ArrayList<String> errorMessages,
+			                                           final JsonObject jsonObject, 
+			                                           final Set<String> jsonKeys,
+		                                             final String name,
+		                                             final HDLmReportErrors reportErrors) {
+		if (errorCounter == null) {
+			String  errorText = "Mutable int for error counter passed to modFieldNodeIden is null";
+			throw new NullPointerException(errorText);
+		}
+		if (errorMessages == null) {
+			String  errorText = "ArrayList for error messages passed to modFieldNodeIden is null";
 			throw new NullPointerException(errorText);
 		}
 		if (jsonObject == null) {
@@ -5206,43 +6625,60 @@ static String HDLmModTreeInfoString = "{" +
 			   The check for a null value will never be true. */
 			newNodeIden = new HDLmNodeIden(jsonElement);
 			if (newNodeIden == null) {
-				HDLmMod.reportErrorNoValue(editorType, errors, 
-                                   jsonObject, name, 
-                                   "Modification JSON node identifier is invalid", 
-                                   39, reportErrors);			
+				HDLmField.reportErrorNoValue(editorType, 
+						                         errorCounter,
+                                     errorMessages,
+                                     jsonObject, 
+                                     name, 
+                                     "Modification JSON node identifier is invalid", 
+                                     39, 
+                                     reportErrors);			
 			}
 			break;
 		}
 		/* Since we do not have the field in the JSON, report an error */
 		if (fieldFound == false)
-			HDLmMod.reportErrorNoValue(editorType, errors, 
-					                       jsonObject, name, 
-					                       "Modification JSON missing field", 
-					                       3, reportErrors);
+			HDLmField.reportErrorNoValue(editorType, 
+					                         errorCounter,
+                                   errorMessages,
+					                         jsonObject, 
+					                         name, 
+					                         "Modification JSON missing field", 
+					                         3, 
+					                         reportErrors);
 		return newNodeIden;
 	}	
 	/* Try to access a field in the JSON used to build the current modification
 	   object. Report an error if the field is not found. If an error is reported,
 	   the error count is also incremented. The return value from this function is
 	   the value of the field, if the field is found. */
-	protected static HDLmReportTypes modFieldReportType(HDLmEditorTypes editorType, 
-			                                                MutableInt errors, 
-			                                                JsonObject jsonObject, 
-			                                                Set<String> jsonKeys,
-			                                                String name) {
-		return modFieldReportType(editorType, errors, 
-				                      jsonObject, jsonKeys, 
+	protected static HDLmReportTypes modFieldReportType(final HDLmEditorTypes editorType, 
+			                                                final MutableInt errorCounter, 
+			         		                                    final ArrayList<String> errorMessages,
+			                                                final JsonObject jsonObject, 
+			                                                final Set<String> jsonKeys,
+			                                                final String name) {
+		return modFieldReportType(editorType, 
+				                      errorCounter,
+                              errorMessages,
+				                      jsonObject, 
+				                      jsonKeys, 
 				                      name, 
 				                      HDLmReportErrors.REPORTERRORS);
 	}
-	protected static HDLmReportTypes modFieldReportType(HDLmEditorTypes editorType, 
-						                                          MutableInt errors, 
-						                                          JsonObject jsonObject, 
-						                                          Set<String> jsonKeys,
-						                                          String name, 
-						                                          HDLmReportErrors reportErrors) {
-		if (errors == null) {
-			String  errorText = "Mutable int for errors passed to modFieldReportType is null";
+	protected static HDLmReportTypes modFieldReportType(final HDLmEditorTypes editorType, 
+						                                          final MutableInt errorCounter,
+						   		                                    final ArrayList<String> errorMessages,
+						                                          final JsonObject jsonObject, 
+						                                          final Set<String> jsonKeys,
+						                                          final String name, 
+						                                          final HDLmReportErrors reportErrors) {
+		if (errorCounter == null) {
+			String  errorText = "Mutable int for error counter passed to modFieldReportType is null";
+			throw new NullPointerException(errorText);
+		}
+		if (errorMessages == null) {
+			String  errorText = "ArrayList for error messages passed to modFieldReportType is null";
 			throw new NullPointerException(errorText);
 		}
 		if (jsonObject == null) {
@@ -5273,44 +6709,61 @@ static String HDLmModTreeInfoString = "{" +
 				modReportType = HDLmReportTypes.valueOfString(localString);
 				if (modReportType == HDLmReportTypes.NONE) {
 					String value = localString;
-					HDLmMod.reportErrorValue(editorType, errors, 
-							                     jsonObject, name, 
-							                     value, "Modification JSON invalid field", 
-							                     4, reportErrors);
+					HDLmField.reportErrorValue(editorType, 
+							                       errorCounter,
+							                       errorMessages,
+							                       jsonObject, 
+							                       name, 
+							                       value, "Modification JSON invalid field", 
+							                       4, 
+							                       reportErrors);
 				}
 			}
 		}
 		/* Since we do not have the field in the JSON, report an error */
 		if (fieldFound == false)
-			HDLmMod.reportErrorNoValue(editorType, errors, 
-					                       jsonObject, name, 
-					                       "Modification JSON missing field", 
-					                       3, reportErrors);
+			HDLmField.reportErrorNoValue(editorType, 
+					                         errorCounter,
+					                         errorMessages,
+					                         jsonObject, 
+					                         name, 
+					                         "Modification JSON missing field", 
+					                         3, 
+					                         reportErrors);
 		return modReportType;
 	}	
 	/* Try to access a field in the JSON used to build the current modification
 	   object. Report an error if the field is not found. If an error is reported,
 	   the error count is also incremented. The return value from this function is
 	   the value of the field, if the field is found. */
-	protected static Short  modFieldShort(HDLmEditorTypes editorType, 
-			                                  MutableInt errors, 
-			                                  JsonObject jsonObject, 
-			                                  Set<String> jsonKeys,
-			                                  String name) {
-		return modFieldShort(editorType, errors, 
-				                 jsonObject, jsonKeys, 
+	protected static Short  modFieldShort(final HDLmEditorTypes editorType, 
+			                                  final MutableInt errorCounter, 
+			                                  final ArrayList<String> errorMessages,
+			                                  final JsonObject jsonObject, 
+			                                  final Set<String> jsonKeys,
+			                                  final String name) {
+		return modFieldShort(editorType, 
+				                 errorCounter,
+				                 errorMessages,
+				                 jsonObject, 
+				                 jsonKeys, 
 				                 name, 
 				                 HDLmReportErrors.REPORTERRORS);
 	}
-	protected static Short  modFieldShort(HDLmEditorTypes editorType, 
-			                                  MutableInt errors, 
-			                                  JsonObject jsonObject, 
-			                                  Set<String> jsonKeys, 
-			                                  String name,
-			                                  HDLmReportErrors reportErrors) {
+	protected static Short  modFieldShort(final HDLmEditorTypes editorType, 
+			                                  final MutableInt errorCounter,
+			                                  final ArrayList<String> errorMessages,
+			                                  final JsonObject jsonObject, 
+			                                  final Set<String> jsonKeys, 
+			                                  final String name,
+			                                  final HDLmReportErrors reportErrors) {
 		/* Check the values passed by the caller */
-		if (errors == null) {
-			String  errorText = "Mutable int for errors passed to modFieldShort is null";
+		if (errorCounter == null) {
+			String  errorText = "Mutable int for error counter passed to modFieldShort is null";
+			throw new NullPointerException(errorText);
+		}
+		if (errorMessages == null) {
+			String  errorText = "ArrayList for error messages passed to modFieldShort is null";
 			throw new NullPointerException(errorText);
 		}
 		if (jsonObject == null) {
@@ -5337,36 +6790,47 @@ static String HDLmModTreeInfoString = "{" +
 		}
 		/* Since we do not have the field in the JSON, report an error */
 		if (fieldFound == false)
-			HDLmMod.reportErrorNoValue(editorType, errors, 
-					                       jsonObject, 
-					                       name, 
-					                       "Modification JSON missing field", 
-					                       3, 
-					                       reportErrors);
+			HDLmField.reportErrorNoValue(editorType, 
+					                         errorCounter,
+                                   errorMessages,
+					                         jsonObject, 
+					                         name, 
+					                         "Modification JSON missing field", 
+					                         3, 
+					                         reportErrors);
 		return newShort;
 	}
 	/* Try to access a field in the JSON used to build the current modification
 	   object. Report an error if the field is not found. If an error is reported,
 	   the error count is also incremented. The return value from this function is
 	   the value of the field, if the field is found. */
-	protected static HDLmPassThruStatus modFieldStatus(HDLmEditorTypes editorType, 
-			                                               MutableInt errors, 
-			                                               JsonObject jsonObject, 
-			                                               Set<String> jsonKeys,
-			                                               String name) {
-		return modFieldStatus(editorType, errors, 
-				                  jsonObject, jsonKeys, 
+	protected static HDLmPassThruStatus modFieldStatus(final HDLmEditorTypes editorType, 
+			                                               final MutableInt errorCounter,
+			        		                                   final ArrayList<String> errorMessages,
+			                                               final JsonObject jsonObject, 
+			                                               final Set<String> jsonKeys,
+			                                               final String name) {
+		return modFieldStatus(editorType, 
+				                  errorCounter,
+				                  errorMessages,
+				                  jsonObject, 
+				                  jsonKeys, 
 				                  name, 
 				                  HDLmReportErrors.REPORTERRORS);
 	}
-	protected static HDLmPassThruStatus modFieldStatus(HDLmEditorTypes editorType, 
-			                                               MutableInt errors, 
-			                                               JsonObject jsonObject, 
-			                                               Set<String> jsonKeys,
-			                                               String name, 
-			                                               HDLmReportErrors reportErrors) {
-		if (errors == null) {
-			String  errorText = "Mutable int for errors passed to modFieldStatus is null";
+	protected static HDLmPassThruStatus modFieldStatus(final HDLmEditorTypes editorType, 
+			                                               final MutableInt errorCounter, 
+			        		                                   final ArrayList<String> errorMessages,
+			                                               final JsonObject jsonObject, 
+			                                               final Set<String> jsonKeys,
+			                                               final String name, 
+			                                               final HDLmReportErrors reportErrors) {
+		if (errorCounter == null) {
+			String  errorText = "Mutable int for error counter passed to modFieldStatus is null";
+			throw new NullPointerException(errorText);
+		}
+		if (errorMessages == null) {
+			String  errorText = "ArrayList for error messages passed to modFieldStatus is null";
 			throw new NullPointerException(errorText);
 		}
 		if (jsonObject == null) {
@@ -5397,190 +6861,39 @@ static String HDLmModTreeInfoString = "{" +
 				if (modTreeStatus == HDLmPassThruStatus.NONE) {
 					String  localString = jsonElement.getAsString();
 					String  value = localString;
-					HDLmMod.reportErrorValue(editorType, errors, 
-							                     jsonObject, name, 
-							                     value, "Modification JSON invalid field", 
-							                     4, reportErrors);
+					HDLmField.reportErrorValue(editorType, 
+							                       errorCounter,
+							                       errorMessages,
+							                       jsonObject, name, 
+							                       value, "Modification JSON invalid field", 
+							                       4, 
+							                       reportErrors);
 				}
 			}
 		}
 		/* Since we do not have the field in the JSON, report an error */
 		if (fieldFound == false)
-			HDLmMod.reportErrorNoValue(editorType, errors, 
-					                       jsonObject, name, 
-					                       "Modification JSON missing field", 
-					                       3, reportErrors);
+			HDLmField.reportErrorNoValue(editorType, 
+					                         errorCounter, 
+					                         errorMessages,
+					                         jsonObject, 
+					                         name, 
+					                         "Modification JSON missing field", 
+					                         3, 
+					                         reportErrors);
 		return modTreeStatus;
-	}
-	/* Try to access a field in the JSON used to build the current modification
-	   object. Report an error if the field is not found. If an error is reported,
-	   the error count is also incremented. The return value from this function is
-	   the value of the field, if the field is found. */
-	protected static String modFieldString(HDLmEditorTypes editorType, 
-			                                   MutableInt errors, 
-			                                   JsonObject jsonObject, 
-			                                   Set<String> jsonKeys, 
-			                                   String name,
-		                                     HDLmWhiteSpace whiteSpaceOK) {
-		return modFieldString(editorType, errors, 
-				                  jsonObject, jsonKeys, 
-				                  name, whiteSpaceOK, 
-				                  HDLmReportErrors.REPORTERRORS,
-				                  HDLmZeroLengthOk.ZEROLENGTHNOTOK);
-	}
-	protected static String modFieldString(HDLmEditorTypes editorType, 
-			                                   MutableInt errors,
-			                                   JsonObject jsonObject, 
-  		                                   Set<String> jsonKeys, 
-  		                                   String name, 
-  		                                   HDLmWhiteSpace whiteSpaceOK, 
-  		                                   HDLmReportErrors reportError,
-  		                                   HDLmZeroLengthOk zeroLength) {
-		if (errors == null) {
-		  String  errorText = "Mutable int for errors passed to modFieldString is null";
-		  throw new NullPointerException(errorText);
-		}
-		if (jsonObject == null) {
-		  String  errorText = "JSON object passed to modFieldString is null";
-		  throw new NullPointerException(errorText);
-		}
-		if (jsonKeys == null) {
-		  String  errorText = "Set of keys passed to modFieldString is null";
-		  throw new NullPointerException(errorText);
-		}
-		if (name == null) {
-		  String  errorText = "Name string passed to modFieldString is null";
-		  throw new NullPointerException(errorText);
-		}
-		/* At this point we must deal with a special and very bizarre case. The 
-		   rules database calls the path field 'path' (without the quotes). The
-		   JavaScript code calls the 'path' field (without the quotes), 'pathValue'
-		   (without the quotes). */
-		boolean  fieldFound = false;
-	  String   newString = null;
-    /* Check if we have the field in the JSON */
-    if (jsonKeys.contains(name)) {
-    	fieldFound = true;
-    	JsonElement   jsonElement = jsonObject.get(name);
-    	if (!jsonElement.isJsonNull()) {
-    		/* LOG.info(name); */
-    		/* LOG.info(jsonElement.toString()); */
-    		/* LOG.info(jsonObject.toString()); */
-    		newString = jsonElement.getAsString();
-    		/* Get the length of string, if possible. If the string  is 
-    		  a null value, then getting the length is not possible. */
-    		int   newStringLength = -1;
-				if (newString != null)
-					newStringLength = newString.length();
-    		/* Generally we can accept a string that is all whitespace
-    		   characters. However, in some cases we can not. The check
-    		   below rejects string that are all whitespace, if need be.
-    		   Note that an empty string is considered to be a whitespace
-    		   string by the utility routine invoked below. */
-    		if (whiteSpaceOK == HDLmWhiteSpace.WHITESPACENOTOK) {
-    		  if (StringUtils.isWhitespace(newString)) {
-    		  	/* Check if the new string is a null values. In some
-    		  	   case (use mode), this is really OK. */
-    		    if (newStringLength != 0 ||
-    		    		zeroLength != HDLmZeroLengthOk.ZEROLENGTHOK) {    		  	 
-    		  	  newString = null;
-    		      fieldFound = false;
-    		    }
-    		  }  
-    		}
-    	}
-    }
-    /* Since we do not have the field in the JSON, report an error */
-    if (fieldFound == false) {
-      HDLmMod.reportErrorNoValue(editorType, errors, 
-      		                       jsonObject, name,
-                                 "Modification JSON missing field", 
-                                 3, reportError); 
-    }
-    return newString;
-  }
-	/* Try to access a field in the JSON used to build the current modification
-	   object. Report an error if the field is not found. If an error is reported,
-	   the error count is also incremented. The return value from this function is
-	   the value of the field, if the field is found. */
-	protected static ArrayList<String> modFieldStringArray(HDLmEditorTypes editorType, 
-			                                                   MutableInt errors, 
-			                                                   JsonObject jsonObject, 
-			                                                   Set<String> jsonKeys,
-			                                                   String name) {
-		return modFieldStringArray(editorType, errors, 
-				                       jsonObject, jsonKeys, 
-				                       name, 
-				                       HDLmReportErrors.REPORTERRORS);
-	}
-	protected static ArrayList<String> modFieldStringArray(HDLmEditorTypes editorType, 
-			                                                   MutableInt errors, 
-			                                                   JsonObject jsonObject, 
-			                                                   Set<String> jsonKeys,
-			                                                   String name, 
-			                                                   HDLmReportErrors reportErrors) {
-		if (errors == null) {
-			String  errorText = "Mutable int for errors passed to modFieldStringArray is null";
-			throw new NullPointerException(errorText);
-		}
-		if (jsonObject == null) {
-			String  errorText = "JSON object passed to modFieldStringArray is null";
-			throw new NullPointerException(errorText);
-		}
-		if (jsonKeys == null) {
-			String  errorText = "Set of keys passed to modFieldStringArray is null";
-			throw new NullPointerException(errorText);
-		}
-		if (name == null) {
-			String  errorText = "Name string passed to modFieldStringArray is null";
-			throw new NullPointerException(errorText);
-		}
-		ArrayList<String> newStrings = null;
-		boolean fieldFound = false;
-		/* What follows is a dummy loop used only to allow break to work */
-		while (true) {
-			/* Check if we have the field in the JSON */
-			if (!jsonKeys.contains(name))
-				break;
-			/* Show that the field was found */
-			fieldFound = true;
-			/* Get they array of JSON objects for the strings */
-			JsonElement jsonElement = jsonObject.get(name);
-			if (jsonElement.isJsonNull())
-				break;
-			/* Get some values from the input JSON */
-			if (!jsonElement.isJsonArray())
-				break;
-			JsonArray jsonArray = jsonElement.getAsJsonArray();
-			/* Build the new string array list */
-			newStrings = new ArrayList<String>();
-			for (JsonElement jsonElementEntry : jsonArray) {
-				if (jsonElementEntry.isJsonNull())
-					continue;
-				String newString = jsonElementEntry.getAsString();
-				if (newString != null)
-					newStrings.add(newString);
-			}
-			break;
-		}
-		/* Since we do not have the field in the JSON, report an error */
-		if (fieldFound == false)
-			HDLmMod.reportErrorNoValue(editorType, errors, 
-					                       jsonObject, name, 
-					                       "Modification JSON missing field", 
-					                       3, reportErrors);
-		return newStrings;
-	}
+	}	
 	/* Check each value in the values array and make sure it is a valid change
      attributes value. The only possible valid change values are either a zero-length 
      string (which mean no attribute changes) or a valid JSON string. Actually we 
      allow an all-whitespace string as well. */ 
-	protected static boolean modFieldStringArrayChangeAttrs(ArrayList<String> values,
-		                                                      HDLmEditorTypes editorType, 
-      																								    MutableInt errors, 
-																									        JsonObject jsonObject, 
-																									        String name, 
-																									        HDLmReportErrors reportErrors) {
+	protected static boolean modFieldStringArrayChangeAttrs(final ArrayList<String> values,
+		                                                      final HDLmEditorTypes editorType, 
+      																								    final MutableInt errorCounter, 
+      									                                  final ArrayList<String> errorMessages,
+																									        final JsonObject jsonObject, 
+																									        final String name, 
+																									        final HDLmReportErrors reportErrors) {
 		if (values == null) {
 		  String  errorText = "Values list passed to modFieldStringArrayChangeAttrs is null";
 		  throw new NullPointerException(errorText);
@@ -5593,9 +6906,13 @@ static String HDLmModTreeInfoString = "{" +
 		if (editorType == HDLmEditorTypes.NONE) {
 		  HDLmAssertAction(false, "Editor type value is invalid");
 		}
-		if (errors == null) {
-	  String  errorText = "Mutable int for errors passed to modFieldStringArrayChangeAttrs is null";
+		if (errorCounter == null) {
+	    String  errorText = "Mutable int for error counter passed to modFieldStringArrayChangeAttrs is null";
 		  throw new NullPointerException(errorText);
+		}
+		if (errorMessages == null) {
+			String  errorText = "ArrayList for error messages passed to modFieldStringArrayChangeAttrs is null";
+			throw new NullPointerException(errorText);
 		}
 		if (jsonObject == null) {
 		  String  errorText = "JSON object passed to modFieldStringArrayChangeAttrs is null";
@@ -5635,11 +6952,14 @@ static String HDLmModTreeInfoString = "{" +
 		 /* Report that the value is not valid */
 		 rv = false;
 		 /* LOG.info("HDLmMod.reportErrorValue"); */
-		 HDLmMod.reportErrorValue(editorType, errors, 
-	                            jsonObject, name, 
-	                            curValue, 
-	                            "Modification JSON invalid change attributes value", 
-	                            4, reportErrors);			
+		 HDLmField.reportErrorValue(editorType, 
+				                        errorCounter,
+                                errorMessages,
+	                              jsonObject, 
+	                              name, 
+	                              curValue, 
+	                              "Modification JSON invalid change attributes value", 
+	                              4, reportErrors);			
 		}
 		return rv;
 	}
@@ -5647,12 +6967,13 @@ static String HDLmModTreeInfoString = "{" +
 	   value. The only possible remove values are yes and no. Note that leading
 	   and trailing blanks are always removed from each value. The check for yes
 	   or no is caseless by design. */
-	protected static boolean modFieldStringArrayRemove(ArrayList<String> values,
-			                                               HDLmEditorTypes editorType, 
-																										 MutableInt errors, 
-																										 JsonObject jsonObject, 
-																										 String name, 
-																										 HDLmReportErrors reportErrors) {
+	protected static boolean modFieldStringArrayRemove(final ArrayList<String> values,
+			                                               final HDLmEditorTypes editorType, 
+																										 final MutableInt errorCounter,
+									                                   final ArrayList<String> errorMessages,
+																										 final JsonObject jsonObject, 
+																										 final String name, 
+																										 final HDLmReportErrors reportErrors) {
 		if (values == null) {
 		  String  errorText = "Values list passed to modFieldStringArrayRemove is null";
 		  throw new NullPointerException(errorText);
@@ -5665,9 +6986,13 @@ static String HDLmModTreeInfoString = "{" +
 		if (editorType == HDLmEditorTypes.NONE) {
 		  HDLmAssertAction(false, "Editor type value is invalid");
 		}
-		if (errors == null) {
-	    String  errorText = "Mutable int for errors passed to modFieldStringArrayRemove is null";
+		if (errorCounter == null) {
+	    String  errorText = "Mutable int for error counter passed to modFieldStringArrayRemove is null";
 		  throw new NullPointerException(errorText);
+		}
+		if (errorMessages == null) {
+			String  errorText = "ArrayList for error messages passed to modFieldStringArrayRemove is null";
+			throw new NullPointerException(errorText);
 		}
 		if (jsonObject == null) {
 		  String  errorText = "JSON object passed to modFieldStringArrayRemove is null";
@@ -5697,11 +7022,15 @@ static String HDLmModTreeInfoString = "{" +
 				continue;
 			/* Report that the value is not valid */
 			rv = false;
-			HDLmMod.reportErrorValue(editorType, errors, 
-                               jsonObject, name, 
-                               curValue, 
-                               "Modification JSON invalid remove value", 
-                               4, reportErrors);			
+			HDLmField.reportErrorValue(editorType, 
+					                       errorCounter,
+					                       errorMessages,
+                                 jsonObject, 
+                                 name, 
+                                 curValue, 
+                                 "Modification JSON invalid remove value", 
+                                 4, 
+                                 reportErrors);			
 		}
 		return rv;
 	}
@@ -5711,12 +7040,13 @@ static String HDLmModTreeInfoString = "{" +
      been changed. We now allow strings that are not valid JSON to be used.
      These strings are the names of saved data values that are (hopefully)
      valid JSON. */ 
-	protected static boolean modFieldStringArrayReplace(ArrayList<String> values,
-		                                                  HDLmEditorTypes editorType, 
-																									    MutableInt errors, 
-																									    JsonObject jsonObject, 
-																									    String name, 
-																									    HDLmReportErrors reportErrors) {
+	protected static boolean  modFieldStringArrayReplace(final ArrayList<String> values,
+		                                                   final HDLmEditorTypes editorType, 
+																									     final MutableInt errorCounter,
+										                                   final ArrayList<String> errorMessages,
+																									     final JsonObject jsonObject, 
+																									     final String name, 
+																									     final HDLmReportErrors reportErrors) {
 		if (values == null) {
 		  String  errorText = "Values list passed to modFieldStringArrayReplace is null";
 		  throw new NullPointerException(errorText);
@@ -5729,9 +7059,13 @@ static String HDLmModTreeInfoString = "{" +
 		if (editorType == HDLmEditorTypes.NONE) {
 		  HDLmAssertAction(false, "Editor type value is invalid");
 		}
-		if (errors == null) {
-	   String  errorText = "Mutable int for errors passed to modFieldStringArrayReplace is null";
+		if (errorCounter == null) {
+	    String  errorText = "Mutable int for error counter passed to modFieldStringArrayReplace is null";
 		  throw new NullPointerException(errorText);
+		}
+		if (errorMessages == null) {
+			String  errorText = "ArrayList for error messages passed to modFieldStringArrayReplace is null";
+			throw new NullPointerException(errorText);
 		}
 		if (jsonObject == null) {
 		  String  errorText = "JSON object passed to modFieldStringArrayReplace is null";
@@ -5771,22 +7105,27 @@ static String HDLmModTreeInfoString = "{" +
 	      continue;
 			/* Report that the value is not valid */
 			rv = false;
-			HDLmMod.reportErrorValue(editorType, errors, 
-	                            jsonObject, name, 
-	                            curValue, 
-	                            "Modification JSON invalid replace value", 
-	                            4, reportErrors);			
+			HDLmField.reportErrorValue(editorType, 
+					                       errorCounter, 
+                                 errorMessages,
+	                               jsonObject, 
+	                               name, 
+	                               curValue, 
+	                               "Modification JSON invalid replace value", 
+	                               4, 
+	                               reportErrors);			
 		}
 		return rv;
 	}
 	/* Check each value in the values array and make sure it is a valid JavaScript
 	   script value */
-	protected static boolean  modFieldStringArrayScript(ArrayList<String> values,
-			                                                HDLmEditorTypes editorType, 
-																										  MutableInt errors, 
-																										  JsonObject jsonObject, 
-																										  String name, 
-																										  HDLmReportErrors reportErrors) {
+	protected static boolean  modFieldStringArrayScript(final ArrayList<String> values,
+			                                                final HDLmEditorTypes editorType, 
+																										  final MutableInt errorCounter,
+										                                  final ArrayList<String> errorMessages,
+																										  final JsonObject jsonObject, 
+																										  final String name, 
+																										  final HDLmReportErrors reportErrors) {
 		if (values == null) {
 		  String  errorText = "Values list passed to modFieldStringArrayScript is null";
 		  throw new NullPointerException(errorText);
@@ -5799,9 +7138,13 @@ static String HDLmModTreeInfoString = "{" +
 		if (editorType == HDLmEditorTypes.NONE) {
 		  HDLmAssertAction(false, "Editor type value is invalid in modFieldStringArrayScript");
 		}
-		if (errors == null) {
-	  String  errorText = "Mutable int for errors passed to modFieldStringArrayScript is null";
+		if (errorCounter == null) {
+	    String  errorText = "Mutable int for error counter passed to modFieldStringArrayScript is null";
 		  throw new NullPointerException(errorText);
+		}
+		if (errorMessages == null) {
+			String  errorText = "ArrayList for error messages passed to modFieldStringArrayScript is null";
+			throw new NullPointerException(errorText);
 		}
 		if (jsonObject == null) {
 		  String  errorText = "JSON object passed to modFieldStringArrayScript is null";
@@ -5822,6 +7165,32 @@ static String HDLmModTreeInfoString = "{" +
 		for (int i = 0; i < valuesLength; i++) {
 			/* Get the current string value and remove any leading and trailing blanks */
 			String  curValue = values.get(i);
+			int     curValueLength = curValue.length();
+			/* Check if the current script is an empty string */
+			if (curValueLength == 0) {
+				rv = false;
+				HDLmField.reportError(editorType, 
+						                  errorCounter,
+	                            errorMessages,
+		                          jsonObject, 
+		                          name, 
+		                          "Modification JSON script is empty", 
+		                          4, 
+		                          reportErrors);	
+			}	
+			/* Check if the current script is all-blanks */
+			if (curValueLength > 0 && StringUtils.isWhitespace(curValue)) {
+				rv = false;
+				HDLmField.reportError(editorType, 
+						                  errorCounter,
+	                            errorMessages,
+		                          jsonObject, 
+		                          name, 
+		                          "Modification JSON script is blank", 
+		                          4, 
+		                          reportErrors);	
+			}			
+			/* Fix the current JavaScript scipt */			
 			String  curValueUpdated = HDLmAi.fixWebImproverScript(curValue);
 			values.set(i, curValueUpdated);
 			/* Check if the current script is valid */
@@ -5832,24 +7201,138 @@ static String HDLmModTreeInfoString = "{" +
 				continue;
 			/* Report that the script is not valid */
 			rv = false;
-			HDLmMod.reportErrorValue(editorType, errors, 
-	                             jsonObject, name, 
-	                             curValue, 
-	                             "Modification JSON invalid script value", 
-	                             4, reportErrors);			
+			HDLmField.reportErrorValue(editorType, 
+					                       errorCounter,
+                                 errorMessages,
+	                               jsonObject, 
+	                               name, 
+	                               curValue, 
+	                               "Modification JSON invalid script value", 
+	                               4, 
+	                               reportErrors);			
 		}
+		return rv;
+	}
+	/* Check each value in the values array and make sure it is a valid JavaScript
+     script value */
+	protected static boolean  modFieldStringArrayScriptNotUsed(final ArrayList<String> values,
+							                                               final HDLmEditorTypes editorType, 
+																												 		 final MutableInt errorCounter,
+														                                 final ArrayList<String> errorMessages,
+																														 final JsonObject jsonObject, 
+																														 final String name, 
+																														 final HDLmReportErrors reportErrors) {
+		if (values == null) {
+		  String  errorText = "Values list passed to modFieldStringArrayScript is null";
+		  throw new NullPointerException(errorText);
+		}
+		if (editorType == null) {
+		  String  errorText = "Editor type enum passed to modFieldStringArrayScript is null";
+		  throw new NullPointerException(errorText);
+		}
+		/* Check if the editor type passed by the caller is invalid */
+		if (editorType == HDLmEditorTypes.NONE) {
+		  HDLmAssertAction(false, "Editor type value is invalid in modFieldStringArrayScript");
+		}
+		if (errorCounter == null) {
+	   String  errorText = "Mutable int for error counter passed to modFieldStringArrayScript is null";
+		  throw new NullPointerException(errorText);
+		}
+		if (errorMessages == null) {
+			String  errorText = "ArrayList for error messages passed to modFieldStringArrayScript is null";
+			throw new NullPointerException(errorText);
+		}
+		if (jsonObject == null) {
+		  String  errorText = "JSON object passed to modFieldStringArrayScript is null";
+		  throw new NullPointerException(errorText);
+		}
+		if (name == null) {
+		  String  errorText = "Name string passed to modFieldStringArrayScript is null";
+		  throw new NullPointerException(errorText);
+		}
+		if (reportErrors == null) {
+		  String  errorText = "Report errors enum passed to modFieldStringArrayScript is null";
+		  throw new NullPointerException(errorText);
+		}
+		/* Declare and define a few values */
+		boolean   rv = true;
+		String    curValueUpdated = null;
+		/* Check each of the values in the values list */
+		int   valuesLength = values.size();
+		for (int i = 0; i < valuesLength; i++) {
+			/* Get the current string value and remove any leading and trailing blanks */
+			String  curValue = values.get(i);
+			curValueUpdated = HDLmAi.fixWebImproverScript(curValue);
+			values.set(i, curValueUpdated);
+			/* Check if the current script is valid */
+			boolean   scriptValid = HDLmHtml.checkIfJavaScriptValid(curValueUpdated, 
+					                                                    HDLmReportErrors.DONTREPORTERRORS);
+			/* scriptValid = true; */
+			if (scriptValid)
+				continue;
+			/* Report that the script is not valid */
+			rv = false;
+			HDLmField.reportErrorValue(editorType, 
+					                       errorCounter,
+	                               errorMessages,
+	                               jsonObject, 
+	                               name, 
+	                               curValue, 
+	                               "Modification JSON invalid script value", 
+	                               4, 
+	                               reportErrors);			
+		}
+		/* Check each of the JavaScript scripts. Make sure
+       that all of them are valid JavaScript scripts.
+       If any of the scripts are invalid, then an
+       error is reported and the modification is
+       deemed to be invalid. */
+	  boolean   allValid = true;
+	  for (int i = 0; i < valuesLength; i++) {
+	 	  if (1 == 1)
+	 		  break;
+		  /* Get the JavaScript script */
+		  String  scriptValue = values.get(i);
+		  /* Check the JavaScript script */
+		  boolean   scriptValid = true; 
+		  try {
+				/* String  curValueUpdated = HDLmAi.fixWebImproverScript(scriptValue); */
+				/* values.set(i, curValueUpdated); */
+		    scriptValid = HDLmHtml.checkIfJavaScriptValid(curValueUpdated,
+	                                                    HDLmReportErrors.REPORTERRORS);
+		  }
+			catch (Exception exception) {
+				LOG.info("Exception while checking a JavaScript script");
+				LOG.info(exception.getMessage(), exception);
+				HDLmEvent.eventOccurred("Exception");
+				scriptValid = false;
+			}
+		  if (!scriptValid) {
+			  allValid = false;
+			  HDLmField.reportErrorValue(editorType, 
+					                         errorCounter, 
+					                         errorMessages, 
+					                         jsonObject, 
+					                         "scripts", 
+					                         scriptValue,
+				                           "Invalid JavaScript script", 
+				                           4, 
+				                           HDLmReportErrors.REPORTERRORS);
+		  }
+	  }		
 		return rv;
 	}
 	/* Check each value in the values array and make sure it is a valid visit
 	   value. The only possible visit values are yes and no. Note that leading
 	   and trailing blanks are always removed from each value. The check for yes
 	   or no is caseless by design. */
-	protected static boolean  modFieldStringArrayVisit(ArrayList<String> values,
-			                                               HDLmEditorTypes editorType, 
-																										 MutableInt errors, 
-																										 JsonObject jsonObject, 
-																										 String name, 
-																										 HDLmReportErrors reportErrors) {
+	protected static boolean  modFieldStringArrayVisit(final ArrayList<String> values,
+			                                               final HDLmEditorTypes editorType, 
+																										 final MutableInt errorCounter,
+									                                   final ArrayList<String> errorMessages,
+																										 final JsonObject jsonObject, 
+																										 final String name, 
+																										 final HDLmReportErrors reportErrors) {
 		if (values == null) {
 		  String  errorText = "Values list passed to modFieldStringArrayVisit is null";
 		  throw new NullPointerException(errorText);
@@ -5862,9 +7345,13 @@ static String HDLmModTreeInfoString = "{" +
 		if (editorType == HDLmEditorTypes.NONE) {
 		  HDLmAssertAction(false, "Editor type value is invalid");
 		}
-		if (errors == null) {
-	   String  errorText = "Mutable int for errors passed to modFieldStringArrayVisit is null";
+		if (errorCounter == null) {
+	    String  errorText = "Mutable int for error counter passed to modFieldStringArrayVisit is null";
 		  throw new NullPointerException(errorText);
+		}
+		if (errorMessages == null) {
+			String  errorText = "ArrayList for error messages passed to modFieldStringArrayVisit is null";
+			throw new NullPointerException(errorText);
 		}
 		if (jsonObject == null) {
 		  String  errorText = "JSON object passed to modFieldStringArrayVisit is null";
@@ -5894,11 +7381,15 @@ static String HDLmModTreeInfoString = "{" +
 				continue;
 			/* Report that the value is not valid */
 			rv = false;
-			HDLmMod.reportErrorValue(editorType, errors, 
-	                            jsonObject, name, 
-	                            curValue, 
-	                            "Modification JSON invalid visit value", 
-	                            4, reportErrors);			
+			HDLmField.reportErrorValue(editorType, 
+					                       errorCounter,
+					                       errorMessages,
+	                               jsonObject, 
+	                               name, 
+	                               curValue, 
+	                               "Modification JSON invalid visit value", 
+	                               4, 
+	                               reportErrors);			
 		}
 		return rv;
 	}
@@ -5906,24 +7397,33 @@ static String HDLmModTreeInfoString = "{" +
 	   object. Report an error if the field is not found. If an error is reported,
 	   the error count is also incremented. The return value from this function is
 	   the value of the field, if the field is found. */
-	protected static HDLmTreeTypes modFieldTreeType(HDLmEditorTypes editorType, 
-			                                            MutableInt errors, 
-			                                            JsonObject jsonObject, 
-			                                            Set<String> jsonKeys,
-			                                            String name) {
-		return modFieldTreeType(editorType, errors, 
-				                    jsonObject, jsonKeys, 
+	protected static HDLmTreeTypes modFieldTreeType(final HDLmEditorTypes editorType, 
+			                                            final MutableInt errorCounter,
+			     		                                    final ArrayList<String> errorMessages,
+			                                            final JsonObject jsonObject, 
+			                                            final Set<String> jsonKeys,
+			                                            final String name) {
+		return modFieldTreeType(editorType, 
+				                    errorCounter, 
+				                    errorMessages,
+				                    jsonObject, 
+				                    jsonKeys, 
 				                    name, 
 				                    HDLmReportErrors.REPORTERRORS);
 	}
-	protected static HDLmTreeTypes  modFieldTreeType(HDLmEditorTypes editorType, 
-			                                             MutableInt errors, 
-			                                             JsonObject jsonObject, 
-			                                             Set<String> jsonKeys,
-			                                             String name, 
-			                                             HDLmReportErrors reportErrors) {
-		if (errors == null) {
-			String  errorText = "Mutable int for errors passed to modFieldTreeType is null";
+	protected static HDLmTreeTypes  modFieldTreeType(final HDLmEditorTypes editorType, 
+			                                             final MutableInt errorCounter,
+			      		                                   final ArrayList<String> errorMessages,
+			                                             final JsonObject jsonObject, 
+			                                             final Set<String> jsonKeys,
+			                                             final String name, 
+			                                             final HDLmReportErrors reportErrors) {
+		if (errorCounter == null) {
+			String  errorText = "Mutable int for error counter passed to modFieldTreeType is null";
+			throw new NullPointerException(errorText);
+		}
+		if (errorMessages == null) {
+			String  errorText = "ArrayList for error messages passed to modFieldTreeType is null";
 			throw new NullPointerException(errorText);
 		}
 		if (jsonObject == null) {
@@ -5950,47 +7450,69 @@ static String HDLmModTreeInfoString = "{" +
 				modTreeType = HDLmTreeTypes.valueOfString(localString);
 				if (modTreeType == HDLmTreeTypes.NONE) {
 					String value = localString;
-					HDLmMod.reportErrorValue(editorType, errors, 
-							                     jsonObject, name, 
-							                     value, "Modification JSON invalid field", 
-							                     4, reportErrors);
+					HDLmField.reportErrorValue(editorType, 
+							                       errorCounter,
+							                       errorMessages,
+							                       jsonObject, 
+							                       name, 
+							                       value, 
+							                       "Modification JSON invalid field", 
+							                       4, 
+							                       reportErrors);
 				}
 			}
 		}
 		/* Since we do not have the field in the JSON, report an error */
 		if (fieldFound == false)
-			HDLmMod.reportErrorNoValue(editorType, errors, 
-					                       jsonObject, name, 
-					                       "Modification JSON missing field", 
-					                       3, reportErrors);
+			HDLmField.reportErrorNoValue(editorType, 
+					                         errorCounter,
+					                         errorMessages,
+					                         jsonObject, 
+					                         name, 
+					                         "Modification JSON missing field", 
+					                         3, 
+					                         reportErrors);
 		return modTreeType;
 	}
 	/* Try to access a field in the JSON used to build the current modification
 	   object. Report an error if the field is not found. If an error is reported,
 	   the error count is also incremented. The return value from this function is
 	   the value of the field, if the field is found. */
-	protected static ZonedDateTime modFieldZonedDateTime(HDLmEditorTypes editorType, 
-			                                                 MutableInt errors, 
-			                                                 JsonObject jsonObject, 
-			                                                 Set<String> jsonKeys,
-			                                                 String name) {
-		return modFieldZonedDateTime(editorType, errors, 
-				                         jsonObject, jsonKeys, 
+	protected static ZonedDateTime modFieldZonedDateTime(final HDLmEditorTypes editorType, 
+			                                                 final MutableInt errorCounter,
+			          		                                   final ArrayList<String> errorMessages,
+			                                                 final JsonObject jsonObject, 
+			                                                 final Set<String> jsonKeys,
+			                                                 final String name) {
+		return modFieldZonedDateTime(editorType, 
+				                         errorCounter,
+				                         errorMessages,
+				                         jsonObject, 
+				                         jsonKeys, 
 				                         name, 
 				                         HDLmReportErrors.REPORTERRORS);
 	}
-	protected static ZonedDateTime modFieldZonedDateTime(HDLmEditorTypes editorType, 
-			                                                 MutableInt errors, 
-			                                                 JsonObject jsonObject, 
-			                                                 Set<String> jsonKeys,
-			                                                 String name, 
-			                                                 HDLmReportErrors reportErrors) {
-		if (errors == null) {
-			String  errorText = "Mutable int for errors passed to modFieldZonedDateTime is null";
+	protected static ZonedDateTime modFieldZonedDateTime(final HDLmEditorTypes editorType, 
+			                                                 final MutableInt errorCounter,
+			          		                                   final ArrayList<String> errorMessages,
+			                                                 final JsonObject jsonObject, 
+			                                                 final Set<String> jsonKeys,
+			                                                 final String name, 
+			                                                 final HDLmReportErrors reportErrors) {
+		if (errorCounter == null) {
+			String  errorText = "Mutable int for error counter passed to modFieldZonedDateTime is null";
+			throw new NullPointerException(errorText);
+		}
+		if (errorMessages == null) {
+			String  errorText = "ArrayList for error messages passed to modFieldZonedDateTime is null";
 			throw new NullPointerException(errorText);
 		}
 		if (jsonObject == null) {
 			String  errorText = "JSON object passed to modFieldZonedDateTime is null";
+			throw new NullPointerException(errorText);
+		}
+		if (errorMessages == null) {
+			String  errorText = "ArrayList for error messages passed to modFieldZonedDateTime is null";
 			throw new NullPointerException(errorText);
 		}
 		if (jsonKeys == null) {
@@ -6013,19 +7535,28 @@ static String HDLmModTreeInfoString = "{" +
 				modZonedDateTime = ZonedDateTime.parse(localString);
 				if (modZonedDateTime == null) {
 					String value = localString;
-					HDLmMod.reportErrorValue(editorType, errors, 
-							                     jsonObject, name, 
-							                     value, "Modification JSON invalid field", 
-							                     4, reportErrors);
+					HDLmField.reportErrorValue(editorType, 
+							                       errorCounter,
+							                       errorMessages,
+							                       jsonObject, 
+							                       name, 
+							                       value, 
+							                       "Modification JSON invalid field", 
+							                       4, 
+							                       reportErrors);
 				}
 			}
 		}
 		/* Since we do not have the field in the JSON, report an error */
 		if (fieldFound == false)
-			HDLmMod.reportErrorNoValue(editorType, errors, 
-					                       jsonObject, name, 
-					                       "Modification JSON missing field", 
-					                       3, reportErrors);
+			HDLmField.reportErrorNoValue(editorType, 
+					                         errorCounter,
+                                   errorMessages,
+					                         jsonObject, 
+					                         name, 
+					                         "Modification JSON missing field", 
+					                         3, 
+					                         reportErrors);
 		return modZonedDateTime;
 	}
 	/* Make sure that at least one set of locate information was actually set. Of
@@ -6034,21 +7565,30 @@ static String HDLmModTreeInfoString = "{" +
 	   finds. Note that the set of finds can be just one find. Two or more finds are
 	   not required. However, one of these must be set. It is an error if all of 
 	   them are not set. */
-	protected static void modFindCheck(HDLmEditorTypes editorType, 
-			                               MutableInt errors, 
-			                               JsonObject jsonObject,  
-			                               HDLmFind findInfo) {
-		modFindCheck(editorType, errors, 
-				         jsonObject, findInfo, 
+	protected static void modFindCheck(final HDLmEditorTypes editorType, 
+			                               final MutableInt errorCounter,
+	                                   final ArrayList<String> errorMessages,
+			                               final JsonObject jsonObject,  
+			                               final HDLmFind findInfo) {
+		modFindCheck(editorType, 
+				         errorCounter,
+				         errorMessages,				         
+				         jsonObject, 
+				         findInfo, 
 				         HDLmReportErrors.REPORTERRORS);
 	}
-	protected static void modFindCheck(HDLmEditorTypes editorType, 
-			                               MutableInt errors, 
-			                               JsonObject jsonObject, 
-	                                 	 HDLmFind findInfo, 
-	                                 	 HDLmReportErrors reportErrors) {
-		if (errors == null) {
-			String  errorText = "Mutable int for errors passed to modFindCheck is null";
+	protected static void modFindCheck(final HDLmEditorTypes editorType, 
+			                               final MutableInt errorCounter,
+	                                   final ArrayList<String> errorMessages,
+			                               final JsonObject jsonObject, 
+	                                 	 final HDLmFind findInfo, 
+	                                 	 final HDLmReportErrors reportErrors) {
+		if (errorCounter == null) {
+			String  errorText = "Mutable int for error counter passed to modFindCheck is null";
+			throw new NullPointerException(errorText);
+		}
+		if (errorMessages == null) {
+			String  errorText = "ArrayList for error messages passed to modFindCheck is null";
 			throw new NullPointerException(errorText);
 		}
 		if (jsonObject == null) {
@@ -6063,9 +7603,14 @@ static String HDLmModTreeInfoString = "{" +
 		if (findInfo.getTag() == null && 
 				findInfo.getAttribute() == null) {
 			String  errorText = "No find tag or attribute information provided";
-			HDLmMod.reportError(editorType, errors, 
-					                jsonObject, errorText, 
-					                23, reportErrors);
+			HDLmField.reportError(editorType, 
+					                  errorCounter,
+					                  errorMessages, 
+					                  jsonObject, 
+					                  errorText, 
+					                  "find",
+					                  23, 
+					                  reportErrors);
 		}
 		/* If we have an attribute value we must also have a value for the 
 		   attribute */
@@ -6073,9 +7618,14 @@ static String HDLmModTreeInfoString = "{" +
 				findInfo.getValue()     == null) {
 			String  errorText = "Find attribute name found without value information";
 			if (reportErrors == HDLmReportErrors.REPORTERRORS)
-			  HDLmMod.reportError(editorType, errors, 
-			  		                jsonObject, errorText, 
-			  		                23, reportErrors);
+			  HDLmField.reportError(editorType, 
+			  		                  errorCounter,
+			  		                  errorMessages,
+			  		                  jsonObject, 
+			  		                  "find",
+			  		                  errorText, 
+			  		                  23, 
+			  		                  reportErrors);
 		}
 	}	
 	/* Make sure that at least one set of locate information was actually set. Of
@@ -6084,31 +7634,34 @@ static String HDLmModTreeInfoString = "{" +
 	   finds. Note that the set of finds can be just one find. Two or more finds are
 	   not required. However, one of these must be set. It is an error if all of 
 	   them are not set. */
-	protected static void modLocateCheck(HDLmEditorTypes editorType, 
-			                                 HDLmModTypes modType,
-			                                 MutableInt errors, 
-			                                 JsonObject jsonObject, 
-			                                 String cssInfo, 
-			                                 String xpathInfo,
-			                                 ArrayList<HDLmFind> findInfo,
-			                                 HDLmNodeIden nodeIden) {
+	protected static void modLocateCheck(final HDLmEditorTypes editorType, 
+			                                 final HDLmModTypes modType,
+			                                 final MutableInt errorCounter,
+		                                   final ArrayList<String> errorMessages,
+			                                 final JsonObject jsonObject, 
+			                                 final String cssInfo, 
+			                                 final String xpathInfo,
+			                                 final ArrayList<HDLmFind> findInfo,
+			                                 final HDLmNodeIden nodeIden) {
 		modLocateCheck(editorType,
 				           modType,
-				           errors, 
+				           errorCounter,
+				           errorMessages,
 				           jsonObject, cssInfo, 
 				           xpathInfo, findInfo, 
 				           nodeIden,
 				           HDLmReportErrors.REPORTERRORS);
 	}
-	protected static void modLocateCheck(HDLmEditorTypes editorType, 
-			                                 HDLmModTypes modType,
-			                                 MutableInt errors, 
-			                                 JsonObject jsonObject, 
-			                                 String cssInfo, 
-			                                 String xpathInfo,
-	                                  	 ArrayList<HDLmFind> findInfo,
-	                                  	 HDLmNodeIden nodeIden,
-	                                  	 HDLmReportErrors reportErrors) {
+	protected static void modLocateCheck(final HDLmEditorTypes editorType, 
+			                                 final HDLmModTypes modType,
+			                                 final MutableInt errorCounter,
+		                                   final ArrayList<String> errorMessages,
+			                                 final JsonObject jsonObject, 
+			                                 final String cssInfo, 
+			                                 final String xpathInfo,
+			                                 final ArrayList<HDLmFind> findInfo,
+			                                 final HDLmNodeIden nodeIden,
+	                                  	 final HDLmReportErrors reportErrors) {
 	  /* Check if the editor type is set or null */
 		if (editorType == null) {
 			String  errorText = "Editor type passed to modLocateCheck is null";
@@ -6129,8 +7682,12 @@ static String HDLmModTreeInfoString = "{" +
 			String  errorText = "Modification type passed to modLocateCheck is invalid";
 			throw new IllegalArgumentException(errorText);
     }
-		if (errors == null) {
-			String  errorText = "Mutable int for errors passed to modLocateCheck is null";
+		if (errorCounter == null) {
+			String  errorText = "Mutable int for error counter passed to modLocateCheck is null";
+			throw new NullPointerException(errorText);
+		}
+		if (errorMessages == null) {
+			String  errorText = "ArrayList for error messages passed to modLocateCheck is null";
 			throw new NullPointerException(errorText);
 		}
 		if (jsonObject == null) {
@@ -6159,15 +7716,25 @@ static String HDLmModTreeInfoString = "{" +
 		/* Check if we have too many types of locate information */
 		if (locateCount > requiredLocateCount) {
 			String  errorText = "Too much location information provided";
-			HDLmMod.reportError(editorType, errors, 
-					                jsonObject, errorText, 
-					                27, reportErrors);
+			HDLmField.reportError(editorType, 
+					                  errorCounter,
+					                  errorMessages,
+					                  jsonObject,
+					                  "locate",
+					                  errorText, 
+					                  27, 
+					                  reportErrors);
 		}
 		if (locateCount == 0 && requiredLocateCount != 0) {
 			String  errorText = "No location information provided";
-			HDLmMod.reportError(editorType, errors, 
-					                jsonObject, errorText, 
-					                23, reportErrors);
+			HDLmField.reportError(editorType, 
+					                  errorCounter,
+					                  errorMessages,
+					                  jsonObject,
+					                  "locate",
+					                  errorText, 
+					                  23, 
+					                  reportErrors);
 		}
 	}
 	/* The size value passed by the caller may be a percentage value or it may be a
@@ -6179,7 +7746,7 @@ static String HDLmModTreeInfoString = "{" +
 	   returned to the caller using an array. Note that a special value of "auto" is
 	   also supported. The special value of "auto" has no suffix can not be
 	   modified. */
-	protected static ArrayList<String> modPercentPixel(String size) {
+	protected static ArrayList<String>  modPercentPixel(final String size) {
 		if (size == null) {
 			String  errorText = "Size string passed to modPercentPixel is null";
 			throw new NullPointerException(errorText);
@@ -6222,26 +7789,36 @@ static String HDLmModTreeInfoString = "{" +
      suffix is invalid. The caller provides the list of valid suffix values.
      Note that a NULL value is always considered to be invalid and will be
      reported in all cases. */
-	protected static void modSuffixCheck(HDLmEditorTypes editorType, 
-			                                 MutableInt errors, 
-			                                 JsonObject jsonObject, 
-			                                 String name,
-                                       ArrayList<String> validArray, 
-                                       String suffixValue) {
-		modSuffixCheck(editorType, errors, 
-				           jsonObject, name, 
-				           validArray, suffixValue, 
+	protected static void  modSuffixCheck(final HDLmEditorTypes editorType, 
+			                                  final MutableInt errorCounter,
+		                                    final ArrayList<String> errorMessages,
+			                                  final JsonObject jsonObject, 
+			                                  final String name,
+                                        final ArrayList<String> validArray, 
+                                        final String suffixValue) {
+		modSuffixCheck(editorType, 
+				           errorCounter,
+				           errorMessages,
+				           jsonObject, 
+				           name, 
+				           validArray, 
+				           suffixValue, 
 				           HDLmReportErrors.REPORTERRORS);
 	}
-	protected static void modSuffixCheck(HDLmEditorTypes editorType, 
-			                                 MutableInt errors, 
-			                                 JsonObject jsonObject, 
-			                                 String name,
-			                                 ArrayList<String> validArray, 
-			                                 String suffixValue, 
-			                                 HDLmReportErrors reportErrors) {
-		if (errors == null) {
-			String  errorText = "Mutable int for errors passed to modSuffixCheck is null";
+	protected static void modSuffixCheck(final HDLmEditorTypes editorType, 
+			                                 final MutableInt errorCounter, 
+		                                   final ArrayList<String> errorMessages,
+			                                 final JsonObject jsonObject, 
+			                                 final String name,
+			                                 final ArrayList<String> validArray, 
+			                                 final String suffixValue, 
+			                                 final HDLmReportErrors reportErrors) {
+		if (errorCounter == null) {
+			String  errorText = "Mutable int for error counter passed to modSuffixCheck is null";
+			throw new NullPointerException(errorText);
+		}
+		if (errorMessages == null) {
+			String  errorText = "ArrayList for error messages passed to modSuffixCheck is null";
 			throw new NullPointerException(errorText);
 		}
 		if (jsonObject == null) {
@@ -6259,27 +7836,35 @@ static String HDLmModTreeInfoString = "{" +
 	  /* Check if the field actually has a value of not. A NULL value is
 	     not considered to be a valid value. */
 	  if (suffixValue == null) {
-	    HDLmMod.reportErrorNoValue(editorType, errors, 
-	    		                       jsonObject, name,
-	                               "Modification JSON field NULL", 
-	                               5, reportErrors);
+	    HDLmField.reportErrorNoValue(editorType, 
+	    		                         errorCounter,
+	    		                         errorMessages,
+	    		                         jsonObject, 
+	    		                         name,
+	                                 "Modification JSON field NULL", 
+	                                 5, 
+	                                 reportErrors);
 	    return;
 	  }
 	  /* Check if the suffix value provided by the caller is not one of the
 	     allowed values. This should not happen, but might happen anyway. */
 	  if (!validArray.contains(suffixValue)) {
-	    HDLmMod.reportErrorValue(editorType, errors, 
-	    		                     jsonObject, name, 
-	    		                     suffixValue,
-	                             "Modification JSON suffix value is invalid", 
-	                             4, reportErrors);
+	    HDLmField.reportErrorValue(editorType, 
+	    		                       errorCounter,
+                                 errorMessages,
+	    		                       jsonObject, 
+	    		                       name, 
+	    		                       suffixValue,
+	                               "Modification JSON suffix value is invalid", 
+	                               4, 
+	                               reportErrors);
 	    return;
 	  }
 	}  
 	/* The method below processes just one set of details (really just
 	   one modification). The JSON element is converted to a JSON object
 	   and various changes are mode. */  
-	protected static void processJsonMod(JsonElement jsonElement) {		
+	protected static void processJsonMod(final JsonElement jsonElement) {		
 		/* Check if the JSON element value passed by the caller is null */
 		if (jsonElement == null) {
 		  String  errorText = "Node tree value passed to processJsonMod is null";
@@ -6372,29 +7957,39 @@ static String HDLmModTreeInfoString = "{" +
 	   range. The range includes an optional minimum value and an optional maximum
 	   value. Both range values are checked if need be. Note that a null value is
 	   always considered to be invalid and will be reported in all cases. */
-	protected static void rangeField(HDLmEditorTypes editorType, 
-			                             MutableInt errors, 
-			                             JsonObject jsonObject, 
-			                             String name, 
-			                             Integer value, 
-			                             Integer min,
-			                             Integer max) {
-		rangeField(editorType, errors, 
-				       jsonObject, name, 
-				       value, min, 
+	protected static void rangeField(final HDLmEditorTypes editorType, 
+			                             final MutableInt errorCounter,
+                                   final ArrayList<String> errorMessages,
+			                             final JsonObject jsonObject, 
+			                             final String name, 
+			                             final Integer value, 
+			                             final Integer min,
+			                             final Integer max) {
+		rangeField(editorType, 
+				       errorCounter,
+				       errorMessages,
+				       jsonObject, 
+				       name, 
+				       value, 
+				       min, 
 				       max, 
 				       HDLmReportErrors.REPORTERRORS);
 	}
-	protected static void rangeField(HDLmEditorTypes editorType, 
-			                             MutableInt errors, 
-			                             JsonObject jsonObject, 
-			                             String name, 
-			                             Integer value, 
-			                             Integer min,
-			                             Integer max, 
-			                             HDLmReportErrors reportErrors) {
-		if (errors == null) {
-			String  errorText = "Mutable int for errors passed to rangeField is null";
+	protected static void rangeField(final HDLmEditorTypes editorType, 
+			                             final MutableInt errorCounter,
+                                   final ArrayList<String> errorMessages,
+			                             final JsonObject jsonObject, 
+			                             final String name, 
+			                             final Integer value, 
+			                             final Integer min,
+			                             final Integer max, 
+			                             final HDLmReportErrors reportErrors) {
+		if (errorCounter == null) {
+			String  errorText = "Mutable int for error counter passed to rangeField is null";
+			throw new NullPointerException(errorText);
+		}
+		if (errorMessages == null) {
+			String  errorText = "ArrayList for error messages passed to rangeField is null";
 			throw new NullPointerException(errorText);
 		}
 		if (jsonObject == null) {
@@ -6408,30 +8003,43 @@ static String HDLmModTreeInfoString = "{" +
 		/* Check if the field actually has a value of not. A null value is not
 		   considered to be a valid value. */
 		if (value == null) {
-			HDLmMod.reportErrorNoValue(editorType, errors, 
-					                       jsonObject, name, 
-					                       "Modification JSON field null", 5, 
-					                       reportErrors);
+			HDLmField.reportErrorNoValue(editorType, 
+					                         errorCounter,
+					                         errorMessages,
+					                         jsonObject, 
+					                         name, 
+					                         "Modification JSON field null", 
+					                         5, 
+					                         reportErrors);
 			return;
 		}
 		/* Check if we actually have a minimum value and if the passed value is less
 		   than the minimum value */
 		if (min != null && value < min) {
 			String valueString = value.toString();
-			HDLmMod.reportErrorValue(editorType, errors, 
-					                     jsonObject, name, 
-					                     valueString, "Modification JSON too low", 
-					                     6, reportErrors);
+			HDLmField.reportErrorValue(editorType, 
+					                       errorCounter,
+					                       errorMessages,
+					                       jsonObject, 
+					                       name, 
+					                       valueString, "Modification JSON too low", 
+					                       6, 
+					                       reportErrors);
 			return;
 		}
 		/* Check if we actually have a maximum value and if the passed value is greater
 		   than the maximum value */
 		if (max != null && value > max) {
 			String valueString = value.toString();
-			HDLmMod.reportErrorValue(editorType, errors, 
-					                     jsonObject, name, 
-					                     valueString, "Modification JSON too high", 
-					                     7, reportErrors);
+			HDLmField.reportErrorValue(editorType, 
+					                       errorCounter, 
+					                       errorMessages,
+					                       jsonObject, 
+					                       name, 
+					                       valueString, 
+					                       "Modification JSON too high", 
+					                       7, 
+					                       reportErrors);
 			return;
 		}
 	} 
@@ -6479,231 +8087,17 @@ static String HDLmModTreeInfoString = "{" +
     /* Return the modified string to the caller */   
     return inStr;
   } 
-	/* Report an error. The caller provides all of the values used to report the
-	   error. This routine builds the error message text and reports the error. Note
-	   that the caller does not provide any actual value as part of calling this
-	   method. */
-	protected static String reportError(HDLmEditorTypes editorType, 
-			                                MutableInt errors, 
-			                                JsonObject jsonObject, 
-			                                String  errorText, 
-			                                int errorNumber) {
-    return reportError(editorType, errors, 
-    		               jsonObject, errorText, 
-    		               errorNumber, 
-    		               HDLmReportErrors.REPORTERRORS);
-	}
-	protected static String reportError(HDLmEditorTypes editorType, 
-			                                MutableInt errors, 
-			                                JsonObject jsonObject, 
-			                                String  errorText, 
-			                                int errorNumber,
-			                                HDLmReportErrors reportErrors) {
-		if (errors == null) {
-			String  errorNullText = "Mutable int for errors passed to reportError is null";
-			throw new NullPointerException(errorNullText);
-		}
-		if (jsonObject == null) {
-			String  errorNullText = "JSON object passed to reportError is null";
-			throw new NullPointerException(errorNullText);
-		}
-		if (errorText == null) {
-			String  errorNullText = "Error text string passed to reportError is null";
-			throw new NullPointerException(errorNullText);
-		}
-		/* Increment the error count */
-		errors.increment();
-		/* Build the error message */
-		errorText = errorText + " -";
-		/* Add the modification JSON */
-		errorText += " JSON (";
-		errorText += HDLmMod.truncateJson(jsonObject);
-		errorText += ")";
-		if (reportErrors == HDLmReportErrors.REPORTERRORS) {
-			String   typeString = HDLmEditorServlet.getTypeEditor(editorType);
-			HDLmLogMsg.buildLogMsg(HDLmLogLevels.ERROR, typeString, errorNumber, errorText);
-		}
-		return errorText;
-	}
-	/* Report an error. The caller provides all of the values used to report the
-	   error. This routine builds the error message text and reports the error. Note
-	   that the caller does not provide the actual value as part of calling this
-	   method. */
-	protected static String reportErrorNoValue(HDLmEditorTypes editorType, 
-			                                       MutableInt errors, 
-			                                       JsonObject jsonObject, 
-			                                       String name, 
-			                                       String  errorText,
-			                                       int errorNumber) {
-		return reportErrorNoValue(editorType, errors, 
-				                      jsonObject, name, 
-				                      errorText, errorNumber, 
-				                      HDLmReportErrors.REPORTERRORS);
-	}
-	protected static String reportErrorNoValue(HDLmEditorTypes editorType, 
-			                                       MutableInt errors, 
-			                                       JsonObject jsonObject, 
-			                                       String name, 
-			                                       String  errorText,
-			                                       int errorNumber, 
-			                                       HDLmReportErrors reportErrors) {
-		if (errors == null) {
-			String  errorNullText = "Mutable int for errors passed to reportErrorNoValue is null";
-			throw new NullPointerException(errorNullText);
-		}
-		if (jsonObject == null) {
-			String  errorNullText = "JSON object passed to reportErrorNoValue is null";
-			throw new NullPointerException(errorNullText);
-		}
-		if (name == null) {
-			String  errorNullText = "Field name string passed to reportErrorNoValue is null";
-			throw new NullPointerException(errorNullText);
-		}
-		if (errorText == null) {
-			String  errorNullText = "Error text string passed to reportErrorNoValue is null";
-			throw new NullPointerException(errorNullText);
-		}
-		/* Increment the error count */
-		errors.increment();
-		/* Build the error message */
-		errorText = errorText + " -";
-		/* Add the field name */
-		errorText += " name (";
-		errorText += name;
-		errorText += ")";
-		/* Add the modification JSON */
-		errorText += " JSON (";
-		errorText += HDLmMod.truncateJson(jsonObject);
-		errorText += ")";
-		if (reportErrors == HDLmReportErrors.REPORTERRORS) {
-			String   typeString = HDLmEditorServlet.getTypeEditor(editorType);
-			HDLmLogMsg.buildLogMsg(HDLmLogLevels.ERROR, typeString, errorNumber, errorText);
-		}
-		return errorText;
-	}
-	/* Report an error. The caller provides all of the values used to report the
-	   error. This routine builds the error message text and reports the error. Note
-	   that the caller provides the actual value as part of calling this method. */
-	protected static String reportErrorValue(HDLmEditorTypes editorType, 
-			                                     MutableInt errors, 
-			                                     JsonObject jsonObject, 
-			                                     String name, 
-			                                     String value,
-			                                     String  errorText, 
-			                                     int errorNumber) {
-		return reportErrorValue(editorType, errors, 
-				                    jsonObject, 
-				                    name, value, 
-				                    errorText, errorNumber, 
-				                    HDLmReportErrors.REPORTERRORS);
-	}
-	protected static String reportErrorValue(HDLmEditorTypes editorType, 
-			                                     MutableInt errors, 
-			                                     JsonObject jsonObject, 
-			                                     String name, 
-			                                     String value,
-			                                     String  errorText, 
-			                                     int errorNumber, 
-			                                     HDLmReportErrors reportErrors) {
-		if (errors == null) {
-			String  errorNullText = "Mutable int for errors passed to reportErrorValue is null";
-			throw new NullPointerException(errorNullText);
-		}
-		if (jsonObject == null) {
-			String  errorNullText = "JSON object passed to reportErrorValue is null";
-			throw new NullPointerException(errorNullText);
-		}
-		if (name == null) {
-			String  errorNullText = "Field name string passed to reportErrorValue is null";
-			throw new NullPointerException(errorNullText);
-		}
-		if (value == null) {
-			String  errorNullText = "Value string passed to reportErrorValue is null";
-			throw new NullPointerException(errorNullText);
-		}
-		if (errorText == null) {
-			String  errorNullText = "Error text string passed to reportErrorValue is null";
-			throw new NullPointerException(errorNullText);
-		}
-		/* Increment the error count */
-		errors.increment();
-		/* Build the error message */
-		errorText = errorText + " -";
-		/* Add the field name */
-		errorText += " name (";
-		errorText += name;
-		errorText += ")";
-		/* Add the invalid field value */
-		errorText += " value (";
-		errorText += value;
-		errorText += ")";
-		/* Add the modification JSON */
-		errorText += " JSON (";
-		errorText += HDLmMod.truncateJson(jsonObject);
-		errorText += ")";
-		if (reportErrors == HDLmReportErrors.REPORTERRORS) {
-			String   typeString = HDLmEditorServlet.getTypeEditor(editorType);
-			HDLmLogMsg.buildLogMsg(HDLmLogLevels.ERROR, typeString, errorNumber, errorText);
-		}
-		return errorText;
-	}
-	/* Report an invalid JSON field. This routine always report an error. This
-	   routine always increments the error count. The caller provides the field
-	   name, the field value, and the JSON. */
-	protected static String reportField(HDLmEditorTypes editorType, 
-			                                MutableInt errors, 
-			                                JsonObject jsonObject, 
-			                                String name, 
-			                                String value) {
-	  return reportField(editorType, 
-	  		               errors, 
-	  		               jsonObject, 
-	  		               name, 
-	  		               value, 
-	  		               HDLmReportErrors.REPORTERRORS);
-	}
-	protected static String reportField(HDLmEditorTypes editorType, 
-			                                MutableInt errors, 
-			                                JsonObject jsonObject, 
-			                                String name, 
-			                                String value,
-			                                HDLmReportErrors reportErrors) {
-		if (errors == null) {
-			String  errorText = "Mutable int for errors passed to reportField is null";
-			throw new NullPointerException(errorText);
-		}
-		if (jsonObject == null) {
-			String  errorText = "JSON object passed to reportField is null";
-			throw new NullPointerException(errorText);
-		}
-		if (name == null) {
-			String  errorText = "Field name string passed to reportField is null";
-			throw new NullPointerException(errorText);
-		}
-		if (value == null) {
-			String  errorText = "Value string passed to reportField is null";
-			throw new NullPointerException(errorText);
-		}
-		return HDLmMod.reportErrorValue(editorType, 
-				                            errors, 
-				                            jsonObject, 
-				                            name, 
-				                            value, 
-				                            "Modification JSON invalid field", 
-				                            4,
-				                            reportErrors);
-	}
 	/* Do all of the work needed to save a web page change. The change is saved in
 	   an array of changes. Note that the array used to save changes is passed by
 	   reference, not by value. The array is actually changed by this routine. */
-	protected static void saveChanges(ArrayList<HDLmSavedChange> savedChangesArray,
-			                              Integer paramNumber,
-			                              Double paramValue, 
-			                              String modName, 
-			                              String modPathValue, 
-			                              HDLmModTypes modType, 
-			                              String oldValue, 
-			                              String newValue) {
+	protected static void saveChanges(final ArrayList<HDLmSavedChange> savedChangesArray,
+																		final Integer paramNumber,
+																		final Double paramValue, 
+																		final String modName, 
+																		final String modPathValue, 
+																		final HDLmModTypes modType, 
+																		final String oldValue, 
+																		final String newValue) {
 		/* We only check if the array reference is null here, because all of the
 		   other values can be null. That means the saved change instance can end
 		   up with a lot of null values in it. */
@@ -6725,7 +8119,7 @@ static String HDLmModTreeInfoString = "{" +
 		savedChangesArray.add(saveObj);
 	}
 	/* Set the comments (comments string) for a modification */
-	protected void setComments(String newComments) {
+	protected void setComments(final String newComments) {
 		this.comments = newComments;
 	}
 	/* Set the created field for a modification */
@@ -6737,7 +8131,7 @@ static String HDLmModTreeInfoString = "{" +
 		this.created = null;
 	}
 	/* Set the CSS Selector for a modification */
-	protected void setCssSelector(String newCssSelector) {
+	protected void setCssSelector(final String newCssSelector) {
 		this.cssSelector = newCssSelector;
 	}
 	/* Set the dummy created field for a modification. Note
@@ -6751,35 +8145,35 @@ static String HDLmModTreeInfoString = "{" +
 	  this.dummyLastModified = newDummyLastModified;
   }
 	/* Set the dummy pass-through field for a modification */
-	protected void setDummyPassThru(Boolean newDummyPassThru) {
+	protected void setDummyPassThru(final Boolean newDummyPassThru) {
 		this.dummyPassThru = newDummyPassThru;
 	}
 	/* Set the dummy table field for a modification */
-	protected void setDummyTable(String newDummyTable) {
+	protected void setDummyTable(final String newDummyTable) {
 		this.dummyTable = newDummyTable;
 	}
 	/* Set the dummy type field for a modification */
-	protected void setDummyType(String newDummyType) {
+	protected void setDummyType(final String newDummyType) {
 		this.dummyType = newDummyType;
 	}
 	/* Set the dummy updated field for a modification */
-	protected void setDummyUpdated(Boolean newDummyUpdated) {
+	protected void setDummyUpdated(final Boolean newDummyUpdated) {
 		this.dummyUpdated = newDummyUpdated;
 	}
 	/* Set the enabled flag for a modification */
-	protected void setEnabled(Boolean newEnabled) {
+	protected void setEnabled(final Boolean newEnabled) {
 		this.enabled = newEnabled;
 	}
 	/* set the modification extra information value */
-	protected void setExtra(String newExtra) {
+	protected void setExtra(final String newExtra) {
 	  this.extra = newExtra;;
 	}
 	/* Set the finds associated with a modification */
-	protected void setFinds(ArrayList<HDLmFind> newFinds) {
+	protected void setFinds(final ArrayList<HDLmFind> newFinds) {
 		this.finds = newFinds;
 	}
 	/* Set the extra field, if it is not set */
-	protected void setIfNotSetExtra(String newExtra) {
+	protected void setIfNotSetExtra(final String newExtra) {
 		/* Check if the new extra value passed by the caller is null */
 		if (newExtra == null) {
 			String  errorText = "New exta string value passed to setIfNotSetExtra is null";
@@ -6791,7 +8185,7 @@ static String HDLmModTreeInfoString = "{" +
 		  this.extra = newExtra;
 	}
 	/* Set the name field, if it is not set */
-	protected void setIfNotSetName(String newName) {
+	protected void setIfNotSetName(final String newName) {
 		/* Check if the new name value passed by the caller is null */
 		if (newName == null) {
 			String  errorText = "New name string value passed to setIfNotSetName is null";
@@ -6803,7 +8197,7 @@ static String HDLmModTreeInfoString = "{" +
 		  this.name = newName;
 	}
 	/* Set the node identifier field, if it is not set */
-	protected void setIfNotSetNodeIden(HDLmNodeIden newNodeIden) {
+	protected void setIfNotSetNodeIden(final HDLmNodeIden newNodeIden) {
 		/* Check if the new node identifier value passed by the caller is null */
 		if (newNodeIden == null) {
 			String  errorText = "New node identifier value passed to setIfNotSetNodeIden is null";
@@ -6814,7 +8208,7 @@ static String HDLmModTreeInfoString = "{" +
 			this.nodeIden = newNodeIden;
 	}
 	/* Set the parameter number field, if it is not set */
-	protected void setIfNotSetParameterNumber(Integer newParameterNumber) {
+	protected void setIfNotSetParameterNumber(final Integer newParameterNumber) {
 		/* Check if the new parameter number passed by the caller is null */
 		if (newParameterNumber == null) {
 			String  errorText = "New parameter number value passed to setIfNotSetParameterNumber is null";
@@ -6825,7 +8219,7 @@ static String HDLmModTreeInfoString = "{" +
 			this.parameter = newParameterNumber;
 	}
 	/* Set the path value field, if it is not set */
-	protected void setIfNotSetPathValue(String newPathValue) {
+	protected void setIfNotSetPathValue(final String newPathValue) {
 		/* Check if the new path value value passed by the caller is null */
 		if (newPathValue == null) {
 			String  errorText = "New path value string value passed to setIfNotSetPathValue is null";
@@ -6848,7 +8242,7 @@ static String HDLmModTreeInfoString = "{" +
 			this.lastModified = Instant.now();
 	}
 	/* Set the type field, if it is not set */
-	protected void setIfNotSetType(String newType) {
+	protected void setIfNotSetType(final String newType) {
 		/* Check if the new type value passed by the caller is null */
 		if (newType == null) {
 			String  errorText = "New type string value passed to setIfNotSetType is null";
@@ -6861,7 +8255,7 @@ static String HDLmModTreeInfoString = "{" +
 		  this.type = HDLmModTypes.valueOf(newType.toUpperCase());
 	}
 	/* Set the values field, if it is not set */
-	protected void setIfNotSetValues(ArrayList<String> newValues) {
+	protected void setIfNotSetValues(final ArrayList<String> newValues) {
 		/* Check if the new values array list passed by the caller is null */
 		if (newValues == null) {
 			String  errorText = "New values array list value passed to setIfNotSetValues is null";
@@ -6881,52 +8275,52 @@ static String HDLmModTreeInfoString = "{" +
 		this.lastModified = null;
 	}
 	/* Set the modification name value */
-	protected void setName(String newName) {
+	protected void setName(final String newName) {
 		this.name = newName;
 	}
 	/* Set the modification node identifier value */
-	protected void setNodeIden(HDLmNodeIden newNodeIden) {
+	protected void setNodeIden(final HDLmNodeIden newNodeIden) {
 		this.nodeIden = newNodeIden;
 	}
 	/* Set the path value string for a modification */
-	protected void setPathValue(String newPathValue) {
+	protected void setPathValue(final String newPathValue) {
 		this.pathValue = newPathValue;
 	}
 	/* Set the path value match object reference for a modification */
-	protected void setPathValueMatch(HDLmMatch newPathValueMatch) {
+	protected void setPathValueMatch(final HDLmMatch newPathValueMatch) {
 		this.pathMatch = newPathValueMatch;
 	}
 	/* Set the path value regex flag for a modification */
-	protected void setPathValueRe(Boolean newPathValueRe) {
+	protected void setPathValueRe(final Boolean newPathValueRe) {
 		this.pathre = newPathValueRe;
 	}
 	/* Set the modification type value */
-	protected void setType(HDLmModTypes newType) {
+	protected void setType(final HDLmModTypes newType) {
 		this.type = newType;
 	}
 	/* Set the modification value */
-	protected void setValue(String newValue) {
+	protected void setValue(final String newValue) {
 		this.value = newValue;
 	}
 	/* Set the modification value suffix */
-	protected void setValueSuffix(String newSuffix) {
+	protected void setValueSuffix(final String newSuffix) {
 	  this.valueSuffix = newSuffix;
 	}
 	/* Set the modification values */
-	protected void setValues(ArrayList<String> newValues) {
+	protected void setValues(final ArrayList<String> newValues) {
 		this.values = newValues;
 	}
 	/* Set the modification values count */
-	protected void setValuesCount(int newValuesCount) {
+	protected void setValuesCount(final int newValuesCount) {
 		this.valuesCount = newValuesCount;
 	}
 	/* Set the modification XPath value */
-	protected void setXPath(String newXPath) {
+	protected void setXPath(final String newXPath) {
 		this.xPath = newXPath;
 	}
 	/* The next method converts a JSON object to a JSON string and truncates the
 	   string if need be */
-	protected static String truncateJson(JsonObject jsonObject) {
+	protected static String truncateJson(final JsonObject jsonObject) {
 		if (jsonObject == null) {
 			String  errorText = "JSON object passed to truncateJson is null";
 			throw new NullPointerException(errorText);

@@ -578,7 +578,9 @@ public class HDLmConfig {
 		/*
 		mainList.add(infoAwsDatabaseName);
 		*/
+		
 		mainList.add(infoAwsDatabaseHost);
+		
 		mainList.add(infoAwsEntriesUserid);
 		mainList.add(infoAwsEntriesPassword);
 	 /* Build a list of AWS secret names */

@@ -76,7 +76,14 @@ public class HDLmPassThruLists extends HDLmMod {
 			 greater than zero, the current definition object is disabled (the enabled
 			 field is set false). Note that a reference is used below so that the error
 			 count can be updated by the routines called using error count.*/
-	  MutableInt   errors = new MutableInt(0);
+	  MutableInt   errorCounter = new MutableInt(0);
+		/* Build an array list for error message strings. Each error
+	     message is stored in this array list. */
+		ArrayList<String>   errorMessages = new ArrayList<String>();
+		if (errorMessages == null) {
+			String  errorText = "Error message ArrayList allocation in HDLmPassThruLists constructor is null";
+			throw new NullPointerException(errorText);
+		}
 	  /* Get the list of keywords and values in the JSON object */
 	  if (jsonElement.isJsonNull()) {
 	 	  HDLmAssertAction(false, "JSON element used to build lists definition is JSON null");
@@ -98,7 +105,7 @@ public class HDLmPassThruLists extends HDLmMod {
 	 	  HDLmAssertAction(false, errorText);
 	  }
 	  /* Update the error count with the response value */
-	  errors.add(response.getErrorCount()); 
+	  errorCounter.add(response.getErrorCount()); 
 	  /* Extract the fields from the build standard fields response */
 	  setName(response.getName());
 		/* Get and check the current type */
@@ -129,8 +136,11 @@ public class HDLmPassThruLists extends HDLmMod {
 		/* Get the last modified date and time and use them to set an instance field */
 		lastModified = response.getLastModified();
 		/* Get an integer value and use it to set an instance field */ 
-	  curInteger = HDLmMod.modFieldInteger(editorType, errors, 
-	                                       jsonObject, jsonKeys, 
+	  curInteger = HDLmMod.modFieldInteger(editorType, 
+	  		                                 errorCounter, 
+	  		                                 errorMessages,
+	                                       jsonObject, 
+	                                       jsonKeys, 
 		                                     "countLists", 
 		                                     HDLmReportErrors.REPORTERRORS);
 	  countLists = curInteger;
@@ -141,7 +151,7 @@ public class HDLmPassThruLists extends HDLmMod {
 		/* Mark the current lists (set of ignore-lists) definition
 		   object as disabled if the error count was greater than zero. 
 		   This is actually done by setting the enabled field to false. */
-		if (errors.intValue() > 0) {
+		if (errorCounter.intValue() > 0) {
 			setEnabled((Boolean) false);
 	  }
 	}

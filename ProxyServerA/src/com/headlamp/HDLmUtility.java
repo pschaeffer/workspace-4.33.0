@@ -135,6 +135,7 @@ public class HDLmUtility {
 	}
 	/* Build a result object with failure values is each field.
 	   Return the object to the caller. */
+	@SuppressWarnings("unused")
 	protected static HDLmResult  buildResultFailure(final int failureCode) {
 		/* Create a new HDLm result object */
 		HDLmResult  rv = new HDLmResult();
@@ -150,6 +151,7 @@ public class HDLmUtility {
 	}
 	/* Build a result object with failure values is each field.
 	   Return the object to the caller. */
+	@SuppressWarnings("unused")
 	protected static HDLmResult  buildResultFailure(final String errorMessage,
 			                                            final int failureCode) {
 		/* Check a few passed values */
@@ -199,14 +201,14 @@ public class HDLmUtility {
 		/* Create a new HDLm result object with failure values
 		   in each field */
 		HDLmResult  failureResult = HDLmUtility.buildResultFailure(failureCode);
-	 if (failureResult == null) {
-	 	String  errorText = "HDLm failure result object not obtained";
-	  HDLmAssertAction(false, errorText);
-	 }
-	 /* Convert the object to a JSON string */
-	 Gson     gsonInstance = HDLmMain.gsonMain;
-	 String   failureString = gsonInstance.toJson(failureResult);
-	 /* Return the JSON string to the caller */
+	  if (failureResult == null) {
+	 	  String  errorText = "HDLm failure result object not obtained";
+	    HDLmAssertAction(false, errorText);
+	  }
+	  /* Convert the object to a JSON string */
+	  Gson    gsonInstance = HDLmMain.gsonMain;
+	  String  failureString = gsonInstance.toJson(failureResult);
+	  /* Return the JSON string to the caller */
 		return failureString;
 	}
 	/* Build a result object with success values is each field.
@@ -1205,7 +1207,7 @@ public class HDLmUtility {
     return version;
   }
   /* Get the value of an environment variable, if possible.
-     This routine, might return NULL, if the environment
+     This routine, might return null, if the environment
      variable does not exist. The value of the environment
      variable might be in mixed case. */
   protected static String  getEnvironmentVariable(String envNameStr) {
@@ -1218,6 +1220,30 @@ public class HDLmUtility {
 		String  envValueStr = System.getenv(envNameStr);
 		return envValueStr;
 	}
+  /* Get the value of an environment variable, if possible,
+     from a define value. The define value might not exist.
+     This is treated as an error. The environment variable
+     might not exist. This is not treated as an error.
+	   This routine, might return null, if the environment
+	   variable does not exist. The value of the environment
+	   variable might be in mixed case. */
+	protected static String  getEnvironmentVariableDefine(final String defNameStr) {
+		/* Check if the define name passed by the caller is null */
+		if (defNameStr == null) {
+			String  errorText = "Define name passed to getEnvironmentVariableDefine is null";
+			throw new NullPointerException(errorText);
+		}
+    /* Get the string value for the environment variable name */ 
+	  String  envNameString = HDLmDefines.getString(defNameStr);
+	  if (envNameString == null) {
+	    String   errorFormat = "Define value for the environmental variable not found (%s)";
+	    String   errorText = String.format(errorFormat, defNameStr);
+	    HDLmAssertAction(false, errorText);
+	  }
+		/* Try to get the value of the environment variable */
+		String  envValueStr = System.getenv(envNameString);
+		return envValueStr;
+	}
   /* Get the value of an environment variable in uppercase, if possible.
 	   This routine, might return NULL, if the environment variable does
 	   not exist. The value of the environment will always be NULL or the
@@ -1226,7 +1252,6 @@ public class HDLmUtility {
 		/* Check if the environment variable name passed by the caller is null */
 		if (envNameStr == null) {
 			String  errorText = "Environment variable name passed to getEnvironmentVariableUpper is null";
-			throw new NullPointerException(errorText);
 		}
 		/* Try to get the value of the environment variable */
 		String  envValueStr = System.getenv(envNameStr);
@@ -2100,7 +2125,7 @@ public class HDLmUtility {
 		}
 		/* Set a few values for use later. These values make sure we always
 		   use the correct part length. */
-		int       partSize = 80;
+		int       partSize = 20;
 		Integer   partOffset = 0;
 		/* Break the passed string into an ArrayList of substrings and
 		   log each one */
@@ -2343,6 +2368,11 @@ public class HDLmUtility {
 	  String  hostOsValue = HDLmUtility.getEnvironmentVariableUpper(hostEnvOsNameString);
 	  LOG.debug("In HDLmUtility.setOverallEnvironment");
 	  LOG.debug(hostOsValue);
+	  /* LOG.info("In HDLmUtility.setOverallEnvironment"); */
+	  /* LOG.info(curEnvValue ); */
+	  /* LOG.info(hostNameValue) */;
+	  /* LOG.info(hostOsValue); */
+	  /* LOG.info(isDockerActive().toString()); */
 	  /* Check if any of a set of environment variables value are set,
        if not then we have more work to do below. If the host name
        value is set, then we use it. */
@@ -2377,6 +2407,7 @@ public class HDLmUtility {
 		  	currentOsType = HDLmOsTypes.WINDOWS;
 		  /* Set / store the current operating system type */
 		  HDLmMain.setOsType(currentOsType);
+		  /* LOG.info(currentOsType.toString()); */
 	  }
 	}
 	/* Set the test environment. This is done by setting a set of
@@ -2490,5 +2521,23 @@ public class HDLmUtility {
 		/* LOG.info("In updatePHashCache"); */
 		/* LOG.info(urlStr); */
 		HDLmPHashCache.put(urlStr, pHashHex);
+	}
+	/* This routine writes to a file. The caller provides 
+	   the file name, and the file contents as a string. */
+	protected static void  writeToFile(String fileName, String fileContents) {
+		if (fileName == null) {
+			String errorText = "File name string passed to writeToFile is null";
+			throw new NullPointerException(errorText);
+		}
+		if (fileContents == null) {
+			String errorText = "File contents string passed to writeToFile is null";
+			throw new NullPointerException(errorText);
+		}
+		try {
+			Files.write(Paths.get(fileName), fileContents.getBytes(StandardCharsets.UTF_8));
+		} catch (IOException e) {
+			LOG.error("Error writing to file: " + fileName, e);
+			throw new RuntimeException(e);
+		}
 	}
 }

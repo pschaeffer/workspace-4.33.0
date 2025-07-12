@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -110,7 +111,7 @@ class HDLmProxyTest {
 					                               () -> {new HDLmProxy((JsonElement) null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "JSON element used to build proxy definition details is null",
+			assertEquals("JSON element used to build proxy definition details is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}	
@@ -128,7 +129,7 @@ class HDLmProxyTest {
 					                               () -> {HDLmProxy.buildProxyMap(null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Proxy definitions tree passed to buildProxyMap is null",
+			assertEquals("Proxy definitions tree passed to buildProxyMap is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}	
@@ -172,7 +173,7 @@ class HDLmProxyTest {
 					                               () -> {HDLmProxy.getProxyDefinitionFromMap(null, null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Proxy name passed to getProxyDefinition is null",
+			assertEquals("Proxy name passed to getProxyDefinition is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
@@ -180,7 +181,7 @@ class HDLmProxyTest {
 					                               () -> {HDLmProxy.getProxyDefinitionFromMap("", null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Proxy map reference passed to getProxyDefinition is null",
+			assertEquals("Proxy map reference passed to getProxyDefinition is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}		
@@ -232,69 +233,89 @@ class HDLmProxyTest {
     String           fieldName = "backendType";
     JsonElement      proxyElementType = proxyElementObject.get(fieldName);
     JsonPrimitive    proxyPrimitiveType = proxyElementType.getAsJsonPrimitive();
-    MutableInt       errors = new MutableInt(0);
+    MutableInt       errorCounter = new MutableInt(0);
+    ArrayList<String>   errorMessages = new ArrayList<String>();
     HDLmProtocolTypes  protocolType;
     protocolType = HDLmProxy.proxyFieldProtocolType(editorType, 
-    		                                            errors, 
+    		                                            errorCounter,
+    		                                            errorMessages,
     		                                            proxyElementObject, 
     		                                            proxyElementKeys, 
     		                                            fieldName);
     assertNotNull(protocolType, "Proxy definition protocol type value is null");
     assertEquals(HDLmProtocolTypes.HTTPS, protocolType, "Proxy definition protocol type value is not 'HTTPS'");
     protocolType = HDLmProxy.proxyFieldProtocolType(editorType, 
-    		                                            errors, 
+    		                                            errorCounter,
+    		                                            errorMessages,
     		                                            proxyElementObject, 
     		                                            proxyElementKeys, fieldName + "x", 
     		                                            HDLmReportErrors.DONTREPORTERRORS);
     assertEquals(HDLmProtocolTypes.NONE, protocolType, "Proxy definition type protocol value is not 'NONE'");
-    int  intValue = errors.intValue();
+    int  intValue = errorCounter.intValue();
     assertEquals(1, intValue, "Error value must be one");
  	  {
  			Throwable exception = assertThrows(RuntimeException.class, 
  					                               () -> {HDLmProxy.proxyFieldProtocolType(editorType, 
  					                                                                       null, 
+ 					                                                                       errorMessages,
  					                                                                       proxyElementObject, 
  					                                                                       proxyElementKeys, 
  					                                                                       fieldName);},
  					                               "Expected RuntimeException");
  			String execMsg = exception.getMessage();
- 			assertEquals(execMsg, "Mutable int for errors passed to proxyFieldProtocolType is null",
+ 			assertEquals("Mutable int for errors passed to proxyFieldProtocolType is null", execMsg,
  					         "Unexpected exception message");
  		}
  	  {
  			Throwable exception = assertThrows(RuntimeException.class, 
  					                               () -> {HDLmProxy.proxyFieldProtocolType(editorType, 
- 					                              		                                     errors, 
+ 					                                                                       errorCounter, 
+ 					                                                                       null,
+ 					                                                                       proxyElementObject, 
+ 					                                                                       proxyElementKeys, 
+ 					                                                                       fieldName);},
+ 					                               "Expected RuntimeException");
+ 			String execMsg = exception.getMessage();
+ 			assertEquals("ArrayList for error messages passed to proxyFieldProtocolType is null", execMsg,
+ 					         "Unexpected exception message");
+ 		}
+ 	  {
+ 			Throwable exception = assertThrows(RuntimeException.class, 
+ 					                               () -> {HDLmProxy.proxyFieldProtocolType(editorType, 
+ 					                              		                                     errorCounter,
+ 					                              		                                     errorMessages, 					                              		                                    
  					                              		                                     null, 
  					                              		                                     proxyElementKeys, 
  					                              		                                     fieldName);},
  					                               "Expected RuntimeException");
  			String execMsg = exception.getMessage();
- 			assertEquals(execMsg, "JSON object passed to proxyFieldProtocolType is null",
+ 			assertEquals("JSON object passed to proxyFieldProtocolType is null", execMsg,
  					         "Unexpected exception message");
  		}
  	  {
  			Throwable exception = assertThrows(RuntimeException.class, 
  					                               () -> {HDLmProxy.proxyFieldProtocolType(editorType, 
- 					                              		                                     errors, 
+ 					                              		                                     errorCounter,
+ 					                              		                                     errorMessages,
  					                              		                                     proxyElementObject, 
  					                              		                                     null, 
  					                              		                                     fieldName);},
  					                               "Expected RuntimeException");
  			String execMsg = exception.getMessage();
- 			assertEquals(execMsg, "Set of keys passed to proxyFieldProtocolType is null",
+ 			assertEquals("Set of keys passed to proxyFieldProtocolType is null", execMsg,
  					         "Unexpected exception message");
  		}  
  	  {
  			Throwable exception = assertThrows(RuntimeException.class, 
  					                               () -> {HDLmProxy.proxyFieldProtocolType(editorType, 
- 					                              		                                     errors, 
+ 					                              		                                     errorCounter,
+ 					                              		                                     errorMessages,
  					                              		                                     proxyElementObject, 
  					                              		                                     proxyElementKeys, 
  					                              		                                     null);},
  					                               "Expected RuntimeException");
  			String execMsg = exception.getMessage();
- 			assertEquals(execMsg, "Name string passed to proxyFieldProtocolType is null",
+ 			assertEquals("Name string passed to proxyFieldProtocolType is null", execMsg,
  					         "Unexpected exception message");
  		} 
  	}
@@ -346,69 +367,95 @@ class HDLmProxyTest {
     String           fieldName = "type";
     JsonElement      proxyElementType = proxyElementObject.get(fieldName);
     JsonPrimitive    proxyPrimitiveType = proxyElementType.getAsJsonPrimitive();
-    MutableInt       errors = new MutableInt(0);
+    MutableInt       errorCounter = new MutableInt(0);
+		/* Build an array list for error message strings. Each error
+   	   message is stored in this array list. */
+	  ArrayList<String>   errorMessages = new ArrayList<String>();
+		if (errorMessages == null) {
+			String  errorText = "Error message ArrayList allocation in proxyFieldProxyType is null";
+			throw new NullPointerException(errorText);
+		}	
     HDLmProxyTypes   proxyType;
     proxyType = HDLmProxy.proxyFieldProxyType(editorType, 
-    		                                      errors, 
+    		                                      errorCounter,
+    		                                      errorMessages,
     		                                      proxyElementObject, 
     		                                      proxyElementKeys, 
     		                                      fieldName);
     assertNotNull(proxyType, "Proxy definition type value is null");
     assertEquals(HDLmProxyTypes.INJECT, proxyType, "Proxy definition type value is not 'INJECT'");
     proxyType = HDLmProxy.proxyFieldProxyType(editorType, 
-    		                                      errors, 
+    		                                      errorCounter,
+    		                                      errorMessages,
     		                                      proxyElementObject, 
     		                                      proxyElementKeys, fieldName + "x", 
     		                                      HDLmReportErrors.DONTREPORTERRORS);
     assertEquals(HDLmProxyTypes.NONE, proxyType, "Proxy definition type value is not 'NONE'");
-    int  intValue = errors.intValue();
+    int  intValue = errorCounter.intValue();
     assertEquals(1, intValue, "Error value must be one");
  	  {
  			Throwable exception = assertThrows(RuntimeException.class, 
  					                               () -> {HDLmProxy.proxyFieldProxyType(editorType, 
  					                                                                    null, 
+ 					                                                                    errorMessages,
  					                                                                    proxyElementObject, 
  					                                                                    proxyElementKeys, 
  					                                                                    fieldName);},
  					                               "Expected RuntimeException");
  			String execMsg = exception.getMessage();
- 			assertEquals(execMsg, "Mutable int for errors passed to proxyFieldProxyType is null",
+ 			assertEquals("Mutable int for errors passed to proxyFieldProxyType is null", execMsg,
  					         "Unexpected exception message");
  		}
  	  {
  			Throwable exception = assertThrows(RuntimeException.class, 
  					                               () -> {HDLmProxy.proxyFieldProxyType(editorType, 
- 					                              		                                  errors, 
+ 					                                                                    errorCounter,
+ 					                                                                    null,
+ 					                                                                    proxyElementObject, 
+ 					                                                                    proxyElementKeys, 
+ 					                                                                    fieldName);},
+ 					                               "Expected RuntimeException");
+ 			String execMsg = exception.getMessage();
+ 			assertEquals("ArrayList for error messages passed to proxyFieldProxyType is null", execMsg,
+ 					         "Unexpected exception message");
+ 		}
+ 	  {
+ 			Throwable exception = assertThrows(RuntimeException.class, 
+ 					                               () -> {HDLmProxy.proxyFieldProxyType(editorType, 
+ 					                              		                                  errorCounter,
+ 					                              		                                  errorMessages,
  					                              		                                  null, 
  					                              		                                  proxyElementKeys, 
  					                              		                                  fieldName);},
  					                               "Expected RuntimeException");
  			String execMsg = exception.getMessage();
- 			assertEquals(execMsg, "JSON object passed to proxyFieldProxyType is null",
+ 			assertEquals("JSON object passed to proxyFieldProxyType is null", execMsg,
  					         "Unexpected exception message");
  		}
  	  {
  			Throwable exception = assertThrows(RuntimeException.class, 
  					                               () -> {HDLmProxy.proxyFieldProxyType(editorType, 
- 					                              		                                  errors, 
+ 					                              		                                  errorCounter,
+ 					                              		                                  errorMessages,
  					                              		                                  proxyElementObject, 
  					                              		                                  null, 
  					                              		                                  fieldName);},
  					                               "Expected RuntimeException");
  			String execMsg = exception.getMessage();
- 			assertEquals(execMsg, "Set of keys passed to proxyFieldProxyType is null",
+ 			assertEquals("Set of keys passed to proxyFieldProxyType is null", execMsg,
  					         "Unexpected exception message");
  		}  
  	  {
  			Throwable exception = assertThrows(RuntimeException.class, 
  					                               () -> {HDLmProxy.proxyFieldProxyType(editorType, 
- 					                              		                                  errors, 
+ 					                              		                                  errorCounter,
+ 					                              		                                  errorMessages,
  					                              		                                  proxyElementObject, 
  					                              		                                  proxyElementKeys, 
  					                              		                                  null);},
  					                               "Expected RuntimeException");
  			String execMsg = exception.getMessage();
- 			assertEquals(execMsg, "Name string passed to proxyFieldProxyType is null",
+ 			assertEquals("Name string passed to proxyFieldProxyType is null", execMsg,
  					         "Unexpected exception message");
  		} 
  	}

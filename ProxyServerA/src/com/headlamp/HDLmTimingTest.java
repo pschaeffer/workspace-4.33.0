@@ -38,7 +38,7 @@ class HDLmTimingTest {
 					                              		                         localTimingName);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "New timing type string passed to addTiming is null",
+			assertEquals("New timing type string passed to addTiming is null", execMsg,
 					         "Unexpected exception message");
 		}		
 		{  
@@ -49,7 +49,7 @@ class HDLmTimingTest {
 					                              		                         null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "New timing name string passed to addTiming is null",
+			assertEquals("New timing name string passed to addTiming is null", execMsg,
 					         "Unexpected exception message");
 		}	
 	}	
@@ -82,7 +82,7 @@ class HDLmTimingTest {
 					                                                              		LocalInformationType);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Timings set passed to getTimingsStatus is null",
+			assertEquals("Timings set passed to getTimingsStatus is null", execMsg,
 					         "Unexpected exception message");
 		}		
 		{  
@@ -93,7 +93,7 @@ class HDLmTimingTest {
         					                              		                        null);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Information type passed to getTimingsStatus is null",
+			assertEquals("Information type passed to getTimingsStatus is null", execMsg,
 					         "Unexpected exception message");
 		}	
 		{  
@@ -104,7 +104,7 @@ class HDLmTimingTest {
         					                              		                        localInformationType);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Information type passed to getTimingsStatus is not valid",
+			assertEquals("Information type passed to getTimingsStatus is not valid", execMsg,
 					         "Unexpected exception message");
 		}	
 	}

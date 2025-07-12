@@ -390,6 +390,9 @@ public class HDLmChange {
 		jsonString = jsonString.replace("\"source\":\"NONE\"", "\"source\":\"none\"");
 		jsonString = jsonString.replace("changeType", "type");
 		jsonString = jsonString.replace("CHANGETYPEADD", "add"); 
+		jsonString = jsonString.replace("NODEIDEN", "nodeiden"); 
+		jsonString = jsonString.replace("CHANGETYPECOPYnodeiden", "copynodeiden");
+		jsonString = jsonString.replace("CHANGETYPECOPYNODEIDEN", "copynodeiden");
 		jsonString = jsonString.replace("CHANGETYPEDELETE", "delete"); 
 		jsonString = jsonString.replace("CHANGETYPEMODIFY", "modify"); 
 		jsonString = jsonString.replace("\"type\":\"NONE\"", "\"type\":\"none\"");

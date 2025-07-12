@@ -30,6 +30,7 @@ class HDLmBuildJsNoCompression {
 	/* This class can never be instantiated */
 	private HDLmBuildJsNoCompression() {}
   /* Build a set of JavaScript and return it to the caller */
+  @SuppressWarnings("unused")
   public static String getJsBuildJs(HDLmProtocolTypes protocol,
                                     String secureHostName, 
                                     String hostName,
@@ -143,6 +144,8 @@ class HDLmBuildJsNoCompression {
     builder.addLine("      HDLmToggleStyleSheetEnablement();");
     builder.addLine("    if (event.key == 'q' && event.ctrlKey == true)");
     builder.addLine("      sessionStorage.setItem(\"HDLmSessionPostRuleTracingEnabled\", 'true');");
+    builder.addLine("    if (event.key == 'x' && event.ctrlKey == true)");
+    builder.addLine("      sessionStorage.setItem(\"HDLmSessionIgnoreProbability\", 'true');");
     builder.addLine("  });");
     builder.addLine("  /* Start the JavaScript function that applies just one modification */");
     builder.addLine("  function HDLmApplyMod(pathValueStr,");
@@ -197,6 +200,33 @@ class HDLmBuildJsNoCompression {
     builder.addLine("    while (true) {");
     builder.addLine("      let postTrace = new Object();");
     builder.addLine("      /* console.log('s2'); */");
+    builder.addLine("      /* Check if the current modification should be skipped because");
+    builder.addLine("         of probability. This check is skipped if the probability is");
+    builder.addLine("         100.0. */");
+    builder.addLine("      if (curMod.prob < 100.0) {");
+    builder.addLine("        /* console.log('Probability is less than 100.0'); */");
+    builder.addLine("        let localRandomValue = Math.random();");
+    builder.addLine("        let ignoreProbability = sessionStorage.getItem('HDLmSessionIgnoreProbability');");
+    builder.addLine("        if (ignoreProbability == null)");
+    builder.addLine("          ignoreProbability = 'false';");
+    builder.addLine("        if (localRandomValue * 100.0 > curMod.prob &&");
+    builder.addLine("            ignoreProbability != 'true') {");
+    builder.addLine("          matchError = 'probability';");
+    builder.addLine("          /* Report that the current rule was skipped because");
+    builder.addLine("             of probability */");
+    builder.addLine("          if (postRuleTracing == true) {");
+    builder.addLine("            let localUpdates = new Object();");
+    builder.addLine("            HDLmSaveChange(localUpdates, null,");
+    builder.addLine("                          sessionIndexValue, parametersArray, sessionIdJS,");
+    builder.addLine("                          null, null,");
+    builder.addLine("                          hostNameValue, divisionNameValue, siteNameValue, curMod.name,");
+    builder.addLine("                          curMod.path, curMod.type, pathValueStr, null, null);");
+    builder.addLine("            postTrace.matcherror = matchError;");
+    builder.addLine("            HDLmSendUpdates(localUpdates, 'failure', '1.0', postTrace);");
+    builder.addLine("          }");
+    builder.addLine("          break;");
+    builder.addLine("        }");
+    builder.addLine("      }");
     builder.addLine("      /* If the current modification is not enabled, then we really");
     builder.addLine("         don't have any more work to do */");
     builder.addLine("      if (curMod.enabled != true) {");
@@ -685,6 +715,7 @@ class HDLmBuildJsNoCompression {
     builder.addLine("          }");
     builder.addLine("          /* Process all of the matching nodes */");
     builder.addLine("          for (let i = 0; i < nodeListLength; i++) {");
+    builder.addLine("            matchError = 'Fired';");
     builder.addLine("            /* Get a single node and add a class or classes to the node */");
     builder.addLine("            let curNode = nodeList[i];");
     builder.addLine("            let curModExtra = curMod.extra;");
@@ -926,10 +957,13 @@ class HDLmBuildJsNoCompression {
     builder.addLine("                parentNode.replaceChild(newNode, curNode);");
     builder.addLine("              }");
     builder.addLine("            }");
-    builder.addLine("            else if (curType == 'script' && readyState == 'complete') {");
-    builder.addLine("              let functionStr = 'HDLmExecute' + HDLmReplaceInString(curMod.name) + finalLookupIndex;");
-    builder.addLine("              /* console.log('Show function string for script', functionStr); */");
-    builder.addLine("              window[functionStr]();");
+    builder.addLine("            else if (curType == 'script') {");
+    builder.addLine("              if (readyState == 'complete') {");
+    builder.addLine("                let functionStr = 'HDLmExecute' + HDLmReplaceInString(curMod.name) + finalLookupIndex;");
+    builder.addLine("                /* console.log('Show function string for script', functionStr); */");
+    builder.addLine("                window[functionStr]();");
+    builder.addLine("              }");
+    builder.addLine("              matchError = readyState;");
     builder.addLine("            }");
     builder.addLine("            /* Most style values are handled by just setting the style.");
     builder.addLine("               However, we need a somewhat different approach for");
@@ -982,7 +1016,7 @@ class HDLmBuildJsNoCompression {
     builder.addLine("                           hostNameValue, divisionNameValue, siteNameValue, curMod.name,");
     builder.addLine("                           curMod.path, curMod.type, pathValueStr,");
     builder.addLine("                           oldText, newText);");
-    builder.addLine("            postTrace.matcherror = 'fired';");
+    builder.addLine("            postTrace.matcherror = matchError;");
     builder.addLine("            HDLmSendUpdates(localUpdates, curType, '1.0', postTrace);");
     builder.addLine("            break;");
     builder.addLine("          }");
@@ -2670,7 +2704,7 @@ class HDLmBuildJsNoCompression {
     builder.addLine("                   oldText, newText);");
     builder.addLine("    /* Set the local reason value to something appropriate */");
     builder.addLine("    let localReason = curMod.type;");
-    builder.addLine("    postTrace.matcherror = 'fired';");
+    builder.addLine("    postTrace.matcherror = 'visit';");
     builder.addLine("    HDLmSendUpdates(localUpdates, localReason, '1.0', postTrace);");
     builder.addLine("    return countHigh;");
     builder.addLine("  }");
@@ -3168,57 +3202,6 @@ class HDLmBuildJsNoCompression {
           builder.addLine(newLine);
       }
     }
-    /* Build a function that contains a set of nested switches.
-       The nested switches invoke the functions with JavaScript
-       in them. */
-    newLine = "  function HDLmExecuteSwitch(modName, choiceNumber) {";
-		builder.addLine(newLine);
-    newLine = "    switch (modName) {";
-		builder.addLine(newLine);
-    for (HDLmMod mod: mods) {
-    	/* Skip the current modification if it is not a 'script' (without
-  	     the quotes) modification */
-    	if (mod.getType() != HDLmModTypes.SCRIPT)
-        continue;
-    	String  curModName = mod.getName();
-      newLine = "      case '" + curModName + "':";
-		  builder.addLine(newLine);
-    	String  curModNameInternal = HDLmMod.replaceInString(curModName);
-      newLine = "        switch (choiceNumber) {";
-		  builder.addLine(newLine);
-     	/* Handle each of the values of the current modification */
-    	int   valueCount = mod.getValues().size();
-	  	for (int i = 0; i < valueCount; i++) {
-      newLine = "          case " + i + ":";
-		  builder.addLine(newLine);
-        newLine = "            HDLmExecute" + curModNameInternal + i + "();";
-		    builder.addLine(newLine);
-        newLine = "            break;";
-		    builder.addLine(newLine);
-      }
-      newLine = "          default:";
-	  	builder.addLine(newLine);
-      newLine = "            let errorText = \"Invalid choice value - \" + choiceNumber" + ";";
-  		builder.addLine(newLine);
-      newLine = "            HDLmBuildError('Error', 'Choice', 63, errorText);";
-	  	builder.addLine(newLine);
-      newLine = "            break;";
-	  	builder.addLine(newLine);
-      newLine = "        }";
-	  	builder.addLine(newLine);
-    }
-      newLine = "      default:";
-	  	builder.addLine(newLine);
-      newLine = "        let errorText = \"Invalid rule name value - \" + modName;";
-  		builder.addLine(newLine);
-      newLine = "        HDLmBuildError('Error', 'RuleName', 62, errorText);";
-	  	builder.addLine(newLine);
-      newLine = "        break;";
-	  	builder.addLine(newLine);
-    newLine = "    }";
-		builder.addLine(newLine);
-    newLine = "  }";
-		builder.addLine(newLine);
     /* Start the JavaScript function that returns all of the attributes of a node 
        as a string */ 
     builder.addLine("  function HDLmGetAttributesString(curNode) {");

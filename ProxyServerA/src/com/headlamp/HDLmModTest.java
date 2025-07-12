@@ -107,7 +107,7 @@ class HDLmModTest {
 					                               () -> {new HDLmMod((HDLmMod) null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Old details reference used to build modification details is null",
+			assertEquals("Old details reference used to build modification details is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -196,7 +196,7 @@ class HDLmModTest {
 					                               () -> {new HDLmMod((JsonElement) null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "JSON element used to build modification details is null",
+			assertEquals("JSON element used to build modification details is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -332,37 +332,49 @@ class HDLmModTest {
 	  {
 	  	HDLmMod  currentMod = matchingMods.get(0);
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {currentMod.apply(null, pathValueStr, parametersArray, savedChangesArray);},
+					                               () -> {currentMod.apply(null, 
+					                              		                     pathValueStr, 
+					                              		                     parametersArray, 
+					                              		                     savedChangesArray);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "HTML DOM passed to apply is null",
+			assertEquals("HTML DOM passed to apply is null", execMsg,
 					         "Unexpected exception message");
 		}	
 	  {
 	  	HDLmMod  currentMod = matchingMods.get(0);
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {currentMod.apply(htmlDoc, null, parametersArray, savedChangesArray);},
+					                               () -> {currentMod.apply(htmlDoc, 
+					                              		                     null, 
+					                              		                     parametersArray, 
+					                              		                     savedChangesArray);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Path value string passed to apply is null",
+			assertEquals("Path value string passed to apply is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
 	  	HDLmMod  currentMod = matchingMods.get(0);
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {currentMod.apply(htmlDoc, pathValueStr, null, savedChangesArray);},
+					                               () -> {currentMod.apply(htmlDoc, 
+					                              		                     pathValueStr, 
+					                              		                     null, 
+					                              		                     savedChangesArray);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Parameters array passed to apply is null",
+			assertEquals("Parameters array passed to apply is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
 	  	HDLmMod  currentMod = matchingMods.get(0);
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {currentMod.apply(htmlDoc, pathValueStr, parametersArray, null);},
+					                               () -> {currentMod.apply(htmlDoc, 
+					                              		                     pathValueStr, 
+					                              		                     parametersArray, 
+					                              		                     null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Saved changes array passed to apply is null",
+			assertEquals("Saved changes array passed to apply is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}	
@@ -496,11 +508,15 @@ class HDLmModTest {
         parameterValue = parametersArray.get(parameterNumber);
       Double parameterValueLocal = parameterValue;
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {currentMod.applyStyle(null, htmlDoc, currentType,
-			  			                                                        fontText, parameterNumber, parameterValueLocal);},
+					                               () -> {currentMod.applyStyle(null, 
+					                              		                          htmlDoc, 
+					                              		                          currentType,
+			  			                                                        fontText, 
+			  			                                                        parameterNumber, 
+			  			                                                        parameterValueLocal);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Saved changes array passed to applyStyle is null",
+			assertEquals("Saved changes array passed to applyStyle is null", execMsg,
 					         "Unexpected exception message");
 		}	
 	  {
@@ -516,11 +532,15 @@ class HDLmModTest {
         parameterValue = parametersArray.get(parameterNumber);
       Double parameterValueLocal = parameterValue;
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {currentMod.applyStyle(savedChangesArray, null, currentType,
-			  			                                                        fontText, parameterNumber, parameterValueLocal);},
+					                               () -> {currentMod.applyStyle(savedChangesArray, 
+					                              		                          null, 
+					                              		                          currentType,
+			  			                                                        fontText, 
+			  			                                                        parameterNumber, 
+			  			                                                        parameterValueLocal);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "HTML DOM passed to applyStyle is null",
+			assertEquals("HTML DOM passed to applyStyle is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
@@ -536,11 +556,15 @@ class HDLmModTest {
         parameterValue = parametersArray.get(parameterNumber);
       Double parameterValueLocal = parameterValue;
 			Throwable exception = assertThrows(AssertionError.class, 
-					                               () -> {currentMod.applyStyle(savedChangesArray, htmlDoc, HDLmModTypes.NONE,
-			  			                                                        fontText, parameterNumber, parameterValueLocal);},
+					                               () -> {currentMod.applyStyle(savedChangesArray, 
+					                              		                          htmlDoc, 
+					                              		                          HDLmModTypes.NONE,
+			  			                                                        fontText, 
+			  			                                                        parameterNumber, 
+			  			                                                        parameterValueLocal);},
 					                               "Expected AssertionError");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Modification type value passed to applyStyle is not set",
+			assertEquals("Modification type value passed to applyStyle is not set", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
@@ -556,11 +580,15 @@ class HDLmModTest {
         parameterValue = parametersArray.get(parameterNumber);
       Double parameterValueLocal = parameterValue;
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {currentMod.applyStyle(savedChangesArray, htmlDoc, null,
-			  			                                                        fontText, parameterNumber, parameterValueLocal);},
+					                               () -> {currentMod.applyStyle(savedChangesArray, 
+					                              		                          htmlDoc, 
+					                              		                          null,
+			  			                                                        fontText, 
+			  			                                                        parameterNumber, 
+			  			                                                        parameterValueLocal);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Modification type value passed to applyStyle is null",
+			assertEquals("Modification type value passed to applyStyle is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
@@ -576,11 +604,15 @@ class HDLmModTest {
         parameterValue = parametersArray.get(parameterNumber);
       Double parameterValueLocal = parameterValue;
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {currentMod.applyStyle(savedChangesArray, htmlDoc, currentType,
-			  			                                                        null, parameterNumber, parameterValueLocal);},
+					                               () -> {currentMod.applyStyle(savedChangesArray, 
+					                              		                          htmlDoc, 
+					                              		                          currentType,
+			  			                                                        null, 
+			  			                                                        parameterNumber, 
+			  			                                                        parameterValueLocal);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Font text passed to applyStyle is null",
+			assertEquals("Font text passed to applyStyle is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
@@ -596,11 +628,15 @@ class HDLmModTest {
         parameterValue = parametersArray.get(parameterNumber);
       Double parameterValueLocal = parameterValue;
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {currentMod.applyStyle(savedChangesArray, htmlDoc, currentType,
-			  			                                                        fontText, null, parameterValueLocal);},
+					                               () -> {currentMod.applyStyle(savedChangesArray, 
+					                              		                          htmlDoc, 
+					                              		                          currentType,
+			  			                                                        fontText, 
+			  			                                                        null, 
+			  			                                                        parameterValueLocal);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Parameter number passed to applyStyle is null",
+			assertEquals("Parameter number passed to applyStyle is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
@@ -616,11 +652,15 @@ class HDLmModTest {
         parameterValue = parametersArray.get(parameterNumber);
       Double parameterValueLocal = parameterValue;
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {currentMod.applyStyle(savedChangesArray, htmlDoc, currentType,
-			  			                                                        fontText, parameterNumber, null);},
+					                               () -> {currentMod.applyStyle(savedChangesArray, 
+					                              		                          htmlDoc, 
+					                              		                          currentType,
+			  			                                                        fontText, 
+			  			                                                        parameterNumber, 
+			  			                                                        null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Parameter value passed to applyStyle is null",
+			assertEquals("Parameter value passed to applyStyle is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -644,7 +684,9 @@ class HDLmModTest {
 		ArrayList<HDLmMod>  matchingMods = new ArrayList<HDLmMod>();
 		HDLmPassThruStatus  passThru = HDLmPassThruStatus.PASSTHRUNOTOK;
 	  /* Try to extract some matching modifications */
-	  matchingMods = HDLmMod.extractMods(pathValueStr, locateTree, passThru,
+	  matchingMods = HDLmMod.extractMods(pathValueStr, 
+	  		                               locateTree, 
+	  		                               passThru,
 	  		                               HDLmUsePathValue.USEPATHVALUEOK);
 	  int  extractCount = matchingMods.size();
 	  assertEquals(11, extractCount, "Incorrect number of modifications extracted");
@@ -728,11 +770,13 @@ class HDLmModTest {
 	  assertEquals(0, extractCount, "Incorrect number of modifications extracted");
 	  {
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.extractMods(null, locateTree, passThru,
+					                               () -> {HDLmMod.extractMods(null, 
+					                              		                        locateTree, 
+					                              		                        passThru,
 					                              		                        HDLmUsePathValue.USEPATHVALUEOK);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Path value string passed to extract modifications is null",
+			assertEquals("Path value string passed to extract modifications is null", execMsg,
 					         "Unexpected exception message");
 		}	  
 	}
@@ -782,7 +826,7 @@ class HDLmModTest {
 					                               () -> {currentMod.find(null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "HTML DOM passed to find is null",
+			assertEquals("HTML DOM passed to find is null", execMsg,
 					         "Unexpected exception message");
 		}	  
 	}
@@ -920,6 +964,7 @@ class HDLmModTest {
 		  "\"dummyType\":null,\"updated\":null," +
 		  "\"extra\":\"\",\"name\":" +		  
 		  "\"Add to Cart Text\",\"nodeiden\":null,\"path\":\"/neve-studio-dance-jacket.html\"," +
+		  "\"prob\":100.0," +
 		  "\"usemode\":\"prod\"," +
 		  "\"value\":\"\",\"valueSuffix\":" +
 		  "\"\",\"xpath\":\"\"}";		
@@ -953,7 +998,7 @@ class HDLmModTest {
 					                               () -> {HDLmMod.getOldStyleValue(null, "");},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Old style string passed to getOldStyleValue is null",
+			assertEquals("Old style string passed to getOldStyleValue is null", execMsg,
 					         "Unexpected exception message");
 		}	
 	  {
@@ -961,7 +1006,7 @@ class HDLmModTest {
 					                               () -> {HDLmMod.getOldStyleValue(oldValue, null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Style name passed to getOldStyleValue is null",
+			assertEquals("Style name passed to getOldStyleValue is null", execMsg,
 					         "Unexpected exception message");
 		}	
 	}
@@ -1027,75 +1072,96 @@ class HDLmModTest {
     /* Try to access the JSON element for the modification values */
     JsonElement  modsElementValues = modsElementObject.get("newtexts");
     JsonArray    modsObjectArray = modsElementValues.getAsJsonArray();
-    MutableInt   errors = new MutableInt(0);
+    MutableInt   errorCounter = new MutableInt(0);
+    ArrayList<String>   errorMessages = new ArrayList<String>();
     Integer      modsArraySize;
     modsArraySize = HDLmMod.modArrayCheck(editorType, 
-    		                                  errors, 
+    		                                  errorCounter, 
+    		                                  errorMessages,
     		                                  modsElementObject, 
     		                                  "newtexts", 
     		                                  2,
     		                                  HDLmZeroLengthOk.ZEROLENGTHNOTOK);
     assertEquals(2, modsArraySize, "Incorrect array size value returned");
     modsArraySize = HDLmMod.modArrayCheck(editorType, 
-    		                                  errors, 
+    		                                  errorCounter, 
+    		                                  errorMessages,
     		                                  modsElementObject, 
     		                                  "newtexts", 
     		                                  0,
     		                                  HDLmZeroLengthOk.ZEROLENGTHNOTOK,
     		                                  HDLmReportErrors.DONTREPORTERRORS);
     assertEquals(null, modsArraySize, "Returned array size value should be null");
-    int  intValue = errors.intValue();
+    int  intValue = errorCounter.intValue();
     assertEquals(1, intValue, "Error value must be one");   
 	  {
 			Throwable exception = assertThrows(RuntimeException.class, 
 					                               () -> {HDLmMod.modArrayCheck(editorType, 
 					                              		                          null, 
+					                              		                          errorMessages,
 					                              		                          modsElementObject, 
 					                              		                          "newtexts", 
 					                              		                          2,
 					                              		                          HDLmZeroLengthOk.ZEROLENGTHNOTOK);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Mutable int for errors passed to modArrayCheck is null",
+			assertEquals("Mutable int for error counter passed to modArrayCheck is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
 			Throwable exception = assertThrows(RuntimeException.class, 
 					                               () -> {HDLmMod.modArrayCheck(editorType, 
-					                              		                          errors, 
-					                              		                          null, 
+					                              		                          errorCounter, 
+					                              		                          null,
+					                              		                          modsElementObject, 
 					                              		                          "newtexts", 
 					                              		                          2,
 					                              		                          HDLmZeroLengthOk.ZEROLENGTHNOTOK);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "JSON object passed to modArrayCheck is null",
+			assertEquals("ArrayList for error messages passed to modArrayCheck is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
 			Throwable exception = assertThrows(RuntimeException.class, 
 					                               () -> {HDLmMod.modArrayCheck(editorType, 
-					                              		                          errors, 
+					                              		                          errorCounter, 
+					                              		                          errorMessages, 
+					                              		                          null,
+					                              		                          "newtexts", 
+					                              		                          2,
+					                              		                          HDLmZeroLengthOk.ZEROLENGTHNOTOK);},
+					                               "Expected RuntimeException");
+			String execMsg = exception.getMessage();
+			assertEquals("JSON object passed to modArrayCheck is null", execMsg,
+					         "Unexpected exception message");
+		}
+	  {
+			Throwable exception = assertThrows(RuntimeException.class, 
+					                               () -> {HDLmMod.modArrayCheck(editorType, 
+					                              		                          errorCounter, 
+					                              		                          errorMessages,
 					                              		                          modsElementObject, 
 					                              		                          null, 
 					                              		                          2,
 					                              		                          HDLmZeroLengthOk.ZEROLENGTHNOTOK);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Name string passed to modArrayCheck is null",
+			assertEquals("Name string passed to modArrayCheck is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
 			Throwable exception = assertThrows(RuntimeException.class, 
 					                               () -> {HDLmMod.modArrayCheck(editorType, 
-					                              		                          errors, 
+					                              		                          errorCounter, 
+					                              		                          errorMessages,
 					                              		                          modsElementObject, 
 					                              		                          "newtexts", 
 					                              		                          null,
 					                              		                          HDLmZeroLengthOk.ZEROLENGTHNOTOK);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Array size reference passed to modArrayCheck is null",
+			assertEquals("Array size reference passed to modArrayCheck is null", execMsg,
 					         "Unexpected exception message");
 		}	  
 	}
@@ -1161,49 +1227,89 @@ class HDLmModTest {
     /* Try to access the JSON element for the modification values */
     JsonElement  modsElementValues = modsElementObject.get("newtexts");
     JsonArray    modsObjectArray = modsElementValues.getAsJsonArray();
-    MutableInt   errors = new MutableInt(0);
+    MutableInt   errorCounter = new MutableInt(0);
+    ArrayList<String>   errorMessages = new ArrayList<String>();
     Boolean      modEnabled;
-    modEnabled = HDLmMod.modFieldBoolean(editorType, errors, modsElementObject, modsElementKeys, "enabled");
+    modEnabled = HDLmMod.modFieldBoolean(editorType, 
+    		                                 errorCounter,
+    		                                 errorMessages,
+    		                                 modsElementObject, 
+    		                                 modsElementKeys, 
+    		                                 "enabled");
     assertEquals(true, modEnabled, "Incorrect modification enablement status");
-    modEnabled = HDLmMod.modFieldBoolean(editorType, errors, modsElementObject, modsElementKeys, "enabledx", 
+    modEnabled = HDLmMod.modFieldBoolean(editorType, 
+    		                                 errorCounter, 
+    		                                 errorMessages,
+    		                                 modsElementObject, 
+    		                                 modsElementKeys, 
+    		                                 "enabledx", 
     		                                 HDLmReportErrors.DONTREPORTERRORS);
     assertEquals(null, modEnabled, "Returned array size value should be null");
-    int  intValue = errors.intValue();
+    int  intValue = errorCounter.intValue();
     assertEquals(1, intValue, "Error value must be one");    
 	  {
 			Throwable exception = assertThrows(RuntimeException.class, 
 					                               () -> {HDLmMod.modFieldBoolean(editorType, 
 					                              		                            null, 
+					                              		                            errorMessages,
 					                              		                            modsElementObject, 
 					                              		                            modsElementKeys, 
 					                              		                            "enabled");},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Mutable int for errors passed to modFieldBoolean is null",
+			assertEquals("Mutable int for error counter passed to modFieldBoolean is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.modFieldBoolean(editorType, errors, null, modsElementKeys, "enabled");},
+					                               () -> {HDLmMod.modFieldBoolean(editorType, 
+					                              		                            errorCounter,
+					                              		                            null,
+					                              		                            modsElementObject, 
+					                              		                            modsElementKeys, 
+					                              		                            "enabled");},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "JSON object passed to modFieldBoolean is null",
+			assertEquals("ArrayList for error messages passed to modFieldBoolean is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.modFieldBoolean(editorType, errors, modsElementObject, null, "enabled");},
+					                               () -> {HDLmMod.modFieldBoolean(editorType, 
+					                              		                            errorCounter,
+					                              		                            errorMessages,
+					                              		                            null, 
+					                              		                            modsElementKeys, 
+					                              		                            "enabled");},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Set of keys passed to modFieldBoolean is null",
+			assertEquals("JSON object passed to modFieldBoolean is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.modFieldBoolean(editorType, errors, modsElementObject, modsElementKeys, null);},
+					                               () -> {HDLmMod.modFieldBoolean(editorType, 
+					                              		                            errorCounter,
+					                              		                            errorMessages,
+					                              		                            modsElementObject, 
+					                              		                            null,
+					                              		                            "enabled");},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Name string passed to modFieldBoolean is null",
+			assertEquals("Set of keys passed to modFieldBoolean is null", execMsg,
+					         "Unexpected exception message");
+		}
+	  {
+			Throwable exception = assertThrows(RuntimeException.class, 
+					                               () -> {HDLmMod.modFieldBoolean(editorType, 
+					                              		                            errorCounter,
+					                              		                            errorMessages,
+					                              		                            modsElementObject, 
+					                              		                            modsElementKeys, 
+					                              		                            null);},
+					                               "Expected RuntimeException");
+			String execMsg = exception.getMessage();
+			assertEquals("Name string passed to modFieldBoolean is null", execMsg,
 					         "Unexpected exception message");
 		}	  
 	}
@@ -1275,40 +1381,70 @@ class HDLmModTest {
     JsonElement  modsElementFind = modsObjectArray.get(0);
     JsonObject   modsObjectFind = modsElementFind.getAsJsonObject();
     Set<String>  modsFindKeys = modsObjectFind.keySet();
-    MutableInt   errors = new MutableInt(0);
+    MutableInt   errorCounter = new MutableInt(0);
+    ArrayList<String>   errorMessages = new ArrayList<String>();
     HDLmFind     modFind;
-    modFind = HDLmMod.modFieldFind(editorType, errors, modsObjectFind, modsFindKeys);
+    modFind = HDLmMod.modFieldFind(editorType, 
+    		                           errorCounter,
+    		                           errorMessages,
+    		                           modsObjectFind, 
+    		                           modsFindKeys);
     assertNotNull(modFind, "Modification find value is null");
-    modFind = HDLmMod.modFieldFind(editorType, errors, modsObjectFind, modsElementKeys, 
+    modFind = HDLmMod.modFieldFind(editorType, 
+    		                           errorCounter, 
+    		                           errorMessages,
+    		                           modsObjectFind, 
+    		                           modsElementKeys, 
     		                           HDLmReportErrors.DONTREPORTERRORS);
     assertNotNull(modFind, "Modification find value is null");
-    int  intValue = errors.intValue();
+    int  intValue = errorCounter.intValue();
     assertEquals(3, intValue, "Error value must be three");
 	  {
 			Throwable exception = assertThrows(RuntimeException.class, 
 					                               () -> {HDLmMod.modFieldFind(editorType, 
 					                              		                         null, 
+					                              		                         errorMessages,
 					                              		                         modsElementObject, 
 					                              		                         modsElementKeys);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Mutable int for errors passed to modFieldFind is null",
+			assertEquals("Mutable int for error counter passed to modFieldFind is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.modFieldFind(editorType, errors, null, modsElementKeys);},
+					                               () -> {HDLmMod.modFieldFind(editorType, 
+					                              		                         errorCounter,
+					                              		                         null,
+					                              		                         modsElementObject, 
+					                              		                         modsElementKeys);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "JSON object passed to modFieldFind is null",
+			assertEquals("ArrayList for error messages passed to modFieldFind is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.modFieldFind(editorType, errors, modsElementObject, null);},
+					                               () -> {HDLmMod.modFieldFind(editorType, 
+					                              		                         errorCounter, 
+					                              		                         errorMessages,
+					                              		                         null, 
+					                              		                         modsElementKeys);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Set of keys passed to modFieldFind is null",
+			assertEquals("JSON object passed to modFieldFind is null", execMsg,
+					         "Unexpected exception message");
+		}
+	  {
+			Throwable exception = assertThrows(RuntimeException.class, 
+					                               () -> {HDLmMod.modFieldFind(editorType, 
+					                              		                         errorCounter,
+					                              		                         errorMessages,
+					                              		                         modsElementObject, 
+					                              		                         null);},
+					                               "Expected RuntimeException");
+			String execMsg = exception.getMessage();
+			assertEquals("Set of keys passed to modFieldFind is null", execMsg,
 					         "Unexpected exception message");
 		}  
 	}
@@ -1376,52 +1512,89 @@ class HDLmModTest {
     String   fieldName = "find";
     JsonElement  modsElementFinds = modsElementObject.get(fieldName);
     JsonArray    modsObjectFinds = modsElementFinds.getAsJsonArray();
-    MutableInt   errors = new MutableInt(0);
+    MutableInt   errorCounter = new MutableInt(0);
+    ArrayList<String>   errorMessages = new ArrayList<String>();
     ArrayList<HDLmFind>  modFinds;
-    modFinds = HDLmMod.modFieldFindArray(editorType, errors, modsElementObject, modsElementKeys, fieldName);
+    modFinds = HDLmMod.modFieldFindArray(editorType, 
+    		                                 errorCounter, 
+    		                                 errorMessages, 
+    		                                 modsElementObject, 
+    		                                 modsElementKeys, 
+    		                                 fieldName);
     assertNotNull(modFinds, "Modification finds array value is null");
-    modFinds = HDLmMod.modFieldFindArray(editorType, errors, modsElementObject, modsElementKeys, "findx", 
+    modFinds = HDLmMod.modFieldFindArray(editorType, 
+    		                                 errorCounter, 
+    		                                 errorMessages, 
+    		                                 modsElementObject, 
+    		                                 modsElementKeys, 
+    		                                 "findx", 
     		                                 HDLmReportErrors.DONTREPORTERRORS);
     assertNull(modFinds, "Modification finds array value is not null");
-    int  intValue = errors.intValue();
+    int  intValue = errorCounter.intValue();
     assertEquals(1, intValue, "Error value must be three");
 	  {
 			Throwable exception = assertThrows(RuntimeException.class, 
 					                               () -> {HDLmMod.modFieldFindArray(editorType, 
 					                              		                              null, 
+					                              		                              errorMessages,
 					                              		                              modsElementObject, 
 					                              		                              modsElementKeys, 
 					                              		                              fieldName);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Mutable int for errors passed to modFieldFindArray is null",
+			assertEquals("Mutable int for error counter passed to modFieldFindArray is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.modFieldFindArray(editorType, errors, null, 
-					                              		                              modsElementKeys, fieldName);},
+					                               () -> {HDLmMod.modFieldFindArray(editorType, 
+					                              		                              errorCounter, 
+					                              		                              null,
+					                              		                              modsElementObject, 
+					                              		                              modsElementKeys, 
+					                              		                              fieldName);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "JSON object passed to modFieldFindArray is null",
+			assertEquals("ArrayList for error messages passed to modFieldFindArray is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.modFieldFindArray(editorType, errors, modsElementObject, 
-					                              		                              null, fieldName);},
+					                               () -> {HDLmMod.modFieldFindArray(editorType, 
+					                              		                              errorCounter, 
+					                              		                              errorMessages, 
+					                              		                              null, 
+					                              		                              modsElementKeys, 
+					                              		                              fieldName);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Set of keys passed to modFieldFindArray is null",
+			assertEquals("JSON object passed to modFieldFindArray is null", execMsg,
+					         "Unexpected exception message");
+		}
+	  {
+			Throwable exception = assertThrows(RuntimeException.class, 
+					                               () -> {HDLmMod.modFieldFindArray(editorType, 
+					                              		                              errorCounter, 
+					                              		                              errorMessages, 
+					                              		                              modsElementObject, 
+					                              		                              null, 
+					                              		                              fieldName);},
+					                               "Expected RuntimeException");
+			String execMsg = exception.getMessage();
+			assertEquals("Set of keys passed to modFieldFindArray is null", execMsg,
 					         "Unexpected exception message");
 		}  
 	  {
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.modFieldFindArray(editorType, errors, modsElementObject, 
-					                              		                              modsElementKeys, null);},
+					                               () -> {HDLmMod.modFieldFindArray(editorType, 
+					                              		                              errorCounter, 
+					                              		                              errorMessages, 
+					                              		                              modsElementObject, 
+					                              		                              modsElementKeys, 
+					                              		                              null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Name string passed to modFieldFindArray is null",
+			assertEquals("Name string passed to modFieldFindArray is null", execMsg,
 					         "Unexpected exception message");
 		} 
 	}
@@ -1489,53 +1662,90 @@ class HDLmModTest {
     String         fieldName = "parameter";
     JsonElement    modsElementParameterNumber = modsElementObject.get(fieldName);
     JsonPrimitive  modsPrimitiveParameterNumber = modsElementParameterNumber.getAsJsonPrimitive();
-    MutableInt     errors = new MutableInt(0);
+    MutableInt     errorCounter = new MutableInt(0);
+    ArrayList<String>   errorMessages = new ArrayList<String>();
     Integer        modInteger;
-    modInteger = HDLmMod.modFieldInteger(editorType, errors, modsElementObject, modsElementKeys, fieldName);
+    modInteger = HDLmMod.modFieldInteger(editorType, 
+    		                                 errorCounter, 
+    		                                 errorMessages, 
+    		                                 modsElementObject, 
+    		                                 modsElementKeys, 
+    		                                 fieldName);
     assertNotNull(modInteger, "Modification parameter number value is null");
     assertEquals(9, modInteger, "Modification parameter number value is not nine");
-    modInteger = HDLmMod.modFieldInteger(editorType, errors, modsElementObject, modsElementKeys, fieldName + "x", 
+    modInteger = HDLmMod.modFieldInteger(editorType, 
+    		                                 errorCounter, 
+    		                                 errorMessages, 
+    		                                 modsElementObject, 
+    		                                 modsElementKeys, 
+    		                                 fieldName + "x", 
     		                                 HDLmReportErrors.DONTREPORTERRORS);
     assertNull(modInteger, "Modification parameter number value is not null");
-    int  intValue = errors.intValue();
+    int  intValue = errorCounter.intValue();
     assertEquals(1, intValue, "Error value must be one");
 	  {
 			Throwable exception = assertThrows(RuntimeException.class, 
 					                               () -> {HDLmMod.modFieldInteger(editorType, 
 					                              		                            null, 
+					                              		                            errorMessages,
 					                              		                            modsElementObject, 
 					                              		                            modsElementKeys, 
 					                              		                            fieldName);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Mutable int for errors passed to modFieldInteger is null",
+			assertEquals("Mutable int for error counter passed to modFieldInteger is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.modFieldInteger(editorType, errors, null, 
-					                              		                            modsElementKeys, fieldName);},
+					                               () -> {HDLmMod.modFieldInteger(editorType, 
+					                              		                            errorCounter, 
+					                              		                            null,
+					                              		                            modsElementObject, 
+					                              		                            modsElementKeys, 
+					                              		                            fieldName);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "JSON object passed to modFieldInteger is null",
+			assertEquals("ArrayList for error messages passed to modFieldInteger is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.modFieldInteger(editorType, errors, modsElementObject, 
-					                              		                            null, fieldName);},
+					                               () -> {HDLmMod.modFieldInteger(editorType, 
+					                              		                            errorCounter, 
+					                              		                            errorMessages, 
+					                              		                            null, 
+					                              		                            modsElementKeys, 
+					                              		                            fieldName);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Set of keys passed to modFieldInteger is null",
+			assertEquals("JSON object passed to modFieldInteger is null", execMsg,
+					         "Unexpected exception message");
+		}
+	  {
+			Throwable exception = assertThrows(RuntimeException.class, 
+					                               () -> {HDLmMod.modFieldInteger(editorType, 
+					                              		                            errorCounter, 
+					                              		                            errorMessages, 
+					                              		                            modsElementObject, 
+					                              		                            null, 
+					                              		                            fieldName);},
+					                               "Expected RuntimeException");
+			String execMsg = exception.getMessage();
+			assertEquals("Set of keys passed to modFieldInteger is null", execMsg,
 					         "Unexpected exception message");
 		}  
 	  {
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.modFieldInteger(editorType, errors, modsElementObject, 
-					                              		                            modsElementKeys, null);},
+					                               () -> {HDLmMod.modFieldInteger(editorType, 
+					                              		                            errorCounter, 
+					                              		                            errorMessages, 
+					                              		                            modsElementObject, 
+					                              		                            modsElementKeys, 
+					                              		                            null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Name string passed to modFieldInteger is null",
+			assertEquals("Name string passed to modFieldInteger is null", execMsg,
 					         "Unexpected exception message");
 		} 
 	}
@@ -1603,53 +1813,90 @@ class HDLmModTest {
     String         fieldName = "type";
     JsonElement    modsElementType = modsElementObject.get(fieldName);
     JsonPrimitive  modsPrimitiveType = modsElementType.getAsJsonPrimitive();
-    MutableInt     errors = new MutableInt(0);
+    MutableInt     errorCounter = new MutableInt(0);
+    ArrayList<String>   errorMessages = new ArrayList<String>();
     HDLmModTypes   modType;
-    modType = HDLmMod.modFieldModType(editorType, errors, modsElementObject, modsElementKeys, fieldName);
+    modType = HDLmMod.modFieldModType(editorType, 
+    		                              errorCounter, 
+    		                              errorMessages, 
+    		                              modsElementObject, 
+    		                              modsElementKeys, 
+    		                              fieldName);
     assertNotNull(modType, "Modification type value is null");
     assertEquals(HDLmModTypes.TITLE, modType, "Modification type value is not 'TITLE'");
-    modType = HDLmMod.modFieldModType(editorType, errors, modsElementObject, modsElementKeys, fieldName + "x", 
+    modType = HDLmMod.modFieldModType(editorType, 
+    		                              errorCounter, 
+    		                              errorMessages, 
+    		                              modsElementObject, 
+    		                              modsElementKeys, 
+    		                              fieldName + "x", 
     		                              HDLmReportErrors.DONTREPORTERRORS);
     assertEquals(HDLmModTypes.NONE, modType, "Modification type value is not 'NONE'");
-    int  intValue = errors.intValue();
+    int  intValue = errorCounter.intValue();
     assertEquals(1, intValue, "Error value must be one");
  	  {
  			Throwable exception = assertThrows(RuntimeException.class, 
  					                               () -> {HDLmMod.modFieldModType(editorType, 
  					                              		                            null, 
+ 					                              		                            errorMessages,
  					                              		                            modsElementObject, 
  					                              		                            modsElementKeys, 
  					                              		                            fieldName);},
  					                               "Expected RuntimeException");
  			String execMsg = exception.getMessage();
- 			assertEquals(execMsg, "Mutable int for errors passed to modFieldModType is null",
+ 			assertEquals("Mutable int for error counter passed to modFieldModType is null", execMsg,
  					         "Unexpected exception message");
  		}
  	  {
  			Throwable exception = assertThrows(RuntimeException.class, 
- 					                               () -> {HDLmMod.modFieldModType(editorType, errors, null, 
- 					                              		                            modsElementKeys, fieldName);},
+ 					                               () -> {HDLmMod.modFieldModType(editorType, 
+ 					                              		                            errorCounter,
+ 					                              		                            null,
+ 					                              		                            modsElementObject, 
+ 					                              		                            modsElementKeys, 
+ 					                              		                            fieldName);},
  					                               "Expected RuntimeException");
  			String execMsg = exception.getMessage();
- 			assertEquals(execMsg, "JSON object passed to modFieldModType is null",
+ 			assertEquals("ArrayList for error messages passed to modFieldModType is null", execMsg,
  					         "Unexpected exception message");
  		}
  	  {
  			Throwable exception = assertThrows(RuntimeException.class, 
- 					                               () -> {HDLmMod.modFieldModType(editorType, errors, modsElementObject, 
- 					                              		                            null, fieldName);},
+ 					                               () -> {HDLmMod.modFieldModType(editorType, 
+ 					                              		                            errorCounter, 
+ 					                              		                            errorMessages, 
+ 					                              		                            null, 
+ 					                              		                            modsElementKeys, 
+ 					                              		                            fieldName);},
  					                               "Expected RuntimeException");
  			String execMsg = exception.getMessage();
- 			assertEquals(execMsg, "Set of keys passed to modFieldModType is null",
+ 			assertEquals("JSON object passed to modFieldModType is null", execMsg,
+ 					         "Unexpected exception message");
+ 		}
+ 	  {
+ 			Throwable exception = assertThrows(RuntimeException.class, 
+ 					                               () -> {HDLmMod.modFieldModType(editorType, 
+ 					                              		                            errorCounter, 
+ 					                              		                            errorMessages, 
+ 					                              		                            modsElementObject, 
+ 					                              		                            null, 
+ 					                              		                            fieldName);},
+ 					                               "Expected RuntimeException");
+ 			String execMsg = exception.getMessage();
+ 			assertEquals("Set of keys passed to modFieldModType is null", execMsg,
  					         "Unexpected exception message");
  		}  
  	  {
  			Throwable exception = assertThrows(RuntimeException.class, 
- 					                               () -> {HDLmMod.modFieldModType(editorType, errors, modsElementObject, 
- 					                              		                            modsElementKeys, null);},
+ 					                               () -> {HDLmMod.modFieldModType(editorType, 
+ 					                              		                            errorCounter, 
+ 					                              		                            errorMessages, 
+ 					                              		                            modsElementObject, 
+ 					                              		                            modsElementKeys, 
+ 					                              		                            null);},
  					                               "Expected RuntimeException");
  			String execMsg = exception.getMessage();
- 			assertEquals(execMsg, "Name string passed to modFieldModType is null",
+ 			assertEquals("Name string passed to modFieldModType is null", execMsg,
  					         "Unexpected exception message");
  		} 
  	}
@@ -1717,72 +1964,202 @@ class HDLmModTest {
     String         fieldName = "path";
     JsonElement    modsElementPathValue = modsElementObject.get(fieldName);
     JsonPrimitive  modsPrimitivePathValue = modsElementPathValue.getAsJsonPrimitive();
-    MutableInt     errors = new MutableInt(0);
+    MutableInt     errorCounter = new MutableInt(0);
+    ArrayList<String>   errorMessages = new ArrayList<String>();
     String         modString;
-    modString = HDLmMod.modFieldString(editorType, errors, modsElementObject, modsElementKeys, fieldName, 
-    		                               HDLmWhiteSpace.WHITESPACENOTOK);
+    {
+			String         errorMessagePrefix = "Modification";
+			int            errorNumberMissing = 3; 
+	    int            errorNumberIsNull = 4;
+	    int            errorNumberNotPrimitive = 4;
+	    int            errorNumberException = 4;
+	    int            errorNumberInvalidLength = 4;
+	    int            errorNumberInvalidWhiteSpace = 4;	
+	    modString = HDLmField.checkFieldString(editorType, 
+			    		                               errorCounter, 
+			    		                               errorMessages, 
+			    		                               modsElementObject, 
+			    		                               modsElementKeys, 
+			    		                               fieldName, 
+			    		                               errorMessagePrefix,
+															     	     	   errorNumberMissing,
+															               errorNumberIsNull,
+															               errorNumberNotPrimitive,
+															               errorNumberException,
+															               errorNumberInvalidLength,
+															               errorNumberInvalidWhiteSpace, 
+    		                                     HDLmWhiteSpace.WHITESPACENOTOK, 
+    	                                    	 HDLmReportErrors.DONTREPORTERRORS,
+    	                                    	 HDLmZeroLengthOk.ZEROLENGTHNOTOK);
     assertNotNull(modString, "Modification path value is null");
     assertEquals("/neve-studio-dance-jacket.html", modString, "Modification path value is invalid");
-    modString = HDLmMod.modFieldString(editorType, 
-    		                               errors, 
-    		                               modsElementObject, 
-    		                               modsElementKeys, 
-    		                               fieldName + "x", 
-                                    	 HDLmWhiteSpace.WHITESPACENOTOK, 
-                                    	 HDLmReportErrors.DONTREPORTERRORS,
-                                    	 HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+    modString = HDLmField.checkFieldString(editorType, 
+		    		                               errorCounter, 
+		    		                               errorMessages,
+		    		                               modsElementObject, 
+		    		                               modsElementKeys, 
+		    		                               fieldName + "x", 
+		    		                               errorMessagePrefix,
+														     	     	   errorNumberMissing,
+														               errorNumberIsNull,
+														               errorNumberNotPrimitive,
+														               errorNumberException,
+															             errorNumberInvalidLength,
+															             errorNumberInvalidWhiteSpace, 
+		                                    	 HDLmWhiteSpace.WHITESPACENOTOK, 
+		                                    	 HDLmReportErrors.DONTREPORTERRORS,
+		                                    	 HDLmZeroLengthOk.ZEROLENGTHNOTOK);
     assertNull(modString, "Modification path value is not null");
-    int  intValue = errors.intValue();
+    int  intValue = errorCounter.intValue();
     assertEquals(1, intValue, "Error value must be one");
+    }
 	  {
+			String  errorMessagePrefix = "Modification";
+			int     errorNumberMissing = 3; 
+	    int     errorNumberIsNull = 4;
+	    int     errorNumberNotPrimitive = 4;
+	    int     errorNumberException = 4;
+	    int     errorNumberInvalidLength = 4;
+	    int     errorNumberInvalidWhiteSpace = 4;	
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.modFieldString(editorType, 
-					                              		                           null, 
-					                              		                           modsElementObject, 
-					                              		                           modsElementKeys, 
-					                              		                           fieldName, 
-					                              		                           HDLmWhiteSpace.WHITESPACENOTOK, 
-					                              		                           HDLmReportErrors.DONTREPORTERRORS,
-					                              		                           HDLmZeroLengthOk.ZEROLENGTHNOTOK);},
+					                               () -> {HDLmField.checkFieldString(editorType, 
+							                              		                           null, 
+							                              		                           errorMessages,
+							                              		                           modsElementObject, 
+							                              		                           modsElementKeys, 
+							                              		                           fieldName, 
+							                              		                           errorMessagePrefix,
+							 																						     	     	     errorNumberMissing,
+							 																						                 errorNumberIsNull,
+							 																						                 errorNumberNotPrimitive,
+							 																						                 errorNumberException,
+							 																							               errorNumberInvalidLength,
+							 																							               errorNumberInvalidWhiteSpace, 
+							                              		                           HDLmWhiteSpace.WHITESPACENOTOK, 
+							                              		                           HDLmReportErrors.DONTREPORTERRORS,
+							                              		                           HDLmZeroLengthOk.ZEROLENGTHNOTOK);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Mutable int for errors passed to modFieldString is null",
+			assertEquals("Mutable int for error counter passed to checkFieldString is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
+			String  errorMessagePrefix = "Modification";
+			int     errorNumberMissing = 3; 
+	    int     errorNumberIsNull = 4;
+	    int     errorNumberNotPrimitive = 4;
+	    int     errorNumberException = 4;
+	    int     errorNumberInvalidLength = 4;
+	    int     errorNumberInvalidWhiteSpace = 4;	
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.modFieldString(editorType, errors, null, 
-					                              		                           modsElementKeys, fieldName, 
-					                              		                           HDLmWhiteSpace.WHITESPACENOTOK, 
-					                              		                           HDLmReportErrors.DONTREPORTERRORS,
-					                              		                           HDLmZeroLengthOk.ZEROLENGTHNOTOK);},
+					                               () -> {HDLmField.checkFieldString(editorType, 
+							                              		                           errorCounter,
+							                              		                           null,
+							                              		                           modsElementObject, 
+							                              		                           modsElementKeys, 
+							                              		                           fieldName, 
+							                              		                           errorMessagePrefix,
+							 																						     	     	     errorNumberMissing,
+							 																						                 errorNumberIsNull,
+							 																						                 errorNumberNotPrimitive,
+							 																						                 errorNumberException,
+							 																							               errorNumberInvalidLength,
+							 																							               errorNumberInvalidWhiteSpace, 
+							                              		                           HDLmWhiteSpace.WHITESPACENOTOK, 
+							                              		                           HDLmReportErrors.DONTREPORTERRORS,
+							                              		                           HDLmZeroLengthOk.ZEROLENGTHNOTOK);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "JSON object passed to modFieldString is null",
+			assertEquals("ArrayList for error messages passed to checkFieldString is null", execMsg,
 					         "Unexpected exception message");
 		}
-	  {
+	  { 
+			String  errorMessagePrefix = "Modification";
+			int     errorNumberMissing = 3; 
+	    int     errorNumberIsNull = 4;
+	    int     errorNumberNotPrimitive = 4;
+	    int     errorNumberException = 4;
+	    int     errorNumberInvalidLength = 4;
+	    int     errorNumberInvalidWhiteSpace = 4;	
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.modFieldString(editorType, errors, modsElementObject, 
-					                              		                           null, fieldName, 
-					                              		                           HDLmWhiteSpace.WHITESPACENOTOK, 
-					                              		                           HDLmReportErrors.DONTREPORTERRORS,
-					                              		                           HDLmZeroLengthOk.ZEROLENGTHNOTOK);},
+					                               () -> {HDLmField.checkFieldString(editorType, 
+							                              		                           errorCounter, 
+							                              		                           errorMessages, 
+							                              		                           null, 
+							                              		                           modsElementKeys, fieldName, 
+							                              		                           errorMessagePrefix,
+							 																						     	     	     errorNumberMissing,
+							 																						                 errorNumberIsNull,
+							 																						                 errorNumberNotPrimitive,
+							 																						                 errorNumberException,
+							 																							               errorNumberInvalidLength,
+							 																							               errorNumberInvalidWhiteSpace, 
+							                              		                           HDLmWhiteSpace.WHITESPACENOTOK, 
+							                              		                           HDLmReportErrors.DONTREPORTERRORS,
+							                              		                           HDLmZeroLengthOk.ZEROLENGTHNOTOK);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Set of keys passed to modFieldString is null",
+			assertEquals("JSON object passed to checkFieldString is null", execMsg,
+					         "Unexpected exception message");
+		}
+	  { 
+			String  errorMessagePrefix = "Modification";
+			int     errorNumberMissing = 3; 
+	    int     errorNumberIsNull = 4;
+	    int     errorNumberNotPrimitive = 4;
+	    int     errorNumberException = 4;
+	    int     errorNumberInvalidLength = 4;
+	    int     errorNumberInvalidWhiteSpace = 4;	
+			Throwable exception = assertThrows(RuntimeException.class, 
+					                               () -> {HDLmField.checkFieldString(editorType, 
+							                              		                           errorCounter,
+							                              		                           errorMessages,
+							                              		                           modsElementObject, 
+							                              		                           null, 
+							                              		                           fieldName, 
+							                              		                           errorMessagePrefix,
+							 																						     	     	     errorNumberMissing,
+							 																						                 errorNumberIsNull,
+							 																						                 errorNumberNotPrimitive,
+							 																						                 errorNumberException,
+							 																							               errorNumberInvalidLength,
+							 																							               errorNumberInvalidWhiteSpace, 
+							                              		                           HDLmWhiteSpace.WHITESPACENOTOK, 
+							                              		                           HDLmReportErrors.DONTREPORTERRORS,
+							                              		                           HDLmZeroLengthOk.ZEROLENGTHNOTOK);},
+					                               "Expected RuntimeException");
+			String execMsg = exception.getMessage();
+			assertEquals("Set of keys passed to checkFieldString is null", execMsg,
 					         "Unexpected exception message");
 		}  
-	  {
+	  { 
+			String  errorMessagePrefix = "Modification";
+			int     errorNumberMissing = 3; 
+	    int     errorNumberIsNull = 4;
+	    int     errorNumberNotPrimitive = 4;
+	    int     errorNumberException = 4;
+	    int     errorNumberInvalidLength = 4;
+	    int     errorNumberInvalidWhiteSpace = 4;	
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.modFieldString(editorType, errors, modsElementObject, 
-					                              		                           modsElementKeys, null, 
-					                              		                           HDLmWhiteSpace.WHITESPACENOTOK, 
-					                              		                           HDLmReportErrors.DONTREPORTERRORS,
-					                              		                           HDLmZeroLengthOk.ZEROLENGTHNOTOK);},
+					                               () -> {HDLmField.checkFieldString(editorType, 
+							                              		                           errorCounter,
+							                              		                           errorMessages,
+							                              		                           modsElementObject, 
+							                              		                           modsElementKeys, 
+							                              		                           null, 
+							                              		                           errorMessagePrefix,
+							 																						     	     	     errorNumberMissing,
+							 																						                 errorNumberIsNull,
+							 																						                 errorNumberNotPrimitive,
+							 																						                 errorNumberException,
+							 																							               errorNumberInvalidLength,
+							 																							               errorNumberInvalidWhiteSpace, 
+							                              		                           HDLmWhiteSpace.WHITESPACENOTOK, 
+							                              		                           HDLmReportErrors.DONTREPORTERRORS,
+							                              		                           HDLmZeroLengthOk.ZEROLENGTHNOTOK);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Name string passed to modFieldString is null",
+			assertEquals("Name string passed to checkFieldString is null", execMsg,
 					         "Unexpected exception message");
 		} 
 	}
@@ -1850,55 +2227,284 @@ class HDLmModTest {
     String         fieldName = "titles";
     JsonElement    modsElementTitles = modsElementObject.get(fieldName);
     JsonArray      modsArrayTitles = modsElementTitles.getAsJsonArray();
-    MutableInt     errors = new MutableInt(0);
-    ArrayList<String>  modStringArray;
-    modStringArray = HDLmMod.modFieldStringArray(editorType, errors, modsElementObject, modsElementKeys, fieldName);
+    MutableInt     errorCounter = new MutableInt(0);
+    ArrayList<String>   errorMessages = new ArrayList<String>();
+    ArrayList<String>   modStringArray;
+    {
+			String  errorMessagePrefix = "Modification";
+			int     errorNumberMissing = 3;
+			int     errorNumberIsNull = 4;
+			int     errorNumberIsPrimitive = 4;
+			int     errorNumberNotPrimitive = 4;
+			int     errorNumberNotArray = 4;
+			int     errorNumberException = 4;
+			int     errorNumberTooSmall = 70;
+			int     errorNumberTooLarge = 71; 
+			int     errorNumberInvalidLength = 4;
+			int     errorNumberInvalidWhiteSpace = 4;
+	    modStringArray = HDLmField.checkFieldStringArray(editorType, 
+			    		                                         errorCounter, 
+			    		                                         errorMessages, 
+			    		                                         modsElementObject, 
+			    		                                         modsElementKeys, 
+			    		                                         fieldName, 
+							                                         null,
+							                                         null,
+							                                         errorMessagePrefix,
+							                                         errorNumberMissing,
+							                                         errorNumberIsNull,
+							                                         errorNumberIsPrimitive,
+							                                         errorNumberNotPrimitive,
+							                                         errorNumberNotArray,
+							                                         errorNumberException,
+							                                         errorNumberTooSmall,
+							                                         errorNumberTooLarge, 
+							                                         errorNumberInvalidLength,
+							                                         errorNumberInvalidWhiteSpace,
+							                                         HDLmWhiteSpace.WHITESPACENOTOK,
+																							         HDLmReportErrors.DONTREPORTERRORS,
+																							         HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+    }
     assertNotNull(modStringArray, "Modification titles value is null");
     assertEquals("ADD TO CART", modStringArray.get(0), "Modification first title value is invalid");
     assertEquals("TCELESECROFAdd to ala-carte", modStringArray.get(1), "Modification second title value is invalid");
     assertEquals(2, modStringArray.size(), "Modification titles array size value is invalid");
-    modStringArray = HDLmMod.modFieldStringArray(editorType, errors, modsElementObject, modsElementKeys, fieldName + "x", 
-    		                                         HDLmReportErrors.DONTREPORTERRORS);
+    {
+	  	String  errorMessagePrefix = "Modification";
+			int     errorNumberMissing = 3;
+			int     errorNumberIsNull = 4;
+			int     errorNumberIsPrimitive = 4;
+			int     errorNumberNotPrimitive = 4;
+			int     errorNumberNotArray = 4;
+			int     errorNumberException = 4;
+			int     errorNumberTooSmall = 70;
+			int     errorNumberTooLarge = 71; 
+			int     errorNumberInvalidLength = 4;
+			int     errorNumberInvalidWhiteSpace = 4;
+	    modStringArray = HDLmField.checkFieldStringArray(editorType, 
+			    		                                         errorCounter, 
+			    		                                         errorMessages, 
+			    		                                         modsElementObject, 
+			    		                                         modsElementKeys, 
+			    		                                         fieldName + "x", 
+							                                         null,
+							                                         null,
+							                                         errorMessagePrefix,
+							                                         errorNumberMissing,
+							                                         errorNumberIsNull,
+							                                         errorNumberIsPrimitive,
+							                                         errorNumberNotPrimitive,
+							                                         errorNumberNotArray,
+							                                         errorNumberException,
+							                                         errorNumberTooSmall,
+							                                         errorNumberTooLarge, 
+							                                         errorNumberInvalidLength,
+							                                         errorNumberInvalidWhiteSpace,
+							                                         HDLmWhiteSpace.WHITESPACENOTOK,
+																							         HDLmReportErrors.DONTREPORTERRORS,
+																							         HDLmZeroLengthOk.ZEROLENGTHNOTOK); 
+    }
     assertNull(modStringArray, "Modification titles value is not null");
-    int  intValue = errors.intValue();
+    int  intValue = errorCounter.intValue();
     assertEquals(1, intValue, "Error value must be one");
 	  {
+			String  errorMessagePrefix = "Modification";
+			int     errorNumberMissing = 3;
+			int     errorNumberIsNull = 4;
+			int     errorNumberIsPrimitive = 4;
+			int     errorNumberNotPrimitive = 4;
+			int     errorNumberNotArray = 4;
+			int     errorNumberException = 4;
+			int     errorNumberTooSmall = 70;
+			int     errorNumberTooLarge = 71; 
+			int     errorNumberInvalidLength = 4;
+			int     errorNumberInvalidWhiteSpace = 4;
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.modFieldStringArray(editorType, 
-					                              		                                null, 
-					                              		                                modsElementObject, 
-					                              		                                modsElementKeys, 
-					                              		                                fieldName);},
+					                               () -> {HDLmField.checkFieldStringArray(editorType, 
+							                              		                                null, 
+							                              		                                errorMessages,
+							                              		                                modsElementObject, 
+							                              		                                modsElementKeys, 
+							                              		                                fieldName, 
+							             						                                          null,
+							            						                                          null,
+							            						                                          errorMessagePrefix,
+							            						                                          errorNumberMissing,
+							            						                                          errorNumberIsNull,
+							            						                                          errorNumberIsPrimitive,
+							            						                                          errorNumberNotPrimitive,
+							            						                                          errorNumberNotArray,
+							            						                                          errorNumberException,
+							            						                                          errorNumberTooSmall,
+							            						                                          errorNumberTooLarge, 
+							            						                                          errorNumberInvalidLength,
+							            						                                          errorNumberInvalidWhiteSpace,
+							            						                                          HDLmWhiteSpace.WHITESPACENOTOK,
+							            																						          HDLmReportErrors.DONTREPORTERRORS,
+							            																						          HDLmZeroLengthOk.ZEROLENGTHNOTOK);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Mutable int for errors passed to modFieldStringArray is null",
+			assertEquals("Mutable int for error counter passed to checkFieldStringArray is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
+			String  errorMessagePrefix = "Modification";
+			int     errorNumberMissing = 3;
+			int     errorNumberIsNull = 4;
+			int     errorNumberIsPrimitive = 4;
+			int     errorNumberNotPrimitive = 4;
+			int     errorNumberNotArray = 4;
+			int     errorNumberException = 4;
+			int     errorNumberTooSmall = 70;
+			int     errorNumberTooLarge = 71; 
+			int     errorNumberInvalidLength = 4;
+			int     errorNumberInvalidWhiteSpace = 4;
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.modFieldStringArray(editorType, errors, null, 
-					                              		                                modsElementKeys, fieldName);},
+					                               () -> {HDLmField.checkFieldStringArray(editorType, 
+							                              		                                errorCounter,
+							                              		                                null,
+							                              		                                modsElementObject, 
+							                              		                                modsElementKeys, 
+							                              		                                fieldName, 
+								             						                                        null,
+								            						                                        null,
+								            						                                        errorMessagePrefix,
+								            						                                        errorNumberMissing,
+								            						                                        errorNumberIsNull,
+								            						                                        errorNumberIsPrimitive,
+								            						                                        errorNumberNotPrimitive,
+								            						                                        errorNumberNotArray,
+								            						                                        errorNumberException,
+								            						                                        errorNumberTooSmall,
+								            						                                        errorNumberTooLarge, 
+								            						                                        errorNumberInvalidLength,
+								            						                                        errorNumberInvalidWhiteSpace,
+								            						                                        HDLmWhiteSpace.WHITESPACENOTOK,
+								            																						        HDLmReportErrors.DONTREPORTERRORS,
+								            																						        HDLmZeroLengthOk.ZEROLENGTHNOTOK);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "JSON object passed to modFieldStringArray is null",
+			assertEquals("ArrayList for error messages passed to checkFieldStringArray is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
+			String  errorMessagePrefix = "Modification";
+			int     errorNumberMissing = 3;
+			int     errorNumberIsNull = 4;
+			int     errorNumberIsPrimitive = 4;
+			int     errorNumberNotPrimitive = 4;
+			int     errorNumberNotArray = 4;
+			int     errorNumberException = 4;
+			int     errorNumberTooSmall = 70;
+			int     errorNumberTooLarge = 71; 
+			int     errorNumberInvalidLength = 4;
+			int     errorNumberInvalidWhiteSpace = 4;
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.modFieldStringArray(editorType, errors, modsElementObject, 
-					                              		                                null, fieldName);},
+					                               () -> {HDLmField.checkFieldStringArray(editorType, 
+							                              		                                errorCounter, 
+							                              		                                errorMessages, 
+							                              		                                null, 
+							                              		                                modsElementKeys, 
+							                              		                                fieldName, 
+								             						                                        null,
+								            						                                        null,
+								            						                                        errorMessagePrefix,
+								            						                                        errorNumberMissing,
+								            						                                        errorNumberIsNull,
+								            						                                        errorNumberIsPrimitive,
+								            						                                        errorNumberNotPrimitive,
+								            						                                        errorNumberNotArray,
+								            						                                        errorNumberException,
+								            						                                        errorNumberTooSmall,
+								            						                                        errorNumberTooLarge, 
+								            						                                        errorNumberInvalidLength,
+								            						                                        errorNumberInvalidWhiteSpace,
+								            						                                        HDLmWhiteSpace.WHITESPACENOTOK,
+								            																						        HDLmReportErrors.DONTREPORTERRORS,
+								            																						        HDLmZeroLengthOk.ZEROLENGTHNOTOK);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Set of keys passed to modFieldStringArray is null",
+			assertEquals("JSON object passed to checkFieldStringArray is null", execMsg,
+					         "Unexpected exception message");
+		}
+	  {
+			String  errorMessagePrefix = "Modification";
+			int     errorNumberMissing = 3;
+			int     errorNumberIsNull = 4;
+			int     errorNumberIsPrimitive = 4;
+			int     errorNumberNotPrimitive = 4;
+			int     errorNumberNotArray = 4;
+			int     errorNumberException = 4;
+			int     errorNumberTooSmall = 70;
+			int     errorNumberTooLarge = 71; 
+			int     errorNumberInvalidLength = 4;
+			int     errorNumberInvalidWhiteSpace = 4;
+			Throwable exception = assertThrows(RuntimeException.class, 
+					                               () -> {HDLmField.checkFieldStringArray(editorType, 
+							                              		                                errorCounter, 
+							                              		                                errorMessages, 
+							                              		                                modsElementObject, 
+							                              		                                null, 
+							                              		                                fieldName, 
+								             						                                        null,
+								            						                                        null,
+								            						                                        errorMessagePrefix,
+								            						                                        errorNumberMissing,
+								            						                                        errorNumberIsNull,
+								            						                                        errorNumberIsPrimitive,
+								            						                                        errorNumberNotPrimitive,
+								            						                                        errorNumberNotArray,
+								            						                                        errorNumberException,
+								            						                                        errorNumberTooSmall,
+								            						                                        errorNumberTooLarge, 
+								            						                                        errorNumberInvalidLength,
+								            						                                        errorNumberInvalidWhiteSpace,
+								            						                                        HDLmWhiteSpace.WHITESPACENOTOK,
+								            																						        HDLmReportErrors.DONTREPORTERRORS,
+								            																						        HDLmZeroLengthOk.ZEROLENGTHNOTOK);},
+					                               "Expected RuntimeException");
+			String execMsg = exception.getMessage();
+			assertEquals("Set of keys passed to checkFieldStringArray is null", execMsg,
 					         "Unexpected exception message");
 		}  
 	  {
+			String  errorMessagePrefix = "Modification";
+			int     errorNumberMissing = 3;
+			int     errorNumberIsNull = 4;
+			int     errorNumberIsPrimitive = 4;
+			int     errorNumberNotPrimitive = 4;
+			int     errorNumberNotArray = 4;
+			int     errorNumberException = 4;
+			int     errorNumberTooSmall = 70;
+			int     errorNumberTooLarge = 71; 
+			int     errorNumberInvalidLength = 4;
+			int     errorNumberInvalidWhiteSpace = 4;
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.modFieldStringArray(editorType, errors, modsElementObject, 
-					                              		                                modsElementKeys, null);},
+					                               () -> {HDLmField.checkFieldStringArray(editorType, 
+							                              		                                errorCounter, 
+							                              		                                errorMessages, 
+							                              		                                modsElementObject, 
+							                              		                                modsElementKeys, 
+							                              		                                null, 
+								             						                                        null,
+								            						                                        null,
+								            						                                        errorMessagePrefix,
+								            						                                        errorNumberMissing,
+								            						                                        errorNumberIsNull,
+								            						                                        errorNumberIsPrimitive,
+								            						                                        errorNumberNotPrimitive,
+								            						                                        errorNumberNotArray,
+								            						                                        errorNumberException,
+								            						                                        errorNumberTooSmall,
+								            						                                        errorNumberTooLarge, 
+								            						                                        errorNumberInvalidLength,
+								            						                                        errorNumberInvalidWhiteSpace,
+								            						                                        HDLmWhiteSpace.WHITESPACENOTOK,
+								            																						        HDLmReportErrors.DONTREPORTERRORS,
+								            																						        HDLmZeroLengthOk.ZEROLENGTHNOTOK);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Name string passed to modFieldStringArray is null",
+			assertEquals("Name string passed to checkFieldStringArray is null", execMsg,
 					         "Unexpected exception message");
 		} 
 	}
@@ -1970,48 +2576,83 @@ class HDLmModTest {
     JsonElement  modsElementFind = modsObjectArray.get(0);
     JsonObject   modsObjectFind = modsElementFind.getAsJsonObject();
     Set<String>  modsFindKeys = modsObjectFind.keySet();
-    MutableInt   errors = new MutableInt(0);
+    MutableInt   errorCounter = new MutableInt(0);
+    ArrayList<String>   errorMessages = new ArrayList<String>();
     int        intValue;
     HDLmFind   modFind;
-    modFind = HDLmMod.modFieldFind(editorType, errors, modsObjectFind, modsFindKeys);
+    modFind = HDLmMod.modFieldFind(editorType, 
+    		                           errorCounter, 
+    		                           errorMessages, 
+    		                           modsObjectFind, 
+    		                           modsFindKeys);
     assertNotNull(modFind, "Modification find value is null");
     /* Check the find we just found */    
-    HDLmMod.modFindCheck(editorType, errors, modsObjectFind, modFind);
-    intValue = errors.intValue();
+    HDLmMod.modFindCheck(editorType, 
+    		                 errorCounter, 
+    		                 errorMessages, 
+    		                 modsObjectFind, 
+    		                 modFind);
+    intValue = errorCounter.intValue();
     assertEquals(0, intValue, "Error value must be zero");
     /* Modify and check the find we just found */  
     modFind.setValue(null);
-    HDLmMod.modFindCheck(editorType, errors, modsObjectFind, modFind, 
+    HDLmMod.modFindCheck(editorType, 
+    		                 errorCounter, 
+    		                 errorMessages, 
+    		                 modsObjectFind, 
+    		                 modFind, 
     		                 HDLmReportErrors.DONTREPORTERRORS);
-    intValue = errors.intValue();
+    intValue = errorCounter.intValue();
     assertEquals(0, intValue, "Error value must be zero");   
 	  {
 	  	HDLmFind   modFindLocal = modFind;
 			Throwable exception = assertThrows(RuntimeException.class, 
 					                               () -> {HDLmMod.modFindCheck(editorType, 
 					                              		                         null, 
+					                              		                         errorMessages,
 					                              		                         modsObjectFind, 
 					                              		                         modFindLocal);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Mutable int for errors passed to modFindCheck is null",
+			assertEquals("Mutable int for error counter passed to modFindCheck is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
 	  	HDLmFind   modFindLocal = modFind;
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.modFindCheck(editorType, errors, null, modFindLocal);},
+					                               () -> {HDLmMod.modFindCheck(editorType, 
+					                              		                         errorCounter, 
+					                              		                         null,
+					                              		                         modsObjectFind, 
+					                              		                         modFindLocal);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "JSON object passed to modFindCheck is null",
+			assertEquals("ArrayList for error messages passed to modFindCheck is null", execMsg,
+					         "Unexpected exception message");
+		}
+	  {
+	  	HDLmFind   modFindLocal = modFind;
+			Throwable exception = assertThrows(RuntimeException.class, 
+					                               () -> {HDLmMod.modFindCheck(editorType, 
+					                              		                         errorCounter, 
+					                              		                         errorMessages, 
+					                              		                         null, 
+					                              		                         modFindLocal);},
+					                               "Expected RuntimeException");
+			String execMsg = exception.getMessage();
+			assertEquals("JSON object passed to modFindCheck is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.modFindCheck(editorType, errors, modsObjectFind, null);},
+					                               () -> {HDLmMod.modFindCheck(editorType, 
+					                              		                         errorCounter, 
+					                              		                         errorMessages, 
+					                              		                         modsObjectFind, 
+					                              		                         null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Find object passed to modFindCheck is null",
+			assertEquals("Find object passed to modFindCheck is null", execMsg,
 					         "Unexpected exception message");
 		}  
 	}
@@ -2081,30 +2722,33 @@ class HDLmModTest {
     String        xPathInfo = modDetails.getXPath();   
     HDLmNodeIden  nodeIden = modDetails.getNodeIden();
     HDLmModTypes  modType = modDetails.getType();
-    MutableInt    errors = new MutableInt(0);
+    MutableInt    errorCounter = new MutableInt(0);
+    ArrayList<String>   errorMessages = new ArrayList<String>();
     HDLmMod.modLocateCheck(editorType, 
     		                   modType,
-    		                   errors, 
+    		                   errorCounter, 
+    		                   errorMessages,
     		                   modsElementObject, 
     		                   cssInfo, 
     		                   xPathInfo, 
     		                   findInfo,
     		                   nodeIden);
     int  intValue;
-    intValue = errors.intValue();
+    intValue = errorCounter.intValue();
     assertEquals(0, intValue, "Error value must be zero");
     /* Make the locate information invalid */
     cssInfo = "Dummy CSS value";
     HDLmMod.modLocateCheck(editorType, 
     		                   modType,
-    		                   errors, 
+    		                   errorCounter, 
+    		                   errorMessages,
     		                   modsElementObject, 
     		                   cssInfo, 
     		                   xPathInfo, 
     		                   findInfo,
     		                   nodeIden,
     		                   HDLmReportErrors.DONTREPORTERRORS);
-    intValue = errors.intValue();
+    intValue = errorCounter.intValue();
     assertEquals(1, intValue, "Error value must be one");
     /* Make the locate information invalid */
     cssInfo = null; 
@@ -2112,14 +2756,15 @@ class HDLmModTest {
     nodeIden = null;
     HDLmMod.modLocateCheck(editorType, 
     		                   modType,    		
-    		                   errors, 
+    		                   errorCounter, 
+    		                   errorMessages,
     		                   modsElementObject, 
     		                   cssInfo, 
     		                   xPathInfo, 
     		                   findInfo,
     		                   nodeIden,
     		                   HDLmReportErrors.DONTREPORTERRORS);
-    intValue = errors.intValue();
+    intValue = errorCounter.intValue();
     assertEquals(2, intValue, "Error value must be two");
 	  {
 	  	String   cssInfoLocal = cssInfo;
@@ -2129,6 +2774,7 @@ class HDLmModTest {
 					                               () -> {HDLmMod.modLocateCheck(editorType, 
 					                              		                           modType,
 					                              		                           null, 
+					                              		                           errorMessages,
 					                              		                           modsElementObject, 
 					                              		                           cssInfoLocal, 
 					                              		                           xPathInfo, 
@@ -2136,7 +2782,7 @@ class HDLmModTest {
 					                              		                           nodeIdenLocal);}, 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Mutable int for errors passed to modLocateCheck is null",
+			assertEquals("Mutable int for error counter passed to modLocateCheck is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
@@ -2146,7 +2792,27 @@ class HDLmModTest {
 			Throwable exception = assertThrows(RuntimeException.class, 
 					                               () -> {HDLmMod.modLocateCheck(editorType, 
 					                              		                           modType,
-					                              		                           errors, 
+					                              		                           errorCounter, 
+					                              		                           null,
+					                              		                           modsElementObject, 
+					                              		                           cssInfoLocal, 
+					                              		                           xPathInfo, 
+					                              		                           findInfoLocal,
+					                              		                           nodeIdenLocal);}, 
+					                               "Expected RuntimeException");
+			String execMsg = exception.getMessage();
+			assertEquals("ArrayList for error messages passed to modLocateCheck is null", execMsg,
+					         "Unexpected exception message");
+		}
+	  {
+	  	String   cssInfoLocal = cssInfo;
+	  	ArrayList<HDLmFind>  findInfoLocal = findInfo;
+	  	HDLmNodeIden         nodeIdenLocal = nodeIden;
+			Throwable exception = assertThrows(RuntimeException.class, 
+					                               () -> {HDLmMod.modLocateCheck(editorType, 
+					                              		                           modType,
+					                              		                           errorCounter, 
+					                              		                           errorMessages,
 					                              		                           null, 
 					                                                        		 cssInfoLocal, 
 					                                                        		 xPathInfo, 
@@ -2154,7 +2820,7 @@ class HDLmModTest {
 					                                                        		 nodeIdenLocal);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "JSON object passed to modLocateCheck is null",
+			assertEquals("JSON object passed to modLocateCheck is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -2191,7 +2857,7 @@ class HDLmModTest {
 					                               () -> {HDLmMod.modPercentPixel(null);},					                              		                              
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Size string passed to modPercentPixel is null",
+			assertEquals("Size string passed to modPercentPixel is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}  
@@ -2259,15 +2925,16 @@ class HDLmModTest {
     HDLmMod  modDetails = new HDLmMod(modsElementDetails);
     modDetails.setIfNotSetTimes();
     /* Try to access the JSON element for the font size array */
-    String             fieldName = "sizes";
-    JsonArray          modsElementArray = modsElementObject.getAsJsonArray(fieldName);
-    JsonElement        modsElementString = modsElementArray.get(0);
-    JsonPrimitive      modsPrimitiveFontSizeEntry = modsElementString.getAsJsonPrimitive();
-    String             fontValue = modsPrimitiveFontSizeEntry.getAsString();
-  	ArrayList<String>  fontValueArray = HDLmMod.modPercentPixel(fontValue);
-  	String             fontSuffixValue = fontValueArray.get(1);
-    MutableInt         errors = new MutableInt(0);
-    int                intValue;
+    String              fieldName = "sizes";
+    JsonArray           modsElementArray = modsElementObject.getAsJsonArray(fieldName);
+    JsonElement         modsElementString = modsElementArray.get(0);
+    JsonPrimitive       modsPrimitiveFontSizeEntry = modsElementString.getAsJsonPrimitive();
+    String              fontValue = modsPrimitiveFontSizeEntry.getAsString();
+  	ArrayList<String>   fontValueArray = HDLmMod.modPercentPixel(fontValue);
+  	String              fontSuffixValue = fontValueArray.get(1);
+    MutableInt          errorCounter = new MutableInt(0);
+    ArrayList<String>   errorMessages = new ArrayList<String>();
+    int                 intValue;
     /* Check if we have the correct font value */
     assertNotNull(fontValue, "Font value is null");
     assertEquals("100px", fontValue, "Font value is invalid");
@@ -2275,65 +2942,110 @@ class HDLmModTest {
     assertNotNull(fontSuffixValue, "Font suffix value is null");
     assertEquals("px", fontSuffixValue, "Font suffix value is invalid");
     /* Run a modSuffixCheck test */
-    HDLmMod.modSuffixCheck(editorType, errors, modsElementObject, fieldName, 
-    	                     fontSuffixValues, fontSuffixValue); 
-    intValue = errors.intValue();
+    HDLmMod.modSuffixCheck(editorType, 
+    		                   errorCounter, 
+    		                   errorMessages, 
+    		                   modsElementObject, 
+    		                   fieldName, 
+    	                     fontSuffixValues, 
+    	                     fontSuffixValue); 
+    intValue = errorCounter.intValue();
     assertEquals(0, intValue, "Error value must be zero");
     /* Run a modSuffixCheck test */ 
     fontSuffixValue = "xx";
-    HDLmMod.modSuffixCheck(editorType, errors, modsElementObject, fieldName, 
+    HDLmMod.modSuffixCheck(editorType, 
+    		                   errorCounter, 
+    		                   errorMessages, 
+    		                   modsElementObject, 
+    		                   fieldName, 
     	                   	 fontSuffixValues, fontSuffixValue, 
                            HDLmReportErrors.DONTREPORTERRORS); 
-    intValue = errors.intValue();
+    intValue = errorCounter.intValue();
     assertEquals(1, intValue, "Error value must be one");
     /* Run a modSuffixCheck test */
     fontSuffixValue = "px";
-    HDLmMod.modSuffixCheck(editorType, errors, modsElementObject, fieldName, 
-    	                   	fontSuffixValues, fontSuffixValue);
-    intValue = errors.intValue();
+    HDLmMod.modSuffixCheck(editorType, 
+    		                   errorCounter, 
+    		                   errorMessages, 
+    		                   modsElementObject, 
+    		                   fieldName, 
+    	                   	 fontSuffixValues, 
+    	                   	 fontSuffixValue);
+    intValue = errorCounter.intValue();
     assertEquals(1, intValue, "Error value must be one");
 	  { 
 	  	String   fontSuffixValueLocal = fontSuffixValue;
 			Throwable exception = assertThrows(RuntimeException.class, 
 					                               () -> {HDLmMod.modSuffixCheck(editorType, 
 					                              		                           null, 
+					                              		                           errorMessages,
 					                              		                           modsElementObject, 
 					                              		                           fieldName,
 					                                                             fontSuffixValues, 
 					                                                             fontSuffixValueLocal);},					                              		                              
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Mutable int for errors passed to modSuffixCheck is null",
+			assertEquals("Mutable int for error counter passed to modSuffixCheck is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  { 
 	  	String   fontSuffixValueLocal = fontSuffixValue;
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.modSuffixCheck(editorType, errors, null, fieldName,
-					                                                        		 fontSuffixValues, fontSuffixValueLocal);},
+					                               () -> {HDLmMod.modSuffixCheck(editorType, 
+					                              		                           errorCounter, 
+					                              		                           null,
+					                              		                           modsElementObject, 
+					                              		                           fieldName,
+					                                                             fontSuffixValues, 
+					                                                             fontSuffixValueLocal);},					                              		                              
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "JSON object passed to modSuffixCheck is null",
+			assertEquals("ArrayList for error messages passed to modSuffixCheck is null", execMsg,
+					         "Unexpected exception message");
+		}
+	  { 
+	  	String   fontSuffixValueLocal = fontSuffixValue;
+			Throwable exception = assertThrows(RuntimeException.class, 
+					                               () -> {HDLmMod.modSuffixCheck(editorType, 
+					                              		                           errorCounter, 
+					                              		                           errorMessages, 
+					                              		                           null, 
+					                              		                           fieldName,
+					                                                        		 fontSuffixValues, 
+					                                                        		 fontSuffixValueLocal);},
+					                               "Expected RuntimeException");
+			String execMsg = exception.getMessage();
+			assertEquals("JSON object passed to modSuffixCheck is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
 	  	String   fontSuffixValueLocal = fontSuffixValue;
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.modSuffixCheck(editorType, errors, modsElementObject, null, 
-					                              	                           	 fontSuffixValues, fontSuffixValueLocal);},
+					                               () -> {HDLmMod.modSuffixCheck(editorType, 
+					                              		                           errorCounter, 
+					                              		                           errorMessages, 
+					                              		                           modsElementObject, 
+					                              		                           null, 
+					                              	                           	 fontSuffixValues, 
+					                              	                           	 fontSuffixValueLocal);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Name string passed to modSuffixCheck is null",
+			assertEquals("Name string passed to modSuffixCheck is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
 	  	String   fontSuffixValueLocal = fontSuffixValue;
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.modSuffixCheck(editorType, errors, modsElementObject, fieldName,
-					                              	                           	 null, fontSuffixValueLocal);},
+					                               () -> {HDLmMod.modSuffixCheck(editorType, 
+					                              		                           errorCounter, 
+					                              		                           errorMessages, 
+					                              		                           modsElementObject, 
+					                              		                           fieldName,
+					                              	                           	 null, 
+					                              	                           	 fontSuffixValueLocal);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Array of valid suffix values passed to modSuffixCheck is null",
+			assertEquals("Array of valid suffix values passed to modSuffixCheck is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}   
@@ -2401,37 +3113,62 @@ class HDLmModTest {
     String         fieldName = "parameter";
     JsonElement    modsElementParameterNumber = modsElementObject.get(fieldName);
     JsonPrimitive  modsPrimitiveParameterNumber = modsElementParameterNumber.getAsJsonPrimitive();
-    MutableInt     errors = new MutableInt(0);
+    MutableInt     errorCounter = new MutableInt(0);
+    ArrayList<String>   errorMessages = new ArrayList<String>();
     Integer        modInteger;
-    modInteger = HDLmMod.modFieldInteger(editorType, errors, modsElementObject, modsElementKeys, fieldName);
+    modInteger = HDLmMod.modFieldInteger(editorType, 
+    		                                 errorCounter, 
+    		                                 errorMessages, 
+    		                                 modsElementObject, 
+    		                                 modsElementKeys, 
+    		                                 fieldName);
     assertNotNull(modInteger, "Modification parameter number value is null");
     assertEquals(9, modInteger, "Modification parameter number value is not nine");
     int      intValue;
     Integer  minValue = 0;
     Integer  maxValue = 9;
     /* Run a rangeField test */
-    HDLmMod.rangeField(editorType, errors, modsElementObject, fieldName, 
-    		               modInteger, minValue, maxValue); 
-    intValue = errors.intValue();
+    HDLmMod.rangeField(editorType, 
+    		               errorCounter, 
+    		               errorMessages, 
+    		               modsElementObject, 
+    		               fieldName, 
+    		               modInteger, 
+    		               minValue, 
+    		               maxValue); 
+    intValue = errorCounter.intValue();
     assertEquals(0, intValue, "Error value must be zero");
     /* Run a rangeField test */
     maxValue = 8;
-    HDLmMod.rangeField(editorType, errors, modsElementObject, fieldName, 
-                       modInteger, minValue, maxValue, 
+    HDLmMod.rangeField(editorType, 
+    		               errorCounter, 
+    		               errorMessages, 
+    		               modsElementObject, 
+    		               fieldName, 
+                       modInteger, 
+                       minValue, 
+                       maxValue, 
                        HDLmReportErrors.DONTREPORTERRORS); 
-    intValue = errors.intValue();
+    intValue = errorCounter.intValue();
     assertEquals(1, intValue, "Error value must be one");
     /* Run a rangeField test */
     maxValue = 18;
-    HDLmMod.rangeField(editorType, errors, modsElementObject, fieldName, 
-                       modInteger, minValue, maxValue); 
-    intValue = errors.intValue();
+    HDLmMod.rangeField(editorType, 
+    		               errorCounter, 
+    		               errorMessages, 
+    		               modsElementObject, 
+    		               fieldName, 
+                       modInteger, 
+                       minValue, 
+                       maxValue); 
+    intValue = errorCounter.intValue();
     assertEquals(1, intValue, "Error value must be one");
 	  {
 	  	Integer maxValueLocal = maxValue;
 			Throwable exception = assertThrows(RuntimeException.class, 
 					                               () -> {HDLmMod.rangeField(editorType, 
 					                              		                       null, 
+					                              		                       errorMessages,
 					                              		                       modsElementObject, 
 					                              		                       fieldName,
 					                              	               	         modInteger, 
@@ -2439,27 +3176,55 @@ class HDLmModTest {
 					                              	               	         maxValueLocal);},					                              		                              
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Mutable int for errors passed to rangeField is null",
+			assertEquals("Mutable int for error counter passed to rangeField is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
 	  	Integer maxValueLocal = maxValue;
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.rangeField(editorType, errors, null, fieldName,
-					                                  		modInteger, minValue, maxValueLocal);},
+					                               () -> {HDLmMod.rangeField(editorType, 
+					                              		                       errorCounter, 
+					                              		                       null,
+					                              		                       modsElementObject, 
+					                              		                       fieldName,
+					                              	               	         modInteger, 
+					                              	               	         minValue, 
+					                              	               	         maxValueLocal);},					                              		                              
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "JSON object passed to rangeField is null",
+			assertEquals("ArrayList for error messages passed to rangeField is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
 	  	Integer maxValueLocal = maxValue;
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.rangeField(editorType, errors, modsElementObject, null, 
-					                              		                       modInteger, minValue, maxValueLocal);},
+					                               () -> {HDLmMod.rangeField(editorType, 
+					                              		                       errorCounter, 
+					                              		                       errorMessages, 
+					                              		                       null, 
+					                              		                       fieldName,
+					                                  		                   modInteger, 
+					                                  		                   minValue, 
+					                                  		                   maxValueLocal);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Name string passed to rangeField is null",
+			assertEquals("JSON object passed to rangeField is null", execMsg,
+					         "Unexpected exception message");
+		}
+	  {
+	  	Integer maxValueLocal = maxValue;
+			Throwable exception = assertThrows(RuntimeException.class, 
+					                               () -> {HDLmMod.rangeField(editorType, 
+					                              		                       errorCounter, 
+					                              		                       errorMessages, 
+					                              		                       modsElementObject, 
+					                              		                       null, 
+					                              		                       modInteger, 
+					                              		                       minValue, 
+					                              		                       maxValueLocal);},
+					                               "Expected RuntimeException");
+			String execMsg = exception.getMessage();
+			assertEquals("Name string passed to rangeField is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -2524,45 +3289,78 @@ class HDLmModTest {
     HDLmMod  modDetails = new HDLmMod(modsElementDetails);
     modDetails.setIfNotSetTimes();
     /* Run a reportError test */
-    int          intValue;
-    MutableInt   errors = new MutableInt(0);
-    String       expectedOutput = " - JSON ({\"useMode\":\"prod\",\"created\":\"2022-11-18T02:04:30.2)";
-    String       inErrorText;
-    String       outErrorText;
+    int         intValue;
+    MutableInt  errorCounter = new MutableInt(0);
+    ArrayList<String>   errorMessages = new ArrayList<String>();
+    String      expectedOutput = " - name (test) JSON ({\"prob\":100.0,\"usemode\":\"prod\",\"created\":\"2022-11-)";
+    String      inErrorText;
+    String      outErrorText;
     inErrorText = "";
-    outErrorText = HDLmMod.reportError(editorType, errors, modsElementObject, 
-    		                               inErrorText, 7, HDLmReportErrors.DONTREPORTERRORS); 
+    outErrorText = HDLmField.reportError(editorType, 
+    		                                 errorCounter, 
+    		                                 errorMessages, 
+    		                                 modsElementObject, 
+    		                                 "test",
+    		                                 inErrorText, 
+    		                                 7, 
+    		                                 HDLmReportErrors.DONTREPORTERRORS); 
     assertEquals(expectedOutput, outErrorText, "Error string value must be correct");
-    intValue = errors.intValue();
+    intValue = errorCounter.intValue();
     assertEquals(1, intValue, "Error value must be one"); 
 	  { 
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.reportError(editorType, 
-					                              		                        null, 
-					                              		                        modsElementObject,  
-					                              		                        inErrorText, 
-					                              		                        7);},					                              		                              
+					                               () -> {HDLmField.reportError(editorType, 
+					                              		                          null, 
+					                              		                          errorMessages,
+					                              		                          modsElementObject,  
+					                              		                          "test",
+					                              		                          inErrorText, 
+					                              		                          7);},					                              		                              
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Mutable int for errors passed to reportError is null",
+			assertEquals("Mutable int for error counter passed to reportError is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  { 
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.reportError(editorType, errors, (JsonObject) null,  
-					                              	                        	inErrorText, 7);},
+					                               () -> {HDLmField.reportError(editorType, 
+					                              		                          errorCounter, 
+					                              		                          null,
+					                              		                          modsElementObject,  
+					                              		                          "test",
+					                              		                          inErrorText, 
+					                              		                          7);},					                              		                              
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "JSON object passed to reportError is null",
+			assertEquals("ArrayList for error messages passed to reportError is null", execMsg,
+					         "Unexpected exception message");
+		}
+	  { 
+			Throwable exception = assertThrows(RuntimeException.class, 
+					                               () -> {HDLmField.reportError(editorType, 
+					                              		                          errorCounter, 
+					                              		                          errorMessages, 
+					                              		                          (JsonObject) null,  
+					                              		                          "test",
+					                              	                          	inErrorText, 
+					                              	                          	7);},
+					                               "Expected RuntimeException");
+			String execMsg = exception.getMessage();
+			assertEquals("JSON object passed to reportError is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.reportError(editorType, errors, modsElementObject,
-					                              		                        null, 7);},
+					                               () -> {HDLmField.reportError(editorType, 
+					                              		                          errorCounter, 
+					                              		                          errorMessages, 
+					                              		                          modsElementObject,
+					                              		                          "test",
+					                              		                          null, 
+					                              		                          7);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Error text string passed to reportError is null",
+			assertEquals("Error text string passed to reportError is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -2627,56 +3425,93 @@ class HDLmModTest {
     HDLmMod  modDetails = new HDLmMod(modsElementDetails);
     modDetails.setIfNotSetTimes();
     /* Run a reportErrorNoValue test */
-    int          intValue;
-    MutableInt   errors = new MutableInt(0);
-    String       expectedOutput = " - name (path) JSON ({\"useMode\":\"prod\",\"created\":\"2022-11-18T02:04:30.2)";
-    String       inErrorText;
-    String       outErrorText;
-    String       fieldName = "path";
+    int         intValue;
+    MutableInt  errorCounter = new MutableInt(0);
+    ArrayList<String>   errorMessages = new ArrayList<String>();
+    String      expectedOutput = " - name (path) JSON ({\"prob\":100.0,\"usemode\":\"prod\",\"created\":\"2022-11-)";
+    String      inErrorText;
+    String      outErrorText;
+    String      fieldName = "path";
     inErrorText = "";
-    outErrorText = HDLmMod.reportErrorNoValue(editorType, errors, modsElementObject, fieldName,
-    		                                      inErrorText, 7, HDLmReportErrors.DONTREPORTERRORS); 
+    outErrorText = HDLmField.reportErrorNoValue(editorType, 
+    		                                        errorCounter, 
+    		                                        errorMessages, 
+    		                                        modsElementObject, 
+    		                                        fieldName,
+    		                                        inErrorText, 
+    		                                        7, 
+    		                                        HDLmReportErrors.DONTREPORTERRORS); 
     assertEquals(expectedOutput, outErrorText, "Error string value must be correct");
-    intValue = errors.intValue();
+    intValue = errorCounter.intValue();
     assertEquals(1, intValue, "Error value must be one");
 	  { 
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.reportErrorNoValue(editorType, 
-					                              		                               null, 
-					                              		                               modsElementObject, 
-					                              		                               fieldName, 
-					                              		                               inErrorText, 
-					                              		                               7);},					                              		                              
+					                               () -> {HDLmField.reportErrorNoValue(editorType, 
+					                              		                                 null, 
+					                              		                                 errorMessages,
+					                              		                                 modsElementObject, 
+					                              		                                 fieldName, 
+					                              		                                 inErrorText, 
+					                              		                                 7);},					                              		                              
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Mutable int for errors passed to reportErrorNoValue is null",
+			assertEquals("Mutable int for error counter passed to reportErrorNoValue is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  { 
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.reportErrorNoValue(editorType, errors, (JsonObject) null, fieldName,
-					                              	                        	       inErrorText, 7);},
+					                               () -> {HDLmField.reportErrorNoValue(editorType, 
+					                              		                                 errorCounter, 
+					                              		                                 null,
+					                              		                                 modsElementObject, 
+					                              		                                 fieldName, 
+					                              		                                 inErrorText, 
+					                              		                                 7);},					                              		                              
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "JSON object passed to reportErrorNoValue is null",
+			assertEquals("ArrayList for error messages passed to reportErrorNoValue is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  { 
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.reportErrorNoValue(editorType, errors, modsElementObject, null,
-					                              	                        	       inErrorText, 7);},
+					                               () -> {HDLmField.reportErrorNoValue(editorType, 
+					                              		                                 errorCounter, 
+					                              		                                 errorMessages, 
+					                              		                                 (JsonObject) null, 
+					                              		                                 fieldName,
+					                              	                        	         inErrorText, 
+					                              	                        	         7);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Field name string passed to reportErrorNoValue is null",
+			assertEquals("JSON object passed to reportErrorNoValue is null", execMsg,
+					         "Unexpected exception message");
+		}
+	  { 
+			Throwable exception = assertThrows(RuntimeException.class, 
+					                               () -> {HDLmField.reportErrorNoValue(editorType, 
+					                              		                                 errorCounter, 
+					                              		                                 errorMessages, 
+					                              		                                 modsElementObject, 
+					                              		                                 null,
+					                              	                        	         inErrorText, 
+					                              	                        	         7);},
+					                               "Expected RuntimeException");
+			String execMsg = exception.getMessage();
+			assertEquals("Field name string passed to reportErrorNoValue is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.reportErrorNoValue(editorType, errors, modsElementObject, fieldName,
-					                              		                               null, 7);},
+					                               () -> {HDLmField.reportErrorNoValue(editorType, 
+					                              		                                 errorCounter, 
+					                              		                                 errorMessages, 
+					                              		                                 modsElementObject, 
+					                              		                                 fieldName,
+					                              		                                 null, 
+					                              		                                 7);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Error text string passed to reportErrorNoValue is null",
+			assertEquals("Error text string passed to reportErrorNoValue is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -2742,67 +3577,115 @@ class HDLmModTest {
     modDetails.setIfNotSetTimes();
     /* Run a reportErrorValue test */
     int          intValue;
-    MutableInt   errors = new MutableInt(0);
-    String       expectedOutput = " - name (path) value (test) JSON ({\"useMode\":\"prod\",\"created\":\"2022-11-18T02:04:30.296Z\",\"lastModified\":\"2022-11-18T02:04:30.296Z\",\"name\":\"Add to Cart Text\",\"path\":\"/neve-studio-da)";
+    MutableInt   errorCounter = new MutableInt(0);
+    ArrayList<String>   errorMessages = new ArrayList<String>();
+    String       expectedOutput = " - name (path) value (test) JSON ({\"prob\":100.0,\"usemode\":\"prod\",\"created\":\"2022-11-18T02:04:30.296Z\",\"lastModified\":\"2022-11-18T02:04:30.296Z\",\"name\":\"Add to Cart Text\",\"path\":\"/neve-studio-da)";
     String       inErrorText;
     String       outErrorText;
     String       fieldName = "path";
     String       value = "test";
-    expectedOutput = " - name (path) value (test) JSON ({\"useMode\":\"prod\",\"created\":\"2022-11-18T02:04:30.2)";
+    expectedOutput = " - name (path) value (test) JSON ({\"prob\":100.0,\"usemode\":\"prod\",\"created\":\"2022-11-)";
     inErrorText = "";
-    outErrorText = HDLmMod.reportErrorValue(editorType, errors, modsElementObject, fieldName, value,
-    		                                    inErrorText, 7, HDLmReportErrors.DONTREPORTERRORS); 
+    outErrorText = HDLmField.reportErrorValue(editorType, 
+    		                                      errorCounter, 
+    		                                      errorMessages, 
+    		                                      modsElementObject, 
+    		                                      fieldName, 
+    		                                      value,
+    		                                      inErrorText, 
+    		                                      7, 
+    		                                      HDLmReportErrors.DONTREPORTERRORS); 
     assertEquals(expectedOutput, outErrorText, "Error string value must be correct");
-    intValue = errors.intValue();
+    intValue = errorCounter.intValue();
     assertEquals(1, intValue, "Error value must be one");
 	  { 
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.reportErrorValue(editorType, 
-					                              		                             null, 
-					                              		                             modsElementObject, 
-					                              		                             fieldName, 
-					                              		                             value, 
-					                              		                             inErrorText, 
+					                               () -> {HDLmField.reportErrorValue(editorType, 
+					                              		                               null, 
+					                              		                               errorMessages,
+					                              		                               modsElementObject, 
+					                              		                               fieldName, 
+					                              		                               value, 
+					                              		                               inErrorText, 
+					                              		                               7);},		 
+					                               "Expected RuntimeException");
+			String execMsg = exception.getMessage();
+			assertEquals("Mutable int for error counter passed to reportErrorValue is null", execMsg,
+					         "Unexpected exception message");
+		}
+	  { 
+			Throwable exception = assertThrows(RuntimeException.class, 
+					                               () -> {HDLmField.reportErrorValue(editorType, 
+					                              		                               errorCounter, 
+					                              		                               null,
+					                              		                               modsElementObject, 
+					                              		                               fieldName, 
+					                              		                               value, 
+					                              		                               inErrorText, 
 					                              		                             7);},		 
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Mutable int for errors passed to reportErrorValue is null",
+			assertEquals("ArrayList for error messages passed to reportErrorValue is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  { 
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.reportErrorValue(editorType, errors, (JsonObject) null, fieldName,
-					                              	                        	     value, inErrorText, 7);},
+					                               () -> {HDLmField.reportErrorValue(editorType, 
+					                              		                               errorCounter, 
+					                              		                               errorMessages, 
+					                              		                               (JsonObject) null, 
+					                              		                               fieldName,
+					                              	                          	     value, 
+					                              	                        	       inErrorText, 
+					                              	                        	       7);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "JSON object passed to reportErrorValue is null",
+			assertEquals("JSON object passed to reportErrorValue is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  { 
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.reportErrorValue(editorType, errors, modsElementObject, null,
-					                              	                        	     value, inErrorText, 7);},
+					                               () -> {HDLmField.reportErrorValue(editorType, 
+					                              		                               errorCounter, 
+					                              		                               errorMessages, 
+					                              		                               modsElementObject, 
+					                              		                               null,
+					                              	                          	     value, 
+					                              	                        	       inErrorText, 
+					                              	                        	       7);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Field name string passed to reportErrorValue is null",
+			assertEquals("Field name string passed to reportErrorValue is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.reportErrorValue(editorType, errors, modsElementObject, fieldName,
-					                              		                             null, inErrorText, 7);},
+					                               () -> {HDLmField.reportErrorValue(editorType, 
+					                              		                               errorCounter, 
+					                              		                               errorMessages, 
+					                              		                               modsElementObject, 
+					                              		                               fieldName,
+					                              		                               null, 
+					                              		                               inErrorText, 
+					                              		                               7);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Value string passed to reportErrorValue is null",
+			assertEquals("Value string passed to reportErrorValue is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.reportErrorValue(editorType, errors, modsElementObject, fieldName,
-					                              		                             value, null, 7);},
+					                               () -> {HDLmField.reportErrorValue(editorType, 
+					                              		                               errorCounter, 
+					                              		                               errorMessages, 
+					                              		                               modsElementObject, 
+					                              		                               fieldName,
+					                              		                               value, 
+					                              		                               null, 
+					                              		                               7);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Error text string passed to reportErrorValue is null",
+			assertEquals("Error text string passed to reportErrorValue is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -2868,54 +3751,98 @@ class HDLmModTest {
     modDetails.setIfNotSetTimes();
     /* Run a reportField test */
     int          intValue;
-    MutableInt   errors = new MutableInt(0);
-    String       expectedOutput = "Modification JSON invalid field - name (path) value (test) JSON ({\"useMode\":\"prod\",\"created\":\"2022-11-18T02:04:30.2)";
+    MutableInt   errorCounter = new MutableInt(0);
+    ArrayList<String>   errorMessages = new ArrayList<String>();
+    String       expectedOutput = "Modification JSON invalid field - name (path) value (test) JSON ({\"prob\":100.0,\"usemode\":\"prod\",\"created\":\"2022-11-)";
     String       outErrorText;
     String       fieldName = "path";
     String       value = "test"; 
-    outErrorText = HDLmMod.reportField(editorType, errors, modsElementObject, fieldName,  
-    		                               value, HDLmReportErrors.DONTREPORTERRORS); 
+    outErrorText = HDLmField.reportField(editorType, 
+    		                                 errorCounter, 
+    		                                 errorMessages, 
+    		                                 modsElementObject, 
+    		                                 fieldName,  
+    		                                 value,
+    		 	                               "Modification JSON invalid field", 
+    			                               4,
+    		                                 HDLmReportErrors.DONTREPORTERRORS); 
     assertEquals(expectedOutput, outErrorText, "Error string value must be correct");
-    intValue = errors.intValue();
+    intValue = errorCounter.intValue();
     assertEquals(1, intValue, "Error value must be one");
     /* Run a reportField test */    
 	  { 
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.reportField(editorType, 
-					                              		                        null, 
-					                              		                        modsElementObject, 
-					                              		                        fieldName, 
-					                              		                        value);},					                              		                              
+					                               () -> {HDLmField.reportField(editorType, 
+					                              		                          null, 
+					                              		                          errorMessages,
+					                              		                          modsElementObject, 
+					                              		                          fieldName, 
+					                              		                          value,
+					                            	                              "Modification JSON invalid field", 
+					                            	                              4);},					                              		                              
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Mutable int for errors passed to reportField is null",
+			assertEquals("Mutable int for error counter passed to reportField is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  { 
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.reportField(editorType, errors, (JsonObject) null, fieldName,
-					                              	                        	value);},
+					                               () -> {HDLmField.reportField(editorType, 
+					                              		                          errorCounter, 
+					                              		                          null,
+					                              		                          modsElementObject, 
+					                              		                          fieldName, 
+					                              		                          value,
+					                            	                              "Modification JSON invalid field", 
+					                            	                              4);},					                              		                              
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "JSON object passed to reportField is null",
+			assertEquals("ArrayList for error messages passed to reportField is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  { 
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.reportField(editorType, errors, modsElementObject, null,
-					                              	                        	value);},
+					                               () -> {HDLmField.reportField(editorType, 
+					                              		                          errorCounter, 
+					                              		                          errorMessages, 
+					                              		                          (JsonObject) null, 
+					                              		                          fieldName,
+					                              	                          	value,
+					                            	                              "Modification JSON invalid field", 
+					                            	                              4);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Field name string passed to reportField is null",
+			assertEquals("JSON object passed to reportField is null", execMsg,
+					         "Unexpected exception message");
+		}
+	  { 
+			Throwable exception = assertThrows(RuntimeException.class, 
+					                               () -> {HDLmField.reportField(editorType, 
+					                              		                          errorCounter, 
+					                              		                          errorMessages, 
+					                              		                          modsElementObject, 
+					                              		                          null,
+					                              	                          	value,
+					                            	                              "Modification JSON invalid field", 
+					                            	                              4);},
+					                               "Expected RuntimeException");
+			String execMsg = exception.getMessage();
+			assertEquals("Field name string passed to reportField is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
 			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.reportField(editorType, errors, modsElementObject, fieldName,
-					                              		                        null);},
+					                               () -> {HDLmField.reportField(editorType, 
+					                              		                          errorCounter, 
+					                              		                          errorMessages, 
+					                              		                          modsElementObject, 
+					                              		                          fieldName,
+					                              		                          null,
+					                            	                              "Modification JSON invalid field", 
+					                            	                              4);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Value string passed to reportField is null",
+			assertEquals("Value string passed to reportField is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -2979,7 +3906,7 @@ class HDLmModTest {
     HDLmMod  modDetails = new HDLmMod(modsElementDetails);
     modDetails.setIfNotSetTimes();
     /* Run a truncateJson test */
-    String       expectedOutput = "{\"useMode\":\"prod\",\"created\":\"2022-11-18T02:04:30.2";
+    String       expectedOutput = "{\"prob\":100.0,\"usemode\":\"prod\",\"created\":\"2022-11-";
     String       outErrorText;
     outErrorText = HDLmMod.truncateJson(modsElementObject); 
     assertEquals(expectedOutput, outErrorText, "Error string value must be correct");
@@ -2988,7 +3915,7 @@ class HDLmModTest {
 					                               () -> {HDLmMod.truncateJson((JsonObject) null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "JSON object passed to truncateJson is null",
+			assertEquals("JSON object passed to truncateJson is null", execMsg,
 					         "Unexpected exception message");
 		}	 
   }
@@ -3069,7 +3996,7 @@ class HDLmModTest {
 					                              		                        "Add to Cart", "Add to ala-carte");},
 					                               "Expected RuntimeException");	
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Saved changes array passed to saveChanges is null",
+			assertEquals("Saved changes array passed to saveChanges is null", execMsg,
 					         "Unexpected exception message");
 		}	
 	}	

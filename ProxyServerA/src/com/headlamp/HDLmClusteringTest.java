@@ -88,7 +88,8 @@ class HDLmClusteringTest {
 				                               () -> {HDLmClustering.getClustersFromArray(null, 0.0, null);},
 				                               "Expected NullPointerException");
 		String execMsg = exception.getMessage();
-		assertEquals(execMsg, "Raw data array reference passed to getClustersFromArray is null");
+		assertEquals("Raw data array reference passed to getClustersFromArray is null", execMsg,
+			          "Unexpected exception message");
 	}
 	{
 		String[]  emptyStringArray = new String[0];
@@ -96,7 +97,8 @@ class HDLmClusteringTest {
 				                               () -> {HDLmClustering.getClustersFromArray(emptyStringArray, -0.1, null);},
 				                               "Expected IllegalArgumentException");
 		String execMsg = exception.getMessage();
-		assertEquals(execMsg, "Similarity threshold value (-0.100000) passed to getClustersFromArray is less than zero or greater than one");
+		assertEquals("Similarity threshold value (-0.100000) passed to getClustersFromArray is less than zero or greater than one", execMsg,
+		          	 "Unexpected exception message");
 	}
 	{
 	  String[]  emptyStringArray = new String[0];
@@ -104,7 +106,8 @@ class HDLmClusteringTest {
 			                                 () -> {HDLmClustering.getClustersFromArray(emptyStringArray, 1.1, null);},
 			                                 "Expected IllegalArgumentException");
 	  String execMsg = exception.getMessage();
-	  assertEquals(execMsg, "Similarity threshold value (1.100000) passed to getClustersFromArray is less than zero or greater than one");
+	  assertEquals("Similarity threshold value (1.100000) passed to getClustersFromArray is less than zero or greater than one", execMsg,
+	  		         "Unexpected exception message");
   }
 	{
 		String[]  emptyStringArray = new String[0];
@@ -112,6 +115,7 @@ class HDLmClusteringTest {
 				                               () -> {HDLmClustering.getClustersFromArray(emptyStringArray, 0.5, null);},
 				                               "Expected NullPointerException");
 		String execMsg = exception.getMessage();
-		assertEquals(execMsg, "Comparison interface passed to getClustersFromArray is null");
+		assertEquals("Comparison interface passed to getClustersFromArray is null", execMsg,
+				         "Unexpected exception message");
 	}
 }

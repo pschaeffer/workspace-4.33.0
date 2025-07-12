@@ -27,21 +27,21 @@ class HDLmDefinesTest {
 					                               () -> {HDLmDefines.getNumber("doesNotExist");},
 					                               "Expected IllegalArgumentException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Invalid Define Name (doesNotExist) passed to getNumber");
+			assertEquals("Invalid Define Name (doesNotExist) passed to getNumber",  execMsg,"Unexpected exception message");
 		}
 		{
 			Throwable exception = assertThrows(IllegalArgumentException.class, 
 	                                       () -> {HDLmDefines.getNumber("HDLMCONFIGS");},
 	                                      "Expected IllegalArgumentException");
 	    String execMsg = exception.getMessage();
-	    assertEquals(execMsg, "Value of Define Name (HDLMCONFIGS) is not numeric");
+	    assertEquals("Value of Define Name (HDLMCONFIGS) is not numeric",  execMsg,"Unexpected exception message");
 		}
 		{
 			Throwable exception = assertThrows(RuntimeException.class, 
 	                                       () -> {HDLmDefines.getNumber(null);},
 	                                      "Expected RuntimeException");
 	    String execMsg = exception.getMessage();
-	    assertEquals(execMsg, "Definition name reference passed to getNumber is null");
+	    assertEquals("Definition name reference passed to getNumber is null",  execMsg,"Unexpected exception message");
 		}
 		/* Run a few getString tests */
 		assertEquals(HDLmDefines.getString("HDLMTREE"), "HDLmTree");
@@ -50,21 +50,21 @@ class HDLmDefinesTest {
 					                               () -> {HDLmDefines.getString("doesNotExist");},
 					                               "Expected IllegalArgumentException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Invalid Define Name (doesNotExist) passed to getString");
+			assertEquals("Invalid Define Name (doesNotExist) passed to getString",  execMsg,"Unexpected exception message");
 		}
 		{
 			Throwable exception = assertThrows(IllegalArgumentException.class, 
 	                                       () -> {HDLmDefines.getString("HDLMHEIGHTMAX");},
 	                                      "Expected IllegalArgumentException");
 	    String execMsg = exception.getMessage();
-	    assertEquals(execMsg, "Value of Define Name (HDLMHEIGHTMAX) is numeric");
+	    assertEquals("Value of Define Name (HDLMHEIGHTMAX) is numeric",  execMsg,"Unexpected exception message");
 		}
 		{
 			Throwable exception = assertThrows(RuntimeException.class, 
 	                                       () -> {HDLmDefines.getString(null);},
 	                                      "Expected RuntimeException");
 	    String execMsg = exception.getMessage();
-	    assertEquals(execMsg, "Definition name reference passed to getString is null");
+	    assertEquals("Definition name reference passed to getString is null",  execMsg,"Unexpected exception message");
 		}
 	}
 }

@@ -250,11 +250,44 @@ public class HDLmConfigInfo {
 	}
 	/* Get the domain name that is used to connect to the database 
 	   that has the table that contains the modifications */
-  protected static String  getEntriesDatabaseDomainName() {
-  	if (HDLmMain.checkProductionSystem())
-      return HDLmConfig.getString("entriesDatabaseDomainNameProd");
-  	else
-  		return HDLmConfig.getString("entriesDatabaseDomainNameTest");
+  @SuppressWarnings("unused")
+	protected static String  getEntriesDatabaseDomainName() {
+  	if (HDLmMain.checkForRunningLocally() == false) {
+    	if (HDLmMain.checkProductionSystem())
+        return HDLmConfig.getString("entriesDatabaseDomainNameProd");
+  	  else
+  		  return HDLmConfig.getString("entriesDatabaseDomainNameTest");
+  	}
+  	else {
+  		/* Try to get the database domain name from an environment variable.
+  		   This may or may not work, depending on what environment variables 
+  		   have been set. */
+  		String  databaseDomainName = HDLmUtility.getEnvironmentVariableDefine("HDLMDATABASEDOMAINNAME");
+			if (databaseDomainName != null) 
+				return databaseDomainName;
+  		/* This value does not seem to work */ 
+  		if (1 == 2)
+  		  return HDLmDefines.getString("HDLMLOCALHOST");
+  		/* This value seems to work at home and at work.
+  		   How it works under Docker is unknown. */
+  		if (1 == 2)
+    		return "172.22.64.1";
+  		/* This value seems to work under Docker (at home, 
+  		   but not at work. This value seems to work at home,
+  		   but not at work. This value works under Docker,
+  		   at home. */
+  		if (1 == 2)
+    		return "192.168.4.198";
+  		if (1 == 2)
+    		return "127.0.0.1";
+  		if (1 == 2)
+  			return "localhost";
+  		/* This value seems to work at home and at work.
+		     How it works under Docker is unknown. */
+  		if (1 == 1)
+  			return "0.0.0.0";
+  		return HDLmDefines.getString("HDLMLOCALHOST");
+  	}
   }
 	/* Get the domain name that is used to connect to the production 
 	   database that has the table that contains the modifications */
@@ -306,7 +339,22 @@ public class HDLmConfigInfo {
 	}
 	/* Return the configuration userid */
 	protected static String  getEntriesDatabaseUserid() {
-	  return HDLmConfig.getString("entriesDatabaseUserid");
+		if (HDLmMain.checkForRunningLocally() == false) {
+	    return HDLmConfig.getString("entriesDatabaseUserid");
+		}
+		else {
+  		/* Try to get the database userid from an environment variable.
+		     This may or may not work, depending on what environment variables 
+		     have been set. */
+		  String  databaseUserid = HDLmUtility.getEnvironmentVariableDefine("HDLMDATABASEUSERID");
+		  if (databaseUserid != null) 
+		  	return databaseUserid;
+			if (1 == 2)
+		  	return "root";
+			if (1 == 1)
+				return "admin";
+			return "admin";
+		}	
 	}
   /* Get the company prefix value that may (or may not) come 
 		 before the content value. If the company prefix value 

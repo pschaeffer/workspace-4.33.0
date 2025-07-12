@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 /**
  * HDLmAi short summary.
  *
- * HDLmApi description.
+ * HDLmAi description.
  *
  * @version 1.0
  * @author Peter
@@ -34,7 +34,7 @@ public class HDLmAi {
 	   ways) for the possessive form of nouns. Single quote
 	   is also used for contractions. For example, should'nt
 	   is a contraction of should not. */ 
-	protected static String  changeJavaScriptNotInUse(final String inScript) {
+	protected static String  changeJavaScriptNotUsed(final String inScript) {
 		/* Check if the input script passed by the caller is null */
 		if (inScript == null) {
 			String errorText = "Input script passed to changeJavaScript is null";

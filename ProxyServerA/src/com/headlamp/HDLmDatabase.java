@@ -73,7 +73,6 @@ public class HDLmDatabase {
 		StringBuilder       sqlBuilder = new StringBuilder();
 		String              sqlStr = "";
 		String              database = HDLmConfigInfo.getEntriesDatabaseDatabaseName();
-		String              domainName = HDLmConfigInfo.getEntriesDatabaseDomainName();
 		/* Get a statement that can be used to execute SQL */
 		localConnection = HDLmHikariPool.getConnectionHikari();
 		if (localConnection == null) {
@@ -284,20 +283,9 @@ public class HDLmDatabase {
 		   system. A local variable is set to indicate this. */ 
 		if (systemName.equals(testSystemName)) 
 			localCheckTest = true;
-		String  database = null; 
-		String  domainName = null; 
-		String  tableName = null;
-		/* Check for the production system versus the test system */
-		if (localCheckTest == false) {
-		  database = HDLmConfigInfo.getEntriesDatabaseDatabaseNameProd();
-		  domainName = HDLmConfigInfo.getEntriesDatabaseDomainNameProd();
-		  tableName = HDLmConfigInfo.getEntriesDatabaseTableNameProd();
-		}
-		else {
-		  database = HDLmConfigInfo.getEntriesDatabaseDatabaseNameTest();
-		  domainName = HDLmConfigInfo.getEntriesDatabaseDomainNameTest();
-		  tableName = HDLmConfigInfo.getEntriesDatabaseTableNameTest();
-		}
+		String  database = HDLmConfigInfo.getEntriesDatabaseDatabaseName();
+		String  domainName = HDLmConfigInfo.getEntriesDatabaseDomainName();
+		String  tableName = HDLmConfigInfo.getEntriesDatabaseTableName();
 		/* Try to connect to the database and get a connection object 
 	     to use to execute SQL */
   	String  userName = HDLmConfigInfo.getEntriesDatabaseUserid();
@@ -410,6 +398,59 @@ public class HDLmDatabase {
 		}
     return localResultSet;
 	}
+	
+  /* The next method gets a database connection and returns it to    
+	   the caller. We create a new connection each time this routine
+	   is called. */	  
+	protected static Connection  getConnection() {  	
+		/* Declare/define a few variables */
+		Connection      localConnection = null;
+		int             portNumber = HDLmConfigInfo.getEntriesDatabasePortNumber();
+		StringBuilder   connectBuilder = new StringBuilder();
+		String          connectStr = "";
+		String          database = HDLmConfigInfo.getEntriesDatabaseDatabaseName();
+		String          domainName = HDLmConfigInfo.getEntriesDatabaseDomainName();
+		String          passwordStr = HDLmConfigInfo.getEntriesDatabasePassword();
+		String          useridStr = HDLmConfigInfo.getEntriesDatabaseUserid();		
+		/* Build the connection string */
+		/* database = "main_9"; */
+		/* passwordStr = "headlamp5432"; */
+		/* domainName = "127.0.0.1"; */
+		/* useridStr = "root"; */
+		/* domainName = "192.168.4.198"; */
+		/* domainName = "127.0.0.1"; */ 
+		/* useridStr = "admin"; */
+		/* domainName = "host.docker.internal"; */
+		/* domainName = "172.22.64.1"; */
+		connectBuilder.append("jdbc:mysql://");
+		connectBuilder.append(domainName);
+		connectBuilder.append(':');
+		connectBuilder.append(((Integer) portNumber).toString());
+		connectBuilder.append('/');
+		connectBuilder.append(database);
+		connectBuilder.append('?');
+		connectBuilder.append("user=");
+		connectBuilder.append(useridStr); 
+		connectBuilder.append("&password=");
+		connectBuilder.append(passwordStr);
+		connectStr = connectBuilder.toString();
+		/* Try to actually connect to the database */
+	  try {
+	  	/* The connect string is logged to show how we are connecting
+	  	   to the database */
+	  	LOG.info("Connect string - " + connectStr);
+			localConnection = DriverManager.getConnection(connectStr); 
+	  } 
+	  catch (SQLException sqlException) { 
+		  if (connectStr != null)
+			  LOG.info("Connect string - " + connectStr);
+		  LOG.info("SQLException while executing getConnection()");
+		  LOG.info(sqlException.getMessage(), sqlException);
+		  HDLmEvent.eventOccurred("SQLException");	
+		  localConnection = null;
+		}
+		return localConnection;
+	} 	
   /* The next method gets a database connection and returns it to the 
      caller. Eventually, some type of caching/pooling mechanism might
      be used. For now we create a new connection each time this routine
@@ -533,7 +574,6 @@ public class HDLmDatabase {
 		StringBuilder   sqlBuilder = new StringBuilder();
 		String          sqlStr = "";
 		String          database = HDLmConfigInfo.getEntriesDatabaseDatabaseName();
-		String          domainName = HDLmConfigInfo.getEntriesDatabaseDomainName();
 		/* Allocate the row list that is returned to the caller */
 		ArrayList<HDLmDatabaseRow>  rowList = new ArrayList<HDLmDatabaseRow>();
 		if (rowList == null) {
@@ -562,6 +602,9 @@ public class HDLmDatabase {
 			sqlBuilder.append(contentStr);
 			sqlBuilder.append('\'');
 		}	
+		/* The following statement was added for testing purposes
+		   only */
+		/* sqlBuilder.append(" AND id='17425' "); */ 		
 		/* Check if the WHERE clause should limit access to a set of companies */
 		if (scopeArrayEntryLen > 0) {
 			sqlBuilder.append(" AND (company IS NULL");
@@ -657,7 +700,6 @@ public class HDLmDatabase {
 		StringBuilder   sqlBuilder = new StringBuilder();
 		String          sqlStr = "";
 		String          database = HDLmConfigInfo.getEntriesDatabaseDatabaseName();
-		String          domainName = HDLmConfigInfo.getEntriesDatabaseDomainName();
 		/* Allocate the row list that is returned to the caller */
 		ArrayList<HDLmDatabaseRow>  rowList = new ArrayList<HDLmDatabaseRow>();
 		if (rowList == null) {
@@ -748,6 +790,7 @@ public class HDLmDatabase {
 	   The company name must also be quite specific. The system name
 	   is a value such as 'prod' or 'test' (without the quotes) that
 	   indicates which system the rows should be obtained from. */
+	@SuppressWarnings("unused")
 	protected static ArrayList<HDLmDatabaseRow>  getTableRowsCompanySystem(final String contentStr, 
 			                                                                   final String companyName,
 			                                                                   final String systemName) {
@@ -799,20 +842,9 @@ public class HDLmDatabase {
 		   system. A local variable is set to indicate this. */ 
 		if (systemName.equals(testSystemName)) 
 			localCheckTest = true;
-		String  database = null; 
-		String  domainName = null; 
-		String  tableName = null;
-		/* Check for the production system versus the test system */
-		if (localCheckTest == false) {
-		  database = HDLmConfigInfo.getEntriesDatabaseDatabaseNameProd();
-		  domainName = HDLmConfigInfo.getEntriesDatabaseDomainNameProd();
-		  tableName = HDLmConfigInfo.getEntriesDatabaseTableNameProd();
-		}
-		else {
-		  database = HDLmConfigInfo.getEntriesDatabaseDatabaseNameTest();
-		  domainName = HDLmConfigInfo.getEntriesDatabaseDomainNameTest();
-		  tableName = HDLmConfigInfo.getEntriesDatabaseTableNameTest();
-		}
+		String  database = HDLmConfigInfo.getEntriesDatabaseDatabaseName();
+		String  domainName = HDLmConfigInfo.getEntriesDatabaseDomainName();
+		String  tableName = HDLmConfigInfo.getEntriesDatabaseTableName();
 		/* Allocate the row list that is returned to the caller */
 		ArrayList<HDLmDatabaseRow>  rowList = new ArrayList<HDLmDatabaseRow>();
 		if (rowList == null) {
@@ -1022,9 +1054,8 @@ public class HDLmDatabase {
 		PreparedStatement   localPreparedStatementLast = null;
 		ResultSet           localResultSet = null; 
 		StringBuilder       sqlBuilder = new StringBuilder();
-		String              sqlStr = "";
 		String              database = HDLmConfigInfo.getEntriesDatabaseDatabaseName();
-		String              domainName = HDLmConfigInfo.getEntriesDatabaseDomainName();
+		String              sqlStr = ""; 
 		/* Get a statement that can be used to execute SQL */
 		localConnection = HDLmHikariPool.getConnectionHikari();
 		if (localConnection == null) {
@@ -1444,20 +1475,9 @@ public class HDLmDatabase {
 		   system. A local variable is set to indicate this. */ 
 		if (systemName.equals(testSystemName)) 
 			localCheckTest = true;
-		String  database = null; 
-		String  domainName = null; 
-		String  tableName = null;
-		/* Check for the production system versus the test system */
-		if (localCheckTest == false) {
-		  database = HDLmConfigInfo.getEntriesDatabaseDatabaseNameProd();
-		  domainName = HDLmConfigInfo.getEntriesDatabaseDomainNameProd();
-		  tableName = HDLmConfigInfo.getEntriesDatabaseTableNameProd();
-		}
-		else {
-		  database = HDLmConfigInfo.getEntriesDatabaseDatabaseNameTest();
-		  domainName = HDLmConfigInfo.getEntriesDatabaseDomainNameTest();
-		  tableName = HDLmConfigInfo.getEntriesDatabaseTableNameTest();
-		}
+		String  database = HDLmConfigInfo.getEntriesDatabaseDatabaseName();
+		String  domainName = HDLmConfigInfo.getEntriesDatabaseDomainName();
+		String  tableName = HDLmConfigInfo.getEntriesDatabaseTableName();
 		/* Try to create the array list of row IDs that is returned to
 		   the caller */
 		rowIdList = new ArrayList<Integer>();
@@ -1786,8 +1806,7 @@ public class HDLmDatabase {
 		PreparedStatement   localPreparedStatement;
 		StringBuilder       sqlBuilder = new StringBuilder();
 		String              sqlStr = "";
-		String              database = HDLmConfigInfo.getEntriesDatabaseDatabaseName(); 
-		String              domainName = HDLmConfigInfo.getEntriesDatabaseDomainName();
+		String              database = HDLmConfigInfo.getEntriesDatabaseDatabaseName();  
 		/* Get a statement that can be used to execute SQL */
 		localConnection = HDLmHikariPool.getConnectionHikari();
 		if (localConnection == null) {

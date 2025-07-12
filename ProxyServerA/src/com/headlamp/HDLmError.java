@@ -70,7 +70,7 @@ import org.slf4j.LoggerFactory;
 	 48 - Regex error
 	 49 - Invalid length of some kind
 	 50 - Invalid type of value in a switch
-	 51 - Invalid request type in a switch
+	 51 - Not used - Can be reused 
 	 52 - Some type of Promise error. This error code is used 
 	      in a JavaScript file. 
 	 53 - Invalid operation type in a switch
@@ -84,6 +84,30 @@ import org.slf4j.LoggerFactory;
 	 61 - Some type of undo/redo error
 	 62 - Invalid rule name in a switch
 	 63 - Invalid choice number in a switch
+	 64 - Field missing from some JSON
+	 65 - Field error found
+	 66 - Field error found with value
+	 67 - Field error found with a null value
+	 68 - Field does not exist
+	 69 - Field is not a JSON array
+	 70 - JSON array is too small
+	 71 - JSON array is too large
+	 72 - Not used - Can be reused
+	 73 - Not used - Can be reused
+	 74 - Host name not obtained from inbound URL
+	 75 - Message is invalid
+	 76 - Not used - Can be reused
+	 77 - Some type of exception
+	 78 - Invalid configuration value of some kind
+	 79 - Invalid null value 
+	 80 - Type not found
+	 81 - Details not found  
+	 82 - Array entry is the wrong type
+	 83 - Details are not valid
+	 84 - String is not valid
+	 85 - Object is not valid
+	 86 - Boolean is not valid
+	 87 - Number is not valid
 */
 /* This is a purely static class and no instances of this class
    can ever be created */ 

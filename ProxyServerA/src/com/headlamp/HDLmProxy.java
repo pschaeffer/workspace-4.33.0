@@ -63,7 +63,14 @@ public class HDLmProxy extends HDLmMod {
 			 greater than zero, the current definition object is disabled (the enabled
 			 field is set false). Note that a reference is used below so that the error
 			 count can be updated by the routines called using error count.*/
-	  MutableInt   errors = new MutableInt(0);
+	  MutableInt   errorCounter = new MutableInt(0);
+		/* Build an array list for error message strings. Each error
+	     message is stored in this array list. */
+		ArrayList<String>   errorMessages = new ArrayList<String>();
+		if (errorMessages == null) {
+			String  errorText = "Error message ArrayList allocation in HDLmProxy constructor is null";
+			throw new NullPointerException(errorText);
+		}	
 	  /* Get the list of keywords and values in the JSON object */
 	  if (jsonElement.isJsonNull()) {
 		  HDLmAssertAction(false, "JSON element used to build proxy definition is JSON null");
@@ -71,32 +78,68 @@ public class HDLmProxy extends HDLmMod {
 	  JsonObject jsonObject = jsonElement.getAsJsonObject();
 	  Set<String> jsonKeys = jsonObject.keySet();
 	  /* Set the class instance variables */
-	  String   newName;
-	  newName = HDLmMod.modFieldString(editorType, 
-	  		                             errors, 
-	  		                             jsonObject, 
-	  		                             jsonKeys, 
-	  		                             "name", 
-		  	                             HDLmWhiteSpace.WHITESPACENOTOK, 
-		  	                             HDLmReportErrors.REPORTERRORS,
-		  	                             HDLmZeroLengthOk.ZEROLENGTHNOTOK);
-		if (newName == null || StringUtils.isWhitespace(newName)) {
-			HDLmAssertAction(false, "Name value not obtained from JSON element");
-		}
-		this.setName(newName);
-		if (1 == 2)
-		  LOG.info("HDLmProxy newName" + " - " + newName);
+	  String  newName = null;
+	  {
+		  String  errorMessagePrefix = "Proxy";
+			int     errorNumberMissing = 3; 
+	    int     errorNumberIsNull = 4;
+	    int     errorNumberNotPrimitive = 4;
+	    int     errorNumberException = 4;
+	    int     errorNumberInvalidLength = 4;
+	    int     errorNumberInvalidWhiteSpace = 4;	
+		  newName = HDLmField.checkFieldString(editorType, 
+				  		                             errorCounter,
+				  		                             errorMessages,
+				  		                             jsonObject, 
+				  		                             jsonKeys, 
+				  		                             "name", 
+				  		                             errorMessagePrefix,
+															     	     	 errorNumberMissing,
+															             errorNumberIsNull,
+															             errorNumberNotPrimitive,
+															             errorNumberException,
+																           errorNumberInvalidLength,
+																           errorNumberInvalidWhiteSpace, 
+					  	                             HDLmWhiteSpace.WHITESPACENOTOK, 
+					  	                             HDLmReportErrors.REPORTERRORS,
+					  	                             HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+			if (newName == null || StringUtils.isWhitespace(newName)) {
+				HDLmAssertAction(false, "Name value not obtained from JSON element");
+			}
+			this.setName(newName); 
+	  	if (1 == 2)
+		    LOG.info("HDLmProxy newName" + " - " + newName);
+	  } 
 		/* Get the match string and check if it is really a regex. We treat 
 		   the match string as a regex, if the first, second and last characters
 		   are forward slashes. */
-	  String  matchString  = HDLmMod.modFieldString(editorType, errors, 
-		    	                                        jsonObject, jsonKeys, 
-			                                            "match", 
-			                                            HDLmWhiteSpace.WHITESPACENOTOK,
-			                                            HDLmReportErrors.REPORTERRORS,
-			                                            HDLmZeroLengthOk.ZEROLENGTHNOTOK);
-		if (1 == 2)
-	    LOG.info("HDLmProxy matchString" + " - " + matchString);
+	  String  matchString = null; 
+	  {
+		  String  errorMessagePrefix = "Proxy";
+			int     errorNumberMissing = 3; 
+	    int     errorNumberIsNull = 4;
+	    int     errorNumberNotPrimitive = 4;
+	    int     errorNumberException = 4;
+	    int     errorNumberInvalidLength = 4;
+	    int     errorNumberInvalidWhiteSpace = 4;	
+	    matchString = HDLmField.checkFieldString(editorType, 
+  		                                         errorCounter,
+  		                                         errorMessages,
+	    	                                       jsonObject, jsonKeys, 
+		                                           "match", 
+		                                           errorMessagePrefix,
+																		     	     errorNumberMissing,
+																		           errorNumberIsNull,
+																		           errorNumberNotPrimitive,
+																		           errorNumberException,
+																			         errorNumberInvalidLength,
+																			         errorNumberInvalidWhiteSpace, 
+		                                           HDLmWhiteSpace.WHITESPACENOTOK,
+		                                           HDLmReportErrors.REPORTERRORS,
+		                                           HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+		  if (1 == 2)
+	      LOG.info("HDLmProxy matchString" + " - " + matchString);
+    }  
 	  /* Use the match String (if any) to build the match object. The  
 	     match object supports all of the different types of matching. */ 
 	  if (matchString != null) {
@@ -105,9 +148,14 @@ public class HDLmProxy extends HDLmMod {
 		  String  valid = HDLmMatch.check(matchString);
 		  if (valid != null) {
 		  	String  errorText = valid;
-			  HDLmMod.reportError(editorType, errors, 
-					                  jsonObject, errorText, 
-					                  36, HDLmReportErrors.REPORTERRORS);				
+			  HDLmField.reportError(editorType, 
+			  		                  errorCounter,
+			  		                  errorMessages, 
+					                    jsonObject, 
+					                    "match",
+					                    errorText, 
+					                    36, 
+					                    HDLmReportErrors.REPORTERRORS);				
 		  }
 		  else {
 		  	if (1 == 2)
@@ -116,72 +164,137 @@ public class HDLmProxy extends HDLmMod {
 		  }
 	  }		
 		/* Get a few fields from the JSON object */
-		Boolean  enabledBoolean = HDLmMod.modFieldBoolean(editorType, errors, jsonObject, jsonKeys, "enabled");
+		Boolean  enabledBoolean = HDLmMod.modFieldBoolean(editorType, 
+				                                              errorCounter,
+				                                              errorMessages,
+				                                              jsonObject, 
+				                                              jsonKeys, 
+				                                              "enabled");
 		if (enabledBoolean == null) {
 			HDLmAssertAction(false, "Enabled value not obtained from JSON element");
 		}
 		this.setEnabled(enabledBoolean);
 		/* Try to get the extra information value from the JSON element */
-		String extraInfo = HDLmMod.modFieldString(editorType, 
-				                                      errors, 
-				                                      jsonObject, 
-				                                      jsonKeys, 
-				                                      "extra", 
-				                                      HDLmWhiteSpace.WHITESPACEOK, 
-				                                      HDLmReportErrors.REPORTERRORS,
-				                                      HDLmZeroLengthOk.ZEROLENGTHNOTOK);
-		if (extraInfo != null && !StringUtils.isWhitespace(extraInfo)) {
-			this.setExtra(extraInfo);
-		}		
+		{
+		  String  errorMessagePrefix = "Proxy";
+			int     errorNumberMissing = 3; 
+	    int     errorNumberIsNull = 4;
+	    int     errorNumberNotPrimitive = 4;
+	    int     errorNumberException = 4;
+	    int     errorNumberInvalidLength = 4;
+	    int     errorNumberInvalidWhiteSpace = 4;	
+	  	String  extraInfo = HDLmField.checkFieldString(editorType, 
+							                                       errorCounter,
+							                                       errorMessages,
+							                                       jsonObject, 
+							                                       jsonKeys, 
+							                                       "extra", 
+							                                       errorMessagePrefix,
+																				     	     	 errorNumberMissing,
+																				             errorNumberIsNull,
+																				             errorNumberNotPrimitive,
+																				             errorNumberException,
+																					           errorNumberInvalidLength,
+																					           errorNumberInvalidWhiteSpace, 
+							                                       HDLmWhiteSpace.WHITESPACEOK, 
+							                                       HDLmReportErrors.REPORTERRORS,
+							                                       HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+			if (extraInfo != null && !StringUtils.isWhitespace(extraInfo)) {
+				this.setExtra(extraInfo);
+			}		
+		}
 		/* Get the proxy definition type */
 		HDLmProxyTypes  newProxyType;
-		newProxyType = HDLmProxy.proxyFieldProxyType(editorType, errors, jsonObject, jsonKeys, "type");
+		newProxyType = HDLmProxy.proxyFieldProxyType(editorType, 
+				                                         errorCounter,
+				                                         errorMessages,
+				                                         jsonObject, 
+				                                         jsonKeys, 
+				                                         "type");
 		if (newProxyType == HDLmProxyTypes.NONE) {
 			HDLmAssertAction(false, "Proxy definition type not obtained from JSON element");
 		} 
 		this.setProxyType(newProxyType);
 		/* Get the proxy definition backend protocol type */
 		HDLmProtocolTypes  newProtocolType;
-		newProtocolType = HDLmProxy.proxyFieldProtocolType(editorType, errors, jsonObject, 
-				                                               jsonKeys, "backendType");
+		newProtocolType = HDLmProxy.proxyFieldProtocolType(editorType, 
+				                                               errorCounter,
+				                                               errorMessages,
+				                                               jsonObject, 
+				                                               jsonKeys, 
+				                                               "backendType");
 		if (newProtocolType == HDLmProtocolTypes.NONE) {
 			HDLmAssertAction(false, "Proxy definition type not obtained from JSON element");
 		} 
 		this.setProtocolType(newProtocolType);
 		/* Try to get the backend server host name */
-	  String   newBackendServer;
-	  newBackendServer = HDLmMod.modFieldString(editorType, 
-	  		                                      errors, 
-	  		                                      jsonObject, 
-	  		                                      jsonKeys, 
-	  		                                      "backendServer", 
-		  	                                      HDLmWhiteSpace.WHITESPACENOTOK, 
-		  	                                      HDLmReportErrors.REPORTERRORS,
-		  	                                      HDLmZeroLengthOk.ZEROLENGTHNOTOK);
-		if (newBackendServer == null || StringUtils.isWhitespace(newBackendServer)) {
-			HDLmAssertAction(false, "Backend server host name not obtained from JSON element");
+		String  newBackendServer = null;
+		{
+		  String  errorMessagePrefix = "Proxy";
+			int     errorNumberMissing = 3; 
+	    int     errorNumberIsNull = 4;
+	    int     errorNumberNotPrimitive = 4;
+	    int     errorNumberException = 4;
+	    int     errorNumberInvalidLength = 4;
+	    int     errorNumberInvalidWhiteSpace = 4;	
+		  newBackendServer = HDLmField.checkFieldString(editorType, 
+				  		                                      errorCounter,
+				  		                                      errorMessages,
+				  		                                      jsonObject, 
+				  		                                      jsonKeys, 
+				  		                                      "backendServer", 
+				  		                                      errorMessagePrefix,
+																				     	     	errorNumberMissing,
+																				            errorNumberIsNull,
+																				            errorNumberNotPrimitive,
+																				            errorNumberException,
+																					          errorNumberInvalidLength,
+																					          errorNumberInvalidWhiteSpace, 
+					  	                                      HDLmWhiteSpace.WHITESPACENOTOK, 
+					  	                                      HDLmReportErrors.REPORTERRORS,
+					  	                                      HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+				if (newBackendServer == null || StringUtils.isWhitespace(newBackendServer)) {
+					HDLmAssertAction(false, "Backend server host name not obtained from JSON element");
+				}
+	  	this.setBackendServer(newBackendServer);	
 		}
-		this.setBackendServer(newBackendServer);	
 		/* Try to get the secure server host name */
-	  String   newSecureServer;
-	  newSecureServer = HDLmMod.modFieldString(editorType, 
-	  		                                     errors, 
-	  		                                     jsonObject, 
-	  		                                     jsonKeys, 
-	  		                                     "secureServer", 
-		  	                                     HDLmWhiteSpace.WHITESPACENOTOK, 
-		  	                                     HDLmReportErrors.REPORTERRORS,
-		  	                                     HDLmZeroLengthOk.ZEROLENGTHNOTOK);
-		if (newSecureServer == null || StringUtils.isWhitespace(newSecureServer)) {
-			HDLmAssertAction(false, "Secure server host name not obtained from JSON element");
+		String  newSecureServer = null;
+		{
+		  String  errorMessagePrefix = "Proxy";
+			int     errorNumberMissing = 3; 
+	    int     errorNumberIsNull = 4;
+	    int     errorNumberNotPrimitive = 4;
+	    int     errorNumberException = 4;
+	    int     errorNumberInvalidLength = 4;
+	    int     errorNumberInvalidWhiteSpace = 4;	
+		  newSecureServer = HDLmField.checkFieldString(editorType, 
+				  		                                     errorCounter,
+				  		                                     errorMessages,
+				  		                                     jsonObject, 
+				  		                                     jsonKeys, 
+				  		                                     "secureServer", 
+				  		                                     errorMessagePrefix,
+																			     	     	 errorNumberMissing,
+																			             errorNumberIsNull,
+																			             errorNumberNotPrimitive,
+																			             errorNumberException,
+																				           errorNumberInvalidLength,
+																				           errorNumberInvalidWhiteSpace, 
+					  	                                     HDLmWhiteSpace.WHITESPACENOTOK, 
+					  	                                     HDLmReportErrors.REPORTERRORS,
+					  	                                     HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+			if (newSecureServer == null || StringUtils.isWhitespace(newSecureServer)) {
+				HDLmAssertAction(false, "Secure server host name not obtained from JSON element");
+			}
+			this.setSecureServer(newSecureServer);	
+			/* Mark the current proxy defintion object as disabled if the error count
+			   was greater than zero. This is actually done by setting the enabled
+			   field to false. */
+			if (errorCounter.intValue() > 0) {
+				this.setEnabled((Boolean) false);
+		  }
 		}
-		this.setSecureServer(newSecureServer);	
-		/* Mark the current proxy defintion object as disabled if the error count
-		   was greater than zero. This is actually done by setting the enabled
-		   field to false. */
-		if (errors.intValue() > 0) {
-			this.setEnabled((Boolean) false);
-	  }
 	}
 	/* This routine build the proxy definitions list. This list is used to find
      (if possible) a proxy definition for a host name. This list is built from
@@ -309,22 +422,30 @@ public class HDLmProxy extends HDLmMod {
 		 the error count is also incremented. The return value from this function is
 		 the value of the field, if the field is found. */
 	protected static HDLmProtocolTypes proxyFieldProtocolType(HDLmEditorTypes editorType,
-			                                                      MutableInt errors, 
+			                                                      MutableInt errorCounter,
+			                                                      ArrayList<String> errorMessages,
 			                                                      JsonObject jsonObject, 
 			                                                      Set<String> jsonKeys,
 			                                                      String name) {
-		return proxyFieldProtocolType(editorType, errors, 
+		return proxyFieldProtocolType(editorType, 
+				                          errorCounter,
+				                          errorMessages,
 				                          jsonObject, jsonKeys, 
 				                          name, HDLmReportErrors.REPORTERRORS);
 	}
 	protected static HDLmProtocolTypes proxyFieldProtocolType(HDLmEditorTypes editorType,
-			                                                      MutableInt errors, 
+			                                                      MutableInt errorCounter,
+			                                                      ArrayList<String> errorMessages,
 			                                                      JsonObject jsonObject, 
 			                                                      Set<String> jsonKeys,
 			                                                      String name, 
 			                                                      HDLmReportErrors reportErrors) {
-		if (errors == null) {
+		if (errorCounter == null) {
 			String  errorText = "Mutable int for errors passed to proxyFieldProtocolType is null";
+			throw new NullPointerException(errorText);
+		}
+		if (errorMessages == null) {
+			String  errorText = "ArrayList for error messages passed to proxyFieldProtocolType is null";
 			throw new NullPointerException(errorText);
 		}
 		if (jsonObject == null) {
@@ -351,18 +472,28 @@ public class HDLmProxy extends HDLmMod {
 				protocolType = HDLmProtocolTypes.valueOfString(localString);
 				if (protocolType == HDLmProtocolTypes.NONE) {
 					String value = localString;
-					HDLmMod.reportErrorValue(editorType, errors, jsonObject, 
-							                     name, value, 
-							                     "Proxy definition JSON invalid field", 
-							                     4, reportErrors);
+					HDLmField.reportErrorValue(editorType, 
+							                       errorCounter,
+							                       errorMessages,
+							                       jsonObject, 
+							                       name, 
+							                       value, 
+							                       "Proxy definition JSON invalid field", 
+							                       4, 
+							                       reportErrors);
 				}
 			}
 		}
 		/* Since we do not have the field in the JSON, report an error */
 		if (fieldFound == false)
-			HDLmMod.reportErrorNoValue(editorType, errors, jsonObject, 
-					                       name, "Proxy definition JSON missing field", 
-					                       3, reportErrors);
+			HDLmField.reportErrorNoValue(editorType, 
+					                         errorCounter,
+					                         errorMessages,
+					                         jsonObject, 
+					                         name, 
+					                         "Proxy definition JSON missing field", 
+					                         3, 
+					                         reportErrors);
 		return protocolType;
 	}
 	/* Try to access a field in the JSON used to build the current proxy definition 
@@ -370,20 +501,32 @@ public class HDLmProxy extends HDLmMod {
 		 the error count is also incremented. The return value from this function is
 		 the value of the field, if the field is found. */
 	protected static HDLmProxyTypes proxyFieldProxyType(HDLmEditorTypes editorType,
-			                                                MutableInt errors, 
+			                                                MutableInt errorCounter,
+			                                                ArrayList<String> errorMessages,
 			                                                JsonObject jsonObject, 
 			                                                Set<String> jsonKeys,
 			                                                String name) {
-		return proxyFieldProxyType(editorType, errors, jsonObject, jsonKeys, name, HDLmReportErrors.REPORTERRORS);
+		return proxyFieldProxyType(editorType, 
+				                       errorCounter,
+				                       errorMessages,
+				                       jsonObject, 
+				                       jsonKeys, 
+				                       name, 
+				                       HDLmReportErrors.REPORTERRORS);
 	}
 	protected static HDLmProxyTypes proxyFieldProxyType(HDLmEditorTypes editorType,
-			                                                MutableInt errors, 
+			                                                MutableInt errorCounter,
+			                                                ArrayList<String> errorMessages,
 			                                                JsonObject jsonObject, 
 			                                                Set<String> jsonKeys,
 			                                                String name, 
 			                                                HDLmReportErrors reportErrors) {
-		if (errors == null) {
+		if (errorCounter == null) {
 			String  errorText = "Mutable int for errors passed to proxyFieldProxyType is null";
+			throw new NullPointerException(errorText);
+		}
+		if (errorMessages == null) {
+			String  errorText = "ArrayList for error messages passed to proxyFieldProxyType is null";
 			throw new NullPointerException(errorText);
 		}
 		if (jsonObject == null) {
@@ -410,18 +553,28 @@ public class HDLmProxy extends HDLmMod {
 				proxyType = HDLmProxyTypes.valueOfString(localString);
 				if (proxyType == HDLmProxyTypes.NONE) {
 					String value = localString;
-					HDLmMod.reportErrorValue(editorType, errors, jsonObject, 
-							                     name, value, 
-							                     "Proxy definition JSON invalid field", 
-							                     4, reportErrors);
+					HDLmField.reportErrorValue(editorType, 
+							                       errorCounter,
+							                       errorMessages,
+							                       jsonObject, 
+							                       name, 
+							                       value, 
+							                       "Proxy definition JSON invalid field", 
+							                       4, 
+							                       reportErrors);
 				}
 			}
 		}
 		/* Since we do not have the field in the JSON, report an error */
 		if (fieldFound == false)
-			HDLmMod.reportErrorNoValue(editorType, errors, jsonObject, 
-					                       name, "Proxy definition JSON missing field", 
-					                       3, reportErrors);
+			HDLmField.reportErrorNoValue(editorType, 
+					                         errorCounter,
+					                         errorMessages,
+					                         jsonObject, 
+					                         name, 
+					                         "Proxy definition JSON missing field", 
+					                         3, 
+					                         reportErrors);
 		return proxyType;
 	}
 	/* Set the backend server host name value */

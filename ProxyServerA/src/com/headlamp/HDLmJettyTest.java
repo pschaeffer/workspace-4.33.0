@@ -37,14 +37,14 @@ class HDLmJettyTest {
 					                               () -> {HDLmJetty.buildHttpConnector(null, 80);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Jetty server instance passed to buildHttpConnector is null");
+			assertEquals("Jetty server instance passed to buildHttpConnector is null",  execMsg,"Unexpected exception message");
 		}
 		{
 			Throwable exception = assertThrows(AssertionError.class, 
 					                               () -> {HDLmJetty.buildHttpConnector(server, -1);},
 					                               "Expected AssertionError");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "HTTP port number passed to buildHttpConnector is invalid");
+			assertEquals("HTTP port number passed to buildHttpConnector is invalid",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -79,7 +79,7 @@ class HDLmJettyTest {
 					                              		                                  443);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Jetty server instance passed to buildHttpsConnector is null");
+			assertEquals("Jetty server instance passed to buildHttpsConnector is null",  execMsg,"Unexpected exception message");
 		}
 		{
 			Throwable exception = assertThrows(AssertionError.class, 
@@ -89,7 +89,7 @@ class HDLmJettyTest {
 					                              		                                  -1);},
 					                               "Expected AssertionError");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "HTTPS port number passed to buildHttpsConnector is invalid");
+			assertEquals("HTTPS port number passed to buildHttpsConnector is invalid",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -116,7 +116,7 @@ class HDLmJettyTest {
 					                              		                                     443);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Jetty server instance passed to buildHttpsConnectorOld is null");
+			assertEquals("Jetty server instance passed to buildHttpsConnectorOld is null",  execMsg,"Unexpected exception message");
 		}
 		{
 			Throwable exception = assertThrows(AssertionError.class, 
@@ -125,7 +125,7 @@ class HDLmJettyTest {
                                                                                  -1);},
 					                               "Expected AssertionError");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "HTTPS port number passed to buildHttpsConnectorOld is invalid");
+			assertEquals("HTTPS port number passed to buildHttpsConnectorOld is invalid",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -157,7 +157,7 @@ class HDLmJettyTest {
 					                               () -> {HDLmJetty.buildSslContextFactoryDotServer(null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "KeyStore instance passed to buildSslContextFactory is null");
+			assertEquals("KeyStore instance passed to buildSslContextFactory is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -167,7 +167,7 @@ class HDLmJettyTest {
 					                               () -> {HDLmJetty.dumpRequestContents(null, null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Servlet request passed to dumpRequestContents is null");
+			assertEquals("Servlet request passed to dumpRequestContents is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -177,7 +177,7 @@ class HDLmJettyTest {
 					                               () -> {HDLmJetty.editorGet(null, null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Servlet request passed to editorGet is null");
+			assertEquals("Servlet request passed to editorGet is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -187,7 +187,7 @@ class HDLmJettyTest {
 					                               () -> {HDLmJetty.editorPost(null, null, null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Servlet request passed to editorPost is null");
+			assertEquals("Servlet request passed to editorPost is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -197,7 +197,7 @@ class HDLmJettyTest {
 					                               () -> {HDLmJetty.forceRedirect(null, null, null, null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Servlet response passed to forceRedirect is null");
+			assertEquals("Servlet response passed to forceRedirect is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -250,7 +250,7 @@ class HDLmJettyTest {
 					                               () -> {HDLmJetty.getClientInformationNew(null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "User-Agent string passed to getClientInformationNew is null");
+			assertEquals("User-Agent string passed to getClientInformationNew is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -303,7 +303,7 @@ class HDLmJettyTest {
 					                               () -> {HDLmJetty.getClientInformationOld(null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "User-Agent string passed to getClientInformationOld is null");
+			assertEquals("User-Agent string passed to getClientInformationOld is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -314,7 +314,7 @@ class HDLmJettyTest {
 					                               () -> {HDLmJetty.getContentType(null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Servlet request passed to getContentType is null");
+			assertEquals("Servlet request passed to getContentType is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -325,7 +325,7 @@ class HDLmJettyTest {
 					                               () -> {HDLmJetty.getCookie(null, null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Servlet request passed to getCookie is null");
+			assertEquals("Servlet request passed to getCookie is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -336,7 +336,7 @@ class HDLmJettyTest {
 					                               () -> {HDLmJetty.getCookieExtended(null, null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Servlet request passed to getCookieExtended is null");
+			assertEquals("Servlet request passed to getCookieExtended is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -346,7 +346,7 @@ class HDLmJettyTest {
 					                               () -> {HDLmJetty.getCookies(null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Servlet request passed to getCookies is null");
+			assertEquals("Servlet request passed to getCookies is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -356,7 +356,7 @@ class HDLmJettyTest {
 					                               () -> {HDLmJetty.getCookiesMap(null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Servlet request passed to getCookiesMap is null");
+			assertEquals("Servlet request passed to getCookiesMap is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -366,7 +366,7 @@ class HDLmJettyTest {
 					                               () -> {HDLmJetty.getRequestHeaders(null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Servlet request passed to getRequestHeaders is null");
+			assertEquals("Servlet request passed to getRequestHeaders is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -376,7 +376,7 @@ class HDLmJettyTest {
 					                               () -> {HDLmJetty.getHostHeader(null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Servlet request passed to getHostHeader is null");
+			assertEquals("Servlet request passed to getHostHeader is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -413,7 +413,7 @@ class HDLmJettyTest {
 					                               () -> {HDLmJetty.getHostName(null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Input string value passed to getHostName is null");
+			assertEquals("Input string value passed to getHostName is null",  execMsg,"Unexpected exception message");
 		}
 		{
 			String   inputURLLocal = "http*//www.abc.com/";
@@ -421,7 +421,7 @@ class HDLmJettyTest {
 					                               () -> {HDLmJetty.getHostName(inputURLLocal);},
 					                               "Expected IllegalStateException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Colon value not found after http/https prefix");
+			assertEquals("Colon value not found after http/https prefix",  execMsg,"Unexpected exception message");
 		}
 		{
 			String   inputURLLocal = "http:*/www.abc.com/";
@@ -429,7 +429,7 @@ class HDLmJettyTest {
 					                               () -> {HDLmJetty.getHostName(inputURLLocal);},
 					                               "Expected IllegalStateException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "First slash value not found after http/https prefix and colon");
+			assertEquals("First slash value not found after http/https prefix and colon",  execMsg,"Unexpected exception message");
 		}
 		{
 			String   inputURLLocal = "http:/*/www.abc.com/";
@@ -437,7 +437,7 @@ class HDLmJettyTest {
 					                               () -> {HDLmJetty.getHostName(inputURLLocal);},
 					                               "Expected IllegalStateException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Second slash value not found after first slash");
+			assertEquals("Second slash value not found after first slash",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -447,7 +447,7 @@ class HDLmJettyTest {
 					                               () -> {HDLmJetty.getHostNameFromRequest(null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Servlet request passed to getHostNameFromRequest is null");
+			assertEquals("Servlet request passed to getHostNameFromRequest is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -457,7 +457,7 @@ class HDLmJettyTest {
 					                               () -> {HDLmJetty.getLocalPort(null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Servlet request passed to getLocalPort is null");
+			assertEquals("Servlet request passed to getLocalPort is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -467,7 +467,7 @@ class HDLmJettyTest {
 					                               () -> {HDLmJetty.getOriginalPathValue(null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Servlet request passed to getOriginalPathValue is null");
+			assertEquals("Servlet request passed to getOriginalPathValue is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -477,7 +477,7 @@ class HDLmJettyTest {
 					                               () -> {HDLmJetty.getPathValueString(null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Servlet request passed to getPathValueString is null");
+			assertEquals("Servlet request passed to getPathValueString is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -502,7 +502,7 @@ class HDLmJettyTest {
 					                               () -> {HDLmJetty.getPortNumber(null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Input string value passed to getPortNumber is null");
+			assertEquals("Input string value passed to getPortNumber is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -512,7 +512,7 @@ class HDLmJettyTest {
 					                               () -> {HDLmJetty.getQueryString(null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Servlet request passed to getQueryString is null");
+			assertEquals("Servlet request passed to getQueryString is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -522,7 +522,7 @@ class HDLmJettyTest {
 					                               () -> {HDLmJetty.getRequestPayloadBinary(null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Servlet request passed to getRequestPayloadBinary is null");
+			assertEquals("Servlet request passed to getRequestPayloadBinary is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -532,7 +532,7 @@ class HDLmJettyTest {
 					                               () -> {HDLmJetty.getRequestPayloadChars(null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Servlet request passed to getRequestPayloadChars is null");
+			assertEquals("Servlet request passed to getRequestPayloadChars is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -542,7 +542,7 @@ class HDLmJettyTest {
 					                               () -> {HDLmJetty.getResponseHeader(null, null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Servlet response passed to getResponseHeader is null");
+			assertEquals("Servlet response passed to getResponseHeader is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -554,7 +554,7 @@ class HDLmJettyTest {
 					                               () -> {HDLmJetty.getUserAgentHeader(null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Servlet request passed to getUserAgentHeader is null");
+			assertEquals("Servlet request passed to getUserAgentHeader is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -572,7 +572,7 @@ class HDLmJettyTest {
 					                              		                          null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Servlet request passed to handleProxy is null");
+			assertEquals("Servlet request passed to handleProxy is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -593,7 +593,7 @@ class HDLmJettyTest {
 					                              		                                pathValueString);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Servlet request passed to handleSpecialPost is null");
+			assertEquals("Servlet request passed to handleSpecialPost is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -603,7 +603,7 @@ class HDLmJettyTest {
 					                               () -> {HDLmJetty.isBrowserOk(null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Servlet request passed to isBrowserOk is null");
+			assertEquals("Servlet request passed to isBrowserOk is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -613,7 +613,7 @@ class HDLmJettyTest {
 					                               () -> {HDLmJetty.processFile(null, null, null, null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Servlet request passed to processFile is null");
+			assertEquals("Servlet request passed to processFile is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -623,7 +623,7 @@ class HDLmJettyTest {
 					                               () -> {HDLmJetty.reportError(null, 0, null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Servlet response passed to reportError is null");
+			assertEquals("Servlet response passed to reportError is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -633,7 +633,7 @@ class HDLmJettyTest {
 					                               () -> {HDLmJetty.reportErrorBasic(null, 0, null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Servlet response passed to reportErrorBasic is null");
+			assertEquals("Servlet response passed to reportErrorBasic is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -643,7 +643,7 @@ class HDLmJettyTest {
 					                               () -> {HDLmJetty.setHeader(null, null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Servlet response passed to setHeader is null");
+			assertEquals("Servlet response passed to setHeader is null",  execMsg,"Unexpected exception message");
 		}
 	}
 	@Test
@@ -653,7 +653,7 @@ class HDLmJettyTest {
 					                               () -> {HDLmJetty.setHeaders(null, null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Servlet response passed to setHeaders is null");
+			assertEquals("Servlet response passed to setHeaders is null",  execMsg,"Unexpected exception message");
 		}
 	}
 }

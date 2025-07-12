@@ -22,21 +22,24 @@ class HDLmConfigTest {
 					                               () -> {HDLmConfig.getBoolean("doesNotExist");},
 					                               "Expected IllegalArgumentException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Invalid configuration name (doesNotExist) passed to getBoolean");
+			assertEquals("Invalid configuration name (doesNotExist) passed to getBoolean",  execMsg,
+					         "Unexpected exception message");
 		}
 		{
 			Throwable exception = assertThrows(IllegalArgumentException.class, 
 	                                       () -> {HDLmConfig.getBoolean("logFileName");},
 	                                      "Expected IllegalArgumentException");
 	    String execMsg = exception.getMessage();
-	    assertEquals(execMsg, "Configuration name (logFileName) passed to getBoolean is not for a boolean");
+	    assertEquals("Configuration name (logFileName) passed to getBoolean is not for a boolean",  execMsg,
+	    		         "Unexpected exception message");
 		}
 		{
 			Throwable exception = assertThrows(RuntimeException.class, 
 	                                       () -> {HDLmConfig.getBoolean(null);},
 	                                      "Expected RuntimeException");
 	    String execMsg = exception.getMessage();
-	    assertEquals(execMsg, "Configuration name reference passed to getBoolean is null");
+	    assertEquals("Configuration name reference passed to getBoolean is null",  execMsg,
+	    		         "Unexpected exception message");
 		}
 		/* Run a few getString tests */
 		assertEquals(HDLmConfig.getString("logFileName"), "info.log");
@@ -45,21 +48,24 @@ class HDLmConfigTest {
 					                               () -> {HDLmConfig.getString("doesNotExist");},
 					                               "Expected IllegalArgumentException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Invalid configuration name (doesNotExist) passed to getString");
+			assertEquals("Invalid configuration name (doesNotExist) passed to getString",  execMsg,
+					         "Unexpected exception message");
 		}
 		{
 			Throwable exception = assertThrows(IllegalArgumentException.class, 
 	                                       () -> {HDLmConfig.getString("logRuleMatching");},
 	                                      "Expected IllegalArgumentException");
 	    String execMsg = exception.getMessage();
-	    assertEquals(execMsg, "Configuration name (logRuleMatching) passed to getString is not for a string");
+	    assertEquals("Configuration name (logRuleMatching) passed to getString is not for a string",   execMsg,
+	    		         "Unexpected exception message");
 		}
 		{
 			Throwable exception = assertThrows(RuntimeException.class, 
 	                                       () -> {HDLmConfig.getString(null);},
 	                                      "Expected RuntimeException");
 	    String execMsg = exception.getMessage();
-	    assertEquals(execMsg, "Configuration name reference passed to getString is null");
+	    assertEquals("Configuration name reference passed to getString is null",  execMsg,
+	    		         "Unexpected exception message");
 		}		
 	}
 }

@@ -21,7 +21,8 @@ class HDLmApacheTest {
 					                               () -> {HDLmApache.dumpAllHeaders(null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Apache request passed to dumpAllHeaders is null");
+			assertEquals("Apache request passed to dumpAllHeaders is null", execMsg,
+					         "Unexpected exception message");
 		}
 	}
 	@Test
@@ -83,21 +84,21 @@ class HDLmApacheTest {
 					                               () -> {HDLmApache.findHeader(null, null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "HTTP headers array passed to findHeader is null");
+			assertEquals("HTTP headers array passed to findHeader is null", execMsg);
 		}
 		{
 			Throwable exception = assertThrows(NullPointerException.class, 
 					                               () -> {HDLmApache.findHeader(hostHeaders, null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "HTTP target header passed to findHeader is null");
+			assertEquals("HTTP target header passed to findHeader is null", execMsg);
 		}
 		{
 			Throwable exception = assertThrows(IllegalArgumentException.class, 
 					                               () -> {HDLmApache.findHeader(hostHeaders, "");},
 					                               "Expected IllegalArgumentException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "HTTP headers array passed to findHeader is empty");
+			assertEquals("HTTP headers array passed to findHeader is empty", execMsg);
 		}
 	}
 	@Test
@@ -142,7 +143,7 @@ class HDLmApacheTest {
 					                               () -> {HDLmApache.findHostHeader(null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "HTTP headers array passed to findHostHeader is null");
+			assertEquals("HTTP headers array passed to findHostHeader is null", execMsg);
 		}
 	}
 	@Test
@@ -175,14 +176,14 @@ class HDLmApacheTest {
 					                               () -> {HDLmApache.fixHostName(null, "newHost");},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "HTTP Host header passed to fixHostName is null");
+			assertEquals("HTTP Host header passed to fixHostName is null", execMsg);
 		}
 		{
 			Throwable exception = assertThrows(RuntimeException.class, 
 					                               () -> {HDLmApache.fixHostName("header", null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "New host name passed to fixHostName is null");
+			assertEquals("New host name passed to fixHostName is null", execMsg);
 		}
 	}
 	@Test
@@ -192,7 +193,7 @@ class HDLmApacheTest {
 					                               () -> {HDLmApache.getAllHeaders(null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Apache request passed to getAllHeaders is null");
+			assertEquals("Apache request passed to getAllHeaders is null", execMsg);
 		}
 
 	}
@@ -206,7 +207,7 @@ class HDLmApacheTest {
 					                              		                                    null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Protocol type enum value passed by the caller to processHttpOperation is null");
+			assertEquals("Protocol type enum value passed by the caller to processHttpOperation is null", execMsg);
 		}
 		{
 			Throwable exception = assertThrows(AssertionError.class, 
@@ -216,7 +217,7 @@ class HDLmApacheTest {
 					                              		                                    null);},
 					                               "Expected AssertionError");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Protocol type value (NONE) passed to processHttpOperation is invalid");
+			assertEquals("Protocol type value (NONE) passed to processHttpOperation is invalid", execMsg);
 		}
 		{
 			Throwable exception = assertThrows(NullPointerException.class, 
@@ -226,7 +227,7 @@ class HDLmApacheTest {
 					                              		                                    null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Operation type enum value passed by the caller to processHttpOperation is null");
+			assertEquals("Operation type enum value passed by the caller to processHttpOperation is null", execMsg);
 		}
 		{
 			Throwable exception = assertThrows(AssertionError.class, 
@@ -237,7 +238,7 @@ class HDLmApacheTest {
 					                              		                                    null);},
 					                               "Expected AssertionError");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Operation type value (NONE) passed to processHttpOperation is invalid");
+			assertEquals("Operation type value (NONE) passed to processHttpOperation is invalid", execMsg);
 		}		 
 		{
 			Throwable exception = assertThrows(NullPointerException.class, 
@@ -248,7 +249,7 @@ class HDLmApacheTest {
 					                              		                                    null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Host name string passed to processHttpOperation is null");
+			assertEquals("Host name string passed to processHttpOperation is null", execMsg);
 		}
 	}
 	@Test
@@ -258,7 +259,7 @@ class HDLmApacheTest {
 					                               () -> {HDLmApache.removeContentLength(null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Apache HTTP message passed to removeContentLength is null");
+			assertEquals("Apache HTTP message passed to removeContentLength is null", execMsg);
 		}
 	}
 	@Test
@@ -268,7 +269,8 @@ class HDLmApacheTest {
 					                               () -> {HDLmApache.removeContentLengthZero(null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Apache HTTP message passed to removeContentLengthZero is null");
+			assertEquals("Apache HTTP message passed to removeContentLengthZero is null", execMsg,
+		               "Unexpected exception message");
 		}
 	}
 	@Test
@@ -278,7 +280,7 @@ class HDLmApacheTest {
 					                               () -> {HDLmApache.setHeaders(null, null);},
 					                               "Expected NullPointerException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Apache request passed to setHeaders is null");
+			assertEquals("Apache request passed to setHeaders is null", execMsg);
 		}
 	}
 }

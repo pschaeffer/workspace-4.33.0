@@ -60,7 +60,7 @@ class HDLmFindTest {
 					                               () -> {new HDLmFind(null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Old find reference passed to find constructor is null",
+			assertEquals("Old find reference passed to find constructor is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -133,7 +133,7 @@ class HDLmFindTest {
 					                               () -> {HDLmFind.findOneLevel(null, findInfo);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Node list passed to findOneLevel is null",
+			assertEquals("Node list passed to findOneLevel is null", execMsg,
 					         "Unexpected exception message");
 		}
 		{
@@ -142,7 +142,7 @@ class HDLmFindTest {
 					                               () -> {HDLmFind.findOneLevel(nodeListLocal, null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Find reference passed to findOneLevel is null",
+			assertEquals("Find reference passed to findOneLevel is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}
@@ -193,7 +193,7 @@ class HDLmFindTest {
 					                               () -> {HDLmFind.processFindsArray(null, findsInfoLocal);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "HTML DOM passed to processFindsArray is null",
+			assertEquals("HTML DOM passed to processFindsArray is null", execMsg,
 					         "Unexpected exception message");
 		}
 		{
@@ -201,7 +201,7 @@ class HDLmFindTest {
 					                               () -> {HDLmFind.processFindsArray(htmlDoc, null);},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
-			assertEquals(execMsg, "Finds array passed to processFindsArray is null",
+			assertEquals("Finds array passed to processFindsArray is null", execMsg,
 					         "Unexpected exception message");
 		}
 	}
