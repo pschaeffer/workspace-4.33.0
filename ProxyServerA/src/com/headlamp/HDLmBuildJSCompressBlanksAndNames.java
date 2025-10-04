@@ -153,8 +153,8 @@ class HDLmBuildJsCompressBlanksAndNames {
     builder.addLine("break;");
     builder.addLine("}");
     builder.addLine("}");
-    builder.addLine("if (D.enabled!=true) {");
-    builder.addLine("m9='disabled';");
+    builder.addLine("if (false) {");
+    builder.addLine("m9='false';");
     builder.addLine("if (y8==true) {");
     builder.addLine("let m3=new Object();");
     builder.addLine("j0(m3,null,");
@@ -1434,6 +1434,8 @@ class HDLmBuildJsCompressBlanksAndNames {
     builder.addLine("if (r0!=null&&");
     builder.addLine("f3(s3,r0))");
     builder.addLine("E0=1.0;");
+    builder.addLine("if (r0==null&&s3==null)");
+    builder.addLine("E0=1.0;");
     builder.addLine("if (u0==h9.all||");
     builder.addLine("(u0==h9.error&&E0!=1.0)) {");
     builder.addLine("b3=`Node identifier-key (${r9}) actual (${r0}) expected (${s3})`;");
@@ -1453,9 +1455,17 @@ class HDLmBuildJsCompressBlanksAndNames {
     builder.addLine("r7.matchvalue=E0;");
     builder.addLine("r8.push(r7);");
     builder.addLine("}");
-    builder.addLine("if (r0==null)");
+    builder.addLine("let compareValues=true;");
+    builder.addLine("if (r0==null) {");
+    builder.addLine("if (s3!=null)");
     builder.addLine("continue;");
-    builder.addLine("if (f3(s3,r0))");
+    builder.addLine("else {");
+    builder.addLine("v9=1.0;");
+    builder.addLine("compareValues=false;");
+    builder.addLine("}");
+    builder.addLine("}");
+    builder.addLine("if (compareValues&&f3(s3,");
+    builder.addLine("r0))");
     builder.addLine("v9=1.0;");
     builder.addLine("}");
     builder.addLine("else if (r9=='phash') {");
@@ -2494,7 +2504,6 @@ class HDLmBuildJsCompressBlanksAndNames {
     builder.addLine("i2.observe(i3,i1);");
     builder.addLine("let y6=document.location.pathname;");
     builder.addLine("let D={};");
-    builder.addLine("D.enabled=true;");
     String  n5=HDLmDefines.getString("HDLMLOADPAGEMODNAME");
     builder.addLine("D.name='"+n5+"';");
     builder.addLine("D.parameter=-1;");

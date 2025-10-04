@@ -153,8 +153,8 @@ class HDLmBuildJsCompressBlanks {
     builder.addLine("break;");
     builder.addLine("}");
     builder.addLine("}");
-    builder.addLine("if (curMod.enabled!=true) {");
-    builder.addLine("matchError='disabled';");
+    builder.addLine("if (false) {");
+    builder.addLine("matchError='false';");
     builder.addLine("if (postRuleTracing==true) {");
     builder.addLine("let localUpdates=new Object();");
     builder.addLine("HDLmSaveChange(localUpdates,null,");
@@ -1434,6 +1434,8 @@ class HDLmBuildJsCompressBlanks {
     builder.addLine("if (nodeActualValue!=null&&");
     builder.addLine("HDLmCompareCaseInsensitive(nodeAttributeValue,nodeActualValue))");
     builder.addLine("traceValue=1.0;");
+    builder.addLine("if (nodeActualValue==null&&nodeAttributeValue==null)");
+    builder.addLine("traceValue=1.0;");
     builder.addLine("if (nodeIdenTracing==HDLmNodeIdenTracing.all||");
     builder.addLine("(nodeIdenTracing==HDLmNodeIdenTracing.error&&traceValue!=1.0)) {");
     builder.addLine("errorText=`Node identifier - key (${nodeAttributeKey}) actual (${nodeActualValue}) expected (${nodeAttributeValue})`;");
@@ -1453,9 +1455,17 @@ class HDLmBuildJsCompressBlanks {
     builder.addLine("nodeAttributeCheck.matchvalue=traceValue;");
     builder.addLine("nodeAttributeChecks.push(nodeAttributeCheck);");
     builder.addLine("}");
-    builder.addLine("if (nodeActualValue==null)");
+    builder.addLine("let compareValues=true;");
+    builder.addLine("if (nodeActualValue==null) {");
+    builder.addLine("if (nodeAttributeValue!=null)");
     builder.addLine("continue;");
-    builder.addLine("if (HDLmCompareCaseInsensitive(nodeAttributeValue,nodeActualValue))");
+    builder.addLine("else {");
+    builder.addLine("numeratorIncrementValue=1.0;");
+    builder.addLine("compareValues=false;");
+    builder.addLine("}");
+    builder.addLine("}");
+    builder.addLine("if (compareValues&&HDLmCompareCaseInsensitive(nodeAttributeValue,");
+    builder.addLine("nodeActualValue))");
     builder.addLine("numeratorIncrementValue=1.0;");
     builder.addLine("}");
     builder.addLine("else if (nodeAttributeKey=='phash') {");
@@ -2494,7 +2504,6 @@ class HDLmBuildJsCompressBlanks {
     builder.addLine("HDLmObsObserver.observe(HDLmObsTargetNode,HDLmObsConfig);");
     builder.addLine("let pathValueStr=document.location.pathname;");
     builder.addLine("let curMod={};");
-    builder.addLine("curMod.enabled=true;");
     String  modificationName=HDLmDefines.getString("HDLMLOADPAGEMODNAME");
     builder.addLine("curMod.name='"+modificationName+"';");
     builder.addLine("curMod.parameter=-1;");

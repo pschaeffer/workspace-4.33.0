@@ -691,12 +691,12 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmTransferSomething.
 			HDLmSystemTypes   currentSystemType = HDLmSystemTypes.valueOfString(HDLmConfigInfo.getCurrentEnvironment());
 			HDLmUnRe  UnReDelete = new HDLmUnRe(currentSystemType, 
 					                                transferObj.toSystemName,
-					                                HDLmDatabaseTypes.DELETE, 
+					                                HDLmDatabaseOperationTypes.DELETE, 
 					                                changeNumber,
 					                                deletedRows);
 			HDLmUnRe  UnReInsert = new HDLmUnRe(currentSystemType, 
 					                                transferObj.toSystemName,
-					                                HDLmDatabaseTypes.INSERT, 
+					                                HDLmDatabaseOperationTypes.INSERT, 
 					                                changeNumber,
 					                                insertRows);
 			/* Add the database operations to the undo/redo ArrayList */

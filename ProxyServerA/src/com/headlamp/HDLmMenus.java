@@ -223,7 +223,7 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmMenus.class);
 			String  errorText = "The new node identifier JSON object passed to provideDefaultValues is null";
 			throw new NullPointerException(errorText);
 		}
-	  HDLmMod       newNodeDetails = newTreeNode.getDetails();
+	  HDLmMod       newNodeDetails = newTreeNode.getModFromTree();
 	  HDLmNodeIden  newNodeIdenInstance = null;
 	  String        newModName = null;
 	  String        newDetailsType = null;

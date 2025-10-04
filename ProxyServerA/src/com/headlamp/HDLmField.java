@@ -175,9 +175,9 @@ public class HDLmField {
 		return newObject;
 	}
 	/* Try to access a field in the JSON used to build the current object
-	  Report an error if the field is not found. If an error is reported,
-	  the error count is also incremented. The return value from this function 
-	  is the value of the field, if the field is found. */
+	   Report an error if the field is not found. If an error is reported,
+	   the error count is also incremented. The return value from this function 
+	   is the value of the field, if the field is found. */
 	protected static String  checkFieldString(final HDLmEditorTypes editorType, 
 				                                    final MutableInt errorCounter,
 				                                    final ArrayList<String> errorMessages,

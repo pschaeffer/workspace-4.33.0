@@ -14,6 +14,9 @@ package com.headlamp;
 	 and a store (stored value) editor. All six types of editors 
 	 are valid.
 	 
+	 Note, that at present nine (9) types of editors have been 
+	 devised. Additional editor types can be added as need be.
+	 
 	 This code can also be used to run the pass-through mechanism.
 	 The pass-through mechanism is not generally an editor (with 
 	 at least one exception). However, the editor machinery is 		

@@ -140,7 +140,7 @@ public class HDLmConfigInfo {
     return HDLmConfig.getString("companyName");
   }
 	/* Get the maximum age for a cookie. This value is 
-	   applied to some cookie that we create. */  
+	   applied to some cookies that we create. */  
 	protected static int   getCookieMaxAge() {
  	  return HDLmConfig.getInteger("cookieMaxAge");
 	}
@@ -375,6 +375,14 @@ public class HDLmConfigInfo {
 	protected static String  getEntriesDreamtsoftContentSuffix() {
 	 return HDLmConfig.getString("entriesDreamtsoftContentSuffix");
 	}
+  /* Get the Internet method used by fetch with no SSL/TLS */ 
+	protected static String  getfetchInternetMethodNoSsl() {
+    return HDLmConfig.getString("fetchInternetMethodNoSsl");
+	}
+  /* Get the Internet method used by fetch with SSL/TLS */ 
+	protected static String  getfetchInternetMethodWithSsl() {
+    return HDLmConfig.getString("fetchInternetMethodWithSsl");
+	}
   /* Get a true/false value showing if certain JavaScript
      programs should be fixed to make web sockets work. 
      The changes are complex and obscure. Note that this
@@ -424,14 +432,25 @@ public class HDLmConfigInfo {
   protected static boolean  getLogRuleMatching() {
     return HDLmConfig.getBoolean("logRuleMatching");
   }
-	/* Get the Open AI maximum string length. If the string 
-	   exceeds this length, it will be truncated. */  
-  protected static int   getOpenAIMaximumStringLength() {
-	  return HDLmConfig.getInteger("openAIMaximumStringLength");
+  /* Get the memory entry valid for value and return it to the caller. 
+     The memory entry valid for value is always returned to the caller 
+     as a proper number, not a string. The value is the number of 
+     seconds a memory entry is valid for. */
+  protected static int   getMemoryEntryValidForSeconds() {
+    return HDLmConfig.getInteger("memoryEntryValidForSeconds");
+  }
+	/* Get the Open AI API GPT model */  
+  protected static String  getOpenAIApiGptModel() {
+    return HDLmConfig.getString("openAIApiGptModel");
   }
 	/* Get the Open AI API key for Schaeffer */  
   protected static String  getOpenAIApiKeySchaeffer() {
     return HDLmConfig.getString("openAIApiKeySchaeffer");
+  }
+	/* Get the Open AI maximum string length. If the string 
+     exceeds this length, it will be truncated. */  
+  protected static int   getOpenAIMaximumStringLength() {
+    return HDLmConfig.getInteger("openAIMaximumStringLength");
   }
   /* Get the method that is used to access the parameters */
   protected static String  getParametersAccessMethod() {
@@ -482,13 +501,6 @@ public class HDLmConfigInfo {
 	protected static int   getRateControl() {
 		return HDLmConfig.getInteger("rateControl");
 	}
-  /* Get the scope valid for value and return it to the caller. 
-     The scope valid for value is always returned to the caller 
-     as a proper number, not a string. The value is the number
-     of seconds a scope is valid for. */
-  protected static int   getScopeValidForSeconds() {
-	  return HDLmConfig.getInteger("scopeValidForSeconds");
-  }
   /* Get the secret encryption key used for cookies and perhaps
      other things. Return the secret encryption key to the caller
      as a string. */ 

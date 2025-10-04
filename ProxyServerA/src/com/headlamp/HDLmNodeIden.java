@@ -1117,7 +1117,8 @@ public class HDLmNodeIden {
 		/* Check if the current JSON element is really a JSON object */
 		if (!jsonElement.isJsonObject())
 			HDLmAssertAction(false, "JSON element passed to processJsonNodeIden is not a JSON object");
-		/* Get a few values from the node identifier */
+		/* Get a few values from the node identifier. Node identifiers can be
+		   enabled or disabled. */
 		Boolean   enabledBoolean = HDLmJson.getJsonBoolean(jsonElement, "nodeEnabled");
 		if (enabledBoolean == null)
 			enabledBoolean = false;
@@ -1319,7 +1320,7 @@ public class HDLmNodeIden {
 			HDLmJson.setJsonString(jsonElement, "innertext", innerString);
 	}
 	/* Set the node identifier enablement status to a null value */
-	protected void         setNodeEnabledNull() {
+	protected void         setNodeIdenEnabledNull() {
 		this.nodeEnabled = null;
 	}
 }

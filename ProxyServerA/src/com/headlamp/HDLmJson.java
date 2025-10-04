@@ -495,7 +495,7 @@ public class HDLmJson {
 	   and if the object contains the desired key. This routine will
 	   return a null value if the desired key cannot be found in the JSON.
 	   This routine will fail if the JSON is not a JSON object. */ 
-	public static JsonObject getJsonObject(JsonElement jsonElement, String key) {
+	public static JsonObject  getJsonObject(JsonElement jsonElement, String key) {
 	  /* Check if the JSON element passed by the caller is null */	 
 		if (jsonElement == null) {
 	    String  errorText = "JSON element passed to getJsonObject is null";

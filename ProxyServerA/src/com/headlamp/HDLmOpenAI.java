@@ -181,8 +181,10 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmOpenAI.class);
     /* HDLmJson.addStringToJsonObject(parentJsonObject, "model", "gpt-3.5-turbo-0613"); */ 
     /* HDLmJson.addStringToJsonObject(parentJsonObject, "model", "gpt-3.5-turbo-1106"); */  
 		/* HDLmJson.addStringToJsonObject(parentJsonObject, "model", "gpt-3.5-turbo-0613"); */  
-    /* HDLmJson.addStringToJsonObject(parentJsonObject, "model", "gpt-4"); */
-    HDLmJson.addStringToJsonObject(parentJsonObject, "model", "gpt-4-turbo");
+    /* HDLmJson.addStringToJsonObject(parentJsonObject, "model", "gpt-4"); */		
+		/* Get the Open AI GPT model from the configuration values */ 
+		String  apiGptModel = HDLmConfigInfo.getOpenAIApiGptModel();		
+    HDLmJson.addStringToJsonObject(parentJsonObject, "model", apiGptModel);
     HDLmJson.addNumberToJsonObject(parentJsonObject, "temperature", 0.9);  
     /* Add the path value string to the URL, if need be */
     int   pathValueStrLen = pathValueStr.length();
@@ -373,7 +375,7 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmOpenAI.class);
 	  return outResponse;
 	}
 	/* Get a list of image variations from some output (output of Open AI) JSON */
-	protected static ArrayList<String> getImageVariations(String  outputJson) {
+	protected static ArrayList<String>  getImageVariations(String outputJson) {
 		/* Check one or more values passed by the caller */
 		if (outputJson == null) {
 			String   errorText = "Output JSON string reference passed to getImageVariations is null";
@@ -425,8 +427,7 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmOpenAI.class);
 				continue;
 			String  imageStr = HDLmJson.getJsonString(dataArrayElement, key); 
 			imageVariantsList.add(imageStr);			
-		}	  
-	  
+		}	  	  
 		/* Return the image variations list to the caller */
 		return imageVariantsList;
 	}

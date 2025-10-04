@@ -187,36 +187,81 @@ public class HDLmMainServlet extends HttpServlet {
 	        invokeApiCheck = true;
 				}
 			}
-			/* We assume that the current request is not a set
-			   test mode on or off request. Set test mode requests
-			   are sent to the server.    */
+			/* We assume that the current request is not a set test 
+			   mode on or off request. Set test mode requests are 
+			   sent to the server. */
 			boolean   setTestCheck = false;
 			if (httpType == HDLmHttpTypes.POST) {
-		    /* Get the name used for set test mode off posts.
-		       The name is used in several places. As a 
-		       consequence, the name is maintained as a 
-		       define value. */
-	      String  setTestModeOffName = HDLmDefines.getString("HDLMBUILDRULESSETTESTOFF");
-		    if (setTestModeOffName == null) {
-		   	  String   errorFormat = "Define value for set test mode off name not found (%s)";
+		    /* Get the name used for build rules set test mode off posts.
+		       The name is used in several places. As a consequence, the 
+		       name is maintained as a define value. */
+	      String  setBuildTestModeOffName = HDLmDefines.getString("HDLMBUILDRULESSETTESTOFF");
+		    if (setBuildTestModeOffName == null) {
+		   	  String   errorFormat = "Define value for build rules set test mode off name not found (%s)";
 				  String   errorText = String.format(errorFormat, "HDLMBUILDRULESSETTESTOFF");
 				  HDLmAssertAction(false, errorText);		    	
 		    }		
-		    /* Get the name used for set test mode on posts.
-	         The name is used in several places. As a 
-	         consequence, the name is maintained as a 
-	         define value. */
-	      String  setTestModeOnName = HDLmDefines.getString("HDLMBUILDRULESSETTESTON");
-		    if (setTestModeOnName == null) {
-		   	  String   errorFormat = "Define value for set test mode on name not found (%s)";
+		    /* Get the name used for build rules set test mode on posts.
+	         The name is used in several places. As a consequence, the 
+	         name is maintained as a define value. */
+	      String  setBuildTestModeOnName = HDLmDefines.getString("HDLMBUILDRULESSETTESTON");
+		    if (setBuildTestModeOnName == null) {
+		   	  String   errorFormat = "Define value for build rulesset test mode on name not found (%s)";
 				  String   errorText = String.format(errorFormat, "HDLMBUILDRULESSETTESTON");
 				  HDLmAssertAction(false, errorText);		    	
 		    }
 		    /* Check if this is a request to invoke an API */
-				if (pathValueString.equals("/" + setTestModeOffName) || 
-						pathValueString.equals("/" + setTestModeOnName)) {
-	         setTestCheck = true;
+				if (pathValueString.equals("/" + setBuildTestModeOffName) || 
+						pathValueString.equals("/" + setBuildTestModeOnName)) {
+	        setTestCheck = true;
 				}
+			}
+			/* We assume that the current request is not a set test 
+		     mode on or off request. Set test mode requests are 
+		     sent to the server. */		 
+		  if (httpType == HDLmHttpTypes.POST) {
+	      /* Get the name used for manage rules set test mode off posts.
+	         The name is used in several places. As a consequence, the 
+	         name is maintained as a define value. */
+        String  setManageTestModeOffName = HDLmDefines.getString("HDLMMANAGERULESSETTESTOFF");
+		    if (setManageTestModeOffName == null) {
+		   	  String   errorFormat = "Define value for manage rules set test mode off name not found (%s)";
+				  String   errorText = String.format(errorFormat, "HDLMMANAGERULESSETTESTOFF");
+				  HDLmAssertAction(false, errorText);		    	
+		    }		
+		    /* Get the name used for manage rules set test mode on posts.
+	         The name is used in several places. As a consequence, the 
+	         name is maintained as a define value. */
+	      String  setManageTestModeOnName = HDLmDefines.getString("HDLMMANAGERULESSETTESTON");
+		    if (setManageTestModeOnName == null) {
+		   	  String   errorFormat = "Define value for manage rulesset test mode on name not found (%s)";
+				  String   errorText = String.format(errorFormat, "HDLMMANAGERULESSETTESTON");
+				  HDLmAssertAction(false, errorText);		    	
+		    }
+		    /* Check if this is a request to invoke an API */
+				if (pathValueString.equals("/" + setManageTestModeOffName) || 
+						pathValueString.equals("/" + setManageTestModeOnName)) {
+	        setTestCheck = true;
+				}
+		  }
+			/* We assume that the current request is not a build
+		     cookie request. Build cookie requests are sent to
+		     the server. */
+		  boolean   buildCookieCheck = false;
+			if (httpType == HDLmHttpTypes.POST) {
+				/* Get the name used for manage rules build cookie posts. The    
+           name is used in several places. As a consequence, the 
+           name is maintained as a define value. */
+        String  setManageBuildCookieName = HDLmDefines.getString("HDLMMANAGERULESBUILDCOOKIE");
+        if (setManageBuildCookieName == null) {
+	        String   errorFormat = "Define value for manage rules build cookie name not found (%s)";
+	        String   errorText = String.format(errorFormat, "HDLMMANAGERULESBUILDCOOKIE");
+	        HDLmAssertAction(false, errorText);		    	
+        }  	  				
+	      /* Check if this is a request to build a cookie */
+	  		if (pathValueString.equals("/" + setManageBuildCookieName)) {
+          buildCookieCheck = true;
+		  	}
 			}
 			/* We assume that the current request is not for a set
 			   of options. Most of the time that is true. However,
@@ -317,6 +362,7 @@ public class HDLmMainServlet extends HttpServlet {
 					specialPostCheck     == false &&
 					invokeApiCheck       == false &&
 					setTestCheck         == false &&
+					buildCookieCheck     == false &&
 					httpOptionsCheck     == false &&
 					bridgeRequestCheck   == false) {
 				if (httpType == HDLmHttpTypes.GET) {
@@ -443,6 +489,18 @@ public class HDLmMainServlet extends HttpServlet {
 											          pathValueString);
 				break;	 
 			}	
+			/* Check if this is a build cookie operation that must be handled
+	       by this server and not sent to the actual backend host. This
+	       will be true, if the browser is trying to build a cookie that           
+	       contains userid and password information (and possibly other
+	       information as well). */   
+			if (buildCookieCheck == true) { 	
+				HDLmJetty.handleBuildCookie(request, 
+											              response,
+											              requestPostPayload,
+											              pathValueString);
+				break;	 
+			}
 			/* Check if this is a request for the generated JavaScript program.
 			   In some (quite important) cases, each web page will request a 
 			   copy of this JavaScript program by sending a request to server. */

@@ -17,6 +17,7 @@ import org.eclipse.jetty.http.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -174,7 +175,7 @@ public class HDLmSecurity {
 		/* Check if an output area was passed to this routine, if not
 		   get an output area from the memory database */
 		if (outputArea == null)
-	    outputArea = HDLmSecurity.getInformation(userNameStr);
+	    outputArea = HDLmSecurity.getInformationMemory(userNameStr);
 		/* Try to get the last time string from the output area */
 		if (outputArea != null) 
 	    lastTimeStr = outputArea.getLastTimeValue();
@@ -189,7 +190,7 @@ public class HDLmSecurity {
       Duration  duration = Duration.between(instantLastTime, instantNow);
       long      durationSeconds = duration.getSeconds();
       /* Check if duration shows that the last time is still valid */
-			int       validForSeconds = HDLmConfigInfo.getScopeValidForSeconds();
+			int       validForSeconds = HDLmConfigInfo.getMemoryEntryValidForSeconds();
 			if (durationSeconds <= (long) validForSeconds)
 				lastTimeFailure = false; 
 			break;
@@ -200,17 +201,17 @@ public class HDLmSecurity {
 	   memory database. This may or may not be true. Note that if the
 	   user name is not found in the memory database, then a no match
 	   value is returned to the caller. */ 
-	protected static boolean  checkMatchingUsernamePassword(final String userNameStr, 
-			                                                    final String passedPasswordStr,
-			                                                    final boolean traceCheck) {
+	protected static boolean  checkMemoryMatchingUsernamePassword(final String userNameStr, 
+			                                                          final String passedPasswordStr,
+			                                                          final boolean traceCheck) {
 		/* Check if the user name string passed by the caller is null */
 		if (userNameStr == null) {
-			String  errorText = "User name string passed to checkMatchingUsernamePassword is null";
+			String  errorText = "User name string passed to checkMemoryMatchingUsernamePassword is null";
 			throw new NullPointerException(errorText);
 		}
 		/* Check if the passed password string passed by the caller is null */
 		if (passedPasswordStr == null) {
-			String  errorText = "Password string passed to checkMatchingUsernamePassword is null";
+			String  errorText = "Password string passed to checkMemoryMatchingUsernamePassword is null";
 			throw new NullPointerException(errorText);
 		}
 	  /* Declare and define a few values */
@@ -220,12 +221,12 @@ public class HDLmSecurity {
 		  /* Build the JSON strings used as the key and value */
 		  String  jsonKeyStr = "{\"Type\":\"Username\",\"Value\":\"" + userNameStr + "\"}"; 
 		  if (traceCheck) {
-		  	LOG.info("In HDLmSecurity.checkMatchingUsernamePassword - jsonKeyStr");
+		  	LOG.info("In HDLmSecurity.checkMemoryMemoryMatchingUsernamePassword - jsonKeyStr");
 		  	LOG.info(jsonKeyStr);
 		  }
 		  String  jsonValueStr = HDLmMemoryStorage.get(jsonKeyStr);
 		  if (traceCheck) {
-		  	LOG.info("In HDLmSecurity.checkMatchingUsernamePassword - jsonValueStr");
+		  	LOG.info("In HDLmSecurity.checkMemoryMatchingUsernamePassword - jsonValueStr");
 		  	LOG.info(jsonValueStr);
 		  }
 		  /* The map might not contain the user name string */
@@ -237,7 +238,7 @@ public class HDLmSecurity {
 	    JsonElement   jsonElement = parser.parse(jsonValueStr);
 		  /* Check if the JSON message passed by the caller is valid */
 			if (!jsonElement.isJsonObject()) {
-		 	  String  errorText = "JSON string in checkMatchingUsernamePassword for check match is invalid";
+		 	  String  errorText = "JSON string in checkMemoryMatchingUsernamePassword for check match is invalid";
 		 	  HDLmAssertAction(false, errorText);
 		  }
 			/* The code below isn't really used at this time. Instead, we rely on
@@ -256,7 +257,7 @@ public class HDLmSecurity {
 	    if (memoryPasswordStr == null)
 	    	break;
 		  if (traceCheck) {
-		  	LOG.info("In HDLmSecurity.checkMatchingUsernamePassword - memoryPasswordStr");
+		  	LOG.info("In HDLmSecurity.checkMemoryMatchingUsernamePassword - memoryPasswordStr");
 		  	LOG.info(memoryPasswordStr);
 		  }
 	    /* Check if the password values match */
@@ -903,10 +904,10 @@ public class HDLmSecurity {
 	   The caller is assumed to provide the user name string. The user
 	   name string is used as the key. If the data is not available,
 	   then the output area will not contain the extracted values. */ 
-	protected static HDLmUtilityResponse  getInformation(final String userNameStr) {
+	protected static HDLmUtilityResponse  getInformationMemory(final String userNameStr) {
 		/* Check some values passed by the caller */ 	 
 		if (userNameStr == null) {
-		  String   errorText = "User name string reference is null in getInformation";
+		  String   errorText = "User name string reference is null in getInformationMemory";
 			HDLmAssertAction(false, errorText);		    	
 	  }	
 		/* Create the output area, that is returned to the caller */
@@ -921,9 +922,9 @@ public class HDLmSecurity {
 				break;
 			/* Build the JSON strings used as the key and value */
 			String  jsonKeyStr = "{\"Type\":\"Username\",\"Value\":\"" + userNameStr + "\"}"; 
-			/* LOG.info("In getInformation jsonKeyStr - " + jsonKeyStr); */
+			/* LOG.info("In getInformationMemory jsonKeyStr - " + jsonKeyStr); */
 			String  jsonValueStr = HDLmMemoryStorage.get(jsonKeyStr);
-			/* LOG.info("In getInformation jsonValueStr - " + jsonValueStr); */
+			/* LOG.info("In getInformationMemory jsonValueStr - " + jsonValueStr); */
 			/* The map might not contain the user name string */
 			if (jsonValueStr == null)
 				break;
@@ -933,7 +934,7 @@ public class HDLmSecurity {
 	    JsonElement   jsonValueJson = parser.parse(jsonValueStr);
 		  /* Check if the JSON string is valid or not */
 			if (!jsonValueJson.isJsonObject()) {
-		 	  String  errorText = "JSON string from memory database in getInformation is invalid";
+		 	  String  errorText = "JSON string from memory database in getInformationMemory is invalid";
 		 	  HDLmAssertAction(false, errorText);
 		  }
 			/* We can now get a few values from the JSON object */
@@ -1129,6 +1130,86 @@ public class HDLmSecurity {
     String  outJson = gsonInstance.toJson(respondMap);
     return outJson;
   }
+	/* This routine gets a scope string for the current user. The user name string
+	   is passed by the caller. The scope string is obtained by making a network API
+	   all to AWS Cognito. */
+	protected static String  getScopeString(final String userPoolId,
+  		                                    final String userNameStr) {
+		/* Check if the user pool Id string passed by the caller is null */
+		if (userPoolId == null) {
+			String  errorText = "UserPoolId string passed to getScopeString is null";
+			throw new NullPointerException(errorText);
+		}
+		/* Check if the user name string passed by the caller is null */
+		if (userNameStr == null) {
+			String  errorText = "User name string passed to getScopeString is null";
+			throw new NullPointerException(errorText);
+		}
+		/* Set the initial scope string to null */
+		String  scopeStr = null;
+    /* Get some information about the current user, using the Cognito network API */	
+    HDLmApacheResponse  outResponseGetUser;
+    outResponseGetUser = HDLmSecurity.getUser(userPoolId,
+  	  	                                      userNameStr);  
+    /* Check if the output area returned by getUser is null */
+    if (outResponseGetUser == null) {
+  	  String   errorText = "Output area from getUser is null in getScopeString";
+  	  HDLmAssertAction(false, errorText);
+    }
+    /* Get and check the HTTP status code returned by getUser */
+    int  outStatusCode = outResponseGetUser.getStatusCode();
+    if (outStatusCode != HttpStatus.OK_200)
+			return scopeStr;    
+    /* Create a new JSON parser for use below */
+    JsonParser  parser = new JsonParser();  
+    JsonElement outArea = parser.parse(outResponseGetUser.getStringContent());
+    /* Check if the JSON string obtained from the out area token is valid */
+	  if (!outArea.isJsonObject()) {
+ 	    String  errorText = "JSON obtained from the output area in getScopeString is invalid";
+ 	    HDLmAssertAction(false, errorText);
+    }
+	  boolean   hasUserAttributesKey = HDLmJson.hasJsonKey(outArea, "UserAttributes");
+		if (hasUserAttributesKey == false) {
+			String  errorText = "Inbound JSON data does not have UserAttributes key";
+			HDLmAssertAction(false, errorText);
+		}
+		JsonArray   userAttributesArray = HDLmJson.getJsonArray(outArea, "UserAttributes");
+	  /* Check if the JSON array is valid or not */
+		if (!userAttributesArray.isJsonArray()) {
+	 	  String  errorText = "JSON array in getScopeString is invalid";
+	 	  HDLmAssertAction(false, errorText);
+	  }
+		int       userAttributesArrayLen = userAttributesArray.size();
+		/* Convert the JSON node path array to a standard Java ArrayList */
+		for (int j = 0; j < userAttributesArrayLen; j++) {
+			/* Get the current entry in the JSON array */
+			JsonElement  userAttributesArrayEntry = userAttributesArray.get(j);
+			/* Make sure the entry has a Name property */
+	    boolean   hasNameKey = HDLmJson.hasJsonKey(userAttributesArrayEntry, "Name");
+			if (hasUserAttributesKey == false) {
+				String  errorText = "JSON array entry does not have Name key";
+				HDLmAssertAction(false, errorText);
+			}
+			/* Get the actual name and check it */
+			String  nameValue = HDLmJson.getJsonString(userAttributesArrayEntry, "Name");
+			if (!nameValue.contentEquals("custom:Scope"))
+				continue;
+			/* Make sure the entry has a Value property */
+	    boolean   hasValueKey = HDLmJson.hasJsonKey(userAttributesArrayEntry, "Value");
+			if (hasUserAttributesKey == false) {
+				String  errorText = "JSON array entry does not have Value key";
+				HDLmAssertAction(false, errorText);
+			}
+			/* Get the actual value for the scope */
+			scopeStr = HDLmJson.getJsonString(userAttributesArrayEntry, "Value");
+			break;
+		}
+		if (scopeStr == null) {
+	 	  String   errorText = "Scope string from Curl response is null in getScopeString";
+			HDLmAssertAction(false, errorText);		    	
+	  }
+		return scopeStr;
+  }  
   /* This routine returns the current date and time in a format
      that AWS Cognito likes. The returned value is used to build
      a header, but could be used for anything. */ 
@@ -1225,6 +1306,16 @@ public class HDLmSecurity {
 	  }
 		/* Create the new utility response area */
 		HDLmUtilityResponse  utilityResponse = new HDLmUtilityResponse();
+		/* Get the status code from the Apache response. If the status
+		   code is unexpected, then we have no more work to do. The 
+		   response will not contain many of the keys we expect. */ 
+		int   localStatusCode = outResponse.getStatusCode();
+		if (localStatusCode != HttpStatus.OK_200) {
+			/* Store the HTTP/S status code in the utility response 
+			   and return to the caller */ 
+			utilityResponse.setExitCode(localStatusCode);
+			return utilityResponse;			
+		}		
     boolean       hasAuthResultsKey = HDLmJson.hasJsonKey(jsonElement, "AuthenticationResult");
 		if (hasAuthResultsKey == false) {
 			String  errorText = "Response JSON data does not have AuthenticationResult key";

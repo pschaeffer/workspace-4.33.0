@@ -321,6 +321,12 @@ public class HDLmChange {
 			if (infoObject == null && 
 					infoObject != null)
 				continue;			
+			/* Check if we really have an info object or not. We
+			   may not have an info object if we are changing 
+			   something other than info. For example, we may be
+			   changing the report value. */
+			if (infoObject == null)
+				continue;
 			/* Check if the JSON object is valid or not */
 			if (!infoObject.isJsonObject()) {
 		 	  String  errorText = "JSON object in recordChangeWeb is invalid";

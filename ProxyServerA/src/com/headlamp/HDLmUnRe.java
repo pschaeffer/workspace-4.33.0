@@ -96,7 +96,7 @@ public class HDLmUnRe {
 	/* The next field shows what type of operation the undo/redo object is
 	   associated with. Note that this is the original type of operation.
 	   This type of operation has to be reversed for an undo. */
-  private HDLmDatabaseTypes           unReDatabaseOperationType = null; 
+  private HDLmDatabaseOperationTypes  unReDatabaseOperationType = null; 
   /* The next field contain the change number associated with this undo/redo
 	   operation. This is the change number that is used to undo the operation.
 	   This number will alway be a positive integer. */
@@ -110,7 +110,7 @@ public class HDLmUnRe {
      instance on the undo/redo chain. */
   protected HDLmUnRe(final HDLmSystemTypes systemType,
   		               final String systemName,
-  		               final HDLmDatabaseTypes databaseOperationType,
+  		               final HDLmDatabaseOperationTypes databaseOperationType,
   		               final int changeNumber,
   		               final ArrayList<HDLmDatabaseRow> rowList) {
 		/* Check a few values passed by the caller */
@@ -131,7 +131,7 @@ public class HDLmUnRe {
 			String  errorText = "Database operation type  passed to undo/redo constructor is null";
 			throw new NullPointerException(errorText);
 		}
-		if (databaseOperationType == HDLmDatabaseTypes.NONE) { 
+		if (databaseOperationType == HDLmDatabaseOperationTypes.NONE) { 
 		  String  errorFormat = "Database operation type (%s) value passed to undo/redo constructor is invalid";
 		  String  errorText = String.format(errorFormat, databaseOperationType.toString());
 		  throw new IllegalArgumentException(errorText); 
@@ -324,7 +324,7 @@ public class HDLmUnRe {
 		/* Process all the element in the undo/redo chain */
 		while (true) {
 			/* Check for a delete operation */
-			if (unReNext.unReDatabaseOperationType == HDLmDatabaseTypes.DELETE) {
+			if (unReNext.unReDatabaseOperationType == HDLmDatabaseOperationTypes.DELETE) {
 				/* Build the set of columns to be inserted */
 				HashSet<String>   insertRowKeys = new HashSet<String>();
 				/* Check if the insert row keys set was properly allocated */ 
@@ -343,7 +343,7 @@ public class HDLmUnRe {
 						                                 unReNext.unReSystemName);
 			}
 			/* Check for an insert operation */
-			if (unReNext.unReDatabaseOperationType == HDLmDatabaseTypes.INSERT) {
+			if (unReNext.unReDatabaseOperationType == HDLmDatabaseOperationTypes.INSERT) {
 				if (unReNext.unReRowList.size() > 0)
 			  	HDLmDatabase.deleteTableRowsSystem(unReNext.unReRowList, 
                                              unReNext.unReSystemName);

@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -44,7 +46,80 @@ public class HDLmDatabase {
 	   updated. */ 
   private static boolean  rulesHaveBeenUpdated = false;
     /* This class can never be instantiated */
-	private HDLmDatabase() {}	    
+	private HDLmDatabase() {}	
+	/* Check if a database row is valid or not. True is returned if the
+	   row is valid. False is returned if the row is invalid. */  
+	protected static boolean  checkDatabaseRow(final HDLmDatabaseRow databaseRow) {
+		/* Check if the database row structure passed by the caller is null */
+		if (databaseRow == null) {
+			String  errorText = "Database row structure passed to checkDatabaseRow is null";
+			throw new NullPointerException(errorText);
+		}
+		boolean   rv = true;
+		return rv;
+	}	
+	/* Check if a set of database rows are valid or not. True is returned
+	   if all of the rows are valid. False is returned if any of the rows
+	   are invalid. */ 
+	protected static boolean  checkDatabaseRows(final HDLmDatabaseRows databaseRows) {
+		/* Check if the database rows structure passed by the caller is null */
+		if (databaseRows == null) {
+			String  errorText = "Database rows structure passed to checkDatabaseRows is null";
+			throw new NullPointerException(errorText);
+		}
+		/* Check if all of the database rows are valid */
+		boolean   rv = true;
+		ArrayList<HDLmDatabaseRow>  rowList = null;
+		rowList = databaseRows.getData();
+		for (HDLmDatabaseRow databaseRow : rowList) {
+			boolean   localRowValid = HDLmDatabase.checkDatabaseRow(databaseRow);
+			if (localRowValid == false) {
+				/* Set the final return value to false */ 
+				rv = false;
+			  break;
+			}
+	  }	 
+		return rv;
+	}	 
+	/* Check if a set of database rows are valid or not. True is returned
+	   if all of the rows are valid. False is returned if any of the rows
+	   are invalid. Invalid rows are deleted from the database and from the
+	   row structure. */ 
+	protected static boolean  checkDatabaseRowsUpdate(final HDLmDatabaseRows databaseRows,
+			                                              final String tableName) {
+		/* Check if the database rows structure passed by the caller is null */
+		if (databaseRows == null) {
+			String  errorText = "Database rows structure passed to checkDatabaseRowsUpdate is null";
+			throw new NullPointerException(errorText);
+		}
+		/* Check if the table name string value passed by the caller is null */
+		if (tableName == null) {
+			String  errorText = "Table name string passed to checkDatabaseRowsUpdate is null";
+			throw new NullPointerException(errorText);
+		}
+		/* Check if all of the database rows are valid and remove invalid rows */
+		boolean   rv = true;
+		/* Get all of the database rows */
+		ArrayList<HDLmDatabaseRow>  rowList = null;
+		rowList = databaseRows.getData();
+		Iterator<HDLmDatabaseRow>  rowListIterator = rowList.iterator(); 
+		/* Check if any more rows are available */
+		while (rowListIterator.hasNext()) {
+			/* Get and check the next database row */
+			HDLmDatabaseRow   databaseRow = rowListIterator.next();
+			boolean   localRowValid = HDLmDatabase.checkDatabaseRow(databaseRow);
+			if (localRowValid == true)
+			  continue;
+			/* The current row is not valid */  
+			rv = false;
+			/* Remove the row from the database */ 
+			ArrayList<HDLmDatabaseRow>  rowListOfOne = new ArrayList<HDLmDatabaseRow>(List.of(databaseRow));
+			HDLmDatabase.deleteTableRows(rowListOfOne, tableName); 
+			/* Remove the row from the ArrayList */
+			rowListIterator.remove();			 
+	  }	 
+		return rv;
+	}	 
 	/* Delete a set of rows from the rules (modifications) table using a set 
 	   of row ID values passed by the caller. Each of the rows to be deleted
 	   has an ID value that was return to  the caller. The ID value is 
@@ -136,10 +211,10 @@ public class HDLmDatabase {
 	}
 	/* Delete a set of rows in the rules (modifications) table using the 
 	   JSON string passed by the caller. The JSON string passed to this
-	   routine must have the row ID for each row that is to be deleteed. */
+	   routine must have the row ID for each row that is to be deleted. */
 	protected static String  deleteTableRowsJson(final String jsonStr, 
 			                                         final String tableName) {
-		/* Check if the json string value passed by the caller is null */
+		/* Check if the JSON string value passed by the caller is null */
 		if (jsonStr == null) {
 			String  errorText = "Json string value passed to deleteTableRowsJson is null";
 			throw new NullPointerException(errorText);
@@ -226,7 +301,10 @@ public class HDLmDatabase {
 		/* Delete all of the rows */
 		HDLmDatabase.deleteTableRows(localRowList, tableName); 		
 		/* Build a new database reply instance */
-		databaseReply = new HDLmDatabaseReply(localRowIdList, 1);
+		/* The database return code used to be set to 1. Why is
+		   not clear. Now the return code is always set to 0. */
+		/* databaseReply = new HDLmDatabaseReply(localRowIdList, 1); */
+		databaseReply = new HDLmDatabaseReply(localRowIdList, 0); 
 		if (databaseReply == null) {
 	 	  String   errorText = "Local reply instance is null in deleteTableRowsJson";
 			HDLmAssertAction(false, errorText);		    	
@@ -489,10 +567,157 @@ public class HDLmDatabase {
 	   not an error. If the lock is already held, then the lock count
 	   is incremented. The 'after' lock hold count is returned to the 
 	   caller. */ 
-	protected static int  getDatabaseLock() {
+	protected static int   getDatabaseLock() {
 		databaseLock.lock();
 		return databaseLock.getHoldCount();
-	}	  
+	}	 	 
+	/* Get a set of rows from the rules (modifications) table using the 
+	   content value passed by the caller. The content string passed
+ 	   to this routine must be be a full content string such as
+	  'config_javaa' (without the quotes). The content string can 
+	   be null. The scope array is passed to this routine to filter
+	   the rows returned by this routine. The scope array value may 
+	   be null. This allows unrestricted access to table rows. */
+	@SuppressWarnings({ "unused" })
+	protected static HDLmDatabaseRows  getDatabaseRows(final String contentStr,
+			                                               final String tableName,
+			                                               final ArrayList<ArrayList<String>> scopeArray) {
+		/* Check if the content string value passed by the caller is null.
+		 * This version of the code, allows the content string to be null. */
+		if (contentStr == null &&
+				contentStr != null) {
+			String  errorText = "Content value string passed to getDatabaseRows is null";
+			throw new NullPointerException(errorText);
+		}	
+		/* Check if the table name string value passed by the caller is null */
+		if (tableName == null) {
+			String  errorText = "Table name string passed to getDatabaseRows is null";
+			throw new NullPointerException(errorText);
+		}
+		/* Check if the scope array value passed by the caller is null */
+		/* The check below is not OK in all cases, the scope array can 
+	   be null in some cases. This is not an error. */ 
+	  /*
+		if (scopeArray == null) {
+			String  errorText = "Scope array passed to getTableRows is null";
+			throw new NullPointerException(errorText);
+		}
+		*/
+		/* Get the database lock. This lock is not freed until the
+	     table rows are read. This step prevents other database 
+	     reads from happening until the lock is freed. */
+		boolean   databaseLockObtained = false;
+	  HDLmDatabase.getDatabaseLock();	
+	  databaseLockObtained = true;
+		/* Try to get some information (a list of companies) from the scope array */
+		ArrayList<String>  scopeArrayEntry = null;
+		int                scopeArrayLen = 0;
+	  int                scopeArrayEntryLen = 0;
+	  if (scopeArray != null) {
+		  scopeArrayLen = scopeArray.size();
+		  if (scopeArrayLen > 0) 
+			  scopeArrayEntry = scopeArray.get(0);
+		  if (scopeArrayEntry != null)
+			  scopeArrayEntryLen = scopeArrayEntry.size();	  	
+	  }
+		/* Declare/define a few variables */
+		Connection      localConnection = null;
+		ResultSet       localResultSet = null;
+		Statement       localStatement = null;
+		StringBuilder   sqlBuilder = new StringBuilder();
+		String          sqlStr = "";
+		String          database = HDLmConfigInfo.getEntriesDatabaseDatabaseName();
+		/* Allocate the row structure that is returned to the caller */
+		HDLmDatabaseRows  databaseRows = new HDLmDatabaseRows();
+		if (databaseRows == null) {
+	    String   errorText = "Rows structure is null in getDatabaseRows";
+			HDLmAssertAction(false, errorText);		    	
+	  }
+		/* Get a statement that can be used to execute SQL */
+		localConnection = HDLmHikariPool.getConnectionHikari();
+		if (localConnection == null) {
+		  String   errorText = "Returned connection is null in getDatabaseRows";
+			HDLmAssertAction(false, errorText);		    	
+	  }
+		localStatement = HDLmDatabase.getStatement(localConnection);
+		if (localStatement == null) {
+	    String   errorText = "Returned statement is null in getDatabaseRows";
+			HDLmAssertAction(false, errorText);		    	
+	  }
+		/* Build the SELECT that is executed below */
+		sqlBuilder.append("SELECT info, content, name, id, company, report from "); 
+		sqlBuilder.append(database);
+		sqlBuilder.append('.');
+		sqlBuilder.append(tableName);
+		/* Check if we need to build a WHERE clause */ 
+		if (contentStr != null) {
+			sqlBuilder.append(" WHERE content = '");
+			sqlBuilder.append(contentStr);
+			sqlBuilder.append('\'');
+		}	
+		/* Check if the WHERE clause should limit access to a set of companies */
+		if (scopeArrayEntryLen > 0) {
+			sqlBuilder.append(" AND (company IS NULL");
+			for (int i = 0; i < scopeArrayEntryLen; i++) {
+				sqlBuilder.append(" OR LOCATE('");
+				sqlBuilder.append(scopeArrayEntry.get(i));
+				sqlBuilder.append('\'');
+				sqlBuilder.append(", company) > 0");				
+			}			
+			sqlBuilder.append(")");
+		}
+		/* Get the final SQL string */
+		sqlStr = sqlBuilder.toString();
+		/* Execute the SQL */
+		localResultSet = HDLmDatabase.executeSqlQuery(localStatement, sqlStr);
+		if (localResultSet == null) {
+		  String   errorText = "Returned result set is null in getDatabaseRows";
+			HDLmAssertAction(false, errorText);		    	
+	  }
+		/* Process all of the rows in the result set */
+		try {
+	  while (localResultSet.next()) { 
+	    /* Get some information for the current row */
+	    String  localInfo = localResultSet.getString("info");
+	    String  localContent = localResultSet.getString("content");
+	    String  localName = localResultSet.getString("name");
+	    int     localId = localResultSet.getInt("id");
+	    String  localCompany = localResultSet.getString("company");
+	    String  localReport = localResultSet.getString("report");
+	    /* Build an row object instance with all of the values */
+	    HDLmDatabaseRow   localRow = new HDLmDatabaseRow(localInfo, localContent,
+	    		                                              localName, localId,
+	    		                                              localCompany, localReport);
+			if (localRow == null) {
+	    	String   errorText = "Returned row is null in getDatabaseRows";
+				HDLmAssertAction(false, errorText);		    	
+	    }
+	    databaseRows.addDatabaseRow(localRow);  
+	  }
+	  /* Try to release resources as need be */
+	  localResultSet.close();
+	  if (!localStatement.isClosed())
+	    localStatement.close();
+		}
+	 catch (SQLException sqlException) { 
+			if (contentStr != null)
+			  LOG.info("Content string - " + contentStr);
+			LOG.info("SQLException while executing getDatabaseRows");
+			LOG.info(sqlException.getMessage(), sqlException);
+			HDLmEvent.eventOccurred("SQLException");	
+			databaseRows = null;
+			return null;
+		}
+		/* Release the used connection */
+		if (localConnection != null)
+		  HDLmHikariPool.releaseConnectionHikari(localConnection);
+		/* Free the database lock. This lock is freed when the current 
+	    operation is complete. This step prevents database reads from 
+	    happening until the lock is freed. */
+		if (databaseLockObtained == true)
+	    HDLmDatabase.releaseDatabaseLock();		
+		return databaseRows;
+	}
 	/* Return a flag to the caller, showing if the rules have been 
      updated. This flag is checked to determine if the rules need
      to be reloaded. */
@@ -522,7 +747,7 @@ public class HDLmDatabase {
 			return null;
 		}
 		return localStatement;
-	} 	
+	}	
 	/* Get a set of rows from the rules (modifications) table using the 
 	   content value passed by the caller. The content string passed
 	   to this routine must be be a full content string such as
@@ -1396,7 +1621,10 @@ public class HDLmDatabase {
 			localRowIdObjectList.add(databaseId);
 		}
 		/* Build a new database reply instance */
-		databaseReply = new HDLmDatabaseReply(localRowIdObjectList, 1);
+		/* The database return code used to be set to 1. Why is
+	     not clear. Now the return code is always set to 0. */
+		/* databaseReply = new HDLmDatabaseReply(localRowIdObjectList, 1); */	
+		databaseReply = new HDLmDatabaseReply(localRowIdObjectList, 0);
 		if (databaseReply == null) {
 	 	  String   errorText = "Local reply instance is null in insertTableRowsJson";
 			HDLmAssertAction(false, errorText);		    	
@@ -2058,7 +2286,10 @@ public class HDLmDatabase {
 		/* Update all or some of the rows */
 		HDLmDatabase.updateTableRows(localRowList, jsonKeys, tableName);		
 		/* Build a new database reply instance */
-		databaseReply = new HDLmDatabaseReply(localRowIdList, 1);
+		/* The database return code used to be set to 1. Why is
+	     not clear. Now the return code is always set to 0. */				
+		/* databaseReply = new HDLmDatabaseReply(localRowIdList, 1); */
+		databaseReply = new HDLmDatabaseReply(localRowIdList, 0);
 		if (databaseReply == null) {
 	 	  String   errorText = "Local reply instance is null in updateTableRowsJson";
 			HDLmAssertAction(false, errorText);		    	

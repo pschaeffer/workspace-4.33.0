@@ -871,7 +871,7 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 							                addNodePath, 
 							                jsonElement); 
 			/* Send a success message back to the caller */ 
-			HDLmWebSocketInternalAdapter.sendSuccess(session, null, null);
+			HDLmWebSocketInternalAdapter.sendSuccess(session, null, null, null);
 		  break;
 		}
 	}
@@ -937,7 +937,7 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 							                addNodePath, 
 							                jsonElement); 
 			/* Send a success message back to the caller */
-			HDLmWebSocketInternalAdapter.sendSuccess(session, null, null);
+			HDLmWebSocketInternalAdapter.sendSuccess(session, null, null, null);
 			break;
 		} 
 	}
@@ -1004,7 +1004,7 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 							                addNodePath, 
 							                jsonElement);  
 			/* Send a success message back to the caller */
-			HDLmWebSocketInternalAdapter.sendSuccess(session, null, null);
+			HDLmWebSocketInternalAdapter.sendSuccess(session, null, null, null);
 			break;
 	  }		
 	}
@@ -1051,7 +1051,7 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 							                deleteNodePath, 
 							                jsonElement); 
 			/* Send a success message back to the caller */
-			HDLmWebSocketInternalAdapter.sendSuccess(session, null, null);
+			HDLmWebSocketInternalAdapter.sendSuccess(session, null, null, null);
 			break;
 		}
 	}
@@ -1449,7 +1449,7 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 			/* Invoke a common routine to reload all of the nodes */
 			HDLmMain.reloadNodes();
 			/* Send a success message back to the caller */
-			HDLmWebSocketInternalAdapter.sendSuccess(session, null, null);
+			HDLmWebSocketInternalAdapter.sendSuccess(session, null, null, null);
 			break;
 		}
 	} 
@@ -1485,7 +1485,7 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 			/* Pass the JSON element to another routine for further handling */
 			/* HDLmTree.addTreeNode(jsonElement, hostName); */
 			/* Send a success message back to the caller */
-			HDLmWebSocketInternalAdapter.sendSuccess(session, null, null);
+			HDLmWebSocketInternalAdapter.sendSuccess(session, null, null, null);
 			break;
 		}
 	}
@@ -1595,7 +1595,7 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 			    break;	
 				/* Check if the JSON for the tree object (HDLmTree) is valid or not.
 	 		     This call also check the embedded rule (HDLmMod) inside the JSON. */ 
-			  HDLmResponse  jsonResponse = HDLmTree.checkTreeJsonObj(jsonElement);
+			  HDLmResponse  jsonResponse = HDLmTree.checkTreeJsonObj(jsonElementRule);
 			  int           errorsCount = jsonResponse.getReturnNumber();
 				if (errorsCount > 0) {
 					/* At this point, we must send a standard failure message back
@@ -1618,7 +1618,13 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 			   routine. If we did, then we can just return to the caller
 			   at this point. */ 
 			if (rulesValid == false) 
-				break;			
+				break;
+			/* Build an array list with all of the node IDs */ 
+			ArrayList<String>  nodeIdList = new ArrayList<String>();
+			if (nodeIdList == null) {
+		 	  String   errorText = "Node ID list is null in handleMessageStoreTreeNodes";
+				HDLmAssertAction(false, errorText);		    	
+		  }
 			/* Process each rule */
 			for (int i = 0; i < rulesArraySize; i++) {		
 				JsonElement   jsonElementRule = rulesArrayJson.get(i);
@@ -1634,11 +1640,17 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 			     that is about to be updated. */
 			  HDLmTree  storeNode = HDLmTree.locateTreeNode(HDLmTree.getNodePassTreeTop(), 
 					                                            storeNodePath);
+			  /* LOG.info("In HDLmWebSocketInternalAdapter.handleMessageStoreTreeNode" + storeNodePath.toString()); */
 			  /* Check if the node already exists, if it does not exist, then add it */
 			  if (storeNode == null) {
+			  	/* LOG.info("In HDLmWebSocketInternalAdapter.handleMessageStoreTreeNode - about to store a tree node"); */
 			  	String  hostName = storeNodePath.get(hostNamePathLength - 1);
 					/* Pass the JSON element to another routine for further handling */
-					HDLmTree.addTreeNode(jsonElementRule, hostName, storeNodePath);
+					HDLmTree  newTreeNode = HDLmTree.addTreeNode(jsonElementRule, hostName, storeNodePath);
+					/* Get the node ID from the new tree node and save it for later use */ 
+					String    newNodeId = newTreeNode.getId();
+					nodeIdList.add(newNodeId);
+					/* Get the node ID for the newly added node and add it to the node ID list */
 					/* Log the current change */		  
 					HDLmChange.recordChange(HDLmChangeSourceTypes.CHANGESOURCESOCKETS, 
 									                HDLmChangeTypes.CHANGETYPEADD,
@@ -1650,11 +1662,15 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 				/* Check if any actual work has been done so far. Execute the update 
 				   if no add has been done */
 			  if (workDone == false) {
+			  	/* LOG.info("In HDLmWebSocketInternalAdapter.handleMessageStoreTreeNode - about to update a tree node"); */
 					if (logDebugEnabled)
-					  LOG.debug("In HDLmWebSocketInternalAdapter.handleMessageUpdateTreeNode - about to update tree node");
+					  LOG.debug("In HDLmWebSocketInternalAdapter.handleMessageStoreTreeNode - about to update a tree node");
 					/* LOG.info("In HDLmWebSocketInternalAdapter.handleMessageUpdateTreeNode"); */
 					/* Pass the JSON element to another routine for further handling */
 					HDLmTree.updateTreeNode(storeNode, jsonElementRule);
+					/* Get the node ID from the new tree node and save it for later use */ 
+					String    newNodeId = storeNode.getId();
+					nodeIdList.add(newNodeId);
 					/* Log the current change */		  
 					HDLmChange.recordChange(HDLmChangeSourceTypes.CHANGESOURCESOCKETS, 
 									                HDLmChangeTypes.CHANGETYPEMODIFY,
@@ -1665,7 +1681,7 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 			  }
 			}
 			/* Send a success message back to the caller */
-			HDLmWebSocketInternalAdapter.sendSuccess(session, null, null); 		
+			HDLmWebSocketInternalAdapter.sendSuccess(session, null, null, nodeIdList); 		
 			break;
 		}
 	}
@@ -1693,7 +1709,7 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 			  break;
 			} 
 			/* Send a success message back to the caller */
-			HDLmWebSocketInternalAdapter.sendSuccess(session, null, null);
+			HDLmWebSocketInternalAdapter.sendSuccess(session, null, null, null);
 			break;
 		}
 	} 
@@ -1727,7 +1743,7 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 			  break;
 			} 
 			/* Send a success message back to the caller */
-			HDLmWebSocketInternalAdapter.sendSuccess(session, null, null);
+			HDLmWebSocketInternalAdapter.sendSuccess(session, null, null, null);
 			break;
 		}
 	}
@@ -1792,7 +1808,7 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 			String  contentType = HDLmEditorTypes.PASS.toString();
 			HDLmTree.updateTreePassThru(contentType, hostNameStr, jsonElement); 
 			/* Send a success message back to the caller */
-			HDLmWebSocketInternalAdapter.sendSuccess(session, null, null);
+			HDLmWebSocketInternalAdapter.sendSuccess(session, null, null, null);
 			break;
 		}
 	}
@@ -1861,7 +1877,7 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 							                updateTreeNodePath, 
 							                jsonElement); 
 			/* Send a success message back to the caller */
-			HDLmWebSocketInternalAdapter.sendSuccess(session, null, null);
+			HDLmWebSocketInternalAdapter.sendSuccess(session, null, null, null);
 			break;
 		}
 	} 
@@ -1890,7 +1906,15 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 	   saving some data. What data is not not clear. */
 	@Override
 	public void onWebSocketConnect(Session session) {
+	  /* Build a few variables for use below */
+		int   maxTextMessageSize = 2000000;
 		LOG.info("onWebSocketConnect");
+		/* Set the maximum text message size we will accept to a large value. The
+		   default value is 65536 (64K). This is way too small for our purposes.
+		   The client can send a very large JSON string that contains many rules
+		   that each use scripts. The scripts can be very large. So we need to
+		   accept very large JSON strings. */
+		session.setMaxTextMessageSize(maxTextMessageSize);
 		super.onWebSocketConnect(session);
 		this.session = session;
 	}
@@ -1993,7 +2017,8 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 	@SuppressWarnings("unused")
 	protected static void  sendSuccess(final Session sessionToBeUsed,
 			                               final String successMessage,
-		                                 final Integer successNumber) {
+		                                 final Integer successNumber,
+		                                 final ArrayList<String> successNodeIdList) {
 		/* Check if the session object passed by the caller is null */
 		if (sessionToBeUsed == null) {
 			String errorText = "Session object passed to sendSuccess is null";
@@ -2013,7 +2038,7 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 				throw new IllegalArgumentException(errorText);
 			}
 		/* Build a success JSON string */
-		String  successJson = HDLmUtility.buildResultSuccessJsonString(successNumber);
+		String  successJson = HDLmUtility.buildResultSuccessJsonString(successNumber, successNodeIdList);
 		/* Send the success JSON string back to the client */
 		HDLmWebSocketInternalAdapter.sendString(sessionToBeUsed, successJson);
 		return;

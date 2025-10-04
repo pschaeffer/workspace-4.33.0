@@ -167,7 +167,7 @@ public class HDLmConfig {
 			Map.entry("clustersSampleSize",                   new HDLmConfig(HDLmConfigTypes.INT,     "100")),
 			Map.entry("clustersThreshold",                    new HDLmConfig(HDLmConfigTypes.DOUBLE,  "0.10")),
 		  Map.entry("companyName",                          new HDLmConfig(HDLmConfigTypes.STRING,  "example.com")),
-		  /* The maximum age in seconds for a Cookie. A positive value indicates that the cookie will 
+		  /* The maximum age in seconds for a cookie. A positive value indicates that the cookie will 
 		     expire after that many seconds have passed. Note that the value is the maximum age when 
 		     the cookie will expire, not the cookie's current age. A negative value means that the 
 		     cookie is not stored persistently and will be deleted when the Web browser exits. 
@@ -207,6 +207,8 @@ public class HDLmConfig {
 		  /* Some Dreamtsoft entries follow */		  
 		  Map.entry("entriesDreamtsoftCompanyPrefix",       new HDLmConfig(HDLmConfigTypes.STRING,  "")),
 		  Map.entry("entriesDreamtsoftContentSuffix",       new HDLmConfig(HDLmConfigTypes.STRING,  "java")),
+	    Map.entry("fetchInternetMethodNoSsl",             new HDLmConfig(HDLmConfigTypes.STRING,  "http")),
+	    Map.entry("fetchInternetMethodWithSsl",           new HDLmConfig(HDLmConfigTypes.STRING,  "https")),
 	    Map.entry("fixWebSockets",                        new HDLmConfig(HDLmConfigTypes.BOOLEAN, "true")),
 	    Map.entry("followLocation",                       new HDLmConfig(HDLmConfigTypes.INT,     "30")),
 	    Map.entry("forcePassThru",                        new HDLmConfig(HDLmConfigTypes.BOOLEAN, "false")),
@@ -214,8 +216,10 @@ public class HDLmConfig {
 	    Map.entry("logChangesFileName",                   new HDLmConfig(HDLmConfigTypes.STRING,  "HDLmChanges.log")),
 	    Map.entry("logFileName",                          new HDLmConfig(HDLmConfigTypes.STRING,  "info.log")),
 	    Map.entry("logRuleMatching",                      new HDLmConfig(HDLmConfigTypes.BOOLEAN, "false")),
-	    Map.entry("openAIMaximumStringLength",            new HDLmConfig(HDLmConfigTypes.INT,     "6000")),	
+	    Map.entry("memoryEntryValidForSeconds" ,          new HDLmConfig(HDLmConfigTypes.INT,     "86400")),
+	    Map.entry("openAIApiGptModel",                    new HDLmConfig(HDLmConfigTypes.STRING,  "gpt-4-turbo")),	
 	    Map.entry("openAIApiKeySchaeffer",                new HDLmConfig(HDLmConfigTypes.STRING,  "")),	
+	    Map.entry("openAIMaximumStringLength",            new HDLmConfig(HDLmConfigTypes.INT,     "6000")),	
 	    Map.entry("parametersAccessMethod",               new HDLmConfig(HDLmConfigTypes.STRING,  "cgi-bin/get-set.py?get")),
 	    Map.entry("parametersInternetMethod",             new HDLmConfig(HDLmConfigTypes.STRING,  "http")),
 	    Map.entry("parametersUpdateMethod",               new HDLmConfig(HDLmConfigTypes.STRING,  "cgi-bin/get-set.py?set")),
@@ -228,7 +232,6 @@ public class HDLmConfig {
 	    Map.entry("portNumberWebSocket",                  new HDLmConfig(HDLmConfigTypes.INT,     "8102")),
 	    Map.entry("proxyName",                            new HDLmConfig(HDLmConfigTypes.STRING,  "HDLmProxy.php")),
 	    Map.entry("rateControl",                          new HDLmConfig(HDLmConfigTypes.INT,     "50")),
-	    Map.entry("scopeValidForSeconds" ,                new HDLmConfig(HDLmConfigTypes.INT,     "86400")),
 	    /* The secret key must be exactly 16 bytes long. Apparently, AES requires this */
 	    Map.entry("secretEncryptionKey",                  new HDLmConfig(HDLmConfigTypes.STRING,  "abcd1234efgh5678")),
 	    Map.entry("serverName",                           new HDLmConfig(HDLmConfigTypes.STRING,  "javaproxya.dnsalias.com")),
@@ -416,7 +419,7 @@ public class HDLmConfig {
      configuration value is actually an integer (not a floating-point 
      value or something else). Note that this function returns an int,
      not an Integer. */
-	protected static int   getInteger(String configName) {
+	protected static int   getInteger(final String configName) {
 		/* Check a few values passed by the caller */
 		if (configName == null) {
 			String   errorText = "Configuration name reference passed to getInteger is null";

@@ -175,7 +175,7 @@ public class HDLmApache {
      actual server (not the proxy server). The caller provides the
      header and the new host name. The corrected HTTP header is returned
      to the caller. */
-	protected static String fixHostName(String hostHeader, String newHostName) {
+	protected static String fixHostName(final String hostHeader, final String newHostName) {
 		/* Check if the HTTP host header passed by the caller is null */
 		if (hostHeader == null) {
 			String  errorText = "HTTP Host header passed to fixHostName is null";
@@ -280,7 +280,7 @@ public class HDLmApache {
 		return locationHeader;
 	}	
 	/* Dump all of the headers for an Apache request */
-	protected static void dumpAllHeaders(HttpMessage request) {
+	protected static void dumpAllHeaders(final HttpMessage request) {
 		/* Check if the Apache request passed by the caller is null */
 		if (request == null) {
 			String  errorText = "Apache request passed to dumpAllHeaders is null";
@@ -294,7 +294,7 @@ public class HDLmApache {
 	/* Get all of the headers for an Apache request. The array list of
 	   headers is returned to the caller. Of course, the array list may
 	   be empty (but is probably not empty). */
-	protected static ArrayList<Header> getAllHeaders(HttpMessage request) {
+	protected static ArrayList<Header> getAllHeaders(final HttpMessage request) {
 		/* Check if the Apache request passed by the caller is null */
 		if (request == null) {
 			String  errorText = "Apache request passed to getAllHeaders is null";
@@ -373,8 +373,8 @@ public class HDLmApache {
 			throw new NullPointerException(errorText);
 		}	
 		/* Check if the redirect enum value is supported */
-		if (redirect != HDLmApacheRedirect.DISABLE &&
-        redirect != HDLmApacheRedirect.LAX) {
+		if (redirect != HDLmApacheRedirect.APACHEREDIRECTDISABLE &&
+        redirect != HDLmApacheRedirect.APACHEREDIRECTLAX) {
 			String   errorFormat = "Redirect enum value (%s) passed to performHttpOperation is invalid";
 			String   errorText = String.format(errorFormat, redirect.toString());
 			HDLmAssertAction(false, errorText);			
@@ -611,8 +611,8 @@ public class HDLmApache {
 			throw new NullPointerException(errorText);
 		}	
 		/* Check if the redirect enum value is supported */
-		if (redirect != HDLmApacheRedirect.DISABLE &&
-	      redirect != HDLmApacheRedirect.LAX) {
+		if (redirect != HDLmApacheRedirect.APACHEREDIRECTDISABLE &&
+	      redirect != HDLmApacheRedirect.APACHEREDIRECTLAX) {
 			String   errorFormat = "Redirect enum value (%s) passed to processHttpOperation is invalid";
 			String   errorText = String.format(errorFormat, redirect.toString());
 			HDLmAssertAction(false, errorText);			
@@ -649,7 +649,7 @@ public class HDLmApache {
 		/* Try to run the actual request */
 		try {
 			/* Check how redirects should be handled */
-			if (redirect == HDLmApacheRedirect.DISABLE) {
+			if (redirect == HDLmApacheRedirect.APACHEREDIRECTDISABLE) {
 	 		/* Build and execute the HTTP request. Note that the builder used below
 	 		   disables default redirect handling. We want redirects to flow back to
 	 		   the client so that the client can handle them. */
@@ -657,8 +657,8 @@ public class HDLmApache {
 			}
 			else {
 	 		/* Build and execute the HTTP request. Note that the builder used below
-		       does not disable default redirect handling. The LAX redirect strategy
-		       is enabled instead. */
+		     does not disable default redirect handling. The LAX redirect strategy
+		     is used instead. */
 				closeableHttpClient = HttpClientBuilder.create().setRedirectStrategy(LaxRedirectStrategy.INSTANCE).build(); 
 			}
 			/* The call below was used to build the Apache HTTP client at one time.
@@ -884,7 +884,7 @@ public class HDLmApache {
 	   length is checked. If the length is zero, the Content-Length
 	   header is removed from the message headers. This step is required
 	   to avoid certain errors in the Apache code. */ 
-	protected static int removeContentLengthZero(HttpMessage httpMessage) {		 
+	protected static int removeContentLengthZero(final HttpMessage httpMessage) {		 
 		/* Check if the HTTP message passed by the caller is null */
 		if (httpMessage == null) {
 			String  errorText = "Apache HTTP message passed to removeContentLengthZero is null";
@@ -975,8 +975,8 @@ public class HDLmApache {
 			throw new NullPointerException(errorText);
 		}	
 		/* Check if the redirect enum value is supported */
-		if (redirect != HDLmApacheRedirect.DISABLE &&
-        redirect != HDLmApacheRedirect.LAX) {
+		if (redirect != HDLmApacheRedirect.APACHEREDIRECTDISABLE &&
+        redirect != HDLmApacheRedirect.APACHEREDIRECTLAX) {
 			String   errorFormat = "Redirect enum value (%s) passed to runHttpOperation is invalid";
 			String   errorText = String.format(errorFormat, redirect.toString());
 			HDLmAssertAction(false, errorText);			

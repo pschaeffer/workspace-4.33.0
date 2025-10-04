@@ -36,4 +36,16 @@ public class HDLmDatabaseRows {
 	protected ArrayList<HDLmDatabaseRow>  getData() {
 		return this.data;		
 	}
+	/* This routine adds one database row to the list of database
+	   rows. Some checks are done on the new row. */
+	protected void         addDatabaseRow(final HDLmDatabaseRow newDatabaseRow) {
+		/* Check if the database row value passed by the caller is null */
+		if (newDatabaseRow == null) {
+			String  errorText = "New database row value passed to addDatabaseRow is null";
+			throw new NullPointerException(errorText);
+		}
+		/* Add the new database row */
+		rows_returned++;
+		data.add(newDatabaseRow); 
+	}
 }

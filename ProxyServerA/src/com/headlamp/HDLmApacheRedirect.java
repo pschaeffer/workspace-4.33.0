@@ -11,6 +11,6 @@ package com.headlamp;
    HTTP client should handle redirects */ 
 public enum HDLmApacheRedirect {
 	NONE,
-	DISABLE,
-	LAX
+	APACHEREDIRECTDISABLE,
+	APACHEREDIRECTLAX
 }

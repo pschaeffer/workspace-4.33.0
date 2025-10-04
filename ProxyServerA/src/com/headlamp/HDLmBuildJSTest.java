@@ -64,8 +64,8 @@ class HDLmBuildJSTest {
 		/* Check the modification node details */
 		assertEquals(1, modDetails.getFinds().size(), "Modification finds size must be one"); 
 		assertNotEquals(null, modDetails.getValues(), "Modification values value must not be null"); 
-		assertNotNull(modDetails.getValues(), "Modification values value must not be null"); 
-		assertEquals(true, modDetails.getEnabled(), "Modification enabled value must be true");
+		assertEquals(true, modDetails.getValues().contains("ADD TO CART"), "Modification values must contain 'ADD TO CART'");
+		assertEquals(true, modDetails.getActive(), "Modification must be active");
 		assertEquals(false, modDetails.getPathValueRe(), "Modification path value regex value must be false");
 		assertEquals(HDLmMatchTypes.NONE, modDetails.getPathValueType(), "Modification path value match type must be 'NONE'");
 		assertEquals(HDLmModTypes.TITLE, modDetails.getType(), "Modification type value must be title");
@@ -89,7 +89,7 @@ class HDLmBuildJSTest {
 		String   modJsonExpected = "" + 
 	 	  "{\"find\":[{\"tag\":\"button\",\"attribute\":\"id\",\"value\":\"product-addtocart-button\"}]," +
 		  "\"valuesCount\":2," +
-		  "\"values\":[\"ADD TO CART\",\"TCELESECROFAdd to ala-carte\"],\"enabled\":true,\"pathre\":false,\"type\":" +
+		  "\"values\":[\"ADD TO CART\",\"TCELESECROFAdd to ala-carte\"],\"pathre\":false,\"type\":" +
 		  "\"title\",\"parameter\":9,\"cssselector\":\"\"," +
 		  "\"lastmodified\":null," +
 		  "" +

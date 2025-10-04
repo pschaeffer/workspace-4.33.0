@@ -718,11 +718,11 @@ class HDLmBridgeTest {
 		HDLmDatabaseRow             databaseRow;
 		ArrayList<HDLmDatabaseRow>  databaseRowList;
 		HDLmHttpTypes               type; 
-		HDLmPassThruCompany         localCompany;
-		HDLmPassThruData            localData;
-		HDLmPassThruLists           localLists;
-		HDLmPassThruReports         localReports;
-		HDLmPassThruRules           localRules;
+		HDLmModCompany         localCompany;
+		HDLmModData            localData;
+		HDLmModLists           localLists;
+		HDLmModReports         localReports;
+		HDLmModRules           localRules;
 		HDLmTree                    localTree;
 		HDLmTreeTypes               localType;
 		int                         i;
@@ -799,40 +799,40 @@ class HDLmBridgeTest {
 		  localType = localTree.getType();
 		  switch(localType) {
 			  case COMPANY: {
-					localCompany = new HDLmPassThruCompany(detailsElement);
+					localCompany = new HDLmModCompany(detailsElement);
 					/* The next line is not really needed. The updated rows are deleted
              later in any case. The company is not saved in any case. */	
-					/* localTree.setDetails(localCompany); */
+					/* localTree.setMod(localCompany); */
 			  	break;
 			  }
 			  case DATA: {
-					localData = new HDLmPassThruData(detailsElement);
+					localData = new HDLmModData(detailsElement);
 					/* The next line is not really needed. The updated rows are deleted
 	           later in any case. The data is not saved in any case. */	
-					/* localTree.setDetails(localData); */
+					/* localTree.setMod(localData); */
 			  	break;
 			  }			  
 			  case LISTS: {
-					localLists = new HDLmPassThruLists(detailsElement);
+					localLists = new HDLmModLists(detailsElement);
 					localLists.setIgnoreListsNull();
 					/* The next line is not really needed. The updated rows are deleted
 		         later in any case. The lists are not saved in any case. */	
-					/* localTree.setDetails(localLists); */
+					/* localTree.setMod(localLists); */
 			  	break;
 			  }
 			  case REPORTS: {
-					localReports = new HDLmPassThruReports(detailsElement);
+					localReports = new HDLmModReports(detailsElement);
 					localReports.setReportsNull();
 					/* The next line is not really needed. The updated rows are deleted
 			       later in any case. The reports are not saved in any case. */	
-					/* localTree.setDetails(localReports); */
+					/* localTree.setMod(localReports); */
 			  	break;
 			  }
 			  case RULES: {
-					localRules = new HDLmPassThruRules(detailsElement);
+					localRules = new HDLmModRules(detailsElement);
 					/* The next line is not really needed. The updated rows are deleted
 			       later in any case. The rules are not saved in any case. */	
-					/* localTree.setDetails(localRules); */
+					/* localTree.setMod(localRules); */
 			  	break;
 			  }
 			  default: {

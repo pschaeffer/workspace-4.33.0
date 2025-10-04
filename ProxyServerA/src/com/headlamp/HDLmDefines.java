@@ -25,6 +25,7 @@ public class HDLmDefines {
 	/* Define a few constants for use in our code. Note that the 
 	   JavaScript code has another copy of these values. */
 	private static final Map<String, String> defines = Map.ofEntries(		  
+		Map.entry("HDLMACCESSCOOKIE",                   "HDLmAccessCookie"),
 		Map.entry("HDLMAPICHECKUSERNAMEPASSWORD",       "checkUsernamePassword"),
 		Map.entry("HDLMAPICHECKLASTTIME",               "checkLastTime"),
 		Map.entry("HDLMAPIGETUSER",                     "getUser"),
@@ -89,13 +90,18 @@ public class HDLmDefines {
 	  Map.entry("HDLMLOADPAGEMODNAME",                "load page"),
 	  Map.entry("HDLMLOADPAGEMODNAMEOLD",             "load"),
 	  Map.entry("HDLMLOCALHOST",                      "127.0.0.1"),
-	  Map.entry("HDLMMINPASSNODEPATHLENGTH",          "1"),
+	  Map.entry("HDLMMANAGERULESBUILDCOOKIE",         "HDLmManageRulesBuildCookie"),
+	  /* The next entry does not appear to be in use */
+	  Map.entry("HDLMMANAGERULESJSNAME",              "HDLmManageRulesJs"),
+	  Map.entry("HDLMMANAGERULESSETTESTOFF",          "HDLmManageRulesSetTestOff"),
+	  Map.entry("HDLMMANAGERULESSETTESTON",           "HDLmManageRulesSetTestOn"),
 	  Map.entry("HDLMMAXCHANGES",                     "100"),
 	  Map.entry("HDLMMAXIDENTEXTLEN",                 "20"),
 	  Map.entry("HDLMMAXJSONERRORLEN",                "50"),
 	  Map.entry("HDLMMAXMODNODEPATHLENGTH",           "5"),
 	  Map.entry("HDLMMAXPASSNODEPATHLENGTH",          "7"),
 	  Map.entry("HDLMMAXPARAMETERCOUNT",              "1000"),
+	  Map.entry("HDLMMINPASSNODEPATHLENGTH",          "1"),
 	  Map.entry("HDLMMODS",                           "HDLmMods"),
 	  Map.entry("HDLMNODEPATH",                       "HDLmNodePath"),
 	  Map.entry("HDLMOVERALLNODENAME",                "Overall"),

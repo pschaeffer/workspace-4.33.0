@@ -23,7 +23,7 @@ public class HDLmProcessTreePHash implements HDLmProcessTreeInterface {
 	@Override
 	public void processTreePos(HDLmTree treePos) {
 		/* Check if the current tree position has any details */
-		HDLmMod   treePosDetails = treePos.getDetails();
+		HDLmMod   treePosDetails = treePos.getModFromTree();
 		if (treePosDetails == null)
 		  return;
 		/* Check if the current set of details has a node identifier */ 

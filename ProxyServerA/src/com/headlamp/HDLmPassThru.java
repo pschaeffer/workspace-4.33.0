@@ -60,9 +60,6 @@ public class HDLmPassThru {
 		String  extraString = HDLmJson.getJsonString(jsonElement, "extra");
 		if (extraString == null)
 			extraString = "";
-		Boolean   enabledBoolean = HDLmJson.getJsonBoolean(jsonElement, "enabled");
-		if (enabledBoolean == null)
-			enabledBoolean = false;
 		Boolean   updatedBoolean = HDLmJson.getJsonBoolean(jsonElement, "updated");
 		if (updatedBoolean == null)
 			updatedBoolean = false; 
@@ -144,7 +141,6 @@ public class HDLmPassThru {
 		  HDLmJson.setJsonString(jsonElement, "detailsTwo", detailsTwo);	
 		if (detailsThree != null)
 		  HDLmJson.setJsonString(jsonElement, "detailsThree", detailsThree);	
-		HDLmJson.setJsonBoolean(jsonElement, "enabled", enabledBoolean);	
 		HDLmJson.setJsonString(jsonElement, "extra", extraString);	
 		HDLmJson.setJsonString(jsonElement, "name", nameString);
 		/* Check if we need to set a pass-through status */

@@ -60,8 +60,9 @@ public class HDLmProxy extends HDLmMod {
 		HDLmEditorTypes  editorType = HDLmEditorTypes.PROXY;
 		/* Set the error count to zero. The error count is incremented each time an
 			 error is detected. If the final error count (for the current definition) is
-			 greater than zero, the current definition object is disabled (the enabled
-			 field is set false). Note that a reference is used below so that the error
+			 greater than zero, the current definition object is marked as not executable
+			 (the use mode field is set to a value that prevents the current definition 
+			 from ever being used). Note that a reference is used below so that the error
 			 count can be updated by the routines called using error count.*/
 	  MutableInt   errorCounter = new MutableInt(0);
 		/* Build an array list for error message strings. Each error
@@ -164,16 +165,18 @@ public class HDLmProxy extends HDLmMod {
 		  }
 	  }		
 		/* Get a few fields from the JSON object */
-		Boolean  enabledBoolean = HDLmMod.modFieldBoolean(editorType, 
-				                                              errorCounter,
-				                                              errorMessages,
-				                                              jsonObject, 
-				                                              jsonKeys, 
-				                                              "enabled");
-		if (enabledBoolean == null) {
-			HDLmAssertAction(false, "Enabled value not obtained from JSON element");
-		}
-		this.setEnabled(enabledBoolean);
+	  if (jsonKeys.contains("usemode")) {
+		  String  useModeStr = HDLmMod.modFieldString(editorType, 
+			                                            errorCounter,
+				                                          errorMessages,
+				                                          jsonObject, 
+				                                          jsonKeys, 
+				                                          "usemode");
+	  	if (useModeStr == null) {
+		  	HDLmAssertAction(false, "Use mode value not obtained from JSON element");
+	  	}	  
+		  this.setUseMode(useModeStr);
+	  }
 		/* Try to get the extra information value from the JSON element */
 		{
 		  String  errorMessagePrefix = "Proxy";
@@ -288,11 +291,11 @@ public class HDLmProxy extends HDLmMod {
 				HDLmAssertAction(false, "Secure server host name not obtained from JSON element");
 			}
 			this.setSecureServer(newSecureServer);	
-			/* Mark the current proxy defintion object as disabled if the error count
-			   was greater than zero. This is actually done by setting the enabled
-			   field to false. */
+			/* Mark the current proxy defintion object as not usable if the error count
+			   was greater than zero. This is actually done by setting the use mode 
+			   field to a special value. */
 			if (errorCounter.intValue() > 0) {
-				this.setEnabled((Boolean) false);
+				this.setUseModeOff();
 		  }
 		}
 	}
@@ -309,7 +312,7 @@ public class HDLmProxy extends HDLmMod {
 		   proxy map */
 		ArrayList<HDLmTree>  childList = proxyTree.getChildren();
 		for (HDLmTree child : childList) {
-			HDLmProxy proxyDetails = (HDLmProxy) child.getDetails();
+			HDLmProxy proxyDetails = (HDLmProxy) child.getModFromTree();
 			newProxyList.add(proxyDetails);
 		}
 		return newProxyList;
@@ -327,18 +330,18 @@ public class HDLmProxy extends HDLmMod {
 		   proxy map */
 		ArrayList<HDLmTree>  childList = proxyTree.getChildren();
 		for (HDLmTree child : childList) {
-			HDLmProxy proxyDetails = (HDLmProxy) child.getDetails();
+			HDLmProxy proxyDetails = (HDLmProxy) child.getModFromTree();
 			String  companyName = proxyDetails.getName();
 			newProxyMap.put(companyName, proxyDetails);
 		}
 		return newProxyMap;
 	}	 
 	/* Get the backend server name from the current proxy definition */
-	protected String getBackendName()  {
+	protected String getBackendName() {
 		return this.backendServer;
 	}
 	/* Get the match object reference from the current proxy definition */
-	protected HDLmMatch getMatch()  {
+	protected HDLmMatch getMatch() {
 		return this.getPathValueMatch();
 	}
 	/* Get the proxy protocol type from the current proxy definition */
@@ -362,7 +365,7 @@ public class HDLmProxy extends HDLmMod {
 		return this.proxyType;
 	}
 	/* Get the secure server name from the current proxy definition */
-	protected String getSecureServerName()  {
+	protected String getSecureServerName() {
 		return this.secureServer;
 	}
 	/* This routine gets the proxy definition for a proxy name. Null is 

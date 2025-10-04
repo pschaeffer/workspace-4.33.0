@@ -31,7 +31,7 @@ public class HDLmBuildLines {
   private  String type = "";
   /* This constructor takes just one operand which is type
      of lines that are being built */ 
-  protected HDLmBuildLines(String buildType) {
+  protected HDLmBuildLines(final String buildType) {
 		if (buildType == null) {
 			String   errorText = "Build type reference passed to build lines constructor is null";
 			throw new NullPointerException(errorText);		
@@ -49,7 +49,7 @@ public class HDLmBuildLines {
   /* Return the complete set of accumulated lines as one string
      with a suffix added to each line. The suffix is typically
      something CR or LF (or both). */
-	protected String getLinesWithSuffix(String suffix) {
+	protected String getLinesWithSuffix(final String suffix) {
 		if (suffix == null) {
 			String   errorText = "Suffix reference passed to getLinesWithSuffix is null";
 			throw new NullPointerException(errorText);		

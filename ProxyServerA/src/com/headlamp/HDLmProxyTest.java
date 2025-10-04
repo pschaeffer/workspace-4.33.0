@@ -81,7 +81,7 @@ class HDLmProxyTest {
 		assertEquals(null, proxyDetails.getFinds(), "Proxy definition finds reference must be null"); 
 		assertEquals(null, proxyDetails.getValues(), "Proxy definition values value must be null"); 
 		assertNull(proxyDetails.getValues(), "Proxy definition values value must be null"); 
-		assertEquals(true, proxyDetails.getEnabled(), "Proxy definition enabled value must be true");
+		assertEquals(true, proxyDetails.getActive(), "Proxy definition active value must be true");
 		assertEquals(false, proxyDetails.getPathValueRe(), "Proxy definition regex value must be false");
 		assertNotEquals(null, proxyDetails.getPathValueMatch(), "Proxy definition match must not be null");
 		assertEquals(HDLmModTypes.NONE, proxyDetails.getType(), "Proxy definition type value must be 'NONE'");
@@ -143,7 +143,7 @@ class HDLmProxyTest {
 		assertEquals(null, proxyDetails.getFinds(), "Proxy definition finds reference must be null"); 
 		assertEquals(null, proxyDetails.getValues(), "Proxy definition values value must be null"); 
 		assertNull(proxyDetails.getValues(), "Proxy definition values value must be null"); 
-		assertEquals(true, proxyDetails.getEnabled(), "Proxy definition enabled value must be true");
+		assertEquals(true, proxyDetails.getActive(), "Proxy definition active value must be true");
 		assertEquals(false, proxyDetails.getPathValueRe(), "Proxy definition regex value must be false");
 		assertNotEquals(null, proxyDetails.getPathValueMatch(), "Proxy definition match must not be null");
 		assertEquals(HDLmModTypes.NONE, proxyDetails.getType(), "Proxy definition type value must be 'NONE'");

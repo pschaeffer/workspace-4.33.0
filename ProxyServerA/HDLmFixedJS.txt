@@ -73,8 +73,9 @@
       /* console.log('s2'); */
       /* If the current modification is not enabled, then we really
          don't have any more work to do */
-      if (curMod.enabled != true) {
-        matchError = 'disabled';
+      if (curMod.hasOwnProperty("usemode") && 
+          curMode.usemode == "off") {
+        matchError = 'off';
         /* console.log('s3'); */
         /* Report that the current rule was not enabled */
         if (postRuleTracing == true) {

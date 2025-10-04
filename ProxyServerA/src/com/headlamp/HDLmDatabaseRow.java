@@ -73,7 +73,7 @@ public class HDLmDatabaseRow {
 	private String    content = null;
 	/* The name value is specified using the field below */ 
 	private String    name = null;
-	/* The id value (always unique) is specified using the field below */
+	/* The ID value (always unique) is specified using the field below */
 	private String    id;  
 	/* The company value is specified using the field below */ 
 	private String    company = null;

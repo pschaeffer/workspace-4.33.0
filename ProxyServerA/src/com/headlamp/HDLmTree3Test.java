@@ -50,7 +50,7 @@ class HDLmTree3Test {
 		assertEquals(HDLmTreeTypes.MOD, newTree.getType(), "HDLmTree type was not 'mod'");
 		assertEquals(5, newTree.getNodePathLength(), "HDLmTree level was not (5)");
 		assertEquals("tip", newTree.getTooltip(), "HDLmTree tooltip was not 'tip'");
-		assertEquals(null, newTree.getDetails(), "HDLmTree details was not null");
+		assertEquals(null, newTree.getModFromTree(), "HDLmTree details was not null");
 		{
 			Throwable exception = assertThrows(RuntimeException.class, 
 					                               () -> {new HDLmTree(null,
@@ -139,8 +139,8 @@ class HDLmTree3Test {
 		assertEquals(1, topTree.getNodePathLength(), "Top tree node should be level 1");
 		assertEquals("Top", topTree.getLastNodePathEntry(), "Top tree node should have a name of 'Top'");
 		assertEquals("Top node of the node tree", topTree.getTooltip(), "Top tree node should have a correct tooltip");
-		assertNotNull(topTree.getDetails(), "Top tree node must have details");
-		assertNotNull(topTree.getDetails(), "Top tree node must have details");
+		assertNotNull(topTree.getModFromTree(), "Top tree node must have details");
+		assertNotNull(topTree.getModFromTree(), "Top tree node must have details");
 		assertEquals(1, topTree.getNodePath().size(), "Top tree node should have a node path with one entry");
 		assertEquals("Top", topTree.getNodePath().get(0), "Top tree node should have a node path that is correct");
 		assertEquals(2, topTree.getChildren().size(), "Top tree node should have two children");
@@ -152,7 +152,7 @@ class HDLmTree3Test {
 		assertEquals(3, subTree.getNodePathLength(), "Company tree node should be level 3");
 		assertEquals(companyName, subTree.getLastNodePathEntry(), "Company tree node should have a name of  '" + companyName + "'");
 		assertEquals("Company node", subTree.getTooltip(), "Company tree node should have a correct tooltip");
-		assertNotNull(subTree.getDetails(), "Company tree node must have details");
+		assertNotNull(subTree.getModFromTree(), "Company tree node must have details");
 		assertEquals(3, subTree.getNodePath().size(), "Company tree node should have a node path with three entries");
 		assertEquals("Top", subTree.getNodePath().get(0), "Company tree node should have a node path that is correct");
 		assertEquals(companyName, subTree.getNodePath().get(2),
@@ -168,7 +168,7 @@ class HDLmTree3Test {
 		assertEquals(3, subTree.getNodePathLength(), "Company tree node should be level 3");
 		assertEquals(companyName, subTree.getLastNodePathEntry(), "Company tree node should have a name of  '" + companyName + "'");
 		assertEquals("Company node", subTree.getTooltip(), "Company tree node should have a correct tooltip");
-		assertNotNull(subTree.getDetails(), "Company tree node must have details");
+		assertNotNull(subTree.getModFromTree(), "Company tree node must have details");
 		assertEquals(3, subTree.getNodePath().size(), "Company tree node should have a node path with three entries");
 		assertEquals("Top", subTree.getNodePath().get(0), "Company tree node should have a node path that is correct");
 		assertEquals(companyName, subTree.getNodePath().get(2),
@@ -184,7 +184,7 @@ class HDLmTree3Test {
 		assertEquals(3, subTree.getNodePathLength(), "Company tree node should be level 3");
 		assertEquals(companyName, subTree.getLastNodePathEntry(), "Company tree node should have a name of  '" + companyName + "'");
 		assertEquals("Company node", subTree.getTooltip(), "Company tree node should have a correct tooltip");
-		assertNotNull(subTree.getDetails(), "Company tree node must have details");
+		assertNotNull(subTree.getModFromTree(), "Company tree node must have details");
 		assertEquals(3, subTree.getNodePath().size(), "Company tree node should have a node path with three entries");
 		assertEquals("Top", subTree.getNodePath().get(0), "Company tree node should have a node path that is correct");
 		assertEquals(companyName, subTree.getNodePath().get(2),
@@ -203,7 +203,7 @@ class HDLmTree3Test {
 		assertEquals(5, subTree.getNodePathLength(), "Division tree node should be level 5");
 		assertEquals(divisionName, subTree.getLastNodePathEntry(), "Division tree node should have a name of  '" + divisionName + "'");
 		assertEquals("Division node", subTree.getTooltip(), "Division tree node should have a correct tooltip");
-		assertNotNull(subTree.getDetails(), "Division tree node must have details");
+		assertNotNull(subTree.getModFromTree(), "Division tree node must have details");
 		assertEquals(5, subTree.getNodePath().size(), "Division tree node should have a node path with five entries");
 		assertEquals("Top", subTree.getNodePath().get(0), "Division tree node should have a node path that is correct");
 		assertEquals(companyName, subTree.getNodePath().get(2),
@@ -224,7 +224,7 @@ class HDLmTree3Test {
 		assertEquals(6, subTree.getNodePathLength(), "Site tree node should be level 6");
 		assertEquals(siteName, subTree.getLastNodePathEntry(), "Site tree node should have a name of  '" + siteName + "'");
 		assertEquals("Site node", subTree.getTooltip(), "Site tree node should have a correct tooltip");
-		assertNotNull(subTree.getDetails(), "Site tree node must have details");
+		assertNotNull(subTree.getModFromTree(), "Site tree node must have details");
 		assertEquals(6, subTree.getNodePath().size(), "Site tree node should have a node path with six entries");
 		assertEquals("Top", subTree.getNodePath().get(0), "Site tree node should have a node path that is correct");
 		assertEquals(companyName, subTree.getNodePath().get(2), "Site tree node should have a node path that is correct");
@@ -269,7 +269,7 @@ class HDLmTree3Test {
 		assertEquals(7, subTree.getNodePathLength(), "Modification tree node should be level 7");
 		assertEquals(modName, subTree.getLastNodePathEntry(), "Modification tree node should have a name of  '" + modName + "'");
 		assertEquals("Style modification", subTree.getTooltip(), "Modification tree node should have a correct tooltip");
-		assertNotNull(subTree.getDetails(), "Modification tree node must have details");
+		assertNotNull(subTree.getModFromTree(), "Modification tree node must have details");
 		assertEquals(7, subTree.getNodePath().size(), "Modification tree node should have a node path with seven entries");
 		assertEquals("Top", subTree.getNodePath().get(0), "Modification tree node should have a node path that is correct");
 		assertEquals(companyName, subTree.getNodePath().get(2),
@@ -282,11 +282,11 @@ class HDLmTree3Test {
 				"Modification tree node should have a node path that is correct");
 		assertEquals(0, subTree.getChildren().size(), "Modification tree node should have no children");
 		/* Check the modification node details */
-		HDLmMod modDetails = subTree.getDetails();
+		HDLmMod modDetails = subTree.getModFromTree();
 		assertEquals(0, modDetails.getFinds().size(), "Modification finds size must be zero");
 		assertNotEquals(null, modDetails.getValues(), "Modification values value must not be null");
 		assertNotNull(modDetails.getValues(), "Modification values value must not be null");
-		assertNotEquals(true, modDetails.getEnabled(), "Modification enabled value must not be true");
+		assertNotEquals(true, modDetails.getActive(), "Modification active value must not be true");
 		assertEquals(false, modDetails.getPathValueRe(), "Modification path value regex value must be false");
 		assertEquals(HDLmMatchTypes.NONE, modDetails.getPathValueType(), "Modification path value match type must be 'NONE'");
 		assertEquals(HDLmModTypes.STYLE, modDetails.getType(), "Modification type value must be STYLE");
@@ -310,11 +310,11 @@ class HDLmTree3Test {
 		subTree = subTree.getChildren().get(0);
 		subTree = subTree.getChildren().get(0);
 		subTree = subTree.getChildren().get(17);
-		modDetails = subTree.getDetails();
+		modDetails = subTree.getModFromTree();
 		modName = "OWO Buy Tickets Text All";
 		assertEquals(0, modDetails.getFinds().size(), "Modification finds size must be zero");
 		assertNotNull(modDetails.getValues(), "Modification values value must not be null");
-		assertEquals(true, modDetails.getEnabled(), "Modification enabled value must be true");
+		assertEquals(true, modDetails.getActive(), "Modification active value must be true");
 		assertEquals(false, modDetails.getPathValueRe(), "Modification path value regex value must be false");
 		assertEquals(HDLmMatchTypes.NONE, modDetails.getPathValueType(), "Modification path value match type must be 'NONE'");
 		assertEquals(HDLmModTypes.TEXTCHECKED, modDetails.getType(), "Modification type value must be 'TEXT");
@@ -337,8 +337,8 @@ class HDLmTree3Test {
 		assertEquals(1, topTree.getNodePathLength(), "Top tree node should be level 1");
 		assertEquals("Top", topTree.getLastNodePathEntry(), "Top tree node should have a name of 'Top'");
 		assertEquals("Top node of the node tree", topTree.getTooltip(), "Top tree node should have a correct tooltip");
-		assertEquals(null, topTree.getDetails(), "Top tree node should not have any details");
-		assertNull(topTree.getDetails(), "Top tree node should not have any details");
+		assertEquals(null, topTree.getModFromTree(), "Top tree node should not have any details");
+		assertNull(topTree.getModFromTree(), "Top tree node should not have any details");
 		assertEquals(1, topTree.getNodePath().size(), "Top tree node should have a node path with one entry");
 		assertEquals("Top", topTree.getNodePath().get(0), "Top tree node should have a node path that is correct");
 		assertEquals(7, topTree.getChildren().size(), "Top tree node should have eight children");
@@ -349,7 +349,7 @@ class HDLmTree3Test {
 		assertEquals(2, subTree.getNodePathLength(), "Company tree node should be level 2");
 		assertEquals(companyName, subTree.getLastNodePathEntry(), "Company tree node should have a name of  '" + companyName + "'");
 		assertEquals("Company node", subTree.getTooltip(), "Company tree node should have a correct tooltip");
-		assertNotNull(subTree.getDetails(), "Company tree node must have details");
+		assertNotNull(subTree.getModFromTree(), "Company tree node must have details");
 		assertEquals(2, subTree.getNodePath().size(), "Company tree node should have a node path with two entries");
 		assertEquals("Top", subTree.getNodePath().get(0), "Company tree node should have a node path that is correct");
 		assertEquals(companyName, subTree.getNodePath().get(1),
@@ -362,7 +362,7 @@ class HDLmTree3Test {
 		assertEquals(2, subTree.getNodePathLength(), "Company tree node should be level 2");
 		assertEquals(companyName, subTree.getLastNodePathEntry(), "Company tree node should have a name of  '" + companyName + "'");
 		assertEquals("Company node", subTree.getTooltip(), "Company tree node should have a correct tooltip");
-		assertNotNull(subTree.getDetails(), "Company tree node should have any details");
+		assertNotNull(subTree.getModFromTree(), "Company tree node should have any details");
 		assertEquals(2, subTree.getNodePath().size(), "Company tree node should have a node path with two entries");
 		assertEquals("Top", subTree.getNodePath().get(0), "Company tree node should have a node path that is correct");
 		assertEquals(companyName, subTree.getNodePath().get(1),
@@ -370,11 +370,11 @@ class HDLmTree3Test {
 		assertEquals(0, subTree.getChildren().size(), "Company tree node should have zero children");
 		/* Check the proxy definition node details */
 		subTree = topTree.getChildren().get(1);
-		HDLmProxy proxyDetails = (HDLmProxy) subTree.getDetails();
+		HDLmProxy proxyDetails = (HDLmProxy) subTree.getModFromTree();
 		String proxyName = "oneworldobservatory.com";
 		assertEquals(null, proxyDetails.getFinds(), "Proxy definition finds must be null");
 		assertNull(proxyDetails.getValues(), "Proxy definition values value must be null");
-		assertEquals(true, proxyDetails.getEnabled(), "Proxy definition enabled value must be true");
+		assertEquals(true, proxyDetails.getActive(), "Proxy definition must be active");
 		assertEquals(false, proxyDetails.getPathValueRe(), "Proxy definition regex value must be false");
 		assertNotEquals(null, proxyDetails.getPathValueMatch(), "Proxy definition match must not be null");
 		assertEquals(HDLmModTypes.NONE, proxyDetails.getType(), "Proxy definition type value must be 'NONE");
@@ -463,11 +463,11 @@ class HDLmTree3Test {
 		/* Get the modification tree node */
 		HDLmTree modTree = siteTree.getChildren().get(7);
 		/* Get the modification details */
-		HDLmMod modDetails = modTree.getDetails();
+		HDLmMod modDetails = modTree.getModFromTree();
 		assertEquals(0, modDetails.getFinds().size(), "Modification finds size must be zero");
 		assertNotEquals(null, modDetails.getValues(), "Modification values value must not be null");
 		assertNotNull(modDetails.getValues(), "Modification values value must not be null");
-		assertEquals(true, modDetails.getEnabled(), "Modification enabled value must be true");
+		assertEquals(true, modDetails.getActive(), "Modification active value must be true");
 		assertEquals(false, modDetails.getPathValueRe(), "Modification path value regex value must be false");
 		assertEquals(HDLmMatchTypes.NONE, modDetails.getPathValueType(), "Modification path value match type must be 'NONE'");
 		assertEquals(HDLmModTypes.STYLE, modDetails.getType(), "Modification type value must be 'STYLE'");
@@ -530,7 +530,7 @@ class HDLmTree3Test {
 		/* Get the modification tree node */
 		HDLmTree modTree = siteTree.getChildren().get(7);
 		/* Get the modification details */
-		HDLmMod modDetails = modTree.getDetails();
+		HDLmMod modDetails = modTree.getModFromTree();
 		/* Build the modification node path */
 		ArrayList<String> modNodePath = modTree.getNodePath();
 		String companyName = "www.oldrules.com";
@@ -587,7 +587,7 @@ class HDLmTree3Test {
 		/* Get the modification tree node */
 		HDLmTree modTree = siteTree.getChildren().get(7);
 		/* Get the modification details */
-		HDLmMod modsDetails = modTree.getDetails();
+		HDLmMod modsDetails = modTree.getModFromTree();
 		// JsonObject modsElementObject = modsElementDetails.getAsJsonObject();
 		// Set<String> modsElementKeys = modsElementObject.keySet();
 		/* Build the modification tree instance */
@@ -604,7 +604,7 @@ class HDLmTree3Test {
 		assertEquals(7, subTree.getNodePathLength(), "Modification tree node should be level 7");
 		assertEquals(ruleName, subTree.getLastNodePathEntry(), "Modification tree node should have a name of  '" + ruleName + "'");
 		assertEquals("Style modification", subTree.getTooltip(), "Modification tree node should have a correct tooltip");
-		assertNotNull(subTree.getDetails(), "Modification tree node must have details");
+		assertNotNull(subTree.getModFromTree(), "Modification tree node must have details");
 		assertEquals(7, subTree.getNodePath().size(), "Modification tree node should have a node path with seven entries");
 		assertEquals("Top", subTree.getNodePath().get(0), "Modification tree node should have a node path that is correct");
 		assertEquals("Companies", subTree.getNodePath().get(1),
@@ -621,11 +621,11 @@ class HDLmTree3Test {
 				"Modification tree node should have a node path that is correct");
 		assertEquals(0, subTree.getChildren().size(), "Modification tree node should have no children");
 		/* Check the modification node details */
-		HDLmMod modDetails = subTree.getDetails();
+		HDLmMod modDetails = subTree.getModFromTree();
 		assertEquals(0, modDetails.getFinds().size(), "Modification finds size must be zero");
 		assertNotEquals(null, modDetails.getValues(), "Modification values value must not be null");
 		assertNotNull(modDetails.getValues(), "Modification values value must not be null");
-		assertEquals(true, modDetails.getEnabled(), "Modification enabled value must be true");
+		assertEquals(true, modDetails.getActive(), "Modification active value must be true");
 		assertEquals(false, modDetails.getPathValueRe(), "Modification path value regex value must be false");
 		assertEquals(HDLmMatchTypes.NONE, modDetails.getPathValueType(), "Modification path value match type must be 'NONE'");
 		assertEquals(HDLmModTypes.STYLE, modDetails.getType(), "Modification type value must be 'STYLE'");
@@ -690,7 +690,7 @@ class HDLmTree3Test {
 		/* Get the modification tree node */
 		HDLmTree modTree = siteTree.getChildren().get(7);
 		/* Get the modification details */
-		HDLmMod modsDetails = modTree.getDetails();
+		HDLmMod modsDetails = modTree.getModFromTree();
 		String companyName = "www.oldrules.com";
 		String divisionName = "example.com";
 		String siteName = "example.com";
@@ -699,7 +699,7 @@ class HDLmTree3Test {
 		assertEquals(7, subTree.getNodePathLength(), "Modification tree node should be level 7");
 		assertEquals(ruleName, subTree.getLastNodePathEntry(), "Modification tree node should have a name of  '" + ruleName + "'");
 		assertEquals("Style modification", subTree.getTooltip(), "Modification tree node should have a correct tooltip");
-		assertNotNull(subTree.getDetails(), "Modification tree node must have details");
+		assertNotNull(subTree.getModFromTree(), "Modification tree node must have details");
 		assertEquals(7, subTree.getNodePath().size(), "Modification tree node should have a node path with seven entries");
 		assertEquals("Top", subTree.getNodePath().get(0), "Modification tree node should have a node path that is correct");
 		assertEquals(companyName, subTree.getNodePath().get(2),
@@ -712,11 +712,11 @@ class HDLmTree3Test {
 				"Modification tree node should have a node path that is correct");
 		assertEquals(0, subTree.getChildren().size(), "Modification tree node should have no children");
 		/* Check the modification node details */
-		HDLmMod modDetails = subTree.getDetails();
+		HDLmMod modDetails = subTree.getModFromTree();
 		assertEquals(0, modDetails.getFinds().size(), "Modification finds size must be zero");
 		assertNotEquals(null, modDetails.getValues(), "Modification values value must not be null");
 		assertNotNull(modDetails.getValues(), "Modification values value must not be null");
-		assertEquals(true, modDetails.getEnabled(), "Modification enabled value must be true");
+		assertEquals(true, modDetails.getActive(), "Modification active value must be true");
 		assertEquals(false, modDetails.getPathValueRe(), "Modification path value regex value must be false");
 		assertEquals(HDLmMatchTypes.NONE, modDetails.getPathValueType(), "Modification path value match type must be 'NONE'");
 		assertEquals(HDLmModTypes.STYLE, modDetails.getType(), "Modification type value must be 'STYLE'");
@@ -780,7 +780,7 @@ class HDLmTree3Test {
 		/* Get the modification tree node */
 		HDLmTree modTree = siteTree.getChildren().get(0);
 		/* Get the modification details */
-		HDLmMod modsDetails = modTree.getDetails();
+		HDLmMod modsDetails = modTree.getModFromTree();
 		/* Get the children as a array list */
 		ArrayList<HDLmTree> childrenArray = modTree.getChildren();
 		assertNotNull(childrenArray, "Children array should not be null");
@@ -841,7 +841,7 @@ class HDLmTree3Test {
 		/* Get the modification tree node */
 		HDLmTree modTree = siteTree.getChildren().get(7);
 		/* Get the modification details */
-		HDLmMod modsDetails = modTree.getDetails();
+		HDLmMod modsDetails = modTree.getModFromTree();
 		/* Get the parameter number as a JSON value */
 		Integer modsParmNumber = modsDetails.getParameterNumber();
 		assertNotNull(modsParmNumber, "Parameter number should not be null");
@@ -883,7 +883,7 @@ class HDLmTree3Test {
 		assertEquals(6, subTree.getNodePathLength(), "Site tree node should be level six");
 		assertEquals(siteName, subTree.getLastNodePathEntry(), "Site tree node should have a name of  '" + siteName + "'");
 		assertEquals("Site node", subTree.getTooltip(), "Site tree node should have a correct tooltip");
-		assertNotNull(subTree.getDetails(), "Site tree node must have some details");
+		assertNotNull(subTree.getModFromTree(), "Site tree node must have some details");
 		assertEquals(6, subTree.getNodePath().size(), "Site tree node should have a node path with six entries");
 		assertEquals("Top", subTree.getNodePath().get(0), "Site tree node should have a node path that is correct");
 		assertEquals(companyName, subTree.getNodePath().get(2), "Site tree node should have a node path that is correct");
@@ -959,7 +959,7 @@ class HDLmTree3Test {
 		/* Get the modification tree node */
 		HDLmTree modTree = siteTree.getChildren().get(7);
 		/* Get the modification details */
-		HDLmMod modsDetails = modTree.getDetails();
+		HDLmMod modsDetails = modTree.getModFromTree();
 		/* Get the extra information as a JSON value */
 		String modName = modTree.getLastNodePathEntry();
 		assertEquals(ruleName, modName, "Modification Name does not match");
@@ -1026,7 +1026,7 @@ class HDLmTree3Test {
 		assertEquals(6, subTree.getNodePathLength(), "Site tree node should be level 6");
 		assertEquals(siteName, subTree.getLastNodePathEntry(), "Site tree node should have a name of  '" + siteName + "'");
 		assertEquals("Site node", subTree.getTooltip(), "Site tree node should have a correct tooltip");
-		assertNotNull(subTree.getDetails(), "Site tree node must have some details");
+		assertNotNull(subTree.getModFromTree(), "Site tree node must have some details");
 		assertEquals(6, subTree.getNodePath().size(), "Site tree node should have a node path with six entries");
 		assertEquals("Top", subTree.getNodePath().get(0), "Site tree node should have a node path that is correct");
 		assertEquals(companyName, subTree.getNodePath().get(2), "Site tree node should have a node path that is correct");
@@ -1081,7 +1081,7 @@ class HDLmTree3Test {
 		assertEquals(6, subTree.getNodePathLength(), "Site tree node should be level 6");
 		assertEquals(siteName, subTree.getLastNodePathEntry(), "Site tree node should have a name of  '" + siteName + "'");
 		assertEquals("Site node", subTree.getTooltip(), "Site tree node should have a correct tooltip");
-		assertNotNull(subTree.getDetails(), "Site tree node must have some details");
+		assertNotNull(subTree.getModFromTree(), "Site tree node must have some details");
 		assertEquals(6, subTree.getNodePath().size(), "Site tree node should have a node path with six entries");
 		assertEquals("Top", subTree.getNodePath().get(0), "Site tree node should have a node path that is correct");
 		assertEquals(companyName, subTree.getNodePath().get(2), "Site tree node should have a node path that is correct");
@@ -1128,7 +1128,7 @@ class HDLmTree3Test {
 		assertEquals("Top", actualTopTree.getLastNodePathEntry(), "Top tree node should have a name of 'Top'");
 		assertEquals("Top node of the node tree", actualTopTree.getTooltip(),
 				"Top tree node should have a correct tooltip");
-		assertNotNull(actualTopTree.getDetails(), "Top tree node must have details");
+		assertNotNull(actualTopTree.getModFromTree(), "Top tree node must have details");
 		assertEquals(1, actualTopTree.getNodePath().size(), "Top tree node should have a node path with one entry");
 		assertEquals("Top", actualTopTree.getNodePath().get(0), "Top tree node should have a node path that is correct");
 		assertEquals(2, actualTopTree.getChildren().size(), "Top tree node should have two children");

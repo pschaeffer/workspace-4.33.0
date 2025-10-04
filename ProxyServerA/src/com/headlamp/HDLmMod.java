@@ -127,12 +127,6 @@ static String HDLmModInfoDataString =
 "                              \"subtype\":       \"nodeiden\"" +
 "                            }," +
 "                            {" +
-"                              \"description\":   \"Modification Enabled\"," +
-"                              \"source\":        \"enabled\"," +
-"                              \"fieldtype\":     \"checkbox\"," +
-"                              \"subtype\":       \"checkbox\"" +
-"                            }," +
-"                            {" +
 "                              \"description\":   \"Modification Type\"," +
 "                              \"source\":        \"type\"," +
 "                              \"fieldtype\":     \"typelist\"," +
@@ -213,12 +207,6 @@ static String HDLmModInfoDataString =
 "                              \"source\":        \"nodeiden\"," +
 "                              \"fieldtype\":     \"nodeiden\"," +
 "                              \"subtype\":       \"nodeiden\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Enabled\"," +
-"                              \"source\":        \"enabled\"," +
-"                              \"fieldtype\":     \"checkbox\"," +
-"                              \"subtype\":       \"checkbox\"" +
 "                            }," +
 "                            {" +
 "                              \"description\":   \"Parameter Number\"," +
@@ -316,12 +304,6 @@ static String HDLmModInfoDataString =
 "                              \"subtype\":       \"nodeiden\"" +
 "                            }," +
 "                            {" +
-"                              \"description\":   \"Modification Enabled\"," +
-"                              \"source\":        \"enabled\"," +
-"                              \"fieldtype\":     \"checkbox\"," +
-"                              \"subtype\":       \"checkbox\"" +
-"                            }," +
-"                            {" +
 "                              \"description\":   \"Modification Type\"," +
 "                              \"source\":        \"type\"," +
 "                              \"fieldtype\":     \"typelist\"," +
@@ -402,12 +384,6 @@ static String HDLmModInfoDataString =
 "                              \"source\":        \"nodeiden\"," +
 "                              \"fieldtype\":     \"nodeiden\"," +
 "                              \"subtype\":       \"nodeiden\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Enabled\"," +
-"                              \"source\":        \"enabled\"," +
-"                              \"fieldtype\":     \"checkbox\"," +
-"                              \"subtype\":       \"checkbox\"" +
 "                            }," +
 "                            {" +
 "                              \"description\":   \"Parameter Number\"," +
@@ -505,12 +481,6 @@ static String HDLmModInfoDataString =
 "                              \"subtype\":       \"nodeiden\"" +
 "                            }," +
 "                            {" +
-"                              \"description\":   \"Modification Enabled\"," +
-"                              \"source\":        \"enabled\"," +
-"                              \"fieldtype\":     \"checkbox\"," +
-"                              \"subtype\":       \"checkbox\"" +
-"                            }," +
-"                            {" +
 "                              \"description\":   \"Parameter Number\"," +
 "                              \"source\":        \"parameter\"," +
 "                              \"fieldtype\":     \"ionumber\"," +
@@ -604,12 +574,6 @@ static String HDLmModInfoDataString =
 "                              \"source\":        \"nodeiden\"," +
 "                              \"fieldtype\":     \"nodeiden\"," +
 "                              \"subtype\":       \"nodeiden\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Enabled\"," +
-"                              \"source\":        \"enabled\"," +
-"                              \"fieldtype\":     \"checkbox\"," +
-"                              \"subtype\":       \"checkbox\"" +
 "                            }," +
 "                            {" +
 "                              \"description\":   \"Parameter Number\"," +
@@ -707,12 +671,6 @@ static String HDLmModInfoDataString =
 "                              \"subtype\":       \"nodeiden\"" +
 "                            }," +
 "                            {" +
-"                              \"description\":   \"Modification Enabled\"," +
-"                              \"source\":        \"enabled\"," +
-"                              \"fieldtype\":     \"checkbox\"," +
-"                              \"subtype\":       \"checkbox\"" +
-"                            }," +
-"                            {" +
 "                              \"description\":   \"Parameter Number\"," +
 "                              \"source\":        \"parameter\"," +
 "                              \"fieldtype\":     \"ionumber\"," +
@@ -806,12 +764,6 @@ static String HDLmModInfoDataString =
 "                              \"source\":        \"nodeiden\"," +
 "                              \"fieldtype\":     \"nodeiden\"," +
 "                              \"subtype\":       \"nodeiden\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Enabled\"," +
-"                              \"source\":        \"enabled\"," +
-"                              \"fieldtype\":     \"checkbox\"," +
-"                              \"subtype\":       \"checkbox\"" +
 "                            }," +
 "                            {" +
 "                              \"description\":   \"Parameter Number\"," +
@@ -909,12 +861,6 @@ static String HDLmModInfoDataString =
 "                              \"subtype\":       \"nodeiden\"" +
 "                            }," +
 "                            {" +
-"                              \"description\":   \"Modification Enabled\"," +
-"                              \"source\":        \"enabled\"," +
-"                              \"fieldtype\":     \"checkbox\"," +
-"                              \"subtype\":       \"checkbox\"" +
-"                            }," +
-"                            {" +
 "                              \"description\":   \"Parameter Number\"," +
 "                              \"source\":        \"parameter\"," +
 "                              \"fieldtype\":     \"ionumber\"," +
@@ -1008,12 +954,6 @@ static String HDLmModInfoDataString =
 "                              \"source\":        \"nodeiden\"," +
 "                              \"fieldtype\":     \"nodeiden\"," +
 "                              \"subtype\":       \"nodeiden\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Enabled\"," +
-"                              \"source\":        \"enabled\"," +
-"                              \"fieldtype\":     \"checkbox\"," +
-"                              \"subtype\":       \"checkbox\"" +
 "                            }," +
 "                            {" +
 "                              \"description\":   \"Parameter Number\"," +
@@ -1111,12 +1051,6 @@ static String HDLmModInfoDataString =
 "                              \"subtype\":       \"nodeiden\"" +
 "                            }," +
 "                            {" +
-"                              \"description\":   \"Modification Enabled\"," +
-"                              \"source\":        \"enabled\"," +
-"                              \"fieldtype\":     \"checkbox\"," +
-"                              \"subtype\":       \"checkbox\"" +
-"                            }," +
-"                            {" +
 "                              \"description\":   \"Parameter Number\"," +
 "                              \"source\":        \"parameter\"," +
 "                              \"fieldtype\":     \"ionumber\"," +
@@ -1210,12 +1144,6 @@ static String HDLmModInfoDataString =
 "                              \"source\":        \"nodeiden\"," +
 "                              \"fieldtype\":     \"nodeiden\"," +
 "                              \"subtype\":       \"nodeiden\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Enabled\"," +
-"                              \"source\":        \"enabled\"," +
-"                              \"fieldtype\":     \"checkbox\"," +
-"                              \"subtype\":       \"checkbox\"" +
 "                            }," +
 "                            {" +
 "                              \"description\":   \"Modification Type\"," +
@@ -1320,12 +1248,6 @@ static String HDLmModInfoDataString =
 "                              \"subtype\":       \"nodeiden\"" +
 "                            }," +
 "                            {" +
-"                              \"description\":   \"Modification Enabled\"," +
-"                              \"source\":        \"enabled\"," +
-"                              \"fieldtype\":     \"checkbox\"," +
-"                              \"subtype\":       \"checkbox\"" +
-"                            }," +
-"                            {" +
 "                              \"description\":   \"Parameter Number\"," +
 "                              \"source\":        \"parameter\"," +
 "                              \"fieldtype\":     \"ionumber\"," +
@@ -1424,12 +1346,6 @@ static String HDLmModInfoDataString =
 "                              \"subtype\":       \"nodeiden\"" +
 "                            }," +
 "                            {" +
-"                              \"description\":   \"Modification Enabled\"," +
-"                              \"source\":        \"enabled\"," +
-"                              \"fieldtype\":     \"checkbox\"," +
-"                              \"subtype\":       \"checkbox\"" +
-"                            }," +
-"                            {" +
 "                              \"description\":   \"Modification Type\"," +
 "                              \"source\":        \"type\"," +
 "                              \"fieldtype\":     \"typelist\"," +
@@ -1517,12 +1433,6 @@ static String HDLmModInfoDataString =
 "                              \"source\":        \"nodeiden\"," +
 "                              \"fieldtype\":     \"nodeiden\"," +
 "                              \"subtype\":       \"nodeiden\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Enabled\"," +
-"                              \"source\":        \"enabled\"," +
-"                              \"fieldtype\":     \"checkbox\"," +
-"                              \"subtype\":       \"checkbox\"" +
 "                            }," +
 "                            {" +
 "                              \"description\":   \"Parameter Number\"," +
@@ -1620,12 +1530,6 @@ static String HDLmModInfoDataString =
 "                              \"subtype\":       \"nodeiden\"" +
 "                            }," +
 "                            {" +
-"                              \"description\":   \"Modification Enabled\"," +
-"                              \"source\":        \"enabled\"," +
-"                              \"fieldtype\":     \"checkbox\"," +
-"                              \"subtype\":       \"checkbox\"" +
-"                            }," +
-"                            {" +
 "                              \"description\":   \"Parameter Number\"," +
 "                              \"source\":        \"parameter\"," +
 "                              \"fieldtype\":     \"ionumber\"," +
@@ -1719,12 +1623,6 @@ static String HDLmModInfoDataString =
 "                              \"source\":        \"nodeiden\"," +
 "                              \"fieldtype\":     \"nodeiden\"," +
 "                              \"subtype\":       \"nodeiden\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Enabled\"," +
-"                              \"source\":        \"enabled\"," +
-"                              \"fieldtype\":     \"checkbox\"," +
-"                              \"subtype\":       \"checkbox\"" +
 "                            }," +
 "                            {" +
 "                              \"description\":   \"Parameter Number\"," +
@@ -1822,12 +1720,6 @@ static String HDLmModInfoDataString =
 "                              \"subtype\":       \"nodeiden\"" +
 "                            }," +
 "                            {" +
-"                              \"description\":   \"Modification Enabled\"," +
-"                              \"source\":        \"enabled\"," +
-"                              \"fieldtype\":     \"checkbox\"," +
-"                              \"subtype\":       \"checkbox\"" +
-"                            }," +
-"                            {" +
 "                              \"description\":   \"Parameter Number\"," +
 "                              \"source\":        \"parameter\"," +
 "                              \"fieldtype\":     \"ionumber\"," +
@@ -1921,12 +1813,6 @@ static String HDLmModInfoDataString =
 "                              \"source\":        \"nodeiden\"," +
 "                              \"fieldtype\":     \"nodeiden\"," +
 "                              \"subtype\":       \"nodeiden\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Enabled\"," +
-"                              \"source\":        \"enabled\"," +
-"                              \"fieldtype\":     \"checkbox\"," +
-"                              \"subtype\":       \"checkbox\"" +
 "                            }," +
 "                            {" +
 "                              \"description\":   \"Parameter Number\"," +
@@ -2024,12 +1910,6 @@ static String HDLmModInfoDataString =
 "                              \"subtype\":       \"nodeiden\"" +
 "                            }," +
 "                            {" +
-"                              \"description\":   \"Modification Enabled\"," +
-"                              \"source\":        \"enabled\"," +
-"                              \"fieldtype\":     \"checkbox\"," +
-"                              \"subtype\":       \"checkbox\"" +
-"                            }," +
-"                            {" +
 "                              \"description\":   \"Parameter Number\"," +
 "                              \"source\":        \"parameter\"," +
 "                              \"fieldtype\":     \"ionumber\"," +
@@ -2123,12 +2003,6 @@ static String HDLmModInfoDataString =
 "                              \"source\":        \"nodeiden\"," +
 "                              \"fieldtype\":     \"nodeiden\"," +
 "                              \"subtype\":       \"nodeiden\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Enabled\"," +
-"                              \"source\":        \"enabled\"," +
-"                              \"fieldtype\":     \"checkbox\"," +
-"                              \"subtype\":       \"checkbox\"" +
 "                            }," +
 "                            {" +
 "                              \"description\":   \"Parameter Number\"," +
@@ -2226,12 +2100,6 @@ static String HDLmModInfoDataString =
 "                              \"subtype\":       \"nodeiden\"" +
 "                            }," +
 "                            {" +
-"                              \"description\":   \"Modification Enabled\"," +
-"                              \"source\":        \"enabled\"," +
-"                              \"fieldtype\":     \"checkbox\"," +
-"                              \"subtype\":       \"checkbox\"" +
-"                            }," +
-"                            {" +
 "                              \"description\":   \"Parameter Number\"," +
 "                              \"source\":        \"parameter\"," +
 "                              \"fieldtype\":     \"ionumber\"," +
@@ -2327,12 +2195,6 @@ static String HDLmModInfoDataString =
 "                              \"subtype\":       \"nodeiden\"" +
 "                            }," +
 "                            {" +
-"                              \"description\":   \"Modification Enabled\"," +
-"                              \"source\":        \"enabled\"," +
-"                              \"fieldtype\":     \"checkbox\"," +
-"                              \"subtype\":       \"checkbox\"" +
-"                            }," +
-"                            {" +
 "                              \"description\":   \"Parameter Number\"," +
 "                              \"source\":        \"parameter\"," +
 "                              \"fieldtype\":     \"ionumber\"," +
@@ -2426,12 +2288,6 @@ static String HDLmModInfoDataString =
 "                              \"source\":        \"nodeiden\"," +
 "                              \"fieldtype\":     \"nodeiden\"," +
 "                              \"subtype\":       \"nodeiden\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Enabled\"," +
-"                              \"source\":        \"enabled\"," +
-"                              \"fieldtype\":     \"checkbox\"," +
-"                              \"subtype\":       \"checkbox\"" +
 "                            }," +
 "                            {" +
 "                              \"description\":   \"Parameter Number\"," +
@@ -2627,13 +2483,12 @@ static String HDLmModTreeInfoString = "{" +
   @SerializedName("find")
 	private ArrayList<HDLmFind>   finds = null;
 	private ArrayList<String>     values = null;
-	private Boolean               enabled = false;
 	/* The next field is used to save the number of errors that
 	   were found building the current modification. If this value
 	   is greater than zero, then the modification can not be used.
-	   Note that the enabled field is not generally changed even
+	   Note that the use mode field is not generally changed even
 	   when the error count is greater than zero. The exception
-	   is that a copy of the enabled field is changed when a copy
+	   is that a copy of the use mode field is changed when a copy
 	   of the current modification is built.
 	   
 	   The transient attribute is used below to prevent JSON 
@@ -2708,7 +2563,7 @@ static String HDLmModTreeInfoString = "{" +
 	   of 0.0 means that the modification will never be applied. Values between
 	   0.0 and 100.0 mean that the modification will be applied with the specified 
 	   probability. Of course, the parameter value can still be set to a null 
-	   value to disable the modification. */
+	   value to not run the modification. */
 	@SerializedName("prob")
 	private float           probability = (float) 100.0;
 	@SerializedName("usemode")
@@ -2759,9 +2614,9 @@ static String HDLmModTreeInfoString = "{" +
 		String  jsonFieldName;
 		/* Set the error count to zero. The error count is incremented each time an
 		   error is detected. If the final error count (for the current modification) is
-		   greater than zero, the current modification object is disabled (the enabled
-		   field is set false). Note that a reference is used below so that the error
-		   count can be updated by the routines called using error count.*/
+		   greater than zero, the current modification object is not executable (the use 
+		   mode field is set to "off"). Note that a reference is used below so that the
+		   error count can be updated by the routines called using error count.*/
 		MutableInt  errorCounter = new MutableInt(0);		
 		/* Build an array list for error message strings. Each error
 		   message is stored in this array list. */
@@ -2787,6 +2642,7 @@ static String HDLmModTreeInfoString = "{" +
 	  if (jsonTypeElement.isJsonNull()) {
 	    HDLmAssertAction(false, "JSON type element is JSON null");
 	  }
+	  /* LOG.info("Modification type: " + this.type); */
 		/* Set the class instance variables */
 	  {
 			String  errorMessagePrefix = "Modification";
@@ -2870,15 +2726,6 @@ static String HDLmModTreeInfoString = "{" +
 			  this.pathMatch = new HDLmMatch(pathValueString);
 		}
 		/* Get a few fields from the JSON object */
-		Boolean   enabledBoolean = HDLmMod.modFieldBoolean(editorType, 
-				                                               errorCounter, 
-				                                               errorMessages, 
-				                                               jsonObject,
-				                                               jsonKeys, 
-				                                               "enabled");
-		if (enabledBoolean != null)
-		  this.enabled = enabledBoolean;
-		/* Get a few fields from the JSON object */
 		jsonFieldName = "prob";
 		/* Check if any JSON element exists for 'prob' without 
 		   the quotes). Prob (actually the first letter is lower
@@ -2942,33 +2789,31 @@ static String HDLmModTreeInfoString = "{" +
 		   to be true in any actual case. Note that the comments are
 		   optional. Skip this code is we don't have any comments. */
 		if (HDLmJson.hasJsonKey(jsonObject, "comments")) { 
-		  {
-				String  errorMessagePrefix = "Modification";
-				int     errorNumberMissing = 3; 
-		    int     errorNumberIsNull = 4;
-		    int     errorNumberNotPrimitive = 4;
-		    int     errorNumberException = 4;
-		    int     errorNumberInvalidLength = 4;
-		    int     errorNumberInvalidWhiteSpace = 4; 
-		    String commentsInfo = HDLmField.checkFieldString(editorType, 
-					  		                                         errorCounter, 
-					  		                                         errorMessages, 
-						  	                                         jsonObject, 
-						  	                                         jsonKeys, 
-							                                           "comments", 
-							                                           errorMessagePrefix,
-																					     	     	   errorNumberMissing,
-																					               errorNumberIsNull,
-																					               errorNumberNotPrimitive,
-																					               errorNumberException,
-																						             errorNumberInvalidLength,
-																						             errorNumberInvalidWhiteSpace, 
-							                                           HDLmWhiteSpace.WHITESPACEOK, 
-							                                           HDLmReportErrors.REPORTERRORS,
-							                                           HDLmZeroLengthOk.ZEROLENGTHNOTOK);			 
-			  if (commentsInfo != null && !StringUtils.isWhitespace(commentsInfo)) {
-				  this.comments = commentsInfo;
-			  }
+			String  errorMessagePrefix = "Modification";
+			int     errorNumberMissing = 3; 
+	    int     errorNumberIsNull = 4;
+	    int     errorNumberNotPrimitive = 4;
+	    int     errorNumberException = 4;
+	    int     errorNumberInvalidLength = 4;
+	    int     errorNumberInvalidWhiteSpace = 4; 
+	    String commentsInfo = HDLmField.checkFieldString(editorType, 
+				  		                                         errorCounter, 
+				  		                                         errorMessages, 
+					  	                                         jsonObject, 
+					  	                                         jsonKeys, 
+						                                           "comments", 
+						                                           errorMessagePrefix,
+																				     	     	   errorNumberMissing,
+																				               errorNumberIsNull,
+																				               errorNumberNotPrimitive,
+																				               errorNumberException,
+																					             errorNumberInvalidLength,
+																					             errorNumberInvalidWhiteSpace, 
+						                                           HDLmWhiteSpace.WHITESPACEOK, 
+						                                           HDLmReportErrors.REPORTERRORS,
+						                                           HDLmZeroLengthOk.ZEROLENGTHNOTOK);			 
+		  if (commentsInfo != null && !StringUtils.isWhitespace(commentsInfo)) {
+			  this.comments = commentsInfo;
 		  }
 		}
 		/* Try to get the extra information value from the JSON element.
@@ -3108,6 +2953,7 @@ static String HDLmModTreeInfoString = "{" +
 		if (findInfo != null) {
 			this.finds = findInfo;
 		}
+		int  copyOfErrorCount = errorCounter.intValue();
 		/* Get some node identifier values, if possible */
 		HDLmNodeIden  nodeIden = HDLmMod.modFieldNodeIden(editorType, 
 				                                              errorCounter, 
@@ -3115,8 +2961,45 @@ static String HDLmModTreeInfoString = "{" +
                                                       jsonObject, 
                                                       jsonKeys,
                                                       "nodeiden");
+		if (copyOfErrorCount < errorCounter.intValue())
+			errorCounter = errorCounter;
 		if (nodeIden != null && nodeIden.isUsable()) {
 			this.nodeIden = nodeIden;
+		}
+		/* This code, that unconditionally checks for comments information, appears
+		   to have been accidentally added. Note that a special if statement is used
+		   to make sure that this code does not execute. */ 
+		if (1 == 2) {
+			/* Check if we have comments information */
+	  	String  commentsInfo = null;
+	    {
+				String  errorMessagePrefix = "Modification";
+				int     errorNumberMissing = 3; 
+		    int     errorNumberIsNull = 4;
+		    int     errorNumberNotPrimitive = 4;
+		    int     errorNumberException = 4;
+		    int     errorNumberInvalidLength = 4;
+		    int     errorNumberInvalidWhiteSpace = 4;
+			  commentsInfo = HDLmField.checkFieldString(editorType, 
+								                                  errorCounter, 
+								                                  errorMessages, 
+								                                  jsonObject, 
+								                                  jsonKeys, 
+								                                  "comments", 
+								                                  errorMessagePrefix,
+																			     	     	errorNumberMissing,
+																			            errorNumberIsNull,
+																			            errorNumberNotPrimitive,
+																			            errorNumberException,
+																				          errorNumberInvalidLength,
+																				          errorNumberInvalidWhiteSpace, 
+								                                  HDLmWhiteSpace.WHITESPACENOTOK,
+								                                  HDLmReportErrors.REPORTERRORS,
+								                                  HDLmZeroLengthOk.ZEROLENGTHOK);
+				if (commentsInfo != null && !StringUtils.isWhitespace(commentsInfo)) {
+					this.comments = commentsInfo;
+				}
+		  }
 		}
 		/* Get the modification type */
 		this.type = HDLmMod.modFieldModType(editorType, 
@@ -4615,8 +4498,8 @@ static String HDLmModTreeInfoString = "{" +
 		/* Set the error count to the number of errors that were actually found
 		   building the current modification. If this count is greater than zero,
 		   than the current modification can not really be used. Note that only
-		   the error count field is set here. The enabled field is not changed
-		   here, based on the number of errors. */
+		   the error count field is set here. The use mode field is not changed
+		   here, and is not based on the number of errors. */
     if (errorCounter.intValue() > 0) {
 		  this.errorCount = errorCounter.intValue();
       this.errorMsgs = errorMessages;
@@ -4632,7 +4515,7 @@ static String HDLmModTreeInfoString = "{" +
 	   
 	   This routine assumes that each modification object is valid and complete. Of
 	   course, this may not always be true. The modification constructor will always
-	   set the enabled field to false, if any errors are detected constructing a
+	   set the use mode field to "off", if any errors are detected constructing a
 	   modification object. */
 	protected boolean apply(final Document htmlDom, 
 			                    final String pathValueStr, 
@@ -4657,18 +4540,18 @@ static String HDLmModTreeInfoString = "{" +
 		HDLmEditorTypes   editorType = HDLmEditorTypes.PASS;
 		/* Assume that no match was found for this modification. This could happen for
 		   any number of reasons. The path value string may not match the current modification.
-		   The current modification may not be enabled (it may be disabled). Of course,
+		   The current modification may not be active (it may be inactive). Of course,
 		   the required tag may not be found in the DOM. */
-		boolean matchFound = false;
-		String matchError = "";
+		boolean   matchFound = false;
+		String    matchError = "";
 		/* Get a few values */
 		HDLmModTypes modType = this.getType();
 		/* What follows is a dummy loop used only to allow break to work */
 		while (true) {
 			/* Skip the current HTML page if need be. This flag is set to false if any
 			   errors are detected building the modification object. */
-			if (this.enabled != true) {
-				matchError = "disabled";
+			if (this.useMode.contentEquals("off")) {
+				matchError = "off";
 				break;
 			}
 			/* Each modification objects has a match object. The check method 
@@ -5021,6 +4904,26 @@ static String HDLmModTreeInfoString = "{" +
 		 */
 		return matchFound;
 	}	
+	/* This routine determines if a use mode is associated with an 
+	   active (executable) modification or not */ 
+	protected static boolean  checkActive(final String passedUseMode) {
+		/* Check if the use mode is set or not. If the use mode
+		   is not set (at all) then the current modification is 
+		   deemed to be ready to run. */
+		if (passedUseMode == null)
+			return true;
+		/* Check if the use mode is set to a value that indicates 
+		   that the current* modification is likely to run */
+		if (passedUseMode.contentEquals("prod")       ||
+				passedUseMode.contentEquals("production") ||
+				passedUseMode.contentEquals("none")       ||
+				passedUseMode.contentEquals("on")         ||
+				passedUseMode.contentEquals("all")        ||
+				passedUseMode.contentEquals("always"))				
+			return true;
+		else
+			return false;
+	}
 	/* Check the JSON element passed by the caller for modifications.
 	   This routine recursively calls itself, to handle nesting levels.
 	   The overall purpose of this routine is to note rules that have
@@ -5169,7 +5072,12 @@ static String HDLmModTreeInfoString = "{" +
 	   not apply to the Java version of this routine. The Java version just 
 	   makes a deep copy of the current modification object. */
 	protected HDLmMod      copyMod() {
-		HDLmMod newObj = new HDLmMod(this);
+		HDLmMod   newObj = new HDLmMod(this);
+ 	  /* Make sure the error count is zero in the new modification */ 
+		if (newObj.getErrorCount() != 0) {
+			String   errorText = "Error count is not zero in the new modification";
+			HDLmAssertAction(false, errorText);
+    }	
 		newObj.setIfNotSetTimes();
 		return newObj;
 	}
@@ -5185,7 +5093,7 @@ static String HDLmModTreeInfoString = "{" +
 		this.comments = oldMod.getComments();
 		this.created = oldMod.getCreated();
 		this.cssSelector = oldMod.getCssSelector();
-		this.enabled = oldMod.getEnabled();
+		this.useMode = oldMod.getUseMode();
 		this.errorCount = oldMod.getErrorCount();
 		this.errorMsgs = oldMod.getErrorMsgs();
 		this.extra = oldMod.getExtra();
@@ -5254,30 +5162,34 @@ static String HDLmModTreeInfoString = "{" +
 			   The check() method of the match object can be used to check for
 			   a path value match or not. */ 
 			if (usePathValue == HDLmUsePathValue.USEPATHVALUEOK) {
-			  match = child.getDetails().getPathValueMatch().match(pathValueStr);
+			  match = child.getModFromTree().getPathValueMatch().match(pathValueStr);
 			}
 		  /* Get the child path value string for use later */
-			String  childPathValue = child.getDetails().getPathMatchValue();
+			String  childPathValue = child.getModFromTree().getPathMatchValue();
 			if (match == false)
 				continue;
-			HDLmMod  childDetails = child.getDetails();
+			HDLmMod  childMod = child.getModFromTree();
 			/* If we are in pass-through mode, then mark the current modification as
-		     disabled. All modifications are disabled in pass-through mode. This
-		     doesn't really work. Some critical modifications are disabled even
+		     not executable. All modifications are not executed in pass-through mode.
+		     This doesn't really work. Some critical modifications are not executed even
 		     though they are really needed. The current approach is to just 
-		     manually disable almost all of the modifications while leaving the
-		     critical modifications enabled. */
+		     manually turn off almost all of the modifications while leaving the
+		     critical modifications to be executed. */
 			if (passThru == HDLmPassThruStatus.PASSTHRUOK) {
 				/* We must make a copy of the modification here because we are 
 				   going to change the modification. We don't want to change the
 				   original modifications. */
-				HDLmMod newMod = new HDLmMod(childDetails);
+				HDLmMod   newMod = new HDLmMod(childMod);
+		 	  /* Make sure the error count is zero in the new modification */ 
+				if (newMod.getErrorCount() != 0) {
+					String   errorText = "Error count is not zero in the new modification";
+					HDLmAssertAction(false, errorText);
+		    }	
 				newMod.setIfNotSetTimes();
-				newMod.setEnabled((Boolean) false);
 				outMods.add(newMod);
 			}
 			else {
-				outMods.add(childDetails);				
+				outMods.add(childMod);				
 			}
 		}
 		return outMods;
@@ -5314,6 +5226,15 @@ static String HDLmModTreeInfoString = "{" +
 		else
 			nodeList = HDLmFind.processFindsArray(HTMLDom, this.finds);
 		return nodeList;
+	}
+	/* This routine determines if a modification is active or not. 
+	   A modification is consider to be active, if the use mode 
+	   is not set, or is set to some value that indicates that the 
+	   modification is likely to run. */ 
+	protected boolean  getActive() {		/* Copy the use mode to a local variable */
+		/* Copy the use mode to a local variable */
+		String   localUseMode = this.useMode;
+		return checkActive(localUseMode);
 	}
 	/* This method gets the name of the array field for the current 
 	   modification type. Not all types have an array field. However,
@@ -5385,10 +5306,6 @@ static String HDLmModTreeInfoString = "{" +
 	protected String       getCssSelector() {
 		return this.cssSelector;
 	}
-	/* Get the modification enablement status and return it to the caller */
-	protected boolean      getEnabled() {
-		return this.enabled;
-	}
 	/* Get the modification error count and return it to the caller */
 	protected int          getErrorCount() {
 		return this.errorCount;
@@ -5458,13 +5375,18 @@ static String HDLmModTreeInfoString = "{" +
 		/* We need to make a copy of the current modification before we make
 		   any changes to it. We don't want to change the original modification. */
 		HDLmMod  newMod = new HDLmMod(this);
+ 	  /* Make sure the error count is zero in the new modification */ 
+		if (newMod.getErrorCount() != 0) {
+			String   errorText = "Error count is not zero in the new modification";
+			HDLmAssertAction(false, errorText);
+    }	
 		/* We need to check if errors were found building the current
 		   modification. If any errors were found, then we need to mark
-		   the current modification as disabled. This change is only 
+		   the current modification as not executable. This change is only 
 		   made to the copy of the current modification. The current
 		   modification is not altered. */ 
 		if (newMod.errorCount > 0)
-			newMod.enabled = false;
+			newMod.setUseModeOff();
 		/* We need to check and fix some of the fields in the modification. Null
 		   values will cause problems with JavaScript. */
 		if (newMod.getFinds() == null)
@@ -5553,6 +5475,7 @@ static String HDLmModTreeInfoString = "{" +
 		jsonStr = jsonStr.replace("\"type\":\"" + newTypeString + "\"",  
 				                      "\"type\":\"" + newTypeLower + "\"");
 		jsonStr = jsonStr.replace("cssSelector", "cssselector");
+		jsonStr = jsonStr.replace("comments", "comments");
 		jsonStr = jsonStr.replace("nodeIden", "nodeiden");
 		jsonStr = jsonStr.replace("pathValue", "path");
 		jsonStr = jsonStr.replace("xPath", "xpath");
@@ -5560,8 +5483,7 @@ static String HDLmModTreeInfoString = "{" +
 		   'parameterNumber' (without the quotes) in the rest of the code. We should
 		   stick with 'parameter' (without the quotes) here as well. */ 
 		/* jsonStr = jsonStr.replace("parameter", "parameterNumber"); */
-		HDLmTiming.addTiming(HDLmTimingTypes.GENERAL, "After \"parameter\" change in getJsonSpecial");
-		jsonStr = jsonStr.replace("nodeEnabled", "enabled");
+		HDLmTiming.addTiming(HDLmTimingTypes.GENERAL, "After \"parameter\" change in getJsonSpecial"); 
 		jsonStr = jsonStr.replace("nodeType", "type");
 		jsonStr = jsonStr.replace("nodeCounts", "counts");
 		jsonStr = jsonStr.replace("nodeAttributes", "attributes");
@@ -5833,6 +5755,10 @@ static String HDLmModTreeInfoString = "{" +
 	protected static JsonElement getTreeInfo() {
 		return HDLmModTreeInfo;
 	}
+	/* Get the modification use mode and return it to the caller */
+	protected String       getUseMod() {
+		return this.useMode;
+	}
 	/* Get the modification value and return it to the caller */
 	protected String       getValue() {
 		return this.value;
@@ -5954,12 +5880,12 @@ static String HDLmModTreeInfoString = "{" +
 	   object. Report an error if the field is not found. If an error is reported,
 	   the error count is also incremented. The return value from this function is
 	   the value of the field, if the field is found. */
-	protected static Boolean modFieldBoolean(final HDLmEditorTypes editorType, 
-																					 final MutableInt errorCounter,
-																					 final ArrayList<String> errorMessages,
-																					 final JsonObject jsonObject, 
-																					 final Set<String> jsonKeys,
-																					 final String name) {
+	protected static Boolean  modFieldBoolean(final HDLmEditorTypes editorType, 
+																			 		  final MutableInt errorCounter,
+																					  final ArrayList<String> errorMessages,
+																					  final JsonObject jsonObject, 
+																					  final Set<String> jsonKeys,
+																					  final String name) {
 		return modFieldBoolean(editorType, 
 				                   errorCounter, 
                            errorMessages,
@@ -5968,13 +5894,13 @@ static String HDLmModTreeInfoString = "{" +
 				                   name, 
 				                   HDLmReportErrors.REPORTERRORS);
 	}
-	protected static Boolean modFieldBoolean(final HDLmEditorTypes editorType, 
-																					 final MutableInt errorCounter, 
-																					 final ArrayList<String> errorMessages,
-																					 final JsonObject jsonObject, 
-																					 final Set<String> jsonKeys, 
-																					 final String name,
-																					 final HDLmReportErrors reporErrors) {
+	protected static Boolean  modFieldBoolean(final HDLmEditorTypes editorType, 
+																					  final MutableInt errorCounter, 
+																					  final ArrayList<String> errorMessages,
+																					  final JsonObject jsonObject, 
+																					  final Set<String> jsonKeys, 
+																					  final String name,
+																					  final HDLmReportErrors reporErrors) {
 		if (errorCounter == null) {
 			String  errorText = "Mutable int for error counter passed to modFieldBoolean is null";
 			throw new NullPointerException(errorText);
@@ -6666,13 +6592,13 @@ static String HDLmModTreeInfoString = "{" +
 				                      name, 
 				                      HDLmReportErrors.REPORTERRORS);
 	}
-	protected static HDLmReportTypes modFieldReportType(final HDLmEditorTypes editorType, 
-						                                          final MutableInt errorCounter,
-						   		                                    final ArrayList<String> errorMessages,
-						                                          final JsonObject jsonObject, 
-						                                          final Set<String> jsonKeys,
-						                                          final String name, 
-						                                          final HDLmReportErrors reportErrors) {
+	protected static HDLmReportTypes  modFieldReportType(final HDLmEditorTypes editorType, 
+						                                           final MutableInt errorCounter,
+						   		                                     final ArrayList<String> errorMessages,
+						                                           final JsonObject jsonObject, 
+						                                           final Set<String> jsonKeys,
+						                                           final String name, 
+						                                           final HDLmReportErrors reportErrors) {
 		if (errorCounter == null) {
 			String  errorText = "Mutable int for error counter passed to modFieldReportType is null";
 			throw new NullPointerException(errorText);
@@ -6883,6 +6809,73 @@ static String HDLmModTreeInfoString = "{" +
 					                         reportErrors);
 		return modTreeStatus;
 	}	
+	/* Try to access a field in the JSON used to build the current modification
+     object. Report an error if the field is not found. If an error is reported,
+	   the error count is also incremented. The return value from this function is
+	   the value of the field, if the field is found. */
+	protected static String  modFieldString(final HDLmEditorTypes editorType, 
+																		 		  final MutableInt errorCounter,
+																				  final ArrayList<String> errorMessages,
+																				  final JsonObject jsonObject, 
+																				  final Set<String> jsonKeys,
+																				  final String name) {
+		return modFieldString(editorType, 
+				                  errorCounter, 
+	                        errorMessages,
+				                  jsonObject, 
+				                  jsonKeys, 
+				                  name, 
+				                  HDLmReportErrors.REPORTERRORS);
+	}
+	protected static String  modFieldString(final HDLmEditorTypes editorType, 
+																				  final MutableInt errorCounter, 
+																					final ArrayList<String> errorMessages,
+																					final JsonObject jsonObject, 
+																					final Set<String> jsonKeys, 
+																					final String name,
+																					final HDLmReportErrors reporErrors) {
+		if (errorCounter == null) {
+			String  errorText = "Mutable int for error counter passed to modFieldBoolean is null";
+			throw new NullPointerException(errorText);
+		}
+		if (errorMessages == null) {
+			String  errorText = "ArrayList for error messages passed to modFieldBoolean is null";
+			throw new NullPointerException(errorText);
+		}
+		if (jsonObject == null) {
+			String  errorText = "JSON object passed to modFieldBoolean is null";
+			throw new NullPointerException(errorText);
+		}
+		if (jsonKeys == null) {
+			String  errorText = "Set of keys passed to modFieldBoolean is null";
+			throw new NullPointerException(errorText);
+		}
+		if (name == null) {
+			String  errorText = "Name string passed to modFieldBoolean is null";
+			throw new NullPointerException(errorText);
+		}
+		boolean fieldFound = false;
+		String  newString = null;
+		/* Check if we have the field in the JSON */
+		if (jsonKeys.contains(name)) {
+			fieldFound = true;
+			JsonElement jsonElement = jsonObject.get(name);
+			if (!jsonElement.isJsonNull()) {
+				newString = jsonElement.getAsString();
+			}
+		}
+		/* Since we do not have the field in the JSON, report an error */
+		if (fieldFound == false)
+			HDLmField.reportErrorNoValue(editorType, 
+		                          		 errorCounter,
+	                                errorMessages,
+					                         jsonObject, 
+					                         name, 
+					                         "Modification JSON missing field", 
+					                         3, 
+					                         reporErrors);
+		return newString;
+	}
 	/* Check each value in the values array and make sure it is a valid change
      attributes value. The only possible valid change values are either a zero-length 
      string (which mean no attribute changes) or a valid JSON string. Actually we 
@@ -7223,35 +7216,35 @@ static String HDLmModTreeInfoString = "{" +
 																														 final String name, 
 																														 final HDLmReportErrors reportErrors) {
 		if (values == null) {
-		  String  errorText = "Values list passed to modFieldStringArrayScript is null";
+		  String  errorText = "Values list passed to modFieldStringArrayScriptNotUsed is null";
 		  throw new NullPointerException(errorText);
 		}
 		if (editorType == null) {
-		  String  errorText = "Editor type enum passed to modFieldStringArrayScript is null";
+		  String  errorText = "Editor type enum passed to modFieldStringArrayScriptNotUsed is null";
 		  throw new NullPointerException(errorText);
 		}
 		/* Check if the editor type passed by the caller is invalid */
 		if (editorType == HDLmEditorTypes.NONE) {
-		  HDLmAssertAction(false, "Editor type value is invalid in modFieldStringArrayScript");
+		  HDLmAssertAction(false, "Editor type value is invalid in modFieldStringArrayScriptNotUsed");
 		}
 		if (errorCounter == null) {
-	   String  errorText = "Mutable int for error counter passed to modFieldStringArrayScript is null";
+	   String  errorText = "Mutable int for error counter passed to modFieldStringArrayScripNotUsedt is null";
 		  throw new NullPointerException(errorText);
 		}
 		if (errorMessages == null) {
-			String  errorText = "ArrayList for error messages passed to modFieldStringArrayScript is null";
+			String  errorText = "ArrayList for error messages passed to modFieldStringArrayScriptNotUsed is null";
 			throw new NullPointerException(errorText);
 		}
 		if (jsonObject == null) {
-		  String  errorText = "JSON object passed to modFieldStringArrayScript is null";
+		  String  errorText = "JSON object passed to modFieldStringArrayScriptNotUsed is null";
 		  throw new NullPointerException(errorText);
 		}
 		if (name == null) {
-		  String  errorText = "Name string passed to modFieldStringArrayScript is null";
+		  String  errorText = "Name string passed to modFieldStringArrayScriptNotUsed is null";
 		  throw new NullPointerException(errorText);
 		}
 		if (reportErrors == null) {
-		  String  errorText = "Report errors enum passed to modFieldStringArrayScript is null";
+		  String  errorText = "Report errors enum passed to modFieldStringArrayScriptNotUsed is null";
 		  throw new NullPointerException(errorText);
 		}
 		/* Declare and define a few values */
@@ -7863,7 +7856,10 @@ static String HDLmModTreeInfoString = "{" +
 	}  
 	/* The method below processes just one set of details (really just
 	   one modification). The JSON element is converted to a JSON object
-	   and various changes are mode. */  
+	   and various changes are mode. This code does not appear to be in 
+	   use. The entire tree structure was changed from using 'mod' to 
+	   using 'pass'. The old tree structure had five (5) levels. The new
+	   tree structure has seven (7) levels. */  
 	protected static void processJsonMod(final JsonElement jsonElement) {		
 		/* Check if the JSON element value passed by the caller is null */
 		if (jsonElement == null) {
@@ -7886,9 +7882,11 @@ static String HDLmModTreeInfoString = "{" +
 		String  extraString = HDLmJson.getJsonString(jsonElement, "extra");
 		if (extraString == null)
 			extraString = "";
-		Boolean   enabledBoolean = HDLmJson.getJsonBoolean(jsonElement, "enabled");
-		if (enabledBoolean == null)
-			enabledBoolean = false;
+		/* This code does not appear to be in use. The 'e' has been changed to 
+		   an 'f' so that searches don't find this code. */
+		Boolean   fnabledBoolean = HDLmJson.getJsonBoolean(jsonElement, "fnabled");
+		if (fnabledBoolean == null)
+			fnabledBoolean = false;
 		String  pathValueString = HDLmJson.getJsonString(jsonElement, "path");
 		if (pathValueString == null ||
 				pathValueString.equals(""))
@@ -7923,6 +7921,7 @@ static String HDLmModTreeInfoString = "{" +
 			updatedBoolean = false; 
 		/* Remove a set of keys from the current JSON object */
 		HDLmJson.removeJsonKey(jsonElement, "cssSelector");
+		HDLmJson.removeJsonKey(jsonElement, "comments");
 		HDLmJson.removeJsonKey(jsonElement, "finds");
 		HDLmJson.removeJsonKey(jsonElement, "pathRe");
 		HDLmJson.removeJsonKey(jsonElement, "valuesCount");
@@ -7934,8 +7933,7 @@ static String HDLmModTreeInfoString = "{" +
 		HDLmJson.removeJsonKey(jsonElement, "errorCount");
 		/* Put the values back in the JSON object in a specific order */
 		HDLmJson.setJsonString(jsonElement, "cssselector", cssString);
-		HDLmJson.setJsonString(jsonElement, "extra", extraString);
-		HDLmJson.setJsonBoolean(jsonElement, "enabled", enabledBoolean);		
+		HDLmJson.setJsonString(jsonElement, "extra", extraString);	
 		HDLmJson.setJsonValue(jsonElement, "find", findsElement);
 		HDLmJson.setJsonString(jsonElement, "name", nameString);
 		HDLmJson.setJsonValue(jsonElement, "nodeiden", nodeIdenElement);
@@ -8160,10 +8158,6 @@ static String HDLmModTreeInfoString = "{" +
 	protected void setDummyUpdated(final Boolean newDummyUpdated) {
 		this.dummyUpdated = newDummyUpdated;
 	}
-	/* Set the enabled flag for a modification */
-	protected void setEnabled(final Boolean newEnabled) {
-		this.enabled = newEnabled;
-	}
 	/* set the modification extra information value */
 	protected void setExtra(final String newExtra) {
 	  this.extra = newExtra;;
@@ -8297,6 +8291,16 @@ static String HDLmModTreeInfoString = "{" +
 	/* Set the modification type value */
 	protected void setType(final HDLmModTypes newType) {
 		this.type = newType;
+	}
+	/* Set the use mode for a modification */
+	protected void setUseMode(final String newUsemode) {
+		this.useMode = newUsemode;
+	}
+	/* Set the use mode for a modification to "off". This has
+	   the effect of preventing the modification from ever 
+	   being used. */
+	protected void setUseModeOff() {
+		this.useMode = "off";
 	}
 	/* Set the modification value */
 	protected void setValue(final String newValue) {

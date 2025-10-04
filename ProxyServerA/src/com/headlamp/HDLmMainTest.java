@@ -41,7 +41,7 @@ class HDLmMainTest {
 		int        modNodePathSize = modTopNodePath.size();
 		assertEquals(1, modNodePathSize, "Top node has incorrect node path length");
 		assertEquals("Top", modTopNodePath.get(0), "Top node path has incorrect first entry");
-		HDLmMod    topModDetails = topModNode.getDetails();
+		HDLmMod    topModDetails = topModNode.getModFromTree();
 		assertNotNull(topModDetails, "Top node has null details");		
 		/* Run a few buildProxyTree tests */
 		HDLmTree   topProxyNode;
@@ -62,7 +62,7 @@ class HDLmMainTest {
 		int        proxyNodePathSize = proxyTopNodePath.size();
 		assertEquals(1, proxyNodePathSize, "Top node has incorrect node path length");
 		assertEquals("Top", proxyTopNodePath.get(0), "Top node path has incorrect first entry");
-		HDLmMod    topProxyDetails = topProxyNode.getDetails();
+		HDLmMod    topProxyDetails = topProxyNode.getModFromTree();
 		assertNull(topProxyDetails, "Top node has non-null details");	
 	}
 }

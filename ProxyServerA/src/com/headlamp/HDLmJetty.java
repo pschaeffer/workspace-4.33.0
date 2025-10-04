@@ -520,6 +520,9 @@ public class HDLmJetty {
 		/* Check if the build function (one or more rules) has been requested */
 		else if (pathValueString.equalsIgnoreCase("/BuildRules"))
 			fileName = "html/index.html";
+		/* Check if the manage function (one or more rules) has been requested */
+		else if (pathValueString.equalsIgnoreCase("/ManageRules"))
+			fileName = "html/index.html";
 		else {
 			/* Check if the file name is long enough to remove the first character. The
 			   first character is probably a forward slash. */
@@ -950,7 +953,7 @@ public class HDLmJetty {
 			String  errorText = "Cookie name passed to getCookieExtended is null";
 			throw new NullPointerException(errorText);
 		}
-		Cookie[] cookiesArray = request.getCookies();
+		Cookie[]  cookiesArray = request.getCookies();
 		String cookieName;
 		String cookieValue = null;
 		if (cookiesArray != null) {
@@ -980,8 +983,8 @@ public class HDLmJetty {
 			String  errorText = "Servlet request passed to getCookies is null";
 			throw new NullPointerException(errorText);
 		}
-		ArrayList<Cookie> cookiesArrayList = new ArrayList<Cookie>();
-		Cookie[] cookiesArray = request.getCookies();
+		ArrayList<Cookie>  cookiesArrayList = new ArrayList<Cookie>();
+		Cookie[]  cookiesArray = request.getCookies();
 		if (cookiesArray != null) {
 			for (Cookie cookie : cookiesArray) {
 				cookiesArrayList.add(cookie);
@@ -1844,7 +1847,7 @@ public class HDLmJetty {
 		return "headlamp";
 	}
 	/* Get the path of the standard Key Store and return it to the caller */
-	protected static String getStandardKeyStorePath() {
+	protected static String  getStandardKeyStorePath() {
 		/* First check if we are inside a Docker container. Special
 	     case code is needed if a Docker container is active. */
     if (HDLmMain.isDockerFlagSet() == false) {
@@ -2014,6 +2017,136 @@ public class HDLmJetty {
 			HDLmEvent.eventOccurred("Exception");
 			return;
 		}
+	}
+	/* This routine handles certain requests to build a cookie on behalf of
+     the client. These POST requests are used to build a cookie that is 
+     sent to the client. */  
+	@SuppressWarnings("deprecation")
+	protected static void  handleBuildCookie(final HttpServletRequest request,
+																 		       final HttpServletResponse response,
+																 		       final String requestPayload,
+																		       final String requestOriginalPathValue) { 
+		/* LOG.info("In HDLmJetty.handleBuildCookie"); */
+		/* Check if the input request passed by the caller is null */
+		if (request == null) {
+			String  errorText = "Servlet request passed to handleBuildCookie is null";
+			throw new NullPointerException(errorText);
+		}
+		/* Check if the output response passed by the caller is null */
+		if (response == null) {
+			String  errorText = "Servlet response passed to handleBuildCookie is null";
+			throw new NullPointerException(errorText);
+		}
+		/* Check if the request payload value passed by the caller is null */
+		if (requestPayload == null) {
+			String  errorText = "Request payload passed to handleBuildCookie is null";
+			throw new NullPointerException(errorText);
+		}
+		/* Check if the request original path value passed by the caller is null */
+		if (requestOriginalPathValue == null) {
+			String  errorText = "Request orginal path passed to handleBuildCookie is null";
+			throw new NullPointerException(errorText);
+		}
+		/* Get a bunch of default values. These values may be overridden
+		   by values sent by the client. */ 
+		/* Build the cookie maximum age, as need be */
+		Integer   cookieMaxAge = HDLmConfigInfo.getCookieMaxAge();
+		/* Get the cookie name for use later */
+    String   cookieName = HDLmDefines.getString("HDLMACCESSCOOKIE");
+		if (cookieName == null) {
+			String   errorFormat = "Define value for access cookie name not found (%s)";
+			String   errorText = String.format(errorFormat, "HDLMACCESSCOOKIE");
+			HDLmAssertAction(false, errorText);
+		}
+		String  cookiePath = null;
+		String  cookieSameSite = "None"; 
+		HDLmSecureCookie   cookieSecure = HDLmSecureCookie.SECURECOOKIETRUE;
+		/* The request payload may contain values that override the 
+		   default values */ 
+		/* Create a new JSON parser for use below */
+    JsonParser    parser = new JsonParser();
+    /* Make sure the inbound payload has the required key */
+    JsonElement   jsonElement = parser.parse(requestPayload);
+	  /* Check if the JSON message passed by the caller is valid */
+		if (!jsonElement.isJsonObject()) {
+	 	  String  errorText = "JSON string in handleBuildCookie for request payload is invalid";
+	 	  HDLmAssertAction(false, errorText);
+	  }
+		/* Check if the inbound message has a cookie name */
+    boolean   hasCookieNameKey = HDLmJson.hasJsonKey(jsonElement, "cookieName");
+    if (hasCookieNameKey) 
+    	cookieName = HDLmJson.getJsonString(jsonElement, "cookieName");
+		/* Check if the inbound message has a maximum age */
+    boolean   hasMaxAgeKey = HDLmJson.hasJsonKey(jsonElement, "maxAge");
+    if (hasMaxAgeKey) 
+    	cookieMaxAge = HDLmJson.getJsonInteger(jsonElement, "maxAge");
+		/* Check if the inbound message has a password. The password 
+		   is mandatory */
+    boolean   hasPasswordKey = HDLmJson.hasJsonKey(jsonElement, "password");
+		if (hasPasswordKey == false) {
+	 	  String  errorText = "JSON string in handleBuildCookie doesn't have a password in the POST payload";
+	 	  HDLmAssertAction(false, errorText);
+	  }
+		String  cookiePassword = null;
+    if (hasPasswordKey) 
+    	cookiePassword = HDLmJson.getJsonString(jsonElement, "password");
+		/* Check if the inbound message has a cookie path */
+    boolean   hasPathKey = HDLmJson.hasJsonKey(jsonElement, "path");
+    if (hasPathKey) 
+    	cookiePath = HDLmJson.getJsonString(jsonElement, "path");
+		/* Check if the inbound message has a cookie seurity value */
+    boolean   hasSecureKey = HDLmJson.hasJsonKey(jsonElement, "secure");
+    if (hasSecureKey) { 
+    	boolean   cookieSecureBoolean = HDLmJson.getJsonBoolean(jsonElement, "secure");
+    	if (cookieSecureBoolean == true)
+    		cookieSecure = HDLmSecureCookie.SECURECOOKIETRUE;
+    	else if (cookieSecureBoolean == false)
+        cookieSecure = HDLmSecureCookie.SECURECOOKIEFALSE;
+    	else {
+  	 	  String  errorText = "Value of secure in handleBuildCookie is not valid";
+  	 	  HDLmAssertAction(false, errorText);
+      }
+    }	
+		/* Check if the inbound message has a cookie same site value */
+    boolean   hasSameSiteKey = HDLmJson.hasJsonKey(jsonElement, "sameSite");
+    if (hasSameSiteKey) 
+    	cookieSameSite = HDLmJson.getJsonString(jsonElement, "sameSite");
+		/* Check if the inbound message has a userid. The userid 
+	     is mandatory */
+    boolean   hasUseridKey = HDLmJson.hasJsonKey(jsonElement, "userid");
+  	if (hasUseridKey == false) {
+  	  String  errorText = "JSON string in handleBuildCookie doesn't have a userid in the POST payload";
+	    HDLmAssertAction(false, errorText);
+    }
+		String  cookieUserid = null;
+    if (hasUseridKey) 
+    	cookieUserid = HDLmJson.getJsonString(jsonElement, "userid");
+    /* Build the cookie value, as need be */
+		String  cookieValue = "{\"userid\":\"" + cookieUserid + "\",\"password\":\"" + cookiePassword + "\"}";		 
+		String  plainTextCookieValue = cookieValue;
+		String  encryptionKeyValue = HDLmConfigInfo.getSecretEncryptionKey();
+		/* The value returned by the call below is already in base-64 form */
+		String  encryptedCookieValue = HDLmEncryption.encrypt(encryptionKeyValue, 
+	                                                   		  plainTextCookieValue);
+		
+  	response.setContentType("application/json");
+  	/* response.setCharacterEncoding("UTF-8"); */
+    /* Add the Access-Control-Expose-Headers header */
+    HDLmJetty.handleResponseExposeHeaders(response);
+    /* Add the Access-Control-Allow-Origin header */
+    HDLmJetty.handleResponseAllowAllOrigins(request, response);		
+		/* Store the cookie. The cookie will be returned to
+		   the caller. */ 
+		if (1 == 1)
+			HDLmJetty.setCookie(response,
+	    		                cookieName,
+	    		                encryptedCookieValue,
+	    		                cookiePath,
+	    		                cookieSecure,
+	    		                HDLmHttpOnly.HTTPONLYFALSE,
+	    		                cookieMaxAge,
+	    		                cookieSameSite);
+		
 	}
 	/* This routine handles certain contents information commands that can be
      sent using a browser. The commands are routed as need be and the
@@ -2406,18 +2539,18 @@ public class HDLmJetty {
 	         authorization header match the memory data base */
 		    if (useActualCognitoCheck == false) {
 		    	boolean   traceCheck = false;
-          checkMatch = HDLmSecurity.checkMatchingUsernamePassword(userNameStr,
-   	  	                                                          passwordStr,
-   	  	                                                          traceCheck);
+          checkMatch = HDLmSecurity.checkMemoryMatchingUsernamePassword(userNameStr,
+   	  	                                                                passwordStr,
+   	  	                                                                traceCheck);
           if (checkMatch == false) {
         	  useActualCognitoCheck = true;
         	  /* LOG.info("In HDLmJetty.handleInvokeApi - check password"); */
         	  /* LOG.info(passwordStr); */
         	  /* Redo the password match check with trace turned off */
         	  traceCheck = false;
-            checkMatch = HDLmSecurity.checkMatchingUsernamePassword(userNameStr,
-                                                                    passwordStr,
-                                                                    traceCheck);
+            checkMatch = HDLmSecurity.checkMemoryMatchingUsernamePassword(userNameStr,
+                                                                          passwordStr,
+                                                                          traceCheck);
           }
 		    }
   	    /* Check if the information in the memory database is too old */
@@ -2470,6 +2603,7 @@ public class HDLmJetty {
 			    outCode = outResponse.getStatusCode();
 			    outHeaders = outResponse.getHeaders();
 			    outStr = outResponse.getStringContent();
+			    LOG.info("In HDLmJetty.handleInvokeApi - outStr - " +  outStr.toString());
 			    /* Check if we obtained a response from the check user name and password routine */
 			    if (outStr == null) {
 			    	response.setHeader(errorMessageHeader, "No response was received from the check API call");
@@ -2487,8 +2621,13 @@ public class HDLmJetty {
 			    		}
 			    	}
 			    	/* Update the user name / password, if the current request worked */
-			    	if (outCode == HttpStatus.OK_200)
-			    		HDLmSecurity.updatePassword(userNameStr, passwordStr);
+			    	if (outCode == HttpStatus.OK_200) {
+			    		/* In some cases, we really don't want to update the 
+			    		   password information. We don't want to update the
+			    		   password information if a new password is coming. */		   
+							if (outStr.contains("NEW_PASSWORD_REQUIRED") == false)
+								HDLmSecurity.updatePassword(userNameStr, passwordStr);
+			    	}
 						/* Send the JSON back to the invoker */
 			    	response.setStatus(outCode);
 			    	response.setContentType("application/json");
@@ -2694,15 +2833,15 @@ public class HDLmJetty {
 		    String        passwordStr = HDLmJson.getJsonString(jsonElement, "Password");
 		    /* Invoke the Cognito set user password API */
 		    ArrayList<String>   outHeaders;
-		    HDLmApacheResponse  outResponse;
+		    HDLmApacheResponse  outResponseSetPassword;
 		    int                 outCode;
 		    String              outStr;
-		    outResponse = HDLmSecurity.setPassword(userPoolId,
-		    		                                   userNameStr,
-		    		                                   passwordStr);
-		    outCode = outResponse.getStatusCode();
-		    outHeaders = outResponse.getHeaders();
-		    outStr = outResponse.getStringContent();
+		    outResponseSetPassword = HDLmSecurity.setPassword(userPoolId,
+		    		                                              userNameStr,
+		    		                                              passwordStr);
+		    outCode = outResponseSetPassword.getStatusCode();
+		    outHeaders = outResponseSetPassword.getHeaders();
+		    outStr = outResponseSetPassword.getStringContent();
 		    /* LOG.info("In HDLmJetty.handleInvokeApi - outCode - " + ((Integer) outCode).toString()); */
 		    /* LOG.info("In HDLmJetty.handleInvokeApi - outStr - " + outStr); */
 		    /* Check if we obtained a response from the set user password routine */
@@ -2722,7 +2861,14 @@ public class HDLmJetty {
 		    		}
 		    	}
 		    	/* Store the updated password in the memory database */
-		    	HDLmSecurity.updatePassword(userNameStr, passwordStr);
+		    	HDLmSecurity.updatePassword(userNameStr, passwordStr);	    	
+		    	/* Get the scope for the current user */
+			    String    scopeStr = HDLmSecurity.getScopeString(userPoolId,
+			    		                                             userNameStr);	
+			    /* Update the scope information in the memory database */
+		    	Instant   instant = Instant.now();
+	  			String    instantStr = instant.toString();
+	    	  HDLmSecurity.updateLastTimeScope(userNameStr, instantStr, scopeStr);	    	
 					/* Send the JSON back to the invoker */
 		    	response.setStatus(outCode);
 		    	response.setContentType("application/json");
@@ -3394,7 +3540,7 @@ public class HDLmJetty {
 		   the current instant in time to do this. */
 		Instant   instantStart = Instant.now();
 		/* Pass this operation to the actual server */
-		HDLmApacheRedirect  apacheRedirect = HDLmApacheRedirect.DISABLE;
+		HDLmApacheRedirect  apacheRedirect = HDLmApacheRedirect.APACHEREDIRECTDISABLE;
 		/* Perform the actual HTTP(S) operation */
 		apacheResponse = HDLmApache.performHttpOperation(protocolType, operationType,
 				                                             modifiedServerName,
@@ -3773,17 +3919,17 @@ public class HDLmJetty {
 		/* LOG.info("In HDLmJetty.handleSetTest"); */
 		/* Check if the input request passed by the caller is null */
 		if (request == null) {
-			String  errorText = "Servlet request passed to handleInvokeApi is null";
+			String  errorText = "Servlet request passed to handleSetTest is null";
 			throw new NullPointerException(errorText);
 		}
 		/* Check if the output response passed by the caller is null */
 		if (response == null) {
-			String  errorText = "Servlet response passed to handleInvokeApi is null";
+			String  errorText = "Servlet response passed to handleSetTest is null";
 			throw new NullPointerException(errorText);
 		}
 		/* Check if the request original path value passed by the caller is null */
 		if (requestOriginalPathValue == null) {
-			String  errorText = "Request orginal path passed to handleInvokeApi is null";
+			String  errorText = "Request orginal path passed to handleSetTest is null";
 			throw new NullPointerException(errorText);
 		}
 		/* Define a local variable */

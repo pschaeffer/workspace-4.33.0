@@ -1,4 +1,7 @@
 package com.headlamp;
+
+import java.util.ArrayList;
+
 /**
  * HDLmResult short summary.
  *
@@ -14,10 +17,11 @@ public class HDLmResult {
 	   of a request to the caller. Of course, not all of the fields 
 	   will always be set. However, all of the fields may be set in 
 	   some cases. */
-	private Boolean   resultDesired = null;
-	private String    resultMessage = null;
-	private Integer   resultCode = null;
-	private Integer   resultNumber = null;
+	private Boolean             resultDesired = null;
+	private String              resultMessage = null;
+	private Integer             resultCode = null;
+	private Integer             resultNumber = null;
+	private ArrayList<String>   resultList = null;
 	protected Boolean      getDesired() {
 		return resultDesired;
 	}
@@ -47,6 +51,16 @@ public class HDLmResult {
 			throw new NullPointerException(errorText);
 		}
 		resultDesired = newDesired;
+	}
+	/* Set or reset the list. Note that the caller can 
+	   not pass a null value for the new list. This is 
+	   an error condition. */
+	protected void         setList(final ArrayList<String> newList) {
+		if (newList == null) {
+			String  errorText = "New ArrayList<String> is null";
+			throw new NullPointerException(errorText);
+		}
+		resultList = newList;
 	}
 	/* Set or reset the message. Note that the caller can 
 	   not pass a null value for the new message. This is 

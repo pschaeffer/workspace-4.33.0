@@ -196,7 +196,10 @@ class HDLmBuildJsNoCompression {
     builder.addLine("    let matchModifiedName = hostNameValue + '/' + divisionNameValue + '/' + siteNameValue + '/' + curMod.name");
     builder.addLine("    matchModifiedName = HDLmReplaceInString(matchModifiedName);");
     builder.addLine("    let curType = curMod.type;");
-    builder.addLine("    /* The dummy loop below is used to allow break to work */");
+    builder.addLine("    /* The dummy loop below is used to allow break to work. This is the outer loop.");
+    builder.addLine("       Inside this loop, is a switch statement (actually several) that handles");
+    builder.addLine("       each type of rule. Individual nodes are handled by node loops nest Inside");
+    builder.addLine("       the outer loop. */");
     builder.addLine("    while (true) {");
     builder.addLine("      let postTrace = new Object();");
     builder.addLine("      /* console.log('s2'); */");
@@ -227,12 +230,12 @@ class HDLmBuildJsNoCompression {
     builder.addLine("          break;");
     builder.addLine("        }");
     builder.addLine("      }");
-    builder.addLine("      /* If the current modification is not enabled, then we really");
+    builder.addLine("      /* If the current modification should not be run, then we really");
     builder.addLine("         don't have any more work to do */");
-    builder.addLine("      if (curMod.enabled != true) {");
-    builder.addLine("        matchError = 'disabled';");
+    builder.addLine("      if (false) {");
+    builder.addLine("        matchError = 'false';");
     builder.addLine("        /* console.log('s3'); */");
-    builder.addLine("        /* Report that the current rule was not enabled */");
+    builder.addLine("        /* Report that the current rule was not executed */");
     builder.addLine("        if (postRuleTracing == true) {");
     builder.addLine("          let localUpdates = new Object();");
     builder.addLine("          HDLmSaveChange(localUpdates, null,");
@@ -1372,7 +1375,7 @@ class HDLmBuildJsNoCompression {
     builder.addLine("      disabledStatus = true;");
     builder.addLine("    if (disabledStatus == 'false')");
     builder.addLine("      disabledStatus = false;");
-    builder.addLine("    /* Find and disable or enabled the style sheet */");
+    builder.addLine("    /* Find and disable or enable the style sheet */");
     builder.addLine("    var styleSheetList = document.styleSheets;");
     builder.addLine("    for (let i = 0; i < styleSheetList.length; i++) {");
     builder.addLine("      var styleSheet = styleSheetList[i];");
@@ -1811,7 +1814,9 @@ class HDLmBuildJsNoCompression {
     builder.addLine("         A special call is needed to get the actual tag name of the");
     builder.addLine("         DOM element. This call will always return the tag name in");
     builder.addLine("         uppercase. As a consequence, the expected value must also be");
-    builder.addLine("         changed to uppercase. */");
+    builder.addLine("         changed to uppercase. Both statements are not quite true.");
+    builder.addLine("         Experisnce has show that the tag name is sometimes returned");
+    builder.addLine("         in lowercase. */");
     builder.addLine("      if (nodeAttributeKey == 'tag') {");
     builder.addLine("        nodeActualValue = nodeElement.tagName;");
     builder.addLine("        /* Check if node identifier tracing is active or not. Trace the");
@@ -1955,6 +1960,11 @@ class HDLmBuildJsNoCompression {
     builder.addLine("          nodeIndexOf = nodeInnerText.indexOf('ï¿½');");
     builder.addLine("          if (nodeIndexOf >= 0)");
     builder.addLine("            nodeInnerText = nodeInnerText.substring(0, nodeIndexOf);");
+    builder.addLine("          /* Long and bad experience has shown that inner text sometimes");
+    builder.addLine("             begins with a new line character. The code below has the effect");
+    builder.addLine("             of setting the inner text to an empty string in this case. The");
+    builder.addLine("             trim call (also below) would do a better job of removing the");
+    builder.addLine("             new line character. */");
     builder.addLine("          nodeIndexOf = nodeInnerText.indexOf('\\n');");
     builder.addLine("          if (nodeIndexOf >= 0)");
     builder.addLine("            nodeInnerText = nodeInnerText.substring(0, nodeIndexOf);");
@@ -1971,6 +1981,11 @@ class HDLmBuildJsNoCompression {
     builder.addLine("          let   traceValue = 0.0;");
     builder.addLine("          if (nodeActualValue != null &&");
     builder.addLine("              HDLmCompareCaseInsensitive(nodeAttributeValue, nodeActualValue))");
+    builder.addLine("            traceValue = 1.0;");
+    builder.addLine("          /* We need to check for a very special case here. If both");
+    builder.addLine("             the actual and expected values are null, then we really");
+    builder.addLine("             have a match. */");
+    builder.addLine("          if (nodeActualValue == null && nodeAttributeValue == null)");
     builder.addLine("            traceValue = 1.0;");
     builder.addLine("          /* Check if node identifier tracing should actually happen */");
     builder.addLine("          if (nodeIdenTracing == HDLmNodeIdenTracing.all ||");
@@ -1994,12 +2009,22 @@ class HDLmBuildJsNoCompression {
     builder.addLine("          nodeAttributeCheck.matchvalue = traceValue;");
     builder.addLine("          nodeAttributeChecks.push(nodeAttributeCheck);");
     builder.addLine("        }");
-    builder.addLine("        /* If we don't have a value that we can compare, then we are done */");
-    builder.addLine("        if (nodeActualValue == null)");
-    builder.addLine("          continue;");
+    builder.addLine("        /* If we don't have a value that we can compare, then we are done.");
+    builder.addLine("           This is not quite true. If we expected a null value then the");
+    builder.addLine("           values are really equal. */");
+    builder.addLine("        let compareValues = true;");
+    builder.addLine("        if (nodeActualValue == null) {");
+    builder.addLine("          if (nodeAttributeValue != null)");
+    builder.addLine("            continue;");
+    builder.addLine("          else {");
+    builder.addLine("            numeratorIncrementValue = 1.0;");
+    builder.addLine("            compareValues = false;");
+    builder.addLine("          }");
+    builder.addLine("        }");
     builder.addLine("        /* Compare the expected value and the actual value. If they are the");
     builder.addLine("           same, then we can increment the numerator. */");
-    builder.addLine("        if (HDLmCompareCaseInsensitive(nodeAttributeValue, nodeActualValue))");
+    builder.addLine("        if (compareValues && HDLmCompareCaseInsensitive(nodeAttributeValue,");
+    builder.addLine("                                                        nodeActualValue))");
     builder.addLine("          numeratorIncrementValue = 1.0;");
     builder.addLine("      }");
     builder.addLine("      /* Check if the attribute we want is the perceptual hash. The");
@@ -3500,8 +3525,7 @@ class HDLmBuildJsNoCompression {
        it can be passed to the apply modification routine. This must be done
        at the end of the JavaScript program so that all of the other routines
        will have been processed and as a consequence, available. */  
-    builder.addLine("  let curMod = {};");      
-    builder.addLine("  curMod.enabled = true;");  
+    builder.addLine("  let curMod = {};");
     String  modificationName = HDLmDefines.getString("HDLMLOADPAGEMODNAME");
     builder.addLine("  curMod.name = '" + modificationName + "';"); 
     builder.addLine("  curMod.parameter = -1;");   

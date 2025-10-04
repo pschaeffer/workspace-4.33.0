@@ -49,6 +49,87 @@ public class HDLmBridge {
   private static Connection   connection = null;  
 	/* This class can never be instantiated */
 	private HDLmBridge() {}		
+	/* What follows is just test code that was used to debug
+	   a problem with GSON. This code is not currently in 
+	   use and may never be used again. The original problem
+  	 was that quote, letter x, quote was being convert to
+	   \u0027\xD7\u0027. Of coure, that caused dire prolems. */	
+	protected static void checkSomeJson(String outJson) {
+		/* Create a new JSON parser for use below */
+	  JsonParser    parser = new JsonParser();  
+ 	  /* Make sure the inbound payload has the required key */
+	  JsonElement   oldJsonElement = parser.parse(outJson);
+	  /* Check if the JSON string is valid or not */
+	 	if (!oldJsonElement.isJsonObject()) {
+		  String  errorText = "JSON string from HDLmDatabase.getTableRowsJson in handleRequestRead is invalid";
+		  HDLmAssertAction(false, errorText);
+	  }
+	  JsonObject    newJsonObject = new JsonObject();
+	  JsonArray     newJsonArray = new JsonArray();
+	  /* Get the original number of rows. Filtering may or may not reduce
+	     the number of rows actually returned. */
+	  boolean  hasNumberOfRowsKey = HDLmJson.hasJsonKey(oldJsonElement, "rows_returned");
+	  if (hasNumberOfRowsKey == false) {
+		  String  errorText = "Table rows JSON does not have rows_returned key in handleRequestRead";
+		  HDLmAssertAction(false, errorText);    	
+	  }    
+	  int   numberOfRowsOld = HDLmJson.getJsonInteger(oldJsonElement, "rows_returned");
+	  if (LOG.isDebugEnabled()) 
+	    LOG.debug("In handleRequestRead - numberOfRowsOld(379) - " + ((Integer) numberOfRowsOld).toString());
+	  boolean  hasDataKey = HDLmJson.hasJsonKey(oldJsonElement, "data");
+	  if (hasDataKey == false) {
+		  String  errorText = "Table rows JSON does not have data key in handleRequestRead";
+		  HDLmAssertAction(false, errorText);    	
+	  }  
+	  JsonArray   dataArray = HDLmJson.getJsonArray(oldJsonElement, "data");
+	  /* Check if the JSON array is valid or not */
+		if (!dataArray.isJsonArray()) {
+		  String  errorText = "JSON array in handleRequestRead is invalid";
+		  HDLmAssertAction(false, errorText);
+	  }
+		/* Check each of the rows */
+	  int   numberOfRowsNew = 0; 
+	  for (int i = 0; i < numberOfRowsOld; i++) {
+	   	/* Get and check each data row */
+	 	  JsonElement         dataRow = dataArray.get(i); 
+	 	  /* A string value from each row will have most of the information we need */
+	    boolean  hasInfoKey = HDLmJson.hasJsonKey(dataRow, "info");
+	    if (hasInfoKey == false) {
+		 	  String  errorText = "Data row JSON does not have info key in handleRequestRead";
+		 	  HDLmAssertAction(false, errorText);    	
+	    }
+	 	  String              dataRowInfoStr = HDLmJson.getJsonString(dataRow, "info");
+	 	  if (LOG.isDebugEnabled()) 
+	 	    LOG.debug("In handleRequestRead - dataRowInfoStr(404) - " + dataRowInfoStr);
+	 	  /* Try to get the node path array list from the 'info' string.
+	 	     This should always be possible. */ 
+	 	  ArrayList<String>   nodePathRow = HDLmTree.getNodePath(dataRowInfoStr);
+	 	  int                 nodePathRowLen = nodePathRow.size();   
+	 	  /* Check if the current row is allowed or not. This check is only 
+	 	     possible if the scope string is actually set. If not, then we
+	 	     can not check if the current row is allowed. */
+	 	  boolean   rowAllowed = true;
+			if (i != 374)
+				rowAllowed = false;
+	 	  if (rowAllowed == true) {
+	 		  numberOfRowsNew++;
+	 	  	newJsonArray.add(dataRow);    		
+	 	  }    	 	
+	 	  /* The row was not allowed. We need to know why. */
+	 	  else
+	 		  rowAllowed = rowAllowed;
+	  }		
+	  /* Create a JSON primitive for the final number of rows */
+	  JsonElement  numberOfRowsNewJson = new JsonPrimitive(numberOfRowsNew);
+	  if (LOG.isDebugEnabled()) 
+	    LOG.debug("In handleRequestRead - numberOfRowsNew(432) - " + ((Integer) numberOfRowsNew).toString());
+	  /* Store some values in the new JSON object */
+	  newJsonObject.add("rows_returned", numberOfRowsNewJson);
+	  newJsonObject.add("data", newJsonArray);
+	  /* Convert the new JSON object to a JSON string */
+	  Gson  gsonInstance = HDLmMain.gsonMain;
+	  outJson = gsonInstance.toJson(newJsonObject);   
+	} 
 	/* The next method handles an inbound bridge request. The 		
 	   bridge request is checked and passed to a more specific
 	   routine for additional processing. */ 
@@ -141,6 +222,7 @@ public class HDLmBridge {
 		HDLmJetty.handleResponseAllowAllOrigins(request, response);
 		/* Return the JSON to the caller */
 		try {
+			/* checkSomeJson(outJson); */
 	    response.setStatus(HttpStatus.OK_200);
 			response.getWriter().print(outJson);
 			response.getWriter().flush();
@@ -184,7 +266,7 @@ public class HDLmBridge {
 	  /* Declare/define a few variables */
 	  String  outJson = null;	  
 		/* Declare/define a few variables */ 
-		outJson = HDLmDatabase.deleteTableRowsJson(requestPostPayload, tableName);
+		outJson = HDLmDatabase.deleteTableRowsJson(requestPostPayload, tableName);	
 	  return outJson;
   } 
 	/* The next method handles an inbound bridge insert request */ 
@@ -259,18 +341,26 @@ public class HDLmBridge {
 	    /* LOG.info("In handleRequestRead - UserName - " + userNameStr); */
 	    /* Check if the user name and password passed by the caller using the
 	       authorization header match the memory data base */
-      checkMatch = HDLmSecurity.checkMatchingUsernamePassword(userNameStr,
-    	  	                                                    passwordStr,
-    	  	                                                    false);	   
+      checkMatch = HDLmSecurity.checkMemoryMatchingUsernamePassword(userNameStr,
+    	  	                                                          passwordStr,
+    	  	                                                          false);	   
+  		if (LOG.isDebugEnabled()) 
+        LOG.debug("In handleRequestRead - checkMatch(266) - " + ((Boolean) checkMatch).toString());
 	    /* Get the scope string from the internal database */
-	    HDLmUtilityResponse   getOutputArea = HDLmSecurity.getInformation(userNameStr);
+	    HDLmUtilityResponse   getOutputArea = HDLmSecurity.getInformationMemory(userNameStr);
 	    scopeStr = getOutputArea.getScopeValue();
-	    /* LOG.info("In handleRequestRead - Scope    - " + scopeStr); */
+	    if (LOG.isDebugEnabled()) 
+	      LOG.debug("In handleRequestRead - scopeStr(271)    - " + scopeStr);
+	    /* scopeStr = "yoga"; */
+	    if (LOG.isDebugEnabled()) 
+	      LOG.debug("In handleRequestRead - scopeStr(274)    - " + scopeStr); 
 	    /* Check if the information in the memory database is too old */
 		  checkLastTimeFailure = HDLmSecurity.checkLastTimeFailure(userNameStr, 
 		                                                           getOutputArea);
-		  /* Reset the last time used value, if need be */
-		  if (checkLastTimeFailure) {		  
+		  /* Reset the last time used value, if need be. This code
+		     is no longer used. The last time value should not be 
+		     reset just because the bridge was used. */
+		  if (false && checkLastTimeFailure) {		  
 		  	checkLastTimeFailure = false;
 			  Instant   instant = Instant.now();
 			  String    instantStr = instant.toString();
@@ -278,7 +368,7 @@ public class HDLmBridge {
 		  }
 		  /* Check for a few very special cases */
 		  if (userNameStr.contentEquals("pdschaefferisnotused") ||
-		  		userNameStr.contentEquals("myzelenskyisnotuser")) {
+		  		userNameStr.contentEquals("myzelenskyisnotused")) {
 		  	checkLastTimeFailure = false;
 		  	scopeStr = "admin";
 		  }
@@ -287,16 +377,32 @@ public class HDLmBridge {
 		/* We must be running under Windows. This must be a test copy of
 		   the system. */ 
 		else {
-			bypassAllChecking = true;
-			checkMatch = true;
-			checkLastTimeFailure = false;
-			scopeStr = "*";
+			/* This is the default code under Window. Many values are set 
+			   to avoid further checking */ 
+			if (1 == 1) {
+				bypassAllChecking = true;
+				checkMatch = true;
+				checkLastTimeFailure = false;
+				scopeStr = "*";
+			}
+			else {
+				checkMatch = true;
+				checkLastTimeFailure = false;
+				scopeStr = "yoga";
+			}
 		}
-	  /* Check if we should allow access */ 
+	  /* Check if we should allow access */
+		if (LOG.isDebugEnabled()) {
+	  	LOG.debug("In handleRequestRead - scopeStr(314) - " + scopeStr);
+		  LOG.debug("In handleRequestRead - checkMatch(315) - " + ((Boolean) checkMatch).toString());
+		  LOG.debug("In handleRequestRead - checkLastTimeFailure(316) - " + ((Boolean) checkLastTimeFailure).toString());
+		}  
 	  if (checkMatch == false)
 	  	scopeStr = null; 
 	  if (checkLastTimeFailure == true)
 	  	scopeStr = null;
+	  if (LOG.isDebugEnabled()) 
+	    LOG.debug("In handleRequestRead - scopeStr(323) - " + scopeStr);
 		/* Convert the scope string to a scope array/vector, if possible */
 		ArrayList<ArrayList<String>>  scopeArray = null;
 		if (scopeStr != null)
@@ -319,11 +425,16 @@ public class HDLmBridge {
 	  		}
 	  	}
 	  }
+		if (scopeArray != null)
+			if (LOG.isDebugEnabled()) 
+	      LOG.debug("In handleRequestRead - scopeArray(348) - " + scopeArray.toString());
 		/* Check if all filtering/checking should be bypassed */
 		if (bypassAllChecking)
 			passedScopeArray = null;
 		/* Declare/define a few variables */ 
 		String  outJson = HDLmDatabase.getTableRowsJson(contentValue, tableName, passedScopeArray);
+		if (LOG.isDebugEnabled()) 
+		  LOG.debug("In handleRequestRead - outJson(355) - " + outJson.toString());
 		/* Check if all filtering/checking should be bypassed */		 
 		if (bypassAllChecking)
 			return outJson;
@@ -346,6 +457,8 @@ public class HDLmBridge {
 	 	  HDLmAssertAction(false, errorText);    	
     }    
     int   numberOfRowsOld = HDLmJson.getJsonInteger(oldJsonElement, "rows_returned");
+    if (LOG.isDebugEnabled()) 
+      LOG.debug("In handleRequestRead - numberOfRowsOld(379) - " + ((Integer) numberOfRowsOld).toString());
     boolean  hasDataKey = HDLmJson.hasJsonKey(oldJsonElement, "data");
     if (hasDataKey == false) {
 	 	  String  errorText = "Table rows JSON does not have data key in handleRequestRead";
@@ -369,6 +482,8 @@ public class HDLmBridge {
   	 	  HDLmAssertAction(false, errorText);    	
       }
     	String              dataRowInfoStr = HDLmJson.getJsonString(dataRow, "info");
+    	if (LOG.isDebugEnabled()) 
+    	  LOG.debug("In handleRequestRead - dataRowInfoStr(404) - " + dataRowInfoStr);
     	/* Try to get the node path array list from the 'info' string.
     	   This should always be possible. */ 
     	ArrayList<String>   nodePathRow = HDLmTree.getNodePath(dataRowInfoStr);
@@ -383,13 +498,20 @@ public class HDLmBridge {
     		rowAllowed = false;
     	else
     	  rowAllowed = HDLmSecurity.checkIfAllowed(scopeArray, nodePathRow); 
+    	if (LOG.isDebugEnabled()) 
+      	LOG.debug("In handleRequestRead - rowAllowed(420) - " + ((Boolean) rowAllowed).toString());
     	if (rowAllowed == true) {
     		numberOfRowsNew++;
     		newJsonArray.add(dataRow);    		
     	}    	 	
+    	/* The row was not allowed. We need to know why. */
+    	else
+    		rowAllowed = rowAllowed;
     }		
     /* Create a JSON primitive for the final number of rows */
     JsonElement  numberOfRowsNewJson = new JsonPrimitive(numberOfRowsNew);
+    if (LOG.isDebugEnabled()) 
+      LOG.debug("In handleRequestRead - numberOfRowsNew(432) - " + ((Integer) numberOfRowsNew).toString());
     /* Store some values in the new JSON object */
     newJsonObject.add("rows_returned", numberOfRowsNewJson);
     newJsonObject.add("data", newJsonArray);

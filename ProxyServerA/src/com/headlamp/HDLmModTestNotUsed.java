@@ -27,7 +27,9 @@ import com.google.gson.JsonPrimitive;
 /**
  * HDLmModTestNotUsed short summary.
  *
- * HDLmModTestNotUsed description.
+ * HDLmModTestNotUsed This entire test class is not used. It is retained
+ *                    for reference purposes only. The HDLAllTests class
+ *                    does not include this test class.
  *
  * @version 1.0
  * @author Peter
@@ -55,53 +57,53 @@ class HDLmModTestNotUsed {
 		assertNotNull(locateTree,
                   "Node should have been located");
 		/* Check the modification node details */
-		HDLmMod modDetails = locateTree.getDetails();
-		assertEquals(0, modDetails.getFinds().size(), "Modification finds size must be zero"); 
-		assertNotEquals(null, modDetails.getValues(), "Modification values value must not be null"); 
-		assertNotNull(modDetails.getValues(), "Modification values value must not be null"); 
-		assertEquals(true, modDetails.getEnabled(), "Modification enabled value must be true");
-		assertEquals(false, modDetails.getPathValueRe(), "Modification path value regex value must be false");
-		assertEquals(HDLmMatchTypes.NONE, modDetails.getPathValueType(), "Modification path value match type must be 'NONE'");
-		assertEquals(HDLmModTypes.TEXT, modDetails.getType(), "Modification type value must be 'TEXT'");
-		assertEquals(9, modDetails.getValuesCount(), "Modification values count must be nine");
-		assertNotEquals(null, modDetails.getParameterNumber(), "Modification parameter number must not be null");
-		assertNotNull(modDetails.getParameterNumber(), "Modification parameter number must not be null");
-		assertEquals(null, modDetails.getCssSelector(), "Modification CSS Selected must be null");
-		assertNull(modDetails.getCssSelector(), "Modification CSS Selected must be null");
-		assertNotEquals("Extra Bott", modDetails.getExtra(), "Modification extra value must not be ('Extra Bott)");
-		assertNull(modDetails.getExtra(), "Modification extra value must be null");
-		assertEquals(modName, modDetails.getName(), "Modification name value must be '" + modName + "'");
-		assertEquals("/", modDetails.getPathValue(), "Modification path value must be correct");
-		assertEquals(null, modDetails.getValue(), "Modification value value must be null");
-		assertEquals(null, modDetails.getValueSuffix(), "Modification value suffix value must be null");
-		assertEquals("/html/body/div[1]/main/section/div/div/div/section/div/div/a", modDetails.getXPath(), 
+		HDLmMod newMod = locateTree.getModFromTree();
+		assertEquals(0, newMod.getFinds().size(), "Modification finds size must be zero"); 
+		assertNotEquals(null, newMod.getValues(), "Modification values value must not be null"); 
+		assertNotNull(newMod.getValues(), "Modification values value must not be null"); 
+		assertEquals(true, newMod.getActive(), "Modification active value must be true");
+		assertEquals(false, newMod.getPathValueRe(), "Modification path value regex value must be false");
+		assertEquals(HDLmMatchTypes.NONE, newMod.getPathValueType(), "Modification path value match type must be 'NONE'");
+		assertEquals(HDLmModTypes.TEXT, newMod.getType(), "Modification type value must be 'TEXT'");
+		assertEquals(9, newMod.getValuesCount(), "Modification values count must be nine");
+		assertNotEquals(null, newMod.getParameterNumber(), "Modification parameter number must not be null");
+		assertNotNull(newMod.getParameterNumber(), "Modification parameter number must not be null");
+		assertEquals(null, newMod.getCssSelector(), "Modification CSS Selected must be null");
+		assertNull(newMod.getCssSelector(), "Modification CSS Selected must be null");
+		assertNotEquals("Extra Bott", newMod.getExtra(), "Modification extra value must not be ('Extra Bott)");
+		assertNull(newMod.getExtra(), "Modification extra value must be null");
+		assertEquals(modName, newMod.getName(), "Modification name value must be '" + modName + "'");
+		assertEquals("/", newMod.getPathValue(), "Modification path value must be correct");
+		assertEquals(null, newMod.getValue(), "Modification value value must be null");
+		assertEquals(null, newMod.getValueSuffix(), "Modification value suffix value must be null");
+		assertEquals("/html/body/div[1]/main/section/div/div/div/section/div/div/a", newMod.getXPath(), 
 				         "Modification XPath value must not be null");		
-		assertNotNull(modDetails.getXPath(), "Modification XPath value must not be null");
+		assertNotNull(newMod.getXPath(), "Modification XPath value must not be null");
 		/* Copy the modification details */
-		modDetails = new HDLmMod(modDetails);
-		modDetails.setIfNotSetTimes();
+		newMod = new HDLmMod(newMod);
+		newMod.setIfNotSetTimes();
 		/* Check the modification node details */
-		assertEquals(0, modDetails.getFinds().size(), "Modification finds size must be zero"); 
-		assertNotEquals(null, modDetails.getValues(), "Modification values value must not be null"); 
-		assertNotNull(modDetails.getValues(), "Modification values value must not be null"); 
-		assertEquals(true, modDetails.getEnabled(), "Modification enabled value must be true");
-		assertEquals(false, modDetails.getPathValueRe(), "Modification path value regex value must be false");
-		assertEquals(HDLmMatchTypes.NONE, modDetails.getPathValueType(), "Modification value name match type must be 'NONE'");
-		assertEquals(HDLmModTypes.TEXT, modDetails.getType(), "Modification type value must be 'TEXT'");
-		assertEquals(9, modDetails.getValuesCount(), "Modification values count must be nine");
-		assertNotEquals(null, modDetails.getParameterNumber(), "Modification parameter number must not be null");
-		assertNotNull(modDetails.getParameterNumber(), "Modification parameter number must not be null");
-		assertEquals(null, modDetails.getCssSelector(), "Modification CSS Selected must be null");
-		assertNull(modDetails.getCssSelector(), "Modification CSS Selected must be null");
-		assertNotEquals("Extra Bott", modDetails.getExtra(), "Modification extra value must not be ('Extra Bott)");
-		assertNull(modDetails.getExtra(), "Modification extra value must be null");
-		assertEquals(modName, modDetails.getName(), "Modification name value must be '" + modName + "'");
-		assertEquals("/", modDetails.getPathValue(), "Modification path value must be correct");
-		assertEquals(null, modDetails.getValue(), "Modification value value must be null");
-		assertEquals(null, modDetails.getValueSuffix(), "Modification value suffix value must be null");
-		assertEquals("/html/body/div[1]/main/section/div/div/div/section/div/div/a", modDetails.getXPath(), 
+		assertEquals(0, newMod.getFinds().size(), "Modification finds size must be zero"); 
+		assertNotEquals(null, newMod.getValues(), "Modification values value must not be null"); 
+		assertNotNull(newMod.getValues(), "Modification values value must not be null"); 
+		assertEquals(true, newMod.getActive(), "Modification active value must be true");
+		assertEquals(false, newMod.getPathValueRe(), "Modification path value regex value must be false");
+		assertEquals(HDLmMatchTypes.NONE, newMod.getPathValueType(), "Modification value name match type must be 'NONE'");
+		assertEquals(HDLmModTypes.TEXT, newMod.getType(), "Modification type value must be 'TEXT'");
+		assertEquals(9, newMod.getValuesCount(), "Modification values count must be nine");
+		assertNotEquals(null, newMod.getParameterNumber(), "Modification parameter number must not be null");
+		assertNotNull(newMod.getParameterNumber(), "Modification parameter number must not be null");
+		assertEquals(null, newMod.getCssSelector(), "Modification CSS Selected must be null");
+		assertNull(newMod.getCssSelector(), "Modification CSS Selected must be null");
+		assertNotEquals("Extra Bott", newMod.getExtra(), "Modification extra value must not be ('Extra Bott)");
+		assertNull(newMod.getExtra(), "Modification extra value must be null");
+		assertEquals(modName, newMod.getName(), "Modification name value must be '" + modName + "'");
+		assertEquals("/", newMod.getPathValue(), "Modification path value must be correct");
+		assertEquals(null, newMod.getValue(), "Modification value value must be null");
+		assertEquals(null, newMod.getValueSuffix(), "Modification value suffix value must be null");
+		assertEquals("/html/body/div[1]/main/section/div/div/div/section/div/div/a", newMod.getXPath(), 
 				         "Modification XPath value must not be null");		
-		assertNotNull(modDetails.getXPath(), "Modification XPath value must not be null");
+		assertNotNull(newMod.getXPath(), "Modification XPath value must not be null");
 	  {
 			Throwable exception = assertThrows(RuntimeException.class, 
 					                               () -> {new HDLmMod((HDLmMod) null);},
@@ -167,30 +169,30 @@ class HDLmModTestNotUsed {
     JsonObject modsElementObject = modsElementDetails.getAsJsonObject();
     Set<String>  modsElementKeys = modsElementObject.keySet();
     /* Build the modification details */
-    HDLmMod  modDetails = new HDLmMod(modsElementDetails);
-    modDetails.setIfNotSetTimes();
+    HDLmMod  newMod = new HDLmMod(modsElementDetails);
+    newMod.setIfNotSetTimes();
 		/* Check the modification node details */
-		assertEquals(0, modDetails.getFinds().size(), "Modification finds size must be zero"); 
-		assertNotEquals(null, modDetails.getValues(), "Modification values value must not be null"); 
-		assertNotNull(modDetails.getValues(), "Modification values value must not be null"); 
-		assertEquals(true, modDetails.getEnabled(), "Modification enabled value must be true");
-		assertEquals(false, modDetails.getPathValueRe(), "Modification path value regex value must be false");
-		assertEquals(HDLmMatchTypes.NONE, modDetails.getPathValueType(), "Modification path value match type must be 'NONE'");
-		assertEquals(HDLmModTypes.TEXT, modDetails.getType(), "Modification type value must be 'TEXT'");
-		assertEquals(9, modDetails.getValuesCount(), "Modification values count must be nine");
-		assertNotEquals(null, modDetails.getParameterNumber(), "Modification parameter number must not be null");
-		assertNotNull(modDetails.getParameterNumber(), "Modification parameter number must not be null");
-		assertEquals(null, modDetails.getCssSelector(), "Modification CSS Selected must be null");
-		assertNull(modDetails.getCssSelector(), "Modification CSS Selected must be null");
-		assertNotEquals("Extra Bott", modDetails.getExtra(), "Modification extra value must not be ('Extra Bott)");
-		assertNull(modDetails.getExtra(), "Modification extra value must be null");
-		assertEquals(modName, modDetails.getName(), "Modification name value must be '" + modName + "'");
-		assertEquals("/", modDetails.getPathValue(), "Modification path value must be correct");
-		assertEquals(null, modDetails.getValue(), "Modification value value must be null");
-		assertEquals(null, modDetails.getValueSuffix(), "Modification value suffix value must be null");
-		assertEquals("/html/body/div[1]/main/section/div/div/div/section/div/div/a", modDetails.getXPath(), 
+		assertEquals(0, newMod.getFinds().size(), "Modification finds size must be zero"); 
+		assertNotEquals(null, newMod.getValues(), "Modification values value must not be null"); 
+		assertNotNull(newMod.getValues(), "Modification values value must not be null"); 
+		assertEquals(true, newMod.getActive(), "Modification active value must be true");
+		assertEquals(false, newMod.getPathValueRe(), "Modification path value regex value must be false");
+		assertEquals(HDLmMatchTypes.NONE, newMod.getPathValueType(), "Modification path value match type must be 'NONE'");
+		assertEquals(HDLmModTypes.TEXT, newMod.getType(), "Modification type value must be 'TEXT'");
+		assertEquals(9, newMod.getValuesCount(), "Modification values count must be nine");
+		assertNotEquals(null, newMod.getParameterNumber(), "Modification parameter number must not be null");
+		assertNotNull(newMod.getParameterNumber(), "Modification parameter number must not be null");
+		assertEquals(null, newMod.getCssSelector(), "Modification CSS Selected must be null");
+		assertNull(newMod.getCssSelector(), "Modification CSS Selected must be null");
+		assertNotEquals("Extra Bott", newMod.getExtra(), "Modification extra value must not be ('Extra Bott)");
+		assertNull(newMod.getExtra(), "Modification extra value must be null");
+		assertEquals(modName, newMod.getName(), "Modification name value must be '" + modName + "'");
+		assertEquals("/", newMod.getPathValue(), "Modification path value must be correct");
+		assertEquals(null, newMod.getValue(), "Modification value value must be null");
+		assertEquals(null, newMod.getValueSuffix(), "Modification value suffix value must be null");
+		assertEquals("/html/body/div[1]/main/section/div/div/div/section/div/div/a", newMod.getXPath(), 
 				         "Modification XPath value must be correct");		
-		assertNotNull(modDetails.getXPath(), "Modification XPath value must not be null");
+		assertNotNull(newMod.getXPath(), "Modification XPath value must not be null");
 	  {
 			Throwable exception = assertThrows(RuntimeException.class, 
 					                               () -> {new HDLmMod((JsonElement) null);},
@@ -226,11 +228,11 @@ class HDLmModTestNotUsed {
 	  assertEquals(11, extractCount, "Incorrect number of modifications extracted");
 	  /* Process each of the extracted modifications */
 	  for (HDLmMod currentMod : matchingMods) {
-	  	/* All of the modifications should be enabled. This is actually 
+	  	/* All of the modifications should execute. This is actually 
 	  	   an indirect way of making sure that no errors were found 
 	  	   building each modification. */
-	  	boolean  modEnabled = currentMod.getEnabled();
-	  	assertTrue(modEnabled, "Current modification is not enabled");
+	  	boolean  modActive = currentMod.getActive();
+	  	assertTrue(modActive, "Current modification is not active");
 	  	/* This code does not support searching for matching HTML elements
  	       using XPath. Several languages do not support searching using
  	       XPath. */
@@ -412,11 +414,11 @@ class HDLmModTestNotUsed {
 	  assertEquals(11, extractCount, "Incorrect number of modifications extracted");
 	  /* Process each of the extracted modifications */
 	  for (HDLmMod currentMod : matchingMods) {
-	  	/* All of the modifications should be enabled. This is actually 
+	  	/* All of the modifications should be active. This is actually 
  	       an indirect way of making sure that no errors were found 
  	       building each modification. */
- 	    boolean  modEnabled = currentMod.getEnabled();
- 	    assertTrue(modEnabled, "Current modification is not enabled");
+ 	    boolean  modActive = currentMod.getActive();
+ 	    assertTrue(modActive, "Current modification is not active");
 	  	HDLmModTypes   currentType = currentMod.getType();
 	  	/* Skip the modification types that don't use apply style */
 	  	if (currentType != HDLmModTypes.FONTCOLOR   &&
@@ -690,57 +692,57 @@ class HDLmModTestNotUsed {
 	  		                               HDLmUsePathValue.USEPATHVALUEOK);
 	  int  extractCount = matchingMods.size();
 	  assertEquals(11, extractCount, "Incorrect number of modifications extracted");
-	  HDLmMod  modDetails = matchingMods.get(0);
+	  HDLmMod  newMod = matchingMods.get(0);
 	  String   modName = "Add to Cart Text";
 		/* Check the modification node details */
-		assertEquals(1, modDetails.getFinds().size(), "Modification finds size must be one"); 
-		assertNotEquals(null, modDetails.getValues(), "Modification values value must not be null"); 
-		assertNotNull(modDetails.getValues(), "Modification values value must not be null"); 
-		assertEquals(true, modDetails.getEnabled(), "Modification enabled value must be true");
-		assertEquals(false, modDetails.getPathValueRe(), "Modification path value regex value must be false");
-		assertEquals(HDLmMatchTypes.NONE, modDetails.getPathValueType(), "Modification path value match type must be 'NONE'");
+		assertEquals(1, newMod.getFinds().size(), "Modification finds size must be one"); 
+		assertNotEquals(null, newMod.getValues(), "Modification values value must not be null"); 
+		assertNotNull(newMod.getValues(), "Modification values value must not be null"); 
+		assertEquals(true, newMod.getActive(), "Modification active value must be true");
+		assertEquals(false, newMod.getPathValueRe(), "Modification path value regex value must be false");
+		assertEquals(HDLmMatchTypes.NONE, newMod.getPathValueType(), "Modification path value match type must be 'NONE'");
 		
-		assertEquals(HDLmModTypes.TITLE, modDetails.getType(), "Modification type value must be 'TITLE'");
-		assertEquals(2, modDetails.getValuesCount(), "Modification values count must be two");
-		assertEquals(9, modDetails.getParameterNumber(), "Modification parameter number must be nine");
-		assertNotEquals(null, modDetails.getParameterNumber(), "Modification parameter number must not be null");
-		assertNotNull(modDetails.getParameterNumber(), "Modification parameter number must not be null");
-		assertEquals(null, modDetails.getCssSelector(), "Modification CSS Selected must be null");
-		assertNull(modDetails.getCssSelector(), "Modification CSS Selected must be null");
-		assertNotEquals("Extra Bott", modDetails.getExtra(), "Modification extra value must not be ('Extra Bott)");
-		assertNull(modDetails.getExtra(), "Modification extra value must be null");
-		assertEquals(modName, modDetails.getName(), "Modification name value must be '" + modName + "'");
-		assertEquals("/neve-studio-dance-jacket.html", modDetails.getPathValue(), "Modification path value must be correct");
-		assertEquals(null, modDetails.getValue(), "Modification value value must be null");
-		assertEquals(null, modDetails.getValueSuffix(), "Modification value suffix value must be null");
-		assertEquals(null, modDetails.getXPath(), 
+		assertEquals(HDLmModTypes.TITLE, newMod.getType(), "Modification type value must be 'TITLE'");
+		assertEquals(2, newMod.getValuesCount(), "Modification values count must be two");
+		assertEquals(9, newMod.getParameterNumber(), "Modification parameter number must be nine");
+		assertNotEquals(null, newMod.getParameterNumber(), "Modification parameter number must not be null");
+		assertNotNull(newMod.getParameterNumber(), "Modification parameter number must not be null");
+		assertEquals(null, newMod.getCssSelector(), "Modification CSS Selected must be null");
+		assertNull(newMod.getCssSelector(), "Modification CSS Selected must be null");
+		assertNotEquals("Extra Bott", newMod.getExtra(), "Modification extra value must not be ('Extra Bott)");
+		assertNull(newMod.getExtra(), "Modification extra value must be null");
+		assertEquals(modName, newMod.getName(), "Modification name value must be '" + modName + "'");
+		assertEquals("/neve-studio-dance-jacket.html", newMod.getPathValue(), "Modification path value must be correct");
+		assertEquals(null, newMod.getValue(), "Modification value value must be null");
+		assertEquals(null, newMod.getValueSuffix(), "Modification value suffix value must be null");
+		assertEquals(null, newMod.getXPath(), 
 				         "Modification XPath value must be null");		
-		assertNull(modDetails.getXPath(), "Modification XPath value must be null");
+		assertNull(newMod.getXPath(), "Modification XPath value must be null");
 		/* Copy the modification */
-		modDetails = modDetails.copyMod();
+		newMod = newMod.copyMod();
 		/* Check the modification node details */
-		assertEquals(1, modDetails.getFinds().size(), "Modification finds size must be one"); 
-		assertNotEquals(null, modDetails.getValues(), "Modification values value must not be null"); 
-		assertNotNull(modDetails.getValues(), "Modification values value must not be null"); 
-		assertEquals(true, modDetails.getEnabled(), "Modification enabled value must be true");
-		assertEquals(false, modDetails.getPathValueRe(), "Modification path value regex value must be false");
-		assertEquals(HDLmMatchTypes.NONE, modDetails.getPathValueType(), "Modification path value match type must be 'NONE'");
-		assertEquals(HDLmModTypes.TITLE, modDetails.getType(), "Modification type value must be 'TITLE'");
-		assertEquals(2, modDetails.getValuesCount(), "Modification values count must be two");
-		assertEquals(9, modDetails.getParameterNumber(), "Modification parameter number must be nine");
-		assertNotEquals(null, modDetails.getParameterNumber(), "Modification parameter number must not be null");
-		assertNotNull(modDetails.getParameterNumber(), "Modification parameter number must not be null");
-		assertEquals(null, modDetails.getCssSelector(), "Modification CSS Selected must be null");
-		assertNull(modDetails.getCssSelector(), "Modification CSS Selected must be null");
-		assertNotEquals("Extra Bott", modDetails.getExtra(), "Modification extra value must not be ('Extra Bott)");
-		assertNull(modDetails.getExtra(), "Modification extra value must be null");
-		assertEquals(modName, modDetails.getName(), "Modification name value must be '" + modName + "'");
-		assertEquals("/neve-studio-dance-jacket.html", modDetails.getPathValue(), "Modification path value must be correct");
-		assertEquals(null, modDetails.getValue(), "Modification value value must be null");
-		assertEquals(null, modDetails.getValueSuffix(), "Modification value suffix value must be null");
-		assertEquals(null, modDetails.getXPath(), 
+		assertEquals(1, newMod.getFinds().size(), "Modification finds size must be one"); 
+		assertNotEquals(null, newMod.getValues(), "Modification values value must not be null"); 
+		assertNotNull(newMod.getValues(), "Modification values value must not be null"); 
+		assertEquals(true, newMod.getActive(), "Modification active value must be true");
+		assertEquals(false, newMod.getPathValueRe(), "Modification path value regex value must be false");
+		assertEquals(HDLmMatchTypes.NONE, newMod.getPathValueType(), "Modification path value match type must be 'NONE'");
+		assertEquals(HDLmModTypes.TITLE, newMod.getType(), "Modification type value must be 'TITLE'");
+		assertEquals(2, newMod.getValuesCount(), "Modification values count must be two");
+		assertEquals(9, newMod.getParameterNumber(), "Modification parameter number must be nine");
+		assertNotEquals(null, newMod.getParameterNumber(), "Modification parameter number must not be null");
+		assertNotNull(newMod.getParameterNumber(), "Modification parameter number must not be null");
+		assertEquals(null, newMod.getCssSelector(), "Modification CSS Selected must be null");
+		assertNull(newMod.getCssSelector(), "Modification CSS Selected must be null");
+		assertNotEquals("Extra Bott", newMod.getExtra(), "Modification extra value must not be ('Extra Bott)");
+		assertNull(newMod.getExtra(), "Modification extra value must be null");
+		assertEquals(modName, newMod.getName(), "Modification name value must be '" + modName + "'");
+		assertEquals("/neve-studio-dance-jacket.html", newMod.getPathValue(), "Modification path value must be correct");
+		assertEquals(null, newMod.getValue(), "Modification value value must be null");
+		assertEquals(null, newMod.getValueSuffix(), "Modification value suffix value must be null");
+		assertEquals(null, newMod.getXPath(), 
 				         "Modification XPath value must be null");		
-		assertNull(modDetails.getXPath(), "Modification XPath value must be null");
+		assertNull(newMod.getXPath(), "Modification XPath value must be null");
 	}
 	@Test
 	void extractMods() { 
@@ -856,33 +858,33 @@ class HDLmModTestNotUsed {
 	  		                               HDLmUsePathValue.USEPATHVALUEOK);
 	  int  extractCount = matchingMods.size();
 	  assertEquals(11, extractCount, "Incorrect number of modifications extracted");
-	  HDLmMod  modDetails = matchingMods.get(0);
+	  HDLmMod  newMod = matchingMods.get(0);
 	  String   modName = "Add to Cart Text";
 		/* Check the modification node details */
-		assertEquals(1, modDetails.getFinds().size(), "Modification finds size must be one"); 
-		assertNotEquals(null, modDetails.getValues(), "Modification values value must not be null"); 
-		assertNotNull(modDetails.getValues(), "Modification values value must not be null"); 
-		assertEquals(true, modDetails.getEnabled(), "Modification enabled value must be true");
-		assertEquals(false, modDetails.getPathValueRe(), "Modification path value regex value must be false");
-		assertEquals(HDLmMatchTypes.NONE, modDetails.getPathValueType(), "Modification path value match type must be 'NONE'");
-		assertEquals(HDLmModTypes.TITLE, modDetails.getType(), "Modification type value must be 'TITLE'");
-		assertEquals(2, modDetails.getValuesCount(), "Modification values count must be two");
-		assertEquals(9, modDetails.getParameterNumber(), "Modification parameter number must be nine");
-		assertNotEquals(null, modDetails.getParameterNumber(), "Modification parameter number must not be null");
-		assertNotNull(modDetails.getParameterNumber(), "Modification parameter number must not be null");
-		assertEquals(null, modDetails.getCssSelector(), "Modification CSS Selected must be null");
-		assertNull(modDetails.getCssSelector(), "Modification CSS Selected must be null");
-		assertNotEquals("Extra Bott", modDetails.getExtra(), "Modification extra value must not be ('Extra Bott)");
-		assertNull(modDetails.getExtra(), "Modification extra value must be null");
-		assertEquals(modName, modDetails.getName(), "Modification name value must be '" + modName + "'");
-		assertEquals("/neve-studio-dance-jacket.html", modDetails.getPathValue(), "Modification path value must be correct");
-		assertEquals(null, modDetails.getValue(), "Modification value value must be null");
-		assertEquals(null, modDetails.getValueSuffix(), "Modification value suffix value must be null");
-		assertEquals(null, modDetails.getXPath(), 
+		assertEquals(1, newMod.getFinds().size(), "Modification finds size must be one"); 
+		assertNotEquals(null, newMod.getValues(), "Modification values value must not be null"); 
+		assertNotNull(newMod.getValues(), "Modification values value must not be null"); 
+		assertEquals(true, newMod.getActive(), "Modification active value must be true");
+		assertEquals(false, newMod.getPathValueRe(), "Modification path value regex value must be false");
+		assertEquals(HDLmMatchTypes.NONE, newMod.getPathValueType(), "Modification path value match type must be 'NONE'");
+		assertEquals(HDLmModTypes.TITLE, newMod.getType(), "Modification type value must be 'TITLE'");
+		assertEquals(2, newMod.getValuesCount(), "Modification values count must be two");
+		assertEquals(9, newMod.getParameterNumber(), "Modification parameter number must be nine");
+		assertNotEquals(null, newMod.getParameterNumber(), "Modification parameter number must not be null");
+		assertNotNull(newMod.getParameterNumber(), "Modification parameter number must not be null");
+		assertEquals(null, newMod.getCssSelector(), "Modification CSS Selected must be null");
+		assertNull(newMod.getCssSelector(), "Modification CSS Selected must be null");
+		assertNotEquals("Extra Bott", newMod.getExtra(), "Modification extra value must not be ('Extra Bott)");
+		assertNull(newMod.getExtra(), "Modification extra value must be null");
+		assertEquals(modName, newMod.getName(), "Modification name value must be '" + modName + "'");
+		assertEquals("/neve-studio-dance-jacket.html", newMod.getPathValue(), "Modification path value must be correct");
+		assertEquals(null, newMod.getValue(), "Modification value value must be null");
+		assertEquals(null, newMod.getValueSuffix(), "Modification value suffix value must be null");
+		assertEquals(null, newMod.getXPath(), 
 				         "Modification XPath value must be null");		
-		assertNull(modDetails.getXPath(), "Modification XPath value must be null");
+		assertNull(newMod.getXPath(), "Modification XPath value must be null");
 		/* Convert the modification to JSON */
-		String   modJson = modDetails.getJsonSerializeNulls();
+		String   modJson = newMod.getJsonSerializeNulls();
     modJson = modJson.replace(",\"path\":\"/neve-studio-dance-jacket.html\"",
                               "");
     modJson = modJson.replace(",\"name\":\"Add to Cart Text\"",
@@ -890,7 +892,7 @@ class HDLmModTestNotUsed {
 		String   modJsonExpected = "" + 
 	 	  "{\"find\":[{\"tag\":\"button\",\"attribute\":\"id\",\"value\":\"product-addtocart-button\"}]," +
 		  "\"values\":[\"ADD TO CART\",\"TCELESECROFAdd to ala-carte\"]," +
-	 	  "\"enabled\":true,\"pathre\":false,\"type\":" +
+	 	  "\"pathre\":false,\"type\":" +
 		  "\"title\",\"parameter\":9,\"cssselector\":null," +
 	 	  "\"comments\":null,\"passThru\":null,\"dummyTable\":null," +
 		  "\"dummyType\":null,\"updated\":null," +
@@ -924,39 +926,39 @@ class HDLmModTestNotUsed {
 	  		                               HDLmUsePathValue.USEPATHVALUEOK);
 	  int  extractCount = matchingMods.size();
 	  assertEquals(11, extractCount, "Incorrect number of modifications extracted");
-	  HDLmMod  modDetails = matchingMods.get(0);
-	  modDetails.setCreatedNull();
-	  modDetails.setLastModifiedNull();
+	  HDLmMod  newMod = matchingMods.get(0);
+	  newMod.setCreatedNull();
+	  newMod.setLastModifiedNull();
 	  String   modName = "Add to Cart Text";
 		/* Check the modification node details */
-		assertEquals(1, modDetails.getFinds().size(), "Modification finds size must be one"); 
-		assertNotEquals(null, modDetails.getValues(), "Modification values value must not be null"); 
-		assertNotNull(modDetails.getValues(), "Modification values value must not be null"); 
-		assertEquals(true, modDetails.getEnabled(), "Modification enabled value must be true");
-		assertEquals(false, modDetails.getPathValueRe(), "Modification path value regex value must be false");
-		assertEquals(HDLmMatchTypes.NONE, modDetails.getPathValueType(), "Modification path value match type must be 'NONE'");
-		assertEquals(HDLmModTypes.TITLE, modDetails.getType(), "Modification type value must be 'TITLE'");
-		assertEquals(2, modDetails.getValuesCount(), "Modification values count must be two");
-		assertEquals(9, modDetails.getParameterNumber(), "Modification parameter number must be nine");
-		assertNotEquals(null, modDetails.getParameterNumber(), "Modification parameter number must not be null");
-		assertNotNull(modDetails.getParameterNumber(), "Modification parameter number must not be null");
-		assertEquals(null, modDetails.getCssSelector(), "Modification CSS Selected must be null");
-		assertNull(modDetails.getCssSelector(), "Modification CSS Selected must be null");
-		assertNotEquals("Extra Bott", modDetails.getExtra(), "Modification extra value must not be ('Extra Bott)");
-		assertNull(modDetails.getExtra(), "Modification extra value must be null");
-		assertEquals(modName, modDetails.getName(), "Modification name value must be '" + modName + "'");
-		assertEquals("/neve-studio-dance-jacket.html", modDetails.getPathValue(), "Modification path value must be correct");
-		assertEquals(null, modDetails.getValue(), "Modification value value must be null");
-		assertEquals(null, modDetails.getValueSuffix(), "Modification value suffix value must be null");
-		assertEquals(null, modDetails.getXPath(), 
+		assertEquals(1, newMod.getFinds().size(), "Modification finds size must be one"); 
+		assertNotEquals(null, newMod.getValues(), "Modification values value must not be null"); 
+		assertNotNull(newMod.getValues(), "Modification values value must not be null"); 
+		assertEquals(true, newMod.getActive(), "Modification active value must be true");
+		assertEquals(false, newMod.getPathValueRe(), "Modification path value regex value must be false");
+		assertEquals(HDLmMatchTypes.NONE, newMod.getPathValueType(), "Modification path value match type must be 'NONE'");
+		assertEquals(HDLmModTypes.TITLE, newMod.getType(), "Modification type value must be 'TITLE'");
+		assertEquals(2, newMod.getValuesCount(), "Modification values count must be two");
+		assertEquals(9, newMod.getParameterNumber(), "Modification parameter number must be nine");
+		assertNotEquals(null, newMod.getParameterNumber(), "Modification parameter number must not be null");
+		assertNotNull(newMod.getParameterNumber(), "Modification parameter number must not be null");
+		assertEquals(null, newMod.getCssSelector(), "Modification CSS Selected must be null");
+		assertNull(newMod.getCssSelector(), "Modification CSS Selected must be null");
+		assertNotEquals("Extra Bott", newMod.getExtra(), "Modification extra value must not be ('Extra Bott)");
+		assertNull(newMod.getExtra(), "Modification extra value must be null");
+		assertEquals(modName, newMod.getName(), "Modification name value must be '" + modName + "'");
+		assertEquals("/neve-studio-dance-jacket.html", newMod.getPathValue(), "Modification path value must be correct");
+		assertEquals(null, newMod.getValue(), "Modification value value must be null");
+		assertEquals(null, newMod.getValueSuffix(), "Modification value suffix value must be null");
+		assertEquals(null, newMod.getXPath(), 
 				         "Modification XPath value must be null");		
-		assertNull(modDetails.getXPath(), "Modification XPath value must be null");
+		assertNull(newMod.getXPath(), "Modification XPath value must be null");
 		/* Convert the modification to JSON */
-		String   modJson = modDetails.getJsonSpecialSerializeNulls();
+		String   modJson = newMod.getJsonSpecialSerializeNulls();
 		String   modJsonExpected = "" + 
 	 	  "{\"find\":[{\"tag\":\"button\",\"attribute\":\"id\",\"value\":\"product-addtocart-button\"}]," +
 			"\"valuesCount\":2," +
-		  "\"values\":[\"ADD TO CART\",\"TCELESECROFAdd to ala-carte\"],\"enabled\":true,\"pathre\":false,\"type\":" +
+		  "\"values\":[\"ADD TO CART\",\"TCELESECROFAdd to ala-carte\"],\"pathre\":false,\"type\":" +
 		  "\"title\",\"parameter\":9,\"cssselector\":\"\"," +		
 		  "\"lastmodified\":null," +
 		  "" +
@@ -1067,8 +1069,8 @@ class HDLmModTestNotUsed {
     JsonObject   modsElementObject = modsElementDetails.getAsJsonObject();
     Set<String>  modsElementKeys = modsElementObject.keySet();
     /* Build the modification details */
-    HDLmMod  modDetails = new HDLmMod(modsElementDetails);
-    modDetails.setIfNotSetTimes();
+    HDLmMod  newMod = new HDLmMod(modsElementDetails);
+    newMod.setIfNotSetTimes();
     /* Try to access the JSON element for the modification values */
     JsonElement  modsElementValues = modsElementObject.get("newtexts");
     JsonArray    modsObjectArray = modsElementValues.getAsJsonArray();
@@ -1222,83 +1224,15 @@ class HDLmModTestNotUsed {
     JsonObject   modsElementObject = modsElementDetails.getAsJsonObject();
     Set<String>  modsElementKeys = modsElementObject.keySet();
     /* Build the modification details */
-    HDLmMod  modDetails = new HDLmMod(modsElementDetails);
-    modDetails.setIfNotSetTimes();
+    HDLmMod  newMod = new HDLmMod(modsElementDetails);
+    newMod.setIfNotSetTimes();
     /* Try to access the JSON element for the modification values */
     JsonElement  modsElementValues = modsElementObject.get("newtexts");
     JsonArray    modsObjectArray = modsElementValues.getAsJsonArray();
     MutableInt   errorCounter = new MutableInt(0);
     ArrayList<String>   errorMessages = new ArrayList<String>();
-    Boolean      modEnabled;
-    modEnabled = HDLmMod.modFieldBoolean(editorType, 
-    		                                 errorCounter,
-    		                                 errorMessages,
-    		                                 modsElementObject, 
-    		                                 modsElementKeys, 
-    		                                 "enabled");
-    assertEquals(true, modEnabled, "Incorrect modification enablement status");
-    modEnabled = HDLmMod.modFieldBoolean(editorType, 
-    		                                 errorCounter, 
-    		                                 errorMessages,
-    		                                 modsElementObject, 
-    		                                 modsElementKeys, 
-    		                                 "enabledx", 
-    		                                 HDLmReportErrors.DONTREPORTERRORS);
-    assertEquals(null, modEnabled, "Returned array size value should be null");
     int  intValue = errorCounter.intValue();
-    assertEquals(1, intValue, "Error value must be one");    
-	  {
-			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.modFieldBoolean(editorType, 
-					                              		                            null, 
-					                              		                            errorMessages,
-					                              		                            modsElementObject, 
-					                              		                            modsElementKeys, 
-					                              		                            "enabled");},
-					                               "Expected RuntimeException");
-			String execMsg = exception.getMessage();
-			assertEquals("Mutable int for error counter passed to modFieldBoolean is null", execMsg,
-					         "Unexpected exception message");
-		}
-	  {
-			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.modFieldBoolean(editorType, 
-					                              		                            errorCounter,
-					                              		                            null,
-					                              		                            modsElementObject, 
-					                              		                            modsElementKeys, 
-					                              		                            "enabled");},
-					                               "Expected RuntimeException");
-			String execMsg = exception.getMessage();
-			assertEquals("ArrayList for error messages passed to modFieldBoolean is null", execMsg,
-					         "Unexpected exception message");
-		}
-	  {
-			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.modFieldBoolean(editorType, 
-					                              		                            errorCounter,
-					                              		                            errorMessages,
-					                              		                            null, 
-					                              		                            modsElementKeys, 
-					                              		                            "enabled");},
-					                               "Expected RuntimeException");
-			String execMsg = exception.getMessage();
-			assertEquals("JSON object passed to modFieldBoolean is null", execMsg,
-					         "Unexpected exception message");
-		}
-	  {
-			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.modFieldBoolean(editorType, 
-					                              		                            errorCounter,
-					                              		                            errorMessages,
-					                              		                            modsElementObject, 
-					                              		                            null,
-					                              		                            "enabled");},
-					                               "Expected RuntimeException");
-			String execMsg = exception.getMessage();
-			assertEquals("Set of keys passed to modFieldBoolean is null", execMsg,
-					         "Unexpected exception message");
-		}
+    assertEquals(1, intValue, "Error value must be one");  
 	  {
 			Throwable exception = assertThrows(RuntimeException.class, 
 					                               () -> {HDLmMod.modFieldBoolean(editorType, 
@@ -1371,8 +1305,8 @@ class HDLmModTestNotUsed {
     Set<String>  modsElementKeys;
     modsElementKeys = modsElementObject.keySet();
     /* Build the modification details */
-    HDLmMod  modDetails = new HDLmMod(modsElementDetails);
-    modDetails.setIfNotSetTimes();
+    HDLmMod  newMod = new HDLmMod(modsElementDetails);
+    newMod.setIfNotSetTimes();
     /* Try to access the JSON element for the modification finds */
     String       fieldName = "find";
     JsonElement  modsElementFinds = modsElementObject.get(fieldName);
@@ -1506,8 +1440,8 @@ class HDLmModTestNotUsed {
     Set<String>  modsElementKeys;
     modsElementKeys = modsElementObject.keySet();
     /* Build the modification details */
-    HDLmMod  modDetails = new HDLmMod(modsElementDetails);
-    modDetails.setIfNotSetTimes();
+    HDLmMod  newMod = new HDLmMod(modsElementDetails);
+    newMod.setIfNotSetTimes();
     /* Try to access the JSON element for the modification finds  */
     String   fieldName = "find";
     JsonElement  modsElementFinds = modsElementObject.get(fieldName);
@@ -1656,8 +1590,8 @@ class HDLmModTestNotUsed {
     Set<String>  modsElementKeys;
     modsElementKeys = modsElementObject.keySet();
     /* Build the modification details */
-    HDLmMod  modDetails = new HDLmMod(modsElementDetails);
-    modDetails.setIfNotSetTimes();
+    HDLmMod  newMod = new HDLmMod(modsElementDetails);
+    newMod.setIfNotSetTimes();
     /* Try to access the JSON element for the parameter number  */
     String         fieldName = "parameter";
     JsonElement    modsElementParameterNumber = modsElementObject.get(fieldName);
@@ -1807,8 +1741,8 @@ class HDLmModTestNotUsed {
     Set<String>  modsElementKeys;
     modsElementKeys = modsElementObject.keySet();
     /* Build the modification details */
-    HDLmMod  modDetails = new HDLmMod(modsElementDetails);
-    modDetails.setIfNotSetTimes();
+    HDLmMod  newMod = new HDLmMod(modsElementDetails);
+    newMod.setIfNotSetTimes();
     /* Try to access the JSON element for the modification type */
     String         fieldName = "type";
     JsonElement    modsElementType = modsElementObject.get(fieldName);
@@ -1958,8 +1892,8 @@ class HDLmModTestNotUsed {
     Set<String>  modsElementKeys;
     modsElementKeys = modsElementObject.keySet();
     /* Build the modification details */
-    HDLmMod  modDetails = new HDLmMod(modsElementDetails);
-    modDetails.setIfNotSetTimes();
+    HDLmMod  newMod = new HDLmMod(modsElementDetails);
+    newMod.setIfNotSetTimes();
     /* Try to access the JSON element for the modification path value */
     String         fieldName = "path";
     JsonElement    modsElementPathValue = modsElementObject.get(fieldName);
@@ -2224,8 +2158,8 @@ class HDLmModTestNotUsed {
     Set<String>  modsElementKeys;
     modsElementKeys = modsElementObject.keySet();
     /* Build the modification details */
-    HDLmMod  modDetails = new HDLmMod(modsElementDetails);
-    modDetails.setIfNotSetTimes();
+    HDLmMod  newMod = new HDLmMod(modsElementDetails);
+    newMod.setIfNotSetTimes();
     /* Try to access the JSON element for the modification new title values */
     String         fieldName = "titles";
     JsonElement    modsElementTitles = modsElementObject.get(fieldName);
@@ -2569,8 +2503,8 @@ class HDLmModTestNotUsed {
     Set<String>  modsElementKeys;
     modsElementKeys = modsElementObject.keySet();
     /* Build the modification details */
-    HDLmMod  modDetails = new HDLmMod(modsElementDetails);
-    modDetails.setIfNotSetTimes();
+    HDLmMod  newMod = new HDLmMod(modsElementDetails);
+    newMod.setIfNotSetTimes();
     /* Try to access the JSON element for the modification finds */
     String       fieldName = "find";
     JsonElement  modsElementFinds = modsElementObject.get(fieldName);
@@ -2717,14 +2651,14 @@ class HDLmModTestNotUsed {
     Set<String>  modsElementKeys;
     modsElementKeys = modsElementObject.keySet();
     /* Build the modification details */
-    HDLmMod  modDetails = new HDLmMod(modsElementDetails);
-    modDetails.setIfNotSetTimes();
+    HDLmMod  newMod = new HDLmMod(modsElementDetails);
+    newMod.setIfNotSetTimes();
     /* Get a few values from the modifications */
-    ArrayList<HDLmFind>  findInfo = modDetails.getFinds();
-    String        cssInfo = modDetails.getCssSelector();
-    String        xPathInfo = modDetails.getXPath();   
-    HDLmNodeIden  nodeIden = modDetails.getNodeIden();
-    HDLmModTypes  modType = modDetails.getType();
+    ArrayList<HDLmFind>  findInfo = newMod.getFinds();
+    String        cssInfo = newMod.getCssSelector();
+    String        xPathInfo = newMod.getXPath();   
+    HDLmNodeIden  nodeIden = newMod.getNodeIden();
+    HDLmModTypes  modType = newMod.getType();
     MutableInt    errorCounter = new MutableInt(0);
     ArrayList<String>   errorMessages = new ArrayList<String>();
     HDLmMod.modLocateCheck(editorType, 
@@ -2925,8 +2859,8 @@ class HDLmModTestNotUsed {
     Set<String>  modsElementKeys;
     modsElementKeys = modsElementObject.keySet();
     /* Build the modification details */
-    HDLmMod  modDetails = new HDLmMod(modsElementDetails);
-    modDetails.setIfNotSetTimes();
+    HDLmMod  newMod = new HDLmMod(modsElementDetails);
+    newMod.setIfNotSetTimes();
     /* Try to access the JSON element for the font size array */
     String              fieldName = "sizes";
     JsonArray           modsElementArray = modsElementObject.getAsJsonArray(fieldName);
@@ -3110,8 +3044,8 @@ class HDLmModTestNotUsed {
     Set<String>  modsElementKeys;
     modsElementKeys = modsElementObject.keySet();
     /* Build the modification details */
-    HDLmMod  modDetails = new HDLmMod(modsElementDetails);
-    modDetails.setIfNotSetTimes();
+    HDLmMod  newMod = new HDLmMod(modsElementDetails);
+    newMod.setIfNotSetTimes();
     /* Try to access the JSON element for the parameter number  */
     String         fieldName = "parameter";
     JsonElement    modsElementParameterNumber = modsElementObject.get(fieldName);
@@ -3289,8 +3223,8 @@ class HDLmModTestNotUsed {
     Set<String>  modsElementKeys;
     modsElementKeys = modsElementObject.keySet();
     /* Build the modification details */
-    HDLmMod  modDetails = new HDLmMod(modsElementDetails);
-    modDetails.setIfNotSetTimes();
+    HDLmMod  newMod = new HDLmMod(modsElementDetails);
+    newMod.setIfNotSetTimes();
     /* Run a reportError test */
     int         intValue;
     MutableInt  errorCounter = new MutableInt(0);
@@ -3425,8 +3359,8 @@ class HDLmModTestNotUsed {
     Set<String>  modsElementKeys;
     modsElementKeys = modsElementObject.keySet();
     /* Build the modification details */
-    HDLmMod  modDetails = new HDLmMod(modsElementDetails);
-    modDetails.setIfNotSetTimes();
+    HDLmMod  newMod = new HDLmMod(modsElementDetails);
+    newMod.setIfNotSetTimes();
     /* Run a reportErrorNoValue test */
     int         intValue;
     MutableInt  errorCounter = new MutableInt(0);
@@ -3576,8 +3510,8 @@ class HDLmModTestNotUsed {
     Set<String>  modsElementKeys;
     modsElementKeys = modsElementObject.keySet();
     /* Build the modification details */
-    HDLmMod  modDetails = new HDLmMod(modsElementDetails);
-    modDetails.setIfNotSetTimes();
+    HDLmMod  newMod = new HDLmMod(modsElementDetails);
+    newMod.setIfNotSetTimes();
     /* Run a reportErrorValue test */
     int          intValue;
     MutableInt   errorCounter = new MutableInt(0);
@@ -3750,8 +3684,8 @@ class HDLmModTestNotUsed {
     Set<String>  modsElementKeys;
     modsElementKeys = modsElementObject.keySet();
     /* Build the modification details */
-    HDLmMod  modDetails = new HDLmMod(modsElementDetails);
-    modDetails.setIfNotSetTimes();
+    HDLmMod  newMod = new HDLmMod(modsElementDetails);
+    newMod.setIfNotSetTimes();
     /* Run a reportField test */
     int          intValue;
     MutableInt   errorCounter = new MutableInt(0);
@@ -3906,8 +3840,8 @@ class HDLmModTestNotUsed {
     Set<String>  modsElementKeys;
     modsElementKeys = modsElementObject.keySet();
     /* Build the modification details */
-    HDLmMod  modDetails = new HDLmMod(modsElementDetails);
-    modDetails.setIfNotSetTimes();
+    HDLmMod  newMod = new HDLmMod(modsElementDetails);
+    newMod.setIfNotSetTimes();
     /* Run a truncateJson test */
     String       expectedOutput = "{\"prob\":100.0,\"usemode\":\"prod\",\"created\":\"2022-11-";
     String       outErrorText;
@@ -3948,11 +3882,11 @@ class HDLmModTestNotUsed {
 	  assertEquals(11, extractCount, "Incorrect number of modifications extracted");
 	  /* Process one of the extracted modifications */
 	  HDLmMod  currentMod = matchingMods.get(0);
-  	/* All of the modifications should be enabled. This is actually 
+  	/* All of the modifications should be active. This is actually 
   	   an indirect way of making sure that no errors were found 
   	   building each modification. */
-  	boolean  modEnabled = currentMod.getEnabled();
-  	assertTrue(modEnabled, "Current modification is not enabled");
+  	boolean  modActive = currentMod.getActive();
+  	assertTrue(modActive, "Current modification is not active");
   	boolean  matchFound;
   	matchFound = currentMod.apply(htmlDoc, pathValueStr, parametersArray, savedChangesArray);	  	
   	assertEquals(true, matchFound, "Current modification did not match");	  

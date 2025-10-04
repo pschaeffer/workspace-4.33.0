@@ -228,7 +228,8 @@ public class HDLmUtility {
 	}
 	/* Build a result JSON string with success values is each field.
 	   Return the JSON string to the caller. */
-	protected static String  buildResultSuccessJsonString(final Integer successNumber) {
+	protected static String  buildResultSuccessJsonString(final Integer successNumber, 
+			                                                  ArrayList<String> successNodeIds) {
 		String  rv = null;
 		/* Create a new HDLm result object with success values
 		   in each field */
@@ -239,6 +240,9 @@ public class HDLmUtility {
 	  }
 	  /* Store the number or a null value in the result object */
 	  successResult.setNumber(successNumber);
+	  /* Check if the caller actually passed any node IDs */
+		if (successNodeIds != null)
+			successResult.setList(successNodeIds);
 	  /* Convert the object to a JSON string */
 	  Gson     gsonInstance = HDLmMain.gsonMain;
 	  String   successString = gsonInstance.toJson(successResult);

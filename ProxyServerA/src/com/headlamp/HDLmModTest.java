@@ -55,11 +55,11 @@ class HDLmModTest {
 		assertNotNull(locateTree,
                   "Node should have been located");
 		/* Check the modification node details */
-		HDLmMod modDetails = locateTree.getDetails();
+		HDLmMod modDetails = locateTree.getModFromTree();
 		assertEquals(0, modDetails.getFinds().size(), "Modification finds size must be zero"); 
 		assertNotEquals(null, modDetails.getValues(), "Modification values value must not be null"); 
 		assertNotNull(modDetails.getValues(), "Modification values value must not be null"); 
-		assertEquals(true, modDetails.getEnabled(), "Modification enabled value must be true");
+		assertEquals(true, modDetails.getActive(), "Modification must be active");
 		assertEquals(false, modDetails.getPathValueRe(), "Modification path value regex value must be false");
 		assertEquals(HDLmMatchTypes.NONE, modDetails.getPathValueType(), "Modification path value match type must be 'NONE'");
 		assertEquals(HDLmModTypes.TEXT, modDetails.getType(), "Modification type value must be 'TEXT'");
@@ -84,7 +84,7 @@ class HDLmModTest {
 		assertEquals(0, modDetails.getFinds().size(), "Modification finds size must be zero"); 
 		assertNotEquals(null, modDetails.getValues(), "Modification values value must not be null"); 
 		assertNotNull(modDetails.getValues(), "Modification values value must not be null"); 
-		assertEquals(true, modDetails.getEnabled(), "Modification enabled value must be true");
+		assertEquals(true, modDetails.getActive(), "Modification must be active");
 		assertEquals(false, modDetails.getPathValueRe(), "Modification path value regex value must be false");
 		assertEquals(HDLmMatchTypes.NONE, modDetails.getPathValueType(), "Modification value name match type must be 'NONE'");
 		assertEquals(HDLmModTypes.TEXT, modDetails.getType(), "Modification type value must be 'TEXT'");
@@ -173,7 +173,7 @@ class HDLmModTest {
 		assertEquals(0, modDetails.getFinds().size(), "Modification finds size must be zero"); 
 		assertNotEquals(null, modDetails.getValues(), "Modification values value must not be null"); 
 		assertNotNull(modDetails.getValues(), "Modification values value must not be null"); 
-		assertEquals(true, modDetails.getEnabled(), "Modification enabled value must be true");
+		assertEquals(true, modDetails.getActive(), "Modification be active");
 		assertEquals(false, modDetails.getPathValueRe(), "Modification path value regex value must be false");
 		assertEquals(HDLmMatchTypes.NONE, modDetails.getPathValueType(), "Modification path value match type must be 'NONE'");
 		assertEquals(HDLmModTypes.TEXT, modDetails.getType(), "Modification type value must be 'TEXT'");
@@ -226,11 +226,13 @@ class HDLmModTest {
 	  assertEquals(11, extractCount, "Incorrect number of modifications extracted");
 	  /* Process each of the extracted modifications */
 	  for (HDLmMod currentMod : matchingMods) {
-	  	/* All of the modifications should be enabled. This is actually 
+	  	/* Get the use mode of the current modification */
+	  	String    modUseMode = currentMod.getUseMode();
+	  	boolean   modActive = HDLmMod.checkActive(modUseMode);
+	  	/* All of the modifications should be executable. This is actually 
 	  	   an indirect way of making sure that no errors were found 
 	  	   building each modification. */
-	  	boolean  modEnabled = currentMod.getEnabled();
-	  	assertTrue(modEnabled, "Current modification is not enabled");
+	  	assertTrue(modActive, "Current modification is not executable");
 	  	/* This code does not support searching for matching HTML elements
  	       using XPath. Several languages do not support searching using
  	       XPath. */
@@ -412,11 +414,11 @@ class HDLmModTest {
 	  assertEquals(11, extractCount, "Incorrect number of modifications extracted");
 	  /* Process each of the extracted modifications */
 	  for (HDLmMod currentMod : matchingMods) {
-	  	/* All of the modifications should be enabled. This is actually 
+	  	/* All of the modifications should be active. This is actually 
  	       an indirect way of making sure that no errors were found 
  	       building each modification. */
- 	    boolean  modEnabled = currentMod.getEnabled();
- 	    assertTrue(modEnabled, "Current modification is not enabled");
+ 	    boolean  modActive = currentMod.getActive();
+ 	    assertTrue(modActive, "Current modification is not executable");
 	  	HDLmModTypes   currentType = currentMod.getType();
 	  	/* Skip the modification types that don't use apply style */
 	  	if (currentType != HDLmModTypes.FONTCOLOR   &&
@@ -696,9 +698,9 @@ class HDLmModTest {
 		assertEquals(1, modDetails.getFinds().size(), "Modification finds size must be one"); 
 		assertNotEquals(null, modDetails.getValues(), "Modification values value must not be null"); 
 		assertNotNull(modDetails.getValues(), "Modification values value must not be null"); 
-		assertEquals(true, modDetails.getEnabled(), "Modification enabled value must be true");
+		assertEquals(true, modDetails.getActive(), "Modification must be executable");
 		assertEquals(false, modDetails.getPathValueRe(), "Modification path value regex value must be false");
-		assertEquals(HDLmMatchTypes.NONE, modDetails.getPathValueType(), "Modification path value match type must be 'NONE'");
+		assertEquals(HDLmMatchTypes.NONE, modDetails.getPathValueType(), "Modification path value match type must be 'NONE'");		
 		
 		assertEquals(HDLmModTypes.TITLE, modDetails.getType(), "Modification type value must be 'TITLE'");
 		assertEquals(2, modDetails.getValuesCount(), "Modification values count must be two");
@@ -722,7 +724,7 @@ class HDLmModTest {
 		assertEquals(1, modDetails.getFinds().size(), "Modification finds size must be one"); 
 		assertNotEquals(null, modDetails.getValues(), "Modification values value must not be null"); 
 		assertNotNull(modDetails.getValues(), "Modification values value must not be null"); 
-		assertEquals(true, modDetails.getEnabled(), "Modification enabled value must be true");
+		assertEquals(true, modDetails.getActive(), "Modification must be executable");
 		assertEquals(false, modDetails.getPathValueRe(), "Modification path value regex value must be false");
 		assertEquals(HDLmMatchTypes.NONE, modDetails.getPathValueType(), "Modification path value match type must be 'NONE'");
 		assertEquals(HDLmModTypes.TITLE, modDetails.getType(), "Modification type value must be 'TITLE'");
@@ -862,7 +864,7 @@ class HDLmModTest {
 		assertEquals(1, modDetails.getFinds().size(), "Modification finds size must be one"); 
 		assertNotEquals(null, modDetails.getValues(), "Modification values value must not be null"); 
 		assertNotNull(modDetails.getValues(), "Modification values value must not be null"); 
-		assertEquals(true, modDetails.getEnabled(), "Modification enabled value must be true");
+		assertEquals(true, modDetails.getActive(), "Modification must be executable");
 		assertEquals(false, modDetails.getPathValueRe(), "Modification path value regex value must be false");
 		assertEquals(HDLmMatchTypes.NONE, modDetails.getPathValueType(), "Modification path value match type must be 'NONE'");
 		assertEquals(HDLmModTypes.TITLE, modDetails.getType(), "Modification type value must be 'TITLE'");
@@ -890,7 +892,7 @@ class HDLmModTest {
 		String   modJsonExpected = "" + 
 	 	  "{\"find\":[{\"tag\":\"button\",\"attribute\":\"id\",\"value\":\"product-addtocart-button\"}]," +
 		  "\"values\":[\"ADD TO CART\",\"TCELESECROFAdd to ala-carte\"]," +
-	 	  "\"enabled\":true,\"pathre\":false,\"type\":" +
+	 	  "\"pathre\":false,\"type\":" +
 		  "\"title\",\"parameter\":9,\"cssselector\":null," +
 	 	  "\"comments\":null,\"passThru\":null,\"dummyTable\":null," +
 		  "\"dummyType\":null,\"updated\":null," +
@@ -932,7 +934,7 @@ class HDLmModTest {
 		assertEquals(1, modDetails.getFinds().size(), "Modification finds size must be one"); 
 		assertNotEquals(null, modDetails.getValues(), "Modification values value must not be null"); 
 		assertNotNull(modDetails.getValues(), "Modification values value must not be null"); 
-		assertEquals(true, modDetails.getEnabled(), "Modification enabled value must be true");
+		assertEquals(true, modDetails.getActive(), "Modification active value must be true");
 		assertEquals(false, modDetails.getPathValueRe(), "Modification path value regex value must be false");
 		assertEquals(HDLmMatchTypes.NONE, modDetails.getPathValueType(), "Modification path value match type must be 'NONE'");
 		assertEquals(HDLmModTypes.TITLE, modDetails.getType(), "Modification type value must be 'TITLE'");
@@ -956,7 +958,7 @@ class HDLmModTest {
 		String   modJsonExpected = "" + 
 	 	  "{\"find\":[{\"tag\":\"button\",\"attribute\":\"id\",\"value\":\"product-addtocart-button\"}]," +
 			"\"valuesCount\":2," +
-		  "\"values\":[\"ADD TO CART\",\"TCELESECROFAdd to ala-carte\"],\"enabled\":true,\"pathre\":false,\"type\":" +
+		  "\"values\":[\"ADD TO CART\",\"TCELESECROFAdd to ala-carte\"],\"pathre\":false,\"type\":" +
 		  "\"title\",\"parameter\":9,\"cssselector\":\"\"," +		
 		  "\"lastmodified\":null," +
 		  "" +
@@ -1229,71 +1231,75 @@ class HDLmModTest {
     JsonArray    modsObjectArray = modsElementValues.getAsJsonArray();
     MutableInt   errorCounter = new MutableInt(0);
     ArrayList<String>   errorMessages = new ArrayList<String>();
-    Boolean      modEnabled;
-    modEnabled = HDLmMod.modFieldBoolean(editorType, 
-    		                                 errorCounter,
-    		                                 errorMessages,
-    		                                 modsElementObject, 
-    		                                 modsElementKeys, 
-    		                                 "enabled");
-    assertEquals(true, modEnabled, "Incorrect modification enablement status");
-    modEnabled = HDLmMod.modFieldBoolean(editorType, 
-    		                                 errorCounter, 
-    		                                 errorMessages,
-    		                                 modsElementObject, 
-    		                                 modsElementKeys, 
-    		                                 "enabledx", 
-    		                                 HDLmReportErrors.DONTREPORTERRORS);
-    assertEquals(null, modEnabled, "Returned array size value should be null");
+    String       modUseMode;
+    modUseMode = HDLmMod.modFieldString(editorType, 
+    		                                errorCounter,
+    		                                errorMessages,
+    		                                modsElementObject, 
+    		                                modsElementKeys, 
+    		                                "usemode");
+    assertEquals(true, HDLmMod.checkActive(modUseMode), "Incorrect modification use mode");
+    modUseMode = HDLmMod.modFieldString(editorType, 
+    		                                errorCounter, 
+    		                                errorMessages,
+    		                                modsElementObject, 
+    		                                modsElementKeys, 
+    		                                "usemodex", 
+    		                                HDLmReportErrors.DONTREPORTERRORS);
+    assertEquals(null, modUseMode, "Returned use mode should be null");
     int  intValue = errorCounter.intValue();
-    assertEquals(1, intValue, "Error value must be one");    
+    assertEquals(1, intValue, "Error value must be one");
 	  {
+			/* The 'e' has been changed to an 'f' so that searches don't find this code. */
 			Throwable exception = assertThrows(RuntimeException.class, 
 					                               () -> {HDLmMod.modFieldBoolean(editorType, 
 					                              		                            null, 
 					                              		                            errorMessages,
 					                              		                            modsElementObject, 
 					                              		                            modsElementKeys, 
-					                              		                            "enabled");},
+					                              		                            "fnabled");},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
 			assertEquals("Mutable int for error counter passed to modFieldBoolean is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
+	  	/* The 'e' has been changed to an 'f' so that searches don't find this code. */
 			Throwable exception = assertThrows(RuntimeException.class, 
 					                               () -> {HDLmMod.modFieldBoolean(editorType, 
 					                              		                            errorCounter,
 					                              		                            null,
 					                              		                            modsElementObject, 
 					                              		                            modsElementKeys, 
-					                              		                            "enabled");},
+					                              		                            "fnabled");},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
 			assertEquals("ArrayList for error messages passed to modFieldBoolean is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
+	  	/* The 'e' has been changed to an 'f' so that searches don't find this code. */
 			Throwable exception = assertThrows(RuntimeException.class, 
 					                               () -> {HDLmMod.modFieldBoolean(editorType, 
 					                              		                            errorCounter,
 					                              		                            errorMessages,
 					                              		                            null, 
 					                              		                            modsElementKeys, 
-					                              		                            "enabled");},
+					                              		                            "fnabled");},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
 			assertEquals("JSON object passed to modFieldBoolean is null", execMsg,
 					         "Unexpected exception message");
 		}
 	  {
+	  	/* The 'e' has been changed to an 'f' so that searches don't find this code. */
 			Throwable exception = assertThrows(RuntimeException.class, 
 					                               () -> {HDLmMod.modFieldBoolean(editorType, 
 					                              		                            errorCounter,
 					                              		                            errorMessages,
 					                              		                            modsElementObject, 
 					                              		                            null,
-					                              		                            "enabled");},
+					                              		                            "fnabled");},
 					                               "Expected RuntimeException");
 			String execMsg = exception.getMessage();
 			assertEquals("Set of keys passed to modFieldBoolean is null", execMsg,
@@ -3945,11 +3951,11 @@ class HDLmModTest {
 	  assertEquals(11, extractCount, "Incorrect number of modifications extracted");
 	  /* Process one of the extracted modifications */
 	  HDLmMod  currentMod = matchingMods.get(0);
-  	/* All of the modifications should be enabled. This is actually 
+  	/* All of the modifications should be executable. This is actually 
   	   an indirect way of making sure that no errors were found 
   	   building each modification. */
-  	boolean  modEnabled = currentMod.getEnabled();
-  	assertTrue(modEnabled, "Current modification is not enabled");
+  	boolean  modActive = currentMod.getActive();
+  	assertTrue(modActive, "Current modification is not executable");
   	boolean  matchFound;
   	matchFound = currentMod.apply(htmlDoc, pathValueStr, parametersArray, savedChangesArray);	  	
   	assertEquals(true, matchFound, "Current modification did not match");	  

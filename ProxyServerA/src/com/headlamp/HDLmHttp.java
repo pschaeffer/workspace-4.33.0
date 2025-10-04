@@ -29,8 +29,8 @@ public class HDLmHttp {
 	/* This class can never be instantiated */
 	private HDLmHttp() {}	
 	/* Build a header string */
-	protected static String  buildHeader(String headerName,
-			                                 String headerValue) {
+	protected static String  buildHeader(final String headerName,
+		      	                           final String headerValue) {
 		/* Check a few values passed by the caller */
 		if (headerName == null) {
 			String   errorText = "Header name reference passed to buildHeader is null";
@@ -50,7 +50,7 @@ public class HDLmHttp {
 		return headerBuilder.toString();
 	}
 	/* Build a content type header string */
-	protected static String  buildHeaderContentType(String contentType) {
+	protected static String  buildHeaderContentType(final String contentType) {
 		/* Check one or more values passed by the caller */
 		if (contentType == null) {
 			String   errorText = "Content type string reference passed to buildHeaderContentType is null";

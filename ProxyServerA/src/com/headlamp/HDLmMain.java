@@ -129,7 +129,7 @@ public class HDLmMain {
   private static HDLmOsTypes        osType = HDLmOsTypes.NONE;
   /* The next field shows if we are running in a Docker
      container of some kind. This value can be checked
-     at anytime after startup. */
+     at any-time after startup. */
   private static boolean            containerActive = false;
   /* The next field shows if we are running under Junit. This 
      field is not automatically set. This field must be set by
@@ -411,7 +411,7 @@ public class HDLmMain {
 			/* Get the saved data value from the saved value tree node */
 			String  savedValue;
 			if (savedValueEntryNode != null)
-			  savedValue = savedValueEntryNode.getDetails().getValue();
+			  savedValue = savedValueEntryNode.getModFromTree().getValue();
 			else
 			  savedValue = "{\"type\":\"Element\",\"tag\":\"p\",\"text\":\"" + errorText + "\",\"subnodes\":[]}";
 			values.set(valuesIndex, savedValue);
@@ -494,6 +494,11 @@ public class HDLmMain {
 	 	     As a consequence, actual changes are only made to copies
 	 	     of the replace modifications. */
 	 	  replaceMod = new HDLmMod(mod);
+	 	  /* Make sure the error count is zero in the replacement modification */ 
+			if (replaceMod.getErrorCount() != 0) {
+				String   errorText = "Error count is not zero in the replacement modification";
+				HDLmAssertAction(false, errorText);
+	    }	 	  
 	 	  replaceMod.setIfNotSetTimes();
 	 	  changeReplaceValues(company, division, site, replaceMod);
 	 	  /* Update the modifications list with the now changed
@@ -514,9 +519,9 @@ public class HDLmMain {
 	   the current rules unless pass-through is set at the
 	   company level. In other words, pass-through mode is
 	   turned off. */
-	protected static String checkPassThru(final String localServer,
-         			                          final String clientStr,
-			                                  final HttpServletRequest request) {
+	protected static String  checkPassThru(final String localServer,
+         			                           final String clientStr,
+			                                   final HttpServletRequest request) {
 		/* Check a few values passed by the caller */
 		if (localServer == null) {
 			String   errorText = "Local server reference passed to checkPassThru is null";
@@ -602,11 +607,11 @@ public class HDLmMain {
 			  LOG.info(response.getStdOut());
 			  LOG.info(response.getStdErr());
 		  	results = "Failed";
-		  	HDLmPassThruTop.reportErrors(hostName,
-		  			                         response.getStdOut(),
-		  			                         response.getStdErr(),
-		  			                         response.getExecuteMessage(),
-		  			                         response.getIOExceptionMessage());
+		  	HDLmModTop.reportErrors(hostName,
+			                          response.getStdOut(),
+			                          response.getStdErr(),
+			                          response.getExecuteMessage(),
+			                          response.getIOExceptionMessage());
 		  }
 		  /* The external program worked. We can send the output from the
 		     external program (a report) to a routine that will check the
@@ -614,7 +619,7 @@ public class HDLmMain {
 		  else {
 		    /* Show that the command succeeded and process the command output */
 		    results = "Succeeded";
-		    HDLmPassThruTop.checkWebSite(hostName, response.getStdOut());
+		    HDLmModTop.checkWebSite(hostName, response.getStdOut());
 		  }
 		  break;
 		}
@@ -1419,7 +1424,7 @@ public class HDLmMain {
      script will contain several (many) JavaScript functions.
 
      Note that if pass-through is set to true, then all of the
-     modifications will be marked as disabled. This will have
+     modifications will be marked as not executable. This will have
      the effect of making no changes to the target system.
 
      This routine can return a null value if the JavaScript
@@ -1817,6 +1822,17 @@ public class HDLmMain {
 				                                               sessionObj,
 				                                               logMatching,
 				                                               serverName);
+      /*
+      actualJS = HDLmBuildJsCompressBlanksAndNames.getJsBuildJs(protocol,
+          companySecure,
+          company,
+          division,
+          site,
+          mods,
+          sessionObj,
+          logMatching,
+          serverName);
+      */
       /* HDLmUtility.logStringInParts("JS", actualJS); */
     }
     /* Build the Linux version of the JavaScript program */
@@ -2236,7 +2252,7 @@ public class HDLmMain {
 		rv.append("{");
 		rv.append("\"company\": \"example.com\", \"content\": \"mod_javac\", \"created\": 1568858794442, ");
 		rv.append("\"division\": \"example.com\", \"site\": \"example.com\", ");
-		rv.append("\"enabled\": true, \"id\": \"58b895eecd75479f84c31fdec0b4a1fc\", ");
+		rv.append("\"id\": \"58b895eecd75479f84c31fdec0b4a1fc\", ");
 		rv.append("\"mods\": \"" + modsStr + "\" ");
 		rv.append("}");
 		rv.append("] }");
@@ -2292,7 +2308,7 @@ public class HDLmMain {
 		}
 	 /* Declare and define a few variables */
 		HDLmPassThruStatus  passThruStatus = HDLmPassThruStatus.PASSTHRUNOTOK;
-		HDLmPassThruTop     passThruTop = HDLmMain.getPassThruTopReference();
+		HDLmModTop     passThruTop = HDLmMain.getPassThruTopReference();
 		/* If we can't access the top node, then we have no more
 		   work to do */
 		if (passThruTop == null)
@@ -2303,17 +2319,17 @@ public class HDLmMain {
 		if (passThruTop.getStatus() == HDLmPassThruStatus.PASSTHRUOK)
 		  return HDLmPassThruStatus.PASSTHRUOK;
 		/* Get the companies pass-through reference */
-		HDLmPassThruCompanies   passThruCompanies = passThruTop.getCompaniesReference();
+		HDLmModCompanies   passThruCompanies = passThruTop.getCompaniesReference();
 		if (passThruCompanies == null)
 		  HDLmAssertAction(false, "Companies pass-through reference is null");
 		/* Since we are able to access the top node, we can get the
 		   list (actually a TreeMap) of companies that are currently
 		   known to the server */
-		TreeMap<String, HDLmPassThruCompany>  companiesTreeMap = passThruCompanies.getCompaniesTreeMap();
+		TreeMap<String, HDLmModCompany>  companiesTreeMap = passThruCompanies.getCompaniesTreeMap();
 		assert(companiesTreeMap != null);
 		/* Check if the host name passed by the caller is in the list
 		   of companies already known to the server */
-		HDLmPassThruCompany  currentCompany = companiesTreeMap.get(hostName);
+		HDLmModCompany  currentCompany = companiesTreeMap.get(hostName);
 		if (currentCompany == null)
 			return HDLmPassThruStatus.PASSTHRUNOTOK;
 	  return currentCompany.getStatus();
@@ -2323,7 +2339,7 @@ public class HDLmMain {
 	protected static HDLmPassThruStatus  getPassThruStatusServer() {
 		/* Check if the top pass-through node has been created. If not,
 		   just return a default value */
-		HDLmPassThruTop  topNode = HDLmMain.getPassThruTopReference();
+		HDLmModTop  topNode = HDLmMain.getPassThruTopReference();
 		if (topNode == null)
 			return HDLmPassThruStatus.NONE;
 		/* Use the top node to get the overall pass-through status */
@@ -2331,7 +2347,7 @@ public class HDLmMain {
 	}
 	/* This routine gets a reference to the top pass-through node of
 	   the server and returns it to the caller */
-	protected static HDLmPassThruTop  getPassThruTopReference() {
+	protected static HDLmModTop  getPassThruTopReference() {
 		/* Try to get the start of the pass-through tree */
 		HDLmTree  topTree = HDLmTree.getNodePassTreeTop();
 		if (topTree == null) {
@@ -2344,7 +2360,7 @@ public class HDLmMain {
 	     setting and getting the pass-through status of the server. Note
 	     that the initial status is for pass-through to be disabled. In
 	     other words rules should actually run and possibly make changes. */
-		HDLmPassThruTop  topPassThru = (HDLmPassThruTop) topTree.getDetails();
+		HDLmModTop  topPassThru = (HDLmModTop) topTree.getModFromTree();
 		if (topPassThru == null) {
 			String  errorText = "Pass-through top instance is null";
 			HDLmAssertAction(false, errorText);
@@ -2398,7 +2414,7 @@ public class HDLmMain {
     boolean   logIsDebugEnabled = LOG.isDebugEnabled();
 		/* Add some debugging information */
 		if (logIsDebugEnabled)
-			LOG.debug("in HDLmMain.main near the start");
+			LOG.debug("in HDLmMain.main near the start");		
 		/* The main executed flag is set to 'yes' (without the quotes),
 		   as soon as the main routine is invoked. This value can be
 		   used to check if main has ever been executed or not. */
@@ -2457,9 +2473,9 @@ public class HDLmMain {
 		/* The following looks like debugging code, added for testing 
 		   purposed only. This comment was added on 2025/06/04. */ 
 		/* 		
-		String  message = "{\"rules\":[{\"tooltip\":\"Script modification\",\"type\":\"mod\",\"children\":[],\"containerWidget\":null,\"details\":{\"name\":\"Mod These Changes Enhance Readability And Clearly Define The Script\",\"extra\":\"\",\"enabled\":true,\"type\":\"script\",\"created\":\"2025-01-26T22:53:07.162Z\",\"lastmodified\":\"2025-01-26T22:53:07.162Z\",\"pathvalue\":\"/yoga-direct-1-4-inch-yoga-mat.html\",\"comments\":\"\",\"prob\":100.0,\"usemode\":\"test\",\"cssselector\":\"\",\"xpath\":\"\",\"find\":[],\"nodeiden\":{\"type\":\"tag\",\"attributes\":{\"tag\":\"head\"},\"counts\":{\"tag\":1},\"parent\":{\"tag\":\"html\"}},\"parameter\":0,\"scripts\":[\"\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = 'body { font-family: \\\\'Roboto Condensed\\\\', sans-serif; font-size: 14px; line-height: 1.6; color: #333; }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = 'h1.page_headers, .saleprice.price { color: #2D5C73; }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.saleprice.price { font-weight: bold; font-size: 18px; }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.product-details h1.page_headers { margin-bottom: 20px; }';\\n  document.head.appendChild(styleSheet);\\n}\"],\"updated\":false},\"nodePath\":[\"Top\",\"Companies\",\"www.yogadirect.com\",\"Rules\",\"example.com\",\"example.com\",\"Mod These Changes Enhance Readability And Clearly Define The Script\"]},{\"tooltip\":\"Script modification\",\"type\":\"mod\",\"children\":[],\"containerWidget\":null,\"details\":{\"name\":\"Mod Storytelling Humanizes The Product, Making It Relatable Script\",\"extra\":\"\",\"enabled\":true,\"type\":\"script\",\"created\":\"2025-01-26T22:53:07.167Z\",\"lastmodified\":\"2025-01-26T22:53:07.167Z\",\"pathvalue\":\"/yoga-direct-1-4-inch-yoga-mat.html\",\"comments\":\"\",\"prob\":100.0,\"usemode\":\"test\",\"cssselector\":\"\",\"xpath\":\"\",\"find\":[],\"nodeiden\":{\"type\":\"tag\",\"attributes\":{\"tag\":\"head\"},\"counts\":{\"tag\":1},\"parent\":{\"tag\":\"html\"}},\"parameter\":0,\"scripts\":[\"    document.addEventListener(\\\"DOMContentLoaded\\\", function() {\\n        var productStoryHTML = \\\"<div id='product-story' class='product-story'><h2>Why Our Customers Love This Mat</h2><p>Our 1/4 Inch Yoga Mat is trusted by yoga practitioners worldwide for its perfect balance of comfort and durability. It's praised for transforming yoga practices into a beautiful experience. Join our community of wellness with every pose.</p></div>\\\";\\n        var descriptionSection = document.querySelector(\\\".short-description\\\");\\n        if (descriptionSection) {\\n            descriptionSection.insertAdjacentHTML('beforebegin', productStoryHTML);\\n        }\\n    });\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.product-story {\\\\n        background-color: #f9f9f9;\\\\n        padding: 20px;\\\\n        margin-bottom: 30px;\\\\n        border-radius: 8px;\\\\n        box-shadow: 0 2px 4px rgba(0,0,0,0.1);\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.product-story h2 {\\\\n        font-family: \\\\'Roboto Condensed\\\\', sans-serif;\\\\n        color: #333;\\\\n        font-size: 24px;\\\\n        margin-bottom: 10px;\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.product-story p {\\\\n        font-family: \\\\'Lato\\\\', sans-serif;\\\\n        color: #555;\\\\n        line-height: 1.6;\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\"],\"updated\":false},\"nodePath\":[\"Top\",\"Companies\",\"www.yogadirect.com\",\"Rules\",\"example.com\",\"example.com\",\"Mod Storytelling Humanizes The Product, Making It Relatable Script\"]},{\"tooltip\":\"Script modification\",\"type\":\"mod\",\"children\":[],\"containerWidget\":null,\"details\":{\"name\":\"Mod Improving The Use Of Whitespace Around Product Details Script\",\"extra\":\"\",\"enabled\":true,\"type\":\"script\",\"created\":\"2025-01-26T22:53:07.169Z\",\"lastmodified\":\"2025-01-26T22:53:07.169Z\",\"pathvalue\":\"/yoga-direct-1-4-inch-yoga-mat.html\",\"comments\":\"\",\"prob\":100.0,\"usemode\":\"test\",\"cssselector\":\"\",\"xpath\":\"\",\"find\":[],\"nodeiden\":{\"type\":\"tag\",\"attributes\":{\"tag\":\"head\"},\"counts\":{\"tag\":1},\"parent\":{\"tag\":\"html\"}},\"parameter\":0,\"scripts\":[\"\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.product-details, .product-cols { padding: 20px; }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.main-image, .addl-images { margin-bottom: 20px; }';\\n  document.head.appendChild(styleSheet);\\n}\"],\"updated\":false},\"nodePath\":[\"Top\",\"Companies\",\"www.yogadirect.com\",\"Rules\",\"example.com\",\"example.com\",\"Mod Improving The Use Of Whitespace Around Product Details Script\"]}],\"HDLmRequestType\":\"storeTreeNodes\"}\r\n"
+		String  message = "{\"rules\":[{\"tooltip\":\"Script modification\",\"type\":\"mod\",\"children\":[],\"containerWidget\":null,\"details\":{\"name\":\"Mod These Changes Enhance Readability And Clearly Define The Script\",\"extra\":\"\",\"type\":\"script\",\"created\":\"2025-01-26T22:53:07.162Z\",\"lastmodified\":\"2025-01-26T22:53:07.162Z\",\"pathvalue\":\"/yoga-direct-1-4-inch-yoga-mat.html\",\"comments\":\"\",\"prob\":100.0,\"usemode\":\"test\",\"cssselector\":\"\",\"xpath\":\"\",\"find\":[],\"nodeiden\":{\"type\":\"tag\",\"attributes\":{\"tag\":\"head\"},\"counts\":{\"tag\":1},\"parent\":{\"tag\":\"html\"}},\"parameter\":0,\"scripts\":[\"\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = 'body { font-family: \\\\'Roboto Condensed\\\\', sans-serif; font-size: 14px; line-height: 1.6; color: #333; }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = 'h1.page_headers, .saleprice.price { color: #2D5C73; }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.saleprice.price { font-weight: bold; font-size: 18px; }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.product-details h1.page_headers { margin-bottom: 20px; }';\\n  document.head.appendChild(styleSheet);\\n}\"],\"updated\":false},\"nodePath\":[\"Top\",\"Companies\",\"www.yogadirect.com\",\"Rules\",\"example.com\",\"example.com\",\"Mod These Changes Enhance Readability And Clearly Define The Script\"]},{\"tooltip\":\"Script modification\",\"type\":\"mod\",\"children\":[],\"containerWidget\":null,\"details\":{\"name\":\"Mod Storytelling Humanizes The Product, Making It Relatable Script\",\"extra\":\"\",\"type\":\"script\",\"created\":\"2025-01-26T22:53:07.167Z\",\"lastmodified\":\"2025-01-26T22:53:07.167Z\",\"pathvalue\":\"/yoga-direct-1-4-inch-yoga-mat.html\",\"comments\":\"\",\"prob\":100.0,\"usemode\":\"test\",\"cssselector\":\"\",\"xpath\":\"\",\"find\":[],\"nodeiden\":{\"type\":\"tag\",\"attributes\":{\"tag\":\"head\"},\"counts\":{\"tag\":1},\"parent\":{\"tag\":\"html\"}},\"parameter\":0,\"scripts\":[\"    document.addEventListener(\\\"DOMContentLoaded\\\", function() {\\n        var productStoryHTML = \\\"<div id='product-story' class='product-story'><h2>Why Our Customers Love This Mat</h2><p>Our 1/4 Inch Yoga Mat is trusted by yoga practitioners worldwide for its perfect balance of comfort and durability. It's praised for transforming yoga practices into a beautiful experience. Join our community of wellness with every pose.</p></div>\\\";\\n        var descriptionSection = document.querySelector(\\\".short-description\\\");\\n        if (descriptionSection) {\\n            descriptionSection.insertAdjacentHTML('beforebegin', productStoryHTML);\\n        }\\n    });\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.product-story {\\\\n        background-color: #f9f9f9;\\\\n        padding: 20px;\\\\n        margin-bottom: 30px;\\\\n        border-radius: 8px;\\\\n        box-shadow: 0 2px 4px rgba(0,0,0,0.1);\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.product-story h2 {\\\\n        font-family: \\\\'Roboto Condensed\\\\', sans-serif;\\\\n        color: #333;\\\\n        font-size: 24px;\\\\n        margin-bottom: 10px;\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.product-story p {\\\\n        font-family: \\\\'Lato\\\\', sans-serif;\\\\n        color: #555;\\\\n        line-height: 1.6;\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\"],\"updated\":false},\"nodePath\":[\"Top\",\"Companies\",\"www.yogadirect.com\",\"Rules\",\"example.com\",\"example.com\",\"Mod Storytelling Humanizes The Product, Making It Relatable Script\"]},{\"tooltip\":\"Script modification\",\"type\":\"mod\",\"children\":[],\"containerWidget\":null,\"details\":{\"name\":\"Mod Improving The Use Of Whitespace Around Product Details Script\",\"extra\":\"\",\"type\":\"script\",\"created\":\"2025-01-26T22:53:07.169Z\",\"lastmodified\":\"2025-01-26T22:53:07.169Z\",\"pathvalue\":\"/yoga-direct-1-4-inch-yoga-mat.html\",\"comments\":\"\",\"prob\":100.0,\"usemode\":\"test\",\"cssselector\":\"\",\"xpath\":\"\",\"find\":[],\"nodeiden\":{\"type\":\"tag\",\"attributes\":{\"tag\":\"head\"},\"counts\":{\"tag\":1},\"parent\":{\"tag\":\"html\"}},\"parameter\":0,\"scripts\":[\"\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.product-details, .product-cols { padding: 20px; }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.main-image, .addl-images { margin-bottom: 20px; }';\\n  document.head.appendChild(styleSheet);\\n}\"],\"updated\":false},\"nodePath\":[\"Top\",\"Companies\",\"www.yogadirect.com\",\"Rules\",\"example.com\",\"example.com\",\"Mod Improving The Use Of Whitespace Around Product Details Script\"]}],\"HDLmRequestType\":\"storeTreeNodes\"}\r\n"
 				+ "";
-		message = "{\"rules\":[{\"tooltip\":\"Script modification\",\"type\":\"mod\",\"children\":[],\"containerWidget\":null,\"details\":{\"name\":\"Mod Enhancing Whitespace Between Elements Helps In Better Visual Script\",\"extra\":\"\",\"enabled\":true,\"type\":\"script\",\"created\":\"2025-01-27T19:45:15.935Z\",\"lastmodified\":\"2025-01-27T19:45:15.935Z\",\"pathvalue\":\"/yoga-direct-1-4-inch-yoga-mat.html\",\"comments\":\"\",\"prob\":100.0,\"usemode\":\"test\",\"cssselector\":\"\",\"xpath\":\"\",\"find\":[],\"nodeiden\":{\"type\":\"tag\",\"attributes\":{\"tag\":\"head\"},\"counts\":{\"tag\":1},\"parent\":{\"tag\":\"html\"}},\"parameter\":0,\"scripts\":[\"\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.product-details { margin-top: 20px; }';\\n  document.head.appendChild(styleSheet);\\n}\"],\"updated\":false},\"nodePath\":[\"Top\",\"Companies\",\"www.yogadirect.com\",\"Rules\",\"example.com\",\"example.com\",\"Mod Enhancing Whitespace Between Elements Helps In Better Visual Script\"]},{\"tooltip\":\"Script modification\",\"type\":\"mod\",\"children\":[],\"containerWidget\":null,\"details\":{\"name\":\"Mod Storytelling Helps In Creating An Emotional Connection Script\",\"extra\":\"\",\"enabled\":true,\"type\":\"script\",\"created\":\"2025-01-27T19:45:15.940Z\",\"lastmodified\":\"2025-01-27T19:45:15.940Z\",\"pathvalue\":\"/yoga-direct-1-4-inch-yoga-mat.html\",\"comments\":\"\",\"prob\":100.0,\"usemode\":\"test\",\"cssselector\":\"\",\"xpath\":\"\",\"find\":[],\"nodeiden\":{\"type\":\"tag\",\"attributes\":{\"tag\":\"head\"},\"counts\":{\"tag\":1},\"parent\":{\"tag\":\"html\"}},\"parameter\":0,\"scripts\":[\"    (function() {\\n        var storytellingDiv = document.createElement('div');\\n        storytellingDiv.className = 'storytelling';\\n        storytellingDiv.innerHTML = \\\"<h2>Discover Your Perfect Yoga Companion</h2><p>Embrace every pose with comfort and stability on our premium yoga mat, designed to inspire confidence in every practice. Join thousands of satisfied customers and take your yoga journey to new heights.</p><p><a href='#buy-now' class='call-to-action'>Buy Now</a></p>\\\";\\n        var productDetails = document.querySelector('.product-details');\\n        if (productDetails) {\\n            productDetails.insertAdjacentElement('beforebegin', storytellingDiv);\\n        }\\n    })();\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.storytelling {\\\\n        background-color: #f5f5f5;\\\\n        padding: 20px;\\\\n        margin: 20px 0;\\\\n        border-radius: 5px;\\\\n        text-align: center;\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.storytelling h2 {\\\\n        font-family: \\\\'Playfair Display\\\\', serif;\\\\n        color: #333;\\\\n        font-weight: 700;\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.storytelling p {\\\\n        font-family: \\\\'Lato\\\\', sans-serif;\\\\n        color: #555;\\\\n        font-size: 16px;\\\\n        margin: 10px 0;\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.storytelling .call-to-action {\\\\n        display: inline-block;\\\\n        padding: 10px 20px;\\\\n        color: #fff;\\\\n        background-color: #f57c00;\\\\n        border-radius: 3px;\\\\n        text-decoration: none;\\\\n        font-weight: 700;\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.storytelling .call-to-action:hover {\\\\n        background-color: #e65100;\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\"],\"updated\":false},\"nodePath\":[\"Top\",\"Companies\",\"www.yogadirect.com\",\"Rules\",\"example.com\",\"example.com\",\"Mod Storytelling Helps In Creating An Emotional Connection Script\"]},{\"tooltip\":\"Script modification\",\"type\":\"mod\",\"children\":[],\"containerWidget\":null,\"details\":{\"name\":\"Mod A Consistent Button Style With Contrasting Colors Will Script\",\"extra\":\"\",\"enabled\":true,\"type\":\"script\",\"created\":\"2025-01-27T19:45:15.942Z\",\"lastmodified\":\"2025-01-27T19:45:15.942Z\",\"pathvalue\":\"/yoga-direct-1-4-inch-yoga-mat.html\",\"comments\":\"\",\"prob\":100.0,\"usemode\":\"test\",\"cssselector\":\"\",\"xpath\":\"\",\"find\":[],\"nodeiden\":{\"type\":\"tag\",\"attributes\":{\"tag\":\"head\"},\"counts\":{\"tag\":1},\"parent\":{\"tag\":\"html\"}},\"parameter\":0,\"scripts\":[\"document.querySelectorAll('button').forEach(function(btn) { btn.style.backgroundColor = '#2a9d8f'; btn.style.color = '#fff'; btn.style.borderRadius = '5px'; btn.addEventListener('mouseover', function() { this.style.backgroundColor = '#21867a'; }); btn.addEventListener('mouseout', function() { this.style.backgroundColor = '#2a9d8f'; }); });\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = 'button { background-color: #2a9d8f; color: #fff; border-radius: 5px; }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = 'button:hover { background-color: #21867a; }';\\n  document.head.appendChild(styleSheet);\\n}\"],\"updated\":false},\"nodePath\":[\"Top\",\"Companies\",\"www.yogadirect.com\",\"Rules\",\"example.com\",\"example.com\",\"Mod A Consistent Button Style With Contrasting Colors Will Script\"]}],\"HDLmRequestType\":\"storeTreeNodes\"}\r\n"
+		message = "{\"rules\":[{\"tooltip\":\"Script modification\",\"type\":\"mod\",\"children\":[],\"containerWidget\":null,\"details\":{\"name\":\"Mod Enhancing Whitespace Between Elements Helps In Better Visual Script\",\"extra\":\"\",\"type\":\"script\",\"created\":\"2025-01-27T19:45:15.935Z\",\"lastmodified\":\"2025-01-27T19:45:15.935Z\",\"pathvalue\":\"/yoga-direct-1-4-inch-yoga-mat.html\",\"comments\":\"\",\"prob\":100.0,\"usemode\":\"test\",\"cssselector\":\"\",\"xpath\":\"\",\"find\":[],\"nodeiden\":{\"type\":\"tag\",\"attributes\":{\"tag\":\"head\"},\"counts\":{\"tag\":1},\"parent\":{\"tag\":\"html\"}},\"parameter\":0,\"scripts\":[\"\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.product-details { margin-top: 20px; }';\\n  document.head.appendChild(styleSheet);\\n}\"],\"updated\":false},\"nodePath\":[\"Top\",\"Companies\",\"www.yogadirect.com\",\"Rules\",\"example.com\",\"example.com\",\"Mod Enhancing Whitespace Between Elements Helps In Better Visual Script\"]},{\"tooltip\":\"Script modification\",\"type\":\"mod\",\"children\":[],\"containerWidget\":null,\"details\":{\"name\":\"Mod Storytelling Helps In Creating An Emotional Connection Script\",\"extra\":\"\",\"type\":\"script\",\"created\":\"2025-01-27T19:45:15.940Z\",\"lastmodified\":\"2025-01-27T19:45:15.940Z\",\"pathvalue\":\"/yoga-direct-1-4-inch-yoga-mat.html\",\"comments\":\"\",\"prob\":100.0,\"usemode\":\"test\",\"cssselector\":\"\",\"xpath\":\"\",\"find\":[],\"nodeiden\":{\"type\":\"tag\",\"attributes\":{\"tag\":\"head\"},\"counts\":{\"tag\":1},\"parent\":{\"tag\":\"html\"}},\"parameter\":0,\"scripts\":[\"    (function() {\\n        var storytellingDiv = document.createElement('div');\\n        storytellingDiv.className = 'storytelling';\\n        storytellingDiv.innerHTML = \\\"<h2>Discover Your Perfect Yoga Companion</h2><p>Embrace every pose with comfort and stability on our premium yoga mat, designed to inspire confidence in every practice. Join thousands of satisfied customers and take your yoga journey to new heights.</p><p><a href='#buy-now' class='call-to-action'>Buy Now</a></p>\\\";\\n        var productDetails = document.querySelector('.product-details');\\n        if (productDetails) {\\n            productDetails.insertAdjacentElement('beforebegin', storytellingDiv);\\n        }\\n    })();\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.storytelling {\\\\n        background-color: #f5f5f5;\\\\n        padding: 20px;\\\\n        margin: 20px 0;\\\\n        border-radius: 5px;\\\\n        text-align: center;\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.storytelling h2 {\\\\n        font-family: \\\\'Playfair Display\\\\', serif;\\\\n        color: #333;\\\\n        font-weight: 700;\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.storytelling p {\\\\n        font-family: \\\\'Lato\\\\', sans-serif;\\\\n        color: #555;\\\\n        font-size: 16px;\\\\n        margin: 10px 0;\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.storytelling .call-to-action {\\\\n        display: inline-block;\\\\n        padding: 10px 20px;\\\\n        color: #fff;\\\\n        background-color: #f57c00;\\\\n        border-radius: 3px;\\\\n        text-decoration: none;\\\\n        font-weight: 700;\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.storytelling .call-to-action:hover {\\\\n        background-color: #e65100;\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\"],\"updated\":false},\"nodePath\":[\"Top\",\"Companies\",\"www.yogadirect.com\",\"Rules\",\"example.com\",\"example.com\",\"Mod Storytelling Helps In Creating An Emotional Connection Script\"]},{\"tooltip\":\"Script modification\",\"type\":\"mod\",\"children\":[],\"containerWidget\":null,\"details\":{\"name\":\"Mod A Consistent Button Style With Contrasting Colors Will Script\",\"extra\":\"\",\"type\":\"script\",\"created\":\"2025-01-27T19:45:15.942Z\",\"lastmodified\":\"2025-01-27T19:45:15.942Z\",\"pathvalue\":\"/yoga-direct-1-4-inch-yoga-mat.html\",\"comments\":\"\",\"prob\":100.0,\"usemode\":\"test\",\"cssselector\":\"\",\"xpath\":\"\",\"find\":[],\"nodeiden\":{\"type\":\"tag\",\"attributes\":{\"tag\":\"head\"},\"counts\":{\"tag\":1},\"parent\":{\"tag\":\"html\"}},\"parameter\":0,\"scripts\":[\"document.querySelectorAll('button').forEach(function(btn) { btn.style.backgroundColor = '#2a9d8f'; btn.style.color = '#fff'; btn.style.borderRadius = '5px'; btn.addEventListener('mouseover', function() { this.style.backgroundColor = '#21867a'; }); btn.addEventListener('mouseout', function() { this.style.backgroundColor = '#2a9d8f'; }); });\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = 'button { background-color: #2a9d8f; color: #fff; border-radius: 5px; }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = 'button:hover { background-color: #21867a; }';\\n  document.head.appendChild(styleSheet);\\n}\"],\"updated\":false},\"nodePath\":[\"Top\",\"Companies\",\"www.yogadirect.com\",\"Rules\",\"example.com\",\"example.com\",\"Mod A Consistent Button Style With Contrasting Colors Will Script\"]}],\"HDLmRequestType\":\"storeTreeNodes\"}\r\n"
 				+ "";
 		JsonParser  parser = new JsonParser();	
 		JsonElement   topNodeJsonElement = null;
@@ -2564,6 +2580,11 @@ public class HDLmMain {
 		boolean   rvBoolean = HDLmHtml.checkIfJavaScriptValid(script, 
 				                                                  HDLmReportErrors.DONTREPORTERRORS);
     */			
+		/*
+		String  tableName = HDLmConfigInfo.getEntriesDatabaseTableName();
+		HDLmDatabaseRows  databaseRows = HDLmDatabase.getDatabaseRows(null, tableName, null);
+		boolean           databaseRowsValid = HDLmDatabase.checkDatabaseRows(databaseRows);
+		*/
 		/* In the Windows environment, logging initialization won't look
 		   in the correct directory for the right properties file. As a
 		   consequence, we must specify the correct location. Note that
@@ -2899,7 +2920,7 @@ public class HDLmMain {
 					                           true);
 		*/
 		/*
-    String checkStr = "{\"type\":\"top\",\"tooltip\":\"Top node of the node tree\",\"details\":{\"enabled\":false,\"dummyLastModified\":\"\",\"passThru\":false,\"type\":\"top\",\"updated\":false,\"extra\":\"\",\"name\":\"Top\"},\"nodePath\":[\"Top\"]}"; 
+    String checkStr = "{\"type\":\"top\",\"tooltip\":\"Top node of the node tree\",\"details\":{\"dummyLastModified\":\"\",\"passThru\":false,\"type\":\"top\",\"updated\":false,\"extra\":\"\",\"name\":\"Top\"},\"nodePath\":[\"Top\"]}"; 
 	  Gson      gson = HDLmMain.gsonMain;
 	  HDLmTree  dataEntryObj = gson.fromJson(checkStr, HDLmTree.class);
 	  */
@@ -2925,7 +2946,6 @@ public class HDLmMain {
                          "\"type\":\"script\"," +
                          "\"name\":\"Script Modification 6/6/2025, 1:24:17 PM\"," +
                          "\"extra\":\"\"," +
-                         "\"enabled\":true," +
                          "\"created\":\"2025-06-03T05:57:13.345Z\"," +
                          "\"lastModified\":\"2025-06-03T05:57:13.345Z\"," +
                          "\"pathvalue\":\"\",\"comments\":\"From variant variant_1747833857020.js\"," +
@@ -3698,7 +3718,7 @@ public class HDLmMain {
 		/* Check if the top pass-through node has been created. If not,
 		   then we can not set the overall pass-through status of the
 		   server. */
-	  HDLmPassThruTop  topNode = HDLmMain.getPassThruTopReference();
+	  HDLmModTop  topNode = HDLmMain.getPassThruTopReference();
 	  if (topNode == null) {
 			String  errorText = "Pass-through top node is null";
 			throw new NullPointerException(errorText);

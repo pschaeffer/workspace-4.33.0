@@ -71,7 +71,10 @@
     let matchModifiedName = hostNameValue + '/' + divisionNameValue + '/' + siteNameValue + '/' + curMod.name
     matchModifiedName = HDLmReplaceInString(matchModifiedName);
     let curType = curMod.type;
-    /* The dummy loop below is used to allow break to work */
+    /* The dummy loop below is used to allow break to work. This is the outer loop.
+       Inside this loop, is a switch statement (actually several) that handles
+       each type of rule. Individual nodes are handled by node loops nest Inside
+       the outer loop. */
     while (true) {
       let postTrace = new Object();
       /* console.log('s2'); */
@@ -102,12 +105,12 @@
           break;
         }
       }
-      /* If the current modification is not enabled, then we really
+      /* If the current modification should not be run, then we really
          don't have any more work to do */
-      if (curMod.enabled != true) {
-        matchError = 'disabled';
+      if (false) {
+        matchError = 'false';
         /* console.log('s3'); */
-        /* Report that the current rule was not enabled */
+        /* Report that the current rule was not executed */
         if (postRuleTracing == true) {
           let localUpdates = new Object();
           HDLmSaveChange(localUpdates, null,
@@ -590,6 +593,7 @@
           }
           /* Process all of the matching nodes */
           for (let i = 0; i < nodeListLength; i++) {
+            matchError = 'Fired';
             /* Get a single node and add a class or classes to the node */
             let curNode = nodeList[i];
             let curModExtra = curMod.extra;
@@ -831,10 +835,13 @@
                 parentNode.replaceChild(newNode, curNode);
               }
             }
-            else if (curType == 'script' && readyState == 'complete') {
-              let functionStr = 'HDLmExecute' + HDLmReplaceInString(curMod.name) + finalLookupIndex;
-              /* console.log('Show function string for script', functionStr); */
-              window[functionStr]();
+            else if (curType == 'script') {
+              if (readyState == 'complete') {
+                let functionStr = 'HDLmExecute' + HDLmReplaceInString(curMod.name) + finalLookupIndex;
+                /* console.log('Show function string for script', functionStr); */
+                window[functionStr]();
+              }
+              matchError = readyState;
             }
             /* Most style values are handled by just setting the style.
                However, we need a somewhat different approach for
@@ -887,7 +894,7 @@
                            hostNameValue, divisionNameValue, siteNameValue, curMod.name,
                            curMod.path, curMod.type, pathValueStr,
                            oldText, newText);
-            postTrace.matcherror = 'fired';
+            postTrace.matcherror = matchError;
             HDLmSendUpdates(localUpdates, curType, '1.0', postTrace);
             break;
           }
@@ -1243,7 +1250,7 @@
       disabledStatus = true;
     if (disabledStatus == 'false')
       disabledStatus = false;
-    /* Find and disable or enabled the style sheet */
+    /* Find and disable or enable the style sheet */
     var styleSheetList = document.styleSheets;
     for (let i = 0; i < styleSheetList.length; i++) {
       var styleSheet = styleSheetList[i];
@@ -1682,7 +1689,9 @@
          A special call is needed to get the actual tag name of the
          DOM element. This call will always return the tag name in
          uppercase. As a consequence, the expected value must also be
-         changed to uppercase. */
+         changed to uppercase. Both statements are not quite true.
+         Experisnce has show that the tag name is sometimes returned
+         in lowercase. */
       if (nodeAttributeKey == 'tag') {
         nodeActualValue = nodeElement.tagName;
         /* Check if node identifier tracing is active or not. Trace the
@@ -1826,6 +1835,11 @@
           nodeIndexOf = nodeInnerText.indexOf('ï¿½');
           if (nodeIndexOf >= 0)
             nodeInnerText = nodeInnerText.substring(0, nodeIndexOf);
+          /* Long and bad experience has shown that inner text sometimes
+             begins with a new line character. The code below has the effect
+             of setting the inner text to an empty string in this case. The
+             trim call (also below) would do a better job of removing the
+             new line character. */
           nodeIndexOf = nodeInnerText.indexOf('\n');
           if (nodeIndexOf >= 0)
             nodeInnerText = nodeInnerText.substring(0, nodeIndexOf);
@@ -1842,6 +1856,11 @@
           let   traceValue = 0.0;
           if (nodeActualValue != null &&
               HDLmCompareCaseInsensitive(nodeAttributeValue, nodeActualValue))
+            traceValue = 1.0;
+          /* We need to check for a very special case here. If both
+             the actual and expected values are null, then we really
+             have a match. */
+          if (nodeActualValue == null && nodeAttributeValue == null)
             traceValue = 1.0;
           /* Check if node identifier tracing should actually happen */
           if (nodeIdenTracing == HDLmNodeIdenTracing.all ||
@@ -1865,12 +1884,22 @@
           nodeAttributeCheck.matchvalue = traceValue;
           nodeAttributeChecks.push(nodeAttributeCheck);
         }
-        /* If we don't have a value that we can compare, then we are done */
-        if (nodeActualValue == null)
-          continue;
+        /* If we don't have a value that we can compare, then we are done.
+           This is not quite true. If we expected a null value then the
+           values are really equal. */
+        let compareValues = true;
+        if (nodeActualValue == null) {
+          if (nodeAttributeValue != null)
+            continue;
+          else {
+            numeratorIncrementValue = 1.0;
+            compareValues = false;
+          }
+        }
         /* Compare the expected value and the actual value. If they are the
            same, then we can increment the numerator. */
-        if (HDLmCompareCaseInsensitive(nodeAttributeValue, nodeActualValue))
+        if (compareValues && HDLmCompareCaseInsensitive(nodeAttributeValue,
+                                                        nodeActualValue))
           numeratorIncrementValue = 1.0;
       }
       /* Check if the attribute we want is the perceptual hash. The
@@ -2575,7 +2604,7 @@
                    oldText, newText);
     /* Set the local reason value to something appropriate */
     let localReason = curMod.type;
-    postTrace.matcherror = 'fired';
+    postTrace.matcherror = 'visit';
     HDLmSendUpdates(localUpdates, localReason, '1.0', postTrace);
     return countHigh;
   }
@@ -2875,17 +2904,17 @@
   function HDLmApplyMods(readyState, HDLmIndexValue) {
     let pathValueStr = document.location.pathname;
     const modsArray = [
-                        {"find":[{"tag":"button","attribute":"id","value":"product-addtocart-button"}],"valuesCount":2,"values":["ADD TO CART","TCELESECROFAdd to ala-carte"],"enabled":true,"pathre":false,"type":"title","parameter":9,"cssselector":"","lastmodified":null,"extra":"","name":"Add to Cart Text","nodeiden":null,"path":"/neve-studio-dance-jacket.html","prob":100.0,"usemode":"prod","value":"","valueSuffix":"","xpath":""},
-                        {"find":[{"tag":"span","attribute":"itemprop","value":"name"}],"valuesCount":4,"values":["#000000","#0000ff","#00ff00","#ff0000"],"enabled":true,"pathre":false,"type":"fontcolor","parameter":1,"cssselector":"","lastmodified":"2022-11-18T02:04:30.296Z","extra":"","name":"Font Color","nodeiden":null,"path":"/neve-studio-dance-jacket.html","prob":100.0,"usemode":"prod","value":"","valueSuffix":"","xpath":""},
-                        {"find":[{"tag":"span","attribute":"itemprop","value":"name"}],"valuesCount":3,"values":["arial","arial","cursive"],"enabled":true,"pathre":false,"type":"fontfamily","parameter":3,"cssselector":"","lastmodified":"2022-11-18T02:04:30.296Z","extra":"","name":"Font Family","nodeiden":null,"path":"/neve-studio-dance-jacket.html","prob":100.0,"usemode":"prod","value":"","valueSuffix":"","xpath":""},
-                        {"find":[{"tag":"span","attribute":"itemprop","value":"name"}],"valuesCount":3,"values":["auto","TCELESECROFnone","normal"],"enabled":true,"pathre":false,"type":"fontkerning","parameter":4,"cssselector":"","lastmodified":"2022-11-18T02:04:30.296Z","extra":"","name":"Font Kerning","nodeiden":null,"path":"/neve-studio-dance-jacket.html","prob":100.0,"usemode":"prod","value":"","valueSuffix":"","xpath":""},
-                        {"find":[{"tag":"span","attribute":"itemprop","value":"name"}],"valuesCount":5,"values":["100px","TCELESECROF20px","30","40px","50px"],"enabled":true,"pathre":false,"type":"fontsize","parameter":0,"cssselector":"","lastmodified":"2022-11-18T02:04:30.296Z","extra":"","name":"Font Size","nodeiden":null,"path":"/neve-studio-dance-jacket.html","prob":100.0,"usemode":"prod","value":"","valueSuffix":"","xpath":""},
-                        {"find":[{"tag":"span","attribute":"itemprop","value":"name"}],"valuesCount":3,"values":["italic","normal","TCELESECROFoblique"],"enabled":true,"pathre":false,"type":"fontstyle","parameter":5,"cssselector":"","lastmodified":"2022-11-18T02:04:30.296Z","extra":"","name":"Font Style","nodeiden":null,"path":"/neve-studio-dance-jacket.html","prob":100.0,"usemode":"prod","value":"","valueSuffix":"","xpath":""},
-                        {"find":[],"valuesCount":3,"values":["TCELESECROFVery Cuter","Very Cute","Not so cute"],"enabled":true,"pathre":false,"type":"text","parameter":2,"cssselector":"","lastmodified":"2022-11-18T02:04:30.296Z","extra":"","name":"Font Text","nodeiden":null,"path":"/neve-studio-dance-jacket.html","prob":100.0,"usemode":"prod","value":"","valueSuffix":"","xpath":"/html/body/div[1]/main/div[2]/div[1]/div[1]/div[1]/h1/span"},
-                        {"find":[{"tag":"span","attribute":"itemprop","value":"name"}],"valuesCount":3,"values":["normal","bold","lighter"],"enabled":true,"pathre":false,"type":"fontweight","parameter":6,"cssselector":"","lastmodified":"2022-11-18T02:04:30.296Z","extra":"","name":"Font Weight","nodeiden":null,"path":"/neve-studio-dance-jacket.html","prob":100.0,"usemode":"prod","value":"","valueSuffix":"","xpath":""},
-                        {"find":[{"tag":"a","attribute":"class","value":"logo"},{"tag":"img","attribute":"","value":""}],"valuesCount":4,"values":["145px","45px","50%","TCELESECROFauto"],"enabled":true,"pathre":false,"type":"height","parameter":8,"cssselector":"","lastmodified":"2022-11-18T02:04:30.296Z","extra":"","name":"Logo Height","nodeiden":null,"path":"/neve-studio-dance-jacket.html","prob":100.0,"usemode":"prod","value":"","valueSuffix":"","xpath":""},
-                        {"find":[{"tag":"a","attribute":"class","value":"logo"},{"tag":"img","attribute":"","value":""}],"valuesCount":3,"values":["TCELESECROF250px","450px","auto"],"enabled":true,"pathre":false,"type":"width","parameter":7,"cssselector":"","lastmodified":"2022-11-18T02:04:30.296Z","extra":"","name":"Logo Width","nodeiden":null,"path":"/neve-studio-dance-jacket.html","prob":100.0,"usemode":"prod","value":"","valueSuffix":"","xpath":""},
-                        {"find":[{"tag":"form","attribute":"id","value":"product_addtocart_form"}],"valuesCount":0,"values":[],"enabled":true,"pathre":false,"type":"notify","parameter":null,"cssselector":"","lastmodified":"2022-11-18T02:04:30.296Z","extra":"","name":"Parameters","nodeiden":null,"path":"/neve-studio-dance-jacket.html","prob":100.0,"usemode":"prod","value":"","valueSuffix":"","xpath":""}
+                        {"find":[{"tag":"button","attribute":"id","value":"product-addtocart-button"}],"valuesCount":2,"values":["ADD TO CART","TCELESECROFAdd to ala-carte"],"pathre":false,"type":"title","parameter":9,"cssselector":"","lastmodified":null,"extra":"","name":"Add to Cart Text","nodeiden":null,"path":"/neve-studio-dance-jacket.html","prob":100.0,"usemode":"prod","value":"","valueSuffix":"","xpath":""},
+                        {"find":[{"tag":"span","attribute":"itemprop","value":"name"}],"valuesCount":4,"values":["#000000","#0000ff","#00ff00","#ff0000"],"pathre":false,"type":"fontcolor","parameter":1,"cssselector":"","lastmodified":"2022-11-18T02:04:30.296Z","extra":"","name":"Font Color","nodeiden":null,"path":"/neve-studio-dance-jacket.html","prob":100.0,"usemode":"prod","value":"","valueSuffix":"","xpath":""},
+                        {"find":[{"tag":"span","attribute":"itemprop","value":"name"}],"valuesCount":3,"values":["arial","arial","cursive"],"pathre":false,"type":"fontfamily","parameter":3,"cssselector":"","lastmodified":"2022-11-18T02:04:30.296Z","extra":"","name":"Font Family","nodeiden":null,"path":"/neve-studio-dance-jacket.html","prob":100.0,"usemode":"prod","value":"","valueSuffix":"","xpath":""},
+                        {"find":[{"tag":"span","attribute":"itemprop","value":"name"}],"valuesCount":3,"values":["auto","TCELESECROFnone","normal"],"pathre":false,"type":"fontkerning","parameter":4,"cssselector":"","lastmodified":"2022-11-18T02:04:30.296Z","extra":"","name":"Font Kerning","nodeiden":null,"path":"/neve-studio-dance-jacket.html","prob":100.0,"usemode":"prod","value":"","valueSuffix":"","xpath":""},
+                        {"find":[{"tag":"span","attribute":"itemprop","value":"name"}],"valuesCount":5,"values":["100px","TCELESECROF20px","30","40px","50px"],"pathre":false,"type":"fontsize","parameter":0,"cssselector":"","lastmodified":"2022-11-18T02:04:30.296Z","extra":"","name":"Font Size","nodeiden":null,"path":"/neve-studio-dance-jacket.html","prob":100.0,"usemode":"prod","value":"","valueSuffix":"","xpath":""},
+                        {"find":[{"tag":"span","attribute":"itemprop","value":"name"}],"valuesCount":3,"values":["italic","normal","TCELESECROFoblique"],"pathre":false,"type":"fontstyle","parameter":5,"cssselector":"","lastmodified":"2022-11-18T02:04:30.296Z","extra":"","name":"Font Style","nodeiden":null,"path":"/neve-studio-dance-jacket.html","prob":100.0,"usemode":"prod","value":"","valueSuffix":"","xpath":""},
+                        {"find":[],"valuesCount":3,"values":["TCELESECROFVery Cuter","Very Cute","Not so cute"],"pathre":false,"type":"text","parameter":2,"cssselector":"","lastmodified":"2022-11-18T02:04:30.296Z","extra":"","name":"Font Text","nodeiden":null,"path":"/neve-studio-dance-jacket.html","prob":100.0,"usemode":"prod","value":"","valueSuffix":"","xpath":"/html/body/div[1]/main/div[2]/div[1]/div[1]/div[1]/h1/span"},
+                        {"find":[{"tag":"span","attribute":"itemprop","value":"name"}],"valuesCount":3,"values":["normal","bold","lighter"],"pathre":false,"type":"fontweight","parameter":6,"cssselector":"","lastmodified":"2022-11-18T02:04:30.296Z","extra":"","name":"Font Weight","nodeiden":null,"path":"/neve-studio-dance-jacket.html","prob":100.0,"usemode":"prod","value":"","valueSuffix":"","xpath":""},
+                        {"find":[{"tag":"a","attribute":"class","value":"logo"},{"tag":"img","attribute":"","value":""}],"valuesCount":4,"values":["145px","45px","50%","TCELESECROFauto"],"pathre":false,"type":"height","parameter":8,"cssselector":"","lastmodified":"2022-11-18T02:04:30.296Z","extra":"","name":"Logo Height","nodeiden":null,"path":"/neve-studio-dance-jacket.html","prob":100.0,"usemode":"prod","value":"","valueSuffix":"","xpath":""},
+                        {"find":[{"tag":"a","attribute":"class","value":"logo"},{"tag":"img","attribute":"","value":""}],"valuesCount":3,"values":["TCELESECROF250px","450px","auto"],"pathre":false,"type":"width","parameter":7,"cssselector":"","lastmodified":"2022-11-18T02:04:30.296Z","extra":"","name":"Logo Width","nodeiden":null,"path":"/neve-studio-dance-jacket.html","prob":100.0,"usemode":"prod","value":"","valueSuffix":"","xpath":""},
+                        {"find":[{"tag":"form","attribute":"id","value":"product_addtocart_form"}],"valuesCount":0,"values":[],"pathre":false,"type":"notify","parameter":null,"cssselector":"","lastmodified":"2022-11-18T02:04:30.296Z","extra":"","name":"Parameters","nodeiden":null,"path":"/neve-studio-dance-jacket.html","prob":100.0,"usemode":"prod","value":"","valueSuffix":"","xpath":""}
                       ];
     const sessionIdJS = '';
     const parametersArray = HDLmGetParametersArray();
@@ -3003,14 +3032,6 @@
       }
     }
   }
-  function HDLmExecuteSwitch(modName, choiceNumber) {
-    switch (modName) {
-      default:
-        let errorText = "Invalid rule name value - " + modName;
-        HDLmBuildError('Error', 'RuleName', 62, errorText);
-        break;
-    }
-  }
   function HDLmGetAttributesString(curNode) {
     let outputStr = '';
     if (!curNode.hasAttributes())
@@ -3126,7 +3147,6 @@
   HDLmObsObserver.observe(HDLmObsTargetNode, HDLmObsConfig);
   let pathValueStr = document.location.pathname;
   let curMod = {};
-  curMod.enabled = true;
   curMod.name = 'load page';
   curMod.parameter = -1;
   curMod.path = '//.*/';
