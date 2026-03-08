@@ -40,7 +40,7 @@ public class HDLmCurlApache {
   /* This routine does all of the work needed to report a Curl error. 
 	   Hopefully, we won't have any Curl errors. However, if we do have
 	   Curl errors, this routine will report them. */ 
-	protected static String  reportCurlError(String errorMsg, HDLmReportErrors reportErrors) {
+	protected static String  reportCurlError(final String errorMsg, final HDLmReportErrors reportErrors) {
 		/* Check a few values passed by the caller */
 		if (errorMsg == null) {
 			String   errorText = "Error message reference passed to reportCurlError is null";
@@ -76,10 +76,10 @@ public class HDLmCurlApache {
 	   before another database I/O operation can be started. The 
 	   synchronized keyword is no longer used at this time. Other
 	   techniques (locks) are used to serialize the database. */
-	protected static HDLmApacheResponse  runCurl(String url, 
-																               String userid, 
-																               String password, 
-													                     HDLmHttpTypes type) {
+	protected static HDLmApacheResponse  runCurl(final String url, 
+																               final String userid, 
+																               final String password, 
+													                     final HDLmHttpTypes type) {
 		/* Check a few values passed by the caller */
 		if (url == null) {
 			String   errorText = "URL reference passed to runCurl is null";
@@ -125,19 +125,19 @@ public class HDLmCurlApache {
   }
 	/* This is a low-level Curl routine. This routine gives the
 	   caller more control over the actual network I/O operation(s). */ 
-	protected static HDLmApacheResponse  runCurl(String url, 
-			                                         String userid, 
-																               String password, 
-													  		               HDLmHttpTypes type, 							  		              
-													  		               ArrayList<String> headerList,
-													  		               String extraInfo,
-													  		               HttpEntity passedEntity,
+	protected static HDLmApacheResponse  runCurl(final String url, 
+			                                         final String userid, 
+																               final String password, 
+													  		               final HDLmHttpTypes type, 							  		              
+													  		               final ArrayList<String> headerList,
+													  		               final String extraInfo,
+													  		               final HttpEntity passedEntity,
 													  		               /* The next set of values are actually types that 
 													  		                  have a yes and no value. They are not strings 
 													  		                  with data in them. */ 						  		              
-													  		               HDLmOutboundJson outboundJson,
-													  		               HDLmSkipAuth skipAuth,
-													  		               HDLmReportErrors reportErrors) {
+													  		               final HDLmOutboundJson outboundJson,
+													  		               final HDLmSkipAuth skipAuth,
+													  		               final HDLmReportErrors reportErrors) {
 		/* Check a few values passed by the caller */
 		if (url == null) {
 			String   errorText = "URL reference passed to runCurl is null";
@@ -274,19 +274,19 @@ public class HDLmCurlApache {
 	   caller more control over the actual network I/O operation(s). 
 	   This routine returns a control block with all of the details
 	   in it. */ 
-	protected static HDLmApacheResponse runCurlResponse(String url, 
-													                            String userid, 
-																				              String password, 
-																	  		              HDLmHttpTypes type, 							  		              
-																	  		              ArrayList<String> headerList,
-																	  		              String extraInfo,
-																	  		              HttpEntity passedEntity,
+	protected static HDLmApacheResponse runCurlResponse(final String url, 
+													                            final String userid, 
+																				              final String password, 
+																	  		              final HDLmHttpTypes type, 							  		              
+																	  		              final ArrayList<String> headerList,
+																	  		              final String extraInfo,
+																	  		              final HttpEntity passedEntity,
 																	  		              /* The next set of values are actually types that 
-																	  		                 have a yes and no value. They are not strings 
-																	  		                 with data in them. */ 						  		              
-																	  		              HDLmOutboundJson outboundJson,
-																	  		              HDLmSkipAuth skipAuth,
-																	  		              HDLmReportErrors reportErrors) {
+																	  		                 final have a yes and no value. They are not strings 
+																	  		                 final with data in them. */ 						  		              
+																	  		              final HDLmOutboundJson outboundJson,
+																	  		              final HDLmSkipAuth skipAuth,
+																	  		              final HDLmReportErrors reportErrors) {
 		/* Check a few values passed by the caller */
 		if (url == null) {
 			String   errorText = "URL reference passed to runCurlResponse is null";

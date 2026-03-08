@@ -37,7 +37,7 @@ public class HDLmSession {
 	/* This constructor copies all of the fields from another session instance.
 	   Note that the copy is a deep copy of sorts. All of the fields should
 	   actually be copied or should be immutable. */
-	protected HDLmSession(HDLmSession oldSession) {
+	protected HDLmSession(final HDLmSession oldSession) {
 		/* Check if the old session passed to this routine is null or not */
 		if (oldSession == null) {
 			String  errorText = "Old session reference used to build a new session is null";
@@ -195,7 +195,7 @@ public class HDLmSession {
 	}	
   /* Get a session cache entry from the session cache. This routine 
      returns null if the entry is not found. */
-	protected static synchronized HDLmSession  getFromCacheIfPresent(String sessionIdStr) {  	
+	protected static synchronized HDLmSession  getFromCacheIfPresent(final String sessionIdStr) {  	
 		/* Check if the session ID string passed by the caller is null */
 		if (sessionIdStr == null) {
 			String  errorText = "Session ID string reference passed to getFromCacheIfPresent is null";

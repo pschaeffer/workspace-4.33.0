@@ -44,7 +44,7 @@ public class HDLmMatch {
 	   
 	   Note that the caller must make sure that the match string is
 	   valid. This routine assumes that the match string is valid. */ 
-  protected HDLmMatch(String matchString) { 
+  protected HDLmMatch(final String matchString) { 
 		if (matchString == null) {  
 		  String  errorText = "Match string passed to HDLmMatch constructor is null";
 		  throw new NullPointerException(errorText);
@@ -102,7 +102,7 @@ public class HDLmMatch {
      empty if no matches are found. Otherwise, the List will have
      one or more string entries. */
   @SuppressWarnings("unused")
-	protected static List<String>  allMatches(String testString, Pattern testPattern) {
+	protected static List<String>  allMatches(final String testString, final Pattern testPattern) {
   	/* Check a few passed values */
 		if (testString == null) {
 		  String  errorText = "Test string passed to allMatches is null";
@@ -133,7 +133,7 @@ public class HDLmMatch {
      routine will return a null value if no errors are detected. This
      routine should not raise an exception if an invalid match string
      is passed to it. */  
-	protected static String check(String testString) {
+	protected static String check(final String testString) {
 		if (testString == null) {
 		  String  errorText = "Test string passed to check is null";
 		  throw new NullPointerException(errorText);
@@ -349,7 +349,7 @@ public class HDLmMatch {
 	   null value, then it will never match. Note that special rules
 	   are applied in order. */  
 	protected static boolean  checkStringsSpecial(final String matchString, 
-			                                          Map<String, HDLmMatch>  matchCache,
+			                                          final Map<String, HDLmMatch>  matchCache,
 			                                          final String testString) {
 		/* Check the values passed by the caller */
 		if (matchString == null) {
@@ -412,7 +412,7 @@ public class HDLmMatch {
 		 character. If the left square bracket is followed by a not sign, then
 		 the left square bracket is really part of a like (SQL LIKE) path value, 
 		 not a glob. The code below checks for this case. */ 
-	protected static boolean globCheck(String matchString) {
+	protected static boolean globCheck(final String matchString) {
 		if (matchString == null) {
 		  String  errorText = "Match string passed to globCheck is null";
 		  throw new NullPointerException(errorText);
@@ -495,7 +495,7 @@ public class HDLmMatch {
 		 the two characters represent a single literal backslash. One
 		 consequence is that a single backslash can not be the last 
 		 character of an input string. */
-	protected static String globToRegex(String globString) {
+	protected static String globToRegex(final String globString) {
 		if (globString == null) {
 		  String  errorText = "Glob string passed to globToRegex is null";
 		  throw new NullPointerException(errorText);
@@ -702,7 +702,7 @@ public class HDLmMatch {
 	   and perhaps other systems. These characters will have to
 	   be added if the regex is going to be used with JavaScript
 	   and perhaps other systems. */
-	protected static String globToRegexOld(String globString) {
+	protected static String globToRegexOld(final String globString) {
 		if (globString == null) {
 		  String  errorText = "Glob string passed to globToRegex is null";
 		  throw new NullPointerException(errorText);
@@ -899,7 +899,7 @@ public class HDLmMatch {
 		 must be escaped to prevent it from being treated as like percent.
 		 However, the escape should be removed because regex does not treat
 		 percent as a special character. */
-	protected static boolean likeCheck(String matchString) {
+	protected static boolean likeCheck(final String matchString) {
 		if (matchString == null) {
 		  String  errorText = "Match string passed to likeCheck is null";
 		  throw new NullPointerException(errorText);
@@ -941,7 +941,7 @@ public class HDLmMatch {
 		 the two characters represent a single literal backslash. One
 		 consequence is that a single backslash can not be the last 
 		 character of an input string. */
-	protected static String likeToRegex(String likeString) {
+	protected static String likeToRegex(final String likeString) {
 		if (likeString == null) {
 		  String  errorText = "Like string passed to likeToRegex is null";
 		  throw new NullPointerException(errorText);
@@ -1148,7 +1148,7 @@ public class HDLmMatch {
 		 be added if the regex is going to be used with JavaScript
 		 and perhaps other systems. This code follows (more or less)
 		 the SQL Server rules for SQL LIKE.*/
-	protected static String likeToRegexOld(String likeString) {
+	protected static String likeToRegexOld(final String likeString) {
 		if (likeString == null) {
 		  String  errorText = "Like string passed to likeToRegex is null";
 		  throw new NullPointerException(errorText);
@@ -1364,7 +1364,7 @@ public class HDLmMatch {
 	/* The next routine checks if the current match instance actually
 	   matches the string value passed by the caller. This may be done
 	   using a simple string comparison or using the regex mechanism. */
-	protected boolean match(String testString) {
+	protected boolean match(final String testString) {
 		if (testString == null) {
 		  String  errorText = "Test string passed to match is null";
 		  throw new NullPointerException(errorText);

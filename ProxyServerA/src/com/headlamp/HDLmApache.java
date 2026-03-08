@@ -53,8 +53,8 @@ public class HDLmApache {
 	   number is returned to the caller. Note that this routine, 
 	   returns an index, not a position. That means that zero, is 
 	   a valid return value. */ 
-	protected static int findHeader(ArrayList<String> headers, 
-			                            String targetHeader) {
+	protected static int findHeader(final ArrayList<String> headers, 
+			                            final String targetHeader) {
 		/* Check if the HTTP host headers passed by the caller are null */
 		if (headers == null) {
 			String  errorText = "HTTP headers array passed to findHeader is null";
@@ -97,7 +97,7 @@ public class HDLmApache {
 	   found, then a negative number is returned to the caller. Note
 	   that this routine, returns an index, not a position. That means
 	   that zero, is a valid return value. */ 
-	protected static int findHostHeader(ArrayList<String> headers) {
+	protected static int findHostHeader(final ArrayList<String> headers) {
 		/* Check if the HTTP headers array passed by the caller is null */
 		if (headers == null) {
 			String  errorText = "HTTP headers array passed to findHostHeader is null";
@@ -123,7 +123,7 @@ public class HDLmApache {
      found, then a negative number is returned to the caller. Note
      that this routine, returns an index, not a position. That means
      that zero, is a valid return value. */ 
-  protected static int findLocationHeader(ArrayList<String> headers) {
+  protected static int findLocationHeader(final ArrayList<String> headers) {
 		/* Check if the HTTP headers array passed by the caller is null */
 		if (headers == null) {
 			String  errorText = "HTTP headers array passed to findLocationHeader is null";
@@ -150,7 +150,7 @@ public class HDLmApache {
 	   is returned to the caller. Note that this routine, returns
 	   an index, not a position. That means that zero, is a valid
 	   return value. */ 
-	protected static int findReferrerHeader(ArrayList<String> headers) {
+	protected static int findReferrerHeader(final ArrayList<String> headers) {
 		/* Check if the HTTP headers array passed by the caller is null */
 		if (headers == null) {
 			String  errorText = "HTTP headers array passed to findReferrerHeader is null";
@@ -252,9 +252,9 @@ public class HDLmApache {
      actual browser client (not the proxy server). The caller provides 
      the location header and the old/new host names. The corrected HTTP
      header is returned to the caller. */
-	protected static String fixLocationName(String locationHeader, 
-			                                    String oldHostName,
-			                                    String newHostName) {
+	protected static String fixLocationName(      String locationHeader, 
+			                                    final String oldHostName,
+			                                    final String newHostName) {
 		/* Check if the HTTP location header passed by the caller is null */
 		if (locationHeader == null) {
 			String  errorText = "HTTP Location header passed to fixLocationName is null";
@@ -310,15 +310,15 @@ public class HDLmApache {
 	}
 	/* The next routine handles one HTTP(S) request. This routine checks for
 	   302 HTTP codes and follows location headers as need be. */ 
-	protected static HDLmApacheResponse performHttpOperation(HDLmProtocolTypes protocolType, 
-			                                                     HDLmHttpTypes operationType, 
+	protected static HDLmApacheResponse performHttpOperation(final HDLmProtocolTypes protocolType, 
+			                                                     final HDLmHttpTypes operationType, 
 			                                                     String hostName, 
 			                                                     String pathValue,
-			                                                     ArrayList<String> inputHeaders,
-			                                                     byte[] inputContentBytes,
-			                                                     HDLmApacheRedirect redirect,
-			                                                     HDLmShowRequest showRequest,
-			                                                     HDLmShowResponse showResponse) throws ClientProtocolException, IOException {
+			                                                     final ArrayList<String> inputHeaders,
+			                                                     final byte[] inputContentBytes,
+			                                                     final HDLmApacheRedirect redirect,
+			                                                     final HDLmShowRequest showRequest,
+			                                                     final HDLmShowResponse showResponse) throws ClientProtocolException, IOException {
 		/* Check if the protocol type enum value passed by the caller is null */
 		if (protocolType == null) {
 			String  errorText = "Protocol type enum value passed by the caller to performHttpOperation is null";
@@ -550,13 +550,13 @@ public class HDLmApache {
 	   Note that the specification includes support for HTTP CONNECT
 	   operations. However, it appears that Apache does not support
 	   HTTP CONNECT operations. Hopefully, this will not be a problem. */ 
-	protected static HDLmApacheResponse processHttpOperation(HDLmProtocolTypes protocolType, 
-			                                                     HDLmHttpTypes operationType, 
-			                                                     String hostName, 
-			                                                     String pathValue,
-			                                                     ArrayList<String> inputHeaders,
-			                                                     byte[] inputContentBytes,
-			                                                     HDLmApacheRedirect redirect) throws ClientProtocolException, IOException {
+	protected static HDLmApacheResponse processHttpOperation(final HDLmProtocolTypes protocolType, 
+			                                                     final HDLmHttpTypes operationType, 
+			                                                     final String hostName, 
+			                                                     final String pathValue,
+			                                                     final ArrayList<String> inputHeaders,
+			                                                     final byte[] inputContentBytes,
+			                                                     final HDLmApacheRedirect redirect) throws ClientProtocolException, IOException {
 		/* Check if the protocol type enum value passed by the caller is null */
 		if (protocolType == null) {
 			String  errorText = "Protocol type enum value passed by the caller to processHttpOperation is null";
@@ -854,7 +854,7 @@ public class HDLmApache {
 		 associated with an Apache request. In all cases, the Content-Length
 		 header is removed from the message headers. This step is required
 		 to avoid certain errors in the Apache code. */ 
-	protected static int removeContentLength(HttpMessage httpMessage) {		 
+	protected static int removeContentLength(final HttpMessage httpMessage) {		 
 		/* Check if the HTTP message passed by the caller is null */
 		if (httpMessage == null) {
 			String  errorText = "Apache HTTP message passed to removeContentLength is null";
@@ -912,15 +912,15 @@ public class HDLmApache {
 		return removeCount;		
 	}
 	/* The next routine handles one HTTP(S) request */ 
-	protected static HDLmApacheResponse runHttpOperation(HDLmProtocolTypes protocolType, 
-			                                                 HDLmHttpTypes operationType, 
-			                                                 String hostName, 
-			                                                 String pathValue,
-			                                                 ArrayList<String> inputHeaders,
-			                                                 byte[] inputContentBytes,
-			                                                 HDLmApacheRedirect redirect,
-			                                                 HDLmShowRequest showRequest,
-			                                                 HDLmShowResponse showResponse) throws ClientProtocolException, IOException {
+	protected static HDLmApacheResponse runHttpOperation(final HDLmProtocolTypes protocolType, 
+			                                                 final HDLmHttpTypes operationType, 
+			                                                 final String hostName, 
+			                                                 final String pathValue,
+			                                                 final ArrayList<String> inputHeaders,
+			                                                 final byte[] inputContentBytes,
+			                                                 final HDLmApacheRedirect redirect,
+			                                                 final HDLmShowRequest showRequest,
+			                                                 final HDLmShowResponse showResponse) throws ClientProtocolException, IOException {
 		/* Check if the protocol type enum value passed by the caller is null */
 		if (protocolType == null) {
 			String  errorText = "Protocol type enum value passed by the caller to runHttpOperation is null";
@@ -1034,8 +1034,8 @@ public class HDLmApache {
   
      If the headers need to be modified, they must be changed before
      this routine is called. */
-	protected static void setHeaders(HttpMessage request,
-			                             ArrayList<String> inputHeaders) { 
+	protected static void setHeaders(final HttpMessage request,
+			                             final ArrayList<String> inputHeaders) { 
 		/* Check if the Apache request passed by the caller is null */
 		if (request == null) {
 			String  errorText = "Apache request passed to setHeaders is null";
@@ -1066,8 +1066,8 @@ public class HDLmApache {
 	}
 	/* This routine is just a wrapper for the main set headers routine.
 	   This routine allows the headers array reference to be null. */
-	protected static void setHeadersNull(HttpMessage request,
-                                       ArrayList<String> inputHeaders) {
+	protected static void setHeadersNull(final HttpMessage request,
+                                       final ArrayList<String> inputHeaders) {
 		/* Check if the Apache request passed by the caller is null */
 		if (request == null) {
 			String  errorText = "Apache request passed to setHeadersNull is null";

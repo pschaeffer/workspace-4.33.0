@@ -44,14 +44,14 @@ public class HDLmModResponseExtended {
   private Instant             lastModified = null;
   /* This routine tries to obtain all of the standard fields from 
      a set of JSON objects passed to it */
-  protected static HDLmModResponseExtended  getStandardFields(JsonElement jsonElement,
-					                                                    HDLmTreeTypes expectedType,
-					                                                    HDLmGetComments getComments,
-					                                                    HDLmGetCreated getCreated,
-					                                                    HDLmGetLastModified getLastModified,
-					                                                    HDLmGetPassThruStatus getStatus,
-					                                                    HDLmOptExtra optExtra,
-					                                                    HDLmGetUpdated getUpdated) {
+  protected static HDLmModResponseExtended  getStandardFields(final JsonElement jsonElement,
+					                                                    final HDLmTreeTypes expectedType,
+					                                                    final HDLmGetComments getComments,
+					                                                    final HDLmGetCreated getCreated,
+					                                                    final HDLmGetLastModified getLastModified,
+					                                                    final HDLmGetPassThruStatus getStatus,
+					                                                    final HDLmOptExtra optExtra,
+					                                                    final HDLmGetUpdated getUpdated) {
 		/* Check if a null JSON element reference was passed to this routine */
 		if (jsonElement == null) {
 			String  errorText = "JSON element used to build a set of standard fields is null";

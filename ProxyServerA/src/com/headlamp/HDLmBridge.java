@@ -10,8 +10,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.TreeMap;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -338,7 +336,8 @@ public class HDLmBridge {
 	    HDLmUtilityResponse  authOutputArea = HDLmJetty.getUseridPassword(request);
 	    userNameStr = authOutputArea.getUserNameValue();
 	    passwordStr = authOutputArea.getPasswordValue();
-	    /* LOG.info("In handleRequestRead - UserName - " + userNameStr); */
+	    LOG.info("In handleRequestRead - UserName - " + userNameStr); 
+	    LOG.info("In handleRequestRead - PassWord - " + passwordStr);
 	    /* Check if the user name and password passed by the caller using the
 	       authorization header match the memory data base */
       checkMatch = HDLmSecurity.checkMemoryMatchingUsernamePassword(userNameStr,
@@ -349,6 +348,7 @@ public class HDLmBridge {
 	    /* Get the scope string from the internal database */
 	    HDLmUtilityResponse   getOutputArea = HDLmSecurity.getInformationMemory(userNameStr);
 	    scopeStr = getOutputArea.getScopeValue();
+	    LOG.info("In handleRequestRead - Scope - " + scopeStr);
 	    if (LOG.isDebugEnabled()) 
 	      LOG.debug("In handleRequestRead - scopeStr(271)    - " + scopeStr);
 	    /* scopeStr = "yoga"; */
@@ -379,7 +379,7 @@ public class HDLmBridge {
 		else {
 			/* This is the default code under Window. Many values are set 
 			   to avoid further checking */ 
-			if (1 == 1) {
+			if (1 == 2) {
 				bypassAllChecking = true;
 				checkMatch = true;
 				checkLastTimeFailure = false;
@@ -388,6 +388,7 @@ public class HDLmBridge {
 			else {
 				checkMatch = true;
 				checkLastTimeFailure = false;
+				scopeStr = "land";
 				scopeStr = "yoga";
 			}
 		}

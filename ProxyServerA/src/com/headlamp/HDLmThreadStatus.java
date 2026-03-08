@@ -55,13 +55,13 @@ public class HDLmThreadStatus {
 	   the current time. The status is set to the value passed by the caller.
 	   This constructor is the one typically used to build new instances of
 	   this class. */  
-  protected HDLmThreadStatus(String newStatus) { 
+  protected HDLmThreadStatus(final String newStatus) { 
 	  currentTime = Instant.now();
 	  currentStatus = newStatus;
   }
   /* Get a status map entry from the status map. This routine returns null
      if the entry is not found. */
-  protected static HDLmThreadStatus  get(String threadName) {  		 
+  protected static HDLmThreadStatus  get(final String threadName) {  		 
   	return statusMap.get(threadName); 
   } 
   /* Return a map with the contents of status map. Each and
@@ -98,7 +98,7 @@ public class HDLmThreadStatus {
   }
   /* Add a status entry to the status map. This code could actually replace an
      existing status map entry. */
-	protected static void put(String threadName, HDLmThreadStatus threadStatus) { 
+	protected static void put(final String threadName, final HDLmThreadStatus threadStatus) { 
 	  statusMap.put(threadName, threadStatus);   
 	} 
 	/* Get the application thread time stamp (if any) and return 
@@ -111,7 +111,7 @@ public class HDLmThreadStatus {
   }
   /* Add a status entry to the status map. This code could actually replace an
      existing status map entry. */
-	protected static void put(String newStatus) {
+	protected static void put(final String newStatus) {
 		HDLmThreadStatus  threadStatus = new HDLmThreadStatus(newStatus);
 		String            threadName = Thread.currentThread().getName();
 	  statusMap.put(threadName, threadStatus);   

@@ -22,7 +22,7 @@ public class HDLmFind {
 	private String   value = null;
   /* This constructor builds a find instance from a set of values 
      passed by the caller */ 
-	protected HDLmFind(String newTag, String newAttribute, String newValue) {
+	protected HDLmFind(final String newTag, final String newAttribute, final String newValue) {
 		/* Note that any of the values passed to this routine can be null. 
 		   That is not an error condition. */ 
 		this.tag = newTag;
@@ -31,7 +31,7 @@ public class HDLmFind {
 	}
   /* This constructor copies all of the fields from another find
      instance */
-	protected HDLmFind(HDLmFind oldFind) {
+	protected HDLmFind(final HDLmFind oldFind) {
 		if (oldFind == null) {
 			String   errorText = "Old find reference passed to find constructor is null";
 			throw new NullPointerException(errorText);		
@@ -46,7 +46,7 @@ public class HDLmFind {
      nodes in the existing node list and finds the subnodes that
      match the find criterion passed by the caller. A new node
      list is returned to the caller. */
-  protected static Elements findOneLevel(Elements nodeList, HDLmFind find) {
+  protected static Elements findOneLevel(final Elements nodeList, final HDLmFind find) {
 		if (nodeList == null) {
 			String   errorText = "Node list passed to findOneLevel is null";
 			throw new NullPointerException(errorText);			
@@ -163,7 +163,7 @@ public class HDLmFind {
 		 passes an array of find instances. The array will have just one
 		 entry for a single level search and multiple entries for a multilevel
 		 search. */
-	protected static Elements processFindsArray(Document htmlDom, ArrayList<HDLmFind> finds) {
+	protected static Elements processFindsArray(final Document htmlDom, final ArrayList<HDLmFind> finds) {
 		if (htmlDom == null) {
 			String   errorText = "HTML DOM passed to processFindsArray is null";
 			throw new NullPointerException(errorText);			
@@ -183,15 +183,15 @@ public class HDLmFind {
 	  return nodeList;
 	}
   /* Set the attribute value for a HDLm find */
-  protected void setAttribute(String newAttribute) {
+  protected void setAttribute(final String newAttribute) {
   	this.attribute = newAttribute;
   }
   /* Set the tag value for a HDLm find */
-  protected void setTag(String newTag) {
+  protected void setTag(final String newTag) {
   	this.tag = newTag;
   }
   /* Set the value for a HDLm find */
-  protected void setValue(String newValue) {
+  protected void setValue(final String newValue) {
   	this.value = newValue;
   }
 }

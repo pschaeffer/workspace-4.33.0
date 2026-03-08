@@ -70,7 +70,7 @@ import org.slf4j.LoggerFactory;
 	 48 - Regex error
 	 49 - Invalid length of some kind
 	 50 - Invalid type of value in a switch
-	 51 - Not used - Can be reused 
+	 51 - Some type of AI error
 	 52 - Some type of Promise error. This error code is used 
 	      in a JavaScript file. 
 	 53 - Invalid operation type in a switch
@@ -108,6 +108,7 @@ import org.slf4j.LoggerFactory;
 	 85 - Object is not valid
 	 86 - Boolean is not valid
 	 87 - Number is not valid
+	 88 - Invalid version value in a switch
 */
 /* This is a purely static class and no instances of this class
    can ever be created */ 

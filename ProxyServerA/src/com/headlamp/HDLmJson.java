@@ -63,7 +63,7 @@ public class HDLmJson {
 	private HDLmJson() {}
 	/* The method below adds an array property to a JSON object. The
      JSON object must already exist */ 
-	public static void     addArrayToJsonObject(JsonObject jsonObject, final String jsonName, final JsonArray jsonValue) {	
+	public static void     addArrayToJsonObject(final JsonObject jsonObject, final String jsonName, final JsonArray jsonValue) {	
 		/* Check one or more values passed by the caller */
 		if (jsonObject == null) {
 			String   errorText = "JSON object reference passed to addArrayToJsonObject is null";
@@ -85,7 +85,7 @@ public class HDLmJson {
 	}
 	/* The method below adds a number property to a JSON object. The
      JSON object must already exist */ 
-	public static void     addNumberToJsonObject(JsonObject jsonObject, final String jsonName, final double jsonValue) {	
+	public static void     addNumberToJsonObject(final JsonObject jsonObject, final String jsonName, final double jsonValue) {	
 		/* Check one or more values passed by the caller */
 		if (jsonObject == null) {
 			String   errorText = "JSON object reference passed to addNumberToJsonObject is null";
@@ -102,7 +102,7 @@ public class HDLmJson {
 	}
 	/* The method below adds a JSON object to a JSON array. The
      JSON array must already exist */ 
-	public static void     addObjectToJsonArray(JsonArray jsonArray, final JsonObject jsonObject) {	
+	public static void     addObjectToJsonArray(final JsonArray jsonArray, final JsonObject jsonObject) {	
 		/* Check one or more values passed by the caller */
 		if (jsonArray == null) {
 			String   errorText = "JSON array reference passed to addObjectToJsonArray is null";
@@ -119,7 +119,7 @@ public class HDLmJson {
 	}
 	/* The method below adds a string property to a JSON object. The
 	   JSON object must already exist */ 
-	public static void     addStringToJsonObject(JsonObject jsonObject, final String jsonName, final String jsonValue) {	
+	public static void     addStringToJsonObject(final JsonObject jsonObject, final String jsonName, final String jsonValue) {	
 		/* Check one or more values passed by the caller */
 		if (jsonObject == null) {
 			String   errorText = "JSON object reference passed to addStringToJsonObject is null";
@@ -143,8 +143,8 @@ public class HDLmJson {
 	   the values passed to it. The caller must provide the field names
 	   and the data (an ArrayList of values) to be formatted as JSON. The 
 	   JSON field names are actually obtained from the HTML column headings. */
-	protected static String buildJsonFromList(ArrayList<String> headings, 
-		                                      	ArrayList<String> data) {
+	protected static String buildJsonFromList(final ArrayList<String> headings, 
+		                                      	final ArrayList<String> data) {
 		StringBuilder  rv = new StringBuilder();
 	  int  numCols = headings.size();
 	  int  numValues = data.size();
@@ -205,7 +205,7 @@ public class HDLmJson {
 	/* The method below build a string containing JSON from a passed 
 	   map. The map has zero or more keys and values. The string is
 	   returned to the caller. */ 
-	public static String   buildJsonFromMap(Map<String, String>  inputMap) {
+	public static String   buildJsonFromMap(final Map<String, String>  inputMap) {
 		/* Check one or more values passed by the caller */
 		if (inputMap == null) {
 			String   errorText = "Input map reference passed to buildJsonFromMap is null";
@@ -242,7 +242,7 @@ public class HDLmJson {
 	   and if the object contains the desired key. This routine will
 	   return a null value if the desired key cannot be found in the JSON.
 	   This routine will fail if the JSON is not a JSON object. */ 
-	public static JsonArray getJsonArray(JsonElement jsonElement, String key) {
+	public static JsonArray getJsonArray(final JsonElement jsonElement, final String key) {
 	  /* Check if the JSON element passed by the caller is null */	 
 		if (jsonElement == null) {
 	    String  errorText = "JSON element passed to getJsonObject is null";
@@ -286,7 +286,7 @@ public class HDLmJson {
      This routine will return a null value if the desired
      key cannot be found in the JSON. This routine will fail
      if the JSON is not a JSON object. */ 
-	public static Boolean getJsonBoolean(JsonElement jsonElement, String key) {
+	public static Boolean getJsonBoolean(final JsonElement jsonElement, final String key) {
 	  /* Check if the JSON element passed by the caller is null */	 
 		if (jsonElement == null) {
 	    String  errorText = "JSON element passed to getJsonBoolean is null";
@@ -332,7 +332,7 @@ public class HDLmJson {
 	   This routine will return a null value if the desired
 	   key cannot be found in the JSON. This routine will fail
 	   if the JSON is not a JSON object. */ 
-	public static Double   getJsonDouble(JsonElement jsonElement, String key) {
+	public static Double   getJsonDouble(final JsonElement jsonElement, final String key) {
 	 /* Check if the JSON element passed by the caller is null */	 
 		if (jsonElement == null) {
 	   String  errorText = "JSON element passed to getJsonDouble is null";
@@ -384,7 +384,7 @@ public class HDLmJson {
 	   This routine will return a null value if the desired
 	   key cannot be found in the JSON. This routine will fail
 	   if the JSON is not a JSON object. */ 
-	public static Integer getJsonInteger(JsonElement jsonElement, String key) {
+	public static Integer getJsonInteger(final JsonElement jsonElement, final String key) {
 	  /* Check if the JSON element passed by the caller is null */	 
 		if (jsonElement == null) {
 	    String  errorText = "JSON element passed to getJsonInteger is null";
@@ -426,7 +426,7 @@ public class HDLmJson {
   /* The method below returns a set of JSON keys from a JSON
      element. This will only work if the JSON element is 
      actually a JSON object. */ 
-	public static Set<String> getJsonKeys(JsonElement jsonElement) {
+	public static Set<String> getJsonKeys(final JsonElement jsonElement) {
 	  /* Check if the JSON element passed by the caller is null */	 
 		if (jsonElement == null) {
 	    String  errorText = "JSON element passed to getJsonKeys is null";
@@ -451,7 +451,7 @@ public class HDLmJson {
 	   This routine will return a null value if the desired
 	   key cannot be found in the JSON. This routine will fail
 	   if the JSON is not a JSON object. */ 
-	public static Number   getJsonNumber(JsonElement jsonElement, String key) {
+	public static Number   getJsonNumber(final JsonElement jsonElement, final String key) {
 	  /* Check if the JSON element passed by the caller is null */	 
 		if (jsonElement == null) {
 	    String  errorText = "JSON element passed to getJsonNumber is null";
@@ -495,7 +495,7 @@ public class HDLmJson {
 	   and if the object contains the desired key. This routine will
 	   return a null value if the desired key cannot be found in the JSON.
 	   This routine will fail if the JSON is not a JSON object. */ 
-	public static JsonObject  getJsonObject(JsonElement jsonElement, String key) {
+	public static JsonObject  getJsonObject(final JsonElement jsonElement, final String key) {
 	  /* Check if the JSON element passed by the caller is null */	 
 		if (jsonElement == null) {
 	    String  errorText = "JSON element passed to getJsonObject is null";
@@ -557,7 +557,7 @@ public class HDLmJson {
      This routine will return a null value if the desired
      key cannot be found in the JSON. This routine will fail
      if the JSON is not a JSON object. */ 
-	public static String   getJsonString(JsonElement jsonElement, String key) {
+	public static String   getJsonString(final JsonElement jsonElement, final String key) {
 	  /* Check if the JSON element passed by the caller is null */	 
 		if (jsonElement == null) {
 	    String  errorText = "JSON element passed to getJsonString is null";
@@ -614,7 +614,7 @@ public class HDLmJson {
      a boolean or numeric value or a regular string. This routine decides
      what format would be best for the value and returns the formatted 
      value to the caller. */ 
-	protected static String getJsonValue(String inValue) {
+	protected static String getJsonValue(final String inValue) {
 		/* We can not actually check for a null value here because 
 		   a null value is a valid input to this routine */
 	  if (inValue != null &&
@@ -641,7 +641,7 @@ public class HDLmJson {
 	   This routine will return a null value if the desired
 	   key cannot be found in the JSON. This routine will fail
 	   if the JSON is not a JSON object. */ 
-	public static JsonElement getJsonValue(JsonElement jsonElement, String key) {
+	public static JsonElement getJsonValue(final JsonElement jsonElement, final String key) {
 	  /* Check if the JSON element passed by the caller is null */	 
 		if (jsonElement == null) {
 	    String  errorText = "JSON element passed to getJsonValue is null";
@@ -675,7 +675,7 @@ public class HDLmJson {
 	   the string to the caller. Note that the JSON element may actually
 	   be a JSON object. The JSON element may actually be a hierarchy 
 	   of JSON elements of various types. */ 
-	protected static String  getStringJson(JsonElement jsonElement) {
+	protected static String  getStringJson(final JsonElement jsonElement) {
     /* Check if the JSON element passed by the caller is null */	 
 		if (jsonElement == null) {
 		  String  errorText = "JSON element passed to getStringJson is null";
@@ -689,7 +689,7 @@ public class HDLmJson {
 	   the string to the caller. Note that the JSON element may actually
 	   be a JSON object. The JSON element may actually be a hierarchy 
 	   of JSON elements of various types. */ 
-	protected static String  getStringJsonNulls(JsonElement jsonElement) {
+	protected static String  getStringJsonNulls(final JsonElement jsonElement) {
 	  /* Check if the JSON element passed by the caller is null */	 
 		if (jsonElement == null) {
 		  String  errorText = "JSON element passed to getStringJsonNulls is null";
@@ -707,7 +707,7 @@ public class HDLmJson {
 	   element (really a JSON object). This routine will return false if 
 	   the name (key) does not exist in the JSON element (really a JSON 
 	   object). */
-	public static boolean hasJsonKey(JsonElement jsonElement, String key) {
+	public static boolean hasJsonKey(final JsonElement jsonElement, final String key) {
 	  /* Check if the JSON element passed by the caller is null */	 
 		if (jsonElement == null) {
 	    String  errorText = "JSON element passed to hasJsonKey is null";
@@ -909,7 +909,7 @@ public class HDLmJson {
 	   This routine can be passed a key that is not in the 
 	   JSON. This is not an error condition, but will cause
 	   a false value to be returned. */ 
-	public static boolean removeJsonKey(JsonElement jsonElement, String key) {
+	public static boolean removeJsonKey(final JsonElement jsonElement, final String key) {
 	  /* Check if the JSON element passed by the caller is null */	 
 		if (jsonElement == null) {
 	    String  errorText = "JSON element passed to removeJsonKey is null";
@@ -947,9 +947,9 @@ public class HDLmJson {
      a JSON object. The caller provides the old key and the
      new key values. The JSON value is not changed. However,
      the key associated with the JSON value is changed. */ 
-	public static void replaceJsonValue(JsonElement jsonElement,  
-			                                String oldKey, 
-			                                String newKey) {
+	public static void replaceJsonValue(final JsonElement jsonElement,  
+			                                final String oldKey, 
+			                                final String newKey) {
 	  /* Check if the JSON element passed by the caller is null */	 
 		if (jsonElement == null) {
 	    String  errorText = "JSON element passed to replaceJsonValue is null";
@@ -993,7 +993,7 @@ public class HDLmJson {
 	   This will only work if the JSON element is actually a
 	   JSON object. This routine will fail if the JSON is not
 	   a JSON object. */ 
-	public static void setJsonBoolean(JsonElement jsonElement, String key, Boolean value) {
+	public static void setJsonBoolean(final JsonElement jsonElement, final String key, final Boolean value) {
 	  /* Check if the JSON element passed by the caller is null */	 
 		if (jsonElement == null) {
 	    String  errorText = "JSON element passed to setJsonBoolean is null";
@@ -1031,7 +1031,7 @@ public class HDLmJson {
      This will only work if the JSON element is actually a
      JSON object. This routine will fail if the JSON is not
      a JSON object. */ 
-	public static void setJsonInteger(JsonElement jsonElement, String key, Integer value) {
+	public static void setJsonInteger(final JsonElement jsonElement, final String key, final Integer value) {
 	  /* Check if the JSON element passed by the caller is null */	 
 		if (jsonElement == null) {
 	    String  errorText = "JSON element passed to setJsonInteger is null";
@@ -1069,7 +1069,7 @@ public class HDLmJson {
   	 This will only work if the JSON element is actually a
 	   JSON object. This routine will fail if the JSON is not
 	   a JSON object. */ 
-	public static void setJsonNull(JsonElement jsonElement, String key) {
+	public static void setJsonNull(final JsonElement jsonElement, final String key) {
 	  /* Check if the JSON element passed by the caller is null */	 
 		if (jsonElement == null) {
 	    String  errorText = "JSON element passed to setJsonNull is null";
@@ -1103,7 +1103,7 @@ public class HDLmJson {
 		 This will only work if the JSON element is actually a
 		 JSON object. This routine will fail if the JSON is not
 		 a JSON object. */ 
-	public static void setJsonString(JsonElement jsonElement, String key, String value) {
+	public static void setJsonString(final JsonElement jsonElement, final String key, final String value) {
 	  /* Check if the JSON element passed by the caller is null */	 
 		if (jsonElement == null) {
 	    String  errorText = "JSON element passed to setJsonString is null";
@@ -1141,7 +1141,7 @@ public class HDLmJson {
 	   This will only work if the JSON element is actually a
 	   JSON object. This routine will fail if the JSON is not
 	   a JSON object. */ 
-	public static void setJsonValue(JsonElement jsonElement, String key, JsonElement value) {
+	public static void setJsonValue(final JsonElement jsonElement, final String key, final JsonElement value) {
 	  /* Check if the JSON element passed by the caller is null */	 
 		if (jsonElement == null) {
 	    String  errorText = "JSON element passed to setJsonValue is null";

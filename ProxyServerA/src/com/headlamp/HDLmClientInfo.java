@@ -33,7 +33,7 @@ public class HDLmClientInfo {
 	/* Set or reset the browser type. Note that the caller can not 
      pass a null value for the new browser type value. This is an
      an error condition. */
-	protected void setBrowserType(HDLmBrowserTypes newBrowserType) {
+	protected void setBrowserType(final HDLmBrowserTypes newBrowserType) {
 		if (newBrowserType == null) {
 			String  errorText = "New browser type value is null";
 			throw new NullPointerException(errorText);
@@ -43,7 +43,7 @@ public class HDLmClientInfo {
 	/* Set or reset the User-Agent string. Note that the caller can 
 	   not pass a null value for the new User-Agent string. This is 
 	   an error condition. */
-	protected void setUserAgent(String newUserAgent) {
+	protected void setUserAgent(final String newUserAgent) {
 		if (newUserAgent == null) {
 			String  errorText = "New User-Agent string is null";
 			throw new NullPointerException(errorText);

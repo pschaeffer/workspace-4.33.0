@@ -143,26 +143,29 @@ public class HDLmConfig {
 		   Note that the JavaScript code has another copy of these 
 		   values. */ 		
 		final Map<String, HDLmConfig>   configImmutable = Map.ofEntries(	
-		  Map.entry("AWSAccessKeyId",                       new HDLmConfig(HDLmConfigTypes.STRING,  "")),
-			Map.entry("AWSCognitoAcceptEncoding",             new HDLmConfig(HDLmConfigTypes.STRING,  "identity")),
-			Map.entry("AWSCognitoApiAdminGetUser",            new HDLmConfig(HDLmConfigTypes.STRING,  "AWSCognitoIdentityProviderService.AdminGetUser")),
-			Map.entry("AWSCognitoApiAdminSetUserPassword",    new HDLmConfig(HDLmConfigTypes.STRING,  "AWSCognitoIdentityProviderService.AdminSetUserPassword")),
-			Map.entry("AWSCognitoApiGetUser",                 new HDLmConfig(HDLmConfigTypes.STRING,  "AWSCognitoIdentityProviderService.GetUser")),
-			Map.entry("AWSCognitoApiInitiateAuth",            new HDLmConfig(HDLmConfigTypes.STRING,  "AWSCognitoIdentityProviderService.InitiateAuth")),
-			Map.entry("AWSCognitoApiRespondToAuthChallenge",  new HDLmConfig(HDLmConfigTypes.STRING,  "AWSCognitoIdentityProviderService.RespondToAuthChallenge")),
-			Map.entry("AWSCognitoCanonicalUri",               new HDLmConfig(HDLmConfigTypes.STRING,  "/")),
-			Map.entry("AWSCognitoContentType",                new HDLmConfig(HDLmConfigTypes.STRING,  "application/x-amz-json-1.1")),
-			Map.entry("AWSCognitoHost",                       new HDLmConfig(HDLmConfigTypes.STRING,  "cognito-idp.us-east-2.amazonaws.com")),
-			Map.entry("AWSCognitoHttpMethod",                 new HDLmConfig(HDLmConfigTypes.STRING,  "POST")),
-			Map.entry("AWSCognitoServiceName",                new HDLmConfig(HDLmConfigTypes.STRING,  "cognito-idp")),
+			Map.entry("applicationJsonType",                  new HDLmConfig(HDLmConfigTypes.STRING,  "application/json")),
+		  Map.entry("awsAccessKeyId",                       new HDLmConfig(HDLmConfigTypes.STRING,  "")),
+			Map.entry("awsCognitoAcceptEncoding",             new HDLmConfig(HDLmConfigTypes.STRING,  "identity")),
+			Map.entry("awsCognitoApiAdminGetUser",            new HDLmConfig(HDLmConfigTypes.STRING,  "AWSCognitoIdentityProviderService.AdminGetUser")),
+			Map.entry("awsCognitoApiAdminSetUserPassword",    new HDLmConfig(HDLmConfigTypes.STRING,  "AWSCognitoIdentityProviderService.AdminSetUserPassword")),
+			Map.entry("awsCognitoApiGetUser",                 new HDLmConfig(HDLmConfigTypes.STRING,  "AWSCognitoIdentityProviderService.GetUser")),
+			Map.entry("awsCognitoApiInitiateAuth",            new HDLmConfig(HDLmConfigTypes.STRING,  "AWSCognitoIdentityProviderService.InitiateAuth")),
+			Map.entry("awsCognitoApiRespondToAuthChallenge",  new HDLmConfig(HDLmConfigTypes.STRING,  "AWSCognitoIdentityProviderService.RespondToAuthChallenge")),
+			Map.entry("awsCognitoCanonicalUri",               new HDLmConfig(HDLmConfigTypes.STRING,  "/")),
+			Map.entry("awsCognitoContentType",                new HDLmConfig(HDLmConfigTypes.STRING,  "application/x-amz-json-1.1")),
+			Map.entry("awsCognitoHost",                       new HDLmConfig(HDLmConfigTypes.STRING,  "cognito-idp.us-east-2.amazonaws.com")),
+			Map.entry("awsCognitoHttpMethod",                 new HDLmConfig(HDLmConfigTypes.STRING,  "POST")),
+			Map.entry("awsCognitoServiceName",                new HDLmConfig(HDLmConfigTypes.STRING,  "cognito-idp")),
 		  /* The user agent value below is not accurate (at all). However, AWS Cognito
 		     demands a user agent value and the value below actually works. */
-			Map.entry("AWSCognitoUserAgent",                  new HDLmConfig(HDLmConfigTypes.STRING,  "Boto3/1.26.83 Python/3.9.13 Windows/10 Botocore/1.29.83")),
-			Map.entry("AWSCognitoUserPoolClientAppId",        new HDLmConfig(HDLmConfigTypes.STRING,  "4aa1bqd057v64omjq84hc4pnvl")),
-			Map.entry("AWSCognitoUserPoolId",                 new HDLmConfig(HDLmConfigTypes.STRING,  "us-east-2_xTvIIRtgB")),
-			Map.entry("AWSCognitoUserPoolName",               new HDLmConfig(HDLmConfigTypes.STRING,  "HeadlampUserPool1")),
-			Map.entry("AWSCognitoUserPoolRegion",             new HDLmConfig(HDLmConfigTypes.STRING,  "us-east-2")),
-			Map.entry("AWSSecretAccessKey",                   new HDLmConfig(HDLmConfigTypes.STRING,  "")),
+			Map.entry("awsCognitoUserAgent",                  new HDLmConfig(HDLmConfigTypes.STRING,  "Boto3/1.26.83 Python/3.9.13 Windows/10 Botocore/1.29.83")),
+			Map.entry("awsCognitoUserPoolClientAppId",        new HDLmConfig(HDLmConfigTypes.STRING,  "4aa1bqd057v64omjq84hc4pnvl")),
+			Map.entry("awsCognitoUserPoolId",                 new HDLmConfig(HDLmConfigTypes.STRING,  "us-east-2_xTvIIRtgB")),
+			Map.entry("awsCognitoUserPoolName",               new HDLmConfig(HDLmConfigTypes.STRING,  "HeadlampUserPool1")),
+			Map.entry("awsCognitoUserPoolRegion",             new HDLmConfig(HDLmConfigTypes.STRING,  "us-east-2")),
+			Map.entry("awsSecretAccessKey",                   new HDLmConfig(HDLmConfigTypes.STRING,  "")),
+			Map.entry("buildAcceptEncoding",                  new HDLmConfig(HDLmConfigTypes.STRING,  "gzip, deflate, br, zstd")),
+			Map.entry("buildUserAgent",                       new HDLmConfig(HDLmConfigTypes.STRING,  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36")),
 			Map.entry("clustersMaxCount",                     new HDLmConfig(HDLmConfigTypes.INT,     "10")),		  
 			Map.entry("clustersSampleSize",                   new HDLmConfig(HDLmConfigTypes.INT,     "100")),
 			Map.entry("clustersThreshold",                    new HDLmConfig(HDLmConfigTypes.DOUBLE,  "0.10")),
@@ -179,13 +182,18 @@ public class HDLmConfig {
 		  Map.entry("currentEnvironment",                   new HDLmConfig(HDLmConfigTypes.STRING,  "prod")),
 		  Map.entry("currentEnvironmentProd",               new HDLmConfig(HDLmConfigTypes.STRING,  "prod")),
 		  Map.entry("currentEnvironmentTest",               new HDLmConfig(HDLmConfigTypes.STRING,  "test")),
+		  Map.entry("entriesBridgeApi",                     new HDLmConfig(HDLmConfigTypes.STRING,  "bucket")),
 		  Map.entry("entriesBridgeCompanyPrefix",           new HDLmConfig(HDLmConfigTypes.STRING,  "")),	
 		  Map.entry("entriesBridgeContentSuffix",           new HDLmConfig(HDLmConfigTypes.STRING,  "java")),	
 		  Map.entry("entriesBridgeDeleteUrl",               new HDLmConfig(HDLmConfigTypes.STRING,  "/io/bucket/delete/")),
 		  Map.entry("entriesBridgeInsertUrl",               new HDLmConfig(HDLmConfigTypes.STRING,  "/io/bucket/insert/")),
-		  Map.entry("entriesBridgeInternetMethod",          new HDLmConfig(HDLmConfigTypes.STRING,  "https")),	
+		  Map.entry("entriesBridgeInternetMethodNoSsl",     new HDLmConfig(HDLmConfigTypes.STRING,  "http")),	
+		  Map.entry("entriesBridgeInternetMethodWithSsl",   new HDLmConfig(HDLmConfigTypes.STRING,  "https")),	
+		  Map.entry("entriesBridgePartialPath",             new HDLmConfig(HDLmConfigTypes.STRING,  "io/bucket")),
 		  Map.entry("entriesBridgePassword",                new HDLmConfig(HDLmConfigTypes.STRING,  "")),	
 		  Map.entry("entriesBridgeReadUrl",                 new HDLmConfig(HDLmConfigTypes.STRING,  "/io/bucket/search/")),
+		  Map.entry("entriesBridgeTableNameProd",           new HDLmConfig(HDLmConfigTypes.STRING,  "main_9")),
+		  Map.entry("entriesBridgeTableNameTest",           new HDLmConfig(HDLmConfigTypes.STRING,  "test_1")),
 		  Map.entry("entriesBridgeUpdateUrl",               new HDLmConfig(HDLmConfigTypes.STRING,  "/io/bucket/update/")),
 		  /* This value does not appear to be in use */		  
 		  Map.entry("entriesBridgeUseCache",                new HDLmConfig(HDLmConfigTypes.CACHE,   "update")),	
@@ -197,7 +205,8 @@ public class HDLmConfig {
 		  Map.entry("entriesDatabaseDatabaseNameTest",      new HDLmConfig(HDLmConfigTypes.STRING,  "test_1")),
 		  Map.entry("entriesDatabaseDomainNameProd",        new HDLmConfig(HDLmConfigTypes.STRING,  "")),
 		  Map.entry("entriesDatabaseDomainNameTest",        new HDLmConfig(HDLmConfigTypes.STRING,  "test-1.cluster-c7czx6cxnjsz.us-east-2.rds.amazonaws.com")),
-		  Map.entry("entriesDatabaseInternetMethod",        new HDLmConfig(HDLmConfigTypes.STRING,  "https")),	
+		  Map.entry("entriesDatabaseInternetMethodNoSsl",   new HDLmConfig(HDLmConfigTypes.STRING,  "http")),	
+		  Map.entry("entriesDatabaseInternetMethodWithSsl", new HDLmConfig(HDLmConfigTypes.STRING,  "https")),	
 		  Map.entry("entriesDatabasePassword",              new HDLmConfig(HDLmConfigTypes.STRING,  "")),	
 		  Map.entry("entriesDatabasePortNumber",            new HDLmConfig(HDLmConfigTypes.INT,     "3306")),
 		  Map.entry("entriesDatabaseTableNameProd",         new HDLmConfig(HDLmConfigTypes.STRING,  "main_9")),	
@@ -217,11 +226,21 @@ public class HDLmConfig {
 	    Map.entry("logFileName",                          new HDLmConfig(HDLmConfigTypes.STRING,  "info.log")),
 	    Map.entry("logRuleMatching",                      new HDLmConfig(HDLmConfigTypes.BOOLEAN, "false")),
 	    Map.entry("memoryEntryValidForSeconds" ,          new HDLmConfig(HDLmConfigTypes.INT,     "86400")),
-	    Map.entry("openAIApiGptModel",                    new HDLmConfig(HDLmConfigTypes.STRING,  "gpt-4-turbo")),	
+	    /* Map.entry("openAIApiGptModel",                 new HDLmConfig(HDLmConfigTypes.STRING,  "gpt-4-turbo")), */	
+	    Map.entry("openAIApiGptModel",                    new HDLmConfig(HDLmConfigTypes.STRING,  "gpt-4o-2024-08-06")),	
 	    Map.entry("openAIApiKeySchaeffer",                new HDLmConfig(HDLmConfigTypes.STRING,  "")),	
+	    Map.entry("openAIApiKeySchaeffes",                new HDLmConfig(HDLmConfigTypes.STRING,  "")),	
 	    Map.entry("openAIMaximumStringLength",            new HDLmConfig(HDLmConfigTypes.INT,     "6000")),	
+	    Map.entry("openAIName",                           new HDLmConfig(HDLmConfigTypes.STRING,  "openai")),
+	    Map.entry("openRouterApiModel",                   new HDLmConfig(HDLmConfigTypes.STRING,  "openai/gpt-4o-mini")),
+	    Map.entry("openRouterImageApiModel",              new HDLmConfig(HDLmConfigTypes.STRING,  "google/gemini-3.1-flash-image-preview")),
+	    Map.entry("openRouterMaximumStringLength",        new HDLmConfig(HDLmConfigTypes.INT,     "6000")),
+	    Map.entry("openRouterTestApiKey",                 new HDLmConfig(HDLmConfigTypes.STRING,  "")),	
+	    Map.entry("openRouterVSCodeApiKey",               new HDLmConfig(HDLmConfigTypes.STRING,  "")),	
+	    Map.entry("openRouterWebPageImproverApiKey",      new HDLmConfig(HDLmConfigTypes.STRING,  "")),	
 	    Map.entry("parametersAccessMethod",               new HDLmConfig(HDLmConfigTypes.STRING,  "cgi-bin/get-set.py?get")),
-	    Map.entry("parametersInternetMethod",             new HDLmConfig(HDLmConfigTypes.STRING,  "http")),
+	    Map.entry("parametersInternetMethodNoSsl",        new HDLmConfig(HDLmConfigTypes.STRING,  "http")),
+	    Map.entry("parametersInternetMethodWithSsl",      new HDLmConfig(HDLmConfigTypes.STRING,  "https")),
 	    Map.entry("parametersUpdateMethod",               new HDLmConfig(HDLmConfigTypes.STRING,  "cgi-bin/get-set.py?set")),
 	    Map.entry("parametersUrl",                        new HDLmConfig(HDLmConfigTypes.STRING,  "headlamp-software.com")),
 	    Map.entry("passThroughLimit",                     new HDLmConfig(HDLmConfigTypes.DOUBLE,  "5.0")),
@@ -232,6 +251,7 @@ public class HDLmConfig {
 	    Map.entry("portNumberWebSocket",                  new HDLmConfig(HDLmConfigTypes.INT,     "8102")),
 	    Map.entry("proxyName",                            new HDLmConfig(HDLmConfigTypes.STRING,  "HDLmProxy.php")),
 	    Map.entry("rateControl",                          new HDLmConfig(HDLmConfigTypes.INT,     "50")),
+	    Map.entry("requestTypeName",                      new HDLmConfig(HDLmConfigTypes.STRING,   "HDLmRequestType")),
 	    /* The secret key must be exactly 16 bytes long. Apparently, AES requires this */
 	    Map.entry("secretEncryptionKey",                  new HDLmConfig(HDLmConfigTypes.STRING,  "abcd1234efgh5678")),
 	    Map.entry("serverName",                           new HDLmConfig(HDLmConfigTypes.STRING,  "javaproxya.dnsalias.com")),
@@ -241,7 +261,19 @@ public class HDLmConfig {
 	    /* The Jetty folks say that HTTP/3 is not ready for production use. We
          are going to have to wait a while for a production version of HTTP/3. */	 
 		  Map.entry("supportHTTP3",                         new HDLmConfig(HDLmConfigTypes.BOOLEAN, "false")),
-		  Map.entry("unReLimit",                            new HDLmConfig(HDLmConfigTypes.INT,     "100")));
+		  Map.entry("unReLimit",                            new HDLmConfig(HDLmConfigTypes.INT,     "100")),
+		  Map.entry("urlValueName",                         new HDLmConfig(HDLmConfigTypes.STRING,  "HDLmUrlValue")),
+		  Map.entry("userPoolClientAppId",                  new HDLmConfig(HDLmConfigTypes.STRING,  "4aa1bqd057v64omjq84hc4pnvl")),
+		  Map.entry("userPoolId",                           new HDLmConfig(HDLmConfigTypes.STRING,  "us-east-2_xTvIIRtgB")),
+		  Map.entry("userPoolName",                         new HDLmConfig(HDLmConfigTypes.STRING,  "HeadlampUserPool1")),
+		  Map.entry("userPoolRegion",                       new HDLmConfig(HDLmConfigTypes.STRING,  "us-east-2")),
+		  Map.entry("webpageImproverDescriptionPath",       new HDLmConfig(HDLmConfigTypes.STRING,  "scalar/v1")),
+		  Map.entry("webpageImproverImprovementsPath",      new HDLmConfig(HDLmConfigTypes.STRING,  "improvements")),
+		  Map.entry("webpageImproverLlmPath",               new HDLmConfig(HDLmConfigTypes.STRING,  "llm")),
+		  Map.entry("webpageImproverMarkupPath",            new HDLmConfig(HDLmConfigTypes.STRING,  "markup")),
+		  Map.entry("webpageImproverSessionPath",           new HDLmConfig(HDLmConfigTypes.STRING,  "session")),
+		  Map.entry("webpageImproverWebpagePath",           new HDLmConfig(HDLmConfigTypes.STRING,  "webpage")),
+		  Map.entry("webpageImproverPort",                  new HDLmConfig(HDLmConfigTypes.INT,     "5005")));		   
 		/* Create the main configuration map */
 		configValues = new HashMap<String, HDLmConfig>();
 		/* Copy all of the keys and values from the immutable map to 
@@ -271,7 +303,7 @@ public class HDLmConfig {
 	/* This static method returns the boolean value of a configuration
 	   value if the configuration name is valid (exists) and if the 
 	   configuration value is actually a boolean. */
-	protected static boolean  getBoolean(String configName) {
+	protected static boolean  getBoolean(final String configName) {
 		/* Check a few values passed by the caller */
 		if (configName == null) {
 			String   errorText = "Configuration name reference passed to getBoolean is null";
@@ -343,7 +375,7 @@ public class HDLmConfig {
 	   configuration name is valid (exists). This method can be used to obtain
 	   values of any type. The string value of a configuration value is always
 	   returned. */
-  protected static String  getConfigValue(String configName) {
+  protected static String  getConfigValue(final String configName) {
 		/* Check a few values passed by the caller */
 		if (configName == null) {
 			String   errorText = "Configuration name reference passed to getConfigValue is null";
@@ -363,7 +395,7 @@ public class HDLmConfig {
 	/* This static method returns the double value of a configuration
 	   value if the configuration name is valid (exists) and if the 
 	   configuration value is actually a double (floating-point value). */
-	protected static double  getDouble(String configName) {
+	protected static double  getDouble(final String configName) {
 		/* Check a few values passed by the caller */
 		if (configName == null) {
 			String   errorText = "Configuration name reference passed to getDouble is null";
@@ -390,7 +422,7 @@ public class HDLmConfig {
 	   value if the configuration name is valid (exists) and if the 
 	   configuration value is actually a cache (rule caching) enum
 	   string. */
-	protected static HDLmCacheTypes  getEnumCache(String configName) {
+	protected static HDLmCacheTypes  getEnumCache(final String configName) {
 		/* Check a few values passed by the caller */
 		if (configName == null) {
 			String   errorText = "Configuration name reference passed to getEnumCache is null";
@@ -446,7 +478,7 @@ public class HDLmConfig {
 	/* This static method returns the string value of a configuration
 	   value if the configuration name is valid (exists) and if the 
 		 configuration value is actually a string (not a number). */
-	protected static String  getString(String configName) {
+	protected static String  getString(final String configName) {
 		/* Check a few values passed by the caller */
 		if (configName == null) {
 			String   errorText = "Configuration name reference passed to getString is null";
@@ -473,7 +505,7 @@ public class HDLmConfig {
 	/* This static method sets the boolean value of a configuration
 	   value if the configuration name is valid (exists) and if the 
 	   configuration value is actually a boolean. */
-	protected static void  setConfigBoolean(String configName, final boolean newValue) {
+	protected static void  setConfigBoolean(final String configName, final boolean newValue) {
 		/* Check a few values passed by the caller */
 		if (configName == null) {
 			String   errorText = "Configuration name reference passed to setBoolean is null";
@@ -547,12 +579,10 @@ public class HDLmConfig {
 		ArrayList<ArrayList<String>> mainList = new ArrayList<ArrayList<String>>();
 		/* The order here is, where to put the configuration value, the AWS name of the value, and the JSON key,
 		   if any. */
-		ArrayList<String>   infoAwsAccessKeyId =	new ArrayList<String>(Arrays.asList("AWSAccessKeyId", 
+		ArrayList<String>   infoAwsAccessKeyId =	new ArrayList<String>(Arrays.asList("awsAccessKeyId", 
 				                                                                          "AwsAccessKeyId", "")); 	
-		ArrayList<String>   infoAwsSecretAccessKey =	new ArrayList<String>(Arrays.asList("AWSSecretAccessKey",
+		ArrayList<String>   infoAwsSecretAccessKey =	new ArrayList<String>(Arrays.asList("awsSecretAccessKey",
 				                                                                              "AwsSecretAccessKey", ""));
-		ArrayList<String>   infoOpenAiKeySchaeffer = new ArrayList<String>(Arrays.asList("openAIApiKeySchaeffer", 
-				                                                                             "OpenApiAiKeySchaeffer", ""));
 		ArrayList<String>   infoAwsDatabaseUserid = new ArrayList<String>(Arrays.asList("entriesDatabaseUserid", 
 				                                                                            "Main9Auroa", "username"));
 		ArrayList<String>   infoAwsDatabasePassword = new ArrayList<String>(Arrays.asList("entriesDatabasePassword", 
@@ -570,26 +600,38 @@ public class HDLmConfig {
 				                                                                           "EntriesBridgeUserid", ""));
 		ArrayList<String>   infoAwsEntriesPassword = new ArrayList<String>(Arrays.asList("entriesBridgePassword", 
 				                                                                             "EntriesBridgePassword", ""));
+		ArrayList<String>   infoOpenAiApiKeySchaeffer = new ArrayList<String>(Arrays.asList("openAIApiKeySchaeffer", 
+                                                                                        "OpenApiAiKeySchaeffer", ""));
+		ArrayList<String>   infoOpenAiApiKeySchaeffes = new ArrayList<String>(Arrays.asList("openAIApiKeySchaeffes", 
+                                                                                        "OpenApiAiKeySchaeffes", ""));
+		ArrayList<String>   infoOpenRouterTestKey = new ArrayList<String>(Arrays.asList("openRouterTestApiKey", 
+                                                                                    "OpenRouterTestApiKey", ""));
+    ArrayList<String>   infoOpenRouterVSCodeApiKey = new ArrayList<String>(Arrays.asList("openRouterVSCodeApiKey", 
+                                                                                         "OpenRouterVSCodeApiKey", ""));
+    ArrayList<String>   infoOpenRouterWebPageImproverKey = new ArrayList<String>(Arrays.asList("openRouterWebPageImproverApiKey", 
+                                                                                               "OpenRouterWebPageImproverApiKey", ""));
 		/* Add each set of information about an AWS secret to the main ArrayList */
 		mainList.add(infoAwsAccessKeyId);
 		mainList.add(infoAwsSecretAccessKey);
-		mainList.add(infoOpenAiKeySchaeffer);
 		mainList.add(infoAwsDatabaseUserid);
 		mainList.add(infoAwsDatabasePassword);
 		/* The value that was obtained below was not the actual database name. It is not clear what this
 	     value really is/was. */ 
 		/*
 		mainList.add(infoAwsDatabaseName);
-		*/
-		
-		mainList.add(infoAwsDatabaseHost);
-		
+		*/		
+		mainList.add(infoAwsDatabaseHost);		
 		mainList.add(infoAwsEntriesUserid);
 		mainList.add(infoAwsEntriesPassword);
+		mainList.add(infoOpenAiApiKeySchaeffer);
+		mainList.add(infoOpenAiApiKeySchaeffes);
+		mainList.add(infoOpenRouterTestKey);
+		mainList.add(infoOpenRouterVSCodeApiKey);
+		mainList.add(infoOpenRouterWebPageImproverKey);
 	 /* Build a list of AWS secret names */
 		ArrayList<String>  secretsName = new ArrayList<String>();
 		for (ArrayList<String> secretInfo:mainList) {
-			String  secretName = secretInfo.get(1);
+	    	String  secretName = secretInfo.get(1);
 			if (!secretsName.contains(secretName))
 			  secretsName.add(secretName);  		
 		}
@@ -603,7 +645,7 @@ public class HDLmConfig {
 			String  secretAwsJsonKey = secretInfo.get(2);
 			/* Get the secret value from the map */
 			String  secretAwsValue = secretsMap.get(secretAwsName);
-	   /* Check if we need to extract the actual secret from some JSON */
+	    /* Check if we need to extract the actual secret from some JSON */
 			if (!secretAwsJsonKey.equals("")) {
 				/* Convert the JSON string to a set of JSON objects */
 		     JsonParser   parser = new JsonParser();

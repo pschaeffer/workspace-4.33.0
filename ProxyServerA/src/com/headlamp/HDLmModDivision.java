@@ -64,7 +64,7 @@ public class HDLmModDivision extends HDLmMod {
 	/* This is one of the constructors for the division definition
 	   class. It must be passed a JSON element that contains all 
 	   of the details of the division definition. */
-	protected HDLmModDivision(JsonElement jsonElement) {
+	protected HDLmModDivision(final JsonElement jsonElement) {
 		/* Invoke the default constructor for the parent class. This is 
 		   required by the Java language. */ 
 		super();
@@ -165,7 +165,7 @@ public class HDLmModDivision extends HDLmMod {
 	   a site to a division node. Since only actual site values 
 	   (and certain other tree nodes) have details, the caller
 	   passes a tree element, not a site value. */
-	protected void         addSite(HDLmTree newSite, HDLmStartupMode startupMode) {
+	protected void         addSite(final HDLmTree newSite, final HDLmStartupMode startupMode) {
 		/* Check if the site reference passed by the caller is null */
 		if (newSite == null) {
 		  String  errorText = "New site reference passed to addSite is null";
@@ -246,8 +246,8 @@ public class HDLmModDivision extends HDLmMod {
 	   and returns the final division tree node to the
 	   caller. The division reference is used to keep
 	   track of the number of sites. */
-	protected static HDLmTree  buildTree(ArrayList<String> oldNodePath, 
-			                                 HDLmModDivision newValue) {
+	protected static HDLmTree  buildTree(final ArrayList<String> oldNodePath, 
+			                                 final HDLmModDivision newValue) {
 		/* Check if the old node path reference passed by the caller is null */
 		if (oldNodePath == null) {
 		  String  errorText = "Node path reference passed to buildTree is null";

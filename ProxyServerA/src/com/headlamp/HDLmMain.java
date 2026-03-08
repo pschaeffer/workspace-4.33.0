@@ -1441,7 +1441,7 @@ public class HDLmMain {
 																		final String company,
 																		final String division,
 																		final String site,
-																	  String referrerPathValueStr,
+																	        String referrerPathValueStr,
 																		final HDLmLogMatchingTypes logMatching,
 																		final HDLmUsePathValue usePathValue,
 																		final String serverName) {
@@ -1882,7 +1882,7 @@ public class HDLmMain {
      don't exist. */
   protected static boolean  getMods(final ArrayList<HDLmMod> mods,
 															  		final HDLmPassThruStatus passThru,
-															  		String company,
+														       	  		String company,
 															  		final String division,
 															  		final String site,
 															  		final String referrerPathValueStr,
@@ -2108,7 +2108,7 @@ public class HDLmMain {
       String              baseURL;
       String              methodURL;
       String              URL;
-	    baseURL = HDLmConfigInfo.getParametersInternetMethod() + "://" +
+	    baseURL = HDLmConfigInfo.getParametersInternetMethodWithSsl() + "://" +
 	              HDLmConfigInfo.getParametersUrl() + "/";
 	    methodURL = HDLmConfigInfo.getParametersAccessMethod();
 	    URL = baseURL + methodURL;
@@ -2442,8 +2442,8 @@ public class HDLmMain {
 		/* The next set of lines were used to verify that we can 
 		   get secrets from AWS. This code is commented out for now. */
 		/* 
-		String  AWSAccessKeyId = HDLmConfigInfo.getAccessKeyId();
-		System.out.println(AWSAccessKeyId);
+		String  awsAccessKeyId = HDLmConfigInfo.getAccessKeyId();
+		System.out.println(awsAccessKeyId);
 		*/
 		/* The following statement was used to test database connections. 
 		   This statement is not really needed. Note, that the return 

@@ -25,9 +25,9 @@ public class HDLmSavedChange {
 	protected HDLmSavedChange() {}
 	/* This is one of the constructors for this class. The caller passes
 	   all of the values that should be stored in the instance. */
-	protected HDLmSavedChange(Integer newParameterNumber, Double newParameterValue, 
-			                      String newModName, String newModPathValue, HDLmModTypes newModType,
-			                      String newOldValue, String newNewValue) {
+	protected HDLmSavedChange(final Integer newParameterNumber, final Double newParameterValue, 
+			                      final String newModName, final String newModPathValue, final HDLmModTypes newModType,
+			                      final String newOldValue, final String newNewValue) {
 		/* Store each of the values passed to the constructor. All of the values can
 		   be null, so we can not check for nulls here. */
 		this.parameterNumber = newParameterNumber;
@@ -75,36 +75,36 @@ public class HDLmSavedChange {
   }
   /* Set the modification name for a saved change. This value may 
      be a null reference */ 
-  protected void setModName(String newModName) {
+  protected void setModName(final String newModName) {
   	this.modName = newModName; 
   }
   /* Set the modification path value for a saved change. 
      This value may be a null reference */ 
-  protected void setModPathValue(String newModPathValue) {
+  protected void setModPathValue(final String newModPathValue) {
     this.modPathValue = newModPathValue;
   }
   /* Set the modification type value for a saved change */ 
-  protected void setModType(HDLmModTypes newModType) {
+  protected void setModType(final HDLmModTypes newModType) {
     this.modType = newModType; 
   }
   /* Set the new value for a saved change. This value may 
      be a null reference */ 
-  protected void setNewValue(String newNewValue) {
+  protected void setNewValue(final String newNewValue) {
   	this.newValue = newNewValue;
   }
   /* Set the old value for a saved change. This value may 
      be a null reference */ 
-	protected void setOldValue(String newOldValue) {
+	protected void setOldValue(final String newOldValue) {
 		this.oldValue = newOldValue;
 	}
   /* Set the parameter number for a saved change. This value may 
      be a null reference */ 
-  protected void setParameterNumber(Integer newParameterNumber) {
+  protected void setParameterNumber(final Integer newParameterNumber) {
   	this.parameterNumber = newParameterNumber;
   }
   /* Set the parameter value for a saved change. This value may 
      be a null reference */ 
-  protected void setParameterValue(Double newParameterValue) {
+  protected void setParameterValue(final Double newParameterValue) {
   	this.parameterValue = newParameterValue;
   }
 }

@@ -25,7 +25,7 @@ public class HDLmWebSocketStandardAdapter extends WebSocketAdapter {
      This routine is definitely used (invoked). We should handle the
      closing of connections in some way. How is not clear. */   
   @Override
-  public void onWebSocketClose(int statusCode, String reason) {
+  public void onWebSocketClose(final int statusCode, final String reason) {
   	this.session = null;
   	String  textFormat = "onWebSocketClose - %d - %s";
   	String  textString = String.format(textFormat, statusCode, reason); 
@@ -36,7 +36,7 @@ public class HDLmWebSocketStandardAdapter extends WebSocketAdapter {
      This routine is definitely used (invoked). We should handle new
      connections by saving some data. What data is not not clear. */  
   @Override
-  public void onWebSocketConnect(Session session) {
+  public void onWebSocketConnect(final Session session) {
   	LOG.info("onWebSocketConnect");
     super.onWebSocketConnect(session); 
     this.session = session;
@@ -44,7 +44,7 @@ public class HDLmWebSocketStandardAdapter extends WebSocketAdapter {
   /* This routine is invoked when a text message is sent. So far
      this routine has not been used. */ 
   @Override
-  public void onWebSocketText(String message) {
+  public void onWebSocketText(final String message) {
   	LOG.info("onWebSocketText" + " - " + message);
     super.onWebSocketText(message);           
   }    

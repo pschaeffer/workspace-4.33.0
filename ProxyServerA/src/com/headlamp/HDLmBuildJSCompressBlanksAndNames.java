@@ -12,51 +12,51 @@ import java.util.Arrays;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-class HDLmBuildJsCompressBlanksAndNames {
+class HDLmBuildJsCompressBlanksAndNames{
   private static final Logger LOG=LoggerFactory.getLogger(HDLmBuildJsCompressBlanksAndNames.class);
 	private HDLmBuildJsCompressBlanksAndNames() {}
   @SuppressWarnings("unused")
-  public static String getJsBuildJs(HDLmProtocolTypes protocol,
-                                    String B5,
-                                    String hostName,
-                                    String divisionName,
-                                    String siteName,
-                                    ArrayList<HDLmMod>mods,
-                                    HDLmSession sessionObj,
-                                    HDLmLogMatchingTypes m4,
-                                    String serverName) {
+  public static String getJsBuildJs(final HDLmProtocolTypes protocol,
+                                    final String B5,
+                                    final String hostName,
+                                    final String divisionName,
+                                    final String siteName,
+                                    final ArrayList<HDLmMod>mods,
+                                    final HDLmSession sessionObj,
+                                    final HDLmLogMatchingTypes m4,
+                                    final String serverName) {
     if (protocol==null) {
 		  String  b3="Protocol string passed to getJsBuildJs is null";
       throw new NullPointerException(b3);
-		}
+}
 		if (hostName==null) {
 		  String  b3="Host name string passed to getJsBuildJs is null";
       throw new NullPointerException(b3);
-		}
+}
 		if (divisionName==null) {
 		  String  b3="Division name string passed to getJsBuildJs is null";
       throw new NullPointerException(b3);
-		}
+}
 		if (siteName==null) {
 		  String  b3="Site name string passed to getJsBuildJs is null";
       throw new NullPointerException(b3);
-		}
+}
 		if (mods==null) {
 		  String  b3="Modifications array passed to getJsBuildJs is null";
       throw new NullPointerException(b3);
-		}
+}
     if (sessionObj==null) {
 		  String  b3="Session object passed to getJsBuildJs is null";
       throw new NullPointerException(b3);
-		}
+}
     if (m4==null) {
 		  String  b3="Log rule matching reference passed to getJsBuildJs is null";
       throw new NullPointerException(b3);
-		}
+}
     if (serverName==null) {
 		  String  b3="Server name string passed to getJsBuildJs is null";
       throw new NullPointerException(b3);
-		}
+}
     HDLmBuildLines  builder;
     String          actualJS;
     String          fixedJSName=null;
@@ -68,15 +68,15 @@ class HDLmBuildJsCompressBlanksAndNames {
     if (1==2) {
       actualJS=HDLmUtility.fileGetContents("HDLmBuildJsCompressBlanksAndNamesOld.txt");
       return actualJS;
-    }
+}
     if (useCreateFixedJS) {
     	fixedJSName=HDLmDefines.getString("HDLMFIXEDFILENAME");
     	boolean   fileExists=HDLmUtility.fileExists(fixedJSName);
     	if (fileExists) {
         actualJS=HDLmUtility.fileGetContents(fixedJSName);
         return actualJS;
-    	}
-    }
+}
+}
     if (mods.size() ==0&&
     		mods.size() !=0)
       return "<script></script>";
@@ -180,7 +180,7 @@ class HDLmBuildJsCompressBlanksAndNames {
     builder.addLine("y9.matchmatch=n3;");
     builder.addLine("}");
     builder.addLine("}");
-    builder.addLine("else {");
+    builder.addLine("else{");
     builder.addLine("n3= (D.path===y6);");
     builder.addLine("if (y8==true) {");
     builder.addLine("y9.matchpathre=D.pathre;");
@@ -203,7 +203,7 @@ class HDLmBuildJsCompressBlanksAndNames {
     builder.addLine("}");
     builder.addLine("break;");
     builder.addLine("}");
-    builder.addLine("else {");
+    builder.addLine("else{");
     builder.addLine("if (m4==true) {");
     builder.addLine("let b3=e1(D,'match',y6);");
     builder.addLine("e0('Trace','Mod',35,b3);");
@@ -228,7 +228,7 @@ class HDLmBuildJsCompressBlanksAndNames {
     builder.addLine("sessionIndexValueUsed=true;");
     builder.addLine("finalLookupIndex=D2;");
     builder.addLine("}");
-    builder.addLine("else {");
+    builder.addLine("else{");
     builder.addLine("x4=D.parameter;");
     builder.addLine("if (x4!=null&&");
     builder.addLine("x4>=0&&");
@@ -617,7 +617,7 @@ class HDLmBuildJsCompressBlanksAndNames {
     builder.addLine("if (n4>1)");
     builder.addLine("break;");
     builder.addLine("}");
-    builder.addLine("else {");
+    builder.addLine("else{");
     builder.addLine("if (n4>0)");
     builder.addLine("break;");
     builder.addLine("}");
@@ -630,7 +630,7 @@ class HDLmBuildJsCompressBlanksAndNames {
     builder.addLine("if (z6=='complete')");
     builder.addLine("h6(K,n1);");
     builder.addLine("}");
-    builder.addLine("else {");
+    builder.addLine("else{");
     builder.addLine("h6(K,n1);");
     builder.addLine("}");
     builder.addLine("if (P=='changeattrs') {");
@@ -710,7 +710,7 @@ class HDLmBuildJsCompressBlanksAndNames {
     builder.addLine("else if (o7.startsWith('http')) {");
     builder.addLine("o7='url('+o7+')';");
     builder.addLine("}");
-    builder.addLine("else {");
+    builder.addLine("else{");
     builder.addLine("if (o7.startsWith('//'))");
     builder.addLine("o7='url(https:'+o7+')';");
     builder.addLine("}");
@@ -723,7 +723,7 @@ class HDLmBuildJsCompressBlanksAndNames {
     builder.addLine("let b9=g3(K,'junk.jpg');");
     builder.addLine("}");
     builder.addLine("}");
-    builder.addLine("else {");
+    builder.addLine("else{");
     builder.addLine("let I=j8(E);");
     builder.addLine("let q5=j7(q2);");
     builder.addLine("for (let i in I) {");
@@ -945,7 +945,7 @@ class HDLmBuildJsCompressBlanksAndNames {
     builder.addLine("if (D3==false)");
     builder.addLine("K.style.removeProperty(l5);");
     builder.addLine("}");
-    builder.addLine("else  {");
+    builder.addLine("else{");
     builder.addLine("let u=typeof v;");
     builder.addLine("if (u=='v7') {");
     builder.addLine("v=v.toString();");
@@ -1028,7 +1028,7 @@ class HDLmBuildJsCompressBlanksAndNames {
     builder.addLine("a7.add(o4);");
     builder.addLine("}");
     builder.addLine("function f3(c6,B2) {");
-    builder.addLine("return c6.localeCompare(B2,undefined,{ sensitivity:'accent' }) ===0;");
+    builder.addLine("return c6.localeCompare(B2,undefined,{sensitivity:'accent'}) ===0;");
     builder.addLine("}");
     builder.addLine("function f4(b1) {");
     builder.addLine("let q0={};");
@@ -1037,7 +1037,7 @@ class HDLmBuildJsCompressBlanksAndNames {
     builder.addLine("q0.message=b1;");
     builder.addLine("q0.reason='exception';");
     builder.addLine("}");
-    builder.addLine("else {");
+    builder.addLine("else{");
     builder.addLine("q0.name=b1.name;");
     builder.addLine("q0.message=b1.message;");
     builder.addLine("q0.stack=b1.stack;");
@@ -1075,7 +1075,7 @@ class HDLmBuildJsCompressBlanksAndNames {
     builder.addLine("}");
     builder.addLine("u4=f6(D,u0,y8,y9);");
     builder.addLine("}");
-    builder.addLine("else {");
+    builder.addLine("else{");
     builder.addLine("let c2=D.find;");
     builder.addLine("u4=[document];");
     builder.addLine("if (y8) {");
@@ -1130,7 +1130,7 @@ class HDLmBuildJsCompressBlanksAndNames {
     builder.addLine("let s8;");
     builder.addLine("if (s4.hasOwnProperty('bestclass'))");
     builder.addLine("s8=s4['bestclass'];");
-    builder.addLine("else {");
+    builder.addLine("else{");
     builder.addLine("let s9=s4.class;");
     builder.addLine("s8=s9[0];");
     builder.addLine("}");
@@ -1459,7 +1459,7 @@ class HDLmBuildJsCompressBlanksAndNames {
     builder.addLine("if (r0==null) {");
     builder.addLine("if (s3!=null)");
     builder.addLine("continue;");
-    builder.addLine("else {");
+    builder.addLine("else{");
     builder.addLine("v9=1.0;");
     builder.addLine("compareValues=false;");
     builder.addLine("}");
@@ -1671,7 +1671,7 @@ class HDLmBuildJsCompressBlanksAndNames {
     builder.addLine("v9=1.0;");
     builder.addLine("}");
     builder.addLine("}");
-    builder.addLine("else {");
+    builder.addLine("else{");
     builder.addLine("r0=t3.getAttribute(r9);");
     builder.addLine("if (r9=='href'&&");
     builder.addLine("r0!=null)");
@@ -1764,7 +1764,7 @@ class HDLmBuildJsCompressBlanksAndNames {
     builder.addLine("x0.push(p2);");
     builder.addLine("}");
     builder.addLine("}");
-    builder.addLine("else {");
+    builder.addLine("else{");
     builder.addLine("for (let i=0;i<p9;i++) {");
     builder.addLine("let p2=p7[i];");
     builder.addLine("x0.push(p2);");
@@ -1846,7 +1846,7 @@ class HDLmBuildJsCompressBlanksAndNames {
     builder.addLine("}");
     builder.addLine("}");
     builder.addLine("let w6=rv.length;");
-    builder.addLine("try {");
+    builder.addLine("try{");
     builder.addLine("rv+=',\"'+prop+'\":';");
     builder.addLine("if (z5)");
     builder.addLine("rv+='\"';");
@@ -1902,7 +1902,7 @@ class HDLmBuildJsCompressBlanksAndNames {
     builder.addLine("B3=B4.substr(0,8);");
     builder.addLine("B4=B4.substr(8);");
     builder.addLine("}");
-    builder.addLine("else {");
+    builder.addLine("else{");
     builder.addLine("c7=c8;");
     builder.addLine("c8='';");
     builder.addLine("B3=B4;");
@@ -1985,7 +1985,7 @@ class HDLmBuildJsCompressBlanksAndNames {
     builder.addLine("l8.nodeiden=JSON.parse(B0);");
     builder.addLine("l8.xpath=\"\";");
     builder.addLine("}");
-    builder.addLine("else {");
+    builder.addLine("else{");
     builder.addLine("l8.cssselector=B0;");
     builder.addLine("l8.nodeiden=null;");
     builder.addLine("l8.xpath='';");
@@ -2151,7 +2151,7 @@ class HDLmBuildJsCompressBlanksAndNames {
       if (counter<modsCount)
         newLine+=",";
       builder.addLine(newLine);
-    }
+}
     String  m5;
     if (m4==HDLmLogMatchingTypes.LOGMATCHINGYES)
       m5="true";
@@ -2165,7 +2165,7 @@ class HDLmBuildJsCompressBlanksAndNames {
     builder.addLine("let o0=n9.length;");
     builder.addLine("for (let i=0;i<o0;i++) {");
     builder.addLine("let D=n9[i];");
-    builder.addLine("try {");
+    builder.addLine("try{");
     builder.addLine("switch (D.type) {");
     builder.addLine("case'extract':{");
     builder.addLine("let u4=f5(D,false);");
@@ -2216,7 +2216,7 @@ class HDLmBuildJsCompressBlanksAndNames {
     builder.addLine("}");
     builder.addLine("for (let i=0;i<o0;i++) {");
     builder.addLine("let D=n9[i];");
-    builder.addLine("try {");
+    builder.addLine("try{");
     builder.addLine("d7(y6,");
     builder.addLine("D,");
     builder.addLine("B8,");
@@ -2269,11 +2269,11 @@ class HDLmBuildJsCompressBlanksAndNames {
     builder.addLine("let v=t[l5];");
     builder.addLine("if (v==null)");
     builder.addLine("K.removeAttribute(l5);");
-    builder.addLine("else {");
+    builder.addLine("else{");
     builder.addLine("if (l5=='class') {");
     builder.addLine("f1(K,v);");
     builder.addLine("}");
-    builder.addLine("else {");
+    builder.addLine("else{");
     builder.addLine("K.setAttribute(l5,v);");
     builder.addLine("}");
     builder.addLine("}");
@@ -2292,11 +2292,11 @@ class HDLmBuildJsCompressBlanksAndNames {
           for (int j=0;j<curValues.size();j++) {
             String  curLine=curValues.get(j);
             builder.addLine(""+curLine);
-          }
+}
           newLine="}";
           builder.addLine(newLine);
-      }
-    }
+}
+}
     builder.addLine("function g2(K) {");
     builder.addLine("let x2='';");
     builder.addLine("if (!K.hasAttributes())");
@@ -2316,13 +2316,13 @@ class HDLmBuildJsCompressBlanksAndNames {
 		if (!indexJsonArray.isJsonArray()) {
 	 	  String  b3="JSON array in getJSBuildJs is invalid";
 	 	  HDLmAssert.HDLmAssertAction(false,b3);
-	  }
+}
     int   indexJsonArraySize=indexJsonArray.size();
     boolean   logIsDebugEnabled=LOG.isDebugEnabled();
 		if (logIsDebugEnabled) {
 		  LOG.debug("In g6");
 		  LOG.debug(C0);
-	  }
+}
     double  sessionIndexValue=0.0;
     if (C0!=null&&
 !C0.equals("null"))
@@ -2336,11 +2336,11 @@ class HDLmBuildJsCompressBlanksAndNames {
     		if (!rulesJsonArray.isJsonArray()) {
     	 	  String  b3="JSON array in getJSBuildJs is invalid";
     	 	  HDLmAssert.HDLmAssertAction(false,b3);
-    	  }
+}
     		if (!choicesJsonArray.isJsonArray()) {
     	 	  String  b3="JSON array in getJSBuildJs is invalid";
     	 	  HDLmAssert.HDLmAssertAction(false,b3);
-    	  }
+}
     		int         rulesJsonArraySize=rulesJsonArray.size();
     		int         choicesJsonArraySize=choicesJsonArray.size();
     		JsonArray   choiceJsonArray=null;
@@ -2352,15 +2352,15 @@ class HDLmBuildJsCompressBlanksAndNames {
       		if (!choiceJsonArray.isJsonArray()) {
       	 	  String  b3="JSON array in getJSBuildJs is invalid";
       	 	  HDLmAssert.HDLmAssertAction(false,b3);
-      	  }
-        }
+}
+}
     		counter=0;
         for (int j=0;j<rulesJsonArraySize;j++) {
         	counter++;
         	JsonElement   ruleJsonElement=rulesJsonArray.get(j);
       		if (!ruleJsonElement.isJsonPrimitive()) {
       			HDLmAssert.HDLmAssertAction(false,"JSON element is not a JSON primitive value");
-      		}
+}
         	String        A3=ruleJsonElement.getAsString();
           newLine="".repeat(23);
           newLine+="'";
@@ -2369,20 +2369,20 @@ class HDLmBuildJsCompressBlanksAndNames {
           if (C0==null||
           		C0.equals("null"))
           	newLine+="null";
-          else {
+          else{
             JsonElement   choiceJsonElement=choiceJsonArray.get(j);
         		if (!choiceJsonElement.isJsonPrimitive()) {
         			HDLmAssert.HDLmAssertAction(false,"JSON element is not a JSON primitive value");
-        		}
+}
             String  choiceJsonString=choiceJsonElement.getAsString();
             newLine+=choiceJsonString;
-          }
+}
           if (counter<rulesJsonArraySize)
             newLine+=",";
           builder.addLine(newLine);
-        }
-    	}
-    }
+}
+}
+}
     builder.addLine("};");
     builder.addLine("let m7=m6[A3];");
     builder.addLine("return m7;");
@@ -2403,7 +2403,7 @@ class HDLmBuildJsCompressBlanksAndNames {
       if (counter<sessionParametersArrayLength)
         newLine+=",";
       builder.addLine(newLine);
-    }
+}
     builder.addLine("];");
     builder.addLine("return x6;");
     builder.addLine("}");
@@ -2457,7 +2457,7 @@ class HDLmBuildJsCompressBlanksAndNames {
         if (counter<mapSize)
           newLine+=",";
       builder.addLine(newLine);
-    }
+}
     builder.addLine("};");
     String   z2;
     z2=protocol.toString().toLowerCase();
@@ -2659,23 +2659,23 @@ class HDLmBuildJsCompressBlanksAndNames {
 	  	    N="\\u1038";
         else if (curChar=='\u1039')
 	  	    N="\\u1039";
-		  	else {
+		  	else{
 			  	N="";
 			  	N+=curChar;
-		  	}
+}
 		  	actualJSAdjustedBuilder.append(N);
-		  }
+}
 		  String  actualJSAdjusted=actualJSAdjustedBuilder.toString();
 		  HDLmUtility.filePutAppend(fixedJSName,
 		  		                      actualJSAdjusted);
-		}
+}
     return actualJS;
-  }
+}
   public static JsonArray  getIndexJsonArray() {
-    class getIndexJsonArrayLocal {
+    class getIndexJsonArrayLocal{
       final static String  jsonString=
         "["+
-        "  {"+
+        "{"+
         "    \"website\":"+
         "      \"www.yogadirect.com\","+
         "    \"generated\":"+
@@ -3688,12 +3688,12 @@ class HDLmBuildJsCompressBlanksAndNames {
         "[2,4],"+
         "[3,5]"+
         "]"+
-        "  }"+
+        "}"+
         "]"+
         "";
 	    static JsonParser  parser=new JsonParser();
 	    static JsonArray   rvJsonArray= (JsonArray) parser.parse(jsonString);
-  	}
+}
     return getIndexJsonArrayLocal.rvJsonArray;
-  }
+}
 }

@@ -8,5 +8,5 @@ package com.headlamp;
  * @author Peter
  */
 public interface HDLmClusterComparison { 
-	public double compare(String first, String second); 
+	public double compare(final String first, final String second); 
 }

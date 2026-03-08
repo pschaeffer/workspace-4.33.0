@@ -20,7 +20,7 @@ public class HDLmStatisticsHandler {
      to the statistics handler object. This routine returns a tree map with the
      statistics. The statistics are returned as a tree map so that they can be
      accessed in ascending name order. */ 
-  protected static TreeMap<String, String> getStatistics(StatisticsHandler stats) {
+  protected static TreeMap<String, String> getStatistics(final StatisticsHandler stats) {
 		if (stats == null) {
 			String  errorText = "Statistics handler reference passed to getStatistics is null";
 			throw new NullPointerException(errorText);		

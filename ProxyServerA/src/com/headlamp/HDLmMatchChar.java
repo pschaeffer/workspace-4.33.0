@@ -61,7 +61,7 @@ public class HDLmMatchChar {
      just point to that character. However, if the character is escaped, 
      then the index passed by the caller will point to the escape, not the    
      actual character. */ 
-  protected static HDLmMatchChar nextCharGet(String inString, int inIndex) {
+  protected static HDLmMatchChar nextCharGet(final String inString, int inIndex) {
 		if (inString == null) {
 		  String  errorText = "Match string passed to nextCharGet routine is null";
 		  throw new NullPointerException(errorText);
@@ -149,7 +149,7 @@ public class HDLmMatchChar {
 	   the two characters represent a single literal backslash. One
 	   consequence is that a single backslash can not be the last
 	   character of an input string. */
-  protected static HDLmMatchChar priorCharGet(String inString, int inIndex) {
+  protected static HDLmMatchChar priorCharGet(final String inString, int inIndex) {
 		if (inString == null) {
 		  String  errorText = "Match string passed to priorCharGet routine is null";
 		  throw new NullPointerException(errorText);
@@ -199,36 +199,36 @@ public class HDLmMatchChar {
 	  return checkRV;
 	}
   /* Set the match check character value using the value passed by the caller */
-  protected void setMatchChar(Character newMatchChar) {
+  protected void setMatchChar(final Character newMatchChar) {
     this.matchChar = newMatchChar;
   }
   /* Set the match check end flag using the value passed by the caller */
-  protected void setEndFlag(boolean newEndFlag) {
+  protected void setEndFlag(final boolean newEndFlag) {
     this.endFlag = newEndFlag;
   }
   /* Set the match check error flag using the value passed by the caller */
-  protected void setErrorFlag(boolean newErrorFlag) {
+  protected void setErrorFlag(final boolean newErrorFlag) {
     this.errorFlag = newErrorFlag;
   }
   /* Set the match check error text using the value passed by the caller */
-  protected void setErrorText(String newErrorText) {
+  protected void setErrorText(final String newErrorText) {
     this.errorText = newErrorText;
   }
   /* Set the match check escape flag using the value passed by the caller */
-  protected void setEscapeFlag(boolean newEscapeFlag) {
+  protected void setEscapeFlag(final boolean newEscapeFlag) {
     this.escapeFlag = newEscapeFlag;
   }
   /* Set the match check index value using the value passed by the caller */
-  protected void setIndex(int newIndex) {
+  protected void setIndex(final int newIndex) {
     this.index = newIndex;
   }
   /* Set the match check start flag using the value passed by the caller */
-  protected void setStartFlag(boolean newStartFlag) {
+  protected void setStartFlag(final boolean newStartFlag) {
     this.startFlag = newStartFlag;
   }
   /* Set the match check unmatched escape flag using the value passed by 
      the caller */
-  protected void setUnmatchedEscapeFlag(boolean newUnmatchedEscapeFlag) {
+  protected void setUnmatchedEscapeFlag(final boolean newUnmatchedEscapeFlag) {
     this.unmatchedEscapeFlag = newUnmatchedEscapeFlag;
   }
 }	

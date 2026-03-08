@@ -12,9 +12,9 @@ package com.headlamp;
 public class HDLmOpenAIEditImageNotUsed {
   /* This class can be instantiated using the
      constructor below */
-	protected HDLmOpenAIEditImageNotUsed(String modelValue, String instructionValue, 
-			                                 String inputValue, Float temperatureValue, 
-			                                 Integer nValue) {
+	protected HDLmOpenAIEditImageNotUsed(final String modelValue, final String instructionValue, 
+			                                 final String inputValue, final Float temperatureValue, 
+			                                 final Integer nValue) {
 		/* Check if the model value passed by the caller is null */
 		if (modelValue == null) {
 			String  errorText = "Model value string passed to HDLmOpenAIEditImage is null";

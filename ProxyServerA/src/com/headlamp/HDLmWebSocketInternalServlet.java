@@ -25,7 +25,7 @@ public class HDLmWebSocketInternalServlet extends JettyWebSocketServlet {
      plays some role in logging initialization. */
   private static final Logger LOG = LoggerFactory.getLogger(HDLmWebSocketInternalServlet.class); 
   @Override
-  public void configure(JettyWebSocketServletFactory factory) {
+  public void configure(final JettyWebSocketServletFactory factory) {
   	LOG.info("HDLmWebSocketInternalServlet configure");
     factory.register(HDLmWebSocketInternalAdapter.class);
     /* The code below resets the web socket idle timeout to  
@@ -38,8 +38,8 @@ public class HDLmWebSocketInternalServlet extends JettyWebSocketServlet {
      generated for/by web sockets. Each request is checked and 
      handled as need be. */	 
 	@Override
-	protected void doDelete(HttpServletRequest request, 
-			                    HttpServletResponse response)
+	protected void doDelete(final HttpServletRequest request, 
+			                    final HttpServletResponse response)
 	                        throws ServletException, IOException {
 		/* Handle the current servlet request */
 		LOG.info("HDLmWebSocketInternalServlet doDelete");
@@ -49,8 +49,8 @@ public class HDLmWebSocketInternalServlet extends JettyWebSocketServlet {
      generated for/by web sockets. Each request is checked and 
      handled as need be. */	 
 	@Override
-	protected void doGet(HttpServletRequest request, 
-			                 HttpServletResponse response)
+	protected void doGet(final HttpServletRequest request, 
+			                 final HttpServletResponse response)
 	                     throws ServletException, IOException {
 		/* Handle the current servlet request */
 		LOG.info("HDLmWebSocketInternalServlet doGet");
@@ -60,8 +60,8 @@ public class HDLmWebSocketInternalServlet extends JettyWebSocketServlet {
      generated for/by web sockets. Each request is checked and 
      handled as need be. */	 
 	@Override
-	protected void doPost(HttpServletRequest request, 
-			                  HttpServletResponse response)
+	protected void doPost(final HttpServletRequest request, 
+			                  final HttpServletResponse response)
 	                      throws ServletException, IOException {
 		/* Handle the current servlet request */
 		LOG.info("HDLmWebSocketInternalServlet doPost");
@@ -76,8 +76,8 @@ public class HDLmWebSocketInternalServlet extends JettyWebSocketServlet {
      generated for/by web sockets. Each request is checked and 
      handled as need be. */	 
 	@Override
-	protected void doPut(HttpServletRequest request, 
-			                 HttpServletResponse response)
+	protected void doPut(final HttpServletRequest request, 
+			                 final HttpServletResponse response)
 	                     throws ServletException, IOException {
 		/* Handle the current servlet request */
 		LOG.info("HDLmWebSocketInternalServlet doPut");

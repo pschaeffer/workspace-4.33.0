@@ -200,7 +200,7 @@ public class HDLmDefines {
 	/* This static method returns the numeric value of a define
 	   if the define name is valid (exists) and if the define
 	   value is actually a number. */
-	protected static int getNumber(String defineName) {
+	protected static int getNumber(final String defineName) {
 		if (defineName == null) {
 			String   errorText = "Definition name reference passed to getNumber is null";
 			throw new NullPointerException(errorText);			
@@ -245,7 +245,7 @@ public class HDLmDefines {
 	/* This static method returns the string value of a define
 		 if the define name is valid (exists) and if the define
 		 value is actually a string (not a number). */
-	protected static String getString(String defineName) {
+	protected static String getString(final String defineName) {
 		if (defineName == null) {
 			String   errorText = "Definition name reference passed to getString is null";
 			throw new NullPointerException(errorText);			

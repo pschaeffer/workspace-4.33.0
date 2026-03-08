@@ -158,7 +158,7 @@ public class HDLmHttp {
      code URL encodes the path (but not the first forward slash in 
      the path), the query, and the reference. The user information
      (if any), the protocol, and the domain name are not URL encoded. */
-	protected static URL  encodeUrl(String urlStr) {
+	protected static URL  encodeUrl(final String urlStr) {
 		/* Check one or more values passed by the caller */
 		if (urlStr == null) {
 			String   errorText = "URL string reference passed to encodeUrl is null";
@@ -234,7 +234,7 @@ public class HDLmHttp {
 		return newUrlObject;
 	}
 	/* Get a web page using the URL passed by the caller */
-	protected static String  getWebPage(String urlStr) {
+	protected static String  getWebPage(final String urlStr) {
 		/* Check one or more values passed by the caller */
 		if (urlStr == null) {
 			String   errorText = "URL string reference passed to getWebPage is null";
@@ -249,7 +249,7 @@ public class HDLmHttp {
 	/* Get the text string from a web page. The URL for the web page is passed
 	   by the caller. This routine tries to get the HTML for the web page and
 	   then tries to remove all of the HTML tags. */
-	protected static String  getTextFromWebPage(String urlStr) {
+	protected static String  getTextFromWebPage(final String urlStr) {
 		/* Check one or more values passed by the caller */
 		if (urlStr == null) {
 			String   errorText = "URL string reference passed to getTextFromWebPage is null";

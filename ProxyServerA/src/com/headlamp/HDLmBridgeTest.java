@@ -82,7 +82,7 @@ class HDLmBridgeTest {
 		type = HDLmHttpTypes.POST; 
 		deleteEntriesUrl = HDLmConfigInfo.getEntriesBridgeDeleteUrl();
 		insertEntriesUrl = HDLmConfigInfo.getEntriesBridgeInsertUrl();
-		protocol = HDLmConfigInfo.getEntriesBridgeInternetMethod();
+		protocol = HDLmConfigInfo.getEntriesBridgeInternetMethodWithSsl();
 		/* Get the JSON insert statement */ 
 		jsonInsert = HDLmTreeData.jsonBridgeInsert; 
 		/* Build the final insert URL */
@@ -290,7 +290,7 @@ class HDLmBridgeTest {
 		type = HDLmHttpTypes.POST; 
 		deleteEntriesUrl = HDLmConfigInfo.getEntriesBridgeDeleteUrl();
 		insertEntriesUrl = HDLmConfigInfo.getEntriesBridgeInsertUrl();
-		protocol = HDLmConfigInfo.getEntriesBridgeInternetMethod();
+		protocol = HDLmConfigInfo.getEntriesBridgeInternetMethodWithSsl();
 		/* Get the JSON insert statement */ 
 		jsonInsert = HDLmTreeData.jsonBridgeInsert; 
 		/* Build the final insert URL */
@@ -473,7 +473,7 @@ class HDLmBridgeTest {
 		type = HDLmHttpTypes.POST; 
 		deleteEntriesUrl = HDLmConfigInfo.getEntriesBridgeDeleteUrl();
 		insertEntriesUrl = HDLmConfigInfo.getEntriesBridgeInsertUrl();
-		protocol = HDLmConfigInfo.getEntriesBridgeInternetMethod();
+		protocol = HDLmConfigInfo.getEntriesBridgeInternetMethodWithSsl();
 		/* Get the JSON insert statement */ 
 		jsonInsert = HDLmTreeData.jsonBridgeInsert; 
 		/* Build the final insert URL */
@@ -648,7 +648,7 @@ class HDLmBridgeTest {
 		password = HDLmConfigInfo.getEntriesBridgePassword(); 
 		type = HDLmHttpTypes.GET; 
 		readEntriesUrl = HDLmConfigInfo.getEntriesBridgeReadUrl();
-		protocol = HDLmConfigInfo.getEntriesBridgeInternetMethod();
+		protocol = HDLmConfigInfo.getEntriesBridgeInternetMethodWithSsl();
 		query = HDLmUtility.buildBridgeRestQuery(contentStr, HDLmEditorTypes.PASS);
 		/* Build the final read URL */
 		url = protocol + "://" + readEntriesUrl + table + '?' + query;
@@ -754,7 +754,7 @@ class HDLmBridgeTest {
 		deleteEntriesUrl = HDLmConfigInfo.getEntriesBridgeDeleteUrl();
 		insertEntriesUrl = HDLmConfigInfo.getEntriesBridgeInsertUrl();
 		updateEntriesUrl = HDLmConfigInfo.getEntriesBridgeUpdateUrl();
-		protocol = HDLmConfigInfo.getEntriesBridgeInternetMethod();
+		protocol = HDLmConfigInfo.getEntriesBridgeInternetMethodWithSsl();
 		/* Get the JSON insert statement */ 
 		jsonInsert = HDLmTreeData.jsonBridgeInsert; 
 		/* Build the final insert URL */

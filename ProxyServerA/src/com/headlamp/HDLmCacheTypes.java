@@ -33,7 +33,7 @@ public enum HDLmCacheTypes {
 	/* Add a field to each enum */
 	private final int enumValue;
 	/* Provide a constructor for the enum */
-	private HDLmCacheTypes(int intValue) {
+	private HDLmCacheTypes(final int intValue) {
 		this.enumValue = intValue;
 	}
 	/* Return the integer value of the enum to the caller */

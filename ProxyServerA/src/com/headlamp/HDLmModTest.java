@@ -3853,79 +3853,6 @@ class HDLmModTest {
 		}
 	}
   @Test
-	void truncateJson() { 
-		/* Run a few truncateJson tests */
-		String       modName = "OWO Home Bottom Text";
-    JsonParser   parser = new JsonParser();  
-    JsonElement  topNode = parser.parse(HDLmTreeData.jsonGetModStr); 
-    JsonObject   topNodeObject = topNode.getAsJsonObject();
-    Set<String>  topKeys = topNodeObject.keySet();
-    JsonObject   topObject = topNode.getAsJsonObject();
-    /* We need to extract the number of data rows. The number of 
-       data rows should always be exactly one. */    
-    Integer dataRowsCount = HDLmTree.getIntegerFromJson(topObject, "rows_returned");
-    /* Get the array of data rows from JSON object. Of course, we really only 
-       have one data row at this point. */
-    JsonArray dataRowsArray = HDLmTree.getArrayFromJson(topObject, "data");
-    /* We can now obtain the one and only row from the JSON array */
-    JsonElement dataRowElement = dataRowsArray.get(0);
-    JsonObject  dataRowObject = dataRowElement.getAsJsonObject();
-    String contentType = HDLmTree.getStringFromJson(dataRowObject, "content");
-    /* We can now extract the actual modifications from the one data row.
-       The modifications may actually be an array. We should process just
-       the first element of the array.  */
-    String modsString = HDLmTree.getStringFromJson(dataRowObject, "mods");
-    JsonElement  modsElement = parser.parse(modsString); 
-    if (modsElement.isJsonArray()) {
-    	JsonArray modsArray = modsElement.getAsJsonArray();
-    	modsElement = modsArray.get(0);   	
-    }
-    JsonObject  modsObject = modsElement.getAsJsonObject();
-    modsElement = modsObject.get("children"); 
-    JsonArray  modsArray = modsElement.getAsJsonArray();
-    /* Get the company JSON element */
-    modsElement = modsArray.get(0);
-    modsObject = modsElement.getAsJsonObject();
-    modsElement = modsObject.get("children"); 
-    modsArray = modsElement.getAsJsonArray();
-    /* Get the division JSON element */
-    modsElement = modsArray.get(0);
-    modsObject = modsElement.getAsJsonObject();
-    modsElement = modsObject.get("children"); 
-    modsArray = modsElement.getAsJsonArray();
-    /* Get the site JSON element */
-    modsElement = modsArray.get(0);
-    modsObject = modsElement.getAsJsonObject();
-    modsElement = modsObject.get("children"); 
-    modsArray = modsElement.getAsJsonArray(); 
-    /* Get the modification JSON element */
-    modsElement = modsArray.get(0);
-    modsObject = modsElement.getAsJsonObject();
-    modsElement = modsObject.get("children"); 
-    modsArray = modsElement.getAsJsonArray();
-    /* Get the modification details */
-    JsonElement  modsElementDetails = modsObject.get("details"); 
-    JsonObject   modsElementObject = modsElementDetails.getAsJsonObject();
-    Set<String>  modsElementKeys;
-    modsElementKeys = modsElementObject.keySet();
-    /* Build the modification details */
-    HDLmMod  modDetails = new HDLmMod(modsElementDetails);
-    modDetails.setIfNotSetTimes();
-    /* Run a truncateJson test */
-    String       expectedOutput = "{\"prob\":100.0,\"usemode\":\"prod\",\"created\":\"2022-11-";
-    String       outErrorText;
-    outErrorText = HDLmMod.truncateJson(modsElementObject); 
-    assertEquals(expectedOutput, outErrorText, "Error string value must be correct");
-	  { 
-			Throwable exception = assertThrows(RuntimeException.class, 
-					                               () -> {HDLmMod.truncateJson((JsonObject) null);},
-					                               "Expected RuntimeException");
-			String execMsg = exception.getMessage();
-			assertEquals("JSON object passed to truncateJson is null", execMsg,
-					         "Unexpected exception message");
-		}	 
-  }
-  @Test
 	void saveChanges() { 
 		/* Run a few saveChanges tests */
 	  String     htmlStr = HDLmTreeData.magentoNeveJacketStr();	
@@ -4006,4 +3933,77 @@ class HDLmModTest {
 					         "Unexpected exception message");
 		}	
 	}	
+  @Test
+	void truncateJson() { 
+		/* Run a few truncateJson tests */
+		String       modName = "OWO Home Bottom Text";
+    JsonParser   parser = new JsonParser();  
+    JsonElement  topNode = parser.parse(HDLmTreeData.jsonGetModStr); 
+    JsonObject   topNodeObject = topNode.getAsJsonObject();
+    Set<String>  topKeys = topNodeObject.keySet();
+    JsonObject   topObject = topNode.getAsJsonObject();
+    /* We need to extract the number of data rows. The number of 
+       data rows should always be exactly one. */    
+    Integer dataRowsCount = HDLmTree.getIntegerFromJson(topObject, "rows_returned");
+    /* Get the array of data rows from JSON object. Of course, we really only 
+       have one data row at this point. */
+    JsonArray dataRowsArray = HDLmTree.getArrayFromJson(topObject, "data");
+    /* We can now obtain the one and only row from the JSON array */
+    JsonElement dataRowElement = dataRowsArray.get(0);
+    JsonObject  dataRowObject = dataRowElement.getAsJsonObject();
+    String contentType = HDLmTree.getStringFromJson(dataRowObject, "content");
+    /* We can now extract the actual modifications from the one data row.
+       The modifications may actually be an array. We should process just
+       the first element of the array.  */
+    String modsString = HDLmTree.getStringFromJson(dataRowObject, "mods");
+    JsonElement  modsElement = parser.parse(modsString); 
+    if (modsElement.isJsonArray()) {
+    	JsonArray modsArray = modsElement.getAsJsonArray();
+    	modsElement = modsArray.get(0);   	
+    }
+    JsonObject  modsObject = modsElement.getAsJsonObject();
+    modsElement = modsObject.get("children"); 
+    JsonArray  modsArray = modsElement.getAsJsonArray();
+    /* Get the company JSON element */
+    modsElement = modsArray.get(0);
+    modsObject = modsElement.getAsJsonObject();
+    modsElement = modsObject.get("children"); 
+    modsArray = modsElement.getAsJsonArray();
+    /* Get the division JSON element */
+    modsElement = modsArray.get(0);
+    modsObject = modsElement.getAsJsonObject();
+    modsElement = modsObject.get("children"); 
+    modsArray = modsElement.getAsJsonArray();
+    /* Get the site JSON element */
+    modsElement = modsArray.get(0);
+    modsObject = modsElement.getAsJsonObject();
+    modsElement = modsObject.get("children"); 
+    modsArray = modsElement.getAsJsonArray(); 
+    /* Get the modification JSON element */
+    modsElement = modsArray.get(0);
+    modsObject = modsElement.getAsJsonObject();
+    modsElement = modsObject.get("children"); 
+    modsArray = modsElement.getAsJsonArray();
+    /* Get the modification details */
+    JsonElement  modsElementDetails = modsObject.get("details"); 
+    JsonObject   modsElementObject = modsElementDetails.getAsJsonObject();
+    Set<String>  modsElementKeys;
+    modsElementKeys = modsElementObject.keySet();
+    /* Build the modification details */
+    HDLmMod  modDetails = new HDLmMod(modsElementDetails);
+    modDetails.setIfNotSetTimes();
+    /* Run a truncateJson test */
+    String       expectedOutput = "{\"prob\":100.0,\"usemode\":\"prod\",\"created\":\"2022-11-";
+    String       outErrorText;
+    outErrorText = HDLmMod.truncateJson(modsElementObject); 
+    assertEquals(expectedOutput, outErrorText, "Error string value must be correct");
+	  { 
+			Throwable exception = assertThrows(RuntimeException.class, 
+					                               () -> {HDLmMod.truncateJson((JsonObject) null);},
+					                               "Expected RuntimeException");
+			String execMsg = exception.getMessage();
+			assertEquals("JSON object passed to truncateJson is null", execMsg,
+					         "Unexpected exception message");
+		}	 
+  }
 }

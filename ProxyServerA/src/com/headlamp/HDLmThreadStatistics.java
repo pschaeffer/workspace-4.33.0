@@ -20,7 +20,7 @@ public class HDLmThreadStatistics {
      a reference to a monitored queued thread pool object. This routine 
      returns a tree map with the thread statistics. The statistics are 
      returned as a tree map so that they can be accessed in ascending name order. */ 
-  protected static TreeMap<String, String> getStatistics(MonitoredQueuedThreadPool threadPool) {
+  protected static TreeMap<String, String> getStatistics(final MonitoredQueuedThreadPool threadPool) {
 		if (threadPool == null) {
 			String  errorText = "Monitored queued thread pool reference passed to getStatistics is null";
 			throw new NullPointerException(errorText);		

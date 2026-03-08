@@ -65,7 +65,7 @@ public class HDLmUtility {
 	private HDLmUtility() {}
   /* Build a bridge rest API query from values passed by
      the caller. The returned value is the query string. */
-	protected static String buildBridgeRestQuery(String colName, HDLmEditorTypes editorType) {
+	protected static String buildBridgeRestQuery(final String colName, final HDLmEditorTypes editorType) {
 		if (colName == null) {
 			String   errorText = "Column name reference passed to buildBridgeRestQuery is null";
 			throw new NullPointerException(errorText);
@@ -100,7 +100,7 @@ public class HDLmUtility {
 	}
   /* Build a Dreamtsoft rest API query from values passed by
      the caller. The returned value is the query string. */
-	protected static String buildDreamRestQuery(String colName, HDLmEditorTypes editorType) {
+	protected static String buildDreamRestQuery(final String colName, final HDLmEditorTypes editorType) {
 		if (colName == null) {
 			String   errorText = "Column name reference passed to buildDreamRestQuery is null";
 			throw new NullPointerException(errorText);
@@ -229,7 +229,7 @@ public class HDLmUtility {
 	/* Build a result JSON string with success values is each field.
 	   Return the JSON string to the caller. */
 	protected static String  buildResultSuccessJsonString(final Integer successNumber, 
-			                                                  ArrayList<String> successNodeIds) {
+			                                                  final ArrayList<String> successNodeIds) {
 		String  rv = null;
 		/* Create a new HDLm result object with success values
 		   in each field */
@@ -254,7 +254,7 @@ public class HDLmUtility {
 	   caller. Note that the number of columns is always two (2).
 	   The number of rows depends on the size of the map passed
 	   by the caller. */
-	protected static Object[][] buildTable(TreeMap<String, Object> inData) {
+	protected static Object[][] buildTable(final TreeMap<String, Object> inData) {
 		if (inData == null) {
 		  String   errorText = "Input data reference passed to buildTable is null";
 		  throw new NullPointerException(errorText);
@@ -276,8 +276,8 @@ public class HDLmUtility {
 		 our code. Note that some programs (why is not clear) do not
 		 send a HTTP_USER_AGENT header. We always treat these as bad
 		 browsers. */
-	protected static boolean checkBrowser(HttpServletRequest request,
-			                                  String timeStamp) {
+	protected static boolean checkBrowser(final HttpServletRequest request,
+			                                  final String timeStamp) {
 		boolean browserOk = false;
 		/* Check if the input request passed by the caller is null */
 		if (request == null) {
@@ -328,7 +328,7 @@ public class HDLmUtility {
 	   has a valid host name after a valid protocol string (such as
 	   HTTPS://). A boolean value is returned to the caller showing
 	   if a valid protocol string was found or not. */
-  protected static boolean checkForHostNameAfterProtocol(String urlStr) {
+  protected static boolean checkForHostNameAfterProtocol(final String urlStr) {
 		/* Check if the URL string passed by the caller is null */
 		if (urlStr == null) {
 			String  errorText = "URL string passed to checkForHostNameAfterProtocol is null";
@@ -360,7 +360,7 @@ public class HDLmUtility {
 	   starts with a valid protocol string (such as HTTPS://)). A
 	   boolean value is returned to the caller showing if a valid
 	   protocol string was found or not. */
-	protected static boolean checkForProtocol(String urlStr) {
+	protected static boolean checkForProtocol(final String urlStr) {
 		/* Check if the URL string passed by the caller is null */
 		if (urlStr == null) {
 			String  errorText = "URL string passed to checkForProtocol is null";
@@ -384,7 +384,7 @@ public class HDLmUtility {
      is valid or not. A boolean value is returned to the caller
      showing if the URL string is valid or not. A URL string is
      considered to be valid if an URL object can be created from it. */
-	protected static boolean checkUrl(String urlStr) {
+	protected static boolean checkUrl(final String urlStr) {
 	 /* Check if the URL string passed by the caller is null */
 		if (urlStr == null) {
 			String  errorText = "URL string passed to checkUrl is null";
@@ -420,7 +420,7 @@ public class HDLmUtility {
      the output line. Of course, the suffix (if any) is added to
      each input line. The suffix value can be passed as a null
      value in which case, no suffix will be used. */
-	protected static String combineLinesSuffix(ArrayList<String> inLines, String suffix) {
+	protected static String combineLinesSuffix(final ArrayList<String> inLines, final String suffix) {
 		if (inLines == null) {
 		  String  errorText = "Input lines array passed to combineLinesSuffix is null";
 		  throw new NullPointerException(errorText);
@@ -441,7 +441,7 @@ public class HDLmUtility {
   /* Convert a string to a Double. This method will return a
      null value is any errors are detected in the conversion.
      The string passed by the caller must not be null. */
-	protected static Double convertDouble(String inStr) {
+	protected static Double convertDouble(final String inStr) {
 		Double  rv = null;
 		if (inStr == null) {
 		  String  errorText = "String passed to double conversion is null";
@@ -471,7 +471,7 @@ public class HDLmUtility {
   /* Convert a string to an integer. This method will return a
      null value is any errors are detected in the conversion.
      The string passed by the caller must not be null. */
-	protected static Integer convertInteger(String inStr) {
+	protected static Integer convertInteger(final String inStr) {
 		Integer  rv = null;
 		if (inStr == null) {
 		  String  errorText = "String passed to integer conversion is null";
@@ -504,7 +504,7 @@ public class HDLmUtility {
 	   The last substring may be a short string (if need be). If the
 	   string passed by the caller is empty (zero-length), the ArrayList
 	   will have zero elements. */
-	protected static ArrayList<String>  createArrayListOfStrings(String inStr, int desiredLength) {
+	protected static ArrayList<String>  createArrayListOfStrings(final String inStr, final int desiredLength) {
 		/* Check the values passed by the caller */
 		if (inStr == null) {
 		  String  errorText = "String passed to createArrayListOfStrings is null";
@@ -548,7 +548,7 @@ public class HDLmUtility {
   /* This routine clears the contents of a file. The file may
      or may not be empty when this routine is caller. The file
      will be empty after this routine is called. */
-	protected static void fileClearContents(String fileName) {
+	protected static void fileClearContents(final String fileName) {
 		if (fileName == null) {
 		  String  errorText = "File name string passed to fileClearContents is null";
 		  throw new NullPointerException(errorText);
@@ -593,7 +593,7 @@ public class HDLmUtility {
      returned if the file exists. False is returned if the
      file does not exist. This routine will return true if
      the file is actually a directory. */
-	protected static boolean  fileExists(String fileName) {
+	protected static boolean  fileExists(final String fileName) {
 		/* Check if the file name passed by the caller is null or not */
 		if (fileName == null) {
 		  String  errorText = "File name string passed to fileExists is null";
@@ -611,7 +611,7 @@ public class HDLmUtility {
 	   error will cause an error message to be issued and the
 	   returned byte array value will be null (not empty or
 	   zero-length). */
-	protected static byte[] fileGetBytes(String fileName) {
+	protected static byte[] fileGetBytes(final String fileName) {
 		if (fileName == null) {
 		  String  errorText = "File name string passed to fileGetBytes is null";
 		  throw new NullPointerException(errorText);
@@ -692,10 +692,10 @@ public class HDLmUtility {
      handled in this routine. An I/O error will cause an error
      message to be issued and the returned string value will be
      null (not empty). */
-	protected static String fileGetContents(String fileName) {
+	protected static String fileGetContents(final String fileName) {
 		return fileGetContents(fileName, null);
 	}
-	protected static String fileGetContents(String fileName, Charset encoding) {
+	protected static String fileGetContents(final String fileName, Charset encoding) {
 		if (fileName == null) {
 		  String  errorText = "File name string passed to fileGetContents is null";
 		  throw new NullPointerException(errorText);
@@ -798,7 +798,7 @@ public class HDLmUtility {
      that I/O errors are handled in this routine. An I/O error
      will cause an error message to be issued and the returned
      string value will be null (not empty). */
-	protected static ArrayList<String> fileGetLines(String fileName) {
+	protected static ArrayList<String> fileGetLines(final String fileName) {
 		/* Check the file name passed by the caller */
 		if (fileName == null) {
 		  String  errorText = "File name string passed to fileGetLines is null";
@@ -815,8 +815,8 @@ public class HDLmUtility {
      handled in this routine. An I/O error will cause an error
      message to be issued and the returned string value will be
      null (not empty). */
-	protected static ArrayList<String> fileGetLines(String fileName,
-			                                            Charset encoding) {
+	protected static ArrayList<String> fileGetLines(final String fileName,
+			                                            final Charset encoding) {
 		/* Check the file name passed by the caller */
 		if (fileName == null) {
 		  String  errorText = "File name string passed to fileGetLines is null";
@@ -906,7 +906,7 @@ public class HDLmUtility {
 	   (in most cases) as the file type. Note, that if the last character
 	   of the file name is a period, then the suffix will be an empty
 	   string, not a null string. */
-	protected static String fileGetSuffix(String fileName) {
+	protected static String fileGetSuffix(final String fileName) {
 		int      lastIndex;
 		if (fileName == null) {
 		  String  errorText = "File name string passed to fileGetSuffix is null";
@@ -923,7 +923,7 @@ public class HDLmUtility {
      file, if the file exists. The file is created if need be.
      Note that this entry point uses a null value as the encoding
      value. */
-  protected static void filePutAppend(String fileName, String outStr) {
+  protected static void filePutAppend(final String fileName, final String outStr) {
   	/* Check if the file name passed by the caller is null or not */
 		if (fileName == null) {
 		  String  errorText = "File name string passed to filePutAppend is null";
@@ -944,7 +944,7 @@ public class HDLmUtility {
      The caller can optionally provide a file encoding value.
      If the file encoding value is null, then no file encoding
      value is used. */
-	protected static void filePutAppend(String fileName, String outStr, Charset encoding) {
+	protected static void filePutAppend(final String fileName, final String outStr, final Charset encoding) {
 		/* Check if the file name passed by the caller is null or not */
 		if (fileName == null) {
 		  String  errorText = "File name string passed to filePutAppend is null";
@@ -1036,7 +1036,7 @@ public class HDLmUtility {
      a newline character to the string passed by the caller. The
      string (line) is always appended to the end of the file, if
      the file exists. The file is created if need be. */
-  protected static void filePutAppendLine(String fileName, String outStr) {
+  protected static void filePutAppendLine(final String fileName, String outStr) {
 		if (fileName == null) {
 		  String  errorText = "File name string passed to filePutAppendLine is null";
 		  throw new NullPointerException(errorText);
@@ -1065,8 +1065,8 @@ public class HDLmUtility {
 		 This routine may need to be synchronized. It is possible,
 		 that the log file is being corrupted because multiple
 		 threads are calling this routine at the same time. */
-	protected static void filePutAppendLineLogs(String outputLine,
-			                                        String hostName) {
+	protected static void filePutAppendLineLogs(final String outputLine,
+			                                        final String hostName) {
 		/* Check if the output line passed by the caller is null */
 		if (outputLine == null) {
 			String  errorText = "Output line passed to filePutAppendLineLogs is null";
@@ -1103,8 +1103,8 @@ public class HDLmUtility {
 	}
 	/* Get some information about a bridge request. The caller
 	   passes the path value string and the parameters. */
-	protected static HDLmUtilityResponse  getBridgeInformation(String pathValue,
-			                                                       String parmValue) {
+	protected static HDLmUtilityResponse  getBridgeInformation(final String pathValue,
+			                                                       final String parmValue) {
 		/* Check if the path value string passed by the caller is null */
 		if (pathValue == null) {
 			String  errorText = "Path value string passed to getBridgeInformation is null";
@@ -1185,7 +1185,7 @@ public class HDLmUtility {
   }
   /* Get the current content type based on the current editor type.
      This routine will always return a lower case string value. */
-  protected static String getContentType(HDLmEditorTypes editorType) {
+  protected static String getContentType(final HDLmEditorTypes editorType) {
 		/* Check if the editor type value passed by the caller is null */
 		if (editorType == null) {
 			String  errorText = "Editor type value passed to getContentType is null";
@@ -1214,7 +1214,7 @@ public class HDLmUtility {
      This routine, might return null, if the environment
      variable does not exist. The value of the environment
      variable might be in mixed case. */
-  protected static String  getEnvironmentVariable(String envNameStr) {
+  protected static String  getEnvironmentVariable(final String envNameStr) {
 		/* Check if the environment variable name passed by the caller is null */
 		if (envNameStr == null) {
 			String  errorText = "Environment variable name passed to getEnvironmentVariable is null";
@@ -1252,7 +1252,7 @@ public class HDLmUtility {
 	   This routine, might return NULL, if the environment variable does
 	   not exist. The value of the environment will always be NULL or the
 	   value of the environment variable in uppercase. */
-	protected static String  getEnvironmentVariableUpper(String envNameStr) {
+	protected static String  getEnvironmentVariableUpper(final String envNameStr) {
 		/* Check if the environment variable name passed by the caller is null */
 		if (envNameStr == null) {
 			String  errorText = "Environment variable name passed to getEnvironmentVariableUpper is null";
@@ -1268,8 +1268,8 @@ public class HDLmUtility {
      the caller and the content suffix passed by the caller.
      This routine implements the rule that an underscore is
      added to the value, if the content suffix is actually set. */
-  protected static String getFinalValue(String value,
-		                                    String contentSuffix) {
+  protected static String getFinalValue(final String value,
+		                                    final String contentSuffix) {
   	if (contentSuffix.length() == 0)
   		return value;
   	return value + '_' + contentSuffix;
@@ -1402,7 +1402,7 @@ public class HDLmUtility {
      caller. The host name will be undefined if the input URL
      does not have a host name. The returned host name will not
      include the port number, if a port number was used. */
-  protected static String  getHostNameFromUrl(String urlStr) {
+  protected static String  getHostNameFromUrl(final String urlStr) {
 	  /* Check if the URL string passed by the caller is null */
 		if (urlStr == null) {
 			String  errorText = "URL string passed to getHostNameFromUrl is null";
@@ -1495,7 +1495,7 @@ public class HDLmUtility {
 		 caller. If the file is recognized as a non-binary file, a
 		 false value is returned to the caller. If the file type can
 		 not be recognized, a null value is returned. */
-	protected static String getMimeType(String suffix) {
+	protected static String getMimeType(final String suffix) {
 		if (suffix == null) {
 		  String  errorText = "File suffix string passed to getMimeType is null";
 		  throw new NullPointerException(errorText);
@@ -1542,7 +1542,7 @@ public class HDLmUtility {
 	   Note that if the list is missing one, then the value of one
 	   will be returned. For example, if the list has [2, 3, 4],
 	   then this routine will return one. */
-	protected static int getNextInteger(ArrayList<Integer> integerList) {
+	protected static int getNextInteger(final ArrayList<Integer> integerList) {
 		/* Check if the integer list array list passed by the caller is null */
 		if (integerList == null) {
 		  String  errorText = "Integer list array list passed to getNextInteger is null";
@@ -1575,7 +1575,7 @@ public class HDLmUtility {
 	   hash value to the caller. The returned value is actually a 64-bit
 	   integer. However, the value is always returned as a 16-digit hex
 	   string. */
-	protected static String getPerceptualHashFromImage(Image imageValue) {
+	protected static String getPerceptualHashFromImage(final Image imageValue) {
 		if (imageValue == null) {
 		  String  errorText = "Image value passed to getPerceptualHash is null";
 		  throw new NullPointerException(errorText);
@@ -1598,7 +1598,7 @@ public class HDLmUtility {
      The caller can provide an already calculated perceptual hash value.
      This value will be null if it has not already been calculated and
      non-null, if it has already been calculated. */
-	protected static HDLmUtilityResponse  getPerceptualHashFromUrl(String urlStr,
+	protected static HDLmUtilityResponse  getPerceptualHashFromUrl(final String urlStr,
 			                                                           String pHashHex) {
 		if (urlStr == null) {
 		  String  errorText = "URL value passed to getPerceptualHash is null";
@@ -1695,7 +1695,7 @@ public class HDLmUtility {
 	   from it (if possible). The protocol is returned to the
 	   caller. The protocol will be undefined if the input URL
 	   does not have a protocol. */
-	protected static String  getProtocolFromUrl(String urlStr) {
+	protected static String  getProtocolFromUrl(final String urlStr) {
 	 /* Check if the URL string passed by the caller is null */
 		if (urlStr == null) {
 			String  errorText = "URL string passed to getProtocolFromUrl is null";
@@ -1738,7 +1738,7 @@ public class HDLmUtility {
      double values is in the range 0.0 to 1.0. The caller specifies
      how many values should be obtained. That number of values must
      be greater than or equal to zero. */
-  protected static ArrayList<Double> getRandomDoubleList(int numberValues) {
+  protected static ArrayList<Double> getRandomDoubleList(final int numberValues) {
     if (numberValues < 0) {
 		  HDLmAssertAction(false, "Number of values passed to getRandomDoubleList is less than zero");
 		}
@@ -1761,7 +1761,7 @@ public class HDLmUtility {
      exception and the stack trace. All of the information
      including the stack trace is returned to the caller as
      a string. */
-	protected static String getStackTrace(Exception exception) {
+	protected static String getStackTrace(final Exception exception) {
     StringBuffer  stringBuffer = new StringBuffer(500);
     StackTraceElement[]   stackTraceArray = exception.getStackTrace();
     stringBuffer.append(exception.getClass().getName() + ": " + exception.getMessage() + "\n");
@@ -1781,9 +1781,12 @@ public class HDLmUtility {
 	  if (HDLmMain.isDockerFlagSet() == false) {
 		  /* Check for Windows versus Unix (of some kind) */
 		  if (HDLmMain.getOsType() == HDLmOsTypes.WINDOWS) {
-		  	standardPathStr += "\\Users\\pscha\\HeadlampJetty\\workspace-4.33.0";
-		  	standardPathStr += "\\ProxyServerA\\";
-		  }
+		  	/* The following code was changed to use the current user directory.
+		  	   This should make the code more portable. The previous hard coded 
+		  	   path was really only good for one specific system. */
+		  	standardPathStr += System.getProperty("user.dir");
+		  	/* standardPathStr += "\\Users\\pscha\\HeadlampJetty\\workspace-4.33.0"; */
+		  	/* standardPathStr += "\\ProxyServerA\\"; */		  }
 		  /* The following path is correct for our AWS Linux instance */
 		  else {
 		  	standardPathStr += "/var/www/html";
@@ -1899,7 +1902,7 @@ public class HDLmUtility {
      The format will be YYYY-MM-DDTHH:MM:SS.UUUUUU and that time
      will always be the current UTC time. Note that this not exactly
      the ISO 8601 format. However, it is close. */
-	protected static String getUtcTimeStamp(Instant instant) {
+	protected static String getUtcTimeStamp(final Instant instant) {
 		/* Get the timetamp as a string and remove the trailing Z character */
 		String    timeStampStr = instant.toString();
 		int       timeStampLen = timeStampStr.length();
@@ -1920,7 +1923,7 @@ public class HDLmUtility {
   }
 	/* This routine is passed a string and a function. The function is invoked
 	   on the string. */
-	protected static void  handleStringUsingFunction(String inStr, Function<String, Void> strFunction) {
+	protected static void  handleStringUsingFunction(final String inStr, final Function<String, Void> strFunction) {
 		/* Check the values passed by the caller */
 		if (inStr == null) {
 		  String  errorText = "String passed to handleStringUsingFunction is null";
@@ -1937,7 +1940,7 @@ public class HDLmUtility {
 	/* The method convert a hexadecimal string to a binary string.
 	   The output string will contain only zero and 1 characters.
 	   The output string is returned to the caller. */
-	public static String hexToBinary(String hexString) {
+	public static String hexToBinary(final String hexString) {
     int binaryLength = hexString.length() * 4;
     String binaryString = new BigInteger(hexString, 16).toString(2);
     /* Left pad the string result with 0s if converting to BigInteger
@@ -1982,7 +1985,7 @@ public class HDLmUtility {
      caller. If the file is recognized as a non-binary file, a
      Boolean false value is returned to the caller. If the file type
      can not be recognized, a null value is returned. */
-  protected static Boolean isTypeBinary(String suffix) {
+  protected static Boolean isTypeBinary(final String suffix) {
 		if (suffix == null) {
 		  String  errorText = "File suffix string passed to isTypeBinary is null";
 		  throw new NullPointerException(errorText);
@@ -2010,7 +2013,7 @@ public class HDLmUtility {
   }
   /* Load an image from a URL (hopefully). This routine takes a URL
      and tries to get a image. The image is returned to the caller. */
-  protected static Image loadImage(String urlStr) {
+  protected static Image loadImage(final String urlStr) {
 		if (urlStr == null) {
 		  String  errorText = "URL string passed to loadImage is null";
 		  throw new NullPointerException(errorText);
@@ -2084,7 +2087,7 @@ public class HDLmUtility {
      means that all of the stack entries will be logged. One will
      skip the stack trace entry for the getStackTrace call. Two
      will skip the getStackTrace call and the call to this routine. */
-  protected static void logStackTrace(int skipEntries) {
+  protected static void logStackTrace(final int skipEntries) {
   	StackTraceElement[] elements = Thread.currentThread().getStackTrace();
   	for (int i = skipEntries; i < elements.length; i++) {
   	     StackTraceElement  s = elements[i];
@@ -2102,7 +2105,7 @@ public class HDLmUtility {
   }
 	/* This routine logs a string passed by the caller. The caller must
 	   make sure that the string can be logged (is short enough). */
-	protected static void  logString(String inStr, Logger passedLogger) {
+	protected static void  logString(final String inStr, final Logger passedLogger) {
 		/* Check the values passed by the caller */
 		if (inStr == null) {
 		  String  errorText = "String passed to logString is null";
@@ -2201,7 +2204,7 @@ public class HDLmUtility {
      and the remaining URL is returned to the caller. If the URL does
      not start with 'http:' or 'https:', then the URL is not modified.
      Note that schemes such as 'file:' are ignored by this code. */
-	protected static String removeHttpPrefix(String urlStr) {
+	protected static String removeHttpPrefix(final String urlStr) {
 		/* Check if the URL string passed by the caller is null */
 		if (urlStr == null) {
 			String  errorText = "URL string passed to removeHttpPrefix is null";
@@ -2442,7 +2445,7 @@ public class HDLmUtility {
      lines. The caller provides the input string and the suffix
      used to split the input string into lines. The suffix string
      must be at least one character long. */
-	protected static ArrayList<String> splitLinesSuffix(String inString, String suffix) {
+	protected static ArrayList<String> splitLinesSuffix(final String inString, final String suffix) {
 		if (inString == null) {
 		  String  errorText = "Input string passed to splitLinesSuffix is null";
 		  throw new NullPointerException(errorText);
@@ -2491,7 +2494,7 @@ public class HDLmUtility {
      on the right for any trailing whitespace. The updated line
      is added to the output array. The original array and the lines
      in the original array are not modified. */
-	protected static ArrayList<String> trimLinesRight(ArrayList<String> inLines) {
+	protected static ArrayList<String> trimLinesRight(final ArrayList<String> inLines) {
 		if (inLines == null) {
 		  String  errorText = "Input lines array passed to trimLinesRight is null";
 		  throw new NullPointerException(errorText);
@@ -2513,7 +2516,7 @@ public class HDLmUtility {
      URL. If it not a data URL, then it may start with two forward
      slash characters without an HTTP/HTTPS protocol in front of the
      two forward slash characters.*/
-	protected static void  updatePHashCache(String urlStr, String pHashHex) {
+	protected static void  updatePHashCache(final String urlStr, final String pHashHex) {
 		if (urlStr == null) {
 		  String  errorText = "URL value passed to updatePHashCache is null";
 		  throw new NullPointerException(errorText);
@@ -2528,7 +2531,7 @@ public class HDLmUtility {
 	}
 	/* This routine writes to a file. The caller provides 
 	   the file name, and the file contents as a string. */
-	protected static void  writeToFile(String fileName, String fileContents) {
+	protected static void  writeToFile(final String fileName, final String fileContents) {
 		if (fileName == null) {
 			String errorText = "File name string passed to writeToFile is null";
 			throw new NullPointerException(errorText);

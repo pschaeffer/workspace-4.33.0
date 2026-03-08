@@ -36,18 +36,18 @@ public class HDLmCurlJetty {
 	   does not appear to be in use, except for some test code that runs it.
 	   The Apache routine does appear to be in use. This routine is retained
 	   only for historical reasons. */
-	protected static String  runCurl(String url, 
-			                             String userid, 
-			                             String password, 
-                                   HDLmHttpTypes type) {
+	protected static String  runCurl(final String url, 
+			                             final String userid, 
+			                             final String password, 
+                                   final HDLmHttpTypes type) {
   	return runCurl(url, userid, password, type, "", HDLmReportErrors.REPORTERRORS);
   }
-	protected static String  runCurl(String url, 
-			                             String userid, 
-			                             String password, 
-  		                             HDLmHttpTypes type, 
-  		                             String extraInfo, 
-  		                             HDLmReportErrors reportErrors) {
+	protected static String  runCurl(final String url, 
+			                             final String userid, 
+			                             final String password, 
+  		                             final HDLmHttpTypes type, 
+  		                             final String extraInfo, 
+  		                             final HDLmReportErrors reportErrors) {
 		if (url == null) {
 			String   errorText = "URL reference passed to runCurl is null";
 			throw new NullPointerException(errorText);		
@@ -202,7 +202,7 @@ public class HDLmCurlJetty {
   /* This routine does all of the work needed to report a Curl error. 
      Hopefully, we won't have any Curl errors. However, if we do have
      Curl errors, this routine will report them. */ 
-  protected static String reportCurlError(String errorMsg, HDLmReportErrors reportErrors) {
+  protected static String reportCurlError(final String errorMsg, final HDLmReportErrors reportErrors) {
 		if (errorMsg == null) {
 			String   errorText = "Error message reference passed to reportCurlError is null";
 			throw new NullPointerException(errorText);		

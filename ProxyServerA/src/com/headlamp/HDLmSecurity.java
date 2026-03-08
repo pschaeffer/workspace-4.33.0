@@ -149,7 +149,7 @@ public class HDLmSecurity {
 	   can be used if they are not too old. If they are too old, they
 	   can not be used. */
 	protected static boolean  checkLastTimeFailure(final String userNameStr,
-			                                           HDLmUtilityResponse outputArea) {
+			                                                 HDLmUtilityResponse outputArea) {
 		/* Check if the user name string passed by the caller is null */
 		if (userNameStr == null) {
 			String  errorText = "User name string passed to checkLastTimeFailure is null";
@@ -280,11 +280,11 @@ public class HDLmSecurity {
 			throw new NullPointerException(errorText);
 		}
 		/* Get some values needed to invoke the AWS Cognito API */
-		String  AWSCognitoHostName = HDLmConfigInfo.getAwsCognitoHost(); 
+		String  awsCognitoHostName = HDLmConfigInfo.getAwsCognitoHost(); 
 		String  userPoolId = HDLmConfigInfo.getAwsCognitoUserPoolId();
 		String  apiJson = HDLmSecurity.getJsonAdminGetUser(userPoolId, userName);
 		int     apiJsonLen = apiJson.length();
-		ArrayList<String>   apiHeaders = HDLmSecurity.getHeadersAdminGetUser(AWSCognitoHostName,
+		ArrayList<String>   apiHeaders = HDLmSecurity.getHeadersAdminGetUser(awsCognitoHostName,
 				                                                                 userPoolId,
 				                                                                 userName,
 				                                                                 apiJsonLen);
@@ -316,11 +316,11 @@ public class HDLmSecurity {
 			throw new NullPointerException(errorText);
 		}
 		/* Get some values needed to invoke the AWS Cognito API */
-		String  AWSCognitoHostName = HDLmConfigInfo.getAwsCognitoHost(); 
+		String  awsCognitoHostName = HDLmConfigInfo.getAwsCognitoHost(); 
 		String  clientAppId = HDLmConfigInfo.getAwsCognitoUserPoolClientAppId();
 		String  apiJson = HDLmSecurity.getJsonInitiateAuth(clientAppId, userName, passwordStr);
 		int     apiJsonLen = apiJson.length();
-		ArrayList<String>   apiHeaders = HDLmSecurity.getHeadersInitiateAuth(AWSCognitoHostName, apiJsonLen);
+		ArrayList<String>   apiHeaders = HDLmSecurity.getHeadersInitiateAuth(awsCognitoHostName, apiJsonLen);
 		HDLmApacheResponse  apiOutput;
 		/* Invoke the Cognito API and return the string to the caller */
 		apiOutput = HDLmSecurity.invokeCognitoApi(apiHeaders, apiJson);
@@ -356,15 +356,15 @@ public class HDLmSecurity {
 			throw new NullPointerException(errorText);
 		}
 		/* Get some values needed to invoke the AWS Cognito API */
-		String  AWSCognitoHostName = HDLmConfigInfo.getAwsCognitoHost(); 
+		String  awsCognitoHostName = HDLmConfigInfo.getAwsCognitoHost(); 
 		String  clientAppId = HDLmConfigInfo.getAwsCognitoUserPoolClientAppId();
 		String  apiJson = HDLmSecurity.getJsonRespondToChallenge(clientAppId, 
-			                                                      challengeName, 
-			                                                      userName, 
-			                                                      verificationCode, 
-			                                                      sessionStr);
+			                                                       challengeName, 
+			                                                       userName, 
+			                                                       verificationCode, 
+			                                                       sessionStr);
 		int   apiJsonLen = apiJson.length();
-		ArrayList<String>   apiHeaders = HDLmSecurity.getHeadersRespondToChallenge(AWSCognitoHostName, 
+		ArrayList<String>   apiHeaders = HDLmSecurity.getHeadersRespondToChallenge(awsCognitoHostName, 
 			                                                                         apiJsonLen);
 		HDLmApacheResponse  apiOutput;
 		/* Invoke the Cognito API and return the output string to the caller */
@@ -601,10 +601,10 @@ public class HDLmSecurity {
 			throw new NullPointerException(errorText);
 		}
     /* Get some values needed to invoke the AWS Cognito API */
-    String  AWSCognitoHostName = HDLmConfigInfo.getAwsCognitoHost();
+    String  awsCognitoHostName = HDLmConfigInfo.getAwsCognitoHost();
     String  apiJson = HDLmSecurity.getJsonGetAttributes(accessToken);
     int     apiJsonLen = apiJson.length();
-    ArrayList<String>   apiHeaders = getHeadersGetAttributes(AWSCognitoHostName, apiJsonLen);
+    ArrayList<String>   apiHeaders = getHeadersGetAttributes(awsCognitoHostName, apiJsonLen);
     HDLmApacheResponse  apiOutput;
     /* Invoke the Cognito API and return the output string to the caller */
     apiOutput = HDLmSecurity.invokeCognitoApi(apiHeaders, apiJson);
@@ -1232,10 +1232,10 @@ public class HDLmSecurity {
 			throw new NullPointerException(errorText);
 		}	
  	  /* Get some values needed to invoke the AWS Cognito API */
-	  String  AWSCognitoHostName = HDLmConfigInfo.getAwsCognitoHost(); 
+	  String  awsCognitoHostName = HDLmConfigInfo.getAwsCognitoHost(); 
 	  String  apiJson = HDLmSecurity.getJsonAdminGetUser(userPoolId, userName);
 	  int     apiJsonLen = apiJson.length();
-	  ArrayList<String>   apiHeaders = getHeadersAdminGetUser(AWSCognitoHostName, userPoolId, userName, apiJsonLen);
+	  ArrayList<String>   apiHeaders = getHeadersAdminGetUser(awsCognitoHostName, userPoolId, userName, apiJsonLen);
 	  HDLmApacheResponse  apiOutput;
 	  /* Invoke the Cognito API and return the output string to the caller */
 	  apiOutput = HDLmSecurity.invokeCognitoApi(apiHeaders, apiJson);
@@ -1402,10 +1402,10 @@ public class HDLmSecurity {
 		}		
 	  /* Get some values needed to invoke the AWS Cognito API */
 		boolean   permanentPassword = true;
-	  String    AWSCognitoHostName = HDLmConfigInfo.getAwsCognitoHost();
+	  String    awsCognitoHostName = HDLmConfigInfo.getAwsCognitoHost();
 	  String    apiJson = HDLmSecurity.getJsonAdminSetUserPassword(userPoolId, userName, password, permanentPassword);
 	  int       apiJsonLen = apiJson.length();
-	  ArrayList<String>   apiHeaders = getHeadersAdminSetUserPassword(AWSCognitoHostName, userPoolId, userName, password, permanentPassword, apiJsonLen);
+	  ArrayList<String>   apiHeaders = getHeadersAdminSetUserPassword(awsCognitoHostName, userPoolId, userName, password, permanentPassword, apiJsonLen);
 	  HDLmApacheResponse  apiOutput;
 	  /* Invoke the Cognito API and return the output string to the caller */
 	  apiOutput = HDLmSecurity.invokeCognitoApi(apiHeaders, apiJson);

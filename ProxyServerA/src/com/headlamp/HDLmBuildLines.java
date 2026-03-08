@@ -39,7 +39,7 @@ public class HDLmBuildLines {
   	this.type = buildType;  	
   }
   /* Add a new line to the set of lines */
-	protected void addLine(String newLine) {		
+	protected void addLine(final String newLine) {		
 		if (newLine == null) {
 			String   errorText = "New line reference passed to addLine is null";
 			throw new NullPointerException(errorText);			

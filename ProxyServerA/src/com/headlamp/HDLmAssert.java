@@ -14,7 +14,7 @@ public class HDLmAssert {
 	private HDLmAssert() {}
 	/* The HDLmAssert function (which is not a class) is used to
 	   provide a simple assert mechanism */	
-	protected static void HDLmAssertAction(boolean test, String  errorText) {
+	protected static void HDLmAssertAction(final boolean test, String  errorText) {
 		/* Note that the error text string reference passed to this
 		   method could be null. This is checked for below. There 
 		   is no check for a null value here. */ 	  

@@ -20,7 +20,7 @@ public class HDLmToken {
 	private int              index;
 	private String           value;
 	/* Add a single character to the value string */
-	protected void addCharacter(char newCh) {
+	protected void addCharacter(final char newCh) {
 		value += newCh;
 	}
 	/* Get a few values */
@@ -37,16 +37,16 @@ public class HDLmToken {
 		return value;
 	}
 	/* Set a few values */
-	protected void setIndex(int newIndex) {
+	protected void setIndex(final int newIndex) {
 		if (newIndex < 0) {
 		  HDLmAssertAction(false, "New token index value is less than zero");
 		}
 	  index = newIndex;
 	}
-	protected void setType(HDLmTokenTypes newType) {
+	protected void setType(final HDLmTokenTypes newType) {
 		type = newType;
 	}
-	protected void setValue(String newValue) {
+	protected void setValue(final String newValue) {
 		if (newValue == null) {
 			String  errorText = "New token value string is null";
 			throw new NullPointerException(errorText);

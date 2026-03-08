@@ -26,7 +26,7 @@ public class HDLmImageParameter {
 	/* Set or reset the parameter name. Note that the caller can 
      not pass a null value for the new parameter name. This is an
      an error condition. */
-	protected void setParameterName(String newParmName) {
+	protected void setParameterName(final String newParmName) {
 		if (newParmName == null) {
 			String  errorText = "New parameter name string is null";
 			throw new NullPointerException(errorText);
@@ -36,7 +36,7 @@ public class HDLmImageParameter {
 	/* Set or reset the parameter value. Note that the caller can 
      not pass a null value for the new parameter value. This is an
      an error condition. */
-  protected void setParameterValue(String newParmValue) {
+  protected void setParameterValue(final String newParmValue) {
 		if (newParmValue == null) {
 			String  errorText = "New parameter value string is null";
 			throw new NullPointerException(errorText);

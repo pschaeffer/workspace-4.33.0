@@ -28,7 +28,7 @@ public class HDLmPassThru {
 	/* The method below processes just one set of details (really just
 	   one instance that extends the modification type). The JSON element
 	   is converted to a JSON object and various changes are mode. */  
-	protected static void processJsonPass(JsonElement jsonElement) {		
+	protected static void processJsonPass(final JsonElement jsonElement) {		
 		/* Check if the JSON element value passed by the caller is null */
 		if (jsonElement == null) {
 		  String  errorText = "Node tree value passed to processJsonPass is null";

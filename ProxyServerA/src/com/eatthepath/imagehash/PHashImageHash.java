@@ -27,23 +27,23 @@ public class PHashImageHash implements PerceptualImageHash {
     private static final int SCALED_IMAGE_SIZE = 32;
     private static final FloatDCT_2D DCT = new FloatDCT_2D(SCALED_IMAGE_SIZE, SCALED_IMAGE_SIZE);
 
-    public long getPerceptualHash(final File imageFile) throws IOException {
+    public long getPerceptualHash(File imageFile) throws IOException {
         return this.getPerceptualHash(ImageIO.read(imageFile));
     }
 
-    public long getPerceptualHash(final ImageInputStream imageInputStream) throws IOException {
+    public long getPerceptualHash(ImageInputStream imageInputStream) throws IOException {
         return this.getPerceptualHash(ImageIO.read(imageInputStream));
     }
 
-    public long getPerceptualHash(final InputStream inputStream) throws IOException {
+    public long getPerceptualHash(InputStream inputStream) throws IOException {
         return this.getPerceptualHash(ImageIO.read(inputStream));
     }
 
-    public long getPerceptualHash(final URL imageUrl) throws IOException {
+    public long getPerceptualHash(URL imageUrl) throws IOException {
         return this.getPerceptualHash(ImageIO.read(imageUrl));
     }
 
-    public long getPerceptualHash(final Image image) {
+    public long getPerceptualHash(Image image) {
         // As a foreword, this is an adaptation of a high-level explanation of the pHash algorithm. Many implementation
         // details are probably a bit off the mark. For the rough explanation, see
         // http://www.hackerfactor.com/blog/index.php?/archives/432-Looks-Like-It.html.

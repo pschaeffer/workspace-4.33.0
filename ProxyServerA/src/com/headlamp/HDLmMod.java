@@ -46,2431 +46,2439 @@ public class HDLmMod {
 	/* The next statement initializes logging to some degree. Note that 
      having the slf4j jars and the log4j jars in the classpath also
      plays some role in logging initialization. */
-private static final Logger LOG = LoggerFactory.getLogger(HDLmMod.class); 
+  private static final Logger LOG = LoggerFactory.getLogger(HDLmMod.class); 	
 	/* The following JSON data structure is used to build the editor
-     for each type of modification. The modification type is used
-     as the property name to obtain each set of modification data. */
-static String HDLmModInfoDataString =
-" {" +
-"   \"attribute\":       { \"fields\":" +
-"                          [" +
-"                            {" +
-"                              \"description\":   \"Modification Name\"," +
-"                              \"source\":        \"name\"," +
-"                              \"fieldtype\":     \"iotext\"," +
-"                              \"subtype\":       \"modificationname\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Path Value\"," +
-"                              \"source\":        \"pathvalue\"," +
-"                              \"fieldtype\":     \"pathvalue\"," +
-"                              \"subtype\":       \"Path Value\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Comments\"," +
-"                              \"source\":        \"comments\"," +
-"                              \"fieldtype\":     \"comminfo\"," +
-"                              \"subtype\":       \"comments\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Extra Information\"," +
-"                              \"source\":        \"extra\"," +
-"                              \"fieldtype\":     \"extrainfo\"," +
-"                              \"subtype\":       \"extraAttribute\"" +
-"                            }," +
-"														 {" +
-"															 \"description\":   \"Probability\"," +
-"															 \"source\":        \"probability\"," +
-"															 \"fieldtype\":     \"float\"," +
-"															 \"subtype\":       \"probability\"" +
-"														 }," +
-"														 {" +
-"															 \"description\":   \"Use Mode\"," +
-"															 \"source\":        \"usemode\"," +
-"															 \"fieldtype\":     \"usemode\"," +
-"															 \"subtype\":       \"usemode\"" +
-"														 }," +
-"                            {" +
-"                              \"description\":   \"Created\"," +
-"                              \"source\":        \"created\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Last Modified\"," +
-"                              \"source\":        \"lastmodified\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"CSS Selector\"," +
-"                              \"source\":        \"cssselector\"," +
-"                              \"fieldtype\":     \"cssinfo\"," +
-"                              \"subtype\":       \"cssselector\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"XPath Information\"," +
-"                              \"source\":        \"xpath\"," +
-"                              \"fieldtype\":     \"xpathinfo\"," +
-"                              \"subtype\":       \"xpath\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Find Information\"," +
-"                              \"source\":        \"find\"," +
-"                              \"fieldtype\":     \"findinfo\"," +
-"                              \"subtype\":       \"find\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Node Identifier\"," +
-"                              \"source\":        \"nodeiden\"," +
-"                              \"fieldtype\":     \"nodeiden\"," +
-"                              \"subtype\":       \"nodeiden\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Type\"," +
-"                              \"source\":        \"type\"," +
-"                              \"fieldtype\":     \"typelist\"," +
-"                              \"subtype\":       \"editabletypelist\"" +
-"                            }" +
-"                          ]" + 
-"                        }," +
-"   \"changeattrs\":     { \"fields\":" +
-"                          [" +
-"                            {" +
-"                              \"description\":   \"Modification Name\"," +
-"                              \"source\":        \"name\"," +
-"                              \"fieldtype\":     \"iotext\"," +
-"                              \"subtype\":       \"modificationname\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Path Value\"," +
-"                              \"source\":        \"pathvalue\"," +
-"                              \"fieldtype\":     \"pathvalue\"," +
-"                              \"subtype\":       \"Path Value\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Comments\"," +
-"                              \"source\":        \"comments\"," +
-"                              \"fieldtype\":     \"comminfo\"," +
-"                              \"subtype\":       \"comments\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Extra Information\"," +
-"                              \"source\":        \"extra\"," +
-"                              \"fieldtype\":     \"extrainfo\"," +
-"                              \"subtype\":       \"extra\"" +
-"                            }," +
-"														 {" +
-"															 \"description\":   \"Probability\"," +
-"															 \"source\":        \"probability\"," +
-"															 \"fieldtype\":     \"float\"," +
-"															 \"subtype\":       \"probability\"" +
-"														 }," +
-"														 {" +
-"															 \"description\":   \"Use Mode\"," +
-"															 \"source\":        \"usemode\"," +
-"															 \"fieldtype\":     \"usemode\"," +
-"															 \"subtype\":       \"usemode\"" +
-"														 }," +
-"                            {" +
-"                              \"description\":   \"Created\"," +
-"                              \"source\":        \"created\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Last Modified\"," +
-"                              \"source\":        \"lastmodified\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"CSS Selector\"," +
-"                              \"source\":        \"cssselector\"," +
-"                              \"fieldtype\":     \"cssinfo\"," +
-"                              \"subtype\":       \"cssselector\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"XPath Information\"," +
-"                              \"source\":        \"xpath\"," +
-"                              \"fieldtype\":     \"xpathinfo\"," +
-"                              \"subtype\":       \"xpath\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Find Information\"," +
-"                              \"source\":        \"find\"," +
-"                              \"fieldtype\":     \"findinfo\"," +
-"                              \"subtype\":       \"find\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Node Identifier\"," +
-"                              \"source\":        \"nodeiden\"," +
-"                              \"fieldtype\":     \"nodeiden\"," +
-"                              \"subtype\":       \"nodeiden\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Parameter Number\"," +
-"                              \"source\":        \"parameter\"," +
-"                              \"fieldtype\":     \"ionumber\"," +
-"                              \"subtype\":       \"parameter\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Type\"," +
-"                              \"source\":        \"type\"," +
-"                              \"fieldtype\":     \"typelist\"," +
-"                              \"subtype\":       \"editabletypelist\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Change Attributes Values\"," +
-"                              \"source\":        \"changeattrsvalues\"," +
-"                              \"fieldtype\":     \"textlist\"," +
-"                              \"subtype\":       \"changeattrs\"," +
-"                              \"datatype\":      \"array\"" +
-"                            }" +
-"                          ]" +
-"                        }," +
-"   \"extract\":         { \"fields\":" +
-"                          [" +
-"                            {" +
-"                              \"description\":   \"Modification Name\"," +
-"                              \"source\":        \"name\"," +
-"                              \"fieldtype\":     \"iotext\"," +
-"                              \"subtype\":       \"modificationname\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Path Value\"," +
-"                              \"source\":        \"pathvalue\"," +
-"                              \"fieldtype\":     \"pathvalue\"," +
-"                              \"subtype\":       \"Path Value\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Comments\"," +
-"                              \"source\":        \"comments\"," +
-"                              \"fieldtype\":     \"comminfo\"," +
-"                              \"subtype\":       \"comments\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Extra Information\"," +
-"                              \"source\":        \"extra\"," +
-"                              \"fieldtype\":     \"extrainfo\"," +
-"                              \"subtype\":       \"extra\"" +
-"                            }," +
-"														 {" +
-"															 \"description\":   \"Probability\"," +
-"															 \"source\":        \"probability\"," +
-"															 \"fieldtype\":     \"float\"," +
-"															 \"subtype\":       \"probability\"" +
-"														 }," +
-"														 {" +
-"															 \"description\":   \"Use Mode\"," +
-"															 \"source\":        \"usemode\"," +
-"															 \"fieldtype\":     \"usemode\"," +
-"															 \"subtype\":       \"usemode\"" +
-"														 }," +
-"                            {" +
-"                              \"description\":   \"Created\"," +
-"                              \"source\":        \"created\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Last Modified\"," +
-"                              \"source\":        \"lastmodified\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"CSS Selector\"," +
-"                              \"source\":        \"cssselector\"," +
-"                              \"fieldtype\":     \"cssinfo\"," +
-"                              \"subtype\":       \"cssselector\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"XPath Information\"," +
-"                              \"source\":        \"xpath\"," +
-"                              \"fieldtype\":     \"xpathinfo\"," +
-"                              \"subtype\":       \"xpath\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Find Information\"," +
-"                              \"source\":        \"find\"," +
-"                              \"fieldtype\":     \"findinfo\"," +
-"                              \"subtype\":       \"find\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Node Identifier\"," +
-"                              \"source\":        \"nodeiden\"," +
-"                              \"fieldtype\":     \"nodeiden\"," +
-"                              \"subtype\":       \"nodeiden\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Type\"," +
-"                              \"source\":        \"type\"," +
-"                              \"fieldtype\":     \"typelist\"," +
-"                              \"subtype\":       \"editabletypelist\"" +
-"                            }" +
-"                          ]" +
-"                        }," +
-"   \"fontcolor\":       { \"fields\":" +
-"                          [" +
-"                            {" +
-"                              \"description\":   \"Modification Name\"," +
-"                              \"source\":        \"name\"," +
-"                              \"fieldtype\":     \"iotext\"," +
-"                              \"subtype\":       \"modificationname\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Path Value\"," +
-"                              \"source\":        \"pathvalue\"," +
-"                              \"fieldtype\":     \"pathvalue\"," +
-"                              \"subtype\":       \"Path Value\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Comments\"," +
-"                              \"source\":        \"comments\"," +
-"                              \"fieldtype\":     \"comminfo\"," +
-"                              \"subtype\":       \"comments\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Extra Information\"," +
-"                              \"source\":        \"extra\"," +
-"                              \"fieldtype\":     \"extrainfo\"," +
-"                              \"subtype\":       \"extra\"" +
-"                            }," +
-"														 {" +
-"															 \"description\":   \"Probability\"," +
-"															 \"source\":        \"probability\"," +
-"															 \"fieldtype\":     \"float\"," +
-"															 \"subtype\":       \"probability\"" +
-"														 }," +
-"														 {" +
-"															 \"description\":   \"Use Mode\"," +
-"															 \"source\":        \"usemode\"," +
-"															 \"fieldtype\":     \"usemode\"," +
-"															 \"subtype\":       \"usemode\"" +
-"														 }," +
-"                            {" +
-"                              \"description\":   \"Created\"," +
-"                              \"source\":        \"created\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Last Modified\"," +
-"                              \"source\":        \"lastmodified\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"CSS Selector\"," +
-"                              \"source\":        \"cssselector\"," +
-"                              \"fieldtype\":     \"cssinfo\"," +
-"                              \"subtype\":       \"cssselector\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"XPath Information\"," +
-"                              \"source\":        \"xpath\"," +
-"                              \"fieldtype\":     \"xpathinfo\"," +
-"                              \"subtype\":       \"xpath\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Find Information\"," +
-"                              \"source\":        \"find\"," +
-"                              \"fieldtype\":     \"findinfo\"," +
-"                              \"subtype\":       \"find\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Node Identifier\"," +
-"                              \"source\":        \"nodeiden\"," +
-"                              \"fieldtype\":     \"nodeiden\"," +
-"                              \"subtype\":       \"nodeiden\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Parameter Number\"," +
-"                              \"source\":        \"parameter\"," +
-"                              \"fieldtype\":     \"ionumber\"," +
-"                              \"subtype\":       \"parameter\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Type\"," +
-"                              \"source\":        \"type\"," +
-"                              \"fieldtype\":     \"typelist\"," +
-"                              \"subtype\":       \"editabletypelist\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Font Colors\"," +
-"                              \"source\":        \"colors\"," +
-"                              \"fieldtype\":     \"colorlist\"," +
-"                              \"subtype\":       \"colors\"," +
-"                              \"datatype\":      \"array\"" +
-"                            }" +
-"                          ]" +
-"                        }," +
-"   \"fontfamily\":      { \"fields\":" +
-"                          [" +
-"                            {" +
-"                              \"description\":   \"Modification Name\"," +
-"                              \"source\":        \"name\"," +
-"                              \"fieldtype\":     \"iotext\"," +
-"                              \"subtype\":       \"modificationname\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Path Value\"," +
-"                              \"source\":        \"pathvalue\"," +
-"                              \"fieldtype\":     \"pathvalue\"," +
-"                              \"subtype\":       \"Path Value\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Comments\"," +
-"                              \"source\":        \"comments\"," +
-"                              \"fieldtype\":     \"comminfo\"," +
-"                              \"subtype\":       \"comments\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Extra Information\"," +
-"                              \"source\":        \"extra\"," +
-"                              \"fieldtype\":     \"extrainfo\"," +
-"                              \"subtype\":       \"extra\"" +
-"                            }," +
-"														 {" +
-"															 \"description\":   \"Probability\"," +
-"															 \"source\":        \"probability\"," +
-"															 \"fieldtype\":     \"float\"," +
-"															 \"subtype\":       \"probability\"" +
-"														 }," +
-"														 {" +
-"															 \"description\":   \"Use Mode\"," +
-"															 \"source\":        \"usemode\"," +
-"															 \"fieldtype\":     \"usemode\"," +
-"															 \"subtype\":       \"usemode\"" +
-"														 }," +
-"                            {" +
-"                              \"description\":   \"Created\"," +
-"                              \"source\":        \"created\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Last Modified\"," +
-"                              \"source\":        \"lastmodified\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"CSS Selector\"," +
-"                              \"source\":        \"cssselector\"," +
-"                              \"fieldtype\":     \"cssinfo\"," +
-"                              \"subtype\":       \"cssselector\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"XPath Information\"," +
-"                              \"source\":        \"xpath\"," +
-"                              \"fieldtype\":     \"xpathinfo\"," +
-"                              \"subtype\":       \"xpath\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Find Information\"," +
-"                              \"source\":        \"find\"," +
-"                              \"fieldtype\":     \"findinfo\"," +
-"                              \"subtype\":       \"find\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Node Identifier\"," +
-"                              \"source\":        \"nodeiden\"," +
-"                              \"fieldtype\":     \"nodeiden\"," +
-"                              \"subtype\":       \"nodeiden\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Parameter Number\"," +
-"                              \"source\":        \"parameter\"," +
-"                              \"fieldtype\":     \"ionumber\"," +
-"                              \"subtype\":       \"parameter\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Type\"," +
-"                              \"source\":        \"type\"," +
-"                              \"fieldtype\":     \"typelist\"," +
-"                              \"subtype\":       \"editabletypelist\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Font Families\"," +
-"                              \"source\":        \"families\"," +
-"                              \"fieldtype\":     \"textlist\"," +
-"                              \"subtype\":       \"fontfamily\"," +
-"                              \"datatype\":      \"array\"" +
-"                            }" +
-"                          ]" +
-"                        }," +
-"   \"fontkerning\":     { \"fields\":" +
-"                          [" +
-"                            {" +
-"                              \"description\":   \"Modification Name\"," +
-"                              \"source\":        \"name\"," +
-"                              \"fieldtype\":     \"iotext\"," +                       
-"                              \"subtype\":       \"modificationname\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Path Value\"," +
-"                              \"source\":        \"pathvalue\"," +
-"                              \"fieldtype\":     \"pathvalue\"," +
-"                              \"subtype\":       \"Path Value\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Comments\"," +
-"                              \"source\":        \"comments\"," +
-"                              \"fieldtype\":     \"comminfo\"," +
-"                              \"subtype\":       \"comments\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Extra Information\"," +
-"                              \"source\":        \"extra\"," +
-"                              \"fieldtype\":     \"extrainfo\"," +
-"                              \"subtype\":       \"extra\"" +
-"                            }," +
-"														 {" +
-"															 \"description\":   \"Probability\"," +
-"															 \"source\":        \"probability\"," +
-"															 \"fieldtype\":     \"float\"," +
-"															 \"subtype\":       \"probability\"" +
-"														 }," +
-"														 {" +
-"															 \"description\":   \"Use Mode\"," +
-"															 \"source\":        \"usemode\"," +
-"															 \"fieldtype\":     \"usemode\"," +
-"															 \"subtype\":       \"usemode\"" +
-"														 }," +
-"                            {" +
-"                              \"description\":   \"Created\"," +
-"                              \"source\":        \"created\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Last Modified\"," +
-"                              \"source\":        \"lastmodified\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"CSS Selector\"," +
-"                              \"source\":        \"cssselector\"," +
-"                              \"fieldtype\":     \"cssinfo\"," +
-"                              \"subtype\":       \"cssselector\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"XPath Information\"," +
-"                              \"source\":        \"xpath\"," +
-"                              \"fieldtype\":     \"xpathinfo\"," +
-"                              \"subtype\":       \"xpath\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Find Information\"," +
-"                              \"source\":        \"find\"," +
-"                              \"fieldtype\":     \"findinfo\"," +
-"                              \"subtype\":       \"find\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Node Identifier\"," +
-"                              \"source\":        \"nodeiden\"," +
-"                              \"fieldtype\":     \"nodeiden\"," +
-"                              \"subtype\":       \"nodeiden\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Parameter Number\"," +
-"                              \"source\":        \"parameter\"," +
-"                              \"fieldtype\":     \"ionumber\"," +
-"                              \"subtype\":       \"parameter\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Type\"," +
-"                              \"source\":        \"type\"," +
-"                              \"fieldtype\":     \"typelist\"," +
-"                              \"subtype\":       \"editabletypelist\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Font Kernings\"," +
-"                              \"source\":        \"kernings\"," +
-"                              \"fieldtype\":     \"textlist\"," +
-"                              \"subtype\":       \"fontkerning\"," +
-"                              \"datatype\":      \"array\"" +
-"                            }" +
-"                          ]" +
-"                        }," +
-"   \"fontsize\":        { \"fields\":" +
-"                          [" +
-"                            {" +
-"                              \"description\":   \"Modification Name\"," +
-"                              \"source\":        \"name\"," +
-"                              \"fieldtype\":     \"iotext\"," +
-"                              \"subtype\":       \"modificationname\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Path Value\"," +
-"                              \"source\":        \"pathvalue\"," +
-"                              \"fieldtype\":     \"pathvalue\"," +
-"                              \"subtype\":       \"Path Value\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Comments\"," +
-"                              \"source\":        \"comments\"," +
-"                              \"fieldtype\":     \"comminfo\"," +
-"                              \"subtype\":       \"comments\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Extra Information\"," +
-"                              \"source\":        \"extra\"," +
-"                              \"fieldtype\":     \"extrainfo\"," +
-"                              \"subtype\":       \"extra\"" +
-"                            }," +
-"														 {" +
-"															 \"description\":   \"Probability\"," +
-"															 \"source\":        \"probability\"," +
-"															 \"fieldtype\":     \"float\"," +
-"															 \"subtype\":       \"probability\"" +
-"														 }," +
-"														 {" +
-"															 \"description\":   \"Use Mode\"," +
-"															 \"source\":        \"usemode\"," +
-"															 \"fieldtype\":     \"usemode\"," +
-"															 \"subtype\":       \"usemode\"" +
-"														 }," +
-"                            {" +
-"                              \"description\":   \"Created\"," +
-"                              \"source\":        \"created\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Last Modified\"," +
-"                              \"source\":        \"lastmodified\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"CSS Selector\"," +
-"                              \"source\":        \"cssselector\"," +
-"                              \"fieldtype\":     \"cssinfo\"," +
-"                              \"subtype\":       \"cssselector\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"XPath Information\"," +
-"                              \"source\":        \"xpath\"," +
-"                              \"fieldtype\":     \"xpathinfo\"," +
-"                              \"subtype\":       \"xpath\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Find Information\"," +
-"                              \"source\":        \"find\"," +
-"                              \"fieldtype\":     \"findinfo\"," +
-"                              \"subtype\":       \"find\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Node Identifier\"," +
-"                              \"source\":        \"nodeiden\"," +
-"                              \"fieldtype\":     \"nodeiden\"," +
-"                              \"subtype\":       \"nodeiden\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Parameter Number\"," +
-"                              \"source\":        \"parameter\"," +
-"                              \"fieldtype\":     \"ionumber\"," +
-"                              \"subtype\":       \"parameter\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Type\"," +
-"                              \"source\":        \"type\"," +
-"                              \"fieldtype\":     \"typelist\"," +
-"                              \"subtype\":       \"editabletypelist\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Font Sizes\"," +
-"                              \"source\":        \"sizes\"," +
-"                              \"fieldtype\":     \"textlist\"," +
-"                              \"subtype\":       \"fontsize\"," +
-"                              \"datatype\":      \"array\"" +
-"                            }" +
-"                          ]" +
-"                        }," +
-"   \"fontstyle\":       { \"fields\":" +
-"                          [" +
-"                            {" +
-"                              \"description\":   \"Modification Name\"," +
-"                              \"source\":        \"name\"," +
-"                              \"fieldtype\":     \"iotext\"," +
-"                              \"subtype\":       \"modificationname\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Path Value\"," +
-"                              \"source\":        \"pathvalue\"," +
-"                              \"fieldtype\":     \"pathvalue\"," +
-"                              \"subtype\":       \"Path Value\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Comments\"," +
-"                              \"source\":        \"comments\"," +
-"                              \"fieldtype\":     \"comminfo\"," +
-"                              \"subtype\":       \"comments\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Extra Information\"," +
-"                              \"source\":        \"extra\"," +
-"                              \"fieldtype\":     \"extrainfo\"," +
-"                              \"subtype\":       \"extra\"" +
-"                            }," +
-"														 {" +
-"															 \"description\":   \"Probability\"," +
-"															 \"source\":        \"probability\"," +
-"															 \"fieldtype\":     \"float\"," +
-"															 \"subtype\":       \"probability\"" +
-"														 }," +
-"														 {" +
-"															 \"description\":   \"Use Mode\"," +
-"															 \"source\":        \"usemode\"," +
-"															 \"fieldtype\":     \"usemode\"," +
-"															 \"subtype\":       \"usemode\"" +
-"														 }," +
-"                            {" +
-"                              \"description\":   \"Created\"," +
-"                              \"source\":        \"created\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Last Modified\"," +
-"                              \"source\":        \"lastmodified\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"CSS Selector\"," +
-"                              \"source\":        \"cssselector\"," +
-"                              \"fieldtype\":     \"cssinfo\"," +
-"                              \"subtype\":       \"cssselector\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"XPath Information\"," +
-"                              \"source\":        \"xpath\"," +
-"                              \"fieldtype\":     \"xpathinfo\"," +
-"                              \"subtype\":       \"xpath\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Find Information\"," +
-"                              \"source\":        \"find\"," +
-"                              \"fieldtype\":     \"findinfo\"," +
-"                              \"subtype\":       \"find\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Node Identifier\"," +
-"                              \"source\":        \"nodeiden\"," +
-"                              \"fieldtype\":     \"nodeiden\"," +
-"                              \"subtype\":       \"nodeiden\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Parameter Number\"," +
-"                              \"source\":        \"parameter\"," +
-"                              \"fieldtype\":     \"ionumber\"," +
-"                              \"subtype\":       \"parameter\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Type\"," +
-"                              \"source\":        \"type\"," +
-"                              \"fieldtype\":     \"typelist\"," +
-"                              \"subtype\":       \"editabletypelist\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Font Styles\"," +
-"                              \"source\":        \"styles\"," +
-"                              \"fieldtype\":     \"textlist\"," +
-"                              \"subtype\":       \"fontstyle\"," +
-"                              \"datatype\":      \"array\"" + 
-"                            }" +
-"                          ]" +
-"                        }," +
-"   \"fontweight\":      { \"fields\":" +
-"                          [" +
-"                            {" +
-"                              \"description\":   \"Modification Name\"," +
-"                              \"source\":        \"name\"," +
-"                              \"fieldtype\":     \"iotext\"," +
-"                              \"subtype\":       \"modificationname\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Path Value\"," +
-"                              \"source\":        \"pathvalue\"," +
-"                              \"fieldtype\":     \"pathvalue\"," +
-"                              \"subtype\":       \"Path Value\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Comments\"," +
-"                              \"source\":        \"comments\"," +
-"                              \"fieldtype\":     \"comminfo\"," +
-"                              \"subtype\":       \"comments\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Extra Information\"," +
-"                              \"source\":        \"extra\"," +
-"                              \"fieldtype\":     \"extrainfo\"," +
-"                              \"subtype\":       \"extra\"" +
-"                            }," +
-"														 {" +
-"															 \"description\":   \"Probability\"," +
-"															 \"source\":        \"probability\"," +
-"															 \"fieldtype\":     \"float\"," +
-"															 \"subtype\":       \"probability\"" +
-"														 }," +
-"														 {" +
-"															 \"description\":   \"Use Mode\"," +
-"															 \"source\":        \"usemode\"," +
-"															 \"fieldtype\":     \"usemode\"," +
-"															 \"subtype\":       \"usemode\"" +
-"														 }," +
-"                            {" +
-"                              \"description\":   \"Created\"," +
-"                              \"source\":        \"created\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Last Modified\"," +
-"                              \"source\":        \"lastmodified\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"CSS Selector\"," +
-"                              \"source\":        \"cssselector\"," +
-"                              \"fieldtype\":     \"cssinfo\"," +
-"                              \"subtype\":       \"cssselector\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"XPath Information\"," +
-"                              \"source\":        \"xpath\"," +
-"                              \"fieldtype\":     \"xpathinfo\"," +
-"                              \"subtype\":       \"xpath\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Find Information\"," +
-"                              \"source\":        \"find\"," +
-"                              \"fieldtype\":     \"findinfo\"," +
-"                              \"subtype\":       \"find\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Node Identifier\"," +
-"                              \"source\":        \"nodeiden\"," +
-"                              \"fieldtype\":     \"nodeiden\"," +
-"                              \"subtype\":       \"nodeiden\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Parameter Number\"," +
-"                              \"source\":        \"parameter\"," +
-"                              \"fieldtype\":     \"ionumber\"," +
-"                              \"subtype\":       \"parameter\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Type\"," +
-"                              \"source\":        \"type\"," +
-"                              \"fieldtype\":     \"typelist\"," +
-"                              \"subtype\":       \"editabletypelist\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Font Weights\"," +
-"                              \"source\":        \"weights\"," +
-"                              \"fieldtype\":     \"textlist\"," +
-"                              \"subtype\":       \"fontweight\"," +
-"                              \"datatype\":      \"array\"" +
-"                            }" +
-"                          ]" +
-"                        }," +
-"   \"height\":          { \"fields\":" +
-"                          [" +
-"                            {" +
-"                              \"description\":   \"Modification Name\"," +
-"                              \"source\":        \"name\"," +
-"                              \"fieldtype\":     \"iotext\"," +
-"                              \"subtype\":       \"modificationname\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Path Value\"," +
-"                              \"source\":        \"pathvalue\"," +
-"                              \"fieldtype\":     \"pathvalue\"," +
-"                              \"subtype\":       \"Path Value\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Comments\"," +
-"                              \"source\":        \"comments\"," +
-"                              \"fieldtype\":     \"comminfo\"," +
-"                              \"subtype\":       \"comments\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Extra Information\"," +
-"                              \"source\":        \"extra\"," +
-"                              \"fieldtype\":     \"extrainfo\"," +
-"                              \"subtype\":       \"extra\"" +
-"                            }," +
-"														 {" +
-"															 \"description\":   \"Probability\"," +
-"															 \"source\":        \"probability\"," +
-"															 \"fieldtype\":     \"float\"," +
-"															 \"subtype\":       \"probability\"" +
-"														 }," +
-"														 {" +
-"															 \"description\":   \"Use Mode\"," +
-"															 \"source\":        \"usemode\"," +
-"															 \"fieldtype\":     \"usemode\"," +
-"															 \"subtype\":       \"usemode\"" +
-"														 }," +
-"                            {" +
-"                              \"description\":   \"Created\"," +
-"                              \"source\":        \"created\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Last Modified\"," +
-"                              \"source\":        \"lastmodified\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"CSS Selector\"," +
-"                              \"source\":        \"cssselector\"," +
-"                              \"fieldtype\":     \"cssinfo\"," +
-"                              \"subtype\":       \"cssselector\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"XPath Information\"," +
-"                              \"source\":        \"xpath\"," +
-"                              \"fieldtype\":     \"xpathinfo\"," +
-"                              \"subtype\":       \"xpath\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Find Information\"," +
-"                              \"source\":        \"find\"," +
-"                              \"fieldtype\":     \"findinfo\"," +
-"                              \"subtype\":       \"find\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Node Identifier\"," +
-"                              \"source\":        \"nodeiden\"," +
-"                              \"fieldtype\":     \"nodeiden\"," +
-"                              \"subtype\":       \"nodeiden\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Parameter Number\"," +
-"                              \"source\":        \"parameter\"," +
-"                              \"fieldtype\":     \"ionumber\"," +
-"                              \"subtype\":       \"parameter\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Type\"," +
-"                              \"source\":        \"type\"," +
-"                              \"fieldtype\":     \"typelist\"," +
-"                              \"subtype\":       \"editabletypelist\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Heights\"," +
-"                              \"source\":        \"heights\"," +
-"                              \"fieldtype\":     \"textlist\"," +
-"                              \"subtype\":       \"height\"," +
-"                              \"datatype\":      \"array\"" +
-"                            }" +
-"                          ]" +
-"                        }," +
-"   \"image\":           { \"fields\":" +
-"                          [" +
-"                            {" +
-"                              \"description\":   \"Modification Name\"," +
-"                              \"source\":        \"name\"," +
-"                              \"fieldtype\":     \"iotext\"," +
-"                              \"subtype\":       \"modificationname\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Path Value\"," +
-"                              \"source\":        \"pathvalue\"," +
-"                              \"fieldtype\":     \"pathvalue\"," +
-"                              \"subtype\":       \"Path Value\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Comments\"," +
-"                              \"source\":        \"comments\"," +
-"                              \"fieldtype\":     \"comminfo\"," +
-"                              \"subtype\":       \"comments\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Extra Information\"," +
-"                              \"source\":        \"extra\"," +
-"                              \"fieldtype\":     \"extrainfo\"," +
-"                              \"subtype\":       \"extra\"" +
-"                            }," +
-"														 {" +
-"															 \"description\":   \"Probability\"," +
-"															 \"source\":        \"probability\"," +
-"															 \"fieldtype\":     \"float\"," +
-"															 \"subtype\":       \"probability\"" +
-"														 }," +
-"														 {" +
-"															 \"description\":   \"Use Mode\"," +
-"															 \"source\":        \"usemode\"," +
-"															 \"fieldtype\":     \"usemode\"," +
-"															 \"subtype\":       \"usemode\"" +
-"														 }," +
-"                            {" +
-"                              \"description\":   \"Created\"," +
-"                              \"source\":        \"created\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Last Modified\"," +
-"                              \"source\":        \"lastmodified\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"CSS Selector\"," +
-"                              \"source\":        \"cssselector\"," +
-"                              \"fieldtype\":     \"cssinfo\"," +
-"                              \"subtype\":       \"cssselector\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"XPath Information\"," +
-"                              \"source\":        \"xpath\"," +
-"                              \"fieldtype\":     \"xpathinfo\"," +
-"                              \"subtype\":       \"xpath\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Find Information\"," +
-"                              \"source\":        \"find\"," +
-"                              \"fieldtype\":     \"findinfo\"," +
-"                              \"subtype\":       \"find\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Node Identifier\"," +
-"                              \"source\":        \"nodeiden\"," +
-"                              \"fieldtype\":     \"nodeiden\"," +
-"                              \"subtype\":       \"nodeiden\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Parameter Number\"," +
-"                              \"source\":        \"parameter\"," +
-"                              \"fieldtype\":     \"ionumber\"," +
-"                              \"subtype\":       \"parameter\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Type\"," +
-"                              \"source\":        \"type\"," +
-"                              \"fieldtype\":     \"typelist\"," +
-"                              \"subtype\":       \"editabletypelist\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Images\"," +
-"                              \"source\":        \"images\"," +
-"                              \"fieldtype\":     \"imagelist\"," +
-"                              \"subtype\":       \"images\"," +
-"                              \"datatype\":      \"array\"" +
-"                            }" +
-"                          ]" +
-"                        }," +
-"   \"modify\":          { \"fields\":" +
-"                          [" +
-"                            {" +
-"                              \"description\":   \"Modification Name\"," +
-"                              \"source\":        \"name\"," +
-"                              \"fieldtype\":     \"iotext\"," +
-"                              \"subtype\":       \"modificationname\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Path Value\"," +
-"                              \"source\":        \"pathvalue\"," +
-"                              \"fieldtype\":     \"pathvalue\"," +
-"                              \"subtype\":       \"Path Value\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Comments\"," +
-"                              \"source\":        \"comments\"," +
-"                              \"fieldtype\":     \"comminfo\"," +
-"                              \"subtype\":       \"comments\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Extra Information\"," +
-"                              \"source\":        \"extra\"," +
-"                              \"fieldtype\":     \"extrainfo\"," +
-"                              \"subtype\":       \"extra\"" +
-"                            }," +
-"														 {" +
-"															 \"description\":   \"Probability\"," +
-"															 \"source\":        \"probability\"," +
-"															 \"fieldtype\":     \"float\"," +
-"															 \"subtype\":       \"probability\"" +
-"														 }," +
-"														 {" +
-"															 \"description\":   \"Use Mode\"," +
-"															 \"source\":        \"usemode\"," +
-"															 \"fieldtype\":     \"usemode\"," +
-"															 \"subtype\":       \"usemode\"" +
-"														 }," +
-"                            {" +
-"                              \"description\":   \"Created\"," +
-"                              \"source\":        \"created\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Last Modified\"," +
-"                              \"source\":        \"lastmodified\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"CSS Selector\"," +
-"                              \"source\":        \"cssselector\"," +
-"                              \"fieldtype\":     \"cssinfo\"," +
-"                              \"subtype\":       \"cssselector\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"XPath Information\"," +
-"                              \"source\":        \"xpath\"," +
-"                              \"fieldtype\":     \"xpathinfo\"," +
-"                              \"subtype\":       \"xpath\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Find Information\"," +
-"                              \"source\":        \"find\"," +
-"                              \"fieldtype\":     \"findinfo\"," +
-"                              \"subtype\":       \"find\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Node Identifier\"," +
-"                              \"source\":        \"nodeiden\"," +
-"                              \"fieldtype\":     \"nodeiden\"," +
-"                              \"subtype\":       \"nodeiden\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Type\"," +
-"                              \"source\":        \"type\"," +
-"                              \"fieldtype\":     \"typelist\"," +
-"                              \"subtype\":       \"editabletypelist\"" +
-"                            }" +
-"                          ]" +
-"                        }," +
-"   \"newcompmod\":      { \"fields\":" +
-"                          [" +
-"                            {" +
-"                              \"description\":   \"Company Name\"," +
-"                              \"source\":        \"name\"," +
-"                              \"fieldtype\":     \"iotext\"," +
-"                              \"subtype\":       \"editablecompmodname\"" +
-"                            }" +
-"                          ]" +
-"                        }," +
-"   \"newdivision\":     { \"fields\":" +
-"                          [" +
-"                            {" +
-"                              \"description\":   \"Division Name\"," +
-"                              \"source\":        \"name\"," +
-"                              \"fieldtype\":     \"iotext\"," +
-"                              \"subtype\":       \"editabledivisionname\"" +
-"                            }" +
-"                          ]" +
-"                        }," +
-"   \"newmod\":          { \"fields\":" +
-"                          [" +
-"                            {" +
-"                              \"description\":   \"Modification Name\"," +
-"                              \"source\":        \"name\"," +
-"                              \"fieldtype\":     \"iotext\"," +
-"                              \"subtype\":       \"editablemodificationname\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Path Value\"," +
-"                              \"source\":        \"pathvalue\"," +
-"                              \"fieldtype\":     \"pathvalue\"," +
-"                              \"subtype\":       \"Path Value\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Comments\"," +
-"                              \"source\":        \"comments\"," +
-"                              \"fieldtype\":     \"comminfo\"," +
-"                              \"subtype\":       \"comments\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Extra Information\"," +
-"                              \"source\":        \"extra\"," +
-"                              \"fieldtype\":     \"extrainfo\"," +
-"                              \"subtype\":       \"extra\"" +
-"                            }," +
-"														 {" +
-"															 \"description\":   \"Probability\"," +
-"															 \"source\":        \"probability\"," +
-"															 \"fieldtype\":     \"float\"," +
-"															 \"subtype\":       \"probability\"" +
-"														 }," +
-"														 {" +
-"															 \"description\":   \"Use Mode\"," +
-"															 \"source\":        \"usemode\"," +
-"															 \"fieldtype\":     \"usemode\"," +
-"															 \"subtype\":       \"usemode\"" +
-"														 }," +
-"                            {" +
-"                              \"description\":   \"Created\"," +
-"                              \"source\":        \"created\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Last Modified\"," +
-"                              \"source\":        \"lastmodified\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"CSS Selector\"," +
-"                              \"source\":        \"cssselector\"," +
-"                              \"fieldtype\":     \"cssinfo\"," +
-"                              \"subtype\":       \"cssselector\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"XPath Information\"," +
-"                              \"source\":        \"xpath\"," +
-"                              \"fieldtype\":     \"xpathinfo\"," +
-"                              \"subtype\":       \"xpath\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Find Information\"," +
-"                              \"source\":        \"find\"," +
-"                              \"fieldtype\":     \"findinfo\"," +
-"                              \"subtype\":       \"find\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Node Identifier\"," +
-"                              \"source\":        \"nodeiden\"," +
-"                              \"fieldtype\":     \"nodeiden\"," +
-"                              \"subtype\":       \"nodeiden\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Parameter Number\"," +
-"                              \"source\":        \"parameter\"," +
-"                              \"fieldtype\":     \"ionumber\"," +
-"                              \"subtype\":       \"editableparameter\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Type\"," +
-"                              \"source\":        \"type\"," +
-"                              \"fieldtype\":     \"typelist\"," +
-"                              \"subtype\":       \"editabletypelist\"" +
-"                            }" +
-"                          ]" +
-"                        }," +
-"   \"newsite\":         { \"fields\":" +
-"                          [" +
-"                            {" +
-"                              \"description\":   \"Site Name\"," +
-"                              \"source\":        \"name\"," +
-"                              \"fieldtype\":     \"iotext\"," +
-"                              \"subtype\":       \"editablesitename\"" +
-"                            }" +        
-"                          ]" +
-"                        }," +
-"   \"notify\":          { \"fields\":" +
-"                          [" +
-"                            {" +
-"                              \"description\":   \"Modification Name\"," +
-"                              \"source\":        \"name\"," +
-"                              \"fieldtype\":     \"iotext\"," +
-"                              \"subtype\":       \"modificationname\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Path Value\"," +
-"                              \"source\":        \"pathvalue\"," +
-"                              \"fieldtype\":     \"pathvalue\"," +
-"                              \"subtype\":       \"Path Value\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Comments\"," +
-"                              \"source\":        \"comments\"," +
-"                              \"fieldtype\":     \"comminfo\"," +
-"                              \"subtype\":       \"comments\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Extra Information\"," +
-"                              \"source\":        \"extra\"," +
-"                              \"fieldtype\":     \"extrainfo\"," +
-"                              \"subtype\":       \"extra\"" +
-"                            }," +
-"														 {" +
-"															 \"description\":   \"Probability\"," +
-"															 \"source\":        \"probability\"," +
-"															 \"fieldtype\":     \"float\"," +
-"															 \"subtype\":       \"probability\"" +
-"														 }," +
-"														 {" +
-"															 \"description\":   \"Use Mode\"," +
-"															 \"source\":        \"usemode\"," +
-"															 \"fieldtype\":     \"usemode\"," +
-"															 \"subtype\":       \"usemode\"" +
-"														 }," +
-"                            {" +
-"                              \"description\":   \"Created\"," +
-"                              \"source\":        \"created\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Last Modified\"," +
-"                              \"source\":        \"lastmodified\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"CSS Selector\"," +
-"                              \"source\":        \"cssselector\"," +
-"                              \"fieldtype\":     \"cssinfo\"," +
-"                              \"subtype\":       \"cssselector\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"XPath Information\"," +
-"                              \"source\":        \"xpath\"," +
-"                              \"fieldtype\":     \"xpathinfo\"," +
-"                              \"subtype\":       \"xpath\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Find Information\"," +
-"                              \"source\":        \"find\"," +
-"                              \"fieldtype\":     \"findinfo\"," +
-"                              \"subtype\":       \"find\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Node Identifier\"," +
-"                              \"source\":        \"nodeiden\"," +
-"                              \"fieldtype\":     \"nodeiden\"," +
-"                              \"subtype\":       \"nodeiden\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Type\"," +
-"                              \"source\":        \"type\"," +
-"                              \"fieldtype\":     \"typelist\"," +
-"                              \"subtype\":       \"editabletypelist\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Extract Targets\"," +
-"                              \"source\":        \"targets\"," +
-"                              \"fieldtype\":     \"textlist\"," +
-"                              \"subtype\":       \"target\"," +
-"                              \"datatype\":      \"array\"" +
-"                            }" +
-"                          ]" +
-"                        }," +
-"   \"order\":           { \"fields\":" +
-"                          [" +
-"                            {" +
-"                              \"description\":   \"Modification Name\"," +
-"                              \"source\":        \"name\"," +
-"                              \"fieldtype\":     \"iotext\"," +
-"                              \"subtype\":       \"modificationname\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Path Value\"," +
-"                              \"source\":        \"pathvalue\"," +
-"                              \"fieldtype\":     \"pathvalue\"," +
-"                              \"subtype\":       \"Path Value\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Comments\"," +
-"                              \"source\":        \"comments\"," +
-"                              \"fieldtype\":     \"comminfo\"," +
-"                              \"subtype\":       \"comments\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Extra Information\"," +
-"                              \"source\":        \"extra\"," +
-"                              \"fieldtype\":     \"extrainfo\"," +
-"                              \"subtype\":       \"extra\"" +
-"                            }," +
-"														 {" +
-"															 \"description\":   \"Probability\"," +
-"															 \"source\":        \"probability\"," +
-"															 \"fieldtype\":     \"float\"," +
-"															 \"subtype\":       \"probability\"" +
-"														 }," +
-"														 {" +
-"															 \"description\":   \"Use Mode\"," +
-"															 \"source\":        \"usemode\"," +
-"															 \"fieldtype\":     \"usemode\"," +
-"															 \"subtype\":       \"usemode\"" +
-"														 }," +
-"                            {" +
-"                              \"description\":   \"Created\"," +
-"                              \"source\":        \"created\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Last Modified\"," +
-"                              \"source\":        \"lastmodified\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"CSS Selector\"," +
-"                              \"source\":        \"cssselector\"," +
-"                              \"fieldtype\":     \"cssinfo\"," +
-"                              \"subtype\":       \"cssselector\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"XPath Information\"," +
-"                              \"source\":        \"xpath\"," +
-"                              \"fieldtype\":     \"xpathinfo\"," +
-"                              \"subtype\":       \"xpath\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Find Information\"," +
-"                              \"source\":        \"find\"," +
-"                              \"fieldtype\":     \"findinfo\"," +
-"                              \"subtype\":       \"find\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Node Identifier\"," +
-"                              \"source\":        \"nodeiden\"," +
-"                              \"fieldtype\":     \"nodeiden\"," +
-"                              \"subtype\":       \"nodeiden\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Parameter Number\"," +
-"                              \"source\":        \"parameter\"," +
-"                              \"fieldtype\":     \"ionumber\"," +
-"                              \"subtype\":       \"parameter\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Type\"," +
-"                              \"source\":        \"type\"," +
-"                              \"fieldtype\":     \"typelist\"," +
-"                              \"subtype\":       \"editabletypelist\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"New Order Information\"," +
-"                              \"source\":        \"orders\"," +
-"                              \"fieldtype\":     \"textlist\"," +
-"                              \"subtype\":       \"order\"," +
-"                              \"datatype\":      \"array\"" +
-"                            }" +
-"                          ]" +
-"                        }," +    
-"   \"remove\":          { \"fields\":" +
-"                          [" +
-"                            {" +
-"                              \"description\":   \"Modification Name\"," +
-"                              \"source\":        \"name\"," +
-"                              \"fieldtype\":     \"iotext\"," +
-"                              \"subtype\":       \"modificationname\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Path Value\"," +
-"                              \"source\":        \"pathvalue\"," +
-"                              \"fieldtype\":     \"pathvalue\"," +
-"                              \"subtype\":       \"Path Value\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Comments\"," +
-"                              \"source\":        \"comments\"," +
-"                              \"fieldtype\":     \"comminfo\"," +
-"                              \"subtype\":       \"comments\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Extra Information\"," +
-"                              \"source\":        \"extra\"," +
-"                              \"fieldtype\":     \"extrainfo\"," +
-"                              \"subtype\":       \"extra\"" +
-"                            }," +
-"														 {" +
-"															 \"description\":   \"Probability\"," +
-"															 \"source\":        \"probability\"," +
-"															 \"fieldtype\":     \"float\"," +
-"															 \"subtype\":       \"probability\"" +
-"														 }," +
-"														 {" +
-"															 \"description\":   \"Use Mode\"," +
-"															 \"source\":        \"usemode\"," +
-"															 \"fieldtype\":     \"usemode\"," +
-"															 \"subtype\":       \"usemode\"" +
-"														 }," +
-"                            {" +
-"                              \"description\":   \"Created\"," +
-"                              \"source\":        \"created\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Last Modified\"," +
-"                              \"source\":        \"lastmodified\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"CSS Selector\"," +
-"                              \"source\":        \"cssselector\"," +
-"                              \"fieldtype\":     \"cssinfo\"," +
-"                              \"subtype\":       \"cssselector\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"XPath Information\"," +
-"                              \"source\":        \"xpath\"," +
-"                              \"fieldtype\":     \"xpathinfo\"," +
-"                              \"subtype\":       \"xpath\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Find Information\"," +
-"                              \"source\":        \"find\"," +
-"                              \"fieldtype\":     \"findinfo\"," +
-"                              \"subtype\":       \"find\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Node Identifier\"," +
-"                              \"source\":        \"nodeiden\"," +
-"                              \"fieldtype\":     \"nodeiden\"," +
-"                              \"subtype\":       \"nodeiden\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Parameter Number\"," +
-"                              \"source\":        \"parameter\"," +
-"                              \"fieldtype\":     \"ionumber\"," +
-"                              \"subtype\":       \"parameter\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Type\"," +
-"                              \"source\":        \"type\"," +
-"                              \"fieldtype\":     \"typelist\"," +
-"                              \"subtype\":       \"editabletypelist\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Remove Values\"," +
-"                              \"source\":        \"removevalues\"," +
-"                              \"fieldtype\":     \"textlist\"," +
-"                              \"subtype\":       \"remove\"," +
-"                              \"datatype\":      \"array\"" +
-"                            }" +
-"                          ]" +     
-"                        }," +
-"   \"replace\":         { \"fields\":" +
-"                          [" +
-"                            {" +
-"                              \"description\":   \"Modification Name\"," +
-"                              \"source\":        \"name\"," +
-"                              \"fieldtype\":     \"iotext\"," +
-"                              \"subtype\":       \"modificationname\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Path Value\"," +
-"                              \"source\":        \"pathvalue\"," +
-"                              \"fieldtype\":     \"pathvalue\"," +
-"                              \"subtype\":       \"Path Value\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Comments\"," +
-"                              \"source\":        \"comments\"," +
-"                              \"fieldtype\":     \"comminfo\"," +
-"                              \"subtype\":       \"comments\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Extra Information\"," +
-"                              \"source\":        \"extra\"," +
-"                              \"fieldtype\":     \"extrainfo\"," +
-"                              \"subtype\":       \"extra\"" +
-"                            }," +
-"														 {" +
-"															 \"description\":   \"Probability\"," +
-"															 \"source\":        \"probability\"," +
-"															 \"fieldtype\":     \"float\"," +
-"															 \"subtype\":       \"probability\"" +
-"														 }," +
-"														 {" +
-"															 \"description\":   \"Use Mode\"," +
-"															 \"source\":        \"usemode\"," +
-"															 \"fieldtype\":     \"usemode\"," +
-"															 \"subtype\":       \"usemode\"" +
-"														 }," +
-"                            {" +
-"                              \"description\":   \"Created\"," +
-"                              \"source\":        \"created\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Last Modified\"," +
-"                              \"source\":        \"lastmodified\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"CSS Selector\"," +
-"                              \"source\":        \"cssselector\"," +
-"                              \"fieldtype\":     \"cssinfo\"," +
-"                              \"subtype\":       \"cssselector\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"XPath Information\"," +
-"                              \"source\":        \"xpath\"," +
-"                              \"fieldtype\":     \"xpathinfo\"," +
-"                              \"subtype\":       \"xpath\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Find Information\"," +
-"                              \"source\":        \"find\"," +
-"                              \"fieldtype\":     \"findinfo\"," +
-"                              \"subtype\":       \"find\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Node Identifier\"," +
-"                              \"source\":        \"nodeiden\"," +
-"                              \"fieldtype\":     \"nodeiden\"," +
-"                              \"subtype\":       \"nodeiden\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Parameter Number\"," +
-"                              \"source\":        \"parameter\"," +
-"                              \"fieldtype\":     \"ionumber\"," +
-"                              \"subtype\":       \"parameter\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Type\"," +
-"                              \"source\":        \"type\"," +
-"                              \"fieldtype\":     \"typelist\"," +
-"                              \"subtype\":       \"editabletypelist\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Replace Values\"," +
-"                              \"source\":        \"replacevalues\"," +
-"                              \"fieldtype\":     \"textlist\"," +
-"                              \"subtype\":       \"replace\"," +
-"                              \"datatype\":      \"array\"" +
-"                            }" +
-"                          ]" +
-"                        }," +
-"   \"script\":          { \"fields\":" +
-"                          [" +
-"                            {" +
-"                              \"description\":   \"Modification Name\"," +
-"                              \"source\":        \"name\"," +
-"                              \"fieldtype\":     \"iotext\"," +
-"                              \"subtype\":       \"modificationname\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Path Value\"," +
-"                              \"source\":        \"pathvalue\"," +
-"                              \"fieldtype\":     \"pathvalue\"," +
-"                              \"subtype\":       \"Path Value\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Comments\"," +
-"                              \"source\":        \"comments\"," +
-"                              \"fieldtype\":     \"comminfo\"," +
-"                              \"subtype\":       \"comments\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Extra Information\"," +
-"                              \"source\":        \"extra\"," +
-"                              \"fieldtype\":     \"extrainfo\"," +
-"                              \"subtype\":       \"extra\"" +
-"                            }," +
-"														 {" +
-"															 \"description\":   \"Probability\"," +
-"															 \"source\":        \"probability\"," +
-"															 \"fieldtype\":     \"float\"," +
-"															 \"subtype\":       \"probability\"" +
-"														 }," +
-"														 {" +
-"															 \"description\":   \"Use Mode\"," +
-"															 \"source\":        \"usemode\"," +
-"															 \"fieldtype\":     \"usemode\"," +
-"															 \"subtype\":       \"usemode\"" +
-"														 }," +
-"                            {" +
-"                              \"description\":   \"Created\"," +
-"                              \"source\":        \"created\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Last Modified\"," +
-"                              \"source\":        \"lastmodified\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"CSS Selector\"," +
-"                              \"source\":        \"cssselector\"," +
-"                              \"fieldtype\":     \"cssinfo\"," +
-"                              \"subtype\":       \"cssselector\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"XPath Information\"," +
-"                              \"source\":        \"xpath\"," +
-"                              \"fieldtype\":     \"xpathinfo\"," +
-"                              \"subtype\":       \"xpath\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Find Information\"," +
-"                              \"source\":        \"find\"," +
-"                              \"fieldtype\":     \"findinfo\"," +
-"                              \"subtype\":       \"find\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Node Identifier\"," +
-"                              \"source\":        \"nodeiden\"," +
-"                              \"fieldtype\":     \"nodeiden\"," +
-"                              \"subtype\":       \"nodeiden\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Parameter Number\"," +
-"                              \"source\":        \"parameter\"," +
-"                              \"fieldtype\":     \"ionumber\"," +
-"                              \"subtype\":       \"parameter\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Type\"," +
-"                              \"source\":        \"type\"," +
-"                              \"fieldtype\":     \"typelist\"," +
-"                              \"subtype\":       \"editabletypelist\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Scripts\"," +
-"                              \"source\":        \"scripts\"," +
-"                              \"fieldtype\":     \"textlist\"," +
-"                              \"subtype\":       \"script\"," +
-"                              \"datatype\":      \"array\"" +
-"                            }" +
-"                          ]" +
-"                        }," +
-"   \"style\":           { \"fields\":" +
-"                          [" +
-"                            {" +
-"                              \"description\":   \"Modification Name\"," +
-"                              \"source\":        \"name\"," +
-"                              \"fieldtype\":     \"iotext\"," +
-"                              \"subtype\":       \"modificationname\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Path Value\"," +
-"                              \"source\":        \"pathvalue\"," +
-"                              \"fieldtype\":     \"pathvalue\"," +
-"                              \"subtype\":       \"Path Value\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Comments\"," +
-"                              \"source\":        \"comments\"," +
-"                              \"fieldtype\":     \"comminfo\"," +
-"                              \"subtype\":       \"comments\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Extra Information\"," +
-"                              \"source\":        \"extra\"," +
-"                              \"fieldtype\":     \"extrainfo\"," +
-"                              \"subtype\":       \"extraStyle\"" +
-"                            }," +
-"														 {" +
-"															 \"description\":   \"Probability\"," +
-"															 \"source\":        \"probability\"," +
-"															 \"fieldtype\":     \"float\"," +
-"															 \"subtype\":       \"probability\"" +
-"														 }," +
-"														 {" +
-"															 \"description\":   \"Use Mode\"," +
-"															 \"source\":        \"usemode\"," +
-"															 \"fieldtype\":     \"usemode\"," +
-"															 \"subtype\":       \"usemode\"" +
-"														 }," +
-"                            {" +
-"                              \"description\":   \"Created\"," +
-"                              \"source\":        \"created\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Last Modified\"," +
-"                              \"source\":        \"lastmodified\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"CSS Selector\"," +
-"                              \"source\":        \"cssselector\"," +
-"                              \"fieldtype\":     \"cssinfo\"," +
-"                              \"subtype\":       \"cssselector\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"XPath Information\"," +
-"                              \"source\":        \"xpath\"," +
-"                              \"fieldtype\":     \"xpathinfo\"," +
-"                              \"subtype\":       \"xpath\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Find Information\"," +
-"                              \"source\":        \"find\"," +
-"                              \"fieldtype\":     \"findinfo\"," +
-"                              \"subtype\":       \"find\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Node Identifier\"," +
-"                              \"source\":        \"nodeiden\"," +
-"                              \"fieldtype\":     \"nodeiden\"," +
-"                              \"subtype\":       \"nodeiden\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Parameter Number\"," +
-"                              \"source\":        \"parameter\"," +
-"                              \"fieldtype\":     \"ionumber\"," +
-"                              \"subtype\":       \"parameter\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Type\"," +
-"                              \"source\":        \"type\"," +
-"                              \"fieldtype\":     \"typelist\"," +
-"                              \"subtype\":       \"editabletypelist\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"New Style Information\"," +
-"                              \"source\":        \"styles\"," +
-"                              \"fieldtype\":     \"textlist\"," +
-"                              \"subtype\":       \"style\"," +
-"                              \"datatype\":      \"array\"" +
-"                            }" +
-"                          ]" +
-"                        }," +
-"   \"text\":            { \"fields\":" +
-"                          [" +
-"                            {" +
-"                              \"description\":   \"Modification Name\"," +
-"                              \"source\":        \"name\"," +
-"                              \"fieldtype\":     \"iotext\"," +
-"                              \"subtype\":       \"modificationname\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Path Value\"," +
-"                              \"source\":        \"pathvalue\"," +
-"                              \"fieldtype\":     \"pathvalue\"," +
-"                              \"subtype\":       \"Path Value\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Comments\"," +
-"                              \"source\":        \"comments\"," +
-"                              \"fieldtype\":     \"comminfo\"," +
-"                              \"subtype\":       \"comments\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Extra Information\"," +
-"                              \"source\":        \"extra\"," +
-"                              \"fieldtype\":     \"extrainfo\"," +
-"                              \"subtype\":       \"extra\"" +
-"                            }," +
-"														 {" +
-"															 \"description\":   \"Probability\"," +
-"															 \"source\":        \"probability\"," +
-"															 \"fieldtype\":     \"float\"," +
-"															 \"subtype\":       \"probability\"" +
-"														 }," +
-"														 {" +
-"															 \"description\":   \"Use Mode\"," +
-"															 \"source\":        \"usemode\"," +
-"															 \"fieldtype\":     \"usemode\"," +
-"															 \"subtype\":       \"usemode\"" +
-"														 }," +
-"                            {" +
-"                              \"description\":   \"Created\"," +
-"                              \"source\":        \"created\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Last Modified\"," +
-"                              \"source\":        \"lastmodified\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"CSS Selector\"," +
-"                              \"source\":        \"cssselector\"," +
-"                              \"fieldtype\":     \"cssinfo\"," +
-"                              \"subtype\":       \"cssselector\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"XPath Information\"," +
-"                              \"source\":        \"xpath\"," +
-"                              \"fieldtype\":     \"xpathinfo\"," +
-"                              \"subtype\":       \"xpath\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Find Information\"," +
-"                              \"source\":        \"find\"," +
-"                              \"fieldtype\":     \"findinfo\"," +
-"                              \"subtype\":       \"find\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Node Identifier\"," +
-"                              \"source\":        \"nodeiden\"," +
-"                              \"fieldtype\":     \"nodeiden\"," +
-"                              \"subtype\":       \"nodeiden\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Parameter Number\"," +
-"                              \"source\":        \"parameter\"," +
-"                              \"fieldtype\":     \"ionumber\"," +
-"                              \"subtype\":       \"parameter\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Type\"," +
-"                              \"source\":        \"type\"," +
-"                              \"fieldtype\":     \"typelist\"," +
-"                              \"subtype\":       \"editabletypelist\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"New Texts\"," +
-"                              \"source\":        \"newtexts\"," +
-"                              \"fieldtype\":     \"textlist\"," +
-"                              \"subtype\":       \"text\"," +
-"                              \"datatype\":      \"array\"" +
-"                            }" +
-"                          ]" +
-"                        }," +
-"   \"textchecked\":     { \"fields\":" +
-"                          [" +
-"                            {" +
-"                              \"description\":   \"Modification Name\"," +
-"                              \"source\":        \"name\"," +
-"                              \"fieldtype\":     \"iotext\"," +
-"                              \"subtype\":       \"modificationname\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Path Value\"," +
-"                              \"source\":        \"pathvalue\"," +
-"                              \"fieldtype\":     \"pathvalue\"," +
-"                              \"subtype\":       \"Path Value\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Comments\"," +
-"                              \"source\":        \"comments\"," +
-"                              \"fieldtype\":     \"comminfo\"," +
-"                              \"subtype\":       \"comments\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Extra Information\"," +
-"                              \"source\":        \"extra\"," +
-"                              \"fieldtype\":     \"extrainfo\"," +
-"                              \"subtype\":       \"extra\"" +
-"                            }," +
-"														 {" +
-"															 \"description\":   \"Probability\"," +
-"															 \"source\":        \"probability\"," +
-"															 \"fieldtype\":     \"float\"," +
-"															 \"subtype\":       \"probability\"" +
-"														 }," +
-"														 {" +
-"															 \"description\":   \"Use Mode\"," +
-"															 \"source\":        \"usemode\"," +
-"															 \"fieldtype\":     \"usemode\"," +
-"															 \"subtype\":       \"usemode\"" +
-"														 }," +
-"                            {" +
-"                              \"description\":   \"Created\"," +
-"                              \"source\":        \"created\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Last Modified\"," +
-"                              \"source\":        \"lastmodified\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"CSS Selector\"," +
-"                              \"source\":        \"cssselector\"," +
-"                              \"fieldtype\":     \"cssinfo\"," +
-"                              \"subtype\":       \"cssselector\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"XPath Information\"," +
-"                              \"source\":        \"xpath\"," +
-"                              \"fieldtype\":     \"xpathinfo\"," +
-"                              \"subtype\":       \"xpath\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Find Information\"," +
-"                              \"source\":        \"find\"," +
-"                              \"fieldtype\":     \"findinfo\"," +
-"                              \"subtype\":       \"find\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Node Identifier\"," +
-"                              \"source\":        \"nodeiden\"," +
-"                              \"fieldtype\":     \"nodeiden\"," +
-"                              \"subtype\":       \"nodeiden\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Parameter Number\"," +
-"                              \"source\":        \"parameter\"," +
-"                              \"fieldtype\":     \"ionumber\"," +
-"                              \"subtype\":       \"parameter\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Type\"," +
-"                              \"source\":        \"type\"," +
-"                              \"fieldtype\":     \"typelist\"," +
-"                              \"subtype\":       \"editabletypelist\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"New Texts\"," +
-"                              \"source\":        \"newtexts\"," +
-"                              \"fieldtype\":     \"textlist\"," +
-"                              \"subtype\":       \"textchecked\"," +
-"                              \"datatype\":      \"array\"" +
-"                            }" +
-"                          ]" +
-"                        }," +
-"   \"title\":           { \"fields\":" +
-"                          [" +
-"                            {" +
-"                              \"description\":   \"Modification Name\"," +
-"                              \"source\":        \"name\"," +
-"                              \"fieldtype\":     \"iotext\"," +
-"                              \"subtype\":       \"modificationname\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Path Value\"," +
-"                              \"source\":        \"pathvalue\"," +
-"                              \"fieldtype\":     \"pathvalue\"," +
-"                              \"subtype\":       \"Path Value\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Comments\"," +
-"                              \"source\":        \"comments\"," +
-"                              \"fieldtype\":     \"comminfo\"," +
-"                              \"subtype\":       \"comments\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Extra Information\"," +
-"                              \"source\":        \"extra\"," +
-"                              \"fieldtype\":     \"extrainfo\"," +
-"                              \"subtype\":       \"extra\"" +
-"                            }," +
-"														 {" +
-"															 \"description\":   \"Probability\"," +
-"															 \"source\":        \"probability\"," +
-"															 \"fieldtype\":     \"float\"," +
-"															 \"subtype\":       \"probability\"" +
-"														 }," +
-"														 {" +
-"															 \"description\":   \"Use Mode\"," +
-"															 \"source\":        \"usemode\"," +
-"															 \"fieldtype\":     \"usemode\"," +
-"															 \"subtype\":       \"usemode\"" +
-"														 }," +
-"                            {" +
-"                              \"description\":   \"Created\"," +
-"                              \"source\":        \"created\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Last Modified\"," +
-"                              \"source\":        \"lastmodified\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"CSS Selector\"," +
-"                              \"source\":        \"cssselector\"," +
-"                              \"fieldtype\":     \"cssinfo\"," +
-"                              \"subtype\":       \"cssselector\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"XPath Information\"," +
-"                              \"source\":        \"xpath\"," +
-"                              \"fieldtype\":     \"xpathinfo\"," +
-"                              \"subtype\":       \"xpath\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Find Information\"," +
-"                              \"source\":        \"find\"," +
-"                              \"fieldtype\":     \"findinfo\"," +
-"                              \"subtype\":       \"find\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Node Identifier\"," +
-"                              \"source\":        \"nodeiden\"," +
-"                              \"fieldtype\":     \"nodeiden\"," +
-"                              \"subtype\":       \"nodeiden\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Parameter Number\"," +
-"                              \"source\":        \"parameter\"," +
-"                              \"fieldtype\":     \"ionumber\"," +
-"                              \"subtype\":       \"parameter\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Type\"," +
-"                              \"source\":        \"type\"," +
-"                              \"fieldtype\":     \"typelist\"," +
-"                              \"subtype\":       \"editabletypelist\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"New Titles\"," +
-"                              \"source\":        \"titles\"," +
-"                              \"fieldtype\":     \"textlist\"," +
-"                              \"subtype\":       \"title\"," +
-"                              \"datatype\":      \"array\"" +
-"                            }" +
-"                          ]" +
-"                        }," +
-"   \"visit\":           { \"fields\":" +
-"                          [" +
-"                            {" +
-"                              \"description\":   \"Modification Name\"," +
-"                              \"source\":        \"name\"," +
-"                              \"fieldtype\":     \"iotext\"," +
-"                              \"subtype\":       \"modificationname\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Path Value\"," +
-"                              \"source\":        \"pathvalue\"," +
-"                              \"fieldtype\":     \"pathvalue\"," +
-"                              \"subtype\":       \"Path Value\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Comments\"," +
-"                              \"source\":        \"comments\"," +
-"                              \"fieldtype\":     \"comminfo\"," +
-"                              \"subtype\":       \"comments\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Extra Information\"," +
-"                              \"source\":        \"extra\"," +
-"                              \"fieldtype\":     \"extrainfo\"," +
-"                              \"subtype\":       \"extra\"" +
-"                            }," +
-"														 {" +
-"															 \"description\":   \"Probability\"," +
-"															 \"source\":        \"probability\"," +
-"															 \"fieldtype\":     \"float\"," +
-"															 \"subtype\":       \"probability\"" +
-"														 }," +
-"														 {" +
-"															 \"description\":   \"Use Mode\"," +
-"															 \"source\":        \"usemode\"," +
-"															 \"fieldtype\":     \"usemode\"," +
-"															 \"subtype\":       \"usemode\"" +
-"														 }," +
-"                            {" +
-"                              \"description\":   \"Created\"," +
-"                              \"source\":        \"created\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Last Modified\"," +
-"                              \"source\":        \"lastmodified\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"CSS Selector\"," +
-"                              \"source\":        \"cssselector\"," +
-"                              \"fieldtype\":     \"cssinfo\"," +
-"                              \"subtype\":       \"cssselector\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"XPath Information\"," +
-"                              \"source\":        \"xpath\"," +
-"                              \"fieldtype\":     \"xpathinfo\"," +
-"                              \"subtype\":       \"xpath\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Find Information\"," +
-"                              \"source\":        \"find\"," +
-"                              \"fieldtype\":     \"findinfo\"," +
-"                              \"subtype\":       \"find\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Node Identifier\"," +
-"                              \"source\":        \"nodeiden\"," +
-"                              \"fieldtype\":     \"nodeiden\"," +
-"                              \"subtype\":       \"nodeiden\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Parameter Number\"," +
-"                              \"source\":        \"parameter\"," +
-"                              \"fieldtype\":     \"ionumber\"," +
-"                              \"subtype\":       \"parameter\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Type\"," +
-"                              \"source\":        \"type\"," +
-"                              \"fieldtype\":     \"typelist\"," +
-"                              \"subtype\":       \"editabletypelist\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Visit Values\"," +
-"                              \"source\":        \"visitvalues\"," +
-"                              \"fieldtype\":     \"textlist\"," +
-"                              \"subtype\":       \"visit\"," +
-"                              \"datatype\":      \"array\"" +
-"                            }" +
-"                          ]" +
-"                        }," +
-"   \"width\":           { \"fields\":" +
-"                          [" +
-"                            {" +
-"                              \"description\":   \"Modification Name\"," +
-"                              \"source\":        \"name\"," +
-"                              \"fieldtype\":     \"iotext\"," +
-"                              \"subtype\":       \"modificationname\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Path Value\"," +
-"                              \"source\":        \"pathvalue\"," +
-"                              \"fieldtype\":     \"pathvalue\"," +
-"                              \"subtype\":       \"Path Value\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Comments\"," +
-"                              \"source\":        \"comments\"," +
-"                              \"fieldtype\":     \"comminfo\"," +
-"                              \"subtype\":       \"comments\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Extra Information\"," +
-"                              \"source\":        \"extra\"," +
-"                              \"fieldtype\":     \"extrainfo\"," +
-"                              \"subtype\":       \"extra\"" +
-"                            }," +
-"														 {" +
-"															 \"description\":   \"Probability\"," +
-"															 \"source\":        \"probability\"," +
-"															 \"fieldtype\":     \"float\"," +
-"															 \"subtype\":       \"probability\"" +
-"														 }," +
-"														 {" +
-"															 \"description\":   \"Use Mode\"," +
-"															 \"source\":        \"usemode\"," +
-"															 \"fieldtype\":     \"usemode\"," +
-"															 \"subtype\":       \"usemode\"" +
-"														 }," +
-"                            {" +
-"                              \"description\":   \"Created\"," +
-"                              \"source\":        \"created\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Last Modified\"," +
-"                              \"source\":        \"lastmodified\"," +
-"                              \"fieldtype\":     \"dateio\"," +
-"                              \"subtype\":       \"outputdate\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"CSS Selector\"," +
-"                              \"source\":        \"cssselector\"," +
-"                              \"fieldtype\":     \"cssinfo\"," +
-"                              \"subtype\":       \"cssselector\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"XPath Information\"," +
-"                              \"source\":        \"xpath\"," +
-"                              \"fieldtype\":     \"xpathinfo\"," +
-"                              \"subtype\":       \"xpath\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Find Information\"," +
-"                              \"source\":        \"find\"," +
-"                              \"fieldtype\":     \"findinfo\"," +
-"                              \"subtype\":       \"find\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Node Identifier\"," +
-"                              \"source\":        \"nodeiden\"," +
-"                              \"fieldtype\":     \"nodeiden\"," +
-"                              \"subtype\":       \"nodeiden\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Parameter Number\"," +
-"                              \"source\":        \"parameter\"," +
-"                              \"fieldtype\":     \"ionumber\"," +
-"                              \"subtype\":       \"parameter\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Modification Type\"," +
-"                              \"source\":        \"type\"," +
-"                              \"fieldtype\":     \"typelist\"," +
-"                              \"subtype\":       \"editabletypelist\"" +
-"                            }," +
-"                            {" +
-"                              \"description\":   \"Widths\"," +
-"                              \"source\":        \"widths\"," +
-"                              \"fieldtype\":     \"textlist\"," +
-"                              \"subtype\":       \"width\"," +
-"                              \"datatype\":      \"array\"" +
-"                            }" +
-"                          ]" +
-"                        }" +
-" }";
+	   for each type of modification. The modification type is used
+	   as the property name to obtain each set of modification data. */
+	static String HDLmModInfoDataString =
+		"""
+	  {
+	    "attribute":       { "fields":
+	                           [
+	                             {
+	                               "description":   "Modification Name",
+	                               "source":        "name",
+	                               "fieldtype":     "iotext",
+	                               "subtype":       "modificationname"
+	                             },
+	                             {
+	                               "description":   "Modification Path Value",
+	                               "source":        "pathvalue",
+	                               "fieldtype":     "pathvalue",
+	                               "subtype":       "Path Value"
+	                             },
+	                             {
+	                               "description":   "Comments",
+	                               "source":        "comments",
+	                               "fieldtype":     "comminfo",
+	                               "subtype":       "comments"
+	                             },
+	                             {
+	                               "description":   "Extra Information",
+	                               "source":        "extra",
+	                               "fieldtype":     "extrainfo",
+	                               "subtype":       "extraAttribute"
+	                             },
+	 														 {
+	 															 "description":   "Probability",
+	 															 "source":        "probability",
+	 															 "fieldtype":     "float",
+	 															 "subtype":       "probability"
+	 														 },
+	 														 {
+	 															 "description":   "Use Mode",
+	 															 "source":        "usemode",
+	 															 "fieldtype":     "usemode",
+	 															 "subtype":       "usemode"
+	 														 },
+	                             {
+	                               "description":   "Created",
+	                               "source":        "created",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "Last Modified",
+	                               "source":        "lastmodified",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "CSS Selector",
+	                               "source":        "cssselector",
+	                               "fieldtype":     "cssinfo",
+	                               "subtype":       "cssselector"
+	                             },
+	                             {
+	                               "description":   "XPath Information",
+	                               "source":        "xpath",
+	                               "fieldtype":     "xpathinfo",
+	                               "subtype":       "xpath"
+	                             },
+	                             {
+	                               "description":   "Find Information",
+	                               "source":        "find",
+	                               "fieldtype":     "findinfo",
+	                               "subtype":       "find"
+	                             },
+	                             {
+	                               "description":   "Node Identifier",
+	                               "source":        "nodeiden",
+	                               "fieldtype":     "nodeiden",
+	                               "subtype":       "nodeiden"
+	                             },
+	                             {
+	                               "description":   "Modification Type",
+	                               "source":        "type",
+	                               "fieldtype":     "typelist",
+	                               "subtype":       "editabletypelist"
+	                             }
+	                           ] 
+	                         },
+	    "changeattrs":     { "fields":
+	                           [
+	                             {
+	                               "description":   "Modification Name",
+	                               "source":        "name",
+	                               "fieldtype":     "iotext",
+	                               "subtype":       "modificationname"
+	                             },
+	                             {
+	                               "description":   "Modification Path Value",
+	                               "source":        "pathvalue",
+	                               "fieldtype":     "pathvalue",
+	                               "subtype":       "Path Value"
+	                             },
+	                             {
+	                               "description":   "Comments",
+	                               "source":        "comments",
+	                               "fieldtype":     "comminfo",
+	                               "subtype":       "comments"
+	                             },
+	                             {
+	                               "description":   "Extra Information",
+	                               "source":        "extra",
+	                               "fieldtype":     "extrainfo",
+	                               "subtype":       "extra"
+	                             },
+	 														 {
+	 															 "description":   "Probability",
+	 															 "source":        "probability",
+	 															 "fieldtype":     "float",
+	 															 "subtype":       "probability"
+	 														 },
+	 														 {
+	 															 "description":   "Use Mode",
+	 															 "source":        "usemode",
+	 															 "fieldtype":     "usemode",
+	 															 "subtype":       "usemode"
+	 														 },
+	                             {
+	                               "description":   "Created",
+	                               "source":        "created",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "Last Modified",
+	                               "source":        "lastmodified",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "CSS Selector",
+	                               "source":        "cssselector",
+	                               "fieldtype":     "cssinfo",
+	                               "subtype":       "cssselector"
+	                             },
+	                             {
+	                               "description":   "XPath Information",
+	                               "source":        "xpath",
+	                               "fieldtype":     "xpathinfo",
+	                               "subtype":       "xpath"
+	                             },
+	                             {
+	                               "description":   "Find Information",
+	                               "source":        "find",
+	                               "fieldtype":     "findinfo",
+	                               "subtype":       "find"
+	                             },
+	                             {
+	                               "description":   "Node Identifier",
+	                               "source":        "nodeiden",
+	                               "fieldtype":     "nodeiden",
+	                               "subtype":       "nodeiden"
+	                             },
+	                             {
+	                               "description":   "Parameter Number",
+	                               "source":        "parameter",
+	                               "fieldtype":     "ionumber",
+	                               "subtype":       "parameter"
+	                             },
+	                             {
+	                               "description":   "Modification Type",
+	                               "source":        "type",
+	                               "fieldtype":     "typelist",
+	                               "subtype":       "editabletypelist"
+	                             },
+	                             {
+	                               "description":   "Change Attributes Values",
+	                               "source":        "changeattrsvalues",
+	                               "fieldtype":     "textlist",
+	                               "subtype":       "changeattrs",
+	                               "datatype":      "array"
+	                             }
+	                           ]
+	                         },
+	    "extract":         { "fields":
+	                           [
+	                             {
+	                               "description":   "Modification Name",
+	                               "source":        "name",
+	                               "fieldtype":     "iotext",
+	                               "subtype":       "modificationname"
+	                             },
+	                             {
+	                               "description":   "Modification Path Value",
+	                               "source":        "pathvalue",
+	                               "fieldtype":     "pathvalue",
+	                               "subtype":       "Path Value"
+	                             },
+	                             {
+	                               "description":   "Comments",
+	                               "source":        "comments",
+	                               "fieldtype":     "comminfo",
+	                               "subtype":       "comments"
+	                             },
+	                             {
+	                               "description":   "Extra Information",
+	                               "source":        "extra",
+	                               "fieldtype":     "extrainfo",
+	                               "subtype":       "extra"
+	                             },
+	 														 {
+	 															 "description":   "Probability",
+	 															 "source":        "probability",
+	 															 "fieldtype":     "float",
+	 															 "subtype":       "probability"
+	 														 },
+	 														 {
+	 															 "description":   "Use Mode",
+	 															 "source":        "usemode",
+	 															 "fieldtype":     "usemode",
+	 															 "subtype":       "usemode"
+	 														 },
+	                             {
+	                               "description":   "Created",
+	                               "source":        "created",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "Last Modified",
+	                               "source":        "lastmodified",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "CSS Selector",
+	                               "source":        "cssselector",
+	                               "fieldtype":     "cssinfo",
+	                               "subtype":       "cssselector"
+	                             },
+	                             {
+	                               "description":   "XPath Information",
+	                               "source":        "xpath",
+	                               "fieldtype":     "xpathinfo",
+	                               "subtype":       "xpath"
+	                             },
+	                             {
+	                               "description":   "Find Information",
+	                               "source":        "find",
+	                               "fieldtype":     "findinfo",
+	                               "subtype":       "find"
+	                             },
+	                             {
+	                               "description":   "Node Identifier",
+	                               "source":        "nodeiden",
+	                               "fieldtype":     "nodeiden",
+	                               "subtype":       "nodeiden"
+	                             },
+	                             {
+	                               "description":   "Modification Type",
+	                               "source":        "type",
+	                               "fieldtype":     "typelist",
+	                               "subtype":       "editabletypelist"
+	                             }
+	                           ]
+	                         },
+	    "fontcolor":       { "fields":
+	                           [
+	                             {
+	                               "description":   "Modification Name",
+	                               "source":        "name",
+	                               "fieldtype":     "iotext",
+	                               "subtype":       "modificationname"
+	                             },
+	                             {
+	                               "description":   "Modification Path Value",
+	                               "source":        "pathvalue",
+	                               "fieldtype":     "pathvalue",
+	                               "subtype":       "Path Value"
+	                             },
+	                             {
+	                               "description":   "Comments",
+	                               "source":        "comments",
+	                               "fieldtype":     "comminfo",
+	                               "subtype":       "comments"
+	                             },
+	                             {
+	                               "description":   "Extra Information",
+	                               "source":        "extra",
+	                               "fieldtype":     "extrainfo",
+	                               "subtype":       "extra"
+	                             },
+	 														 {
+	 															 "description":   "Probability",
+	 															 "source":        "probability",
+	 															 "fieldtype":     "float",
+	 															 "subtype":       "probability"
+	 														 },
+	 														 {
+	 															 "description":   "Use Mode",
+	 															 "source":        "usemode",
+	 															 "fieldtype":     "usemode",
+	 															 "subtype":       "usemode"
+	 														 },
+	                             {
+	                               "description":   "Created",
+	                               "source":        "created",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "Last Modified",
+	                               "source":        "lastmodified",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "CSS Selector",
+	                               "source":        "cssselector",
+	                               "fieldtype":     "cssinfo",
+	                               "subtype":       "cssselector"
+	                             },
+	                             {
+	                               "description":   "XPath Information",
+	                               "source":        "xpath",
+	                               "fieldtype":     "xpathinfo",
+	                               "subtype":       "xpath"
+	                             },
+	                             {
+	                               "description":   "Find Information",
+	                               "source":        "find",
+	                               "fieldtype":     "findinfo",
+	                               "subtype":       "find"
+	                             },
+	                             {
+	                               "description":   "Node Identifier",
+	                               "source":        "nodeiden",
+	                               "fieldtype":     "nodeiden",
+	                               "subtype":       "nodeiden"
+	                             },
+	                             {
+	                               "description":   "Parameter Number",
+	                               "source":        "parameter",
+	                               "fieldtype":     "ionumber",
+	                               "subtype":       "parameter"
+	                             },
+	                             {
+	                               "description":   "Modification Type",
+	                               "source":        "type",
+	                               "fieldtype":     "typelist",
+	                               "subtype":       "editabletypelist"
+	                             },
+	                             {
+	                               "description":   "Font Colors",
+	                               "source":        "colors",
+	                               "fieldtype":     "colorlist",
+	                               "subtype":       "colors",
+	                               "datatype":      "array"
+	                             }
+	                           ]
+	                         },
+	    "fontfamily":      { "fields":
+	                           [
+	                             {
+	                               "description":   "Modification Name",
+	                               "source":        "name",
+	                               "fieldtype":     "iotext",
+	                               "subtype":       "modificationname"
+	                             },
+	                             {
+	                               "description":   "Modification Path Value",
+	                               "source":        "pathvalue",
+	                               "fieldtype":     "pathvalue",
+	                               "subtype":       "Path Value"
+	                             },
+	                             {
+	                               "description":   "Comments",
+	                               "source":        "comments",
+	                               "fieldtype":     "comminfo",
+	                               "subtype":       "comments"
+	                             },
+	                             {
+	                               "description":   "Extra Information",
+	                               "source":        "extra",
+	                               "fieldtype":     "extrainfo",
+	                               "subtype":       "extra"
+	                             },
+	 														 {
+	 															 "description":   "Probability",
+	 															 "source":        "probability",
+	 															 "fieldtype":     "float",
+	 															 "subtype":       "probability"
+	 														 },
+	 														 {
+	 															 "description":   "Use Mode",
+	 															 "source":        "usemode",
+	 															 "fieldtype":     "usemode",
+	 															 "subtype":       "usemode"
+	 														 },
+	                             {
+	                               "description":   "Created",
+	                               "source":        "created",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "Last Modified",
+	                               "source":        "lastmodified",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "CSS Selector",
+	                               "source":        "cssselector",
+	                               "fieldtype":     "cssinfo",
+	                               "subtype":       "cssselector"
+	                             },
+	                             {
+	                               "description":   "XPath Information",
+	                               "source":        "xpath",
+	                               "fieldtype":     "xpathinfo",
+	                               "subtype":       "xpath"
+	                             },
+	                             {
+	                               "description":   "Find Information",
+	                               "source":        "find",
+	                               "fieldtype":     "findinfo",
+	                               "subtype":       "find"
+	                             },
+	                             {
+	                               "description":   "Node Identifier",
+	                               "source":        "nodeiden",
+	                               "fieldtype":     "nodeiden",
+	                               "subtype":       "nodeiden"
+	                             },
+	                             {
+	                               "description":   "Parameter Number",
+	                               "source":        "parameter",
+	                               "fieldtype":     "ionumber",
+	                               "subtype":       "parameter"
+	                             },
+	                             {
+	                               "description":   "Modification Type",
+	                               "source":        "type",
+	                               "fieldtype":     "typelist",
+	                               "subtype":       "editabletypelist"
+	                             },
+	                             {
+	                               "description":   "Font Families",
+	                               "source":        "families",
+	                               "fieldtype":     "textlist",
+	                               "subtype":       "fontfamily",
+	                               "datatype":      "array"
+	                             }
+	                           ]
+	                         },
+	    "fontkerning":     { "fields":
+	                           [
+	                             {
+	                               "description":   "Modification Name",
+	                               "source":        "name",
+	                               "fieldtype":     "iotext",                       
+	                               "subtype":       "modificationname"
+	                             },
+	                             {
+	                               "description":   "Modification Path Value",
+	                               "source":        "pathvalue",
+	                               "fieldtype":     "pathvalue",
+	                               "subtype":       "Path Value"
+	                             },
+	                             {
+	                               "description":   "Comments",
+	                               "source":        "comments",
+	                               "fieldtype":     "comminfo",
+	                               "subtype":       "comments"
+	                             },
+	                             {
+	                               "description":   "Extra Information",
+	                               "source":        "extra",
+	                               "fieldtype":     "extrainfo",
+	                               "subtype":       "extra"
+	                             },
+	 														 {
+	 															 "description":   "Probability",
+	 															 "source":        "probability",
+	 															 "fieldtype":     "float",
+	 															 "subtype":       "probability"
+	 														 },
+	 														 {
+	 															 "description":   "Use Mode",
+	 															 "source":        "usemode",
+	 															 "fieldtype":     "usemode",
+	 															 "subtype":       "usemode"
+	 														 },
+	                             {
+	                               "description":   "Created",
+	                               "source":        "created",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "Last Modified",
+	                               "source":        "lastmodified",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "CSS Selector",
+	                               "source":        "cssselector",
+	                               "fieldtype":     "cssinfo",
+	                               "subtype":       "cssselector"
+	                             },
+	                             {
+	                               "description":   "XPath Information",
+	                               "source":        "xpath",
+	                               "fieldtype":     "xpathinfo",
+	                               "subtype":       "xpath"
+	                             },
+	                             {
+	                               "description":   "Find Information",
+	                               "source":        "find",
+	                               "fieldtype":     "findinfo",
+	                               "subtype":       "find"
+	                             },
+	                             {
+	                               "description":   "Node Identifier",
+	                               "source":        "nodeiden",
+	                               "fieldtype":     "nodeiden",
+	                               "subtype":       "nodeiden"
+	                             },
+	                             {
+	                               "description":   "Parameter Number",
+	                               "source":        "parameter",
+	                               "fieldtype":     "ionumber",
+	                               "subtype":       "parameter"
+	                             },
+	                             {
+	                               "description":   "Modification Type",
+	                               "source":        "type",
+	                               "fieldtype":     "typelist",
+	                               "subtype":       "editabletypelist"
+	                             },
+	                             {
+	                               "description":   "Font Kernings",
+	                               "source":        "kernings",
+	                               "fieldtype":     "textlist",
+	                               "subtype":       "fontkerning",
+	                               "datatype":      "array"
+	                             }
+	                           ]
+	                         },
+	    "fontsize":        { "fields":
+	                           [
+	                             {
+	                               "description":   "Modification Name",
+	                               "source":        "name",
+	                               "fieldtype":     "iotext",
+	                               "subtype":       "modificationname"
+	                             },
+	                             {
+	                               "description":   "Modification Path Value",
+	                               "source":        "pathvalue",
+	                               "fieldtype":     "pathvalue",
+	                               "subtype":       "Path Value"
+	                             },
+	                             {
+	                               "description":   "Comments",
+	                               "source":        "comments",
+	                               "fieldtype":     "comminfo",
+	                               "subtype":       "comments"
+	                             },
+	                             {
+	                               "description":   "Extra Information",
+	                               "source":        "extra",
+	                               "fieldtype":     "extrainfo",
+	                               "subtype":       "extra"
+	                             },
+	 														 {
+	 															 "description":   "Probability",
+	 															 "source":        "probability",
+	 															 "fieldtype":     "float",
+	 															 "subtype":       "probability"
+	 														 },
+	 														 {
+	 															 "description":   "Use Mode",
+	 															 "source":        "usemode",
+	 															 "fieldtype":     "usemode",
+	 															 "subtype":       "usemode"
+	 														 },
+	                             {
+	                               "description":   "Created",
+	                               "source":        "created",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "Last Modified",
+	                               "source":        "lastmodified",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "CSS Selector",
+	                               "source":        "cssselector",
+	                               "fieldtype":     "cssinfo",
+	                               "subtype":       "cssselector"
+	                             },
+	                             {
+	                               "description":   "XPath Information",
+	                               "source":        "xpath",
+	                               "fieldtype":     "xpathinfo",
+	                               "subtype":       "xpath"
+	                             },
+	                             {
+	                               "description":   "Find Information",
+	                               "source":        "find",
+	                               "fieldtype":     "findinfo",
+	                               "subtype":       "find"
+	                             },
+	                             {
+	                               "description":   "Node Identifier",
+	                               "source":        "nodeiden",
+	                               "fieldtype":     "nodeiden",
+	                               "subtype":       "nodeiden"
+	                             },
+	                             {
+	                               "description":   "Parameter Number",
+	                               "source":        "parameter",
+	                               "fieldtype":     "ionumber",
+	                               "subtype":       "parameter"
+	                             },
+	                             {
+	                               "description":   "Modification Type",
+	                               "source":        "type",
+	                               "fieldtype":     "typelist",
+	                               "subtype":       "editabletypelist"
+	                             },
+	                             {
+	                               "description":   "Font Sizes",
+	                               "source":        "sizes",
+	                               "fieldtype":     "textlist",
+	                               "subtype":       "fontsize",
+	                               "datatype":      "array"
+	                             }
+	                           ]
+	                         },
+	    "fontstyle":       { "fields":
+	                           [
+	                             {
+	                               "description":   "Modification Name",
+	                               "source":        "name",
+	                               "fieldtype":     "iotext",
+	                               "subtype":       "modificationname"
+	                             },
+	                             {
+	                               "description":   "Modification Path Value",
+	                               "source":        "pathvalue",
+	                               "fieldtype":     "pathvalue",
+	                               "subtype":       "Path Value"
+	                             },
+	                             {
+	                               "description":   "Comments",
+	                               "source":        "comments",
+	                               "fieldtype":     "comminfo",
+	                               "subtype":       "comments"
+	                             },
+	                             {
+	                               "description":   "Extra Information",
+	                               "source":        "extra",
+	                               "fieldtype":     "extrainfo",
+	                               "subtype":       "extra"
+	                             },
+	 														 {
+	 															 "description":   "Probability",
+	 															 "source":        "probability",
+	 															 "fieldtype":     "float",
+	 															 "subtype":       "probability"
+	 														 },
+	 														 {
+	 															 "description":   "Use Mode",
+	 															 "source":        "usemode",
+	 															 "fieldtype":     "usemode",
+	 															 "subtype":       "usemode"
+	 														 },
+	                             {
+	                               "description":   "Created",
+	                               "source":        "created",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "Last Modified",
+	                               "source":        "lastmodified",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "CSS Selector",
+	                               "source":        "cssselector",
+	                               "fieldtype":     "cssinfo",
+	                               "subtype":       "cssselector"
+	                             },
+	                             {
+	                               "description":   "XPath Information",
+	                               "source":        "xpath",
+	                               "fieldtype":     "xpathinfo",
+	                               "subtype":       "xpath"
+	                             },
+	                             {
+	                               "description":   "Find Information",
+	                               "source":        "find",
+	                               "fieldtype":     "findinfo",
+	                               "subtype":       "find"
+	                             },
+	                             {
+	                               "description":   "Node Identifier",
+	                               "source":        "nodeiden",
+	                               "fieldtype":     "nodeiden",
+	                               "subtype":       "nodeiden"
+	                             },
+	                             {
+	                               "description":   "Parameter Number",
+	                               "source":        "parameter",
+	                               "fieldtype":     "ionumber",
+	                               "subtype":       "parameter"
+	                             },
+	                             {
+	                               "description":   "Modification Type",
+	                               "source":        "type",
+	                               "fieldtype":     "typelist",
+	                               "subtype":       "editabletypelist"
+	                             },
+	                             {
+	                               "description":   "Font Styles",
+	                               "source":        "styles",
+	                               "fieldtype":     "textlist",
+	                               "subtype":       "fontstyle",
+	                               "datatype":      "array" 
+	                             }
+	                           ]
+	                         },
+	    "fontweight":      { "fields":
+	                           [
+	                             {
+	                               "description":   "Modification Name",
+	                               "source":        "name",
+	                               "fieldtype":     "iotext",
+	                               "subtype":       "modificationname"
+	                             },
+	                             {
+	                               "description":   "Modification Path Value",
+	                               "source":        "pathvalue",
+	                               "fieldtype":     "pathvalue",
+	                               "subtype":       "Path Value"
+	                             },
+	                             {
+	                               "description":   "Comments",
+	                               "source":        "comments",
+	                               "fieldtype":     "comminfo",
+	                               "subtype":       "comments"
+	                             },
+	                             {
+	                               "description":   "Extra Information",
+	                               "source":        "extra",
+	                               "fieldtype":     "extrainfo",
+	                               "subtype":       "extra"
+	                             },
+	 														 {
+	 															 "description":   "Probability",
+	 															 "source":        "probability",
+	 															 "fieldtype":     "float",
+	 															 "subtype":       "probability"
+	 														 },
+	 														 {
+	 															 "description":   "Use Mode",
+	 															 "source":        "usemode",
+	 															 "fieldtype":     "usemode",
+	 															 "subtype":       "usemode"
+	 														 },
+	                             {
+	                               "description":   "Created",
+	                               "source":        "created",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "Last Modified",
+	                               "source":        "lastmodified",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "CSS Selector",
+	                               "source":        "cssselector",
+	                               "fieldtype":     "cssinfo",
+	                               "subtype":       "cssselector"
+	                             },
+	                             {
+	                               "description":   "XPath Information",
+	                               "source":        "xpath",
+	                               "fieldtype":     "xpathinfo",
+	                               "subtype":       "xpath"
+	                             },
+	                             {
+	                               "description":   "Find Information",
+	                               "source":        "find",
+	                               "fieldtype":     "findinfo",
+	                               "subtype":       "find"
+	                             },
+	                             {
+	                               "description":   "Node Identifier",
+	                               "source":        "nodeiden",
+	                               "fieldtype":     "nodeiden",
+	                               "subtype":       "nodeiden"
+	                             },
+	                             {
+	                               "description":   "Parameter Number",
+	                               "source":        "parameter",
+	                               "fieldtype":     "ionumber",
+	                               "subtype":       "parameter"
+	                             },
+	                             {
+	                               "description":   "Modification Type",
+	                               "source":        "type",
+	                               "fieldtype":     "typelist",
+	                               "subtype":       "editabletypelist"
+	                             },
+	                             {
+	                               "description":   "Font Weights",
+	                               "source":        "weights",
+	                               "fieldtype":     "textlist",
+	                               "subtype":       "fontweight",
+	                               "datatype":      "array"
+	                             }
+	                           ]
+	                         },
+	    "height":          { "fields":
+	                           [
+	                             {
+	                               "description":   "Modification Name",
+	                               "source":        "name",
+	                               "fieldtype":     "iotext",
+	                               "subtype":       "modificationname"
+	                             },
+	                             {
+	                               "description":   "Modification Path Value",
+	                               "source":        "pathvalue",
+	                               "fieldtype":     "pathvalue",
+	                               "subtype":       "Path Value"
+	                             },
+	                             {
+	                               "description":   "Comments",
+	                               "source":        "comments",
+	                               "fieldtype":     "comminfo",
+	                               "subtype":       "comments"
+	                             },
+	                             {
+	                               "description":   "Extra Information",
+	                               "source":        "extra",
+	                               "fieldtype":     "extrainfo",
+	                               "subtype":       "extra"
+	                             },
+	 														 {
+	 															 "description":   "Probability",
+	 															 "source":        "probability",
+	 															 "fieldtype":     "float",
+	 															 "subtype":       "probability"
+	 														 },
+	 														 {
+	 															 "description":   "Use Mode",
+	 															 "source":        "usemode",
+	 															 "fieldtype":     "usemode",
+	 															 "subtype":       "usemode"
+	 														 },
+	                             {
+	                               "description":   "Created",
+	                               "source":        "created",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "Last Modified",
+	                               "source":        "lastmodified",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "CSS Selector",
+	                               "source":        "cssselector",
+	                               "fieldtype":     "cssinfo",
+	                               "subtype":       "cssselector"
+	                             },
+	                             {
+	                               "description":   "XPath Information",
+	                               "source":        "xpath",
+	                               "fieldtype":     "xpathinfo",
+	                               "subtype":       "xpath"
+	                             },
+	                             {
+	                               "description":   "Find Information",
+	                               "source":        "find",
+	                               "fieldtype":     "findinfo",
+	                               "subtype":       "find"
+	                             },
+	                             {
+	                               "description":   "Node Identifier",
+	                               "source":        "nodeiden",
+	                               "fieldtype":     "nodeiden",
+	                               "subtype":       "nodeiden"
+	                             },
+	                             {
+	                               "description":   "Parameter Number",
+	                               "source":        "parameter",
+	                               "fieldtype":     "ionumber",
+	                               "subtype":       "parameter"
+	                             },
+	                             {
+	                               "description":   "Modification Type",
+	                               "source":        "type",
+	                               "fieldtype":     "typelist",
+	                               "subtype":       "editabletypelist"
+	                             },
+	                             {
+	                               "description":   "Heights",
+	                               "source":        "heights",
+	                               "fieldtype":     "textlist",
+	                               "subtype":       "height",
+	                               "datatype":      "array"
+	                             }
+	                           ]
+	                         },
+	    "image":           { "fields":
+	                           [
+	                             {
+	                               "description":   "Modification Name",
+	                               "source":        "name",
+	                               "fieldtype":     "iotext",
+	                               "subtype":       "modificationname"
+	                             },
+	                             {
+	                               "description":   "Modification Path Value",
+	                               "source":        "pathvalue",
+	                               "fieldtype":     "pathvalue",
+	                               "subtype":       "Path Value"
+	                             },
+	                             {
+	                               "description":   "Comments",
+	                               "source":        "comments",
+	                               "fieldtype":     "comminfo",
+	                               "subtype":       "comments"
+	                             },
+	                             {
+	                               "description":   "Extra Information",
+	                               "source":        "extra",
+	                               "fieldtype":     "extrainfo",
+	                               "subtype":       "extra"
+	                             },
+	 														 {
+	 															 "description":   "Probability",
+	 															 "source":        "probability",
+	 															 "fieldtype":     "float",
+	 															 "subtype":       "probability"
+	 														 },
+	 														 {
+	 															 "description":   "Use Mode",
+	 															 "source":        "usemode",
+	 															 "fieldtype":     "usemode",
+	 															 "subtype":       "usemode"
+	 														 },
+	                             {
+	                               "description":   "Created",
+	                               "source":        "created",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "Last Modified",
+	                               "source":        "lastmodified",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "CSS Selector",
+	                               "source":        "cssselector",
+	                               "fieldtype":     "cssinfo",
+	                               "subtype":       "cssselector"
+	                             },
+	                             {
+	                               "description":   "XPath Information",
+	                               "source":        "xpath",
+	                               "fieldtype":     "xpathinfo",
+	                               "subtype":       "xpath"
+	                             },
+	                             {
+	                               "description":   "Find Information",
+	                               "source":        "find",
+	                               "fieldtype":     "findinfo",
+	                               "subtype":       "find"
+	                             },
+	                             {
+	                               "description":   "Node Identifier",
+	                               "source":        "nodeiden",
+	                               "fieldtype":     "nodeiden",
+	                               "subtype":       "nodeiden"
+	                             },
+	                             {
+	                               "description":   "Parameter Number",
+	                               "source":        "parameter",
+	                               "fieldtype":     "ionumber",
+	                               "subtype":       "parameter"
+	                             },
+	                             {
+	                               "description":   "Modification Type",
+	                               "source":        "type",
+	                               "fieldtype":     "typelist",
+	                               "subtype":       "editabletypelist"
+	                             },
+	                             {
+	                               "description":   "Images",
+	                               "source":        "images",
+	                               "fieldtype":     "imagelist",
+	                               "subtype":       "images",
+	                               "datatype":      "array"
+	                             }
+	                           ]
+	                         },
+	    "modify":          { "fields":
+	                           [
+	                             {
+	                               "description":   "Modification Name",
+	                               "source":        "name",
+	                               "fieldtype":     "iotext",
+	                               "subtype":       "modificationname"
+	                             },
+	                             {
+	                               "description":   "Modification Path Value",
+	                               "source":        "pathvalue",
+	                               "fieldtype":     "pathvalue",
+	                               "subtype":       "Path Value"
+	                             },
+	                             {
+	                               "description":   "Comments",
+	                               "source":        "comments",
+	                               "fieldtype":     "comminfo",
+	                               "subtype":       "comments"
+	                             },
+	                             {
+	                               "description":   "Extra Information",
+	                               "source":        "extra",
+	                               "fieldtype":     "extrainfo",
+	                               "subtype":       "extra"
+	                             },
+	 														 {
+	 															 "description":   "Probability",
+	 															 "source":        "probability",
+	 															 "fieldtype":     "float",
+	 															 "subtype":       "probability"
+	 														 },
+	 														 {
+	 															 "description":   "Use Mode",
+	 															 "source":        "usemode",
+	 															 "fieldtype":     "usemode",
+	 															 "subtype":       "usemode"
+	 														 },
+	                             {
+	                               "description":   "Created",
+	                               "source":        "created",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "Last Modified",
+	                               "source":        "lastmodified",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "CSS Selector",
+	                               "source":        "cssselector",
+	                               "fieldtype":     "cssinfo",
+	                               "subtype":       "cssselector"
+	                             },
+	                             {
+	                               "description":   "XPath Information",
+	                               "source":        "xpath",
+	                               "fieldtype":     "xpathinfo",
+	                               "subtype":       "xpath"
+	                             },
+	                             {
+	                               "description":   "Find Information",
+	                               "source":        "find",
+	                               "fieldtype":     "findinfo",
+	                               "subtype":       "find"
+	                             },
+	                             {
+	                               "description":   "Node Identifier",
+	                               "source":        "nodeiden",
+	                               "fieldtype":     "nodeiden",
+	                               "subtype":       "nodeiden"
+	                             },
+	                             {
+	                               "description":   "Modification Type",
+	                               "source":        "type",
+	                               "fieldtype":     "typelist",
+	                               "subtype":       "editabletypelist"
+	                             }
+	                           ]
+	                         },
+	    "newcompmod":      { "fields":
+	                           [
+	                             {
+	                               "description":   "Company Name",
+	                               "source":        "name",
+	                               "fieldtype":     "iotext",
+	                               "subtype":       "editablecompmodname"
+	                             }
+	                           ]
+	                         },
+	    "newdivision":     { "fields":
+	                           [
+	                             {
+	                               "description":   "Division Name",
+	                               "source":        "name",
+	                               "fieldtype":     "iotext",
+	                               "subtype":       "editabledivisionname"
+	                             }
+	                           ]
+	                         },
+	    "newmod":          { "fields":
+	                           [
+	                             {
+	                               "description":   "Modification Name",
+	                               "source":        "name",
+	                               "fieldtype":     "iotext",
+	                               "subtype":       "editablemodificationname"
+	                             },
+	                             {
+	                               "description":   "Modification Path Value",
+	                               "source":        "pathvalue",
+	                               "fieldtype":     "pathvalue",
+	                               "subtype":       "Path Value"
+	                             },
+	                             {
+	                               "description":   "Comments",
+	                               "source":        "comments",
+	                               "fieldtype":     "comminfo",
+	                               "subtype":       "comments"
+	                             },
+	                             {
+	                               "description":   "Extra Information",
+	                               "source":        "extra",
+	                               "fieldtype":     "extrainfo",
+	                               "subtype":       "extra"
+	                             },
+	 														 {
+	 															 "description":   "Probability",
+	 															 "source":        "probability",
+	 															 "fieldtype":     "float",
+	 															 "subtype":       "probability"
+	 														 },
+	 														 {
+	 															 "description":   "Use Mode",
+	 															 "source":        "usemode",
+	 															 "fieldtype":     "usemode",
+	 															 "subtype":       "usemode"
+	 														 },
+	                             {
+	                               "description":   "Created",
+	                               "source":        "created",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "Last Modified",
+	                               "source":        "lastmodified",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "CSS Selector",
+	                               "source":        "cssselector",
+	                               "fieldtype":     "cssinfo",
+	                               "subtype":       "cssselector"
+	                             },
+	                             {
+	                               "description":   "XPath Information",
+	                               "source":        "xpath",
+	                               "fieldtype":     "xpathinfo",
+	                               "subtype":       "xpath"
+	                             },
+	                             {
+	                               "description":   "Find Information",
+	                               "source":        "find",
+	                               "fieldtype":     "findinfo",
+	                               "subtype":       "find"
+	                             },
+	                             {
+	                               "description":   "Node Identifier",
+	                               "source":        "nodeiden",
+	                               "fieldtype":     "nodeiden",
+	                               "subtype":       "nodeiden"
+	                             },
+	                             {
+	                               "description":   "Parameter Number",
+	                               "source":        "parameter",
+	                               "fieldtype":     "ionumber",
+	                               "subtype":       "editableparameter"
+	                             },
+	                             {
+	                               "description":   "Modification Type",
+	                               "source":        "type",
+	                               "fieldtype":     "typelist",
+	                               "subtype":       "editabletypelist"
+	                             }
+	                           ]
+	                         },
+	    "newsite":         { "fields":
+	                           [
+	                             {
+	                               "description":   "Site Name",
+	                               "source":        "name",
+	                               "fieldtype":     "iotext",
+	                               "subtype":       "editablesitename"
+	                             }        
+	                           ]
+	                         },
+	    "notify":          { "fields":
+	                           [
+	                             {
+	                               "description":   "Modification Name",
+	                               "source":        "name",
+	                               "fieldtype":     "iotext",
+	                               "subtype":       "modificationname"
+	                             },
+	                             {
+	                               "description":   "Modification Path Value",
+	                               "source":        "pathvalue",
+	                               "fieldtype":     "pathvalue",
+	                               "subtype":       "Path Value"
+	                             },
+	                             {
+	                               "description":   "Comments",
+	                               "source":        "comments",
+	                               "fieldtype":     "comminfo",
+	                               "subtype":       "comments"
+	                             },
+	                             {
+	                               "description":   "Extra Information",
+	                               "source":        "extra",
+	                               "fieldtype":     "extrainfo",
+	                               "subtype":       "extra"
+	                             },
+	 														 {
+	 															 "description":   "Probability",
+	 															 "source":        "probability",
+	 															 "fieldtype":     "float",
+	 															 "subtype":       "probability"
+	 														 },
+	 														 {
+	 															 "description":   "Use Mode",
+	 															 "source":        "usemode",
+	 															 "fieldtype":     "usemode",
+	 															 "subtype":       "usemode"
+	 														 },
+	                             {
+	                               "description":   "Created",
+	                               "source":        "created",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "Last Modified",
+	                               "source":        "lastmodified",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "CSS Selector",
+	                               "source":        "cssselector",
+	                               "fieldtype":     "cssinfo",
+	                               "subtype":       "cssselector"
+	                             },
+	                             {
+	                               "description":   "XPath Information",
+	                               "source":        "xpath",
+	                               "fieldtype":     "xpathinfo",
+	                               "subtype":       "xpath"
+	                             },
+	                             {
+	                               "description":   "Find Information",
+	                               "source":        "find",
+	                               "fieldtype":     "findinfo",
+	                               "subtype":       "find"
+	                             },
+	                             {
+	                               "description":   "Node Identifier",
+	                               "source":        "nodeiden",
+	                               "fieldtype":     "nodeiden",
+	                               "subtype":       "nodeiden"
+	                             },
+	                             {
+	                               "description":   "Modification Type",
+	                               "source":        "type",
+	                               "fieldtype":     "typelist",
+	                               "subtype":       "editabletypelist"
+	                             },
+	                             {
+	                               "description":   "Extract Targets",
+	                               "source":        "targets",
+	                               "fieldtype":     "textlist",
+	                               "subtype":       "target",
+	                               "datatype":      "array"
+	                             }
+	                           ]
+	                         },
+	    "order":           { "fields":
+	                           [
+	                             {
+	                               "description":   "Modification Name",
+	                               "source":        "name",
+	                               "fieldtype":     "iotext",
+	                               "subtype":       "modificationname"
+	                             },
+	                             {
+	                               "description":   "Modification Path Value",
+	                               "source":        "pathvalue",
+	                               "fieldtype":     "pathvalue",
+	                               "subtype":       "Path Value"
+	                             },
+	                             {
+	                               "description":   "Comments",
+	                               "source":        "comments",
+	                               "fieldtype":     "comminfo",
+	                               "subtype":       "comments"
+	                             },
+	                             {
+	                               "description":   "Extra Information",
+	                               "source":        "extra",
+	                               "fieldtype":     "extrainfo",
+	                               "subtype":       "extra"
+	                             },
+	 														 {
+	 															 "description":   "Probability",
+	 															 "source":        "probability",
+	 															 "fieldtype":     "float",
+	 															 "subtype":       "probability"
+	 														 },
+	 														 {
+	 															 "description":   "Use Mode",
+	 															 "source":        "usemode",
+	 															 "fieldtype":     "usemode",
+	 															 "subtype":       "usemode"
+	 														 },
+	                             {
+	                               "description":   "Created",
+	                               "source":        "created",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "Last Modified",
+	                               "source":        "lastmodified",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "CSS Selector",
+	                               "source":        "cssselector",
+	                               "fieldtype":     "cssinfo",
+	                               "subtype":       "cssselector"
+	                             },
+	                             {
+	                               "description":   "XPath Information",
+	                               "source":        "xpath",
+	                               "fieldtype":     "xpathinfo",
+	                               "subtype":       "xpath"
+	                             },
+	                             {
+	                               "description":   "Find Information",
+	                               "source":        "find",
+	                               "fieldtype":     "findinfo",
+	                               "subtype":       "find"
+	                             },
+	                             {
+	                               "description":   "Node Identifier",
+	                               "source":        "nodeiden",
+	                               "fieldtype":     "nodeiden",
+	                               "subtype":       "nodeiden"
+	                             },
+	                             {
+	                               "description":   "Parameter Number",
+	                               "source":        "parameter",
+	                               "fieldtype":     "ionumber",
+	                               "subtype":       "parameter"
+	                             },
+	                             {
+	                               "description":   "Modification Type",
+	                               "source":        "type",
+	                               "fieldtype":     "typelist",
+	                               "subtype":       "editabletypelist"
+	                             },
+	                             {
+	                               "description":   "New Order Information",
+	                               "source":        "orders",
+	                               "fieldtype":     "textlist",
+	                               "subtype":       "order",
+	                               "datatype":      "array"
+	                             }
+	                           ]
+	                         },    
+	    "remove":          { "fields":
+	                           [
+	                             {
+	                               "description":   "Modification Name",
+	                               "source":        "name",
+	                               "fieldtype":     "iotext",
+	                               "subtype":       "modificationname"
+	                             },
+	                             {
+	                               "description":   "Modification Path Value",
+	                               "source":        "pathvalue",
+	                               "fieldtype":     "pathvalue",
+	                               "subtype":       "Path Value"
+	                             },
+	                             {
+	                               "description":   "Comments",
+	                               "source":        "comments",
+	                               "fieldtype":     "comminfo",
+	                               "subtype":       "comments"
+	                             },
+	                             {
+	                               "description":   "Extra Information",
+	                               "source":        "extra",
+	                               "fieldtype":     "extrainfo",
+	                               "subtype":       "extra"
+	                             },
+	 														 {
+	 															 "description":   "Probability",
+	 															 "source":        "probability",
+	 															 "fieldtype":     "float",
+	 															 "subtype":       "probability"
+	 														 },
+	 														 {
+	 															 "description":   "Use Mode",
+	 															 "source":        "usemode",
+	 															 "fieldtype":     "usemode",
+	 															 "subtype":       "usemode"
+	 														 },
+	                             {
+	                               "description":   "Created",
+	                               "source":        "created",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "Last Modified",
+	                               "source":        "lastmodified",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "CSS Selector",
+	                               "source":        "cssselector",
+	                               "fieldtype":     "cssinfo",
+	                               "subtype":       "cssselector"
+	                             },
+	                             {
+	                               "description":   "XPath Information",
+	                               "source":        "xpath",
+	                               "fieldtype":     "xpathinfo",
+	                               "subtype":       "xpath"
+	                             },
+	                             {
+	                               "description":   "Find Information",
+	                               "source":        "find",
+	                               "fieldtype":     "findinfo",
+	                               "subtype":       "find"
+	                             },
+	                             {
+	                               "description":   "Node Identifier",
+	                               "source":        "nodeiden",
+	                               "fieldtype":     "nodeiden",
+	                               "subtype":       "nodeiden"
+	                             },
+	                             {
+	                               "description":   "Parameter Number",
+	                               "source":        "parameter",
+	                               "fieldtype":     "ionumber",
+	                               "subtype":       "parameter"
+	                             },
+	                             {
+	                               "description":   "Modification Type",
+	                               "source":        "type",
+	                               "fieldtype":     "typelist",
+	                               "subtype":       "editabletypelist"
+	                             },
+	                             {
+	                               "description":   "Remove Values",
+	                               "source":        "removevalues",
+	                               "fieldtype":     "textlist",
+	                               "subtype":       "remove",
+	                               "datatype":      "array"
+	                             }
+	                           ]     
+	                         },
+	    "replace":         { "fields":
+	                           [
+	                             {
+	                               "description":   "Modification Name",
+	                               "source":        "name",
+	                               "fieldtype":     "iotext",
+	                               "subtype":       "modificationname"
+	                             },
+	                             {
+	                               "description":   "Modification Path Value",
+	                               "source":        "pathvalue",
+	                               "fieldtype":     "pathvalue",
+	                               "subtype":       "Path Value"
+	                             },
+	                             {
+	                               "description":   "Comments",
+	                               "source":        "comments",
+	                               "fieldtype":     "comminfo",
+	                               "subtype":       "comments"
+	                             },
+	                             {
+	                               "description":   "Extra Information",
+	                               "source":        "extra",
+	                               "fieldtype":     "extrainfo",
+	                               "subtype":       "extra"
+	                             },
+	 														 {
+	 															 "description":   "Probability",
+	 															 "source":        "probability",
+	 															 "fieldtype":     "float",
+	 															 "subtype":       "probability"
+	 														 },
+	 														 {
+	 															 "description":   "Use Mode",
+	 															 "source":        "usemode",
+	 															 "fieldtype":     "usemode",
+	 															 "subtype":       "usemode"
+	 														 },
+	                             {
+	                               "description":   "Created",
+	                               "source":        "created",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "Last Modified",
+	                               "source":        "lastmodified",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "CSS Selector",
+	                               "source":        "cssselector",
+	                               "fieldtype":     "cssinfo",
+	                               "subtype":       "cssselector"
+	                             },
+	                             {
+	                               "description":   "XPath Information",
+	                               "source":        "xpath",
+	                               "fieldtype":     "xpathinfo",
+	                               "subtype":       "xpath"
+	                             },
+	                             {
+	                               "description":   "Find Information",
+	                               "source":        "find",
+	                               "fieldtype":     "findinfo",
+	                               "subtype":       "find"
+	                             },
+	                             {
+	                               "description":   "Node Identifier",
+	                               "source":        "nodeiden",
+	                               "fieldtype":     "nodeiden",
+	                               "subtype":       "nodeiden"
+	                             },
+	                             {
+	                               "description":   "Parameter Number",
+	                               "source":        "parameter",
+	                               "fieldtype":     "ionumber",
+	                               "subtype":       "parameter"
+	                             },
+	                             {
+	                               "description":   "Modification Type",
+	                               "source":        "type",
+	                               "fieldtype":     "typelist",
+	                               "subtype":       "editabletypelist"
+	                             },
+	                             {
+	                               "description":   "Replace Values",
+	                               "source":        "replacevalues",
+	                               "fieldtype":     "textlist",
+	                               "subtype":       "replace",
+	                               "datatype":      "array"
+	                             }
+	                           ]
+	                         },
+	    "script":          { "fields":
+	                           [
+	                             {
+	                               "description":   "Modification Name",
+	                               "source":        "name",
+	                               "fieldtype":     "iotext",
+	                               "subtype":       "modificationname"
+	                             },
+	                             {
+	                               "description":   "Modification Path Value",
+	                               "source":        "pathvalue",
+	                               "fieldtype":     "pathvalue",
+	                               "subtype":       "Path Value"
+	                             },
+	                             {
+	                               "description":   "Comments",
+	                               "source":        "comments",
+	                               "fieldtype":     "comminfo",
+	                               "subtype":       "comments"
+	                             },
+	                             {
+	                               "description":   "Extra Information",
+	                               "source":        "extra",
+	                               "fieldtype":     "extrainfo",
+	                               "subtype":       "extra"
+	                             },
+	 														 {
+	 															 "description":   "Probability",
+	 															 "source":        "probability",
+	 															 "fieldtype":     "float",
+	 															 "subtype":       "probability"
+	 														 },
+	 														 {
+	 															 "description":   "Use Mode",
+	 															 "source":        "usemode",
+	 															 "fieldtype":     "usemode",
+	 															 "subtype":       "usemode"
+	 														 },
+	                             {
+	                               "description":   "Created",
+	                               "source":        "created",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "Last Modified",
+	                               "source":        "lastmodified",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "CSS Selector",
+	                               "source":        "cssselector",
+	                               "fieldtype":     "cssinfo",
+	                               "subtype":       "cssselector"
+	                             },
+	                             {
+	                               "description":   "XPath Information",
+	                               "source":        "xpath",
+	                               "fieldtype":     "xpathinfo",
+	                               "subtype":       "xpath"
+	                             },
+	                             {
+	                               "description":   "Find Information",
+	                               "source":        "find",
+	                               "fieldtype":     "findinfo",
+	                               "subtype":       "find"
+	                             },
+	                             {
+	                               "description":   "Node Identifier",
+	                               "source":        "nodeiden",
+	                               "fieldtype":     "nodeiden",
+	                               "subtype":       "nodeiden"
+	                             },
+	                             {
+	                               "description":   "Parameter Number",
+	                               "source":        "parameter",
+	                               "fieldtype":     "ionumber",
+	                               "subtype":       "parameter"
+	                             },
+	                             {
+	                               "description":   "Modification Type",
+	                               "source":        "type",
+	                               "fieldtype":     "typelist",
+	                               "subtype":       "editabletypelist"
+	                             },
+	                             {
+	                               "description":   "Scripts",
+	                               "source":        "scripts",
+	                               "fieldtype":     "textlist",
+	                               "subtype":       "script",
+	                               "datatype":      "array"
+	                             }
+	                           ]
+	                         },
+	    "style":           { "fields":
+	                           [
+	                             {
+	                               "description":   "Modification Name",
+	                               "source":        "name",
+	                               "fieldtype":     "iotext",
+	                               "subtype":       "modificationname"
+	                             },
+	                             {
+	                               "description":   "Modification Path Value",
+	                               "source":        "pathvalue",
+	                               "fieldtype":     "pathvalue",
+	                               "subtype":       "Path Value"
+	                             },
+	                             {
+	                               "description":   "Comments",
+	                               "source":        "comments",
+	                               "fieldtype":     "comminfo",
+	                               "subtype":       "comments"
+	                             },
+	                             {
+	                               "description":   "Extra Information",
+	                               "source":        "extra",
+	                               "fieldtype":     "extrainfo",
+	                               "subtype":       "extraStyle"
+	                             },
+	 														 {
+	 															 "description":   "Probability",
+	 															 "source":        "probability",
+	 															 "fieldtype":     "float",
+	 															 "subtype":       "probability"
+	 														 },
+	 														 {
+	 															 "description":   "Use Mode",
+	 															 "source":        "usemode",
+	 															 "fieldtype":     "usemode",
+	 															 "subtype":       "usemode"
+	 														 },
+	                             {
+	                               "description":   "Created",
+	                               "source":        "created",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "Last Modified",
+	                               "source":        "lastmodified",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "CSS Selector",
+	                               "source":        "cssselector",
+	                               "fieldtype":     "cssinfo",
+	                               "subtype":       "cssselector"
+	                             },
+	                             {
+	                               "description":   "XPath Information",
+	                               "source":        "xpath",
+	                               "fieldtype":     "xpathinfo",
+	                               "subtype":       "xpath"
+	                             },
+	                             {
+	                               "description":   "Find Information",
+	                               "source":        "find",
+	                               "fieldtype":     "findinfo",
+	                               "subtype":       "find"
+	                             },
+	                             {
+	                               "description":   "Node Identifier",
+	                               "source":        "nodeiden",
+	                               "fieldtype":     "nodeiden",
+	                               "subtype":       "nodeiden"
+	                             },
+	                             {
+	                               "description":   "Parameter Number",
+	                               "source":        "parameter",
+	                               "fieldtype":     "ionumber",
+	                               "subtype":       "parameter"
+	                             },
+	                             {
+	                               "description":   "Modification Type",
+	                               "source":        "type",
+	                               "fieldtype":     "typelist",
+	                               "subtype":       "editabletypelist"
+	                             },
+	                             {
+	                               "description":   "New Style Information",
+	                               "source":        "styles",
+	                               "fieldtype":     "textlist",
+	                               "subtype":       "style",
+	                               "datatype":      "array"
+	                             }
+	                           ]
+	                         },
+	    "text":            { "fields":
+	                           [
+	                             {
+	                               "description":   "Modification Name",
+	                               "source":        "name",
+	                               "fieldtype":     "iotext",
+	                               "subtype":       "modificationname"
+	                             },
+	                             {
+	                               "description":   "Modification Path Value",
+	                               "source":        "pathvalue",
+	                               "fieldtype":     "pathvalue",
+	                               "subtype":       "Path Value"
+	                             },
+	                             {
+	                               "description":   "Comments",
+	                               "source":        "comments",
+	                               "fieldtype":     "comminfo",
+	                               "subtype":       "comments"
+	                             },
+	                             {
+	                               "description":   "Extra Information",
+	                               "source":        "extra",
+	                               "fieldtype":     "extrainfo",
+	                               "subtype":       "extra"
+	                             },
+	 														 {
+	 															 "description":   "Probability",
+	 															 "source":        "probability",
+	 															 "fieldtype":     "float",
+	 															 "subtype":       "probability"
+	 														 },
+	 														 {
+	 															 "description":   "Use Mode",
+	 															 "source":        "usemode",
+	 															 "fieldtype":     "usemode",
+	 															 "subtype":       "usemode"
+	 														 },
+	                             {
+	                               "description":   "Created",
+	                               "source":        "created",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "Last Modified",
+	                               "source":        "lastmodified",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "CSS Selector",
+	                               "source":        "cssselector",
+	                               "fieldtype":     "cssinfo",
+	                               "subtype":       "cssselector"
+	                             },
+	                             {
+	                               "description":   "XPath Information",
+	                               "source":        "xpath",
+	                               "fieldtype":     "xpathinfo",
+	                               "subtype":       "xpath"
+	                             },
+	                             {
+	                               "description":   "Find Information",
+	                               "source":        "find",
+	                               "fieldtype":     "findinfo",
+	                               "subtype":       "find"
+	                             },
+	                             {
+	                               "description":   "Node Identifier",
+	                               "source":        "nodeiden",
+	                               "fieldtype":     "nodeiden",
+	                               "subtype":       "nodeiden"
+	                             },
+	                             {
+	                               "description":   "Parameter Number",
+	                               "source":        "parameter",
+	                               "fieldtype":     "ionumber",
+	                               "subtype":       "parameter"
+	                             },
+	                             {
+	                               "description":   "Modification Type",
+	                               "source":        "type",
+	                               "fieldtype":     "typelist",
+	                               "subtype":       "editabletypelist"
+	                             },
+	                             {
+	                               "description":   "New Texts",
+	                               "source":        "newtexts",
+	                               "fieldtype":     "textlist",
+	                               "subtype":       "text",
+	                               "datatype":      "array"
+	                             }
+	                           ]
+	                         },
+	    "textchecked":     { "fields":
+	                           [
+	                             {
+	                               "description":   "Modification Name",
+	                               "source":        "name",
+	                               "fieldtype":     "iotext",
+	                               "subtype":       "modificationname"
+	                             },
+	                             {
+	                               "description":   "Modification Path Value",
+	                               "source":        "pathvalue",
+	                               "fieldtype":     "pathvalue",
+	                               "subtype":       "Path Value"
+	                             },
+	                             {
+	                               "description":   "Comments",
+	                               "source":        "comments",
+	                               "fieldtype":     "comminfo",
+	                               "subtype":       "comments"
+	                             },
+	                             {
+	                               "description":   "Extra Information",
+	                               "source":        "extra",
+	                               "fieldtype":     "extrainfo",
+	                               "subtype":       "extra"
+	                             },
+	 														 {
+	 															 "description":   "Probability",
+	 															 "source":        "probability",
+	 															 "fieldtype":     "float",
+	 															 "subtype":       "probability"
+	 														 },
+	 														 {
+	 															 "description":   "Use Mode",
+	 															 "source":        "usemode",
+	 															 "fieldtype":     "usemode",
+	 															 "subtype":       "usemode"
+	 														 },
+	                             {
+	                               "description":   "Created",
+	                               "source":        "created",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "Last Modified",
+	                               "source":        "lastmodified",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "CSS Selector",
+	                               "source":        "cssselector",
+	                               "fieldtype":     "cssinfo",
+	                               "subtype":       "cssselector"
+	                             },
+	                             {
+	                               "description":   "XPath Information",
+	                               "source":        "xpath",
+	                               "fieldtype":     "xpathinfo",
+	                               "subtype":       "xpath"
+	                             },
+	                             {
+	                               "description":   "Find Information",
+	                               "source":        "find",
+	                               "fieldtype":     "findinfo",
+	                               "subtype":       "find"
+	                             },
+	                             {
+	                               "description":   "Node Identifier",
+	                               "source":        "nodeiden",
+	                               "fieldtype":     "nodeiden",
+	                               "subtype":       "nodeiden"
+	                             },
+	                             {
+	                               "description":   "Parameter Number",
+	                               "source":        "parameter",
+	                               "fieldtype":     "ionumber",
+	                               "subtype":       "parameter"
+	                             },
+	                             {
+	                               "description":   "Modification Type",
+	                               "source":        "type",
+	                               "fieldtype":     "typelist",
+	                               "subtype":       "editabletypelist"
+	                             },
+	                             {
+	                               "description":   "New Texts",
+	                               "source":        "newtexts",
+	                               "fieldtype":     "textlist",
+	                               "subtype":       "textchecked",
+	                               "datatype":      "array"
+	                             }
+	                           ]
+	                         },
+	    "title":           { "fields":
+	                           [
+	                             {
+	                               "description":   "Modification Name",
+	                               "source":        "name",
+	                               "fieldtype":     "iotext",
+	                               "subtype":       "modificationname"
+	                             },
+	                             {
+	                               "description":   "Modification Path Value",
+	                               "source":        "pathvalue",
+	                               "fieldtype":     "pathvalue",
+	                               "subtype":       "Path Value"
+	                             },
+	                             {
+	                               "description":   "Comments",
+	                               "source":        "comments",
+	                               "fieldtype":     "comminfo",
+	                               "subtype":       "comments"
+	                             },
+	                             {
+	                               "description":   "Extra Information",
+	                               "source":        "extra",
+	                               "fieldtype":     "extrainfo",
+	                               "subtype":       "extra"
+	                             },
+	 														 {
+	 															 "description":   "Probability",
+	 															 "source":        "probability",
+	 															 "fieldtype":     "float",
+	 															 "subtype":       "probability"
+	 														 },
+	 														 {
+	 															 "description":   "Use Mode",
+	 															 "source":        "usemode",
+	 															 "fieldtype":     "usemode",
+	 															 "subtype":       "usemode"
+	 														 },
+	                             {
+	                               "description":   "Created",
+	                               "source":        "created",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "Last Modified",
+	                               "source":        "lastmodified",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "CSS Selector",
+	                               "source":        "cssselector",
+	                               "fieldtype":     "cssinfo",
+	                               "subtype":       "cssselector"
+	                             },
+	                             {
+	                               "description":   "XPath Information",
+	                               "source":        "xpath",
+	                               "fieldtype":     "xpathinfo",
+	                               "subtype":       "xpath"
+	                             },
+	                             {
+	                               "description":   "Find Information",
+	                               "source":        "find",
+	                               "fieldtype":     "findinfo",
+	                               "subtype":       "find"
+	                             },
+	                             {
+	                               "description":   "Node Identifier",
+	                               "source":        "nodeiden",
+	                               "fieldtype":     "nodeiden",
+	                               "subtype":       "nodeiden"
+	                             },
+	                             {
+	                               "description":   "Parameter Number",
+	                               "source":        "parameter",
+	                               "fieldtype":     "ionumber",
+	                               "subtype":       "parameter"
+	                             },
+	                             {
+	                               "description":   "Modification Type",
+	                               "source":        "type",
+	                               "fieldtype":     "typelist",
+	                               "subtype":       "editabletypelist"
+	                             },
+	                             {
+	                               "description":   "New Titles",
+	                               "source":        "titles",
+	                               "fieldtype":     "textlist",
+	                               "subtype":       "title",
+	                               "datatype":      "array"
+	                             }
+	                           ]
+	                         },
+	    "visit":           { "fields":
+	                           [
+	                             {
+	                               "description":   "Modification Name",
+	                               "source":        "name",
+	                               "fieldtype":     "iotext",
+	                               "subtype":       "modificationname"
+	                             },
+	                             {
+	                               "description":   "Modification Path Value",
+	                               "source":        "pathvalue",
+	                               "fieldtype":     "pathvalue",
+	                               "subtype":       "Path Value"
+	                             },
+	                             {
+	                               "description":   "Comments",
+	                               "source":        "comments",
+	                               "fieldtype":     "comminfo",
+	                               "subtype":       "comments"
+	                             },
+	                             {
+	                               "description":   "Extra Information",
+	                               "source":        "extra",
+	                               "fieldtype":     "extrainfo",
+	                               "subtype":       "extra"
+	                             },
+	 														 {
+	 															 "description":   "Probability",
+	 															 "source":        "probability",
+	 															 "fieldtype":     "float",
+	 															 "subtype":       "probability"
+	 														 },
+	 														 {
+	 															 "description":   "Use Mode",
+	 															 "source":        "usemode",
+	 															 "fieldtype":     "usemode",
+	 															 "subtype":       "usemode"
+	 														 },
+	                             {
+	                               "description":   "Created",
+	                               "source":        "created",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "Last Modified",
+	                               "source":        "lastmodified",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "CSS Selector",
+	                               "source":        "cssselector",
+	                               "fieldtype":     "cssinfo",
+	                               "subtype":       "cssselector"
+	                             },
+	                             {
+	                               "description":   "XPath Information",
+	                               "source":        "xpath",
+	                               "fieldtype":     "xpathinfo",
+	                               "subtype":       "xpath"
+	                             },
+	                             {
+	                               "description":   "Find Information",
+	                               "source":        "find",
+	                               "fieldtype":     "findinfo",
+	                               "subtype":       "find"
+	                             },
+	                             {
+	                               "description":   "Node Identifier",
+	                               "source":        "nodeiden",
+	                               "fieldtype":     "nodeiden",
+	                               "subtype":       "nodeiden"
+	                             },
+	                             {
+	                               "description":   "Parameter Number",
+	                               "source":        "parameter",
+	                               "fieldtype":     "ionumber",
+	                               "subtype":       "parameter"
+	                             },
+	                             {
+	                               "description":   "Modification Type",
+	                               "source":        "type",
+	                               "fieldtype":     "typelist",
+	                               "subtype":       "editabletypelist"
+	                             },
+	                             {
+	                               "description":   "Visit Values",
+	                               "source":        "visitvalues",
+	                               "fieldtype":     "textlist",
+	                               "subtype":       "visit",
+	                               "datatype":      "array"
+	                             }
+	                           ]
+	                         },
+	    "width":           { "fields":
+	                           [
+	                             {
+	                               "description":   "Modification Name",
+	                               "source":        "name",
+	                               "fieldtype":     "iotext",
+	                               "subtype":       "modificationname"
+	                             },
+	                             {
+	                               "description":   "Modification Path Value",
+	                               "source":        "pathvalue",
+	                               "fieldtype":     "pathvalue",
+	                               "subtype":       "Path Value"
+	                             },
+	                             {
+	                               "description":   "Comments",
+	                               "source":        "comments",
+	                               "fieldtype":     "comminfo",
+	                               "subtype":       "comments"
+	                             },
+	                             {
+	                               "description":   "Extra Information",
+	                               "source":        "extra",
+	                               "fieldtype":     "extrainfo",
+	                               "subtype":       "extra"
+	                             },
+	 														 {
+	 															 "description":   "Probability",
+	 															 "source":        "probability",
+	 															 "fieldtype":     "float",
+	 															 "subtype":       "probability"
+	 														 },
+	 														 {
+	 															 "description":   "Use Mode",
+	 															 "source":        "usemode",
+	 															 "fieldtype":     "usemode",
+	 															 "subtype":       "usemode"
+	 														 },
+	                             {
+	                               "description":   "Created",
+	                               "source":        "created",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "Last Modified",
+	                               "source":        "lastmodified",
+	                               "fieldtype":     "dateio",
+	                               "subtype":       "outputdate"
+	                             },
+	                             {
+	                               "description":   "CSS Selector",
+	                               "source":        "cssselector",
+	                               "fieldtype":     "cssinfo",
+	                               "subtype":       "cssselector"
+	                             },
+	                             {
+	                               "description":   "XPath Information",
+	                               "source":        "xpath",
+	                               "fieldtype":     "xpathinfo",
+	                               "subtype":       "xpath"
+	                             },
+	                             {
+	                               "description":   "Find Information",
+	                               "source":        "find",
+	                               "fieldtype":     "findinfo",
+	                               "subtype":       "find"
+	                             },
+	                             {
+	                               "description":   "Node Identifier",
+	                               "source":        "nodeiden",
+	                               "fieldtype":     "nodeiden",
+	                               "subtype":       "nodeiden"
+	                             },
+	                             {
+	                               "description":   "Parameter Number",
+	                               "source":        "parameter",
+	                               "fieldtype":     "ionumber",
+	                               "subtype":       "parameter"
+	                             },
+	                             {
+	                               "description":   "Modification Type",
+	                               "source":        "type",
+	                               "fieldtype":     "typelist",
+	                               "subtype":       "editabletypelist"
+	                             },
+	                             {
+	                               "description":   "Widths",
+	                               "source":        "widths",
+	                               "fieldtype":     "textlist",
+	                               "subtype":       "width",
+	                               "datatype":      "array"
+	                             }
+	                           ]
+	                         }
+	  }
+	  """;
 	/* The next JSON object contains some name information about
-     each type of modification */
-	static String HDLmModTypeInfoString = "{" +
-	   "\"attribute\":   { \"extraused\": true,  \"parmnumberused\": false, \"longname\": \"attribute\"," +
-	                      "\"valuesname\": null }," +
-	   "\"changeattrs\": { \"extraused\": false, \"parmnumberused\": true,  \"longname\": \"change attributes\"," +
-                        "\"valuesname\": \"changeattrsvalues\" }," +	   
-	   "\"changenodes\": { \"extraused\": false, \"parmnumberused\": true,  \"longname\": \"change nodes\"," +
-                        "\"valuesname\": \"changenodesvalues\" }," +   
-	   "\"extract\":     { \"extraused\": true,  \"parmnumberused\": false, \"longname\": \"extract\"," +
-     				            "\"valuesname\": null }," +
-	   "\"fontcolor\":   { \"extraused\": false, \"parmnumberused\": true,  \"longname\": \"font color\"," +
-                        "\"valuesname\": \"colors\" }," +
-	   "\"fontfamily\":  { \"extraused\": false, \"parmnumberused\": true,  \"longname\": \"font family\"," +
-                        "\"valuesname\": \"families\" }," +
-	   "\"fontkerning\": { \"extraused\": false, \"parmnumberused\": true,  \"longname\": \"font kerning\"," +
-                        "\"valuesname\": \"kernings\" }," +
-	   "\"fontsize\":    { \"extraused\": false, \"parmnumberused\": true,  \"longname\": \"font size\"," +
-                        "\"valuesname\": \"sizes\" }," +
-	   "\"fontstyle\":   { \"extraused\": false, \"parmnumberused\": true,  \"longname\": \"font style\"," +
-                        "\"valuesname\": \"styles\" }," +
-	   "\"fontweight\":  { \"extraused\": false, \"parmnumberused\": true,  \"longname\": \"font weight\"," +
-                        "\"valuesname\": \"weights\" }," +
-	   "\"height\":      { \"extraused\": false, \"parmnumberused\": true,  \"longname\": \"height\"," +
-                        "\"valuesname\": \"heignts\" }," +
-	   "\"image\":       { \"extraused\": false, \"parmnumberused\": true,  \"longname\": \"image\"," +
-                        "\"valuesname\": \"images\" }," +
-	   "\"modify\":      { \"extraused\": true,  \"parmnumberused\": false, \"longname\": \"modify\"," +
-                        "\"valuesname\": null }," +
-	   "\"notify\":      { \"extraused\": true,  \"parmnumberused\": false, \"longname\": \"notify\"," +
-                        "\"valuesname\": \"targets\" }," +
-	   "\"order\":       { \"extraused\": false, \"parmnumberused\": true,  \"longname\": \"order\"," +
-                        "\"valuesname\": \"orders\" }," +
-	   "\"remove\":      { \"extraused\": false, \"parmnumberused\": true,  \"longname\": \"remove\"," +
-                        "\"valuesname\": \"removevalues\" }," +
-	   "\"replace\":     { \"extraused\": false, \"parmnumberused\": true,  \"longname\": \"replace\"," +
-                        "\"valuesname\": \"replacevalues\" }," +
-     "\"script\":      { \"extraused\": false, \"parmnumberused\": true,  \"longname\": \"script\"," +
-                        "\"valuesname\": \"scripts\" }," +
-	   "\"style\":       { \"extraused\": true,  \"parmnumberused\": true,  \"longname\": \"style\"," +
-                        "\"valuesname\": \"styles\" }," +
-	   "\"text\":        { \"extraused\": false, \"parmnumberused\": true,  \"longname\": \"text\"," +
-                        "\"valuesname\": \"newtexts\" }," +
-	   "\"textchecked\": { \"extraused\": true,  \"parmnumberused\": true,  \"longname\": \"checked type\"," +
-                        "\"valuesname\": \"newtexts\" }," +
-	   "\"title\":       { \"extraused\": false, \"parmnumberused\": true,  \"longname\": \"title\"," +
-                        "\"valuesname\": \"titles\" }," +
-     "\"visit\":       { \"extraused\": true,  \"parmnumberused\": true,  \"longname\": \"visit\"," +
-                        "\"valuesname\": \"visitvalues\" }," +
-	   "\"width\":       { \"extraused\": false, \"parmnumberused\": true,  \"longname\": \"width\"," +
-                        "\"valuesname\": \"widths\" }" +
-	"}";
+	  each type of modification */
+	static String HDLmModTypeInfoString =  
+		"""	
+		{
+	   "attribute":   { "extraused": true,  "parmnumberused": false, "longname": "attribute",
+	                      "valuesname": null },
+	   "changeattrs": { "extraused": false, "parmnumberused": true,  "longname": "change attributes",
+	                      "valuesname": "changeattrsvalues" },	   
+	   "changenodes": { "extraused": false, "parmnumberused": true,  "longname": "change nodes",
+	                      "valuesname": "changenodesvalues" },   
+	   "extract":     { "extraused": true,  "parmnumberused": false, "longname": "extract",
+	  				             "valuesname": null },
+	   "fontcolor":   { "extraused": false, "parmnumberused": true,  "longname": "font color",
+	                      "valuesname": "colors" },
+	   "fontfamily":  { "extraused": false, "parmnumberused": true,  "longname": "font family",
+	                      "valuesname": "families" },
+	   "fontkerning": { "extraused": false, "parmnumberused": true,  "longname": "font kerning",
+	                      "valuesname": "kernings" },
+	   "fontsize":    { "extraused": false, "parmnumberused": true,  "longname": "font size",
+	                      "valuesname": "sizes" },
+	   "fontstyle":   { "extraused": false, "parmnumberused": true,  "longname": "font style",
+	                      "valuesname": "styles" },
+	   "fontweight":  { "extraused": false, "parmnumberused": true,  "longname": "font weight",
+	                      "valuesname": "weights" },
+	   "height":      { "extraused": false, "parmnumberused": true,  "longname": "height",
+	                      "valuesname": "heignts" },
+	   "image":       { "extraused": false, "parmnumberused": true,  "longname": "image",
+	                      "valuesname": "images" },
+	   "modify":      { "extraused": true,  "parmnumberused": false, "longname": "modify",
+	                      "valuesname": null },
+	   "notify":      { "extraused": true,  "parmnumberused": false, "longname": "notify",
+	                      "valuesname": "targets" },
+	   "order":       { "extraused": false, "parmnumberused": true,  "longname": "order",
+	                      "valuesname": "orders" },
+	   "remove":      { "extraused": false, "parmnumberused": true,  "longname": "remove",
+	                      "valuesname": "removevalues" },
+	   "replace":     { "extraused": false, "parmnumberused": true,  "longname": "replace",
+	                      "valuesname": "replacevalues" },
+	   "script":      { "extraused": false, "parmnumberused": true,  "longname": "script",
+	                      "valuesname": "scripts" },
+	   "style":       { "extraused": true,  "parmnumberused": true,  "longname": "style",
+	                      "valuesname": "styles" },
+	   "text":        { "extraused": false, "parmnumberused": true,  "longname": "text",
+	                      "valuesname": "newtexts" },
+	   "textchecked": { "extraused": true,  "parmnumberused": true,  "longname": "checked type",
+	                      "valuesname": "newtexts" },
+	   "title":       { "extraused": false, "parmnumberused": true,  "longname": "title",
+	                      "valuesname": "titles" },
+	   "visit":       { "extraused": true,  "parmnumberused": true,  "longname": "visit",
+	                      "valuesname": "visitvalues" },
+	   "width":       { "extraused": false, "parmnumberused": true,  "longname": "width",
+	                      "valuesname": "widths" }
+	  }
+	  """;
 	/* The next JSON string contains some name information about
 		 each type of tree node. Note that we have two or more entries 
 		 for company nodes. However, no entry has a key of 'company'.
 		 Instead, more specific keys are used. The actual keys are
 		 'compmod' for company nodes used for modifications and
 		 'compproxy' for company nodes used proxy definitions. */
-static String HDLmModTreeInfoString = "{" + 
-	 "  \"companies\": {" +
-	 "    \"longname\":    \"companies\"," +
-	 "	  \"ucfirstname\": \"Companies\"," +
-	 "    \"tooltip\":     \"Companies node\"" +
-	 "  }," +
-	 "  \"compignore\": {" +
-	 "    \"longname\":    \"company\"," +
-	 "	  \"ucfirstname\": \"Company\"," +
-	 "    \"tooltip\":     \"Company node\"" +
-	 "  }," +
-	 "  \"compmod\": {" +
-	 "    \"longname\":    \"company\"," +
-	 "	  \"ucfirstname\": \"Company\"," +
-	 "  	\"tooltip\":     \"Company node\"" +
-	 "  }," +
-	 "  \"comppass\": {" +
-	 "    \"longname\":    \"company\"," +
-	 "  	\"ucfirstname\": \"Company\"," +
-	 "	  \"tooltip\":     \"Company node\"" +
-	 "  }," +
-	 "  \"compproxy\": {" +
-	 "    \"longname\":    \"company\"," +
-	 "  	\"ucfirstname\": \"Company\"," +
-	 "	  \"tooltip\":     \"Company node\"" +
-	 "  }," +
-	 "  \"compstore\": {" +
-	 "    \"longname\":    \"company\"," +
-	 "    \"ucfirstname\": \"Company\"," +
-	 "    \"tooltip\":     \"Company node\"" +
-	 "  }," +
-	 "  \"config\": {" +
-	 "    \"longname\":    \"configuration\"," +
-	 "    \"ucfirstname\": \"Configuration\"," +
-	 "    \"tooltip\":     \"Configuration node\"" +
-	 "  }," +
-	 "  \"division\": {" +
-	 "    \"longname\":    \"division\"," +
-	 "    \"ucfirstname\": \"Division\"," +
-	 "    \"tooltip\":     \"Division node\"" +
-	 "  }," +
-	 "  \"ignore\": {" +
-	 "    \"longname\":    \"ignore\"," +
-	 "    \"ucfirstname\": \"Ignore\"," +
-	 "    \"tooltip\":     \"Ignore-list entry node\"" +
-	 "  }," +
-	 "  \"line\": {" +
-	 "    \"longname\":    \"line\"," +
-	 "    \"ucfirstname\": \"Line\"," +
-	 "    \"tooltip\":     \"Report-line node\"" +
-	 "  }," +
-	 "  \"lines\": {" +
-	 "    \"longname\":    \"lines\"," +
-	 "    \"ucfirstname\": \"Lines\"," +
-	 "    \"tooltip\":     \"Report-lines node\"" +
-	 "  }," +
-	 "  \"list\": {" +
-	 "    \"longname\":    \"list\"," +
-	 "    \"ucfirstname\": \"List\"," +
-	 "    \"tooltip\":     \"Ignore-list node\"" +
-	 "  }," +
-	 "  \"lists\": {" +
-	 "    \"longname\":    \"lists\"," +
-	 "    \"ucfirstname\": \"Lists\"," +
-	 "    \"tooltip\":     \"Ignore-lists node\"" +
-	 "  }," +
-	 "  \"mod\": {" +
-	 "    \"longname\":    \"modification\"," +
-	 "    \"ucfirstname\": \"Modification\"," +
-	 "    \"tooltip\":     \"Modification node\"" +
-	 "  }," +
-	 "  \"report\": {" +
-	 "    \"longname\":    \"report\"," +
-	 "    \"ucfirstname\": \"Report\"," +
-	 "    \"tooltip\":     \"Report node\"" +
-	 "  }," +
-	 "  \"reports\": {" +
-	 "    \"longname\":    \"reports\"," +
-	 "    \"ucfirstname\": \"Reports\"," +
-	 "    \"tooltip\":     \"Reports node\"" +
-	 "  }," +
-	 "  \"rules\": {" +
-	 "    \"longname\":    \"rules\"," +
-	 "    \"ucfirstname\": \"Rules\"," +
-	 "    \"tooltip\":     \"Rules node\"" +
-	 "  }," +
-	 "  \"site\": {" +
-	 "    \"longname\":    \"site\"," +
-	 "    \"ucfirstname\": \"Site\"," +
-	 "    \"tooltip\":     \"Site node\"" +
-	 "  }," +
-	 "  \"store\": {" +
-	 "    \"longname\":    \"store\"," +
-	 "    \"ucfirstname\": \"Store\"," +
-	 "    \"tooltip\":     \"Stored value node\"" +
-	 "  }," +
-	 "  \"top\": {" +
-	 "    \"longname\":    \"top\"," +
-	 "    \"ucfirstname\": \"Top\"," +
-	 "	  \"tooltip\":     \"Top node of the node tree\"" +
-	 "  }" + 
-	 "}";
+	static String HDLmModTreeInfoString =  
+	  """
+	  { 
+	   "companies": {
+	     "longname":    "companies",
+	 	  "ucfirstname": "Companies",
+	     "tooltip":     "Companies node"
+	   },
+	   "compignore": {
+	     "longname":    "company",
+	 	  "ucfirstname": "Company",
+	     "tooltip":     "Company node"
+	   },
+	   "compmod": {
+	     "longname":    "company",
+	 	  "ucfirstname": "Company",
+	   	"tooltip":     "Company node"
+	   },
+	   "comppass": {
+	     "longname":    "company",
+	   	"ucfirstname": "Company",
+	 	  "tooltip":     "Company node"
+	   },
+	   "compproxy": {
+	     "longname":    "company",
+	   	"ucfirstname": "Company",
+	 	  "tooltip":     "Company node"
+	   },
+	   "compstore": {
+	     "longname":    "company",
+	     "ucfirstname": "Company",
+	     "tooltip":     "Company node"
+	   },
+	   "config": {
+	     "longname":    "configuration",
+	     "ucfirstname": "Configuration",
+	     "tooltip":     "Configuration node"
+	   },
+	   "division": {
+	     "longname":    "division",
+	     "ucfirstname": "Division",
+	     "tooltip":     "Division node"
+	   },
+	   "ignore": {
+	     "longname":    "ignore",
+	     "ucfirstname": "Ignore",
+	     "tooltip":     "Ignore-list entry node"
+	   },
+	   "line": {
+	     "longname":    "line",
+	     "ucfirstname": "Line",
+	     "tooltip":     "Report-line node"
+	   },
+	   "lines": {
+	     "longname":    "lines",
+	     "ucfirstname": "Lines",
+	     "tooltip":     "Report-lines node"
+	   },
+	   "list": {
+	     "longname":    "list",
+	     "ucfirstname": "List",
+	     "tooltip":     "Ignore-list node"
+	   },
+	   "lists": {
+	     "longname":    "lists",
+	     "ucfirstname": "Lists",
+	     "tooltip":     "Ignore-lists node"
+	   },
+	   "mod": {
+	     "longname":    "modification",
+	     "ucfirstname": "Modification",
+	     "tooltip":     "Modification node"
+	   },
+	   "report": {
+	     "longname":    "report",
+	     "ucfirstname": "Report",
+	     "tooltip":     "Report node"
+	   },
+	   "reports": {
+	     "longname":    "reports",
+	     "ucfirstname": "Reports",
+	     "tooltip":     "Reports node"
+	   },
+	   "rules": {
+	     "longname":    "rules",
+	     "ucfirstname": "Rules",
+	     "tooltip":     "Rules node"
+	   },
+	   "site": {
+	     "longname":    "site",
+	     "ucfirstname": "Site",
+	     "tooltip":     "Site node"
+	   },
+	   "store": {
+	     "longname":    "store",
+	     "ucfirstname": "Store",
+	     "tooltip":     "Stored value node"
+	   },
+	   "top": {
+	     "longname":    "top",
+	     "ucfirstname": "Top",
+	 	  "tooltip":     "Top node of the node tree"
+	   } 
+	  }
+	  """;  
   /* Build JSON elements (actually JSON elements within JSON elements) from each of
      the JSON strings */ 
   static JsonParser   HDLmModInfoDataParser = new JsonParser();  
@@ -2953,6 +2961,12 @@ static String HDLmModTreeInfoString = "{" +
 		if (findInfo != null) {
 			this.finds = findInfo;
 		}
+		/* Check for a very special case. Check if the name string contains the string "7.62". 
+		   This is a special case that is used to set breakpoints, as need be. */		
+		String  nameStr = HDLmJson.getJsonString(jsonObject, "name");
+		if (nameStr != null && nameStr.contains("7.62")) {
+			nameStr = nameStr;
+		}				
 		int  copyOfErrorCount = errorCounter.intValue();
 		/* Get some node identifier values, if possible */
 		HDLmNodeIden  nodeIden = HDLmMod.modFieldNodeIden(editorType, 
@@ -4333,7 +4347,7 @@ static String HDLmModTreeInfoString = "{" +
 					int     errorNumberIsPrimitive = 4;
 					int     errorNumberNotPrimitive = 4;
 					int     errorNumberNotArray = 4;
-					int     errorNumberException = 4;
+					int     errorNumberException = 4; 
 					int     errorNumberTooSmall = 70;
 					int     errorNumberTooLarge = 71; 
 					int     errorNumberInvalidLength = 4;

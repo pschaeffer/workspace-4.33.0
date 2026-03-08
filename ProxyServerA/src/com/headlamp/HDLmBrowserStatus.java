@@ -21,10 +21,10 @@ public class HDLmBrowserStatus {
 	/* This constructor sets the fields of a new browser status instance 
 	   using the values passed by the caller. The newly created object 
 	   will have all of the values specified by the caller. */ 
-	protected HDLmBrowserStatus(String newTimeStamp,
-			                        String newReason,
-			                        String newBrowser,
-			                        String newVersion) {
+	protected HDLmBrowserStatus(final String newTimeStamp,
+			                        final String newReason,
+			                        final String newBrowser,
+			                        final String newVersion) {
 		if (newTimeStamp == null) {
 			String  errorText = "New timestamp reference used to build instance is null";
 			throw new NullPointerException(errorText);

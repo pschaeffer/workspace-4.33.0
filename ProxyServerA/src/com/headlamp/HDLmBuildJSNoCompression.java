@@ -31,15 +31,15 @@ class HDLmBuildJsNoCompression {
 	private HDLmBuildJsNoCompression() {}
   /* Build a set of JavaScript and return it to the caller */
   @SuppressWarnings("unused")
-  public static String getJsBuildJs(HDLmProtocolTypes protocol,
-                                    String secureHostName, 
-                                    String hostName,
-                                    String divisionName,
-                                    String siteName,
-                                    ArrayList<HDLmMod> mods, 
-                                    HDLmSession sessionObj,
-                                    HDLmLogMatchingTypes logRuleMatching,
-                                    String serverName) {
+  public static String getJsBuildJs(final HDLmProtocolTypes protocol,
+                                    final String secureHostName, 
+                                    final String hostName,
+                                    final String divisionName,
+                                    final String siteName,
+                                    final ArrayList<HDLmMod> mods, 
+                                    final HDLmSession sessionObj,
+                                    final HDLmLogMatchingTypes logRuleMatching,
+                                    final String serverName) {
     if (protocol == null) {
 		  String  errorText = "Protocol string passed to getJsBuildJs is null";
       throw new NullPointerException(errorText);

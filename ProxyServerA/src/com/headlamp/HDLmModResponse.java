@@ -27,7 +27,7 @@ public class HDLmModResponse {
 	/* Set or reset the node path. Note that the caller can  
      not pass a null value for the new node path value. 
      This is an an error condition. */
-	protected void setNodePath(ArrayList<String> newNodePath) {
+	protected void setNodePath(final ArrayList<String> newNodePath) {
 		if (newNodePath == null) {
 			String  errorText = "New node path value passed to setNodePath is null";
 			throw new NullPointerException(errorText);
@@ -37,7 +37,7 @@ public class HDLmModResponse {
 	/* Set or reset the tree node. Note that the caller can 
 	   not pass a null value for the new tree node. This is 
 	   an error condition. */
-	protected void setTreeNode(HDLmTree newTreeNode) {
+	protected void setTreeNode(final HDLmTree newTreeNode) {
 		if (newTreeNode == null) {
 			String  errorText = "New tree node value passed to setNodePath is null";
 			throw new NullPointerException(errorText);

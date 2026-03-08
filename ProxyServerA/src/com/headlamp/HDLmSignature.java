@@ -35,7 +35,7 @@ public class HDLmSignature {
   private String xAmzTarget;
   private String contentType;
   private String hostName;
-  private HDLmSignature(Builder builder) {
+  private HDLmSignature(final Builder builder) {
     accessKeyID = builder.accessKeyID;
     secretAccessKey = builder.secretAccessKey;
     regionName = builder.regionName;
@@ -101,7 +101,7 @@ public class HDLmSignature {
   /* Add the canonical query string, followed by a newline character
      @param canonicalURL Canonical URL
      @return Updated canonicalURL */
-  private StringBuilder addCanonicalQueryString(StringBuilder canonicalURL) throws Exception {
+  private StringBuilder addCanonicalQueryString(final StringBuilder canonicalURL) throws Exception {
     StringBuilder queryString = new StringBuilder("");
     if (queryParameters != null && !queryParameters.isEmpty()) {
       for (Map.Entry<String, String> entrySet : queryParameters.entrySet()) {
@@ -119,7 +119,7 @@ public class HDLmSignature {
     return canonicalURL;
   }
   /* Task 2: Create a String to Sign for Signature Version 4 */
-  private String prepareStringToSign(String canonicalURL) throws Exception {
+  private String prepareStringToSign(final String canonicalURL) throws Exception {
     String stringToSign;
     /* Step 2.1 Start with the algorithm designation, followed 
        by a newline character */
@@ -137,7 +137,7 @@ public class HDLmSignature {
     return stringToSign;
   }
   /* Task 3: Calculate the AWS Signature Version 4 */ 
-  private String calculateSignature(String stringToSign) throws Exception {
+  private String calculateSignature(final String stringToSign) throws Exception {
       try {
           /* Step 3.1 Derive your signing key */
           byte[] signatureKey = getSignatureKey(secretAccessKey, currentDate, regionName, serviceName);
@@ -164,7 +164,7 @@ public class HDLmSignature {
     String stringToSign = prepareStringToSign(canonicalURL);
     /* Execute Task 3: Calculate the AWS Signature Version 4 */
     String signature = calculateSignature(stringToSign);
-    Map<String, String> header = new HashMap<>(0);
+    Map<String, String>  header = new HashMap<>(0);
     header.put("x-amz-date", xAmzDate);
     header.put("Authorization", buildAuthorizationString(signature));
     /*
@@ -181,7 +181,7 @@ public class HDLmSignature {
      @param strSignature Signature value
      @return Authorization String
      @throws ParseException */
-  private String buildAuthorizationString(String strSignature) throws ParseException {
+  private String buildAuthorizationString(final String strSignature) throws ParseException {
       return "AWS4-HMAC-SHA256" + " "
 									              + "Credential=" + accessKeyID 
 									              + "/" + currentDate 
@@ -196,7 +196,7 @@ public class HDLmSignature {
      using the SHA-256 algorithm 
      @param data text to be hashed
      @return SHA-256 hashed text */
-  private String hash(String data) throws Exception {
+  private String hash(final String data) throws Exception {
     MessageDigest messageDigest;
     try {
         messageDigest = MessageDigest.getInstance("SHA-256");
@@ -217,7 +217,7 @@ public class HDLmSignature {
      @throws InvalidKeyException          This is the exception for invalid Keys (invalid encoding, wrong length,
                                           uninitialized, etc) 
      @throws NoSuchAlgorithmException     When a particular cryptographic algorithm that is requested is not available */
-  private byte[] hmacSHA256(byte[] key, String data) throws UnsupportedEncodingException, 
+  private byte[] hmacSHA256(final byte[] key, final String data) throws UnsupportedEncodingException, 
                                                             InvalidKeyException,
                                                             NoSuchAlgorithmException {
     String algorithm = "HmacSHA256";
@@ -235,7 +235,7 @@ public class HDLmSignature {
      @throws InvalidKeyException          This is the exception for invalid Keys (invalid encoding, wrong length,
                                           uninitialized, etc)
      @throws NoSuchAlgorithmException     When a particular cryptographic algorithm that is requested is not available  */
-  private byte[] getSignatureKey(String key, String date, String regionName, String serviceName)
+  private byte[] getSignatureKey(final String key, final String date, final String regionName, final String serviceName)
                    throws UnsupportedEncodingException, 
                    InvalidKeyException, 
                    NoSuchAlgorithmException {
@@ -248,7 +248,7 @@ public class HDLmSignature {
   /* Convert byte array to Hex
      @param bytes bytes to be hex encoded 
      @return hex encoded String of the given byte array */
-  private String bytesToHex(byte[] bytes) {
+  private String bytesToHex(final byte[] bytes) {
     final char[] hexArray = "0123456789ABCDEF".toCharArray();
     char[] hexChars = new char[bytes.length * 2];
     for (int j = 0; j < bytes.length; j++) {
@@ -283,7 +283,7 @@ public class HDLmSignature {
   /* Encode string value
      @param param String value that need to be encode.
      @return encoded string */
-  private String encodeParameter(String param) throws Exception {
+  private String encodeParameter(final String param) throws Exception {
     try {
       return URLEncoder.encode(param, "UTF-8");
     } 

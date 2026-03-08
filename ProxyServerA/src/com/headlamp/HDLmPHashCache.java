@@ -45,7 +45,7 @@ public class HDLmPHashCache {
   		                                                           .build();  
   /* Get a cache entry from the cache. This routine returns null if the entry 
      is not found. */
-  protected static synchronized String getIfPresent(String urlStr) {  		 
+  protected static synchronized String getIfPresent(final String urlStr) {  		 
   	return phashCache.getIfPresent(urlStr); 
   } 
   /* Return a map with the contents of the cache. Each and
@@ -107,7 +107,7 @@ public class HDLmPHashCache {
 	}	
   /* Add a cache entry to the cache. This code could actually replace an
      existing cache entry. */
-	protected static synchronized void put(String urlStr, String value) { 
+	protected static synchronized void put(final String urlStr, final String value) { 
 	  phashCache.put(urlStr, value);   
 	} 
 }

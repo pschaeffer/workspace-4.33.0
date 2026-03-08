@@ -15,101 +15,101 @@ public class HDLmConfigInfo {
   /* Get the AWS access key Id value. The access key 
      Id value is returned to the caller. */
   protected static String  getAccessKeyId() {
-    return HDLmConfig.getString("AWSAccessKeyId");
+    return HDLmConfig.getString("awsAccessKeyId");
   }
   /* Get the AWS Cognito accept encoding value. The 
 	   accept encoding value is returned to the caller. */
 	protected static String  getAwsCognitoAcceptEncoding() {
-	  return HDLmConfig.getString("AWSCognitoAcceptEncoding");
+	  return HDLmConfig.getString("awsCognitoAcceptEncoding");
 	}
 	/* Get the AWS Cognito admin get user attributes API name. 
      This is actually a string. The string is returned to 
      the caller. */
   protected static String  getAwsCognitoApiAdminGetUser() {
-    return HDLmConfig.getString("AWSCognitoApiAdminGetUser");
+    return HDLmConfig.getString("awsCognitoApiAdminGetUser");
   }
 	/* Get the AWS Cognito admin set user password API name. 
      This is actually a string. The string is returned to 
      the caller. */
   protected static String  getAwsCognitoApiAdminSetUserPassword() {
-    return HDLmConfig.getString("AWSCognitoApiAdminSetUserPassword");
+    return HDLmConfig.getString("awsCognitoApiAdminSetUserPassword");
   }
 	/* Get the AWS Cognito get user attributes API name. 
 	   This is actually a string. The string is returned 
 	   to the caller. */
 	protected static String  getAwsCognitoApiGetUser() {
-	  return HDLmConfig.getString("AWSCognitoApiGetUser");
+	  return HDLmConfig.getString("awsCognitoApiGetUser");
 	}
 	/* Get the AWS Cognito initiate authentication API name. 
 	   This is actually a string. The string is returned to 
 	   the caller. */
 	protected static String  getAwsCognitoApiInitiateAuth() {
-	  return HDLmConfig.getString("AWSCognitoApiInitiateAuth");
+	  return HDLmConfig.getString("awsCognitoApiInitiateAuth");
 	}
 	/* Get the AWS Cognito respond to challenge API name. 
 	   This is actually a string. The string is returned to 
 	   the caller. */
 	protected static String  getAwsCognitoApiRespondToAuthChallenge() {
-	  return HDLmConfig.getString("AWSCognitoApiRespondToAuthChallenge");
+	  return HDLmConfig.getString("awsCognitoApiRespondToAuthChallenge");
 	}
 	/* Get the AWS Cognito canonical URI. The URI is 
 	   sometimes called the path value. The canonical
 	   URI string is returned to the caller. */
   protected static String  getAwsCognitoCanonicalUri() {
-    return HDLmConfig.getString("AWSCognitoCanonicalUri");
+    return HDLmConfig.getString("awsCognitoCanonicalUri");
   }
 	/* Get the AWS Cognito content type value. The content 
 	   type value is returned to the caller. */
 	protected static String  getAwsCognitoContentType() {
-	  return HDLmConfig.getString("AWSCognitoContentType");
+	  return HDLmConfig.getString("awsCognitoContentType");
 	}
 	/* Get the AWS Cognito host name. This is actually a domain name.
 	   The domain name is returned to the caller. */
 	protected static String  getAwsCognitoHost() {
-	  return HDLmConfig.getString("AWSCognitoHost");
+	  return HDLmConfig.getString("awsCognitoHost");
 	}
 	/* Get the AWS Cognito method. This is actually an HTTP method.
      The method string is returned to the caller. */
   protected static String  getAwsCognitoHttpMethod() {
-    return HDLmConfig.getString("AWSCognitoHttpMethod");
+    return HDLmConfig.getString("awsCognitoHttpMethod");
   }
 	/* Get the AWS Cognito service name. The service name
      string is returned to the caller. */
   protected static String  getAwsCognitoServiceName() {
-    return HDLmConfig.getString("AWSCognitoServiceName");
+    return HDLmConfig.getString("awsCognitoServiceName");
   }	
 	/* Get the AWS Cognito user agent value. This is actually 
 	   a string. The value is not correct, but does work with 
 	   AWS Cognito. The user agent value is returned to the 
 	   caller. */ 
 	protected static String  getAwsCognitoUserAgent() {
-	  return HDLmConfig.getString("AWSCognitoUserAgent");
+	  return HDLmConfig.getString("awsCognitoUserAgent");
 	}
   /* Get the AWS Cognito user pool app Id. This is actually a value
      that identifies the user pool app. */
   protected static String  getAwsCognitoUserPoolClientAppId() {
-    return HDLmConfig.getString("AWSCognitoUserPoolClientAppId");
+    return HDLmConfig.getString("awsCognitoUserPoolClientAppId");
   }
 	/* Get the AWS Cognito user pool Id value. This is actually 
      a string. The user pool Id value is returned to the 
      caller. */ 
   protected static String  getAwsCognitoUserPoolId() {
-    return HDLmConfig.getString("AWSCognitoUserPoolId");
+    return HDLmConfig.getString("awsCognitoUserPoolId");
   }
 	/* Get the AWS Cognito user pool name. This is actually the 
      name of the user pool. */
   protected static String  getAwsCognitoUserPoolName() {
-    return HDLmConfig.getString("AWSCognitoUserPoolName");
+    return HDLmConfig.getString("awsCognitoUserPoolName");
   } 
 	/* Get the AWS Cognito user pool region. This is actually the 
      region where the user pool lives. */
   protected static String  getAwsCognitoUserPoolRegion() {
-    return HDLmConfig.getString("AWSCognitoUserPoolRegion");
+    return HDLmConfig.getString("awsCognitoUserPoolRegion");
   } 
 	/* Get the AWS secret access key value. The secret access 
      key value is returned to the caller. */
   protected static String  getSecretAccessKey() {
-    return HDLmConfig.getString("AWSSecretAccessKey");
+    return HDLmConfig.getString("awsSecretAccessKey");
   }
 	/* Get the standard maximum number of clusters and return
 	   it to the caller. The maximum number of clusters is
@@ -176,8 +176,8 @@ public class HDLmConfigInfo {
 	}
 	/* Get the method that is used to access the table that contains
 	   the modifications */
-	protected static String  getEntriesBridgeInternetMethod() {
-	  return HDLmConfig.getString("entriesBridgeInternetMethod");
+	protected static String  getEntriesBridgeInternetMethodWithSsl() {
+	  return HDLmConfig.getString("entriesBridgeInternetMethodWithSsl");
 	}
 	/* Get the URL that is used to insert into the table that
 	   contains the modifications */
@@ -301,8 +301,8 @@ public class HDLmConfigInfo {
 	}
 	/* Get the method that is used to access the table that contains
 	   the modifications */
-	protected static String  getEntriesDatabaseInternetMethod() {
-	  return HDLmConfig.getString("entriesDatabaseInternetMethod");
+	protected static String  getEntriesDatabaseInternetMethodWithSsl() {
+	  return HDLmConfig.getString("entriesDatabaseInternetMethodWithSsl");
 	}
 	/* Return the configuration password */
 	protected static String  getEntriesDatabasePassword() {
@@ -447,18 +447,48 @@ public class HDLmConfigInfo {
   protected static String  getOpenAIApiKeySchaeffer() {
     return HDLmConfig.getString("openAIApiKeySchaeffer");
   }
+	/* Get the Open AI API key for Schaeffes. Note the
+	   's' at the end rather than 'r'. */  
+  protected static String  getOpenAIApiKeySchaeffes() {
+    return HDLmConfig.getString("openAIApiKeySchaeffes");
+  }
 	/* Get the Open AI maximum string length. If the string 
      exceeds this length, it will be truncated. */  
   protected static int   getOpenAIMaximumStringLength() {
     return HDLmConfig.getInteger("openAIMaximumStringLength");
+  }
+	/* Get the Open Router API model */
+	protected static String  getOpenRouterApiModel() {
+		return HDLmConfig.getString("openRouterApiModel");
+	}
+	/* Get the Open Router image API model */
+	protected static String  getOpenRouterImageApiModel() {
+ 		return HDLmConfig.getString("openRouterImageApiModel");
+	}
+	/* Get the Open Router maximum string length. If the string 
+     exceeds this length, it will be truncated. */  
+  protected static int   getOpenRouterMaximumStringLength() {
+    return HDLmConfig.getInteger("openRouterMaximumStringLength");
+  }
+	/* Get the Open Router Visual Test API key */  
+  protected static String  getOpenRouterTestApiKey() {
+    return HDLmConfig.getString("openRouterTestApiKey");
+  }
+	/* Get the Open Router Visual Studio Code API key */  
+  protected static String  getOpenRouterVSCodeApiKey() {
+    return HDLmConfig.getString("openRouterVSCodeApiKey");
+  }
+	/* Get the Open Router Web Page Improver Code API key */  
+  protected static String  getOpenRouterWebPageImproverApiKey() {
+    return HDLmConfig.getString("openRouterWebPageImproverApiKey");
   }
   /* Get the method that is used to access the parameters */
   protected static String  getParametersAccessMethod() {
     return HDLmConfig.getString("parametersAccessMethod");
   }
   /* Get the method that is used to obtain (access/update) the parameters */
-  protected static String  getParametersInternetMethod() {
-    return HDLmConfig.getString("parametersInternetMethod");
+  protected static String  getParametersInternetMethodWithSsl() {
+    return HDLmConfig.getString("parametersInternetMethodWithSsl");
   }
   /* Get the method that is used to update the parameters */
   protected static String  getParametersUpdateMethod() {

@@ -52,19 +52,44 @@ public class HDLmOpenAI {
 	/* The next statement initializes logging to some degree. Note that 
      having the slf4j jars and the log4j jars in the classpath also
      plays some role in logging initialization. */
-private static final Logger LOG = LoggerFactory.getLogger(HDLmOpenAI.class);  
+  private static final Logger LOG = LoggerFactory.getLogger(HDLmOpenAI.class);  
 	/* This class can never be instantiated */
 	private HDLmOpenAI() {}	
 	/* Build an Open AI authorization header */ 
-	protected static String  buildAuthorizationHeader() {
-		/* Get the Open AI key from the configuration values */ 
-		String  apiKeyStr = HDLmConfigInfo.getOpenAIApiKeySchaeffer();
+	protected static String  buildAuthorizationHeader(final HDLmApiKey apiKeyEnum) {
+		/* Check one or more values passed by the caller */
+		/* Check if the API key enum value is null */
+		if (apiKeyEnum == null) {
+			String errorText = "API key enum reference passed to buildAuthorizationHeader is null";
+			throw new NullPointerException(errorText);
+		}
+		/* The API key enum must be a valid value */ 
+		if (apiKeyEnum != HDLmApiKey.APIKEYOPENAISCHAEFFER &&
+				apiKeyEnum != HDLmApiKey.APIKEYOPENAISCHAEFFES) { 
+			String   errorFormat = "API key enum value (%s) passed to buildAuthorizationHeader is invalid";
+			String   errorText = String.format(errorFormat, apiKeyEnum.toString());
+			HDLmAssertAction(false, errorText);			
+		}
+		String  apiKeyStr = null;
+		/* Get the Open AI key from the configuration values */
+		switch (apiKeyEnum) {
+		case APIKEYOPENAISCHAEFFER:
+			apiKeyStr = HDLmConfigInfo.getOpenAIApiKeySchaeffer();
+			break;
+		case APIKEYOPENAISCHAEFFES:
+			apiKeyStr = HDLmConfigInfo.getOpenAIApiKeySchaeffes();
+			break;
+		default:
+			String errorFormat = "API key enum value (%s) passed to buildAuthorizationHeader is invalid";
+			String errorText = String.format(errorFormat, apiKeyEnum.toString());
+			HDLmAssertAction(false, errorText);
+		}
     /* Build an authorization header using an API key string */
 	  return HDLmOpenAI.buildAuthorizationHeaderUsingAPIKeyStr(apiKeyStr);
 	}
 	/* Build an Open AI authorization header using an API key string that
 	   was passed by the caller */ 
-	protected static String  buildAuthorizationHeaderUsingAPIKeyStr(String apiKeyStr) {
+	protected static String  buildAuthorizationHeaderUsingAPIKeyStr(final String apiKeyStr) {
 		/* Check one or more values passed by the caller */
 		if (apiKeyStr == null) {
 			String   errorText = "API key string reference passed to buildAuthorizationHeaderUsingAPIKeyStr is null";
@@ -82,7 +107,7 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmOpenAI.class);
 	  return outBuilder.toString();
 	}
 	/* Build a content type header */ 
-	protected static String  buildContentTypeHeader(String contentTypeStr) {
+	protected static String  buildContentTypeHeader(final String contentTypeStr) {
 		/* Check one or more values passed by the caller */
 		if (contentTypeStr == null) {
 			String   errorText = "Content type string reference passed to buildContentTypeHeader is null";
@@ -98,7 +123,7 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmOpenAI.class);
 	  return outBuilder.toString();
 	}
 	/* Build a data entity for use by other routines */
-	protected static HttpEntity buildDataEntity(String inputImageUrl) {
+	protected static HttpEntity buildDataEntity(final String inputImageUrl) {
 		/* Check one or more values passed by the caller */
 		if (inputImageUrl == null) {
 			String   errorText = "Input image URL string reference passed to buildDataEntity is null";
@@ -106,7 +131,7 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmOpenAI.class);
 		}
 		/* Build a few bodies that can be added to the entity */
 	  StringBody  stringBodyOne = new StringBody("3", ContentType.MULTIPART_FORM_DATA);
-	  StringBody  stringBodyTwo = new StringBody("1024x1024", ContentType.MULTIPART_FORM_DATA);  
+	  StringBody  stringBodyTwo = new StringBody("1024x1024", ContentType.MULTIPART_FORM_DATA);
 	  /* Build the input stream that can be added to the entity */
 	  ByteArrayInputStream    imageBais = null;
 	  String                  inputImageStrEncoded = null;
@@ -141,17 +166,30 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmOpenAI.class);
 	  builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);	   
 	  builder.addBinaryBody("image", imageBais, ContentType.IMAGE_PNG, inputImageStrEncoded); 
 	  builder.addPart("n", stringBodyOne);
-	  builder.addPart("size", stringBodyTwo);
+	  builder.addPart("size", stringBodyTwo); 
 	  HttpEntity  dataEntity = builder.build();
 	  /* Return the value we just built to the caller */
 	  return dataEntity;		
 	}
 	/* Build a header list for use with the Open AI API */
-	protected static ArrayList<String> buildHeaders() {
+	protected static ArrayList<String> buildHeaders(final HDLmApiKey apiKeyEnum) {
+		/* Check one or more values passed by the caller */
+		/* Check if the API key enum value is null */
+		if (apiKeyEnum == null) {
+			String errorText = "API key enum reference passed to buildHeaders is null";
+			throw new NullPointerException(errorText);
+		}
+		/* The API key enum must be a valid value */ 
+		if (apiKeyEnum != HDLmApiKey.APIKEYOPENAISCHAEFFER &&
+				apiKeyEnum != HDLmApiKey.APIKEYOPENAISCHAEFFES) { 
+			String   errorFormat = "API key enum value (%s) passed to buildHeaders is invalid";
+			String   errorText = String.format(errorFormat, apiKeyEnum.toString());
+			HDLmAssertAction(false, errorText);			
+		}
 	  /* Build a header list for use later */
 		ArrayList<String>   headerList = new ArrayList<String>();  
 		/* Build an authorization header and add it to the header list */
-	  String  authorizationHeader = HDLmOpenAI.buildAuthorizationHeader();
+	  String  authorizationHeader = HDLmOpenAI.buildAuthorizationHeader(apiKeyEnum);
 	  headerList.add(authorizationHeader);
 	  String  contentTypeHeader = HDLmOpenAI.buildJsonContentTypeHeader();
 	  headerList.add(contentTypeHeader);
@@ -160,7 +198,7 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmOpenAI.class);
 	}
 	/* Build some JSON for use by the Open AI API for getting text 
 	   variations */
-	protected static HDLmResponse buildJsonTextVariations(String inputStr, String urlStr, String pathValueStr) {
+	protected static HDLmResponse buildJsonTextVariations(final String inputStr, String urlStr, final String pathValueStr) {
 		/* Check one or more values passed by the caller */
 		if (inputStr == null) {
 			String   errorText = "Input string reference passed to buildJsonTextVariations is null";
@@ -313,7 +351,7 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmOpenAI.class);
 	}
 	/* Build a multipart/form-data content type header. The caller must pass the 
 	   correct boundary value. */ 
-	protected static String  buildMultipartFormContentTypeHeader(String boundaryStr) {
+	protected static String  buildMultipartFormContentTypeHeader(final String boundaryStr) {
 		/* Check one or more values passed by the caller */
 		if (boundaryStr == null) {
 			String   errorText = "Boundary string reference passed to buildMultipartFormContentTypeHeader is null";
@@ -324,8 +362,52 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmOpenAI.class);
 	  outStr += boundaryStr;
 	  return outStr;
 	}	
+	/* Execute an Open AI API request. The request could really 
+	   be anything. The caller provides the body which defines 
+	   the actual request. */
+	protected static HDLmResponse  executeOpenAIRequest(String bodyStr) {
+		/* Check one or more values passed by the caller */
+		if (bodyStr == null) {
+			String   errorText = "Body string reference passed to executeOpenAIRequest is null";
+			throw new NullPointerException(errorText);			
+		}		
+		/* Get the Open AI GPT model from the configuration values */ 
+		String  apiGptModel = HDLmConfigInfo.getOpenAIApiGptModel();
+		/* Replace the dummy model string with the actual model string */
+		bodyStr = bodyStr.replace("dummyModel", apiGptModel);
+		/* Build a response object that can be returned to the caller */
+		HDLmResponse  executeResponse = new HDLmResponse();
+	  /* Build a header list for use later */
+		ArrayList<String>   headerList = HDLmOpenAI.buildHeaders(HDLmApiKey.APIKEYOPENAISCHAEFFER); 
+		/* This was just test code */ 
+		if (1 == 2) {
+			executeResponse.setReturnString(bodyStr);
+			bodyStr =  "{\"model\":\"gpt-4o-2024-08-06\",\"messages\":[{\"role\":\"user\",\"content\":\"Hello!\"}]}"; 
+		  return executeResponse;		
+		}				
+	  /* Try to get some Open AI data */
+	  HDLmResponse  getResponse = getSomeOpenAIData("v1/chat/completions", headerList, bodyStr);
+	  /* Get some values from the response */
+	  String  errorMessage = getResponse.getErrorMessage();
+	  String  outputJson = getResponse.getReturnString();
+	  /* Check if we got an error message from the low-level AI routine */
+	  if (errorMessage != null) {
+	  	executeResponse.setErrorMessage(errorMessage);
+	  	return executeResponse;	  	
+	  }	  
+    /* Check if obtained any output JSON from the Open AI API */ 
+	  if (outputJson == null) {
+	  	errorMessage = "Output JSON from Open AI API is null";
+	  	executeResponse.setErrorMessage(errorMessage);
+	  	return executeResponse;
+	  }
+	  /* Store the output JSON in the response that will be returned to the caller */	
+	  executeResponse.setReturnCodeZero();
+	  executeResponse.setReturnString(outputJson);
+		return executeResponse;		 
+	}
   /* Get some image choices using the Open AI API */
-	protected static HDLmResponse  getImageChoices(String inputImageStr, String urlStr, String pathValueStr) {
+	protected static HDLmResponse  getImageChoices(final String inputImageStr, final String urlStr, final String pathValueStr) {
 		/* Check if the image URL is null or not */
 		if (inputImageStr == null) {
 			String   errorText = "Input image URL reference passed to getImageChoices is null";
@@ -344,7 +426,7 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmOpenAI.class);
 		/* Build a response object that can be returned to the caller */
 		HDLmResponse  outResponse = new HDLmResponse();
 	  /* Build a header list for use later */
-		ArrayList<String>   headerList = HDLmOpenAI.buildHeaders(); ;
+		ArrayList<String>   headerList = HDLmOpenAI.buildHeaders(HDLmApiKey.APIKEYOPENAISCHAEFFER); ;
     /* Build a data entity that can be used below */
 	  HttpEntity  dataEntity = HDLmOpenAI.buildDataEntity(inputImageStr);
 	  /* Use the entity to get the multipart/form-data header that must
@@ -375,7 +457,7 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmOpenAI.class);
 	  return outResponse;
 	}
 	/* Get a list of image variations from some output (output of Open AI) JSON */
-	protected static ArrayList<String>  getImageVariations(String outputJson) {
+	protected static ArrayList<String>  getImageVariations(final String outputJson) {
 		/* Check one or more values passed by the caller */
 		if (outputJson == null) {
 			String   errorText = "Output JSON string reference passed to getImageVariations is null";
@@ -431,11 +513,65 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmOpenAI.class);
 		/* Return the image variations list to the caller */
 		return imageVariantsList;
 	}
+	/* Get some Open AI data. It is assumed that the string
+	   passed to this routine is already in JSON format. */
+	protected static HDLmResponse  getSomeOpenAIData(final String pathStr, 
+			                                             final ArrayList<String> headerList,
+			                                             final String jsonData) {
+		/* Check a few values passed by the caller */
+		if (pathStr == null) {
+			String   errorText = "Path string reference passed to getSomeOpenAIData is null";
+			throw new NullPointerException(errorText);			
+		}
+		if (headerList == null) {
+			String   errorText = "Header list reference passed to getSomeOpenAIData is null";
+			throw new NullPointerException(errorText);		
+		}
+		if (jsonData == null) {
+			String   errorText = "Json data reference passed to getSomeOpenAIData is null";
+			throw new NullPointerException(errorText);		
+		}		
+		/* Build a response object that can be returned to the caller */
+		HDLmResponse  outResponse = new HDLmResponse();
+		/* Build the URL string passed to the server */
+	  String  protocol = "https";
+	  String  hostName = "api.openai.com";
+	  String  pathValue = pathStr;
+	  String  urlString = protocol + "://" + hostName + '/' + pathValue; 
+	 	/* Send the request to the Open AI server */
+	  /* The callers passes the headers and the SBON */
+	  /* Use the Curl mechanism */
+		HDLmApacheResponse  apacheResponse;
+	  apacheResponse = HDLmCurlApache.runCurlResponse(urlString,
+							  		                                "", 
+							  		                                "", 
+							  		                                HDLmHttpTypes.POST,
+							  		                                headerList,
+							  		                                jsonData,
+							  		                                null,  
+																				            HDLmOutboundJson.OUTBOUNDJSONYES,
+																					          HDLmSkipAuth.SKIPAUTHYES,
+																					          HDLmReportErrors.REPORTERRORS); 
+	  /* Check the response from the Apache HTTP routine */
+	  int     statusCode = apacheResponse.getStatusCode();
+	  String  contentString = apacheResponse.getStringContent();
+	  String  errorMessage = apacheResponse.getErrorMessage();
+	  String  statusLine = apacheResponse.getStatusLine(); 
+	  /* Store some values in the response that this routine will
+	     return */
+	  if (errorMessage != null) 
+	  	outResponse.setErrorMessage(errorMessage);
+	  else if (statusLine != null && statusCode != HttpStatus.SC_OK)
+	 	  outResponse.setErrorMessage(statusLine);
+	  else if (contentString != null)
+	 	  outResponse.setReturnString(contentString);
+		return outResponse;
+	}
 	/* Get some Open AI image data. It is assumed that the string
 	   passed to this routine is already in JSON format. */
-	protected static HDLmResponse  getSomeOpenAIImageData(String pathStr, 
-			                                                  ArrayList<String> headerList,
-			                                                  HttpEntity dataEntity) {
+	protected static HDLmResponse  getSomeOpenAIImageData(final String pathStr, 
+			                                                  final ArrayList<String> headerList,
+			                                                  final HttpEntity dataEntity) {
 		/* Check a few values passed by the caller */
 		if (pathStr == null) {
 			String   errorText = "Path string reference passed to getSomeOpenAIImageData is null";
@@ -487,9 +623,9 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmOpenAI.class);
 	}
 	/* Get some Open AI text data. It is assumed that the string
 	   passed to this routine is already in JSON format. */
-	protected static HDLmResponse  getSomeOpenAITextData(String pathStr, 
-			                                                 ArrayList<String> headerList,
-			                                                 String jsonData) {
+	protected static HDLmResponse  getSomeOpenAITextData(final String pathStr, 
+			                                                 final ArrayList<String> headerList,
+			                                                 final String jsonData) {
 		/* Check a few values passed by the caller */
 		if (pathStr == null) {
 			String   errorText = "Path string reference passed to getSomeOpenAITextData is null";
@@ -540,7 +676,7 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmOpenAI.class);
 		return outResponse;
 	}
 	/* Change the input image size. Get a square output image. */
-	public static BufferedImage  getSquareImage(BufferedImage inputBufferedImage) {
+	public static BufferedImage  getSquareImage(final BufferedImage inputBufferedImage) {
 		/* Check one or more values passed by the caller */
 		if (inputBufferedImage == null) {
 			String   errorText = "Buffered image reference passed to getSquareImage is null";
@@ -579,7 +715,7 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmOpenAI.class);
     return outputImage;
   }
 	/* Get some text choices using the Open AI API */
-	protected static HDLmResponse  getTextChoices(String inputStr, String urlStr, String pathValueStr) {
+	protected static HDLmResponse  getTextChoices(final String inputStr, final String urlStr, final String pathValueStr) {
 		/* Check one or more values passed by the caller */
 		if (inputStr == null) {
 			String   errorText = "Input string reference passed to getTextChoices is null";
@@ -598,7 +734,7 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmOpenAI.class);
 		/* Build a response object that can be returned to the caller */
 		HDLmResponse  getTextResponse = new HDLmResponse();
 	  /* Build a header list for use later */
-		ArrayList<String>   headerList = HDLmOpenAI.buildHeaders();
+		ArrayList<String>   headerList = HDLmOpenAI.buildHeaders(HDLmApiKey.APIKEYOPENAISCHAEFFER);
 		/* Build some JSON for use below */
 		HDLmResponse  buildResponse = HDLmOpenAI.buildJsonTextVariations(inputStr, urlStr, pathValueStr);
 		String   dataJson = buildResponse.getReturnString();
@@ -626,7 +762,7 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmOpenAI.class);
 		 
 	}
 	/* Get a list of text variations from some output (output of Open AI) JSON */
-	protected static ArrayList<String>  getTextVariations(String  outputJson) {
+	protected static ArrayList<String>  getTextVariations(final String  outputJson) {
 		/* Check one or more values passed by the caller */
 		if (outputJson == null) {
 			String   errorText = "Output JSON string reference passed to getTextVariations is null";

@@ -23,21 +23,21 @@ public class HDLmLogMsg {
 	   severity, type, number, and log message text. Note that this routine
 	   returns the final log message to the caller. This change was made to
 	   facilitate automated testing. */
-	protected static String buildLogMsg(HDLmLogLevels severity, 
-			                                String type, 
-                                      int number, 
-                                      String text) {
+	protected static String buildLogMsg(final HDLmLogLevels severity, 
+			                                final String type, 
+                                      final int number, 
+                                      final String text) {
 		return buildLogMsg(severity, 
 				               type, 
 				               number, 
 				               text, 
 				               HDLmReportErrors.REPORTERRORS);
 	}
-	protected static String buildLogMsg(HDLmLogLevels severity, 
-			                                String type, 
-			                                int number, 
-			                                String text, 
-			                                HDLmReportErrors reportMessages) {
+	protected static String buildLogMsg(final HDLmLogLevels severity, 
+			                                final String type, 
+			                                final int number, 
+			                                final String text, 
+			                                      HDLmReportErrors reportMessages) {
 		HDLmLogLevels   internalSeverity;
 		String          logMsgStr = "";
 		/* We would like to test for and reject null values passed to this routine.

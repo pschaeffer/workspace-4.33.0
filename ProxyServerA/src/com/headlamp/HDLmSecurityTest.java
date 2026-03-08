@@ -542,7 +542,7 @@ class HDLmSecurityTest {
 		HDLmApacheResponse  outResponse;
 		int     apiJsonLen;
 		String  apiJson = null;
-		String  AWSCognitoHostName = HDLmConfigInfo.getAwsCognitoHost();
+		String  awsCognitoHostName = HDLmConfigInfo.getAwsCognitoHost();
 		String  clientId = HDLmConfigInfo.getAwsCognitoUserPoolId();
 		String  clientAppId = HDLmConfigInfo.getAwsCognitoUserPoolClientAppId();
 		String  outStr;
@@ -552,7 +552,7 @@ class HDLmSecurityTest {
 		apiJson = HDLmSecurity.getJsonInitiateAuth(clientAppId, userName, passwordStr);
 		/* Get some headers to pass to the API */
 		apiJsonLen = apiJson.length();
-		apiHeaders = HDLmSecurity.getHeadersInitiateAuth(AWSCognitoHostName, apiJsonLen);
+		apiHeaders = HDLmSecurity.getHeadersInitiateAuth(awsCognitoHostName, apiJsonLen);
 		outResponse = HDLmSecurity.invokeCognitoApi(apiHeaders, apiJson); 
 		outStr = outResponse.getStringContent();
 		assertNotNull(outStr, "Null response recieved from invokeCognitoApi routine");
@@ -563,7 +563,7 @@ class HDLmSecurityTest {
 		apiJson = HDLmSecurity.getJsonInitiateAuth(clientAppId, userName, passwordStr);
 		/* Get some headers to pass to the API */
 		apiJsonLen = apiJson.length();
-		apiHeaders = HDLmSecurity.getHeadersInitiateAuth(AWSCognitoHostName, apiJsonLen);
+		apiHeaders = HDLmSecurity.getHeadersInitiateAuth(awsCognitoHostName, apiJsonLen);
 		outResponse = HDLmSecurity.invokeCognitoApi(apiHeaders, apiJson);  
 		outStr = outResponse.getStringContent();
 		assertNotNull(outStr, "Output string is null in invokeCognitoApi");

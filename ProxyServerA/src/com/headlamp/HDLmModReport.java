@@ -49,7 +49,7 @@ public class HDLmModReport extends HDLmMod {
 	/* This is one of the constructors for the report definition class.
 	   It must be passed a JSON element that contains all of the details
 	   of the report definition. */
-	protected HDLmModReport(JsonElement jsonElement) {
+	protected HDLmModReport(final JsonElement jsonElement) {
 		/* Invoke the default constructor for the parent class. This is 
 		   required by the Java language. */ 
 		super();
@@ -342,8 +342,8 @@ public class HDLmModReport extends HDLmMod {
 	   and returns the final report (just one report) tree node to the
 	   caller. The report (just one report) reference is used to set
 	   the details of the new tree node. */ 
-	protected static HDLmTree  buildTree(ArrayList<String> oldNodePath, 
-			                                 HDLmModReport newValue) {
+	protected static HDLmTree  buildTree(final ArrayList<String> oldNodePath, 
+			                                 final HDLmModReport newValue) {
 		/* Check if the old node path reference passed by the caller is null */
 		if (oldNodePath == null) {
 		  String  errorText = "Node path reference passed to buildTree is null";
@@ -379,8 +379,8 @@ public class HDLmModReport extends HDLmMod {
 	   lines nodes that are also associated with a report. The 
 	   report reference is used to set the details of the new 
 	   tree node. */ 
-	protected static HDLmTree  buildTreeExtended(ArrayList<String> oldNodePath, 
-			                                         HDLmModReport newValue) {
+	protected static HDLmTree  buildTreeExtended(final ArrayList<String> oldNodePath, 
+			                                         final HDLmModReport newValue) {
 		/* Check if the old node path reference passed by the caller is null */
 		if (oldNodePath == null) {
 		  String  errorText = "Node path reference passed to buildTree is null";
@@ -549,8 +549,8 @@ public class HDLmModReport extends HDLmMod {
      is added to the array of invalid report lines. */
   protected static boolean  checkReportLines(final HDLmModReport report,
   		                                       final HDLmModList ignoreList,
-  		                                       HDLmModLines validLines,
-  		                                       HDLmModLines invalidLines) {
+  		                                       final HDLmModLines validLines,
+  		                                       final HDLmModLines invalidLines) {
   	/* Declare and define a few variables */
   	boolean   lineIgnoreStatus;
   	boolean   rv = true;

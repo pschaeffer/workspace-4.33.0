@@ -77,7 +77,7 @@ public class HDLmModList extends HDLmMod {
 	/* This is one of the constructors for the list (ignore-list) definition
 	   class. It must be passed a JSON element that contains all of the details
      of the list (ignore-list) definition. */
-	protected HDLmModList(JsonElement jsonElement) {
+	protected HDLmModList(final JsonElement jsonElement) {
 		/* Invoke the default constructor for the parent class. This is 
 		   required by the Java language. */ 
 		super();
@@ -186,7 +186,7 @@ public class HDLmModList extends HDLmMod {
   private TreeMap<String, HDLmModIgnore>   ignoreEntries = null;
   /* This routine adds a new ignore-list entry to an ignore-list */
   protected void         addIgnoreEntry(final HDLmModIgnore ignoreEntry,
-  		                                  HDLmStartupMode startupMode) {
+  		                                  final HDLmStartupMode startupMode) {
 		/* Check if the ignore-list entry reference passed by the caller is null */
 	  if (ignoreEntry == null) {
  	    String  errorText = "Ignore line reference passed to addIgnoreLine is null";
@@ -225,8 +225,8 @@ public class HDLmModList extends HDLmMod {
 	   and returns the final list (just one ignore-list) tree node to the
 	   caller. The list (just one ignore-list) reference is used to set
 	   the details of the new tree node. */ 
-	protected static HDLmTree  buildTree(ArrayList<String> oldNodePath, 
-			                                 HDLmModList newValue) {
+	protected static HDLmTree  buildTree(final ArrayList<String> oldNodePath, 
+			                                 final HDLmModList newValue) {
 		/* Check if the old node path reference passed by the caller is null */
 		if (oldNodePath == null) {
 		  String  errorText = "Node path reference passed to buildTree is null";
@@ -262,8 +262,8 @@ public class HDLmModList extends HDLmMod {
 	   ignore nodes (one individual ignore) that are also associated with
 	   a list (set of ignores). The list (set of ignores) reference is 
 	   used to set the details of the new tree node. */
-	protected static HDLmTree  buildTreeExtended(ArrayList<String> oldNodePath, 
-	                                             HDLmModList newValue) {
+	protected static HDLmTree  buildTreeExtended(final ArrayList<String> oldNodePath, 
+	                                             final HDLmModList newValue) {
 		/* Check if the old node path reference passed by the caller is null */
 		if (oldNodePath == null) {
 		  String  errorText = "Node path reference passed to buildTree is null";

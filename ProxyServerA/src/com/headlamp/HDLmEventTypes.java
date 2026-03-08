@@ -23,7 +23,7 @@ public enum HDLmEventTypes {
 	/* Add a field to each enum */
 	private final int enumValue;
 	/* Provide a constructor for the enum */
-	private HDLmEventTypes(int intValue) {
+	private HDLmEventTypes(final int intValue) {
 		this.enumValue = intValue;
 	}
 	/* Return the integer value of the enum to the caller */
@@ -49,7 +49,7 @@ public enum HDLmEventTypes {
      enum values. Note that if a matching enum is not found (for
      the integer passed by the caller), a null value is returned
      by this routine. */
-	protected static HDLmEventTypes valueOfInteger(int newType) {
+	protected static HDLmEventTypes valueOfInteger(final int newType) {
     /* Scan all of the enum values looking for a match */
     for (var enumValue : values()) {
       if (enumValue.getValue() == newType) 

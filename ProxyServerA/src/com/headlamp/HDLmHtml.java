@@ -249,7 +249,7 @@ public class HDLmHtml {
 	private static final String  upperRegexString = "[A-Z]";
 	private static final Pattern  upperRegexPattern = Pattern.compile(upperRegexString);
   /* Build an accept encoding HTML header */
-  protected static String buildAcceptEncodingHeader(String acceptEncodingStr) {
+  protected static String buildAcceptEncodingHeader(final String acceptEncodingStr) {
 		/* Check a few values passed by the caller */
 		if (acceptEncodingStr == null) {
 			String   errorText = "Accept Encoding string reference passed to buildAcceptEncodingHeader is null";
@@ -258,7 +258,7 @@ public class HDLmHtml {
     return buildHeader("Accept-Encoding", acceptEncodingStr);
   }
   /* Build an Amazon Authorization HTML header */
-  protected static String buildAmzAuthorizationHeader(String authValue) {
+  protected static String buildAmzAuthorizationHeader(final String authValue) {
 		/* Check a few values passed by the caller */
 		if (authValue == null) {
 			String   errorText = "Authorization string reference passed to buildAmzAuthorizationHeader is null";
@@ -267,7 +267,7 @@ public class HDLmHtml {
     return buildHeader("Authorization", authValue);
   }
   /* Build an Amazon SDK Invocation ID HTML header */
-  protected static String buildAmzSdkInvocationIdHeader(String sdkIdStr) {
+  protected static String buildAmzSdkInvocationIdHeader(final String sdkIdStr) {
 		/* Check a few values passed by the caller */
 		if (sdkIdStr == null) {
 			String   errorText = "SDK ID string reference passed to buildAmzSdkInvocationIdHeader is null";
@@ -276,14 +276,14 @@ public class HDLmHtml {
     return buildHeader("amz-sdk-invocation-id", sdkIdStr);
   }
   /* Build an Amazon SDK Request HTML header */
-  protected static String buildAmzSdkRequestHeader(int attemptNumber) {
+  protected static String buildAmzSdkRequestHeader(final int attemptNumber) {
   	
     String  attemptStr = ((Integer) attemptNumber).toString();
     String  requestStr = "attempt" + "=" + attemptStr;
     return buildHeader("amz-sdk-request", requestStr);
   }
   /* Build an Open AI authorization HTML header */
-  protected static String buildAuthorizationHeader(String apiKeyStr) {
+  protected static String buildAuthorizationHeader(final String apiKeyStr) {
 		/* Check a few values passed by the caller */
 		if (apiKeyStr == null) {
 			String   errorText = "API key string reference passed to buildAuthorizationHeader is null";
@@ -299,11 +299,11 @@ public class HDLmHtml {
     return "<br>";
   }
   /* Build a content length HTML header */
-  protected static String buildContentLengthHeader(int contentLength) {
+  protected static String buildContentLengthHeader(final int contentLength) {
     return buildHeader("Content-Length", ((Integer) contentLength).toString());
   }
   /* Build a content type HTML header */
-  protected static String buildContentTypeHeader(String contentTypeStr) {
+  protected static String buildContentTypeHeader(final String contentTypeStr) {
 		/* Check a few values passed by the caller */
 		if (contentTypeStr == null) {
 			String   errorText = "Content type string reference passed to buildContentTypeHeader is null";
@@ -315,7 +315,7 @@ public class HDLmHtml {
 	   or any other (CSS) purpose. The caller can pass all of the values
 	   used to format the HTML table or other HTML entity. The values are
 	   passed as using the K/V values of a map. */
-	protected static String buildCssFromMap(Map<String, String> cssMap) {
+	protected static String buildCssFromMap(final Map<String, String> cssMap) {
 	  /* Start building the output CSS */
 		StringBuilder  rv = new StringBuilder();
 	  rv.append("<style>");
@@ -369,7 +369,7 @@ public class HDLmHtml {
 	  return rv.toString();
 	}
   /* Build an HTML header string from the values passed the caller */
-  protected static String buildHeader(String typeStr, String valueStr) {
+  protected static String buildHeader(final String typeStr, final String valueStr) {
 		/* Check a few values passed by the caller */
 		if (typeStr == null) {
 			String   errorText = "Header type string reference passed to buildHeader is null";
@@ -385,7 +385,7 @@ public class HDLmHtml {
   /* This routine builds an HTML heading using the values passed to it.
      The caller must provide the heading type (h1, h2, etc.) and the
      heading text. The return value is the HTML for the heading. */
-	public static String buildHeading(String heading, String text) {
+	public static String buildHeading(final String heading, final String text) {
 		StringBuilder  rv = new StringBuilder();
 		rv.append('<');
 		rv.append(heading);
@@ -397,14 +397,14 @@ public class HDLmHtml {
 	  return rv.toString();
 	}
   /* Build an HTML host header */
-  protected static String buildHostHeader(String hostNameStr) {
+  protected static String buildHostHeader(final String hostNameStr) {
     return buildHeader("Host", hostNameStr);
   }
   /* This routine builds an HTML table using the values passed to it.
      The caller must provide the column headings and the data to be
      displayed. */
-  protected static String buildHtmlTableFromArray(ArrayList<String> headings, 
-  		                                            Object data[][]) {
+  protected static String buildHtmlTableFromArray(final ArrayList<String> headings, 
+                                               		final Object data[][]) {
   	Object         cell;
   	StringBuilder  rv = new StringBuilder();
 	  int  numCols = headings.size();
@@ -452,8 +452,8 @@ public class HDLmHtml {
   /* This routine builds an HTML table using the values passed to it.
      The caller must provide the column headings and the data (a list)
      to be displayed. */
-	protected static String buildHtmlTableFromList(ArrayList<String> headings, 
-			                                           ArrayList<String> data) {
+	protected static String buildHtmlTableFromList(final ArrayList<String> headings, 
+		                                           	 final ArrayList<String> data) {
 		StringBuilder  rv = new StringBuilder();
 	  int  numCols = headings.size();
 	  int  rowNumber = 0;
@@ -488,8 +488,8 @@ public class HDLmHtml {
 	   to be displayed. The first entry for each row of data is treated
 	   as a style value. The style is used, if the value is not null, 
 	   and is not a zero-length string. */
-	protected static String buildHtmlTableFromListStyle(ArrayList<String> headings, 
-			                                                ArrayList<String> data) {
+	protected static String buildHtmlTableFromListStyle(final ArrayList<String> headings, 
+			                                                final ArrayList<String> data) {
 		StringBuilder  rv = new StringBuilder();
 	  int  numCols = headings.size();
 	  int  rowNumber = 0;
@@ -531,8 +531,8 @@ public class HDLmHtml {
 	/* This routine builds an HTML table using the values passed to it.
      The caller must provide the column headings and the data (a tree
      map) to be displayed. */
-	protected static String buildHtmlTableFromTree(ArrayList<String> headings, 
-			                                           TreeMap<String, String> data) {
+	protected static String buildHtmlTableFromTree(final ArrayList<String> headings, 
+	                                           		 final TreeMap<String, String> data) {
 		StringBuilder  rv = new StringBuilder();
 	  int  numCols = headings.size();
 	  @SuppressWarnings("unused")
@@ -573,7 +573,7 @@ public class HDLmHtml {
     return buildHeader("X-Amz-Date", dateTimeValue);
   }
   /* Build a user agent HTML header */
-  protected static String buildUserAgentHeader(String userAgentStr) {
+  protected static String buildUserAgentHeader(final String userAgentStr) {
 		if (userAgentStr == null) {
 			String   errorText = "User agent string reference passed to buildUserAgentHeader is null";
 			throw new NullPointerException(errorText);			
@@ -581,7 +581,7 @@ public class HDLmHtml {
     return buildHeader("User-Agent", userAgentStr);
   }
   /* Build an X-Amz-Target HTML header */
-  protected static String  buildXAmzTargetHeader(String targetStr) {
+  protected static String  buildXAmzTargetHeader(final String targetStr) {
 		if (targetStr == null) {
 			String   errorText = "Target string reference passed to buildXAmzTargetHeader is null";
 			throw new NullPointerException(errorText);			
@@ -962,26 +962,26 @@ public class HDLmHtml {
 	/* This routine build the heading HTML and returns it to the
      caller. This routine can be used with anything, not just the
      session ID cache or the perceptual hash status. */
-	protected static String headingHtml(String localServer, 
-			                                String prefixStr,
-			                                String infoType,
-			                                String clientStr) {
+	protected static String headingHtml(final String localServer, 
+																			final String prefixStr,
+																			final String infoType,
+																			final String clientStr) {
 	 /* Build the heading text */
 	 String  text = HDLmHtml.headingText(localServer, 
-	 		                                 prefixStr,
-	 		                                 infoType,
-	 		                                 clientStr);
-	 String  heading = "h2";
+																			 prefixStr,
+																			 infoType,
+																			 clientStr);
+	 String  heading = "h2";					
 	 String  rv = HDLmHtml.buildHeading(heading, text);
 	 return rv;
 	}
 	/* This routine build the heading text and returns it to the
 	   caller. This routine can be used with anything, not just the
 	   session ID cache or the perceptual hash status. */
-	protected static String headingText(String localServer,
-			                                String prefixStr,
-			                                String infoType,
-			                                String clientStr) {
+	protected static String headingText(final String localServer,
+																			final String prefixStr,
+																			final String infoType,
+																			final String clientStr) {
 	  /* Build the heading text */
 	  StringBuilder  rv = new StringBuilder();
 	  rv.append(prefixStr);
@@ -996,13 +996,13 @@ public class HDLmHtml {
 	 return rv.toString();
 	}
 	/* Get a set of nodes that match a CSS Selector */
-  protected static Elements querySelectorAll(Document htmlDom, String cssSelector) {
+  protected static Elements querySelectorAll(final Document htmlDom, final String cssSelector) {
   	return htmlDom.select(cssSelector);  	
   }
   /* The input to this routine is HTML. This routine removes
      all of the HTML tags passed by the caller and returns a
      string with no HTML tags. */
-  protected static String  removeHtmlTags(String htmlStr) {
+  protected static String  removeHtmlTags(final String htmlStr) {
 		/* Check one or more values passed by the caller */
 		if (htmlStr == null) {
 			String   errorText = "HTML string reference passed to removeHtmlTags is null";
@@ -1050,7 +1050,7 @@ public class HDLmHtml {
      all of the HTML tags passed by the caller and returns a
      string with no HTML tags. This routine also removes some
      other things from the HTML passed by the caller. */
-  protected static String  removeHtmlTagsAndOtherThings(String htmlStr) {
+  protected static String  removeHtmlTagsAndOtherThings(final String htmlStr) {
 		/* Check one or more values passed by the caller */
 		if (htmlStr == null) {
 			String   errorText = "HTML string reference passed to removeHtmlTagsAndOtherThings is null";
@@ -1082,7 +1082,7 @@ public class HDLmHtml {
      all of the HTML tags passed by the caller and returns a
      string with no HTML tags. This routine also removes all
      inline JavaScript scripts from the HTML. */
-	protected static String  removeHtmlTagsAndScripts(String htmlStr) {
+	protected static String  removeHtmlTagsAndScripts(final String htmlStr) {
 		/* Check one or more values passed by the caller */
 		if (htmlStr == null) {
 			String   errorText = "HTML string reference passed to removeHtmlTagsAndScripts is null";

@@ -22,7 +22,7 @@ public class HDLmNameMatch {
 	private ArrayList<String>   array = new ArrayList<String>(); 
 	/* Add a name value string to the name value array and return the 
      updated value to the caller */
-  protected ArrayList<String> addName(String name) {
+  protected ArrayList<String> addName(final String name) {
   	/* Check if the name value passed by the caller is null */
 		if (name == null) {
 		  String  errorText = "Name value passed to addName is null";

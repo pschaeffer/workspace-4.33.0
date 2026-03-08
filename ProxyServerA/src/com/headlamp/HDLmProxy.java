@@ -48,7 +48,7 @@ public class HDLmProxy extends HDLmMod {
 	/* This is one of the constructors for the proxy definition class.
 	   It must be passed a JSON element that contains all of the details
 	   of the proxy definition. */
-	protected HDLmProxy(JsonElement jsonElement) {
+	protected HDLmProxy(final JsonElement jsonElement) {
 		/* Invoke the default constructor for the parent class. This is 
 		   required by the Java language. */ 
 		super();
@@ -302,7 +302,7 @@ public class HDLmProxy extends HDLmMod {
 	/* This routine build the proxy definitions list. This list is used to find
      (if possible) a proxy definition for a host name. This list is built from
      the proxy definitions tree. */
-	protected static ArrayList<HDLmProxy> buildProxyList(HDLmTree proxyTree) {
+	protected static ArrayList<HDLmProxy> buildProxyList(final HDLmTree proxyTree) {
 		if (proxyTree == null) {
 			String  errorText = "Proxy definitions tree passed to buildProxyList is null";
 			throw new NullPointerException(errorText);
@@ -320,7 +320,7 @@ public class HDLmProxy extends HDLmMod {
 	/* This routine build the proxy definitions map. This map is used to find
 	   (if possible) a proxy definition for a host name. This map is built from
 	   the proxy definitions tree. */
-	protected static HashMap<String, HDLmProxy> buildProxyMap(HDLmTree proxyTree) {
+	protected static HashMap<String, HDLmProxy> buildProxyMap(final HDLmTree proxyTree) {
 		if (proxyTree == null) {
 			String  errorText = "Proxy definitions tree passed to buildProxyMap is null";
 			throw new NullPointerException(errorText);
@@ -370,8 +370,8 @@ public class HDLmProxy extends HDLmMod {
 	}
 	/* This routine gets the proxy definition for a proxy name. Null is 
 	   returned if no proxy definition can be found. */ 
-	protected static HDLmProxy getProxyDefinitionFromMap(String proxyName,
-			                                                 HashMap<String, HDLmProxy> proxyMap) {
+	protected static HDLmProxy getProxyDefinitionFromMap(final String proxyName,
+			                                                 final HashMap<String, HDLmProxy> proxyMap) {
 		if (proxyName == null) {
 			String  errorText = "Proxy name passed to getProxyDefinition is null";
 			throw new NullPointerException(errorText);
@@ -385,8 +385,8 @@ public class HDLmProxy extends HDLmMod {
 	}	
 	/* This routine gets the proxy definition for a proxy name. Null is 
      returned if no proxy definition can be found. */ 
-	protected static HDLmProxy getProxyDefinitionMatch(String proxyName,
-			                                               ArrayList<HDLmProxy> proxyList) {
+	protected static HDLmProxy getProxyDefinitionMatch(final String proxyName,
+			                                               final ArrayList<HDLmProxy> proxyList) {
 		if (proxyName == null) {
 			String  errorText = "Proxy name passed to getProxyDefinition is null";
 			throw new NullPointerException(errorText);
@@ -424,25 +424,25 @@ public class HDLmProxy extends HDLmMod {
 		 object. Report an error if the field is not found. If an error is reported,
 		 the error count is also incremented. The return value from this function is
 		 the value of the field, if the field is found. */
-	protected static HDLmProtocolTypes proxyFieldProtocolType(HDLmEditorTypes editorType,
-			                                                      MutableInt errorCounter,
-			                                                      ArrayList<String> errorMessages,
-			                                                      JsonObject jsonObject, 
-			                                                      Set<String> jsonKeys,
-			                                                      String name) {
+	protected static HDLmProtocolTypes proxyFieldProtocolType(final HDLmEditorTypes editorType,
+			                                                      final MutableInt errorCounter,
+			                                                      final ArrayList<String> errorMessages,
+			                                                      final JsonObject jsonObject, 
+			                                                      final Set<String> jsonKeys,
+			                                                      final String name) {
 		return proxyFieldProtocolType(editorType, 
 				                          errorCounter,
 				                          errorMessages,
 				                          jsonObject, jsonKeys, 
 				                          name, HDLmReportErrors.REPORTERRORS);
 	}
-	protected static HDLmProtocolTypes proxyFieldProtocolType(HDLmEditorTypes editorType,
-			                                                      MutableInt errorCounter,
-			                                                      ArrayList<String> errorMessages,
-			                                                      JsonObject jsonObject, 
-			                                                      Set<String> jsonKeys,
-			                                                      String name, 
-			                                                      HDLmReportErrors reportErrors) {
+	protected static HDLmProtocolTypes proxyFieldProtocolType(final HDLmEditorTypes editorType,
+			                                                      final MutableInt errorCounter,
+			                                                      final ArrayList<String> errorMessages,
+			                                                      final JsonObject jsonObject, 
+			                                                      final Set<String> jsonKeys,
+			                                                      final String name, 
+			                                                      final HDLmReportErrors reportErrors) {
 		if (errorCounter == null) {
 			String  errorText = "Mutable int for errors passed to proxyFieldProtocolType is null";
 			throw new NullPointerException(errorText);
@@ -503,12 +503,12 @@ public class HDLmProxy extends HDLmMod {
 		 object. Report an error if the field is not found. If an error is reported,
 		 the error count is also incremented. The return value from this function is
 		 the value of the field, if the field is found. */
-	protected static HDLmProxyTypes proxyFieldProxyType(HDLmEditorTypes editorType,
-			                                                MutableInt errorCounter,
-			                                                ArrayList<String> errorMessages,
-			                                                JsonObject jsonObject, 
-			                                                Set<String> jsonKeys,
-			                                                String name) {
+	protected static HDLmProxyTypes proxyFieldProxyType(final HDLmEditorTypes editorType,
+			                                                final MutableInt errorCounter,
+			                                                final ArrayList<String> errorMessages,
+			                                                final JsonObject jsonObject, 
+			                                                final Set<String> jsonKeys,
+			                                                final String name) {
 		return proxyFieldProxyType(editorType, 
 				                       errorCounter,
 				                       errorMessages,
@@ -517,13 +517,13 @@ public class HDLmProxy extends HDLmMod {
 				                       name, 
 				                       HDLmReportErrors.REPORTERRORS);
 	}
-	protected static HDLmProxyTypes proxyFieldProxyType(HDLmEditorTypes editorType,
-			                                                MutableInt errorCounter,
-			                                                ArrayList<String> errorMessages,
-			                                                JsonObject jsonObject, 
-			                                                Set<String> jsonKeys,
-			                                                String name, 
-			                                                HDLmReportErrors reportErrors) {
+	protected static HDLmProxyTypes proxyFieldProxyType(final HDLmEditorTypes editorType,
+			                                                final MutableInt errorCounter,
+			                                                final ArrayList<String> errorMessages,
+			                                                final JsonObject jsonObject, 
+			                                                final Set<String> jsonKeys,
+			                                                final String name, 
+			                                                final HDLmReportErrors reportErrors) {
 		if (errorCounter == null) {
 			String  errorText = "Mutable int for errors passed to proxyFieldProxyType is null";
 			throw new NullPointerException(errorText);
@@ -581,15 +581,15 @@ public class HDLmProxy extends HDLmMod {
 		return proxyType;
 	}
 	/* Set the backend server host name value */
-	protected void setBackendServer(String newHostName) {
+	protected void setBackendServer(final String newHostName) {
 		this.backendServer = newHostName;
 	}
 	/* Set the proxy definition protocol type value */
-	protected void setProtocolType(HDLmProtocolTypes newProtocolType) {
+	protected void setProtocolType(final HDLmProtocolTypes newProtocolType) {
 		this.backendType = newProtocolType;
 	}
 	/* Set the proxy definitions list top value */
-	protected static void setProxyListTop(ArrayList<HDLmProxy> newListTop) {
+	protected static void setProxyListTop(final ArrayList<HDLmProxy> newListTop) {
 		if (newListTop == null) {
 		  String  errorText = "New list top value is null";
 		  throw new NullPointerException(errorText);
@@ -601,7 +601,7 @@ public class HDLmProxy extends HDLmMod {
 		HDLmProxy.proxyListTop = null;
 	}	
 	/* Set the proxy definitions map top value */
-	protected static void setProxyMapTop(HashMap<String, HDLmProxy> newMapTop) {
+	protected static void setProxyMapTop(final HashMap<String, HDLmProxy> newMapTop) {
 		if (newMapTop == null) {
 		  String  errorText = "New map top value is null";
 		  throw new NullPointerException(errorText);
@@ -613,7 +613,7 @@ public class HDLmProxy extends HDLmMod {
 		HDLmProxy.proxyMapTop = null;
 	}	
 	/* Set the proxy definitions tree top value */
-	protected static void setProxyTreeTop(HDLmTree newProxyTop) {
+	protected static void setProxyTreeTop(final HDLmTree newProxyTop) {
 		if (newProxyTop == null) {
 		  String  errorText = "New tree top value is null";
 		  throw new NullPointerException(errorText);
@@ -625,12 +625,12 @@ public class HDLmProxy extends HDLmMod {
 		HDLmProxy.proxyTreeTop = null;
 	}	
 	/* Set the proxy type value */
-	protected void setProxyType(HDLmProxyTypes newProxyType) {
+	protected void setProxyType(final HDLmProxyTypes newProxyType) {
 		this.proxyType = newProxyType;
 	}
 	
 	/* Set the secure server host name value */
-	protected void setSecureServer(String newHostName) {
+	protected void setSecureServer(final String newHostName) {
 		this.secureServer = newHostName;
 	}
 }

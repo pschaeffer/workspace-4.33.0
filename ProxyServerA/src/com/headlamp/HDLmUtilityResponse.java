@@ -110,7 +110,7 @@ public class HDLmUtilityResponse {
      not pass a null value for the new last time string. This is 
      an error condition. The last time value is a GMT time stamp,
      not a local time. */
-	protected void setLastTimeValue(String newLastTimeValue) {
+	protected void setLastTimeValue(final String newLastTimeValue) {
 		if (newLastTimeValue == null) {
 			String  errorText = "New user name value is null in setLastTimeValue";
 			throw new NullPointerException(errorText);
@@ -124,7 +124,7 @@ public class HDLmUtilityResponse {
 	/* Set or reset the password string. Note that the caller can 
      not pass a null value for the new password string. This is 
      an error condition. */
-  protected void setPasswordValue(String newPasswordValue) {
+  protected void setPasswordValue(final String newPasswordValue) {
 	  if (newPasswordValue == null) {
 		  String  errorText = "New password value is null in setPasswordValue";
 		  throw new NullPointerException(errorText);
@@ -150,7 +150,7 @@ public class HDLmUtilityResponse {
 	/* Set or reset the scope string. Note that the caller can 
 	   not pass a null value for the new scope string. This is 
 	   an error condition. */
-	protected void setScopeValue(String newScopeValue) {
+	protected void setScopeValue(final String newScopeValue) {
 		if (newScopeValue == null) {
 			String  errorText = "New scope value is null in setScopeValue";
 			throw new NullPointerException(errorText);
@@ -160,7 +160,7 @@ public class HDLmUtilityResponse {
 	/* Set or reset the user name string. Note that the caller can 
 	   not pass a null value for the new user name string. This is 
 	   an error condition. */
-	protected void setUserNameValue(String newUsernameValue) {
+	protected void setUserNameValue(final String newUsernameValue) {
 		if (newUsernameValue == null) {
 			String  errorText = "New user name value is null in setUserNameValue";
 			throw new NullPointerException(errorText);

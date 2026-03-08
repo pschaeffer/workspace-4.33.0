@@ -27,7 +27,7 @@ public class HDLmClustering {
 	/* This code finds the closest cluster for a given perceptual hash value.
      The caller provides the list of cluster and the hash value. This routine
      returns the closest matching cluster (if any). */ 
-	protected static HDLmCluster findClosestCluster(ArrayList<HDLmCluster> clustersList, String searchStr) {
+	protected static HDLmCluster findClosestCluster(final ArrayList<HDLmCluster> clustersList, final String searchStr) {
 		/* Check if the list of clusters is valid or not */
 		if (clustersList == null) {
 			String  errorText = "List of clusters reference passed to findClosestCluster is null";
@@ -62,7 +62,7 @@ public class HDLmClustering {
      Of course, this routine returns a string of hexadecimal digits,
      not a bit array. The caller is required to pass at least one
      sample. An array list with zero values is an error condition. */
-	protected static String getAverageBitValue(ArrayList<String> samples) {
+	protected static String getAverageBitValue(final ArrayList<String> samples) {
 		/* Check if the samples array list is valid or not */
 		if (samples == null) {
 			String  errorText = "Samples reference passed to getAverageBitValue is null";
@@ -102,8 +102,8 @@ public class HDLmClustering {
 	}   
 	/* This method gets a count of clusters from a data array and returns 
      the cluster count to the caller */
-  protected static int getClusterCount(String[] sampleArray, 
-  		                                 double sampleThreshold) {
+  protected static int getClusterCount(final String[] sampleArray, 
+  		                                 final double sampleThreshold) {
   	return sampleArray.length;
   } 
   /* This method gets the list of clusters from a sample data Array and returns 
@@ -111,9 +111,9 @@ public class HDLmClustering {
      clusters. This routine does not enforce any limits as to the maximum number 
      of clusters and can return a cluster list much longer than the limit value
      allows. Other routines must enforce the maximum number of clusters limit.  */
-	protected static ArrayList<HDLmCluster> getClustersLow(String[] sampleArray, 
-	 	                                                     double similarityThreshold,
-		                                                     HDLmClusterComparison comparisonInterface) {
+	protected static ArrayList<HDLmCluster> getClustersLow(final String[] sampleArray, 
+	 	                                                     final double similarityThreshold,
+		                                                     final HDLmClusterComparison comparisonInterface) {
   	/* Check if the raw data array is valid or not */
   	if (sampleArray == null) {
 			String  errorText = "Sample array reference passed to getClustersLow is null";
@@ -215,9 +215,9 @@ public class HDLmClustering {
      on the number of clusters. The list of clusters returned by this routine
      can be much longer than the maximum number of clusters allows for. Other 
      routines must enforce the maximum number of clusters limit.*/
-  protected static ArrayList<HDLmCluster> getClustersFromArray(String[] rawDataArray, 
-	  	                                                         double similarityThreshold,
-	  	                                                         HDLmClusterComparison comparisonInterface) {
+  protected static ArrayList<HDLmCluster> getClustersFromArray(final String[] rawDataArray, 
+	  	                                                         final double similarityThreshold,
+	  	                                                         final HDLmClusterComparison comparisonInterface) {
   	/* Check if the raw data array is valid or not */
   	if (rawDataArray == null) {
 			String  errorText = "Raw data array reference passed to getClustersFromArray is null";
@@ -253,9 +253,9 @@ public class HDLmClustering {
 	   the cluster list to the caller. This routine does enforce the limit on
 	   the number of clusters. The list of clusters returned by this routine
 	   is subject to the maximum number of clusters limit (passed by the caller). */
-	protected static ArrayList<HDLmCluster> getClustersList(String[] rawDataArray, 
-	 	                                                      int maxClustersLimit, 
-	 	                                                      HDLmClusterComparison comparisonInterface) {
+	protected static ArrayList<HDLmCluster> getClustersList(final String[] rawDataArray, 
+	 	                                                      final int maxClustersLimit, 
+	 	                                                      final HDLmClusterComparison comparisonInterface) {
 		/* Check if the raw data array is valid or not */
 		if (rawDataArray == null) {
 			String  errorText = "Raw data array reference passed to getClustersList is null";
@@ -297,8 +297,8 @@ public class HDLmClustering {
      Of course, each entry is not compared with itself. If the list of 
      samples only contains one entry, then a minus one value will be
      returned to the caller. */ 
-	protected static double getMaxSimilarity(ArrayList<String>  samples,		                                            
-			                                     HDLmClusterComparison comparisonInterface) {
+	protected static double getMaxSimilarity(final ArrayList<String>  samples,		                                            
+			                                     final HDLmClusterComparison comparisonInterface) {
 		/* Check if the samples array list is valid or not */
 		if (samples == null) {
 			String  errorText = "Samples reference passed to getMaxSimilarity is null";
@@ -344,8 +344,8 @@ public class HDLmClustering {
      Of course, each entry is not compared with itself. If the list of 
      samples only contains one entry, then a minus one value will be
      returned to the caller. */ 
-	protected static double getMinSimilarity(ArrayList<String>  samples,		                                            
-			                                     HDLmClusterComparison comparisonInterface) {
+	protected static double getMinSimilarity(final ArrayList<String>  samples,		                                            
+			                                     final HDLmClusterComparison comparisonInterface) {
 		/* Check if the samples array list is valid or not */
 		if (samples == null) {
 			String  errorText = "Samples reference passed to getMinSimilarity is null";
@@ -390,7 +390,7 @@ public class HDLmClustering {
 	/* The next routine get a set of samples from a array of raw data. The 
      raw data array might be very large. It could have millions of values.
      We need to get just a sample of the data from the array. */
-  protected static String[] getSamples(String[] rawData, int sampleCount) {
+  protected static String[] getSamples(final String[] rawData, int sampleCount) {
   	/* Check if the raw data array is valid or not */
 		if (rawData == null) {
 			String  errorText = "Raw data array reference passed to getSamples is null";

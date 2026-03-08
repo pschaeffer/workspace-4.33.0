@@ -13,9 +13,9 @@ import java.util.ArrayList;
 public class HDLmOpenAIEditTextNotUsed {
   /* This class can be instantiated using the
      constructor below */
-	protected HDLmOpenAIEditTextNotUsed(String modelValue, String contextValue, 
-			                                String goalValue, Float temperatureValue, 
-			                                Integer nValue) {
+	protected HDLmOpenAIEditTextNotUsed(final String modelValue, final String contextValue, 
+			                                final String goalValue, final Float temperatureValue, 
+			                                final Integer nValue) {
 		/* Check if the model value passed by the caller is null */
 		if (modelValue == null) {
 			String  errorText = "Model value string passed to HDLmOpenAIEditText is null";

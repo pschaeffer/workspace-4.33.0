@@ -1736,7 +1736,7 @@ public class HDLmTree {
 	   causes this routine to find and build the top node. All other nodes are built
 	   as direct and indirect children of the top node. */
 	protected static HDLmTree buildNodeTree(final ArrayList<JsonObject> jsonData, 
-		                                    	HDLmTree curNode,
+		                                    	      HDLmTree curNode,
 			                                    final HDLmEditorTypes editorType) {
 		/* Check if the JSON data array list passed by the caller is null */
 		if (jsonData == null) {
@@ -3379,7 +3379,7 @@ public class HDLmTree {
 	protected static HDLmNameMatch countSubNodeNames(String nodeName, 
 			                                             final HDLmTree parentTreeNode, 
 			                                             final HDLmTree currentTreeNode,
-			boolean removeTails) {
+			final boolean removeTails) {
 		/* Check if the node name passed by the caller is null */
 		if (nodeName == null) {
 			String  errorText = "Node name passed to countSubNodeNames is null";

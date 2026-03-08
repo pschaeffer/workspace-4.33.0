@@ -79,7 +79,7 @@ public class HDLmModLines extends HDLmMod {
 	/* This is one of the constructors for the lines (set of lines)
 	   definition class. It must be passed a JSON element that contains  
 	   all of the details of the lines (set of lines) definition. */
-	protected HDLmModLines(JsonElement jsonElement) {
+	protected HDLmModLines(final JsonElement jsonElement) {
 		/* Invoke the default constructor for the parent class. This is 
 		   required by the Java language. */ 
 		super();
@@ -211,8 +211,8 @@ public class HDLmModLines extends HDLmMod {
 	   and returns the final lines (set of lines) tree node to the
 	   caller. The lines (set of lines) reference is used to set
 	   the details of the new tree node. */ 
-	protected static HDLmTree  buildTree(ArrayList<String> oldNodePath, 
-			                                 HDLmModLines newValue) {
+	protected static HDLmTree  buildTree(final ArrayList<String> oldNodePath, 
+			                                 final HDLmModLines newValue) {
 		/* Check if the old node path reference passed by the caller is null */
 		if (oldNodePath == null) {
 		  String  errorText = "Node path reference passed to buildTree is null";
@@ -248,8 +248,8 @@ public class HDLmModLines extends HDLmMod {
 	   line nodes (one individual line) that are also associated with
 	   a lines (set of lines). The lines (set of lines) reference is 
 	   used to set the details of the new tree node. */
-	protected static HDLmTree  buildTreeExtended(ArrayList<String> oldNodePath, 
-                                               HDLmModLines newValue) {
+	protected static HDLmTree  buildTreeExtended(final ArrayList<String> oldNodePath, 
+                                               final HDLmModLines newValue) {
 		/* Check if the old node path reference passed by the caller is null */
 		if (oldNodePath == null) {
 		  String  errorText = "Node path reference passed to buildTree is null";

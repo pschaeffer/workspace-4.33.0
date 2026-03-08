@@ -180,7 +180,7 @@ class HDLmOpenAITest {
 		/* Declare and define a few variables */
 		String  inputUrl = "https://cdn.openai.com/API/images/guides/image_variation_original.webp";
 		/* Build a header list for use later */
-		ArrayList<String>   headerList = HDLmOpenAI.buildHeaders(); 
+		ArrayList<String>   headerList = HDLmOpenAI.buildHeaders(HDLmApiKey.APIKEYOPENAISCHAEFFER); 
 	  /* Build the data entity used below */
 	  HttpEntity  dataEntity = HDLmOpenAI.buildDataEntity(inputUrl);
 	  /* Use the entity to get the multipart/form-data header that must
@@ -254,7 +254,7 @@ class HDLmOpenAITest {
 		String  urlStr = "";
 		String  pathValueStr = "/";
 		/* Build a header list for use later */
-		ArrayList<String>   headerList = HDLmOpenAI.buildHeaders();  
+		ArrayList<String>   headerList = HDLmOpenAI.buildHeaders(HDLmApiKey.APIKEYOPENAISCHAEFFER);  
     HDLmResponse  buildResponse = HDLmOpenAI.buildJsonTextVariations(inputStr, urlStr, pathValueStr);
 		String   dataJson = buildResponse.getReturnString();
 	  /* Try to get some text choices/variants */
@@ -321,7 +321,7 @@ class HDLmOpenAITest {
 		/* Declare and define a few variables */
 		String  inputUrl = "https://cdn.openai.com/API/images/guides/image_variation_original.webp";
 		/* Build a header list for use later */
-		ArrayList<String>   headerList = HDLmOpenAI.buildHeaders();	  
+		ArrayList<String>   headerList = HDLmOpenAI.buildHeaders(HDLmApiKey.APIKEYOPENAISCHAEFFER);	  
 		/* Build the data entity used below. The call below will use    
 		   the HDLmOpenAI.getSquareImage routine. */
 	  HttpEntity  dataEntity = HDLmOpenAI.buildDataEntity(inputUrl);

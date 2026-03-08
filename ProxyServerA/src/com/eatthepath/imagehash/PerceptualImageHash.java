@@ -19,7 +19,7 @@ public interface PerceptualImageHash {
      *
      * @throws IOException if an image could not be loaded from the given file for any reason
      */
-     long getPerceptualHash(final File imageFile) throws IOException;
+     long getPerceptualHash(File imageFile) throws IOException;
 
     /**
      * Calculates a perceptual hash of the image loaded from the given image input stream.
@@ -30,7 +30,7 @@ public interface PerceptualImageHash {
      *
      * @throws IOException if an image could not be loaded from the given image input stream for any reason
      */
-     long getPerceptualHash(final ImageInputStream imageInputStream) throws IOException;
+     long getPerceptualHash(ImageInputStream imageInputStream) throws IOException;
 
     /**
      * Calculates a perceptual hash of the image loaded from the given input stream.
@@ -41,7 +41,7 @@ public interface PerceptualImageHash {
      *
      * @throws IOException if an image could not be loaded from the given input stream for any reason
      */
-     long getPerceptualHash(final InputStream inputStream) throws IOException;
+     long getPerceptualHash(InputStream inputStream) throws IOException;
 
     /**
      * Calculates a perceptual hash of the image loaded from the given URL.
@@ -52,7 +52,7 @@ public interface PerceptualImageHash {
      *
      * @throws IOException if an image could not be loaded from the given URL for any reason
      */
-     long getPerceptualHash(final URL imageUrl) throws IOException;
+     long getPerceptualHash(URL imageUrl) throws IOException;
 
     /**
      * Calculates a perceptual hash of the given image.
@@ -61,5 +61,5 @@ public interface PerceptualImageHash {
      *
      * @return a 64-bit perceptual hash of the given image
      */
-    long getPerceptualHash(final Image image);
+    long getPerceptualHash(Image image);
 }

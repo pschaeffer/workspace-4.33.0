@@ -20,7 +20,7 @@ public class HDLmConnectionStatistics {
      a reference to a connection statistics object. This routine returns a tree
      map with the connection statistics. The statistics are returned as a tree 
      map so that they can be accessed in ascending name order. */ 
-  protected static TreeMap<String, String> getStatistics(ConnectionStatistics stats) {
+  protected static TreeMap<String, String> getStatistics(final ConnectionStatistics stats) {
 		if (stats == null) {
 			String  errorText = "Connection statistics reference passed to getStatistics is null";
 			throw new NullPointerException(errorText);		

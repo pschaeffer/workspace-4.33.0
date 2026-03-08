@@ -64,7 +64,7 @@ public class HDLmModLine extends HDLmMod {
 	/* This is one of the constructors for the line (report line) definition
 	   class. It must be passed a JSON element that contains all of the details
      of the report line definition. */
-	protected HDLmModLine(JsonElement jsonElement) {
+	protected HDLmModLine(final JsonElement jsonElement) {
 		/* Invoke the default constructor for the parent class. This is 
 		   required by the Java language. */ 
 		super();
@@ -400,8 +400,8 @@ public class HDLmModLine extends HDLmMod {
 	   by the caller. The new line instance is added to the overall
 	   lines of a report (also passed by the caller). All of the fields 
 	   in the new line are set to some value. */
-	protected static void  addErrorLine(HDLmModReport curReport,
-			                                MutableInt lineCounter,
+	protected static void  addErrorLine(final HDLmModReport curReport,
+			                                final MutableInt lineCounter,
 			                                final String newDescription,
 			                                final String newLanguage,
 			                                final String newTicketPackage,
@@ -456,8 +456,8 @@ public class HDLmModLine extends HDLmMod {
 	   by the caller. The new line instance is added to the overall
 	   lines of a report (also passed by the caller). All of the fields 
 	   in the new line are set to some value. */
-	protected static void  addErrorLines(HDLmModReport curReport,
-			                                 MutableInt lineCounter,
+	protected static void  addErrorLines(final HDLmModReport curReport,
+			                                 final MutableInt lineCounter,
 			                                 final String newDescription,
 			                                 final String newLanguage,
 			                                 final String newTicketPackage,

@@ -64,7 +64,7 @@ public class HDLmModCompany extends HDLmMod {
 	/* This is one of the constructors for the company definition class.
 	   It must be passed a JSON element that contains all of the details
 	   of the company definition. */
-	protected HDLmModCompany(JsonElement jsonElement) {
+	protected HDLmModCompany(final JsonElement jsonElement) {
 		/* Invoke the default constructor for the parent class. This is 
 		   required by the Java language. */ 
 		super();
@@ -236,7 +236,7 @@ public class HDLmModCompany extends HDLmMod {
      ignore-lists (zero, one, or more) for the current company. 
      The first step is to obtain a reference to the ignore-lists
      reference for the current company. */
-	protected void          addIgnoreList(String curListName, HDLmModList curList) {
+	protected void          addIgnoreList(final String curListName, final HDLmModList curList) {
 		/* Check if the pass-through ignore-list reference passed by the caller is null */
 		if (curList == null) {
 		  String  errorText = "New ignore-list reference passed to addIgnoreList is null";
@@ -258,7 +258,7 @@ public class HDLmModCompany extends HDLmMod {
      (zero, one, or more) for the current company. The first 
      step is to obtain a reference to the reports instance 
      for the current company. */
-  protected void         addReport(HDLmModReport curReport) {
+  protected void         addReport(final HDLmModReport curReport) {
   	/* Check if the pass-through report reference passed by the caller is null */
 		if (curReport == null) {
 	 	String  errorText = "New report reference passed to addReport is null";
@@ -280,7 +280,7 @@ public class HDLmModCompany extends HDLmMod {
      obtain a reference to the reports instance for the current 
      company. Note that the node tree is also adjusted for the 
      new report. */
-	protected void         addReportExtended(HDLmModReport curReport) {
+	protected void         addReportExtended(final HDLmModReport curReport) {
 		/* Check if the pass-through report reference passed by the caller is null */
 		if (curReport == null) {
 	  	String  errorText = "New report reference passed to addReportExtended is null";
@@ -391,8 +391,8 @@ public class HDLmModCompany extends HDLmMod {
 	   and returns the final company (just one company) tree node to the
 	   caller. The company (just one company) reference is used to set
 	   the details of the new tree node. */ 
-	protected static HDLmTree  buildTree(ArrayList<String> oldNodePath, 
-			                                 HDLmModCompany newValue) {
+	protected static HDLmTree  buildTree(final ArrayList<String> oldNodePath, 
+			                                 final HDLmModCompany newValue) {
 		/* Check if the old node path reference passed by the caller is null */
 		if (oldNodePath == null) {
 		  String  errorText = "Node path reference passed to buildTree is null";
@@ -429,8 +429,8 @@ public class HDLmModCompany extends HDLmMod {
 	   nodes (if need be) that are also associated with a company. 
 	   The company reference is used to set the details of the 
 	   new tree node. */ 
-	protected static HDLmTree  buildTreeExtended(ArrayList<String> oldNodePath, 
-			                                         HDLmModCompany newValue) {
+	protected static HDLmTree  buildTreeExtended(final ArrayList<String> oldNodePath, 
+			                                         final HDLmModCompany newValue) {
 		/* Check if the old node path reference passed by the caller is null */
 		if (oldNodePath == null) {
 		  String  errorText = "Node path reference passed to buildTree is null";

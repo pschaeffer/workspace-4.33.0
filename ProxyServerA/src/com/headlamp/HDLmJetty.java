@@ -85,7 +85,7 @@ public class HDLmJetty {
 	private HDLmJetty() {}
 	/* This static method adds a very special header to the HTTP response. This
 	   header shows that HTTP/3 is available at a special UDP port number. */
-	protected static void addAltSvcheader(HttpServletResponse response) {
+	protected static void addAltSvcheader(final HttpServletResponse response) {
 		/* Check if the servlet response passed by the caller is null */
 		if (response == null) {
 			String  errorText = "Servlet response passed to addAltSvcheader is null";
@@ -101,7 +101,7 @@ public class HDLmJetty {
 	/* Build a connector for HTTP (including HTTP2C). This connector does not
 	   support encryption of any kind. Generally we won't use this connector for
 	   traffic to the server. */
-	protected static ServerConnector buildHttpConnector(Server server, int httpPort) {
+	protected static ServerConnector buildHttpConnector(final Server server, final int httpPort) {
 		/* Check if the Jetty server instance passed by the caller is null */
 		if (server == null) {
 			String  errorText = "Jetty server instance passed to buildHttpConnector is null";
@@ -126,10 +126,10 @@ public class HDLmJetty {
 	/* Build a connector for HTTPS including HTTP/2 and ALPN. This connector does
 	   support HTTP/2 and/or ALPN. This connector is not currently used except
 	   by the unit test code. */
-	protected static ServerConnector buildHttpsConnector(Server server,
-			                                                 SslContextFactory.Server sslContextFactoryDotServer,
-			                                                 ServerConnector connectorHttp,
-			                                                 int httpsPort) {
+	protected static ServerConnector buildHttpsConnector(final Server server,
+																											 final SslContextFactory.Server sslContextFactoryDotServer,
+																											 final ServerConnector connectorHttp,
+																											 final int httpsPort) {
 		/* Check if the Jetty server instance passed by the caller is null */
 		if (server == null) {
 			String  errorText = "Jetty server instance passed to buildHttpsConnector is null";
@@ -194,9 +194,9 @@ public class HDLmJetty {
 	/* Build a connector for HTTPS. This connector does not support HTTP/2 and/or
 	   ALPN. This connector may no longer be in use other than by the unit test
 	   code. */
-	protected static ServerConnector buildHttpsConnectorOld(Server server,
-			                                                    SslContextFactory.Server sslCFS,
-			                                                    int httpsPort) {
+	protected static ServerConnector buildHttpsConnectorOld(final Server server,
+																													final SslContextFactory.Server sslCFS,
+																													final int httpsPort) {
 		/* Check if the Jetty server instance passed by the caller is null */
 		if (server == null) {
 			String  errorText = "Jetty server instance passed to buildHttpsConnectorOld is null";
@@ -257,7 +257,7 @@ public class HDLmJetty {
 	}
 	/* Build an SSL context factory and return it to the caller. This SSL context
 	   factory is not configured for HTTP/2. The caller must do this as need be. */
-	protected static SslContextFactory.Server buildSslContextFactoryDotServer(KeyStore keyStore) {
+	protected static SslContextFactory.Server buildSslContextFactoryDotServer(final KeyStore keyStore) {
 		/* Check if the KeyStore instance passed by the caller is null */
 		if (keyStore == null) {
 			String  errorText = "KeyStore instance passed to buildSslContextFactory is null";
@@ -285,7 +285,7 @@ public class HDLmJetty {
 	   the caller. This routine will never cause an exception if a header
 	   is not found. Note that the entire header is returned to the caller,
 	   not just the header value. */
-	protected static String  checkForHeader(HttpServletRequest request, String headerName) {
+	protected static String  checkForHeader(final HttpServletRequest request, final String headerName) {
 		/* Check if the input request passed by the caller is null */
 		if (request == null) {
 		  String  errorText = "Servlet request passed to checkForHeader is null";
@@ -307,7 +307,7 @@ public class HDLmJetty {
 	   not. This routine will never cause an exception if the session cookie
 	   is not found. The session cookie only has the session ID. The actual 
 	   session must be obtained from the session cache. */
-	protected static HDLmSession  checkForSession(HttpServletRequest request) {
+	protected static HDLmSession  checkForSession(final HttpServletRequest request) {
 		/* Check if the input request passed by the caller is null */
 		if (request == null) {
 		  String  errorText = "Servlet request passed to checkForSession is null";
@@ -400,7 +400,7 @@ public class HDLmJetty {
 	  HDLmEvent.eventOccurredJavaScriptException(hostName, divisionName, siteName, ruleName);
 	}
 	/* Dump all of the headers from a servlet request out */
-	protected static void dumpAllHeaders(HttpServletRequest request) {
+	protected static void dumpAllHeaders(final HttpServletRequest request) {
 		/* Check if the servlet request passed by the caller is null */
 		if (request == null) {
 			String  errorText = "Serlet request passed to dumpAllHeaders is null";
@@ -419,7 +419,8 @@ public class HDLmJetty {
 	/* Dump the contents of a servlet request out. The servlet response is used as
 	   the target for the contents of the servlet request. The servlet request is
 	   queried in a number of ways. In addition, the HTTP headers are dumped out. */
-	protected static void dumpRequestContents(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	protected static void dumpRequestContents(final HttpServletRequest request, 
+			                                      final HttpServletResponse response) throws IOException {
 		/* Check if the servlet request passed by the caller is null */
 		if (request == null) {
 			String  errorText = "Servlet request passed to dumpRequestContents is null";
@@ -459,7 +460,8 @@ public class HDLmJetty {
 	/* This routine does the actual work of the servlet editor get method.
 	   The code is separate so that it can be used by other routines. This
 	   code handles returning the rule editor code and any other files. */
-	protected static void editorGet(HttpServletRequest request, HttpServletResponse response) {
+	protected static void editorGet(final HttpServletRequest request, 
+			                            final HttpServletResponse response) {
 		/* Check if the servlet request passed by the caller is null */
 		if (request == null) {
 			String  errorText = "Servlet request passed to editorGet is null";
@@ -548,9 +550,9 @@ public class HDLmJetty {
 	   The code is separate so that it can be used by other routines. This
 	   routine seems to handle requests for the proxy program and requests
 	   to calculate (and save) a perceptual hash value. */
-	protected static void editorPost(HttpServletRequest request,
-	  		                           HttpServletResponse response,
-	  		                           String postPayload) throws IOException {
+	protected static void editorPost(final HttpServletRequest request,
+			                             final HttpServletResponse response,
+	                              	       String postPayload) throws IOException {
 		/* Check if the servlet request passed by the caller is null */
 		if (request == null) {
 			String  errorText = "Servlet request passed to editorPost is null";
@@ -738,10 +740,10 @@ public class HDLmJetty {
 	/* This routine sends a special response back to the client that forces a
 	   redirect to a SSL/TLS enabled port. If a client tries to use a non-SSL/TLS
 	   port (in some cases), this routine is used to build the reply. */
-	protected static void forceRedirect(HttpServletResponse response,
-			                                String oldLocation,
-			                                Integer httpsPort,
-			                                String pathValueString) {
+	protected static void forceRedirect(final HttpServletResponse response,
+			                                final String oldLocation,
+			                                final Integer httpsPort,
+			                                final String pathValueString) {
 		/* Check if the output response passed by the caller is null */
 		if (response == null) {
 			String  errorText = "Servlet response passed to forceRedirect is null";
@@ -766,7 +768,7 @@ public class HDLmJetty {
 	   request. This value may or may not be available. If the value is available it
 	   is returned to the caller. This routine does not appear to work. The get header
 	   call below fails, even though the Authority was sent. */
-	protected static String getAuthorityHeader(HttpServletRequest request) {
+	protected static String getAuthorityHeader(final HttpServletRequest request) {
 		String  authorityValue = null;
 		/* Check if the input request passed by the caller is null */
 		if (request == null) {
@@ -782,7 +784,7 @@ public class HDLmJetty {
 	/* This routine tries to return information about a client based on the
 	   User-Agent string. The User-Agent string is checked in many ways and values
 	   are extracted from it. The caller must supply the User-Agent string. */
-	protected static HDLmClientInfo getClientInformationNew(String userAgentHeader) {
+	protected static HDLmClientInfo getClientInformationNew(final String userAgentHeader) {
 		/* Check if the User-Agent string passed by the caller is null */
 		if (userAgentHeader == null) {
 			String  errorText = "User-Agent string passed to getClientInformationNew is null";
@@ -843,7 +845,7 @@ public class HDLmJetty {
 	/* This routine tries to return information about a client based on the
 	   User-Agent string. The User-Agent string is checked in many ways and values
 	   are extracted from it. The caller must supply the User-Agent string. */
-	protected static HDLmClientInfo getClientInformationOld(String userAgentHeader) {
+	protected static HDLmClientInfo getClientInformationOld(final String userAgentHeader) {
 		/* Check if the User-Agent string passed by the caller is null */
 		if (userAgentHeader == null) {
 			String  errorText = "User-Agent string passed to getClientInformationOld is null";
@@ -879,7 +881,7 @@ public class HDLmJetty {
 	/* This routine tries to obtain the content type from the response headers. This
 	   should generally work, but might not. If the content type can not be
 	   obtained, a null value will be returned to the caller. */
-	protected static String getContentType(HttpServletResponse response) {
+	protected static String getContentType(final HttpServletResponse response) {
 		String contentType = null;
 		/* Check if the output response passed by the caller is null */
 		if (response == null) {
@@ -912,7 +914,7 @@ public class HDLmJetty {
 	   
 	   This routine does not appear to be in use. No calls to this routine (except
 	   for testing) appear to exist in the code. */
-	protected static String getCookie(HttpServletRequest request, String desiredCookieName) {
+	protected static String getCookie(final HttpServletRequest request, final String desiredCookieName) {
 		/* Check if the input request passed by the caller is null */
 		if (request == null) {
 			String  errorText = "Servlet request passed to getCookie is null";
@@ -942,7 +944,8 @@ public class HDLmJetty {
 	   with the request are scanned looking for the specific name passed by the
 	   caller. If the cookie is found by name, the value of the cookie is returned
 	   to the caller. Note that the value of the cookie is URL decoded, if need be. */
-	protected static String getCookieExtended(HttpServletRequest request, String desiredCookieName) {
+	protected static String getCookieExtended(final HttpServletRequest request, 
+			                                      final String desiredCookieName) {
 		/* Check if the input request passed by the caller is null */
 		if (request == null) {
 			String  errorText = "Servlet request passed to getCookieExtended is null";
@@ -977,7 +980,7 @@ public class HDLmJetty {
 	   instance. The list of cookies might be empty (although this is unlikely).
 	   This routine will always return a non-null ArrayList<Cookie> to the caller. A
 	   null value will never be returned. */
-	protected static ArrayList<Cookie> getCookies(HttpServletRequest request) {
+	protected static ArrayList<Cookie> getCookies(final HttpServletRequest request) {
 		/* Check if the input request passed by the caller is null */
 		if (request == null) {
 			String  errorText = "Servlet request passed to getCookies is null";
@@ -996,7 +999,7 @@ public class HDLmJetty {
 	   instance as a map. The map of cookies might be empty (although this is
 	   unlikely). This routine will always return a non-null Map<String, String> to
 	   the caller. A null value will never be returned. */
-	protected static Map<String, String> getCookiesMap(HttpServletRequest request) {
+	protected static Map<String, String> getCookiesMap(final HttpServletRequest request) {
 		/* Check if the input request passed by the caller is null */
 		if (request == null) {
 			String  errorText = "Servlet request passed to getCookiesMap is null";
@@ -1018,7 +1021,7 @@ public class HDLmJetty {
 	/* This routine tries to return the value of the requested header in the current
 	   response (not request). This value may or may not be available. If the value
 	   is available it is returned to the caller. */
-	protected static String getResponseHeader(HttpServletResponse response, String headerType) {
+	protected static String getResponseHeader(final HttpServletResponse response, final String headerType) {
 		/* Check if the output response passed by the caller is null */
 		if (response == null) {
 			String  errorText = "Servlet response passed to getResponseHeader is null";
@@ -1038,8 +1041,8 @@ public class HDLmJetty {
 	   The requested header is located in the array (if possible)
 	   and returned to the caller. If the requested header can
 	   not be found, a null value is returned to the caller. */
-	protected static String getHeader(ArrayList<String> headers,
-                                    String targetHeader) {
+	protected static String getHeader(final ArrayList<String> headers,
+                                    final String targetHeader) {
     /* Check if the HTTP host headers passed by the caller are null */
     if (headers == null) {
       String  errorText = "HTTP headers array passed to getHeader is null";
@@ -1111,8 +1114,8 @@ public class HDLmJetty {
 	   name of the header. The value of a header is the part that follows
 	   the header type and the associated colon. Note that all leading and
 	   trailing blanks are removed from the header value. */
-	protected static String getHeaderValue(ArrayList<String> headers,
-	                                       String targetHeader) {
+	protected static String getHeaderValue(final ArrayList<String> headers,
+		                                     final String targetHeader) {
 	  /* Check if the HTTP host headers passed by the caller are null */
 	  if (headers == null) {
 	    String  errorText = "HTTP headers array passed to getHeaderValue is null";
@@ -1145,7 +1148,7 @@ public class HDLmJetty {
 	/* This routine tries to return the value of the Host header in the current
 	   request. This value may or may not be available. If the value is available it
 	   is returned to the caller. */
-	protected static String getHostHeader(HttpServletRequest request) {
+	protected static String getHostHeader(final HttpServletRequest request) {
 		String hostValue = null;
 		/* Check if the input request passed by the caller is null */
 		if (request == null) {
@@ -1162,7 +1165,7 @@ public class HDLmJetty {
 	   passed string should be something like www.abc.com:80 or https://www.abc.com:80.
 	   This routine will only return a host name, if a host name string can be found.
 	   A null value will be returned otherwise. */
-	protected static String getHostName(String inStr) {
+	protected static String getHostName(final String inStr) {
 		HDLmToken curToken;
 		int tokenIndex = 0;
 		int usedTokens = 0;
@@ -1247,7 +1250,7 @@ public class HDLmJetty {
 	}
 	/* This routine was never finished and is not really used. It turns out
 	   that we can not get an Authority header from the in-bound request. */
-	protected static String getHostNameFromAuthority(String authorityHeader) {
+	protected static String getHostNameFromAuthority(final String authorityHeader) {
 		/* Check if the Authority header passed by the caller is null */
 		if (authorityHeader == null) {
 			String  errorText = "Authority header passed to getHostNameFromAuthority is null";
@@ -1260,7 +1263,7 @@ public class HDLmJetty {
 	   may be a HTTP Host header. The HTTP Host header will have a host name in it.
 	   If the HTTP Host header can be found, the host name from the header will be
 	   returned to the caller. */
-	protected static String getHostNameFromRequest(HttpServletRequest request) {
+	protected static String getHostNameFromRequest(final HttpServletRequest request) {
 		/* Check if the input request passed by the caller is null */
 		if (request == null) {
 			String  errorText = "Servlet request passed to getHostNameFromRequest is null";
@@ -1315,7 +1318,7 @@ public class HDLmJetty {
   }
 	/* This routine tries to return the value of the local port number of the
 	   current request */
-	protected static int getLocalPort(HttpServletRequest request) {
+	protected static int getLocalPort(final HttpServletRequest request) {
 		/* Check if the input request passed by the caller is null */
 		if (request == null) {
 			String  errorText = "Servlet request passed to getLocalPort is null";
@@ -1326,7 +1329,7 @@ public class HDLmJetty {
 	}
 	/* This routine tries to return the value of the HTTP method (GET, POST, etc.)
 	   of the current request */
-	protected static String getMethod(HttpServletRequest request) {
+	protected static String getMethod(final HttpServletRequest request) {
 		/* Check if the input request passed by the caller is null */
 		if (request == null) {
 			String  errorText = "Servlet request passed to getMethod is null";
@@ -1338,7 +1341,7 @@ public class HDLmJetty {
 	/* This routine returns the original path value to the caller. It turns out that no
 	   existing API returns the original path value to the caller. This routine constructs
 	   the original path value from other parts. */
-	protected static String getOriginalPathValue(HttpServletRequest request) {
+	protected static String getOriginalPathValue(final HttpServletRequest request) {
 		/* Check if the input request passed by the caller is null */
 		if (request == null) {
 			String  errorText = "Servlet request passed to getOriginalPathValue is null";
@@ -1356,7 +1359,7 @@ public class HDLmJetty {
 	}
 	/* This routine tries to return the value of the path value request string from the
      current request */
-  protected static String getPathValueString(HttpServletRequest request) {
+  protected static String getPathValueString(final HttpServletRequest request) {
 	  /* Check if the input request passed by the caller is null */
 	  if (request == null) {
 		  String  errorText = "Servlet request passed to getPathValueString is null";
@@ -1369,7 +1372,7 @@ public class HDLmJetty {
 	   passed string should be something like www.abc.com:80. This routine will only
 	   return a proper integer if the last token in an integer and the token before
 	   it is a colon. */
-	protected static Integer getPortNumber(String inStr) {
+	protected static Integer getPortNumber(final String inStr) {
 		Integer portNumber = null;
 		/* Check if the input string value passed by the caller is null */
 		if (inStr == null) {
@@ -1405,9 +1408,9 @@ public class HDLmJetty {
 	   to this routine must start with a leading forward slash. This routine
 	   uses getReader to get a reader that returns the payload. As a
 	   consequence, this routine can only be called once for each post. */
-	protected static String getPostPayload(HttpServletRequest  request,
-			                                   HDLmHttpTypes  httpType,
-			                                   String  requestOriginalPathValue) {
+	protected static String getPostPayload(final HttpServletRequest  request,
+																				 final HDLmHttpTypes httpType,
+																				 final String requestOriginalPathValue) {
 		/* Check if the input request passed by the caller is null */
 		if (request == null) {
 			String  errorText = "Servlet request passed to getPostPayload is null";
@@ -1417,7 +1420,7 @@ public class HDLmJetty {
 		if (httpType == null) {
 			String  errorText = "HTTP type passed to getPostPayload is null";
 			throw new NullPointerException(errorText);
-		}
+		}	
 		/* Check if the request original path value passed by the caller is null */
 		if (requestOriginalPathValue == null) {
 			String  errorText = "Request orginal path passed to getPostPayload is null";
@@ -1462,7 +1465,7 @@ public class HDLmJetty {
 	}
 	/* This routine tries to return the value of the query string (if any) from the
 	   current request */
-	protected static String getQueryString(HttpServletRequest request) {
+	protected static String getQueryString(final HttpServletRequest request) {
 		/* Check if the input request passed by the caller is null */
 		if (request == null) {
 			String  errorText = "Servlet request passed to getQueryString is null";
@@ -1474,7 +1477,7 @@ public class HDLmJetty {
 	/* This routine tries to get the referer (a misspelling of referrer) name
 	   from the headers associated with a request. If anything goes wrong, a
 	   null value will be returned to the caller. */
-	protected static String  getReferrerHostName(HttpServletRequest request) {
+	protected static String  getReferrerHostName(final HttpServletRequest request) {
 		/* Check if the input request passed by the caller is null */
 		if (request == null) {
 		  String  errorText = "Servlet request passed to getReferrerHostName is null";
@@ -1503,7 +1506,7 @@ public class HDLmJetty {
 	/* This routine tries to get the referer (a misspelling of referrer) protocol
 	   from the headers associated with a request. If anything goes wrong, a null
 	   value will be returned to the caller. */
-	protected static String  getReferrerProtocol(HttpServletRequest request) {
+	protected static String  getReferrerProtocol(final HttpServletRequest request) {
 		/* Check if the input request passed by the caller is null */
 		if (request == null) {
 		  String  errorText = "Servlet request passed to getReferrerProtocol is null";
@@ -1533,7 +1536,7 @@ public class HDLmJetty {
 	   instance. The list of headers might be empty (although this is unlikely).
 	   This routine will always return a non-null ArrayList<String> to the caller. A
 	   null value will never be returned. */
-	protected static ArrayList<String>  getRequestHeaders(HttpServletRequest request) {
+	protected static ArrayList<String>  getRequestHeaders(final HttpServletRequest request) {
 		/* Check if the input request passed by the caller is null */
 		if (request == null) {
 			String  errorText = "Servlet request passed to getRequestHeaders is null";
@@ -1559,7 +1562,7 @@ public class HDLmJetty {
 	   entire payload and return the entire payload to the caller. This routine will
 	   return a null value, if an exception occurs getting the input stream or
 	   reading the bytes. This routine might also return an empty byte array. */
-	protected static byte[] getRequestPayloadBinary(HttpServletRequest request) {
+	protected static byte[] getRequestPayloadBinary(final HttpServletRequest request) {
 		/* Check if the input request passed by the caller is null */
 		if (request == null) {
 			String  errorText = "Servlet request passed to getRequestPayloadBinary is null";
@@ -1628,7 +1631,7 @@ public class HDLmJetty {
      actually be correct. We need to check the HTTP headers as well. If
      the remote IP address can not be found, this routien returns a null
      reference to the caller. */
-	protected static String getRemoteIpAddress(HttpServletRequest request) {
+	protected static String getRemoteIpAddress(final HttpServletRequest request) {
 		String  remoteIpAddress = null;
 		/* The table below lists some of the alternative HTTP headers that
 		   might have the actual client IP address. This table is not in use
@@ -1670,7 +1673,7 @@ public class HDLmJetty {
 	/* This routine tries to return the value of the remote IP address and
 	   port number of the current request. The port number follows a colon
 	   that separates it from the IP address. */
-	protected static String getRemoteIpAndPort(HttpServletRequest request) {
+	protected static String getRemoteIpAndPort(final HttpServletRequest request) {
 		/* Check if the input request passed by the caller is null */
 		if (request == null) {
 			String  errorText = "Servlet request passed to getRemoteIpAndPort is null";
@@ -1687,7 +1690,7 @@ public class HDLmJetty {
 	}
 	/* This routine tries to return the value of the remote port number of the
      current request */
-	protected static int getRemotePort(HttpServletRequest request) {
+	protected static int getRemotePort(final HttpServletRequest request) {
 		/* Check if the input request passed by the caller is null */
 		if (request == null) {
 			String  errorText = "Servlet request passed to getRemotePort is null";
@@ -1702,7 +1705,7 @@ public class HDLmJetty {
 	   will return a null value, if an exception occurs getting the input stream or
 	   reading the characters. This routine might also return an empty character
 	   string. */
-	protected static String getRequestPayloadChars(HttpServletRequest request) {
+	protected static String getRequestPayloadChars(final HttpServletRequest request) {
 		/* Check if the input request passed by the caller is null */
 		if (request == null) {
 			String  errorText = "Servlet request passed to getRequestPayloadChars is null";
@@ -1767,7 +1770,7 @@ public class HDLmJetty {
 	   instance. The list of headers might be empty (although this is unlikely).
 	   This routine will always return a non-null ArrayList<String> to the caller. A
 	   null value will never be returned. */
-	protected static ArrayList<String>  getResponseHeaders(HttpServletResponse response) {
+	protected static ArrayList<String>  getResponseHeaders(final HttpServletResponse response) {
 		/* Check if the input response passed by the caller is null */
 		if (response == null) {
 			String  errorText = "Servlet response passed to getResponseHeaders is null";
@@ -1790,8 +1793,8 @@ public class HDLmJetty {
      been passed in by the browser client. This is a multi-step process. First,
      we have to find the correct cookie. Then we have to get session information
      from it. */
-	protected static HDLmSession  getSessionInfo(HttpServletRequest request,
-			                                         HDLmReturnNull returnNull) {
+	protected static HDLmSession  getSessionInfo(final HttpServletRequest request,
+			                                         final HDLmReturnNull returnNull) {
 		/* Check if the input request passed by the caller is null */
 		if (request == null) {
 			String  errorText = "Servlet request passed to getSessionInfo is null";
@@ -1868,7 +1871,7 @@ public class HDLmJetty {
 	/* This routine tries to return the value of the User-Agent header in the
 	   current request. This value may or may not be available. If the value is
 	   available it is returned to the caller. */
-	protected static String getUserAgentHeader(HttpServletRequest request) {
+	protected static String getUserAgentHeader(final HttpServletRequest request) {
 		String hostValue = null;
 		/* Check if the input request passed by the caller is null */
 		if (request == null) {
@@ -1883,7 +1886,7 @@ public class HDLmJetty {
 	}
 	/* This routine tries to return the values of the user name and password
 	   provided in a standard header */
-	protected static HDLmUtilityResponse   getUseridPassword(HttpServletRequest request) {
+	protected static HDLmUtilityResponse   getUseridPassword(final HttpServletRequest request) {
 	  /* Check if the input request passed by the caller is null */
 	  if (request == null) {
 		  String  errorText = "Servlet request passed to getUseridPassword is null";
@@ -1934,12 +1937,12 @@ public class HDLmJetty {
 	/* This routine handles certain action commands that can be
  	   sent using a browser. The commands are routed as need be
  	   and the response is set back to the browser. */
-	protected static void handleActionCommands(String pathValueString,
-						                                 String hostName,
-						                                 HttpServletRequest request,
-						                                 HttpServletResponse response,
-						                                 String clientStr,
-						                                 String timeStamp) {
+	protected static void handleActionCommands(final String pathValueString,
+						                                 final String hostName,
+						                                 final HttpServletRequest request,
+						                                 final HttpServletResponse response,
+						                                 final String clientStr,
+						                                 final String timeStamp) {
 		/* Check if the path value string passed by the caller is null */
 		if (pathValueString == null) {
 			String  errorText = "Path value string passed to handleActionCommands is null";
@@ -2151,12 +2154,12 @@ public class HDLmJetty {
 	/* This routine handles certain contents information commands that can be
      sent using a browser. The commands are routed as need be and the
      response is set back to the browser. */
-	protected static void handleContentsCommands(String pathValueString,
-			                                         String hostName,
-			                                         HttpServletRequest request,
-			                                         HttpServletResponse response,
-			                                         String clientStr,
-			                                         String timeStamp) {
+	protected static void handleContentsCommands(final String pathValueString,
+			                                         final String hostName,
+			                                         final HttpServletRequest request,
+			                                         final HttpServletResponse response,
+			                                         final String clientStr,
+			                                         final String timeStamp) {
 		String  rv = "";
 		/* Check if the path value string passed by the caller is null */
 		if (pathValueString == null) {
@@ -2228,12 +2231,12 @@ public class HDLmJetty {
 	/* This routine handles certain contents information commands that can be
 	   sent using a browser. The commands are routed as need be and the
 	   response is set back to the browser. */
-	protected static void handleGetData(String pathValueString,
-                                      String hostName,
-                                      HttpServletRequest request,
-                                      HttpServletResponse response,
-                                      String clientStr,
-                                      String timeStamp) {
+	protected static void handleGetData(final String pathValueString,
+                                      final String hostName,
+                                      final HttpServletRequest request,
+                                      final HttpServletResponse response,
+                                      final String clientStr,
+                                      final String timeStamp) {
 		/* Create a new string builder for the output HTML */
 		StringBuilder  rv = new StringBuilder();
 		/* Check if the path value string passed by the caller is null */
@@ -2312,13 +2315,13 @@ public class HDLmJetty {
 	}
 	/* This routine handles certain requests to invoke an API from the client. These
 	   POST requests are used to invoke API using data provided by the caller. */
-	protected static void handleInvokeApi(HttpServletRequest request,
-			                                  HttpServletResponse response,
-			                                  String hostName,
-			                                  String requestPostPayload,
-			                                  String timeStamp,
-	                                      HDLmHttpTypes httpType,
-	                                      String requestOriginalPathValue) {
+	protected static void handleInvokeApi(final HttpServletRequest request,
+			                                  final HttpServletResponse response,
+			                                  final String hostName,
+			                                  final String requestPostPayload,
+			                                  final String timeStamp,
+	                                      final HDLmHttpTypes httpType,
+	                                      final String requestOriginalPathValue) {
 		/* LOG.info("In HDLmJetty.handleInvokeApi"); */
 		/* Check if the input request passed by the caller is null */
 		if (request == null) {
@@ -3226,9 +3229,9 @@ public class HDLmJetty {
 	   OPTIONS requests are used to authorize certain POST requests. These
 	   POST requests are preceeded by an OPTIONS request that attempts to
 	   authorize them using a mechanism called a SOP/CORS preflight request. */
-	protected static void handleOptionsRequest(HttpServletRequest request,
-			                                       HttpServletResponse response,
-			                                       String hostName) {
+	protected static void handleOptionsRequest(final HttpServletRequest request,
+			                                       final HttpServletResponse response,
+			                                       final String hostName) {
 		/* Check if the input request passed by the caller is null */
 		if (request == null) {
 			String  errorText = "Servlet request passed to handleOptionsRequest is null";
@@ -3349,13 +3352,13 @@ public class HDLmJetty {
 	   indicates where the current request should be sent. The current request is
 	   sent to the actual sever (not the proxy server) and the output is returned to
 	   the caller. */
-	protected static void handleProxy(HttpServletRequest request,
-			                              HttpServletResponse response,
-			                              String clientStr,
-			                              String timeStamp,
-			                              String actualServerName,
-		                               	HDLmHttpTypes operationType,
-		                               	HDLmProxy proxyDefinition) throws IOException {
+	protected static void handleProxy(final HttpServletRequest request,
+			                              final HttpServletResponse response,
+			                              final String clientStr,
+			                              final String timeStamp,
+			                              final String actualServerName,
+		                               	final HDLmHttpTypes operationType,
+		                               	final HDLmProxy proxyDefinition) throws IOException {
 		/* Check if the input request passed by the caller is null */
 		if (request == null) {
 			String  errorText = "Servlet request passed to handleProxy is null";
@@ -3913,9 +3916,9 @@ public class HDLmJetty {
 	/* This routine handles certain requests to set test mode off and on from 
 	   the client. These POST requests are used to set the test mode specified
 	   by the caller. */
-	protected static void handleSetTest(HttpServletRequest request,
-			                                HttpServletResponse response,
-	                                    String requestOriginalPathValue) {
+	protected static void handleSetTest(final HttpServletRequest request,
+			                                final HttpServletResponse response,
+	                                    final String requestOriginalPathValue) {
 		/* LOG.info("In HDLmJetty.handleSetTest"); */
 		/* Check if the input request passed by the caller is null */
 		if (request == null) {
@@ -3988,14 +3991,14 @@ public class HDLmJetty {
 	}
 	/* This routine handles certain special POST requests from the client. These
 	   POST requests are used to log (record) the results from our AI experiments. */
-	protected static void handleSpecialPost(HttpServletRequest request,
-			                                    HttpServletResponse response,
-			                                    String hostName,
-			                                    String requestPostPayload,
-			                                    String clientStr,
-			                                    String timeStamp,
-                                          HDLmHttpTypes httpType,
-                                          String requestOriginalPathValue) {
+	protected static void handleSpecialPost(final HttpServletRequest request,
+			                                    final HttpServletResponse response,
+			                                    final String hostName,
+			                                    final String requestPostPayload,
+			                                    final String clientStr,
+			                                    final String timeStamp,
+                                          final HDLmHttpTypes httpType,
+                                          final String requestOriginalPathValue) {
 		/* Check if the input request passed by the caller is null */
 		if (request == null) {
 			String  errorText = "Servlet request passed to handleSpecialPost is null";
@@ -4291,12 +4294,12 @@ public class HDLmJetty {
 	/* This routine handles certain status information commands that can be
      sent using a browser. The commands are routed as need be and the
      response is set back to the browser. */
-	protected static void handleStatusCommands(String pathValueString,
-						                                 String hostName,
-						                                 HttpServletRequest request,
-						                                 HttpServletResponse response,
-						                                 String clientStr,
-						                                 String timeStamp) {
+	protected static void handleStatusCommands(final String pathValueString,
+						                                 final String hostName,
+						                                 final HttpServletRequest request,
+						                                 final HttpServletResponse response,
+						                                 final String clientStr,
+						                                 final String timeStamp) {
 		HDLmResponse        rvResponse;
 		HDLmResponseTypes   rvResponseType;
 		String              contentType = "text/html";
@@ -4393,7 +4396,7 @@ public class HDLmJetty {
 	   or not. If the current browser is not OK, then we can not use the current
 	   browser to run our code. If the current browser is OK, then we can use the
 	   current browser to run our code. */
-	protected static boolean isBrowserOk(HttpServletRequest request) {
+	protected static boolean isBrowserOk(final HttpServletRequest request) {
 		boolean browserOk = false;
 		/* Check if the input request passed by the caller is null */
 		if (request == null) {
@@ -4441,10 +4444,10 @@ public class HDLmJetty {
 	/* This routine tries to handle the file specified by the caller. Different
 	   types of files are handled in different ways. This routine tries to handle
 	   each type of file correctly. */
-	protected static void processFile(HttpServletRequest request,
-		                            	  HttpServletResponse response,
-		                            	  String pathStr,
-			                              String fileName) {
+	protected static void processFile(final HttpServletRequest request,
+		                            	  final HttpServletResponse response,
+		                            	  final String pathStr,
+			                              final String fileName) {
 		/* Check if the input request passed by the caller is null */
 		if (request == null) {
 			String  errorText = "Servlet request passed to processFile is null";
@@ -4589,9 +4592,11 @@ public class HDLmJetty {
 			LOG.info("File name is " + fileName);
 			/* The code below was added just for debugging a problem. This
 			   test should never be true. */ 
+			/* 
 			if (fileName.equals("JS/HDLmBuild.js")) {
 				fileName = fileName;				
 			}
+			*/
 			String fileStr = HDLmUtility.fileGetContents(pathStr + fileName, StandardCharsets.UTF_8);
 			if (fileStr == null) {
 				response.setStatus(HttpStatus.NOT_FOUND_404);
@@ -4657,7 +4662,9 @@ public class HDLmJetty {
 	   the error message. Both are returned to the caller. Note that a formatted
 	   error message is returned to the caller. The formatted message uses the same
 	   format as the standard Jetty error message. */
-	protected static void reportError(HttpServletResponse response, int statusCode, String errorMessage)
+	protected static void reportError(final HttpServletResponse response, 
+			                              final int statusCode, 
+			                              final String errorMessage)
 			throws IOException {
 		/* Check if the output response passed by the caller is null */
 		if (response == null) {
@@ -4707,7 +4714,9 @@ public class HDLmJetty {
 	   However, this will not always be true. The caller provides the error code and
 	   the error message. Both are returned to the caller. This is the basic error
 	   message routine. It appears to be no longer in use. */
-	protected static void reportErrorBasic(HttpServletResponse response, int statusCode, String errorMessage)
+	protected static void reportErrorBasic(final HttpServletResponse response, 
+			                                   final int statusCode, 
+			                                   final String errorMessage)
 			throws IOException {
 		/* Check if the output response passed by the caller is null */
 		if (response == null) {
@@ -4845,7 +4854,8 @@ public class HDLmJetty {
 
 	   If the headers need to be modified, they must be changed before this routine
 	   is called. */
-	protected static void setHeader(HttpServletResponse response, String outputHeader) {
+	protected static void setHeader(final HttpServletResponse response, 
+			                            final String outputHeader) {
 		/* Check if the output response passed by the caller is null */
 		if (response == null) {
 			String  errorText = "Servlet response passed to setHeader is null";
@@ -4883,7 +4893,8 @@ public class HDLmJetty {
 
 	   If the headers need to be modified, they must be changed before this routine
 	   is called. */
-	protected static void setHeaders(HttpServletResponse response, ArrayList<String> outputHeaders) {
+	protected static void setHeaders(final HttpServletResponse response, 
+			                             final ArrayList<String> outputHeaders) {
 		/* Check if the output response passed by the caller is null */
 		if (response == null) {
 			String  errorText = "Servlet response passed to setHeaders is null";
@@ -4923,7 +4934,7 @@ public class HDLmJetty {
 	   session use mode are not stored in the cookie. They are 
 	   stored in the session cache and the session object (if 
 	   one exists). */ 
-	protected static void storeCookie(HttpServletResponse response,
+	protected static void storeCookie(final HttpServletResponse response,
 			                              final String cookieValue,
 			                              final Integer cookieMaxAge,
 			                              final String cookieSameSite) {

@@ -105,7 +105,7 @@ public class HDLmHikariPool {
   /* This routine releases a connection obtained from the Hikari 
      connection pool. This is the preferred routine for releasing
      a connection. */ 
-  public static void  releaseConnectionHikari(Connection passedConnection) {
+  public static void  releaseConnectionHikari(final Connection passedConnection) {
 		/* Check one or more values passed by the caller */
 		if (passedConnection == null) {
 			String   errorText = "Connection reference passed to releaseConnectionHikari is null";

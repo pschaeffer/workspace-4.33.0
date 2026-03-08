@@ -45,7 +45,7 @@ public class HDLmApacheResponse {
 	/* Set or reset the returned byte content. Note that the caller can 
      not pass a null value for the new byte content value. This is an
      an error condition. */
-	protected void setByteContent(byte[] newByteContent) {
+	protected void setByteContent(final byte[] newByteContent) {
 		if (newByteContent == null) {
 			String  errorText = "New content byte array is null";
 			throw new NullPointerException(errorText);
@@ -55,7 +55,7 @@ public class HDLmApacheResponse {
 	/* Set or reset the error message. Note that the caller can 
 	   not pass a null value for the new error message. This is 
 	   an error condition. */
-	protected void setErrorMessage(String newErrorMessage) {
+	protected void setErrorMessage(final String newErrorMessage) {
 		if (newErrorMessage == null) {
 			String  errorText = "New error message string is null";
 			throw new NullPointerException(errorText);
@@ -65,7 +65,7 @@ public class HDLmApacheResponse {
 	/* Set or reset the returned headers. Note that the caller can 
      not pass a null value for the new returned headers. This is
      an error condition. */
-	protected void setHeaders(ArrayList<String> newHeaders) {
+	protected void setHeaders(final ArrayList<String> newHeaders) {
 		if (newHeaders == null) {
 			String  errorText = "New headers array list is null";
 			throw new NullPointerException(errorText);
@@ -75,7 +75,7 @@ public class HDLmApacheResponse {
 	/* Set or reset the status code. Note that the caller can 
      not pass an invalid value for the new status code. This 
      is an error condition. */
-	protected void setStatusCode(int newStatus) {
+	protected void setStatusCode(final int newStatus) {
 		if (newStatus <= 0) {
 		  HDLmAssertAction(false, "New status code value is invalid"); 
 		}
@@ -84,7 +84,7 @@ public class HDLmApacheResponse {
 	/* Set or reset the status line. Note that the caller can 
 	   not pass a null value for the new status line value.
 	   This is an error condition. */
-	protected void setStatusLine(String newStatusLine) {
+	protected void setStatusLine(final String newStatusLine) {
 		if (newStatusLine == null) {
 			String  errorText = "New status line string is null";
 			throw new NullPointerException(errorText);
@@ -94,7 +94,7 @@ public class HDLmApacheResponse {
 	/* Set or reset the returned string content. Note that the caller can 
      not pass a null value for the new string content value. This is an
      an error condition. */
-  protected void setStringContent(String newStringContent) {
+  protected void setStringContent(final String newStringContent) {
 	  if (newStringContent == null) {
 		  String  errorText = "New content string value is null";
 		  throw new NullPointerException(errorText);

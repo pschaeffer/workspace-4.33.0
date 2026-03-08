@@ -629,7 +629,7 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 	}
 	/* This routine is invoked to handle inbound web sockets text messages. These
 	   messages should be in JSON format and should be handleable via JSON. */
-	protected void         handleMessage(String message) {
+	protected void         handleMessage(final String message) {
 		/* Get the lock used to serialize all WebSocket operations */
 		HDLmDatabase.getDatabaseLock();
 		/* What follows is a dummy loop used only to allow break to work */
@@ -733,6 +733,30 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 			  case "deleteTreeNode":
 				  handleMessageDeleteTreeNode(topNodeJsonElement);
 				  break;
+				/* The executeAIRequest message is used to execute an AI request. The 
+				   client provides the message headers, the body of the AI request and
+				   the output format. The server (this code) provides the AI key used 
+				   to execute the request. This approach eliminates the need to store
+				   the AI key on the client (presumably JavaScript). This is actually 
+				   left-over code. Newer JavaScript code send a different request type.
+				   The newer request type is executeOpenAIRequest. */				  
+				case "executeAIRequest":
+			  /* The executeOpenAIRequest message is used to execute an Open AI request. 
+				   The client provides the message headers, the body of the OpenAI request
+				   and the output format. The server (this code) provides the Open AI key 
+				   used to execute the request. This approach eliminates the need to store
+				   the Open AI key on the client (presumably JavaScript). */ 
+				case "executeOpenAIRequest":
+					handleMessageExecuteOpenAIRequest(topNodeJsonElement);
+					break;
+				/* The executeOpenAIRequest message is used to execute an Open AI request. 
+				   The client provides the message headers, the body of the OpenAI request
+				   and the output format. The server (this code) provides the Open AI key 
+				   used to execute the request. This approach eliminates the need to store
+				   the Open AI key on the client (presumably JavaScript). */ 
+				case "executeOpenRouterRequest":
+					handleMessageExecuteOpenRouterRequest(topNodeJsonElement);
+					break;
 			  case "getConfigValues":
 				  handleMessageGetConfigValues(topNodeJsonElement);
 				  break;
@@ -807,7 +831,7 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 	/* This routine is invoked to handle inbound web sockets add tree node messages.
 	   These messages should be in JSON format and should be handleable via JSON. */
 	@SuppressWarnings("unused")
-	protected void         handleMessageAddTreeNode(JsonElement jsonElement) {
+	protected void         handleMessageAddTreeNode(final JsonElement jsonElement) {
 		/* What follows is a dummy loop used only to allow break to work */
 		while (true) {
 			/* Check if the JSON element instance passed by the caller is null */
@@ -878,9 +902,9 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 	/* This routine is invoked to handle inbound web sockets build messages. These
 	   messages should be in JSON format and should be handleable via JSON. */
 	@SuppressWarnings("unused")
-	protected void         handleMessageBuild(JsonElement jsonElement, 
-			                                      String urlStr, 
-			                                      boolean nodeCopyElements) {
+	protected void         handleMessageBuild(final JsonElement jsonElement, 
+			                                      final String urlStr, 
+			                                      final boolean nodeCopyElements) {
 		/* What follows is a dummy loop used only to allow break to work */
 		while (true) {
 			/* Check if the JSON element instance passed by the caller is null */
@@ -943,9 +967,9 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 	}
 	/* This routine is invoked to handle inbound web sockets copy messages. These
 	   messages should be in JSON format and should be handleable via JSON. */
-	protected void         handleMessageCopy(JsonElement jsonElement, 
-			                                     String urlStr, 
-			                                     boolean nodeCopyElements) {
+	protected void         handleMessageCopy(final JsonElement jsonElement, 
+			                                     final String urlStr, 
+			                                     final boolean nodeCopyElements) {
 		/* What follows is a dummy loop used only to allow break to work */
 		while (true) {
 			/* Check if the JSON element instance passed by the caller is null */
@@ -1012,7 +1036,7 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 	   messages. These messages should be in JSON format and should be handleable
 	   via JSON. */
 	@SuppressWarnings("unused")
-	protected void         handleMessageDeleteTreeNode(JsonElement jsonElement) {
+	protected void         handleMessageDeleteTreeNode(final JsonElement jsonElement) {
 		/* What follows is a dummy loop used only to allow break to work */
 		while (true) {
 		  /* Check if the JSON element instance passed by the caller is null */
@@ -1055,10 +1079,105 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 			break;
 		}
 	}
+	/* The executeOpenAIRequest message is used to execute an Open AI request.  
+     client provides the message headers, the body of the Open AI request 
+     and the output format. The server (this code) provides the Open AI key  
+     used to execute the request. This approach eliminates the need to store
+     the Open AI key on the client (presumably JavaScript). */ 
+	protected void          handleMessageExecuteOpenAIRequest(final JsonElement jsonElement) {
+		/* What follows is a dummy loop used only to allow break to work */
+		while (true) {
+			/* Check if the JSON element instance passed by the caller is null */
+			if (jsonElement == null) {
+				String  errorText = "JSON element instance passed to handleMessageExecuteOpenAIRequest is null";
+			  HDLmWebSocketInternalAdapter.sendFailure(session, errorText, 26);
+			  break;
+			}
+			/* Check if the inbound JSON element has the required keys */
+	  	String  bodyStr = null;
+	  	if (HDLmJson.hasJsonKey(jsonElement, "HDLmBodyStr")) {
+			  bodyStr = HDLmWebSocketInternalAdapter.getJsonString(jsonElement, 
+					                                                   "HDLmBodyStr", 
+					                                                   session);
+			  if (bodyStr == null) 
+			    break;					
+		  }
+	  	/* The body string was not found in the inbound JSON.
+	  	   Report an error and exit. */
+	  	else {
+				String errorText = "Body string not found in inbound JSON in handleMessageExecuteOpenAIRequest";
+				HDLmWebSocketInternalAdapter.sendFailure(session, errorText, 64);
+				break;
+	  	}
+			/* Pass the body string to the Open AI routine */
+			HDLmResponse  aiResponse = HDLmOpenAI.executeOpenAIRequest(bodyStr);
+			int           returnCode = aiResponse.getReturnCode();
+			if (returnCode != 0) {
+				String errorText = aiResponse.getErrorMessage();
+				if (errorText == null) {
+					errorText = "Unknown error returned by executeOpenAIRequest";
+				}
+				HDLmWebSocketInternalAdapter.sendFailure(session, errorText, 51);
+				break;
+			}
+			String  returnString = aiResponse.getReturnString();
+			/* Send a success message back to the caller */
+			HDLmWebSocketInternalAdapter.sendString(session, returnString);
+			break;
+		}
+	}
+	/* The executeOpenRouterRequest message is used to execute an Open Router request.
+	   The client provides the body of the request and the output format. The server
+	   (this code) provides the Open Router key used to execute the request. This
+	   approach eliminates the need to store the Open Router key on the client
+	   (presumably JavaScript). */
+	protected void          handleMessageExecuteOpenRouterRequest(final JsonElement jsonElement) {
+		/* What follows is a dummy loop used only to allow break to work */
+		while (true) {
+			/* Check if the JSON element instance passed by the caller is null */
+			if (jsonElement == null) {
+				String  errorText = "JSON element instance passed to handleMessageExecuteOpenRouterRequest is null";
+				HDLmWebSocketInternalAdapter.sendFailure(session, errorText, 26);
+				break;
+			}
+			/* Check if the inbound JSON element has the required keys */
+			String  bodyStr = null;
+			if (HDLmJson.hasJsonKey(jsonElement, "HDLmBodyStr")) {
+				bodyStr = HDLmWebSocketInternalAdapter.getJsonString(jsonElement,
+						                                         "HDLmBodyStr",
+						                                         session);
+				if (bodyStr == null)
+					break;
+			}
+			/* The body string was not found in the inbound JSON.
+			   Report an error and exit. */
+			else {
+				String errorText = "Body string not found in inbound JSON in handleMessageExecuteOpenRouterRequest";
+				HDLmWebSocketInternalAdapter.sendFailure(session, errorText, 64);
+				break;
+			}
+			HDLmResponse  aiResponse = null;
+			/* Pass the body string to the Open Router routine */
+			aiResponse = HDLmOpenRouter.executeOpenRouterRequestWebPageImprover(bodyStr);			
+			int           returnCode = aiResponse.getReturnCode();
+			if (returnCode != 0) {
+				String errorText = aiResponse.getErrorMessage();
+				if (errorText == null) {
+					errorText = "Unknown error returned by executeOpenRouterRequest";
+				}
+				HDLmWebSocketInternalAdapter.sendFailure(session, errorText, 51);
+				break;
+			}
+			String  returnString = aiResponse.getReturnString();
+			/* Send a success message back to the caller */
+			HDLmWebSocketInternalAdapter.sendString(session, returnString);
+			break;
+		}
+	}
 	/* This routine is invoked to handle inbound web sockets get configuration 
      values messages. These messages should be in JSON format and should be
      handleable via JSON. */
-	protected void          handleMessageGetConfigValues(JsonElement jsonElement) {
+	protected void          handleMessageGetConfigValues(final JsonElement jsonElement) {
 		/* What follows is a dummy loop used only to allow break to work */
 		while (true) {
 			/* Check if the JSON element instance passed by the caller is null */
@@ -1146,7 +1265,7 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
      choices messages. These messages should be in JSON format and   
      should be handleable via JSON. */
 	@SuppressWarnings("unused")
-	protected void         handleMessageGetImageChoices(JsonElement jsonElement, String urlStr) {		
+	protected void         handleMessageGetImageChoices(final JsonElement jsonElement, final String urlStr) {		
 		/* What follows is a dummy loop used only to allow break to work */
 		while (true) {
 			/* Check if the JSON element instance passed by the caller is null */
@@ -1372,7 +1491,7 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 	/* This routine is invoked to handle inbound web sockets get text 
 	   choices messages. These messages should be in JSON format and   
 	   should be handleable via JSON. */
-	protected void         handleMessageGetTextChoices(JsonElement jsonElement, String urlStr) {		 
+	protected void         handleMessageGetTextChoices(final JsonElement jsonElement, final String urlStr) {		 
 		/* What follows is a dummy loop used only to allow break to work */
 		while (true) {
 			/* Check if the JSON element instance passed by the caller is null */
@@ -1458,7 +1577,7 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
   /* It doesn't look like the web socket client ever sends this message. It
      appears that the client doesn't use saveDataValue in any form. This
      is a routine that was never completed and never used. */ 
-	protected void         handleMessageSaveDataValue(JsonElement jsonElement) {
+	protected void         handleMessageSaveDataValue(final JsonElement jsonElement) {
 		/* What follows is a dummy loop used only to allow break to work */
 		while (true) {
 			/* Check if the JSON element instance passed by the caller is null */
@@ -1494,7 +1613,7 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 	   via JSON. An add is executed if the tree node does not exist. An update is
 	   executed if the tree node, already exists. */
 	@SuppressWarnings({ "unused"})
-	protected void         handleMessageStoreTreeNodes(JsonElement jsonElement) {
+	protected void         handleMessageStoreTreeNodes(final JsonElement jsonElement) {
 		/* What follows is a dummy loop used only to allow break to work */
 		while (true) {
 			/* Check if the JSON element instance passed by the caller is null */
@@ -1688,7 +1807,7 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 	/* This routine is invoked to handle inbound transfer requests. A typical request
 	   might be to copy some number of rules from the test system to the production 
 	   system. The caller describes the transfer request in some detail. */
-	protected void         handleMessageTransferSomething(JsonElement jsonElement) {
+	protected void         handleMessageTransferSomething(final JsonElement jsonElement) {
 		/* What follows is a dummy loop used only to allow break to work */
 		while (true) {
 			/* Check if the JSON element instance passed by the caller is null */
@@ -1720,7 +1839,7 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 	   to undo the last recorded operation. However, if this routine is 
 	   invoked more than once, the 'current' operation will keep going 
 	   down while the 'top' operation stays the same. */
-	protected void         handleMessageUnDo(JsonElement jsonElement) {
+	protected void         handleMessageUnDo(final JsonElement jsonElement) {
 		/* What follows is a dummy loop used only to allow break to work */
 		while (true) {
 			/* Check if the JSON element instance passed by the caller is null */
@@ -1755,7 +1874,7 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 	   It doesn't look like the web socket client ever sends this message. It
 	   appears that the client doesn't use UpdateTree in any form. This appears 
 	   to be left over from an earlier version of the client code. */
-	protected void         handleMessageUpdateTree(JsonElement jsonElement, final String urlValue) {
+	protected void         handleMessageUpdateTree(final JsonElement jsonElement, final String urlValue) {
 		/* What follows is a dummy loop used only to allow break to work */
 		while (true) {
 			/* Check if the JSON element instance passed by the caller is null */
@@ -1816,7 +1935,7 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 	   messages. These messages should be in JSON format and should be handleable
 	   via JSON. */
 	@SuppressWarnings("unused")
-	protected void         handleMessageUpdateTreeNode(JsonElement jsonElement) {
+	protected void         handleMessageUpdateTreeNode(final JsonElement jsonElement) {
 		/* What follows is a dummy loop used only to allow break to work */
 		while (true) {
 			/* Check if the JSON element instance passed by the caller is null */
@@ -1884,7 +2003,7 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 	/* This routine is invoked when a binary message is sent. So far this routine
 	   has not been used. */
 	@Override
-	public void onWebSocketBinary(byte[] payload, int offset, int len) {
+	public void onWebSocketBinary(final byte[] payload, final int offset, final int len) {
 		String textFormat = "onWebSocketBinary - %d - %d";
 		String textString = String.format(textFormat, offset, len);
 		LOG.info(textString);
@@ -1894,7 +2013,7 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 	   routine is definitely used (invoked). We should handle the closing of
 	   connections in some way. How is not clear. */
 	@Override
-	public void onWebSocketClose(int statusCode, String reason) {
+	public void onWebSocketClose(final int statusCode, final String reason) {
 		this.session = null;
 		String textFormat = "onWebSocketClose - %d - %s";
 		String textString = String.format(textFormat, statusCode, reason);
@@ -1905,7 +2024,7 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 	   routine is definitely used (invoked). We should handle new connections by
 	   saving some data. What data is not not clear. */
 	@Override
-	public void onWebSocketConnect(Session session) {
+	public void onWebSocketConnect(final Session session) {
 	  /* Build a few variables for use below */
 		int   maxTextMessageSize = 2000000;
 		LOG.info("onWebSocketConnect");
@@ -1921,7 +2040,7 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 	/* This routine is invoked when a text message is sent. So far this routine has
 	   been used each time a message is sent from the client. */
 	@Override
-	public void onWebSocketText(String message) {
+	public void onWebSocketText(final String message) {
 		if (1 == 1)
 			LOG.info("onWebSocketText" + " - " + message);
 		super.onWebSocketText(message);

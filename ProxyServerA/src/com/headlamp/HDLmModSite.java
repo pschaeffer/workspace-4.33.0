@@ -66,7 +66,7 @@ public class HDLmModSite extends HDLmMod {
 	/* This is one of the constructors for the site definition
 	   class. It must be passed a JSON element that contains all 
 	   of the details of the site definition. */
-	protected HDLmModSite(JsonElement jsonElement) {
+	protected HDLmModSite(final JsonElement jsonElement) {
 		/* Invoke the default constructor for the parent class. This is 
 		   required by the Java language. */ 
 		super();
@@ -167,7 +167,7 @@ public class HDLmModSite extends HDLmMod {
 	   a rule to a site node. Since only actual rule values 
 	   (and certain other tree nodes) have details, the caller
 	   passes a tree element, not a rule value. */
-	protected void         addRule(HDLmTree newRule, HDLmStartupMode startupMode) {
+	protected void         addRule(final HDLmTree newRule, final HDLmStartupMode startupMode) {
 		/* Check if the rule reference passed by the caller is null */
 		if (newRule == null) {
 		  String  errorText = "New rule reference passed to addRule is null";
@@ -220,8 +220,8 @@ public class HDLmModSite extends HDLmMod {
 	   and returns the final site tree node to the
 	   caller. The site reference is used to keep
 	   track of the number of sites. */
-	protected static HDLmTree  buildTree(ArrayList<String> oldNodePath, 
-			                                 HDLmModSite newValue) {
+	protected static HDLmTree  buildTree(final ArrayList<String> oldNodePath, 
+			                                 final HDLmModSite newValue) {
 		/* Check if the old node path reference passed by the caller is null */
 		if (oldNodePath == null) {
 		  String  errorText = "Node path reference passed to buildTree is null";

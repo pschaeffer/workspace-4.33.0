@@ -32,7 +32,7 @@ public class HDLmGlobals {
      At present, the inline editors are the Popup editor and the
      simple editor. If any inline editor is in use, this routine 
      returns true. Otherwise, this routine returns false. */
-  protected static boolean checkForInlineEditor(HDLmEditorTypes editorType) {
+  protected static boolean checkForInlineEditor(final HDLmEditorTypes editorType) {
 		if (editorType == null) {
 			String   errorText = "Editor type value passed to checkForInlineEditor is null";
 			throw new NullPointerException(errorText);		

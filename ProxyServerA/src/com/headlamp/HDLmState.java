@@ -27,7 +27,7 @@ public class HDLmState {
 		 boolean). If the state does not exist, this routine
 		 does not fail. Instead, a null value is returned to
 		 the caller. */ 
-	protected static String checkString(String stateName) {
+	protected static String checkString(final String stateName) {
 		if (stateName == null) {
 			String   errorText = "State name reference passed to checkString is null";
 			throw new NullPointerException(errorText);			
@@ -43,7 +43,7 @@ public class HDLmState {
 	   value if the state name is valid (exists) and if the 
 		 state value is actually a string (not a number or a
 		 boolean). */
-	protected static String getString(String stateName) {
+	protected static String getString(final String stateName) {
 		if (stateName == null) {
 			String   errorText = "State name reference passed to getString is null";
 			throw new NullPointerException(errorText);			

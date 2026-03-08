@@ -64,7 +64,7 @@ public class HDLmModIgnore extends HDLmMod {
 	/* This is one of the constructors for the ignore definition class.
 	   It must be passed a JSON element that contains all of the details
 	   of the ignore definition. */
-	protected HDLmModIgnore(JsonElement jsonElement) {
+	protected HDLmModIgnore(final JsonElement jsonElement) {
 		/* Invoke the default constructor for the parent class. This is 
 		   required by the Java language. */ 
 		super();
@@ -489,8 +489,8 @@ public class HDLmModIgnore extends HDLmMod {
      entry) and returns the final ignore (just one ignore-list entry) 
      tree node to the caller. The ignore (just one ignore-list entry)
      reference is used to set the details of the new tree node. */ 
-	protected static HDLmTree  buildTree(ArrayList<String> oldNodePath, 
-			                                 HDLmModIgnore newValue) {
+	protected static HDLmTree  buildTree(final ArrayList<String> oldNodePath, 
+			                                 final HDLmModIgnore newValue) {
 		/* Check if the old node path reference passed by the caller is null */
 		if (oldNodePath == null) {
 		  String  errorText = "Node path reference passed to buildTree is null";

@@ -43,7 +43,7 @@ public class HDLmAwsUtility {
 	private HDLmAwsUtility() {}
   /* Build a secret manager client for accessing secrets
      stored by the AWS Secrets Manager */
-	protected static SecretsManagerClient  buildAwsSecretsManagerClient(String regionName) {
+	protected static SecretsManagerClient  buildAwsSecretsManagerClient(final String regionName) {
 		/* Check a few values passed by the caller */
 		if (regionName == null) {
 			String   errorText = "Region name reference passed to buildAwsSecretsManagerClient is null";
@@ -63,8 +63,8 @@ public class HDLmAwsUtility {
 	}
 	/* This routine get a set of secrets from the AWS secrets Manager. 
 	   A batch call is used to minimize network turn-around time. */ 
-	protected static Map<String, String>  getAMapOfSecrets(SecretsManagerClient secretsClient,
-	                                                       ArrayList<String> secretsName) {
+	protected static Map<String, String>  getAMapOfSecrets(final SecretsManagerClient secretsClient,
+	                                                       final ArrayList<String> secretsName) {
 		/* Check a few values passed by the caller */
 		if (secretsClient == null) {
 			String   errorText = "Secrets client reference passed to getASetOfSecrets is null";
@@ -105,7 +105,7 @@ public class HDLmAwsUtility {
 	   value is returned to the caller. The client value can be 
 	   null. If the client value is null, this routine will build
 	   the client. */
-	protected static String  getJustOneSecretFromAws(SecretsManagerClient client, String secretName) {
+	protected static String  getJustOneSecretFromAws(SecretsManagerClient client, final String secretName) {
 		/* Check a few values passed by the caller */
 		if (secretName == null) {
 			String   errorText = "Secret name reference passed to getJustOneSecretFromAws is null";

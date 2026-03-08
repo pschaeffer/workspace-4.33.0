@@ -59,7 +59,7 @@ public class HDLmString {
 	   copied to the output string, except for blanks and a few other
 	   characters. The compacted string is returned to the caller. Note
 	   that the sequence \n is also removed. This sequence is a new line. */ 
-	protected static String  compactString(String inputString) {
+	protected static String  compactString(final String inputString) {
 		/* Declare and define a few values */
 		String  rvStr = "";
 		/* Check a few values passed by the caller */
@@ -87,7 +87,7 @@ public class HDLmString {
 	   by removing all blanks and other characters that could cause
 	   false mismatches. Note, that if the strings match, then a 
 	   value of minus one will be returned to the caller. */
-	protected static int  compareStringsCompacted(String firstString, String secondString) {
+	protected static int  compareStringsCompacted(final String firstString, final String secondString) {
 		/* Declare and define a few values */
 		int   rvInt = -1;
 		/* Check a few values passed by the caller */
@@ -142,7 +142,7 @@ public class HDLmString {
 	   Note, that if the strings match, then a value of minus one will
 	   be returned to the caller. The returned index is the offset of
 	   the first token that does not match. */
-	protected static int  compareStringsTokens(String firstString, String secondString) {
+	protected static int  compareStringsTokens(final String firstString, final String secondString) {
 		/* Declare and define a few values */
 		int   rvInt = -1;
 		/* Check a few values passed by the caller */
@@ -207,7 +207,7 @@ public class HDLmString {
 	   is greater than 127 (for example, a cedilla) or if a 
 	   hexadecimal value greater than 127 is used (for example
 	   %b8). */
-	protected static byte[] decodeValue(String charData) {
+	protected static byte[] decodeValue(final String charData) {
 		/* Check if the URL string passed by the caller is null */
 		if (charData == null) {
 			String  errorText = "Character string data passed to convertCharData is null";
@@ -295,8 +295,8 @@ public class HDLmString {
 	/* Display a set of string passed by the caller. The caller passes the array 
 	   of strings and a prefix string. This routine writes each string out to the
 	   log file with the prefix specified by the caller. */ 
-	protected static void displayStrings(String prefixString,  
-			                                 ArrayList<String> stringArray) {
+	protected static void displayStrings(final String prefixString,  
+			                                 final ArrayList<String> stringArray) {
 		/* Check if the prefix string is null */
 		if (prefixString == null) {
 			String  errorText = "Prefix string passed to displayStrings is null";
@@ -319,7 +319,7 @@ public class HDLmString {
 	/* Check if a string ends with a specific string. This function will
      return true if the haystack ends with the needle. This function
      will return false if the haystack does not end with the needle. */
-	protected static boolean endsWith(String haystack, String needle) {
+	protected static boolean endsWith(final String haystack, final String needle) {
 		/* Check if the values passed by the caller are null */
 		if (haystack == null) {
 			String  errorText = "Haystack value passed to endsWith is null";
@@ -333,7 +333,7 @@ public class HDLmString {
 	}	
 	/* Split an input string into an array of substrings using any set
 	   whitespace characters */
-	protected static ArrayList<String> explodeWhitespace(String str) {
+	protected static ArrayList<String> explodeWhitespace(final String str) {
 		/* Check if the value passed by the caller is null */
 		if (str == null) {
 			String  errorText = "Input string value passed to explodeWhitespace is null";
@@ -361,7 +361,7 @@ public class HDLmString {
 	  return partsList;
 	}
 	/* Build a string from all of the entries in an array of strings */
-	protected static String fromArray(ArrayList<String> strArray) {
+	protected static String fromArray(final ArrayList<String> strArray) {
 		/* Check if the values passed by the caller are null */
 		if (strArray == null) {
 			String  errorText = "Input string array list value passed to fromArray is null";
@@ -387,7 +387,7 @@ public class HDLmString {
 	/* Build a string from all of the entries in an array list of doubles.
 	   Note that the array list must contain Doubles (boxed doubles), not
 	   actual double values. */
-	protected static String fromDoublesArray(ArrayList<Double> doubleArray) {
+	protected static String fromDoublesArray(final ArrayList<Double> doubleArray) {
 		/* Check if the values passed by the caller are null */
 		if (doubleArray == null) {
 			String  errorText = "Input Doubles array list value passed to fromDoublesArray is null";
@@ -414,7 +414,7 @@ public class HDLmString {
      suffix is everything after the last period. If no 
      period is found a null value is returned to the 
      caller. */
-	protected static String  getFileNameSuffix(String fileName) {
+	protected static String  getFileNameSuffix(final String fileName) {
 		/* Check if the values passed by the caller */
 		if (fileName == null) {
 			String  errorText = "File name passed to getFileNameSuffix method is null";
@@ -430,7 +430,7 @@ public class HDLmString {
 	/* Get the file type, from what should be the file name suffix.
 	   The file name suffix is everything after the last period in
 	   the file name. */ 
-	protected static String  getFileNameType(String fileNameSuffix) {
+	protected static String  getFileNameType(final String fileNameSuffix) {
 		/* Check if the values passed by the caller */
 		if (fileNameSuffix == null) {
 			String  errorText = "File name suffix passed to getFileNameType method is null";
@@ -463,15 +463,15 @@ public class HDLmString {
 	
 	   Note that an identifier can contain numeric digits in it. This is part
 	   of the definition of an identifier in some languages. */
-	protected static HDLmToken getNextToken(String inStr, 
-			                                    int    curIndex,
-			                                    String additionalOperators) {
+	protected static HDLmToken getNextToken(final String inStr, 
+			                                    final int    curIndex,
+			                                    final String additionalOperators) {
 		return getNextToken(inStr, curIndex, additionalOperators, '\'');
 	}
-	protected static HDLmToken getNextToken(String inStr, 
-			                                    int    curIndex,
-			                                    String additionalOperators,
-			                                    char   quoteChar) {
+	protected static HDLmToken getNextToken(final String inStr, 
+			                                          int    curIndex,
+			                                    final String additionalOperators,
+			                                    final char   quoteChar) {
 		char  curCh;
 	  int   inStrLen;
 		/* Check if the input string value passed by the caller is null */
@@ -653,10 +653,10 @@ public class HDLmString {
  	
 	   Note that an identifier can contain numeric digits in it. This is part
 	   of the definition of an identifier in some languages. */
-	protected static ArrayList<HDLmToken> getTokens(String inStr) {
+	protected static ArrayList<HDLmToken> getTokens(final String inStr) {
 		return getTokens(inStr, '\'');
 	}
-	protected static ArrayList<HDLmToken> getTokens(String inStr, char quoteChar) {
+	protected static ArrayList<HDLmToken> getTokens(final String inStr, final char quoteChar) {
 		ArrayList<HDLmToken> rv = new ArrayList<HDLmToken>();
 		char curCh;
 	  int  curIndex = 0;
@@ -836,10 +836,10 @@ public class HDLmString {
  	   caller. The object describes the token in some detail. The object
  	   gives the token position (starting from 0, not 1), the token type,
 	   and the token contents. */
-	protected static ArrayList<HDLmToken> getTokensNonWhite(String inStr) {
+	protected static ArrayList<HDLmToken> getTokensNonWhite(final String inStr) {
 		return getTokensNonWhite(inStr, '\'');
 	}
- 	protected static ArrayList<HDLmToken> getTokensNonWhite(String inStr, char quoteChar) {
+ 	protected static ArrayList<HDLmToken> getTokensNonWhite(final String inStr, final char quoteChar) {
  		ArrayList<HDLmToken> rv = new ArrayList<HDLmToken>();
 		/* Check if the input string value passed by the caller is null */
 		if (inStr == null) {
@@ -885,7 +885,7 @@ public class HDLmString {
 	   is a valid alpha character or not. Note that in keeping with
 	   the rules of some languages, underscore is considered to be 
 	   an alpha character. */
-	protected static boolean isAlphaHyphen(char inChar) {
+	protected static boolean isAlphaHyphen(final char inChar) {
 	  return (inChar >= 'a' && inChar <= 'z') ||
 	         (inChar >= 'A' && inChar <= 'Z') ||
 	         (inChar == '_');
@@ -894,7 +894,7 @@ public class HDLmString {
 	   is a valid alphanumeric character or not. Note that in keeping
 	   with the rules of some languages, underscore is considered to 
 	   be an alphanumeric character. */
-	protected static boolean isAlphaNumericHyphen(char inChar) {
+	protected static boolean isAlphaNumericHyphen(final char inChar) {
 	  return (inChar >= '0' && inChar <= '9') ||
 	         (inChar == '_')                  ||
 	         (inChar >= 'a' && inChar <= 'z') ||
@@ -904,7 +904,7 @@ public class HDLmString {
 	   is a valid numeric digit or not. Note that the code below does
 	   not consider non-traditional digit characters to be digits. 
 	   This could be a problem in the future. */
-	protected static boolean isDigit(char inChar) {
+	protected static boolean isDigit(final char inChar) {
 	  return (inChar >= '0' && inChar <= '9');
 	}
 	/* The function below returns a boolean showing if a character
@@ -926,7 +926,7 @@ public class HDLmString {
 	   The standard and, or, and xor operators not detected by the code
 	   below. Instead they are handled as strings and other code must be
 	   used (if need be) to recognize them as operators. */
-	protected static boolean isOperator(char inChar) {
+	protected static boolean isOperator(final char inChar) {
   	String haystack = "+-*/%=!><&|~^?:,().[]";
 	  int pos = haystack.indexOf(inChar);
 	  return (pos >= 0);
@@ -938,7 +938,7 @@ public class HDLmString {
 		 white space characters. Many other (Unicode) non-traditional
 		 white space characters exist. They may need to be added in
 		 the future. */
-	protected static boolean isWhitespace(char inChar) {
+	protected static boolean isWhitespace(final char inChar) {
 		/* The Unicode escape sequence below is actually the vertical
 		   tab character */
 	  String haystack = " \f\n\r\t\u000b";
@@ -947,7 +947,7 @@ public class HDLmString {
 	}
   /* Convert the first character of a string to lowercase and return the
      string to the caller. The original string is not modified. */ 
-  protected static String lcFirst(String value) {
+  protected static String lcFirst(final String value) {
     if (value == null) {
       String  errorText = "Input string passed to lcFirst is null";
       throw new NullPointerException(errorText);
@@ -1066,7 +1066,7 @@ public class HDLmString {
 	   returned as 'Abcd' and 'Abcd(3)' is also returned as 'Abcd'. 
 	   Note that this routine does not change the case of any part of
 	   the input or output strings. */
-	protected static String removeFileNumberTail(String inStr) {
+	protected static String removeFileNumberTail(final String inStr) {
 		/* Check if the input string value passed by the caller is null */
 		if (inStr == null) {
 			String  errorText = "Input string value passed to removeFileNumberTail is null";
@@ -1092,7 +1092,7 @@ public class HDLmString {
      input string without the prefix string is returned to the caller.
      However, if the input string does not begin with the prefix 
      string, the entire input string is returned to the caller. */
-	protected static String removePrefix(String prefixStr, String inputStr) {
+	protected static String removePrefix(final String prefixStr, final String inputStr) {
 		/* Check if the values passed by the caller are null */
 		if (prefixStr == null) {
 			String  errorText = "Prefix string value passed to removePrefix is null";
@@ -1121,9 +1121,9 @@ public class HDLmString {
 	   input string was "abcdef" (with no actual quotes) and the index 
 	   values were two and four, then the final returned string would 
 	   be "abef" (with no actual quotes). */ 
-	protected static String removeSubstring(String inputStr, 
-			                                    int startIndex, 
-			                                    int endIndex) {
+	protected static String removeSubstring(final String inputStr, 
+			                                    final int startIndex, 
+			                                    final int endIndex) {
 		/* Check if the input string passed by the caller is null */
 		if (inputStr == null) {
 			String  errorText = "Input string value passed to removeSubstring is null";
@@ -1189,7 +1189,7 @@ public class HDLmString {
      provides the string, the separator, and the count value. The
      separator is added after each copy of the input string, except
      for the last. */
-	public static String repeatString(String inStr, String inSep, int repeatCount) {
+	public static String repeatString(final String inStr, final String inSep, final int repeatCount) {
 		/* Check if the input string value passed by the caller is null */
 		if (inStr == null) {
 			String  errorText = "Input string value passed to repeatString is null";
@@ -1238,7 +1238,7 @@ public class HDLmString {
 	/* Check if a string starts with a specific string. This function will
 	   return true if the haystack starts with the needle. This function
 	   will return false if the haystack does not start with the needle. */
-	protected static boolean startsWith(String haystack, String needle) {
+	protected static boolean startsWith(final String haystack, final String needle) {
 		/* Check if the values passed by the caller are null */
 		if (haystack == null) {
 			String  errorText = "Haystack value passed to startsWith is null";
@@ -1253,7 +1253,7 @@ public class HDLmString {
 	/* Replace the first and only the first occurrence of a neeedle in
 	   a haystack. Note that the if the needle is not found, then the
 	   unchanged haystack string is returned to the caller. */
-	protected static String strReplaceOnce(String needle, String replacement, String haystack) {
+	protected static String strReplaceOnce(final String needle, final String replacement, String haystack) {
 		/* Check if the values passed by the caller are null */
 		if (needle == null) {
 			String  errorText = "Needle value passed to strReplaceOnce is null";
@@ -1276,7 +1276,7 @@ public class HDLmString {
 	   is returned to the caller unchanged. If the passed string is
 	   longer than the maximum length value, a substring of the passed
 	   string is returned to the caller. */
-	protected static String strTruncate(String str, int maxLength) {
+	protected static String strTruncate(final String str, final int maxLength) {
 		/* Check if the value passed by the caller is null */
 		if (str == null) {
 			String  errorText = "Input string value passed to strTruncate is null";
@@ -1295,7 +1295,7 @@ public class HDLmString {
 	}
   /* Convert the first character of a string to uppercase and return the
      string to the caller. The original string is not modified. */ 
-  protected static String ucFirst(String value) {
+  protected static String ucFirst(final String value) {
 	  if (value == null) {
 	    String  errorText = "Input string passed to ucFirst is null";
 	    throw new NullPointerException(errorText);
@@ -1309,7 +1309,7 @@ public class HDLmString {
   }
   /* Convert the first character all of words in a string to uppercase
      and return the possibly modified sentence to the caller */
-	protected static String ucFirstSentence(String inputValue) {
+	protected static String ucFirstSentence(final String inputValue) {
 		/* Check if the input value passed by the caller is null */
 		if (inputValue == null) {
 			String  errorText = "Input value string passed to ucFirstSentence is null";

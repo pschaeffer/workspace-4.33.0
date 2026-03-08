@@ -46,7 +46,7 @@ public class HDLmModCompanies extends HDLmMod {
 	/* This is one of the constructors for the companies definition class.
 	   It must be passed a JSON element that contains all of the details
  	   of the companies definition. */
-	protected HDLmModCompanies(JsonElement jsonElement) {
+	protected HDLmModCompanies(final JsonElement jsonElement) {
 		/* Invoke the default constructor for the parent class. This is 
 	     required by the Java language. */ 
 	  super();
@@ -157,7 +157,7 @@ public class HDLmModCompanies extends HDLmMod {
      the tree map of companies. */
   protected void         addCompanyCompanies(final String newName,
   		                                       final HDLmModCompany newCompany,
-  		                                       boolean updateLast) {
+  		                                       final boolean updateLast) {
 		/* Check if the company name string reference passed by the caller is null.
 		   This is really a web site name or host domain name, not a company name.  */
 	  if (newName == null) {
@@ -186,8 +186,8 @@ public class HDLmModCompanies extends HDLmMod {
      and returns the final companies (companies node) tree node to the
 	   caller. The companies (companies instance) reference is used to set 
 	   the details of the new tree node. */ 
-	protected static HDLmTree  buildTree(ArrayList<String> oldNodePath, 
-			                                 HDLmModCompanies newValue) {
+	protected static HDLmTree  buildTree(final ArrayList<String> oldNodePath, 
+			                                 final HDLmModCompanies newValue) {
 		/* Check if the old node path reference passed by the caller is null */
 		if (oldNodePath == null) {
 		  String  errorText = "Node path reference passed to buildTree is null";

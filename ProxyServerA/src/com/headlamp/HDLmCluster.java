@@ -61,7 +61,7 @@ public class HDLmCluster {
 	/* Add a new list entry to the current cluster list. This is a 
 	   list entry that is associated with the cluster. Note that the
 	   code below allocates cluster entries list if need be. */
-	protected void addEntry(int entryNumber) {
+	protected void addEntry(final int entryNumber) {
 		/* Check if the entry number is valid or not */ 
 		if (entryNumber < 0) {
 			String  errorText = String.format("Entry number value (%d) passed to addEntry is less than zero", 
@@ -98,7 +98,7 @@ public class HDLmCluster {
 	/* Set or reset the cluster average value. Note that the caller 
 	   can not pass a null value for the new cluster average value.
 	   This is an error condition. */
-	protected void setClusterAverage(String newClusterAverage) {
+	protected void setClusterAverage(final String newClusterAverage) {
 		if (newClusterAverage == null) {
 			String  errorText = "New cluster average value string is null";
 			throw new NullPointerException(errorText);
@@ -109,7 +109,7 @@ public class HDLmCluster {
      the caller can not pass a negative value or a value greater 
      than 1.0 for the new maximum cluster similarity value. This
      is an error condition. */
-	protected void setClusterMaximum(double newClusterMaximum) {
+	protected void setClusterMaximum(final double newClusterMaximum) {
 		if (newClusterMaximum < 0.0 || 
 				newClusterMaximum > 1.0) {
 			String  errorText = String.format("New cluster maximum similarity value (%f) is less than zero or greater than one",
@@ -122,7 +122,7 @@ public class HDLmCluster {
 	   the caller can not pass a negative value or a value greater 
 	   than 1.0 for the new minimum cluster similarity value. This
 	   is an error condition. */
-	protected void setClusterMinimum(double newClusterMinimum) {
+	protected void setClusterMinimum(final double newClusterMinimum) {
 		if (newClusterMinimum < 0.0 || 
 				newClusterMinimum > 1.0) {
 			String  errorText = String.format("New cluster minimum similarity value (%f) is less than zero or greater than one",
@@ -134,7 +134,7 @@ public class HDLmCluster {
 	/* Set or reset the cluster name. Note that the caller can 
      not pass a null value for the new cluster name. This is 
      an error condition. */
-	protected void setClusterName(String newClusterName) {
+	protected void setClusterName(final String newClusterName) {
 		if (newClusterName == null) {
 			String  errorText = "New cluster name string is null";
 			throw new NullPointerException(errorText);
@@ -145,7 +145,7 @@ public class HDLmCluster {
 	   of entries in the cluster. Note that the caller can not pass
 	   a zero or negative value for the new cluster size. This is an
 	   error condition. */
-	protected void setClusterSize(int newClusterSize) {
+	protected void setClusterSize(final int newClusterSize) {
 		if (newClusterSize < 1) {
 			String  errorText = String.format("New cluster size (%d) is less than one",
 					                newClusterSize);

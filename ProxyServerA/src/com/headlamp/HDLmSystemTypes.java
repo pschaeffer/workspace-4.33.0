@@ -21,7 +21,7 @@ public enum HDLmSystemTypes {
 	/* Add a field to each enum */
 	private final int enumValue;
 	/* Provide a constructor for the enum */
-	private HDLmSystemTypes(int intValue) {
+	private HDLmSystemTypes(final int intValue) {
 		this.enumValue = intValue;
 	}
   /* We provide a non-standard routine for converting strings to 

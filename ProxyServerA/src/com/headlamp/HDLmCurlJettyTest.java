@@ -52,7 +52,7 @@ class HDLmCurlJettyTest {
 		readEntriesURL = HDLmConfigInfo.getEntriesBridgeReadUrl();
 		updateEntriesURL = HDLmConfigInfo.getEntriesBridgeUpdateUrl();
 		table = HDLmConfigInfo.getEntriesDatabaseTableName();
-		protocol = HDLmConfigInfo.getEntriesBridgeInternetMethod();
+		protocol = HDLmConfigInfo.getEntriesBridgeInternetMethodWithSsl();
 		/* Build the query string */
 		colName = "content";
 		value = "mod";

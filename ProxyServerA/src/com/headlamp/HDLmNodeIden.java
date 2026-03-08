@@ -64,13 +64,13 @@ public class HDLmNodeIden {
 	/* This is not the default constructor for this class. It doesn't do much 
 	   except for taking a node identifier enablement value and storing it in
 	   a new instance of this class. */
-  protected HDLmNodeIden(Boolean newNodeEnabled) {
+  protected HDLmNodeIden(final Boolean newNodeEnabled) {
   	this.nodeEnabled = newNodeEnabled;
   }
 	/* This constructor copies all of the fields from another node identifier instance.
 	   Note that the copy is a deep copy of sorts. All of the fields should actually
 	   be copied or should be immutable. */
-	protected HDLmNodeIden(HDLmNodeIden oldNodeIden) {
+	protected HDLmNodeIden(final HDLmNodeIden oldNodeIden) {
 		if (oldNodeIden == null) {
 			String  errorText = "Old node identifier reference used to build node identifier instance is null";
 			throw new NullPointerException(errorText);
@@ -306,7 +306,7 @@ public class HDLmNodeIden {
 	/* Add a perceptual hash value to the attributes for the current set of
 	   node identifier values. The caller provides the perceptual hash value
 	   and a reference to the node identifier. */
-	protected void addPerceptualHash(String perceptualHash) {
+	protected void addPerceptualHash(final String perceptualHash) {
   	/* Check if the perceptual hash value passed by the caller is null */
 		if (perceptualHash == null) {
 		  String  errorText = "Perceptual hash value passed to addPerceptualHash is null";
@@ -323,15 +323,15 @@ public class HDLmNodeIden {
 	   are correct, return a non-null Map to the caller. The attributes might
 	   come form a DOM element or they might come from a parent of a DOM
 	   element or they might come from a grand parent of a DOM element. */
-	protected Map<String, Object> checkAttributes(HDLmEditorTypes   editorType, 
-			                                          MutableInt        mutableErrorCounter, 
-			                                          ArrayList<String> errorMessages,
-			                                          String            informationTypeName,
-			                                          HDLmReportErrors  reportErrors,
-			                                          String            sourceKeyName,
-			                                          String            searchTypeValue,
-			                                          boolean           primaryAttribute,
-			                                          JsonObject        jsonObject) {
+	protected Map<String, Object> checkAttributes(final HDLmEditorTypes   editorType, 
+			                                          final MutableInt        mutableErrorCounter, 
+			                                          final ArrayList<String> errorMessages,
+			                                          final String            informationTypeName,
+			                                          final HDLmReportErrors  reportErrors,
+			                                          final String            sourceKeyName,
+			                                          final String            searchTypeValue,
+			                                          final boolean           primaryAttribute,
+			                                                JsonObject        jsonObject) {
 		/* Declare and define a few local values */
 		boolean               tagAttributeFound = false;
 		JsonElement           jsonElement = null;
@@ -826,13 +826,13 @@ public class HDLmNodeIden {
   /* Check the JSON version of the counts values. If the JSON counts values 
 	   are correct, return a non-null Map to the caller. The counts are
 	   always part of the node identifier JSON. */
-	protected Map<String, Integer> checkCounts(HDLmEditorTypes   editorType, 
-			                                       MutableInt        mutableErrorCounter,
-			                                       ArrayList<String> errorMessages,
-			                                       String            informationTypeName,
-			                                       HDLmReportErrors  reportErrors,
-			                                       String            sourceKeyName,
-			                                       JsonObject        jsonObject) {
+	protected Map<String, Integer> checkCounts(final HDLmEditorTypes   editorType, 
+			                                       final MutableInt        mutableErrorCounter,
+			                                       final ArrayList<String> errorMessages,
+			                                       final String            informationTypeName,
+			                                       final HDLmReportErrors  reportErrors,
+			                                       final String            sourceKeyName,
+			                                             JsonObject        jsonObject) {
 		/* Declare and define a few local values */
 		JsonElement           jsonElement = null;
 		JsonPrimitive         jsonPrimitive = null;
@@ -1108,7 +1108,7 @@ public class HDLmNodeIden {
 	/* The method below processes a node identifier object. 
      The JSON element is converted to a JSON object and
      various changes are mode. */  
-  protected static void processJsonNodeIden(JsonElement jsonElement) {	
+  protected static void processJsonNodeIden(final JsonElement jsonElement) {	
   	/* Check if the JSON element value passed by the caller is null */
 		if (jsonElement == null) {
 		  String  errorText = "Node tree value passed to processJsonNodeIden is null";
@@ -1160,7 +1160,7 @@ public class HDLmNodeIden {
   /* The method below processes a node identifier attributes object. 
      The JSON element is converted to a JSON object and various changes
      are mode. */  
-	protected static void processJsonNodeIdenAttributes(JsonElement jsonElement) {	
+	protected static void processJsonNodeIdenAttributes(final JsonElement jsonElement) {	
 		/* Check if the JSON element value passed by the caller is null */
 		if (jsonElement == null) {
 		  String  errorText = "Node tree value passed to processJsonNodeIdenAttributes is null";
@@ -1248,7 +1248,7 @@ public class HDLmNodeIden {
 	/* The method below processes a node identifier grand parent object. 
      The JSON element is converted to a JSON object and various changes 
      are mode. */  
-	protected static void processJsonNodeIdenGrand(JsonElement jsonElement) {	
+	protected static void processJsonNodeIdenGrand(final JsonElement jsonElement) {	
 		/* Check if the JSON element value passed by the caller is null */
 		if (jsonElement == null) {
 		  String  errorText = "Node tree value passed to processJsonNodeIdenGrand is null";
@@ -1285,7 +1285,7 @@ public class HDLmNodeIden {
   /* The method below processes a node identifier parent object. 
      The JSON element is converted to a JSON object and various 
      changes are mode. */  
-	protected static void processJsonNodeIdenParent(JsonElement jsonElement) {	
+	protected static void processJsonNodeIdenParent(final JsonElement jsonElement) {	
 		/* Check if the JSON element value passed by the caller is null */
 		if (jsonElement == null) {
 		  String  errorText = "Node tree value passed to processJsonNodeIdenParent is null";

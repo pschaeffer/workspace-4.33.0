@@ -21,7 +21,7 @@ public class HDLmProcessTreePHash implements HDLmProcessTreeInterface {
      plays some role in logging initialization. */
   private static final Logger LOG = LoggerFactory.getLogger(HDLmProcessTreePHash.class);  
 	@Override
-	public void processTreePos(HDLmTree treePos) {
+	public void processTreePos(final HDLmTree treePos) {
 		/* Check if the current tree position has any details */
 		HDLmMod   treePosDetails = treePos.getModFromTree();
 		if (treePosDetails == null)

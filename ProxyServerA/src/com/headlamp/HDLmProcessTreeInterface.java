@@ -12,5 +12,5 @@ package com.headlamp;
    can vary all over the place. However, the interface stays
    the same. */ 
 public interface HDLmProcessTreeInterface {
-	public void processTreePos(HDLmTree treePos);
+	public void processTreePos(final HDLmTree treePos);
 }

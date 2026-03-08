@@ -48,7 +48,7 @@ public class HDLmModRules extends HDLmMod {
 	/* This is one of the constructors for the rules definition class.
 	   It must be passed a JSON element that contains all of the details
  	   of the rules definition. */
-	protected HDLmModRules(JsonElement jsonElement) {
+	protected HDLmModRules(final JsonElement jsonElement) {
 		/* Invoke the default constructor for the parent class. This is 
 	     required by the Java language. */ 
 	  super();
@@ -153,8 +153,8 @@ public class HDLmModRules extends HDLmMod {
      and returns the final rules (rules node) tree node to the
 	   caller. The rules (rules instance) reference is used to set 
 	   the details of the new tree node. */ 
-	protected static HDLmTree  buildTree(ArrayList<String> oldNodePath, 
-			                                 HDLmModRules newValue) {
+	protected static HDLmTree  buildTree(final ArrayList<String> oldNodePath, 
+			                                 final HDLmModRules newValue) {
 		/* Check if the old node path reference passed by the caller is null */
 		if (oldNodePath == null) {
 		  String  errorText = "Node path reference passed to buildTree is null";
@@ -191,7 +191,7 @@ public class HDLmModRules extends HDLmMod {
 	   division to a rules node. Since only actual rules (and certain
 	   other tree nodes) have details, the caller passes a tree element,
 	   not a modification (an actual rule). */
-	protected void         addDivision(HDLmTree newDivision, HDLmStartupMode startupMode) {
+	protected void         addDivision(final HDLmTree newDivision, final HDLmStartupMode startupMode) {
 		/* Check if the pass-through division reference passed by the caller is null */
 		if (newDivision == null) {
 		  String  errorText = "New division reference passed to addDivision is null";

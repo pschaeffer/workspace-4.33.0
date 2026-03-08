@@ -55,7 +55,7 @@ public class HDLmModData extends HDLmMod {
 	/* This is one of the constructors for the data definition class.
 	   It must be passed a JSON element that contains all of the details
  	   of the data definition. */
-	protected HDLmModData(JsonElement jsonElement) {
+	protected HDLmModData(final JsonElement jsonElement) {
 		/* Invoke the default constructor for the parent class. This is 
 	     required by the Java language. */ 
 	  super();
@@ -163,8 +163,8 @@ public class HDLmModData extends HDLmMod {
      and returns the final data (data node) tree node to the
 	   caller. The data reference is used to set the details 
 	   of the new tree node. */ 
-	protected static HDLmTree  buildTree(ArrayList<String> oldNodePath, 
-			                                 HDLmModData newValue) {
+	protected static HDLmTree  buildTree(final ArrayList<String> oldNodePath, 
+			                                 final HDLmModData newValue) {
 		/* Check if the old node path reference passed by the caller is null */
 		if (oldNodePath == null) {
 		  String  errorText = "Node path reference passed to buildTree is null";
@@ -200,7 +200,7 @@ public class HDLmModData extends HDLmMod {
 	   division to a data node. Since only actual data values (and 
 	   certain other tree nodes) have details, the caller passes a
 	   tree element, not a data value. */
-	protected void         addDivision(HDLmTree newDivision, HDLmStartupMode startupMode) {
+	protected void         addDivision(final HDLmTree newDivision, final HDLmStartupMode startupMode) {
 		/* Check if the pass-through division reference passed by the caller is null */
 		if (newDivision == null) {
 		  String  errorText = "New division reference passed to addDivision is null";

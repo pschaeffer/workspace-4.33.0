@@ -24,7 +24,7 @@ public class HDLmHamming {
 	/* This is the base hamming distance algorithm. This code
 	   assumes both input values can be stored in a Java long
 	   (non-Object version of Long) variables. */
-	protected static int distance(long first, long second) {
+	protected static int distance(final long first, final long second) {
   	/* Run the first xor */
 	  long  value = first ^ second;
 	  int   distance = 0;
@@ -41,7 +41,7 @@ public class HDLmHamming {
      strings. These strings can be of any length. However, they
      must be the same length. The hamming distance is calculated
      and then divided by the length of each input string in bits. */
-  protected static double distanceAdjusted(String first, String second) {
+  protected static double distanceAdjusted(final String first, final String second) {
     /* Run the raw hamming distance value */
     double distance = distanceLong(first, second);
     /* Return the final distance value */

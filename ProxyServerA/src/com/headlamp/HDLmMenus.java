@@ -35,10 +35,10 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmMenus.class);
 	   information passed by the caller. This routine does not store
 	   the new modification name anywhere. However, it (the new name)
 	   is returned to the caller. */
-	protected static String  buildModificationName(HDLmTree parentTreeNode, 
-			                                           ArrayList<HDLmTree> childList, 
-	                                               String newUrlStr, 
-	                                               String newDetailsType) {
+	protected static String  buildModificationName(final HDLmTree parentTreeNode, 
+			                                           final ArrayList<HDLmTree> childList, 
+	                                               final String newUrlStr, 
+	                                               final String newDetailsType) {
 	  boolean   logIsDebugEnabled = LOG.isDebugEnabled();
 		if (logIsDebugEnabled) {
 		  LOG.debug("In buildModificationName");
@@ -102,8 +102,8 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmMenus.class);
 	}
 	/* The routine below is not really used in the Java environment.
 	   Just check the values passed by the caller and return. */ 
-	protected static String finishTreeNode(HDLmTree currentTreeNode, 
-			                                   boolean containerAvailable) {
+	protected static String finishTreeNode(final HDLmTree currentTreeNode, 
+			                                   final boolean containerAvailable) {
 		/* Check if the tree node passed to this routine is null */
 		if (currentTreeNode == null) {
 			String  errorText = "Tree node reference passed to finishTreeNode is null";
@@ -119,7 +119,7 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmMenus.class);
 	   URL. This code supports both network URLs and data URLs. The leading 
 	   protocol (if any) and the leading colon (if one exists) are always
 	   removed from network URLs. The style must be a background-image style. */
-	protected static String getUrlFromStyle(String styleStr) {
+	protected static String getUrlFromStyle(final String styleStr) {
 		/* Check if the style string passed to this routine is null */
 		if (styleStr == null) {
 			String  errorText = "Style string passed to getUrlFromStyle is null";
@@ -196,13 +196,13 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmMenus.class);
    is being build. Of course, the default values may be wrong. However,
 	 they may be OK as well. The user is free to change (using the UI)
 	 these values as need be. */
-	protected static void provideDefaultValues(HDLmOperationTypes operationType,
-			                                       HDLmTree parentTreeNode,
-	                                           HDLmTree newTreeNode,
-									                           JsonObject newNodeIdenObj,
-									                           String newUrlStr,
-									                           String newOrderInfo,
-									                           boolean newCopyElements) {
+	protected static void provideDefaultValues(final HDLmOperationTypes operationType,
+			                                       final HDLmTree parentTreeNode,
+	                                           final HDLmTree newTreeNode,
+									                           final JsonObject newNodeIdenObj,
+									                           final String newUrlStr,
+									                           final String newOrderInfo,
+									                           final boolean newCopyElements) {
 		/* Check if the operation type passed to this routine is null */
 		if (operationType == null) {
 			String  errorText = "Operation type passed to provideDefaultValues is null";
@@ -514,8 +514,8 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmMenus.class);
   /* This method searches a set of nodes (a node hierarchy) for 
      the desired tag value. If the desired tag value is found,
      the node with the desired tag is returned to the caller. */
-	protected static JsonElement searchNodeTag(JsonElement nodeObj, 
-			                                       String searchStr) {
+	protected static JsonElement searchNodeTag(final JsonElement nodeObj, 
+			                                       final String searchStr) {
 		/* Check if the JSON element passed to this routine is null */
 		if (nodeObj == null) {
 			String  errorText = "Node object (JSON element) passed to searchNodeTag is null";

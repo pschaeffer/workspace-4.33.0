@@ -16,9 +16,9 @@ public class HDLmOpenAIEditImageResponse {
   /* This class can be instantiated using the
      constructor below */
 	@SuppressWarnings("unused")
-	protected HDLmOpenAIEditImageResponse(ArrayList<String> nodePathValue, 
-			                                  ArrayList<String> choicesValue,
-			                                  String messageStr) {
+	protected HDLmOpenAIEditImageResponse(final ArrayList<String> nodePathValue, 
+			                                  final ArrayList<String> choicesValue,
+			                                  final String messageStr) {
 		/* Check if the node path passed by the caller is null. This 
 		   check is not really done because the node path value can 
 		   be null in some cases. */

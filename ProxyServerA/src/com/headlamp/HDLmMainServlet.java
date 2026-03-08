@@ -32,9 +32,9 @@ public class HDLmMainServlet extends HttpServlet {
   private static final Logger LOG = LoggerFactory.getLogger(HDLmMainServlet.class);
 	/* Handle the current servlet operations. The code is the same for 
      all cases, as it turns out. */
-	protected void doAll(HttpServletRequest request, 
-			                 HttpServletResponse response,
-			                 HDLmHttpTypes httpType)
+	protected void doAll(final HttpServletRequest request, 
+			                 final HttpServletResponse response,
+			                 final HDLmHttpTypes httpType)
 			                 throws IOException {
 		/* Get the host name specified by the client. This call does not
 		   always return a valid host name. For some reason, this call
@@ -508,6 +508,8 @@ public class HDLmMainServlet extends HttpServlet {
 				HDLmTiming.addTiming(HDLmTimingTypes.GENERAL, "Before handleJavaScriptRequest in doAll"); 
       	HDLmJetty.handleJavaScriptRequest(request, response, clientStr,
                                           timeStamp);
+    		/* Add the Access-Control-Allow-Origin header */
+    		/* HDLmJetty.handleResponseAllowAllOrigins(request, response); */
       	HDLmTiming.addTiming(HDLmTimingTypes.GENERAL, "After handleJavaScriptRequest in doAll"); 
       	int   responseCode = response.getStatus();
       	/* LOG.info("In getGenericJsCheck"); */
@@ -591,8 +593,8 @@ public class HDLmMainServlet extends HttpServlet {
      generated for the proxy server and the editors. Each request
      is checked and handled as need be. */ 
   @Override
-  protected void doDelete(HttpServletRequest request, 
-  		                    HttpServletResponse response)
+  protected void doDelete(final HttpServletRequest request, 
+  		                    final HttpServletResponse response)
                           throws ServletException, IOException {
 		/* Handle the current servlet request */
 		doAll(request, response, HDLmHttpTypes.DELETE);
@@ -601,8 +603,8 @@ public class HDLmMainServlet extends HttpServlet {
 	   generated for the proxy server and the editors. Each request
 	   is checked and handled as need be. */	 
   @Override
-  protected void doGet(HttpServletRequest request, 
-  		                 HttpServletResponse response)
+  protected void doGet(final HttpServletRequest request, 
+  		                 final HttpServletResponse response)
                        throws ServletException, IOException {
 		/* Add some thread status information */
 		HDLmThreadStatus.put("Main Servlet Get");
@@ -613,8 +615,8 @@ public class HDLmMainServlet extends HttpServlet {
      generated for the proxy server and the editors. Each request
      is checked and handled as need be. */	 
 	@Override
-	protected void doHead(HttpServletRequest request, 
-			                  HttpServletResponse response)
+	protected void doHead(final HttpServletRequest request, 
+			                  final HttpServletResponse response)
 	                      throws ServletException, IOException {
 		/* Add some thread status information */
 		HDLmThreadStatus.put("Main Servlet Head");
@@ -625,8 +627,8 @@ public class HDLmMainServlet extends HttpServlet {
      generated for the proxy server and the editors. Each request
      is checked and handled as need be. */
 	@Override
-	protected void doOptions(HttpServletRequest request, 
-			                     HttpServletResponse response)
+	protected void doOptions(final HttpServletRequest request, 
+			                     final HttpServletResponse response)
 	                         throws ServletException, IOException {
 		/* Add some thread status information */
 		HDLmThreadStatus.put("Main Servlet Options");
@@ -637,8 +639,8 @@ public class HDLmMainServlet extends HttpServlet {
      generated for the proxy server and the editors. Each request
      is checked and handled as need be. */
 	@Override
-	protected void doPost(HttpServletRequest request, 
-			                  HttpServletResponse response)
+	protected void doPost(final HttpServletRequest request, 
+			                  final HttpServletResponse response)
 	                      throws ServletException, IOException {
 		/* Add some thread status information */
 		HDLmThreadStatus.put("Main Servlet Post");
@@ -649,8 +651,8 @@ public class HDLmMainServlet extends HttpServlet {
      generated for the proxy server and the editors. Each request
      is checked and handled as need be. */ 
 	@Override
-	protected void doPut(HttpServletRequest request, 
-			                 HttpServletResponse response)
+	protected void doPut(final HttpServletRequest request, 
+			                 final HttpServletResponse response)
 	                     throws ServletException, IOException {
 		/* Add some thread status information */
 		HDLmThreadStatus.put("Main Servlet Put");

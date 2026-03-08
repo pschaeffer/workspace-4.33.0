@@ -17,33 +17,33 @@ public class HDLmNoLogging implements Logger {
 		return "no"; 
   }
 	@Override
-	public void debug(String msg, long value) {}   
+	public void debug(final String msg, final long value) {}   
   @Override 
-  public void debug(String msg, Object... args) {}
+  public void debug(final String msg, final Object... args) {}
   @Override 
-  public void debug(String msg, Throwable thrown) {}
+  public void debug(final String msg, final Throwable thrown) {}
   @Override 
-  public void debug(Throwable thrown) {}
+  public void debug(final Throwable thrown) {}
   @Override 
-  public Logger getLogger(String name) { 
+  public Logger getLogger(final String name) { 
   	return this; 
   }
   @Override 
-  public void ignore(Throwable ignored) {}
+  public void ignore(final Throwable ignored) {}
   @Override 
-  public void info(String msg, Object... args) {}
+  public void info(final String msg, final Object... args) {}
   @Override 
-  public void info(String msg, Throwable thrown) {}
+  public void info(final String msg, final Throwable thrown) {}
   @Override 
-  public void info(Throwable thrown) {}
+  public void info(final Throwable thrown) {}
   @Override 
   public boolean isDebugEnabled() { return false; }
   @Override 
-  public void setDebugEnabled(boolean enabled) {}
+  public void setDebugEnabled(final boolean enabled) {}
   @Override 
-  public void warn(String msg, Object... args) {}
+  public void warn(final String msg, final Object... args) {}
   @Override 
-  public void warn(String msg, Throwable thrown) {}
+  public void warn(final String msg, final Throwable thrown) {}
   @Override 
-  public void warn(Throwable thrown) {}
+  public void warn(final Throwable thrown) {}
 }

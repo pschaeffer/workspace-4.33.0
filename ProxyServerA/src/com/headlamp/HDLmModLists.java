@@ -54,7 +54,7 @@ public class HDLmModLists extends HDLmMod {
 	/* This is one of the constructors for the lists (set of ignore-lists) definition
 	   class. It must be passed a JSON element that contains all of the details
      of the lists (set of ignore-lists) definition. */
-	protected HDLmModLists(JsonElement jsonElement) {
+	protected HDLmModLists(final JsonElement jsonElement) {
 		/* Invoke the default constructor for the parent class. This is 
 		   required by the Java language. */ 
 		super();
@@ -198,8 +198,8 @@ public class HDLmModLists extends HDLmMod {
 	   and returns the final lists (set of ignore-lists) tree node to the
 	   caller. The lists (set of ignore-lists) reference is used to set
 	   the details of the new tree node. */ 
-	protected static HDLmTree  buildTree(ArrayList<String> oldNodePath, 
-			                                 HDLmModLists newValue) {
+	protected static HDLmTree  buildTree(final ArrayList<String> oldNodePath, 
+			                                 final HDLmModLists newValue) {
 		/* Check if the old node path reference passed by the caller is null */
 		if (oldNodePath == null) {
 		  String  errorText = "Node path reference passed to buildTree is null";

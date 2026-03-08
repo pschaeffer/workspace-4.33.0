@@ -59,7 +59,7 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmImageInformation.c
 	   Note that the caller can not pass an invalid (null) 
 	   value for the new image parameter. This is an an 
 	   error condition. */
-	protected void addParameter(HDLmImageParameter newImageParm) {
+	protected void addParameter(final HDLmImageParameter newImageParm) {
 		if (newImageParm == null) {
 			String  errorText = "New image parameter is null";
 			throw new NullPointerException(errorText);
@@ -76,9 +76,9 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmImageInformation.c
 	   value must not be followed by an equals sign. If the special
 	   value is followed by an equals sign, then we really have a 
 	   content type, not a true special value. */
-	protected static boolean checkBase64(String urlStr,
-			                                 int curPos,
-			                                 HDLmImageInformation imageInfo) {
+	protected static boolean checkBase64(final String urlStr,
+			                                       int curPos,
+			                                 final HDLmImageInformation imageInfo) {
 		/* Check if the URL string passed by the caller is null */
 		if (urlStr == null) {
 			String  errorText = "URL string passed to checkBase64 is null";
@@ -293,9 +293,9 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmImageInformation.c
      errors are detected, then an error message is stored in the
      image information object and a negative current position is 
      returned to the caller. */ 
-	protected static int getBase64FromData(String urlStr,
-			                                   int curPos,
-			                                   HDLmImageInformation imageInfo) {
+	protected static int getBase64FromData(final String urlStr,
+			                                         int curPos,
+			                                   final HDLmImageInformation imageInfo) {
 		/* Check if the URL string passed by the caller is null */
 		if (urlStr == null) {
 			String  errorText = "URL string passed to getBase64FromData is null";
@@ -364,9 +364,9 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmImageInformation.c
 	   errors are detected, then an error message is stored in the
 	   image information object and a negative current position is 
 	   returned to the caller. */ 
-	protected static int getComma(String urlStr,
-			                          int curPos,
-			                          HDLmImageInformation imageInfo) {
+	protected static int getComma(final String urlStr,
+			                                int curPos,
+			                          final HDLmImageInformation imageInfo) {
 		/* Check if the URL string passed by the caller is null */
 		if (urlStr == null) {
 			String  errorText = "URL string passed to getComma is null";
@@ -432,9 +432,9 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmImageInformation.c
 	   errors are detected, then an error message is stored in the
 	   image information object and a negative current position is 
 	   returned to the caller. */ 
-	protected static int getDataPrefix(String urlStr,
-			                               int curPos,
-			                               HDLmImageInformation imageInfo) {
+	protected static int getDataPrefix(final String urlStr,
+			                                     int curPos,
+			                               final HDLmImageInformation imageInfo) {
 		/* Check if the URL string passed by the caller is null */
 		if (urlStr == null) {
 			String  errorText = "URL string passed to getDataPrefix is null";
@@ -519,9 +519,9 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmImageInformation.c
 	   a negative current position is returned to the caller. 
 	   The data value may be zero-length. This is not an error
 	   condition. */ 
-	protected static int getDataValue(String urlStr,
-			                              int curPos,
-			                              HDLmImageInformation imageInfo) {
+	protected static int getDataValue(final String urlStr,
+			                                    int curPos,
+			                              final HDLmImageInformation imageInfo) {
 		/* Check if the URL string passed by the caller is null */
 		if (urlStr == null) {
 			String  errorText = "URL string passed to getDataValue is null";
@@ -566,9 +566,9 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmImageInformation.c
 	   errors are detected, then an error message is stored in the
 	   image information object and a negative current position is 
 	   returned to the caller. Note that the media type is optional. */ 
-	protected static int getMediaType(String urlStr,
-			                              int curPos,
-			                              HDLmImageInformation imageInfo) {
+	protected static int getMediaType(final String urlStr,
+			                                    int curPos,
+			                              final HDLmImageInformation imageInfo) {
 		/* Check if the URL string passed by the caller is null */
 		if (urlStr == null) {
 			String  errorText = "URL string passed to getMediaType is null";
@@ -611,7 +611,7 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmImageInformation.c
 	   first valid entry (if there is one) is zero, not one. If the
 	   index value passed to this routine is invalid, this routine will
 	   throw an exception. */ 
-  protected HDLmImageParameter getParameter(int index) {
+  protected HDLmImageParameter getParameter(final int index) {
 		/* Check if the index value passed by the caller is invalid or not */
 		if (index < 0) {
 			String  errorText = String.format("Index value (%d) passed to getParameter is less than zero", 
@@ -643,10 +643,10 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmImageInformation.c
 	   will be updated and the new current position value will be 
 	   returned to the caller. If another parameter is not found, 
 	   then the current position will not be changed. */ 
-	protected static int getParameterFromData(String urlStr,
-			                                      int curPos,
-			                                      HDLmImageInformation imageInfo,
-			                                      HDLmImageParameter imageParm) {
+	protected static int getParameterFromData(final String urlStr,
+			                                            int curPos,
+			                                      final HDLmImageInformation imageInfo,
+			                                      final HDLmImageParameter imageParm) {
 		/* Check if the URL string passed by the caller is null */
 		if (urlStr == null) {
 			String  errorText = "URL string passed to getParameterFromData is null";
@@ -789,9 +789,9 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmImageInformation.c
 	   errors are detected, then an error message is stored in the
 	   image information object and a negative current position is 
 	   returned to the caller. Note that the parameters are optional. */ 
-	protected static int getParameters(String urlStr,
-			                               int curPos,
-			                               HDLmImageInformation imageInfo) {
+	protected static int getParameters(final String urlStr,
+			                                     int curPos,
+			                               final HDLmImageInformation imageInfo) {
 		/* Check if the URL string passed by the caller is null */
 		if (urlStr == null) {
 			String  errorText = "URL string passed to getParameters is null";
@@ -853,9 +853,9 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmImageInformation.c
      the media type and subtype are optional. However, when this 
      routine is called, we have already obtained the type value which
      makes the subtype mandatory. */ 
-	protected static int getSubTypeFromData(String urlStr,
-			                                    int curPos,
-			                                    HDLmImageInformation imageInfo) {
+	protected static int getSubTypeFromData(final String urlStr,
+			                                          int curPos,
+			                                    final HDLmImageInformation imageInfo) {
 		/* Check if the URL string passed by the caller is null */
 		if (urlStr == null) {
 			String  errorText = "URL string passed to getSubTypeFromData is null";
@@ -946,9 +946,9 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmImageInformation.c
 	   The possibly modified current position is not returned to the
 	   caller in any way. The caller can infer the updated current
 	   position (maybe) by checking the length of the returned string. */ 
-	protected static String getTokensValue(String urlStr,
-			                                   int curPos,
-			                                   HDLmImageInformation imageInfo) {
+	protected static String getTokensValue(final String urlStr,
+			                                         int curPos,
+			                                   final HDLmImageInformation imageInfo) {
 		/* Check if the URL string passed by the caller is null */
 		if (urlStr == null) {
 			String  errorText = "URL string passed to getTokensValue is null";
@@ -1041,9 +1041,9 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmImageInformation.c
 	   image information object and a negative current position is 
 	   returned to the caller. Note that the media type and subtype 
 	   are optional. */ 
-	protected static int getTypeSubType(String urlStr,
-			                                int curPos,
-			                                HDLmImageInformation imageInfo) {
+	protected static int getTypeSubType(final String urlStr,
+			                                      int curPos,
+			                                final HDLmImageInformation imageInfo) {
 		/* Check if the URL string passed by the caller is null */
 		if (urlStr == null) {
 			String  errorText = "URL string passed to getTypeSubType is null";
@@ -1128,7 +1128,7 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmImageInformation.c
 	   ultimately returns an object to the caller. The object
 	   describes the data URL and contains a reference to the
 	   image (if any). */ 
-	protected static HDLmImageInformation processDataUrl(String urlStr) {
+	protected static HDLmImageInformation processDataUrl(final String urlStr) {
 		/* Check if the URL string passed by the caller is null */
 		if (urlStr == null) {
 			String  errorText = "URL string passed to processDataUrl is null";
@@ -1198,13 +1198,13 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmImageInformation.c
 		return imageInfo;
 	}
 	/* Set or reset the base64 value */
-	protected void setBase64(boolean newBase64) {
+	protected void setBase64(final boolean newBase64) {
 		imageBase64 = newBase64;
 	}
 	/* Set or reset the data value. Note that the caller can 
      not pass a null value for the new data value. This is 
      an error condition. */
-	protected void setDataRaw(String newDataValue) {
+	protected void setDataRaw(final String newDataValue) {
 		if (newDataValue == null) {
 			String  errorText = "New raw data value string is null";
 			throw new NullPointerException(errorText);
@@ -1214,7 +1214,7 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmImageInformation.c
 	/* Set or reset the error message. Note that the caller can 
 	   not pass a null value for the new error message. This is 
 	   an error condition. */
-	protected void setErrorMessage(String newErrorMessage) {
+	protected void setErrorMessage(final String newErrorMessage) {
 		if (newErrorMessage == null) {
 			String  errorText = "New error message string is null";
 			throw new NullPointerException(errorText);
@@ -1224,7 +1224,7 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmImageInformation.c
 	/* Set or reset the image reference. Note that the caller can 
      not pass a null value for the new image reference. This is 
      an error condition. */
-	protected void setImage(Image newImage) {
+	protected void setImage(final Image newImage) {
 		if (newImage == null) {
 			String  errorText = "New image reference is null";
 			throw new NullPointerException(errorText);
@@ -1232,13 +1232,13 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmImageInformation.c
 		imageImage = newImage;
 	}
 	/* Set or reset the image validity value */
-	protected void setImageValid(boolean newValid) {
+	protected void setImageValid(final boolean newValid) {
 		imageValid = newValid;
 	}
 	/* Set or reset the subtype value. Note that the caller can 
      not pass an invalid (null) value for the new subtype value. 
      This is an error condition. */
-	protected void setSubType(String newSubTypeValue) {
+	protected void setSubType(final String newSubTypeValue) {
 		if (newSubTypeValue == null) {
 		  HDLmAssertAction(false, "New subtype value is a null string"); 
 		}
@@ -1247,7 +1247,7 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmImageInformation.c
 	/* Set or reset the type value. Note that the caller can 
      not pass an invalid (null) value for the new type value. 
      This is an error condition. */
-	protected void setType(String newTypeValue) {
+	protected void setType(final String newTypeValue) {
 		if (newTypeValue == null) {
 		  HDLmAssertAction(false, "New type value is a null string"); 
 		}
