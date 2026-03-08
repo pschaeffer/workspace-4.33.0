@@ -139,7 +139,7 @@ public class HDLmOpenAI {
 			/* inputImageStr = "https://cdn.openai.com/API/images/guides/image_variation_original.webp"; */
 			URL   imageUrl = HDLmHttp.encodeUrl(inputImageUrl);  
 			inputImageStrEncoded = imageUrl.toString();
-			BufferedImage           imageBuffered = ImageIO.read(imageUrl);
+			BufferedImage   imageBuffered = ImageIO.read(imageUrl);
 			imageBuffered = HDLmOpenAI.getSquareImage(imageBuffered);
 			ByteArrayOutputStream   imageBaos = new ByteArrayOutputStream();
 			ImageIO.write(imageBuffered, "png", imageBaos);
