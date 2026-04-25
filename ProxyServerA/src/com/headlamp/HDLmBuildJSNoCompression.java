@@ -162,6 +162,8 @@ class HDLmBuildJsNoCompression {
     builder.addLine("                        logRuleMatching,");
     builder.addLine("                        readyState) {");
     builder.addLine("    /* console.log('In HDLmApplyMod', sessionIndexValue, typeof(sessionIndexValue)); */");
+    builder.addLine("    /* console.log(curMod.name); */");
+    /* LOG.info("This is a test"); */
     builder.addLine("    /* console.log(readyState); */");
     builder.addLine("    /* Save a few values passed by the caller in session storage. These");
     builder.addLine("       values may be used later to construct new rules or for other");
@@ -4732,7 +4734,7 @@ class HDLmBuildJsNoCompression {
         "]" +
         "";
 			/* Create a new JSON parser for use below */
-	    static JsonParser  parser = new JsonParser();  
+	    static JsonParser  parser = HDLmMain.gsonJsonParserMain;  
 	    /* Convert the JSON string to a JSON array */
 	    static JsonArray   rvJsonArray = (JsonArray) parser.parse(jsonString);
   	}

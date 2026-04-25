@@ -570,7 +570,7 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmTransferSomething.
 				/* Try to convert the information JSON string to a JSON object. If this fails,
 			     then we do not have a string than can be converted to a JSON object. If this
 			     works, then we do have string than can be converted to a JSON object. */
-	  	  JsonParser    parser = new JsonParser();		
+	  	  JsonParser    parser = HDLmMain.gsonJsonParserMain;		
 	  		/* Check if the JSON parser object was properly allocated */ 
 				if (parser == null) {
 					String  errorText = "JSON parser object was not allocated in insertRowList";

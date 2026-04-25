@@ -3691,7 +3691,7 @@ class HDLmBuildJsCompressBlanks{
         "}"+
         "]"+
         "";
-	    static JsonParser  parser=new JsonParser();
+	    static JsonParser  parser = HDLmMain.gsonJsonParserMain;
 	    static JsonArray   rvJsonArray= (JsonArray) parser.parse(jsonString);
 }
     return getIndexJsonArrayLocal.rvJsonArray;

@@ -117,7 +117,7 @@ class HDLmModTestNotUsed {
 	void HDLmModJsonConstructor() {
 		/* Run a few HDLmModJsonConstructor tests */
 		String       modName = "OWO Home Bottom Text";
-    JsonParser   parser = new JsonParser();  
+    JsonParser   parser = HDLmMain.gsonJsonParserMain;  
     JsonElement  topNode = parser.parse(HDLmTreeData.jsonGetModStr); 
     JsonObject   topNodeObject = topNode.getAsJsonObject();
     Set<String>  topKeys = topNodeObject.keySet();
@@ -1017,7 +1017,7 @@ class HDLmModTestNotUsed {
 		/* Run a few modArrayCheck tests */
   	HDLmEditorTypes  editorType = HDLmEditorTypes.MOD;
 		String           modName = "OWO Home Bottom Text";
-    JsonParser       parser = new JsonParser();  
+    JsonParser       parser = HDLmMain.gsonJsonParserMain;  
     JsonElement      topNode = parser.parse(HDLmTreeData.jsonGetModStr); 
     JsonObject       topNodeObject = topNode.getAsJsonObject();
     Set<String>      topKeys = topNodeObject.keySet();
@@ -1172,7 +1172,7 @@ class HDLmModTestNotUsed {
 		/* Run a few modFieldBoolean tests */
   	HDLmEditorTypes  editorType = HDLmEditorTypes.MOD;
 		String           modName = "OWO Home Bottom Text";
-    JsonParser       parser = new JsonParser();  
+    JsonParser       parser = HDLmMain.gsonJsonParserMain;  
     JsonElement      topNode = parser.parse(HDLmTreeData.jsonGetModStr); 
     JsonObject       topNodeObject = topNode.getAsJsonObject();
     Set<String>      topKeys = topNodeObject.keySet();
@@ -1252,7 +1252,7 @@ class HDLmModTestNotUsed {
 		/* Run a few modFieldFind tests */
   	HDLmEditorTypes  editorType = HDLmEditorTypes.MOD;
 		String           modName = "OWO Home Bottom Text";
-    JsonParser       parser = new JsonParser();  
+    JsonParser       parser = HDLmMain.gsonJsonParserMain;  
     JsonElement      topNode = parser.parse(HDLmTreeData.jsonGetModStr); 
     JsonObject       topNodeObject = topNode.getAsJsonObject();
     Set<String>      topKeys = topNodeObject.keySet();
@@ -1387,7 +1387,7 @@ class HDLmModTestNotUsed {
 		/* Run a few modFieldFindArray tests */
   	HDLmEditorTypes  editorType = HDLmEditorTypes.MOD;
 		String           modName = "OWO Home Bottom Text";
-    JsonParser       parser = new JsonParser();  
+    JsonParser       parser = HDLmMain.gsonJsonParserMain;  
     JsonElement      topNode = parser.parse(HDLmTreeData.jsonGetModStr); 
     JsonObject       topNodeObject = topNode.getAsJsonObject();
     Set<String>      topKeys = topNodeObject.keySet();
@@ -1537,7 +1537,7 @@ class HDLmModTestNotUsed {
 		/* Run a few modFieldInteger tests */
   	HDLmEditorTypes  editorType = HDLmEditorTypes.MOD;
 		String           modName = "OWO Home Bottom Text";
-    JsonParser       parser = new JsonParser();  
+    JsonParser       parser = HDLmMain.gsonJsonParserMain;  
     JsonElement      topNode = parser.parse(HDLmTreeData.jsonGetModStr); 
     JsonObject       topNodeObject = topNode.getAsJsonObject();
     Set<String>      topKeys = topNodeObject.keySet();
@@ -1688,7 +1688,7 @@ class HDLmModTestNotUsed {
  		/* Run a few modFieldModType tests */
   	HDLmEditorTypes  editorType = HDLmEditorTypes.MOD;
  		String           modName = "OWO Home Bottom Text";
-    JsonParser       parser = new JsonParser();  
+    JsonParser       parser = HDLmMain.gsonJsonParserMain;  
     JsonElement      topNode = parser.parse(HDLmTreeData.jsonGetModStr); 
     JsonObject       topNodeObject = topNode.getAsJsonObject();
     Set<String>      topKeys = topNodeObject.keySet();
@@ -1839,7 +1839,7 @@ class HDLmModTestNotUsed {
 		/* Run a few modFieldString tests */
   	HDLmEditorTypes  editorType = HDLmEditorTypes.MOD;
 		String           modName = "OWO Home Bottom Text";
-    JsonParser       parser = new JsonParser();  
+    JsonParser       parser = HDLmMain.gsonJsonParserMain;  
     JsonElement      topNode = parser.parse(HDLmTreeData.jsonGetModStr); 
     JsonObject       topNodeObject = topNode.getAsJsonObject();
     Set<String>      topKeys = topNodeObject.keySet();
@@ -2105,7 +2105,7 @@ class HDLmModTestNotUsed {
 		/* Run a few modFieldStringArray tests */
   	HDLmEditorTypes  editorType = HDLmEditorTypes.MOD;
 		String           modName = "OWO Home Bottom Text";
-    JsonParser       parser = new JsonParser();  
+    JsonParser       parser = HDLmMain.gsonJsonParserMain;  
     JsonElement      topNode = parser.parse(HDLmTreeData.jsonGetModStr); 
     JsonObject       topNodeObject = topNode.getAsJsonObject();
     Set<String>      topKeys = topNodeObject.keySet();
@@ -2450,7 +2450,7 @@ class HDLmModTestNotUsed {
 		/* Run a few modFindCheck tests */
   	HDLmEditorTypes  editorType = HDLmEditorTypes.MOD;
 		String           modName = "OWO Home Bottom Text";
-    JsonParser       parser = new JsonParser();  
+    JsonParser       parser = HDLmMain.gsonJsonParserMain;  
     JsonElement      topNode = parser.parse(HDLmTreeData.jsonGetModStr); 
     JsonObject       topNodeObject = topNode.getAsJsonObject();
     Set<String>      topKeys = topNodeObject.keySet();
@@ -2598,7 +2598,7 @@ class HDLmModTestNotUsed {
 		/* Run a few modLocateCheck tests */
   	HDLmEditorTypes  editorType = HDLmEditorTypes.MOD;
 		String           modName = "OWO Home Bottom Text";
-    JsonParser       parser = new JsonParser();  
+    JsonParser       parser = HDLmMain.gsonJsonParserMain;  
     JsonElement      topNode = parser.parse(HDLmTreeData.jsonGetModStr); 
     JsonObject       topNodeObject = topNode.getAsJsonObject();
     Set<String>      topKeys = topNodeObject.keySet();
@@ -2806,7 +2806,7 @@ class HDLmModTestNotUsed {
 		/* Build a list of acceptable suffix values */
 		ArrayList<String>  fontSuffixValues = new ArrayList<String>(
 		  List.of("px", "em", "%"));
-    JsonParser   parser = new JsonParser();  
+    JsonParser   parser = HDLmMain.gsonJsonParserMain;  
     JsonElement  topNode = parser.parse(HDLmTreeData.jsonGetModStr); 
     JsonObject   topNodeObject = topNode.getAsJsonObject();
     Set<String>  topKeys = topNodeObject.keySet();
@@ -2991,7 +2991,7 @@ class HDLmModTestNotUsed {
 		/* Run a few rangeField tests */
   	HDLmEditorTypes  editorType = HDLmEditorTypes.MOD;
 		String           modName = "OWO Home Bottom Text";
-    JsonParser       parser = new JsonParser();  
+    JsonParser       parser = HDLmMain.gsonJsonParserMain;  
     JsonElement      topNode = parser.parse(HDLmTreeData.jsonGetModStr); 
     JsonObject       topNodeObject = topNode.getAsJsonObject();
     Set<String>      topKeys = topNodeObject.keySet();
@@ -3170,7 +3170,7 @@ class HDLmModTestNotUsed {
 		/* Run a few reportError tests */
   	HDLmEditorTypes  editorType = HDLmEditorTypes.MOD;
 		String           modName = "OWO Home Bottom Text";
-    JsonParser       parser = new JsonParser();  
+    JsonParser       parser = HDLmMain.gsonJsonParserMain;  
     JsonElement      topNode = parser.parse(HDLmTreeData.jsonGetModStr); 
     JsonObject       topNodeObject = topNode.getAsJsonObject();
     Set<String>      topKeys = topNodeObject.keySet();
@@ -3306,7 +3306,7 @@ class HDLmModTestNotUsed {
 		/* Run a few reportErrorNoValue tests */
   	HDLmEditorTypes  editorType = HDLmEditorTypes.MOD;
 		String           modName = "OWO Home Bottom Text";
-    JsonParser       parser = new JsonParser();  
+    JsonParser       parser = HDLmMain.gsonJsonParserMain;  
     JsonElement      topNode = parser.parse(HDLmTreeData.jsonGetModStr); 
     JsonObject       topNodeObject = topNode.getAsJsonObject();
     Set<String>      topKeys = topNodeObject.keySet();
@@ -3457,7 +3457,7 @@ class HDLmModTestNotUsed {
 		/* Run a few reportErrorValue tests */
   	HDLmEditorTypes  editorType = HDLmEditorTypes.MOD;
 		String           modName = "OWO Home Bottom Text";
-    JsonParser       parser = new JsonParser();  
+    JsonParser       parser = HDLmMain.gsonJsonParserMain;  
     JsonElement      topNode = parser.parse(HDLmTreeData.jsonGetModStr); 
     JsonObject       topNodeObject = topNode.getAsJsonObject();
     Set<String>      topKeys = topNodeObject.keySet();
@@ -3631,7 +3631,7 @@ class HDLmModTestNotUsed {
 		/* Run a few reportField tests */
   	HDLmEditorTypes  editorType = HDLmEditorTypes.MOD;
 		String           modName = "OWO Home Bottom Text";
-    JsonParser       parser = new JsonParser();  
+    JsonParser       parser = HDLmMain.gsonJsonParserMain;  
     JsonElement      topNode = parser.parse(HDLmTreeData.jsonGetModStr); 
     JsonObject       topNodeObject = topNode.getAsJsonObject();
     Set<String>      topKeys = topNodeObject.keySet();
@@ -3868,7 +3868,7 @@ class HDLmModTestNotUsed {
 	void truncateJson() { 
 		/* Run a few truncateJson tests */
 		String       modName = "OWO Home Bottom Text";
-    JsonParser   parser = new JsonParser();  
+    JsonParser   parser = HDLmMain.gsonJsonParserMain;  
     JsonElement  topNode = parser.parse(HDLmTreeData.jsonGetModStr); 
     JsonObject   topNodeObject = topNode.getAsJsonObject();
     Set<String>  topKeys = topNodeObject.keySet();

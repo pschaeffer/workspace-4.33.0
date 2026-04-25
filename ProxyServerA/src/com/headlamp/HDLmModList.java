@@ -68,7 +68,7 @@ public class HDLmModList extends HDLmMod {
 			HDLmAssertAction(false, "New TreeMap<> not created for ignore-list entries");
 		for (Map.Entry<String, HDLmModIgnore> entry : oldList.ignoreEntries.entrySet()) {
 			HDLmModIgnore  ignoreListEntry = entry.getValue();
-			String              ignoreListEntryName = entry.getKey();
+			String         ignoreListEntryName = entry.getKey();
 			ignoreEntries.put(ignoreListEntryName, ignoreListEntry);
 		}
 		/* Copy all of the base class fields for the current instance */
@@ -181,9 +181,9 @@ public class HDLmModList extends HDLmMod {
 	}
 	/* Getters and setters are provided for the values that 
      need to be obtained and/or set */ 
-	private HDLmTreeTypes                         associatedNodeType = null;
-  private Integer                               countIgnores = 0;  
-  private TreeMap<String, HDLmModIgnore>   ignoreEntries = null;
+	private HDLmTreeTypes                   associatedNodeType = null;
+  private Integer                         countIgnores = 0;  
+  private TreeMap<String, HDLmModIgnore>  ignoreEntries = null;
   /* This routine adds a new ignore-list entry to an ignore-list */
   protected void         addIgnoreEntry(final HDLmModIgnore ignoreEntry,
   		                                  final HDLmStartupMode startupMode) {

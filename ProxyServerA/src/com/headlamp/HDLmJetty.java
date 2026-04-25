@@ -584,7 +584,7 @@ public class HDLmJetty {
 		     then we do not have a string than can be converted to a
 		     JSON object. If this works, then we do have string than
 		     can be converted to a JSON object. */
-	    JsonParser    parser = new JsonParser();
+	    JsonParser    parser = HDLmMain.gsonJsonParserMain;
 	    JsonElement   jsonElement = null;
 	    try {
 	    	/* The "JSON" string is actually in HTML parameter format.
@@ -1312,7 +1312,7 @@ public class HDLmJetty {
 			throw new NullPointerException(errorText);
 		}
 		/* Create a new JSON parser for use below */
-	  JsonParser   parser = new JsonParser();
+	  JsonParser   parser = HDLmMain.gsonJsonParserMain;
 	  JsonElement  jsonElement = parser.parse(jsonString);
 	  HDLmJetty.checkForJavaScriptExceptions(jsonElement);
   }
@@ -2067,7 +2067,7 @@ public class HDLmJetty {
 		/* The request payload may contain values that override the 
 		   default values */ 
 		/* Create a new JSON parser for use below */
-    JsonParser    parser = new JsonParser();
+    JsonParser    parser = HDLmMain.gsonJsonParserMain;
     /* Make sure the inbound payload has the required key */
     JsonElement   jsonElement = parser.parse(requestPayload);
 	  /* Check if the JSON message passed by the caller is valid */
@@ -2287,7 +2287,7 @@ public class HDLmJetty {
 		String  jsonStr = request.getParameter("json");
 		/* The JSON is pretty-printed using gson */
 		Gson gson = HDLmMain.gsonPrettyPrintingMain;
-		JsonParser    jsonParser = new JsonParser();
+		JsonParser    jsonParser = HDLmMain.gsonJsonParserMain;
 		JsonElement   jsonElement = jsonParser.parse(jsonStr);
 		String        jsonStringPretty = gson.toJson(jsonElement);
 		/* Add the pretty-printed JSON to the output HTML */
@@ -2417,6 +2417,13 @@ public class HDLmJetty {
 			  String   errorText = String.format(errorFormat, "HDLMAPICHECKUSERNAMEPASSWORD");
 			  HDLmAssertAction(false, errorText);
 	    }
+	    String  checkUserNamePasswordApiNameUpdateMemory = 
+	      HDLmDefines.getString("HDLMAPICHECKUSERNAMEPASSWORDUPDATEMEMORY");
+	    if (checkUserNamePasswordApiNameUpdateMemory == null) {
+	   	  String   errorFormat = "Define value for check/update API name not found (%s)";
+			  String   errorText = String.format(errorFormat, "HDLMAPICHECKUSERNAMEPASSWORDUPDATEMEMORY");
+			  HDLmAssertAction(false, errorText);
+	    }
 	    String  getUserApiName = HDLmDefines.getString("HDLMAPIGETUSER");
 	    if (getUserApiName == null) {
 	   	  String   errorFormat = "Define value for get user API name not found (%s)";
@@ -2466,7 +2473,7 @@ public class HDLmJetty {
 		     the client verification code UI is needed or not. */
 			if (parmName.equals(checkLastTimeApiName)) {
 				/* Create a new JSON parser for use below */
-		    JsonParser    parser = new JsonParser();
+		    JsonParser    parser = HDLmMain.gsonJsonParserMain;
 		    /* Make sure the inbound payload has the required key */
 		    JsonElement   jsonElement = parser.parse(requestPayload);
 			  /* Check if the JSON message passed by the caller is valid */
@@ -2498,7 +2505,7 @@ public class HDLmJetty {
 			/* Check for the check user name and password API */
 			if (parmName.equals(checkUserNamePasswordApiName)) {
 				/* Create a new JSON parser for use below */
-		    JsonParser    parser = new JsonParser();
+		    JsonParser    parser = HDLmMain.gsonJsonParserMain;
 		    /* Make sure the inbound payload has the required key */
 		    JsonElement   jsonElement = parser.parse(requestPayload);
 			  /* Check if the JSON message passed by the caller is valid */
@@ -2628,8 +2635,177 @@ public class HDLmJetty {
 			    		/* In some cases, we really don't want to update the 
 			    		   password information. We don't want to update the
 			    		   password information if a new password is coming. */		   
-							if (outStr.contains("NEW_PASSWORD_REQUIRED") == false)
-								HDLmSecurity.updatePassword(userNameStr, passwordStr);
+							if (outStr.contains("NEW_PASSWORD_REQUIRED") == false) {	
+								HDLmSecurity.updatePassword(userNameStr, 
+										                        passwordStr); 
+			      	}
+			    	}
+						/* Send the JSON back to the invoker */
+			    	response.setStatus(outCode);
+			    	response.setContentType("application/json");
+			    	response.setCharacterEncoding("UTF-8");
+			    	outWriter.print(outStr);
+			    }
+		    }
+		    /* We skipped the actual AWS Cognito user name and password check */
+		    else {}
+				/* Add the Access-Control-Expose-Headers header */
+				HDLmJetty.handleResponseExposeHeaders(response);
+				/* Add the Access-Control-Allow-Origin header */
+				HDLmJetty.handleResponseAllowAllOrigins(request, response);
+				allowAll = true;
+	    	outWriter.flush();
+	    	flushExecuted = true;
+			}
+			/* Check for the check user name and password API that updates memory*/
+			if (parmName.equals(checkUserNamePasswordApiNameUpdateMemory)) {
+				/* Create a new JSON parser for use below */
+		    JsonParser    parser = HDLmMain.gsonJsonParserMain;
+		    /* Make sure the inbound payload has the required key */
+		    JsonElement   jsonElement = parser.parse(requestPayload);
+			  /* Check if the JSON message passed by the caller is valid */
+				if (!jsonElement.isJsonObject()) {
+			 	  String  errorText = "JSON string in handleInvokeApi for check user name and password and update memory is invalid";
+			 	  HDLmAssertAction(false, errorText);
+			  }
+		    boolean       hasAuthParametersKey = HDLmJson.hasJsonKey(jsonElement, "AuthParameters");
+				if (hasAuthParametersKey == false) {
+					String  errorText = "Inbound JSON data does not have AuthParameters key";
+					HDLmAssertAction(false, errorText);
+				}
+		    /* Get the user name and the password */
+				JsonElement   authParameters = HDLmJson.getJsonObject(jsonElement, "AuthParameters");
+			  /* Check if the authentication parameters are a valid JSON object */
+				if (!jsonElement.isJsonObject()) {
+			 	  String  errorText = "JSON authentication parameters in handleInvokeApi for check user name and password and update memory is invalid";
+			 	  HDLmAssertAction(false, errorText);
+			  }
+		    boolean       hasUsernameKey = HDLmJson.hasJsonKey(authParameters, "USERNAME");
+				if (hasUsernameKey == false) {
+					String  errorText = "Inbound JSON data does not have USERNAME key in AuthParameters";
+					HDLmAssertAction(false, errorText);
+				}
+		    boolean       hasPasswordStrKey = HDLmJson.hasJsonKey(authParameters, "PASSWORD");
+				if (hasPasswordStrKey == false) {
+					String  errorText = "Inbound JSON data does not have PASSWORD key in AuthParameters";
+					HDLmAssertAction(false, errorText);
+				}
+		    String        userNameStr = HDLmJson.getJsonString(authParameters, "USERNAME");
+		    String        passwordStr = HDLmJson.getJsonString(authParameters, "PASSWORD");
+		    /* In some cases, we can skip going to AWS Cognito to do the actual user name
+		       and password check. The AWS Cognito user name and password check will send
+		       an SMS message to the user's phone with a verification code. This code is
+		       not needed in all cases. In some cases, we can user internal checks instead. */
+		    boolean       checkLastTimeFailure = true;
+		    boolean       checkMatch = false;
+		    boolean       useActualCognitoCheck = false;
+		    boolean       checkUserNameExists = false;
+		    /* Check if the user name and password passed by the caller using the
+	         authorization header match the memory data base */
+		    if (useActualCognitoCheck == false) {
+		    	boolean   traceCheck = false;
+          checkMatch = HDLmSecurity.checkMemoryMatchingUsernamePassword(userNameStr,
+   	  	                                                                passwordStr,
+   	  	                                                                traceCheck);
+          if (checkMatch == false) {
+        	  useActualCognitoCheck = true;
+        	  /* LOG.info("In HDLmJetty.handleInvokeApi - check password"); */
+        	  /* LOG.info(passwordStr); */
+        	  /* Redo the password match check with trace turned off */
+        	  traceCheck = false;
+            checkMatch = HDLmSecurity.checkMemoryMatchingUsernamePassword(userNameStr,
+                                                                          passwordStr,
+                                                                          traceCheck);
+          }
+		    }
+  	    /* Check if the information in the memory database is too old */
+        if (useActualCognitoCheck == false) {
+  		    checkLastTimeFailure = HDLmSecurity.checkLastTimeFailure(userNameStr,
+  		                                                             null);
+  		    if (checkLastTimeFailure == true) {
+  		  	  useActualCognitoCheck = true;
+  		  	  /* LOG.info("In HDLmJetty.handleInvokeApi - check last time"); */
+  		  	  /* LOG.info(userNameStr); */
+  		    }
+        }
+		    /* Check if we got a session object earlier */
+  		  if (useActualCognitoCheck == false) {
+		      if (sessionObj == null) {
+		    	  useActualCognitoCheck = true;
+		    	  /* LOG.info("In HDLmJetty.handleInvokeApi - no session object"); */
+		      }
+  		  }
+		    /* Check if the user name actually exists at this point
+		       in time. The user name might have been deleted (by hand
+		       or by using a program). We need to detect this case.
+
+		       This check may be a bridge too far. This check is commented
+		       out for now. */
+  		  /*
+		    if (useActualCognitoCheck == false) {
+		      checkUserNameExists = HDLmSecurity.checkUsernameExists(userNameStr);
+		      if (checkUserNameExists == false) {
+		    	  useActualCognitoCheck = true;
+		    	  LOG.info("In HDLmJetty.handleInvokeApi - user name exists", userNameStr);
+		    	}
+		    }
+		    */
+		    /* Invoke the Cognito check user name and password API.
+		       We do this in all cases, even if the use actual value
+		       is false. We do this so that the phone number, challenge
+		       name, and session are always sent back to the client.
+
+		       The above comment is not quite right. If the password
+		       can be checked and is correct and if we can pass the
+		       last time check, then we really don't want to send
+		       verification code information back to the client. */
+		    if (useActualCognitoCheck == true) {
+			    ArrayList<String>   outHeaders;
+			    HDLmApacheResponse  outResponse;
+			    int                 outCode;
+			    String              outStr;
+			    outResponse = HDLmSecurity.checkUsernamePassword(userNameStr, passwordStr);
+			    outCode = outResponse.getStatusCode();
+			    outHeaders = outResponse.getHeaders();
+			    outStr = outResponse.getStringContent();
+			    LOG.info("In HDLmJetty.handleInvokeApi - outStr - " +  outStr.toString());
+			    /* Check if we obtained a response from the check user name and password routine */
+			    if (outStr == null) {
+			    	response.setHeader(errorMessageHeader, "No response was received from the check API call");
+			    	response.setStatus(HttpStatus.BAD_REQUEST_400);
+			    }
+			    /* We get a response from the Cognito API */
+			    else {
+			    	/* Look for an Amazon error message header */
+			    	for (String headerStr : outHeaders) {
+			    		if (headerStr.startsWith(errorMessageHeader)) {
+			    			int     headerIndx = headerStr.indexOf(' ');
+			    			String  headerValue = headerStr.substring(headerIndx+1);
+			    			response.setHeader(errorMessageHeader, headerValue);
+			    			break;
+			    		}
+			    	}
+			    	/* Update the user name / password, if the current request worked */
+			    	if (outCode == HttpStatus.OK_200) {
+			    		/* In some cases, we really don't want to update the 
+			    		   password information. We don't want to update the
+			    		   password information if a new password is coming. */		   
+							if (outStr.contains("NEW_PASSWORD_REQUIRED") == false) {
+								/* This code was added so that when the client checks
+								   the userid/password combination, the memory database
+								   is always updated. The memory database must contain 
+								   a value scope string and last time value. */ 
+					    	/* Get the scope for the current user */
+								String  userPoolId = HDLmConfigInfo.getAwsCognitoUserPoolId();
+						    String  scopeStr = HDLmSecurity.getScopeString(userPoolId,
+						    		                                           userNameStr);	
+								/* Get the current time as the last time value */
+								String  checkLastTimeStr = Instant.now().toString();
+								HDLmSecurity.updatePasswordAndMemory(userNameStr, 
+									          	                       passwordStr, 
+										                                 scopeStr,
+										                                 checkLastTimeStr); 
+			      	}
 			    	}
 						/* Send the JSON back to the invoker */
 			    	response.setStatus(outCode);
@@ -2651,7 +2827,7 @@ public class HDLmJetty {
 			/* Check for the admin get user API */
 			if (parmName.equals(getUserApiName)) {
 				/* Create a new JSON parser for use below */
-		    JsonParser    parser = new JsonParser();
+		    JsonParser    parser = HDLmMain.gsonJsonParserMain;
 		    /* Make sure the inbound payload has the required key */
 		    JsonElement   jsonElement = parser.parse(requestPayload);
 			  /* Check if the JSON message passed by the caller is valid */
@@ -2701,7 +2877,7 @@ public class HDLmJetty {
 		    		}
 		    	}
 					/* Create a new JSON parser for use below */
-			    JsonParser    parses = new JsonParser();
+			    JsonParser    parses = HDLmMain.gsonJsonParserMain;
 			    /* Make sure the get user response has the required key */
 			    JsonElement   jsonElemenu = parser.parse(outStr);
 				  /* Check if the JSON message passed by the caller is valid */
@@ -2764,7 +2940,7 @@ public class HDLmJetty {
 			/* Check for the set last time invocation */
 			if (parmName.equals(setLastTimeName)) {
 				/* Create a new JSON parser for use below */
-		    JsonParser    parser = new JsonParser();
+		    JsonParser    parser = HDLmMain.gsonJsonParserMain;
 		    /* Make sure the inbound payload has the required key */
 		    JsonElement   jsonElement = parser.parse(requestPayload);
 			  /* Check if the JSON message passed by the caller is valid */
@@ -2807,7 +2983,7 @@ public class HDLmJetty {
 			/* Check for the set user password API */
 			if (parmName.equals(setPasswordApiName)) {
 				/* Create a new JSON parser for use below */
-		    JsonParser    parser = new JsonParser();
+		    JsonParser    parser = HDLmMain.gsonJsonParserMain;
 		    /* Make sure the inbound payload has the required key */
 		    JsonElement   jsonElement = parser.parse(requestPayload);
 			  /* Check if the JSON message passed by the caller is valid */
@@ -2889,7 +3065,7 @@ public class HDLmJetty {
 			/* Check for the verify code API */
 			if (parmName.equals(verifyApiName)) {
 				/* Create a new JSON parser for use below */
-		    JsonParser    parser = new JsonParser();
+		    JsonParser    parser = HDLmMain.gsonJsonParserMain;
 		    /* Make sure the inbound payload has the required key */
 		    JsonElement   jsonElement = parser.parse(requestPayload);
 			  /* Check if the JSON message passed by the caller is valid */
@@ -4122,7 +4298,7 @@ public class HDLmJetty {
 		    /* Try to get the session ID from the request payload. This
 		       should always work. */
 				/* Create a new JSON parser for use below */
-		    JsonParser    parser = new JsonParser();
+		    JsonParser    parser = HDLmMain.gsonJsonParserMain;
 		    /* Make sure the inbound payload has the required key */
 		    JsonElement   jsonElement = parser.parse(requestPayload);
 		    /* Set a few variables based in the inbound payload. The inbound

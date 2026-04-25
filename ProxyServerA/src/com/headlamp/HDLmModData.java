@@ -49,7 +49,7 @@ public class HDLmModData extends HDLmMod {
   	Instant   currentTimestamp = Instant.now(); 
   	created = currentTimestamp;
   	lastModified = currentTimestamp;
-  	associatedNodeType = HDLmTreeTypes.IGNORE;
+  	associatedNodeType = HDLmTreeTypes.DATA;
   	countDivisions = 0;
   }
 	/* This is one of the constructors for the data definition class.
@@ -108,7 +108,7 @@ public class HDLmModData extends HDLmMod {
 	  setName(response.getName());
 		/* Log the new name. This code is bypassed for now */
 		if (1 == 2)
-		  LOG.info("HDLmModIgnore newName" + " - " + response.getName());
+		  LOG.info("HDLmModData newName" + " - " + response.getName());
 		/* Get and check the associated node type */
 		associatedNodeType = response.getAssociatedNodeType();
 	  /* Get a few fields from the JSON object */

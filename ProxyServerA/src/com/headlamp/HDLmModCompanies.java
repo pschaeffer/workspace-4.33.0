@@ -244,7 +244,7 @@ public class HDLmModCompanies extends HDLmMod {
 	/* This routine sets the associated node type of this class
 	   instance to a null value */  
 	protected final void   setAssociatedNodeTypeNull() { 
-		 lastModified = Instant.now(); 
+		lastModified = Instant.now(); 
 	  associatedNodeType = null;
 	}
 	/* This routine sets the companies count to a value passed by the caller */  

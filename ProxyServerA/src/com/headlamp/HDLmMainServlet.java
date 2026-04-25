@@ -506,10 +506,15 @@ public class HDLmMainServlet extends HttpServlet {
 			   copy of this JavaScript program by sending a request to server. */
 			if (getGenericJsCheck == true) {			
 				HDLmTiming.addTiming(HDLmTimingTypes.GENERAL, "Before handleJavaScriptRequest in doAll"); 
+				/* Add the Access-Control-Allow-Origin header. This
+				   must be done before the JS is built. The JS is 
+				   sent to the client with all headers that have been 
+				   constructed at this point. */
+				HDLmJetty.handleResponseAllowAllOrigins(request, response);
+				/* Build the JavaScript program and send it to the client. 
+				   This constructed JS program contains all of the rules. */ 
       	HDLmJetty.handleJavaScriptRequest(request, response, clientStr,
                                           timeStamp);
-    		/* Add the Access-Control-Allow-Origin header */
-    		/* HDLmJetty.handleResponseAllowAllOrigins(request, response); */
       	HDLmTiming.addTiming(HDLmTimingTypes.GENERAL, "After handleJavaScriptRequest in doAll"); 
       	int   responseCode = response.getStatus();
       	/* LOG.info("In getGenericJsCheck"); */

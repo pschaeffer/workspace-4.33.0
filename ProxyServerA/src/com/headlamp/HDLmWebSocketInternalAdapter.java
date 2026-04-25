@@ -6,6 +6,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.net.SocketAddress;
 import java.net.UnknownHostException;
+import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -52,7 +53,8 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 		}
 		/* Check if the close code is valid */
 		if (closeCode != 1000 &&
-				(closeCode < 3000 || closeCode > 4999)) {
+				(closeCode < 3000 || 
+				 closeCode > 4999)) {
 			String errorText = "Invalid close code passed to closeSession";
 			throw new IllegalArgumentException(errorText);
 		}
@@ -148,7 +150,8 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 		                                              final Session sessionToBeUsed,
 		                                              final Integer minimumSize,
 		                                              final Integer maximumSize,
-		                                              final Integer specificSize) {
+		                                              final Integer specificSize,
+		                                              final HDLmAnySizeOK anySizeOKValue) {
 		/* Check if the JSON element passed by the caller is null */
 		if (jsonElement == null) {
 			String  errorText = "JSON element passed to getJsonArrayCheckSize is null";
@@ -182,6 +185,17 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 	  		String errorText = "Specific size value passed to getJsonArrayCheckSize is invalid";
 		 	 throw new IllegalArgumentException(errorText);
 		  }
+		/* Check if the any size value passed by the caller is null */
+		if (anySizeOKValue == null) {
+			String  errorText = "Any size value passed to getJsonArrayCheckSize is null";
+			throw new NullPointerException(errorText);
+		}
+		/* Check if the any size value passed by the caller is invalid */
+		if (anySizeOKValue != HDLmAnySizeOK.ANYSIZEOKNO && 
+				anySizeOKValue != HDLmAnySizeOK.ANYSIZEOKYES) {
+			String  errorText = "Any size value passed to getJsonArrayCheckSize is invalid";
+			throw new IllegalArgumentException(errorText);
+		}
 		/* Get and check the JSON array */
 		JsonArray   localJsonArray = HDLmWebSocketInternalAdapter.getJsonArray(jsonElement, 
 				                                                                   jsonArrayName, 
@@ -208,7 +222,8 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 		  }
 		/* Check if the specific size is specified and if the actual size is incorrect */
 		if (specificSize != null)
-			if (localJsonArraySize != specificSize) {
+			if (localJsonArraySize != specificSize &&
+			    anySizeOKValue == HDLmAnySizeOK.ANYSIZEOKNO) {
 		  	String errorFormat = "JSON array size (%d) is incorrect for array name (%s)";
 			  String errorText = String.format(errorFormat, localJsonArraySize, jsonArrayName);
 			  HDLmWebSocketInternalAdapter.sendFailure(sessionToBeUsed, errorText, 49);
@@ -487,7 +502,8 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 	   then the node path is returned to the caller. */ 
 	protected static ArrayList<String>  getNodePathFromJson(final JsonElement jsonElement, 
 			                                                    final Integer specificLength,
-		                                                      final Session sessionToBeUsed) {
+		                                                      final Session sessionToBeUsed,
+		                                                      final HDLmAnySizeOK anySizeOKValue) {
 		/* Check if the JSON element passed by the caller is null */
 		if (jsonElement == null) {
 			String  errorText = "JSON element passed to getNodePathFromJson is null";
@@ -504,6 +520,17 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 			String  errorText = "Session object passed to getNodePathFromJson is null";
 			throw new NullPointerException(errorText);
 		}
+		/* Check if the any size value passed by the caller is null */
+		if (anySizeOKValue == null) {
+			String  errorText = "Any size value passed to getNodePathFromJson is null";
+			throw new NullPointerException(errorText);
+		}
+		/* Check if the any size value passed by the caller is invalid */
+		if (anySizeOKValue != HDLmAnySizeOK.ANYSIZEOKNO && 
+				anySizeOKValue != HDLmAnySizeOK.ANYSIZEOKYES) {
+			String  errorText = "Any size value passed to getNodePathFromJson is invalid";
+			throw new IllegalArgumentException(errorText);
+		}
 		/* Get the minimum node path length. This is the minimum 
 	     node path length needed to get a host name.  */
 	  int   minPathLength = HDLmDefines.getNumber("HDLMHOSTNAMENODEPATHLENGTH");
@@ -516,7 +543,8 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 				                                                                              sessionToBeUsed,
 				                                                                              minPathLength,
 				                                                                              maxPathLength,
-				                                                                              specificLength);
+				                                                                              specificLength,
+				                                                                              anySizeOKValue);
 		if (localJsonArraySize == null)
 		  return null; 
 		/* Get the actual node path from the JSON element */
@@ -651,7 +679,7 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 		  /* Try to convert the message JSON to a JSON object. If this fails, then we do
 		     not have a string than can be converted to a JSON object. If this works, then
 		     we do have string than can be converted to a JSON object. */
-		  JsonParser    parser = new JsonParser();		
+		  JsonParser    parser = HDLmMain.gsonJsonParserMain;		
 		  JsonElement   topNodeJsonElement = null; 
 			boolean       logDebugEnabled = LOG.isDebugEnabled();
 			try {
@@ -753,7 +781,11 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 				   The client provides the message headers, the body of the OpenAI request
 				   and the output format. The server (this code) provides the Open AI key 
 				   used to execute the request. This approach eliminates the need to store
-				   the Open AI key on the client (presumably JavaScript). */ 
+				   the Open AI key on the client (presumably JavaScript).
+				   
+				   This request type does not appear to be used. It appears that the client
+				   doesn't use 'executeOpenRouterRequest' in any form. The client invokes
+				   Open Router instead by using 'webpageImprover' or 'webpageOptimizer'. */  
 				case "executeOpenRouterRequest":
 					handleMessageExecuteOpenRouterRequest(topNodeJsonElement);
 					break;
@@ -812,6 +844,12 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 			  case "updateTreeNode":
 				  handleMessageUpdateTreeNode(topNodeJsonElement);
 				  break;
+			  case "webpageImprover":
+				  handleMessageWebpageImprover(topNodeJsonElement);
+				  break;
+			  case "webpageOptimizer":
+				  handleMessageWebpageOptimizer(topNodeJsonElement);
+				  break;
 			  /* Report an error if the request type did not match one of the expected choices */
 			  default:
 				  String  errorFormat = "Invalid request type (\"%s\") passed to this routine";
@@ -849,7 +887,7 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 			   the size of the node path JSON. */
 			Integer   specificPathLength = null;
 			/* Check if the JSON for the tree object (HDLmTree) is valid or not.
-			   This call also check the embedded rule (HDLmMod) inside the JSON. */ 
+			   This call also checks the embedded rule (HDLmMod) inside the JSON. */  
 			HDLmResponse  jsonResponse = HDLmTree.checkTreeJsonObj(jsonElement);
 			int           errorsCount = jsonResponse.getReturnNumber();
 			if (errorsCount > 0) {
@@ -870,7 +908,8 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 			/* Get and check the node path JSON and the size of the node path JSON */
 			ArrayList<String>   addNodePath = HDLmWebSocketInternalAdapter.getNodePathFromJson(jsonElement,  
 					                                                                               specificPathLength, 
-                                                                                         session); 
+                                                                                         session,
+                                                                                         HDLmAnySizeOK.ANYSIZEOKNO);
 			if (addNodePath == null)
 		    break;			
 			/* Get the host name from the node path. The node path will always contain the
@@ -1051,17 +1090,20 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 			/* Get and check the node path */
 			ArrayList<String>   deleteNodePath = HDLmWebSocketInternalAdapter.getNodePathFromJson(jsonElement,  
 					                                                                                  specificPathLength,
-					                                                                                  session);
+					                                                                                  session,
+					                                                                                  HDLmAnySizeOK.ANYSIZEOKNO);
 			if (deleteNodePath == null)
 		    break;
 			/* Try to find the tree node for the delete node path. This will be the node
 			   that is about to be deleted. */
-			HDLmTree deleteNode = HDLmTree.locateTreeNode(HDLmTree.getNodePassTreeTop(), 
-					                                          deleteNodePath);
+			HDLmTree  treeTop = HDLmTree.getNodePassTreeTop();
+			HDLmTree  deleteNode = HDLmTree.locateTreeNode(treeTop, 
+					                                           deleteNodePath);
 			if (deleteNode == null) {
 				String  nodeString = deleteNodePath.toString(); 
 				HDLmUtility.logString(nodeString, LOG);
 				HDLmUtility.logStackTrace();
+				HDLmTree.displayTree();
 				/* Send a failure message back to the client */
 				String  errorText = "Null delete tree node returned by locateTreeNode";
 			  HDLmWebSocketInternalAdapter.sendFailure(session, errorText, 9);
@@ -1084,7 +1126,7 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
      and the output format. The server (this code) provides the Open AI key  
      used to execute the request. This approach eliminates the need to store
      the Open AI key on the client (presumably JavaScript). */ 
-	protected void          handleMessageExecuteOpenAIRequest(final JsonElement jsonElement) {
+	protected void         handleMessageExecuteOpenAIRequest(final JsonElement jsonElement) {
 		/* What follows is a dummy loop used only to allow break to work */
 		while (true) {
 			/* Check if the JSON element instance passed by the caller is null */
@@ -1130,8 +1172,10 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 	   The client provides the body of the request and the output format. The server
 	   (this code) provides the Open Router key used to execute the request. This
 	   approach eliminates the need to store the Open Router key on the client
-	   (presumably JavaScript). */
-	protected void          handleMessageExecuteOpenRouterRequest(final JsonElement jsonElement) {
+	   (presumably JavaScript). This routine does not appear to be in use at this
+	   time. The client invoke uses the 'webpageImprover' and 'webpageOptimizer'
+	   routines instead. */
+	protected void         handleMessageExecuteOpenRouterRequest(final JsonElement jsonElement) {
 		/* What follows is a dummy loop used only to allow break to work */
 		while (true) {
 			/* Check if the JSON element instance passed by the caller is null */
@@ -1158,7 +1202,7 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 			}
 			HDLmResponse  aiResponse = null;
 			/* Pass the body string to the Open Router routine */
-			aiResponse = HDLmOpenRouter.executeOpenRouterRequestWebPageImprover(bodyStr);			
+			aiResponse = HDLmOpenRouter.executeOpenRouterRequestWebpageImprover(bodyStr);			
 			int           returnCode = aiResponse.getReturnCode();
 			if (returnCode != 0) {
 				String errorText = aiResponse.getErrorMessage();
@@ -1173,11 +1217,11 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 			HDLmWebSocketInternalAdapter.sendString(session, returnString);
 			break;
 		}
-	}
+	}	
 	/* This routine is invoked to handle inbound web sockets get configuration 
      values messages. These messages should be in JSON format and should be
      handleable via JSON. */
-	protected void          handleMessageGetConfigValues(final JsonElement jsonElement) {
+	protected void         handleMessageGetConfigValues(final JsonElement jsonElement) {
 		/* What follows is a dummy loop used only to allow break to work */
 		while (true) {
 			/* Check if the JSON element instance passed by the caller is null */
@@ -1349,7 +1393,7 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 				b =  InetAddress.getLocalHost();
 			} 
 			catch (UnknownHostException unknownHostException) {
-				// TODO Auto-generated catch block
+				/* This code was generated  and not manually written */
 				unknownHostException.printStackTrace();
 				String  errorText = "Unknown Host Exception while executing handleMessageGetModPart";
 				HDLmWebSocketInternalAdapter.sendFailure(session, errorText, 77);
@@ -1367,7 +1411,7 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 				break;
 			} 
 			/*
-			protectedstatic String getClientIp(Session session) {
+			protected static String  getClientIp(Session session) {
 	      String ip = session.getUserProperties().get("javax.websocket.endpoint.remoteAddress").toString();
 	      int i1 = ip.indexOf("/");
 	      int i2 = ip.indexOf(":");
@@ -1378,7 +1422,7 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 			   exactly that. */
 			String  outTree = HDLmTree.buildJsonStringTree(HDLmTree.getNodePassTreeTop());
 			/* Build a JSON element with the entire rule tree and more */
-			JsonParser    parser = new JsonParser();
+			JsonParser    parser = HDLmMain.gsonJsonParserMain;
 			JsonElement   jsonTopElement = null;
 			try {
 				jsonTopElement = parser.parse(outTree);
@@ -1595,7 +1639,8 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 			/* Get and check the node path from the JSON */
 			ArrayList<String>   saveDataNodePath = HDLmWebSocketInternalAdapter.getNodePathFromJson(jsonElement,	 
 					                                                                                    specificPathLength,
-					                                                                                    session);
+					                                                                                    session,
+					                                                                                    HDLmAnySizeOK.ANYSIZEOKNO);
 			if (saveDataNodePath == null)
 				break;
 			/* Get the host name from the node path. The node path will always contain the
@@ -1632,7 +1677,7 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 			int   specificPathLength = HDLmDefines.getNumber("HDLMRULESNODEPATHLENGTH");
 			/* Get the number of rules we are storing */
 			JsonArray   rulesArrayJson = HDLmWebSocketInternalAdapter.getJsonArray(jsonElement, 
-					                                                                   "rules", 
+					                                                                   "nodes", 
 					                                                                   session);
 			if (rulesArrayJson == null)
 		    break;	
@@ -1644,18 +1689,24 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 				boolean       scriptsValid = true;
 				JsonElement   jsonElementRule = rulesArrayJson.get(i);
 				/* Check if we have mod entry. We should always
-			     have a mod entry. */
-		  	String  typeEntry = HDLmWebSocketInternalAdapter.getJsonString(jsonElementRule, 
+			     have a mod entry unless we are sending some 
+			     other type of node to the server.  */
+		  	String  treeTypeEntry = HDLmWebSocketInternalAdapter.getJsonString(jsonElementRule, 
 		  			                                                           "type", 
 		  			                                                           session);
-				if (typeEntry == null) 
+				if (treeTypeEntry == null) 
 				  break;
-				if (typeEntry.equals("mod") == false) {
-					String errorText = "Type entry does not have expected value in storeTreeNodes";
-			    HDLmWebSocketInternalAdapter.sendFailure(session, errorText, 80);
-			    rulesValid = false;
-			    break;
-				}
+				/* The following check can only be run if we are storing
+				   a modification node. This code was (in the past) only
+				   used for storing modification nodes. Now (2026/3/13) 
+				   it is used to store many types of nodes. */
+				if (treeTypeEntry.equals("mod") == true)
+				  if (treeTypeEntry.equals("mod") == false) {
+					  String errorText = "Type entry does not have expected value in storeTreeNodes";
+			      HDLmWebSocketInternalAdapter.sendFailure(session, errorText, 80);
+			      rulesValid = false;
+			      break;
+				  }
 				/* Get the rule details */
 				JsonObject  modDetailsObject = HDLmWebSocketInternalAdapter.getJsonObject(jsonElementRule, 
 			                                                                      			"details", 
@@ -1709,13 +1760,21 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 				/* Get and check the node path JSON and the size of the node path JSON */
 				ArrayList<String>   storeNodePath = HDLmWebSocketInternalAdapter.getNodePathFromJson(jsonElementRule, 
 						                                                                                 specificPathLength,
-                                                                                             session);
+                                                                                             session,
+                                                                                             HDLmAnySizeOK.ANYSIZEOKYES);
 				if (storeNodePath == null)
 			    break;	
 				/* Check if the JSON for the tree object (HDLmTree) is valid or not.
-	 		     This call also check the embedded rule (HDLmMod) inside the JSON. */ 
-			  HDLmResponse  jsonResponse = HDLmTree.checkTreeJsonObj(jsonElementRule);
-			  int           errorsCount = jsonResponse.getReturnNumber();
+	 		     This call also check the embedded rule (HDLmMod) inside the JSON. */				
+				/* Only modification nodes are checked. This code was (in the past)
+				   only used for storing modification nodes. Now (2026/3/13) it is 
+				   used to store many types of nodes.*/
+				int   errorsCount = 0;
+				HDLmResponse  jsonResponse = null;
+				if (treeTypeEntry.equals("mod")) {
+			    jsonResponse = HDLmTree.checkTreeJsonObj(jsonElementRule);
+			    errorsCount = jsonResponse.getReturnNumber();
+	  		}
 				if (errorsCount > 0) {
 					/* At this point, we must send a standard failure message back
 					   to the caller. This failure message is a JSON string that
@@ -1750,7 +1809,8 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 				/* Get and check the node path JSON and the size of the node path JSON */		
 				ArrayList<String>   storeNodePath = HDLmWebSocketInternalAdapter.getNodePathFromJson(jsonElementRule,
 						                                                                                 specificPathLength,
-						                           				                                             	 session);
+						                           				                                             	 session,
+						                           				                                             	 HDLmAnySizeOK.ANYSIZEOKYES);
 				if (storeNodePath == null)
 			    break;	
 				/* No work has been done so far */
@@ -1915,7 +1975,8 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 			/* Get and check the node path */
 			ArrayList<String>   updateTreeNodePath = HDLmWebSocketInternalAdapter.getNodePathFromJson(jsonElement,
 					                                                                                      specificPathLength,
-					                                                                                      session); 			
+					                                                                                      session,
+					                                                                                      HDLmAnySizeOK.ANYSIZEOKNO);		
 			if (updateTreeNodePath == null)
 		    break;
 			/* Get the host name from the node path. The node path will always contain
@@ -1969,7 +2030,8 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 			/* Get and check the node path JSON and the size of the node path JSON */ 
 			ArrayList<String>   updateTreeNodePath = HDLmWebSocketInternalAdapter.getNodePathFromJson(jsonElement,
 					                                                                                      specificPathLength,
-					                                                                                      session);
+					                                                                                      session,
+					                                                                                      HDLmAnySizeOK.ANYSIZEOKNO);
 			if (updateTreeNodePath == null)
 		    break;		
 			/* Try to find the tree node from the update node path. This will be the node
@@ -2000,6 +2062,111 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 			break;
 		}
 	} 
+	/* The webpageImprover message is used to execute the webpage improver flow.
+	   The client provides the body of the initial Open Router request. The server
+	   executes the first request, converts each improvement what value to markup,
+	   and returns a normalized payload with why, what, and markup. */
+	protected void         handleMessageWebpageImprover(final JsonElement jsonElement) {
+		/* What follows is a dummy loop used only to allow break to work */
+		while (true) {
+			/* Check if the JSON element instance passed by the caller is null */
+			if (jsonElement == null) {
+				String  errorText = "JSON element instance passed to handleMessageWebpageImprover is null";
+				HDLmWebSocketInternalAdapter.sendFailure(session, errorText, 26);
+				break;
+			}
+			/* Check if the inbound JSON element has the required keys */
+			String  bodyStr = null;
+			if (HDLmJson.hasJsonKey(jsonElement, "HDLmBodyStr")) {
+				bodyStr = HDLmWebSocketInternalAdapter.getJsonString(jsonElement,
+						                                                "HDLmBodyStr",
+						                                                session);
+				if (bodyStr == null)
+					break;
+			}
+			/* The body string was not found in the inbound JSON.
+			   Report an error and exit. */
+			else {
+				String errorText = "Body string not found in inbound JSON in handleMessageWebpageImprover";
+				HDLmWebSocketInternalAdapter.sendFailure(session, errorText, 64);
+				break;
+			}
+			/* Declare a response object used below */
+			HDLmResponse  aiResponse;
+			/* One of the webpage improver routines is not executed. The high-level
+			   routine is never used. The high-level routine assumes that calls 
+			   always return 'why' and 'what' values. This is not always the case. */
+			if (1 == 2)
+	  		aiResponse = HDLmOpenRouter.executeWebpageImproverRequest(bodyStr); 
+			/* Pass the body string to the webpage improver routine */
+			aiResponse = HDLmOpenRouter.executeOpenRouterRequestWebpageImprover(bodyStr); 
+			int           returnCode = aiResponse.getReturnCode();
+			if (returnCode != 0) {
+				String errorText = aiResponse.getErrorMessage();
+				if (errorText == null) {
+					errorText = "Unknown error returned by executeWebpageImproverRequest";
+				}
+				HDLmWebSocketInternalAdapter.sendFailure(session, errorText, 51);
+				break;
+			}
+			String  returnString = aiResponse.getReturnString();
+			/* Send a success message back to the caller */
+			HDLmWebSocketInternalAdapter.sendString(session, returnString);
+			break;
+		}
+	}
+	/* The webpageOptimizer message is used to execute the webpage optimizer flow.
+	   The client provides the body of the initial Open Router request. The server
+	   executes the request and returns the optimized webpage to the caller. */ 
+	protected void         handleMessageWebpageOptimizer(final JsonElement jsonElement) {
+		/* What follows is a dummy loop used only to allow break to work */
+		while (true) {
+			/* Check if the JSON element instance passed by the caller is null */
+			if (jsonElement == null) {
+				String  errorText = "JSON element instance passed to handleMessageWebpageOptimizer is null";
+				HDLmWebSocketInternalAdapter.sendFailure(session, errorText, 26);
+				break;
+			}
+			/* Check if the inbound JSON element has the required keys */
+			String  bodyStr = null;
+			if (HDLmJson.hasJsonKey(jsonElement, "HDLmBodyStr")) {
+				bodyStr = HDLmWebSocketInternalAdapter.getJsonString(jsonElement,
+						                                                 "HDLmBodyStr",
+						                                                 session);
+				if (bodyStr == null)
+					break;
+			}
+			/* The body string was not found in the inbound JSON.
+			   Report an error and exit. */
+			else {
+				String errorText = "Body string not found in inbound JSON in handleMessageWebpageOptimizer";
+				HDLmWebSocketInternalAdapter.sendFailure(session, errorText, 64);
+				break;
+			}
+			/* Declare a response object used below */
+			HDLmResponse  aiResponse;
+			/* One of the webpage optimizer routines is not executed. The high-level
+		     routine is never used. The high-level routine assumes that calls 
+		     always return 'why' and 'what' values. This is not the case. */
+		  if (1 == 2)
+ 		    aiResponse = HDLmOpenRouter.executeWebpageOptimizerRequest(bodyStr); 
+			/* Pass the body string to the webpage improver routine */
+		  aiResponse = HDLmOpenRouter.executeOpenRouterRequestWebpageOptimizer(bodyStr);
+			int           returnCode = aiResponse.getReturnCode();
+			if (returnCode != 0) {
+				String errorText = aiResponse.getErrorMessage();
+				if (errorText == null) {
+					errorText = "Unknown error returned by executeWebpageOptimizerRequest";
+				}
+				HDLmWebSocketInternalAdapter.sendFailure(session, errorText, 51);
+				break;
+			}
+			String  returnString = aiResponse.getReturnString();
+			/* Send a success message back to the caller */
+			HDLmWebSocketInternalAdapter.sendString(session, returnString);
+			break;
+		}
+	}
 	/* This routine is invoked when a binary message is sent. So far this routine
 	   has not been used. */
 	@Override
@@ -2026,7 +2193,8 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 	@Override
 	public void onWebSocketConnect(final Session session) {
 	  /* Build a few variables for use below */
-		int   maxTextMessageSize = 2000000;
+		int       maxTextMessageSize = 2000000;
+		Duration  oneHouseDuration = Duration.ofHours(1);
 		LOG.info("onWebSocketConnect");
 		/* Set the maximum text message size we will accept to a large value. The
 		   default value is 65536 (64K). This is way too small for our purposes.
@@ -2034,6 +2202,13 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 		   that each use scripts. The scripts can be very large. So we need to
 		   accept very large JSON strings. */
 		session.setMaxTextMessageSize(maxTextMessageSize);
+		/* Set the idle timeout to a large value. The default value appears to
+		   be around 1.5 minutes). This is too small for our purposes. We want 
+		   to allow the client to	keep a connection open for a long time without 
+		   sending messages. This is needed so that because some services (such 
+		   as Open Router) are quite slow. So we need to set the idle timeout to 
+		   a large value. */
+		session.setIdleTimeout(oneHouseDuration);
 		super.onWebSocketConnect(session);
 		this.session = session;
 	}
@@ -2077,7 +2252,8 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 		}
 		/* Check if the failure number is valid */
 		if (failureNumber != null)
-			if (failureNumber < 1 || failureNumber > 200) {
+			if (failureNumber < 1 || 
+				  failureNumber > 200) {
 				String errorText = "Invalid failure number passed to sendFailure";
 				throw new IllegalArgumentException(errorText);
 			}
@@ -2152,7 +2328,8 @@ public class HDLmWebSocketInternalAdapter extends WebSocketAdapter {
 		}
 		/* Check if the success number is valid */
 		if (successNumber != null)
-			if (successNumber < 1 || successNumber > 200) {
+			if (successNumber < 1 || 
+				  successNumber > 200) {
 				String errorText = "Invalid success number passed to sendSuccess";
 				throw new IllegalArgumentException(errorText);
 			}

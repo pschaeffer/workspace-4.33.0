@@ -246,7 +246,7 @@ public class HDLmDatabase {
 		   then we do not have a string than can be converted to a 
 		   JSON object. If this works, then we do have string than 
 		   can be converted to a JSON object. */
-	  JsonParser    parser = new JsonParser();		
+	  JsonParser    parser = HDLmMain.gsonJsonParserMain;		
 	  JsonElement   topNodeJsonElement = null; 
 	  try {
 		  topNodeJsonElement = parser.parse(jsonStr);
@@ -1389,7 +1389,7 @@ public class HDLmDatabase {
 					     then we do not have a string than can be converted to a JSON 
 					     object. If this works, then we do have string than can be 
 					     converted to a JSON object. */
-				    JsonParser    parser = new JsonParser();		
+				    JsonParser    parser = HDLmMain.gsonJsonParserMain;		
 				    JsonElement   jsonElement = null; 
 				    try {
 					    jsonElement = parser.parse(infoStr);
@@ -1517,7 +1517,7 @@ public class HDLmDatabase {
 		   then we do not have a string than can be converted to a 
 		   JSON object. If this works, then we do have string than 
 		   can be converted to a JSON object. */
-	  JsonParser    parser = new JsonParser();		
+	  JsonParser    parser = HDLmMain.gsonJsonParserMain;		
 	  JsonElement   topNodeJsonElement = null; 
 	  try {
 		  topNodeJsonElement = parser.parse(jsonStr);
@@ -1833,7 +1833,7 @@ public class HDLmDatabase {
 					     then we do not have a string than can be converted to a JSON 
 					     object. If this works, then we do have string than can be 
 					     converted to a JSON object. */
-				    JsonParser    parser = new JsonParser();		
+				    JsonParser    parser = HDLmMain.gsonJsonParserMain;		
 				    JsonElement   jsonElement = null; 
 				    try {
 					    jsonElement = parser.parse(infoStr);
@@ -2181,7 +2181,7 @@ public class HDLmDatabase {
 		   then we do not have a string than can be converted to a 
 		   JSON object. If this works, then we do have string than 
 		   can be converted to a JSON object. */
-	  JsonParser    parser = new JsonParser();		
+	  JsonParser    parser = HDLmMain.gsonJsonParserMain;		
 	  JsonElement   topNodeJsonElement = null; 
 	  try {
 		  topNodeJsonElement = parser.parse(jsonStr);

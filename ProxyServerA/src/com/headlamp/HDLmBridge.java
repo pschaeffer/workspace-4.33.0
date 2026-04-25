@@ -54,7 +54,7 @@ public class HDLmBridge {
 	   \u0027\xD7\u0027. Of coure, that caused dire prolems. */	
 	protected static void checkSomeJson(String outJson) {
 		/* Create a new JSON parser for use below */
-	  JsonParser    parser = new JsonParser();  
+	  JsonParser    parser = HDLmMain.gsonJsonParserMain;  
  	  /* Make sure the inbound payload has the required key */
 	  JsonElement   oldJsonElement = parser.parse(outJson);
 	  /* Check if the JSON string is valid or not */
@@ -188,6 +188,10 @@ public class HDLmBridge {
 		if (operationType.equals("search")) {
 			HDLmJetty.getUseridPassword(request);
 			outJson = HDLmBridge.handleRequestRead(request,  contentValue, tableName);
+			/* Rewrite characters in the response printWriter would degrade
+			   to question marks so the JSON payload remains intact. The 
+			   characters are replaced by Unicode escape sequences. */
+			outJson = HDLmString.jsonReplaceUnprintable(outJson);
 		}		
 		else if (operationType.equals("update")) {
 			outJson = HDLmBridge.handleRequestUpdate(request, pathValueString, tableName, requestPostPayload); 			
@@ -401,7 +405,7 @@ public class HDLmBridge {
 	  if (checkMatch == false)
 	  	scopeStr = null; 
 	  if (checkLastTimeFailure == true)
-	  	scopeStr = null;
+	  	scopeStr = null; 
 	  if (LOG.isDebugEnabled()) 
 	    LOG.debug("In handleRequestRead - scopeStr(323) - " + scopeStr);
 		/* Convert the scope string to a scope array/vector, if possible */
@@ -440,7 +444,7 @@ public class HDLmBridge {
 		if (bypassAllChecking)
 			return outJson;
 		/* Create a new JSON parser for use below */
-    JsonParser    parser = new JsonParser();  
+    JsonParser    parser = HDLmMain.gsonJsonParserMain;  
     /* Make sure the inbound payload has the required key */
     JsonElement   oldJsonElement = parser.parse(outJson);
 	  /* Check if the JSON string is valid or not */

@@ -78,7 +78,7 @@ public class HDLmPassThru {
     }		
     /* If we are handling a type that may have comments, then we must
        make sure that they comments are not null */ 
-    if (typeValue == HDLmTreeTypes.IGNORE ||
+    if (typeValue == HDLmTreeTypes.LISTS ||
     		typeValue == HDLmTreeTypes.LIST) {
     	comments = HDLmJson.getJsonString(jsonElement, "comments");
     	if (comments == null)

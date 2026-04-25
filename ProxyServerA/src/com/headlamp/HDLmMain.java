@@ -147,6 +147,7 @@ public class HDLmMain {
   protected static Gson             gsonMain = new Gson();
   protected static Gson             gsonSerializeNullsMain = new GsonBuilder().serializeNulls().create();
   protected static Gson             gsonPrettyPrintingMain = new GsonBuilder().setPrettyPrinting().create();
+  protected static JsonParser       gsonJsonParserMain = new JsonParser();
   /* This class can never be instantiated */
 	private HDLmMain() {}
   /* This code gets a list of application threads and some application
@@ -1886,7 +1887,7 @@ public class HDLmMain {
 															  		final String division,
 															  		final String site,
 															  		final String referrerPathValueStr,
-															  		final  HDLmUsePathValue usePathValue) {
+															  		final HDLmUsePathValue usePathValue) {
   	HDLmTiming.addTiming(HDLmTimingTypes.GENERAL, "After entry to getMods");
     boolean  modsStatusOkNotOk = false;
     /* Clear the array list of modifications */
@@ -2439,6 +2440,9 @@ public class HDLmMain {
 		   As a consequence, this step must come before any database 
 		   connections are established. */
 		HDLmConfig.setConfigurationValues(); 
+		/* This is just test code for strings */
+		/* String testStringNull = null; */
+		/* String testStringConvert = testStringNull.toString(); */		
 		/* The next set of lines were used to verify that we can 
 		   get secrets from AWS. This code is commented out for now. */
 		/* 
@@ -2477,7 +2481,7 @@ public class HDLmMain {
 				+ "";
 		message = "{\"rules\":[{\"tooltip\":\"Script modification\",\"type\":\"mod\",\"children\":[],\"containerWidget\":null,\"details\":{\"name\":\"Mod Enhancing Whitespace Between Elements Helps In Better Visual Script\",\"extra\":\"\",\"type\":\"script\",\"created\":\"2025-01-27T19:45:15.935Z\",\"lastmodified\":\"2025-01-27T19:45:15.935Z\",\"pathvalue\":\"/yoga-direct-1-4-inch-yoga-mat.html\",\"comments\":\"\",\"prob\":100.0,\"usemode\":\"test\",\"cssselector\":\"\",\"xpath\":\"\",\"find\":[],\"nodeiden\":{\"type\":\"tag\",\"attributes\":{\"tag\":\"head\"},\"counts\":{\"tag\":1},\"parent\":{\"tag\":\"html\"}},\"parameter\":0,\"scripts\":[\"\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.product-details { margin-top: 20px; }';\\n  document.head.appendChild(styleSheet);\\n}\"],\"updated\":false},\"nodePath\":[\"Top\",\"Companies\",\"www.yogadirect.com\",\"Rules\",\"example.com\",\"example.com\",\"Mod Enhancing Whitespace Between Elements Helps In Better Visual Script\"]},{\"tooltip\":\"Script modification\",\"type\":\"mod\",\"children\":[],\"containerWidget\":null,\"details\":{\"name\":\"Mod Storytelling Helps In Creating An Emotional Connection Script\",\"extra\":\"\",\"type\":\"script\",\"created\":\"2025-01-27T19:45:15.940Z\",\"lastmodified\":\"2025-01-27T19:45:15.940Z\",\"pathvalue\":\"/yoga-direct-1-4-inch-yoga-mat.html\",\"comments\":\"\",\"prob\":100.0,\"usemode\":\"test\",\"cssselector\":\"\",\"xpath\":\"\",\"find\":[],\"nodeiden\":{\"type\":\"tag\",\"attributes\":{\"tag\":\"head\"},\"counts\":{\"tag\":1},\"parent\":{\"tag\":\"html\"}},\"parameter\":0,\"scripts\":[\"    (function() {\\n        var storytellingDiv = document.createElement('div');\\n        storytellingDiv.className = 'storytelling';\\n        storytellingDiv.innerHTML = \\\"<h2>Discover Your Perfect Yoga Companion</h2><p>Embrace every pose with comfort and stability on our premium yoga mat, designed to inspire confidence in every practice. Join thousands of satisfied customers and take your yoga journey to new heights.</p><p><a href='#buy-now' class='call-to-action'>Buy Now</a></p>\\\";\\n        var productDetails = document.querySelector('.product-details');\\n        if (productDetails) {\\n            productDetails.insertAdjacentElement('beforebegin', storytellingDiv);\\n        }\\n    })();\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.storytelling {\\\\n        background-color: #f5f5f5;\\\\n        padding: 20px;\\\\n        margin: 20px 0;\\\\n        border-radius: 5px;\\\\n        text-align: center;\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.storytelling h2 {\\\\n        font-family: \\\\'Playfair Display\\\\', serif;\\\\n        color: #333;\\\\n        font-weight: 700;\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.storytelling p {\\\\n        font-family: \\\\'Lato\\\\', sans-serif;\\\\n        color: #555;\\\\n        font-size: 16px;\\\\n        margin: 10px 0;\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.storytelling .call-to-action {\\\\n        display: inline-block;\\\\n        padding: 10px 20px;\\\\n        color: #fff;\\\\n        background-color: #f57c00;\\\\n        border-radius: 3px;\\\\n        text-decoration: none;\\\\n        font-weight: 700;\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = '.storytelling .call-to-action:hover {\\\\n        background-color: #e65100;\\\\n    }';\\n  document.head.appendChild(styleSheet);\\n}\"],\"updated\":false},\"nodePath\":[\"Top\",\"Companies\",\"www.yogadirect.com\",\"Rules\",\"example.com\",\"example.com\",\"Mod Storytelling Helps In Creating An Emotional Connection Script\"]},{\"tooltip\":\"Script modification\",\"type\":\"mod\",\"children\":[],\"containerWidget\":null,\"details\":{\"name\":\"Mod A Consistent Button Style With Contrasting Colors Will Script\",\"extra\":\"\",\"type\":\"script\",\"created\":\"2025-01-27T19:45:15.942Z\",\"lastmodified\":\"2025-01-27T19:45:15.942Z\",\"pathvalue\":\"/yoga-direct-1-4-inch-yoga-mat.html\",\"comments\":\"\",\"prob\":100.0,\"usemode\":\"test\",\"cssselector\":\"\",\"xpath\":\"\",\"find\":[],\"nodeiden\":{\"type\":\"tag\",\"attributes\":{\"tag\":\"head\"},\"counts\":{\"tag\":1},\"parent\":{\"tag\":\"html\"}},\"parameter\":0,\"scripts\":[\"document.querySelectorAll('button').forEach(function(btn) { btn.style.backgroundColor = '#2a9d8f'; btn.style.color = '#fff'; btn.style.borderRadius = '5px'; btn.addEventListener('mouseover', function() { this.style.backgroundColor = '#21867a'; }); btn.addEventListener('mouseout', function() { this.style.backgroundColor = '#2a9d8f'; }); });\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = 'button { background-color: #2a9d8f; color: #fff; border-radius: 5px; }';\\n  document.head.appendChild(styleSheet);\\n}\\n{\\n  var styleSheet = document.createElement(\\\"style\\\");\\n  styleSheet.textContent = 'button:hover { background-color: #21867a; }';\\n  document.head.appendChild(styleSheet);\\n}\"],\"updated\":false},\"nodePath\":[\"Top\",\"Companies\",\"www.yogadirect.com\",\"Rules\",\"example.com\",\"example.com\",\"Mod A Consistent Button Style With Contrasting Colors Will Script\"]}],\"HDLmRequestType\":\"storeTreeNodes\"}\r\n"
 				+ "";
-		JsonParser  parser = new JsonParser();	
+		JsonParser  parser = HDLmMain.gsonJsonParserMain;	
 		JsonElement   topNodeJsonElement = null;
 		*/ 
 		/* The following looks like debugging code, added for testing 
@@ -2665,6 +2669,9 @@ public class HDLmMain {
 					HDLmAssertAction(false, "Null pass-through definitions tree returned by buildNodeTreeMain");
 				}
 			  HDLmTree.setNodePassTreeTop(passThroughTree);
+				/* Display the entire pass-through tree. This is 
+				   just for testing purposes. */
+			  /* HDLmTree.displayTree(); */
 			}
 			catch (AssertionError assertionError) {
 				LOG.info("buildPassThruTree");
@@ -2964,7 +2971,7 @@ public class HDLmMain {
     */
 		/* Create a new JSON parser for use below */
 		/*
-    JsonParser    parser = new JsonParser();  
+    JsonParser    parser = HDLmMain.gsonJsonParserMain;  
     */
     /* Make sure the inbound payload has the required key */
 		/*

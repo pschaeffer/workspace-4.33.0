@@ -44,7 +44,7 @@ public enum HDLmTreeTypes {
   @SerializedName("line")
   LINE(12),
   @SerializedName("lines")
-  LINES(13),
+  LINES(13),  
   @SerializedName("lists")
   LISTS(14),
   @SerializedName("companies")

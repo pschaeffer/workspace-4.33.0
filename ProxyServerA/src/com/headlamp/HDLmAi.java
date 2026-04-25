@@ -4,6 +4,10 @@ import java.util.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 /**
  * HDLmAi short summary.
  *
@@ -18,8 +22,57 @@ public class HDLmAi {
 	/* The next statement initializes logging to some degree. Note that 
      having the slf4j jars and the log4j jars in the classpath also
      plays some role in logging initialization. */
-  private static final Logger LOG = LoggerFactory.getLogger(HDLmAi.class);  
-	/* This class can never be instantiated */
+  private static final Logger LOG = LoggerFactory.getLogger(HDLmAi.class);
+	/* The following string constants are used to build the chat template JSON object.
+	   These strings we taken from the HDLmAi.js file coded in JavaScript. */
+  private static final String chatTemplateContext = 
+    "You are an expert at improving web pages, " + 
+    "especially their sales and user engagement.\n" +
+    "\n" +
+    "You will be asked to:\n" +
+    "- Analyze a web page.\n" +
+    "- Create JSON output.\n" +
+    "- Suggest ways to improve it.\n" +
+    "- Provide HTML snippets (to be placed in the `<head>` and `<body>` sections) that implement an improvement.\n";   
+  private static final String chatTemplateImprovements = 
+		"Suggest {quantity} ways to improve this page. For each suggestion, provide:\n" +
+		"- What specific change should be made.\n" + "- Why it will improve sales or engagement.\n" + "\n" +
+		"Prioritize improvements that will have the most impact on user conversion and interaction.\n" + "\n" +
+		"Look for ways to:\n" +
+		"- Adjust color schemes, typography, and whitespace for better aesthetics and usability.\n" +
+		"- Reword the text to better convey the site's value through storytelling.\n" +
+		"- Reorder the content to guide user's attention.\n" +
+		"- Add or remove content to improve clarity and reduce clutter.\n" + "\n" + "Each improvement suggestion:\n" +
+		"- Should start with the word 'Improve'.\n";  
+	private static final String chatTemplateMarkup =
+	  "Change the markup on this page to {improvement}.\n" + "\n" + 
+	  "The markup must:\n" +
+		"- Never modify any existing markup, instead use new insertions to modify the page.\n" +
+		"- Include insertions (if needed) to be placed in `<head>`section.\n" +
+		"- Include insertions (if needed) to be placed in the `<body>` section.\n" +
+		"- Include everything needed, including opening and closing tags for `<style>` and `<script>`.\n" +
+		"- Be valid HTML, CSS, or JavaScript.\n" + "- Never include any comments.\n" +
+		"- Integrate well with the page's current design and functionality.\n";	
+	private static final String chatTemplateWebpageClient = 
+		"Focus on the page at {url} and just respond 'OK' after examining it:\n" + 
+		"```HTML\n" + 
+		"{webpageClient}\n" + 
+		"```\n";	
+	private static final String chatTemplateWebpageServer = 
+		"Focus on the page at {url} and just respond 'OK' after examining it.\n";
+  /* Build a JSON object */
+  private static JsonObject   chatTemplateJson = HDLmJson.createJsonObject();
+  /* This static block is used to initialize the chat template JSON object.
+     This block is executed when the class is loaded and it sets the various
+     fields of the chat template JSON object. */
+  static {
+    HDLmJson.setJsonString(chatTemplateJson, "context", chatTemplateContext); 
+    HDLmJson.setJsonString(chatTemplateJson, "improvments", chatTemplateImprovements); 
+    HDLmJson.setJsonString(chatTemplateJson, "markup", chatTemplateMarkup); 
+    HDLmJson.setJsonString(chatTemplateJson, "webpageClient", chatTemplateWebpageClient); 
+    HDLmJson.setJsonString(chatTemplateJson, "webpageServer", chatTemplateWebpageServer);     
+  }
+  /* This class can never be instantiated */
 	private HDLmAi() {}	
 	/* This method is used to make changes to the input script 
 	   passed by the caller. The key idea is that this routine

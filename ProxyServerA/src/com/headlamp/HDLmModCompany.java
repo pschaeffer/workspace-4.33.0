@@ -244,7 +244,7 @@ public class HDLmModCompany extends HDLmMod {
 	  }
 		/* Get the reference to the set of ignore-lists for the current
 		   company. This is a reference to an ignore-lists instance. */
-		HDLmModLists   listsRef = ignoreLists;
+		HDLmModLists  listsRef = ignoreLists;
 	  if (listsRef == null) {
 		  HDLmAssertAction(false, "Reference to ignore-lists from company is null");
 	  }
@@ -337,7 +337,7 @@ public class HDLmModCompany extends HDLmMod {
 	  }
     /* An ignore-lists instance is created, if no ignore-lists instance 
 		   has been created so far. */ 
-	  HDLmModLists   newIgnoreLists = getIgnoreListsRef();		
+	  HDLmModLists  newIgnoreLists = getIgnoreListsRef();		
 		/* Build the ignore-lists instance if it does not already exist */
 	  if (newIgnoreLists == null) {
 		  newIgnoreLists = new HDLmModLists();
@@ -473,7 +473,7 @@ public class HDLmModCompany extends HDLmMod {
 		/* Build a tree node for the ignore-lists associated with every company.
 		   An ignore-lists instance is created, if no ignore-lists instance 
 		   has been created so far. */ 
-	  HDLmModLists   newIgnoreLists = newValue.getIgnoreListsRef();		
+	  HDLmModLists  newIgnoreLists = newValue.getIgnoreListsRef();		
 		/* Build the ignore-lists instance if it does not already exist */
 	  if (newIgnoreLists == null) {
 		  newIgnoreLists = new HDLmModLists();
@@ -490,7 +490,7 @@ public class HDLmModCompany extends HDLmMod {
 	  }
 		/* Build a tree node for the ignore-lists associated with every company */
 		HDLmTree  ignoreListsTree = HDLmModLists.buildTree(nodePath, 
-				                                                    newIgnoreLists);
+				                                               newIgnoreLists);
 		/* Build a tree node for the reports associated with every company. 
 		   A reports instance is created, if no reports instance has been 
 		   created so far. */
@@ -600,7 +600,7 @@ public class HDLmModCompany extends HDLmMod {
 		if (ignoreListCount < 1)
 		  HDLmAssertAction(false, "Size of ignore-lists is less than one"); 
 		/* Get the first ignore-list from the tree map of ignore-lists */		
-		String            keyFirst = ignoreListsRef.getIgnoreLists().firstKey();
+		String       keyFirst = ignoreListsRef.getIgnoreLists().firstKey();
 		HDLmModList  firstIgnoreList = ignoreListsRef.getIgnoreLists().get(keyFirst);
 		if (firstIgnoreList == null)
 		  HDLmAssertAction(false, "First ignore-list is null"); 
@@ -623,7 +623,7 @@ public class HDLmModCompany extends HDLmMod {
 	protected int          getIgnoreListsCount() {
 		/* Get the reference to the set of ignore-lists for the current
 		   company. This is a reference to an ignore-lists instance. */
-		HDLmModLists   listsRef = ignoreLists;
+		HDLmModLists  listsRef = ignoreLists;
 	  if (listsRef == null) {
 		  HDLmAssertAction(false, "Reference to ignore-lists from company is null");
 	  }

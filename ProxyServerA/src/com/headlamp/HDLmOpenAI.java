@@ -138,7 +138,7 @@ public class HDLmOpenAI {
 		try { 
 			/* inputImageStr = "https://cdn.openai.com/API/images/guides/image_variation_original.webp"; */
 			URL   imageUrl = HDLmHttp.encodeUrl(inputImageUrl);  
-			inputImageStrEncoded = imageUrl.toString();
+			inputImageStrEncoded = imageUrl.toString();			
 			BufferedImage   imageBuffered = ImageIO.read(imageUrl);
 			imageBuffered = HDLmOpenAI.getSquareImage(imageBuffered);
 			ByteArrayOutputStream   imageBaos = new ByteArrayOutputStream();
@@ -466,7 +466,7 @@ public class HDLmOpenAI {
 	  /* Try to get each of the choices/variants from the Open AI output */
 	  ArrayList<String>   imageVariantsList = new ArrayList<String>();  
 	  /* Get the image variants from the Open AI output */
-    JsonParser   parser = new JsonParser();  
+    JsonParser   parser = HDLmMain.gsonJsonParserMain;  
 	  JsonElement  topNode = parser.parse(outputJson);
 		/* Check if the JSON element is not a JSON object value */
 		if (!topNode.isJsonObject()) {
@@ -771,7 +771,7 @@ public class HDLmOpenAI {
 	  /* Try to get each of the choices/variants from the Open AI output */
 	  ArrayList<String>   choiceList = new ArrayList<String>();  
 	  /* Get the text variants from the Open AI output */
-	  JsonParser   parser = new JsonParser();  
+	  JsonParser   parser = HDLmMain.gsonJsonParserMain;  
 	  JsonElement  topNode = parser.parse(outputJson);
 		/* Check if the JSON element is not a JSON object value */
 		if (!topNode.isJsonObject()) {
@@ -837,7 +837,7 @@ public class HDLmOpenAI {
 	  	}  	
 	  }
 	  /* Convert the content string to a JSON object */
-	  JsonParser   contentParser = new JsonParser();  
+	  JsonParser   contentParser = HDLmMain.gsonJsonParserMain;  
 	  JsonElement  contentElement = contentParser.parse(contentStr);
 	  /* The contentElement might actually be a JSON array at this point.
 	     The output comes back in two slightly different formats. We need

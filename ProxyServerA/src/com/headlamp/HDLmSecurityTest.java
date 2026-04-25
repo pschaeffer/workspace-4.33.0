@@ -61,7 +61,7 @@ class HDLmSecurityTest {
 	     then we do not have a string than can be converted to a 
 	     JSON object. If this works, then we do have string than 
 	     can be converted to a JSON object. */
-    JsonParser    parser = new JsonParser();		
+    JsonParser    parser = HDLmMain.gsonJsonParserMain;		
     JsonElement   topNodeJsonElement = null; 
 		try {
 		  topNodeJsonElement = parser.parse(outStr);

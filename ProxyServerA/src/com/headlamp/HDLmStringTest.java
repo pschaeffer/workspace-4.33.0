@@ -480,6 +480,26 @@ class HDLmStringTest {
 		assertFalse(HDLmString.isWhitespace('9'), "HDLmString.isOperator did not return false");
 	}
 	@Test
+	void jsonReplaceUnprintable() {
+		String  outputStr;
+		outputStr = HDLmString.jsonReplaceUnprintable("Plain ASCII ? and Latin-1 é");
+		assertEquals("Plain ASCII ? and Latin-1 é", 
+				         outputStr,
+				         "HDLmString.jsonReplaceUnprintable changed printable characters");
+		outputStr = HDLmString.jsonReplaceUnprintable("AB C DE”F’G😀H");
+		String  expectedOutputStr = "A\u0019B\u0000C\u0000D\u0017E\\u201dF\\u2019G\\ud83d\\ude00H";
+		assertEquals(expectedOutputStr, 
+                 outputStr, 
+                 "HDLmString.jsonReplaceUnprintable did not escape unprintable characters");
+		{
+			Throwable exception = assertThrows(NullPointerException.class,
+					                           () -> {HDLmString.jsonReplaceUnprintable(null);},
+					                           "Expected NullPointerException");
+			String execMsg = exception.getMessage();
+			assertEquals("Input string value passed to jsonReplaceUnprintable is null", execMsg, "Unexpected exception message");
+		}
+	}	
+	@Test
 	void removeFileNumberTail() {
 		/* Run a few removeFileNumberTail tests */
 		String  expectedString;

@@ -297,7 +297,7 @@ public class HDLmChange {
 		if (HDLmChange.checkLogChanges() == false)
 			return;
 		/* Convert the post payload to a tree of JSON elements */
-    JsonParser    parser = new JsonParser();  
+    JsonParser    parser = HDLmMain.gsonJsonParserMain;  
 	  JsonObject    requestPostPayloadJson = (JsonObject) parser.parse(requestPostPayload); 
 	  /* Get the data array */
 	  JsonArray     dataJsonArray = (JsonArray) requestPostPayloadJson.get("data"); 

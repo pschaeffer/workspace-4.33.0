@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.mutable.MutableInt;
@@ -55,6 +56,7 @@ public class HDLmModIgnore extends HDLmMod {
   	/* Set a few fields in the new report instance */
   	created = currentTimestamp;
   	lastModified = currentTimestamp;	
+  	/* temporary code - what is associated node type? */
   	associatedNodeType = HDLmTreeTypes.IGNORE;
 		/* Create the match cache map that will be needed later for optimization */
 		matchCache = new HashMap<String, HDLmMatch>();
@@ -103,13 +105,13 @@ public class HDLmModIgnore extends HDLmMod {
 	  Set<String> jsonKeys = jsonObject.keySet();
 	  /* Get the standard class instance variables */
 	  HDLmModResponseExtended  response = HDLmModResponseExtended.getStandardFields(jsonElement, 
-                                                                    HDLmTreeTypes.IGNORE,
-                                                                    HDLmGetComments.GETCOMMENTSYES,
-																															      HDLmGetCreated.GETCREATEDYES,
-																															      HDLmGetLastModified.GETLASTMODIFIEDYES,
-																															      HDLmGetPassThruStatus.GETSTATUSNO,
-																														        HDLmOptExtra.OPTEXTRAYES,
-																														        HDLmGetUpdated.GETUPDATEDYES);
+                                                                  HDLmTreeTypes.IGNORE,
+                                                                  HDLmGetComments.GETCOMMENTSYES,
+																															    HDLmGetCreated.GETCREATEDYES,
+																															    HDLmGetLastModified.GETLASTMODIFIEDYES,
+																															    HDLmGetPassThruStatus.GETSTATUSNO,
+																														      HDLmOptExtra.OPTEXTRAYES,
+																														      HDLmGetUpdated.GETUPDATEDYES);
 	  if (response == null) {
 	  	String  errorText = "Null response from build standard fields routine";
 	  	HDLmAssertAction(false, errorText);
@@ -145,6 +147,10 @@ public class HDLmModIgnore extends HDLmMod {
 		/* Get the last modified date and time and use them to set an instance field */
 		lastModified = response.getLastModified();
 		/* Get a string and use it to set a instance field */ 
+		/* As of 2026/3/13 we allow zero-length for many fields
+		   in the ignore definition. These field are not set to 
+		   non-zero lengths (actual values) when an ignore node
+		   is created. */ 
 	  { 
 			String  errorMessagePrefix = "Ignore";
 			int     errorNumberMissing = 3; 
@@ -168,10 +174,10 @@ public class HDLmModIgnore extends HDLmMod {
 																              errorNumberInvalidWhiteSpace, 
 					                                    HDLmWhiteSpace.WHITESPACENOTOK,
 					                                    HDLmReportErrors.REPORTERRORS,
-					                                    HDLmZeroLengthOk.ZEROLENGTHNOTOK);
-	  }
+					                                    HDLmZeroLengthOk.ZEROLENGTHOK); 
+	  }  
     createdFromVerificationCheck = curString;
-		/* Get a string and use it to set a instance field */ 
+		/* Get a string and use it to set a instance field */  
 	  { 
 			String  errorMessagePrefix = "Ignore";
 			int     errorNumberMissing = 3; 
@@ -195,10 +201,10 @@ public class HDLmModIgnore extends HDLmMod {
 																              errorNumberInvalidWhiteSpace, 
 					                                    HDLmWhiteSpace.WHITESPACENOTOK,
 					                                    HDLmReportErrors.REPORTERRORS,
-					                                    HDLmZeroLengthOk.ZEROLENGTHNOTOK);
-	  }
+					                                    HDLmZeroLengthOk.ZEROLENGTHOK);
+	  }  
     scriptId = curString;
-		/* Get a string and use it to set a instance field */ 
+		/* Get a string and use it to set a instance field */  
 	  {
 			String  errorMessagePrefix = "Ignore";
 			int     errorNumberMissing = 3; 
@@ -222,10 +228,10 @@ public class HDLmModIgnore extends HDLmMod {
 																              errorNumberInvalidWhiteSpace, 		                                    
 					                                    HDLmWhiteSpace.WHITESPACENOTOK,
 					                                    HDLmReportErrors.REPORTERRORS,
-					                                    HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+					                                    HDLmZeroLengthOk.ZEROLENGTHOK);
 	  }  
     testCase = curString;
-		/* Get a string and use it to set a instance field */ 
+		/* Get a string and use it to set a instance field */  
 	  { 
 			String  errorMessagePrefix = "Ignore";
 			int     errorNumberMissing = 3; 
@@ -249,10 +255,10 @@ public class HDLmModIgnore extends HDLmMod {
 																              errorNumberInvalidWhiteSpace, 	
 					                                    HDLmWhiteSpace.WHITESPACENOTOK,
 					                                    HDLmReportErrors.REPORTERRORS,
-					                                    HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+					                                    HDLmZeroLengthOk.ZEROLENGTHOK);
 	  }
     stepNumber = curString;
-		/* Get a string and use it to set a instance field */ 
+		/* Get a string and use it to set a instance field */  
 	  { 
 			String  errorMessagePrefix = "Ignore";
 			int     errorNumberMissing = 3; 
@@ -276,10 +282,10 @@ public class HDLmModIgnore extends HDLmMod {
 																              errorNumberInvalidWhiteSpace, 
 					                                    HDLmWhiteSpace.WHITESPACENOTOK,
 					                                    HDLmReportErrors.REPORTERRORS,
-					                                    HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+					                                    HDLmZeroLengthOk.ZEROLENGTHOK);
 	  }
     description = curString;
-		/* Get a string and use it to set a instance field */ 
+		/* Get a string and use it to set a instance field */  
 	  { 
 			String  errorMessagePrefix = "Ignore";
 			int     errorNumberMissing = 3; 
@@ -303,10 +309,10 @@ public class HDLmModIgnore extends HDLmMod {
 																              errorNumberInvalidWhiteSpace, 
 					                                    HDLmWhiteSpace.WHITESPACENOTOK,
 					                                    HDLmReportErrors.REPORTERRORS,
-					                                    HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+					                                    HDLmZeroLengthOk.ZEROLENGTHOK);
 	  }
     language = curString;
-		/* Get a string and use it to set a instance field */ 
+		/* Get a string and use it to set a instance field */  
 	  { 
 			String  errorMessagePrefix = "Ignore";
 			int     errorNumberMissing = 3; 
@@ -330,10 +336,10 @@ public class HDLmModIgnore extends HDLmMod {
 																             errorNumberInvalidWhiteSpace, 
 					                                   HDLmWhiteSpace.WHITESPACENOTOK,
 					                                   HDLmReportErrors.REPORTERRORS,
-					                                   HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+					                                   HDLmZeroLengthOk.ZEROLENGTHOK);
 	  }
     ticketPackage = curString;
-		/* Get a string and use it to set a instance field */ 
+		/* Get a string and use it to set a instance field */  
 	  { 
 			String  errorMessagePrefix = "Ignore";
 			int     errorNumberMissing = 3; 
@@ -357,10 +363,10 @@ public class HDLmModIgnore extends HDLmMod {
 																             errorNumberInvalidWhiteSpace, 
 					                                   HDLmWhiteSpace.WHITESPACENOTOK,
 					                                   HDLmReportErrors.REPORTERRORS,
-					                                   HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+					                                   HDLmZeroLengthOk.ZEROLENGTHOK);
 	  }
 		testResults = curString;
-		/* Get a string and use it to set a instance field */ 
+		/* Get a string and use it to set a instance field */  
 	  { 
 			String  errorMessagePrefix = "Ignore";
 			int     errorNumberMissing = 3; 
@@ -384,10 +390,10 @@ public class HDLmModIgnore extends HDLmMod {
 															               errorNumberInvalidWhiteSpace, 
 				                                     HDLmWhiteSpace.WHITESPACENOTOK,
 				                                     HDLmReportErrors.REPORTERRORS,
-				                                     HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+				                                     HDLmZeroLengthOk.ZEROLENGTHOK);
 	  }
     detailsOne = curString;
-		/* Get a string and use it to set a instance field */
+		/* Get a string and use it to set a instance field */ 
 	  { 
 			String  errorMessagePrefix = "Ignore";
 			int     errorNumberMissing = 3; 
@@ -411,10 +417,10 @@ public class HDLmModIgnore extends HDLmMod {
 																             errorNumberInvalidWhiteSpace, 
 					                                   HDLmWhiteSpace.WHITESPACENOTOK,
 					                                   HDLmReportErrors.REPORTERRORS,
-					                                   HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+					                                   HDLmZeroLengthOk.ZEROLENGTHOK);
 	  }  
     detailsTwo = curString;
-		/* Get a string and use it to set a instance field */
+		/* Get a string and use it to set a instance field */ 
 	  { 
 			String  errorMessagePrefix = "Ignore";
 			int     errorNumberMissing = 3; 
@@ -438,7 +444,7 @@ public class HDLmModIgnore extends HDLmMod {
 																             errorNumberInvalidWhiteSpace, 
 					                                   HDLmWhiteSpace.WHITESPACENOTOK,
 					                                   HDLmReportErrors.REPORTERRORS,
-					                                   HDLmZeroLengthOk.ZEROLENGTHNOTOK);
+					                                   HDLmZeroLengthOk.ZEROLENGTHOK);
 	  }
     detailsThree = curString;
 		/* Mark the current ignore definition object as not executable, if the error count
@@ -522,6 +528,36 @@ public class HDLmModIgnore extends HDLmMod {
 		   details of the new tree node */
 		ignoreTree.setMod(newValue);		
 		return ignoreTree;	
+	}
+  /* This routine does the work of adding a new ignore-list to the list 
+     of ignore-lists for a company. This routine does not do any other 
+     work. The ignore-list may or may not be empty and the ignore-list
+     may be valid or invalid. */ 
+	protected void         addIgnoreList(final String currentIgnoreListName,			
+		                                   final HDLmModList currentIgnoreList,
+		                                   final HDLmStartupMode startupMode) {
+		/* Check if the ignore-list name string reference passed by the caller is null */
+		if (currentIgnoreList == null) {
+		  String  errorText = "Ignore-list name string reference passed to addIgnoreList is null";
+		  throw new NullPointerException(errorText);
+	 }
+		/* Check if the ignore-list reference passed by the caller is null */
+		if (currentIgnoreList == null) {
+		  String  errorText = "Ignore-list instance reference passed to addIgnoreList is null";
+		  throw new NullPointerException(errorText);
+	 }
+		/* Check if the startup mode value passed by the caller is null */
+		if (startupMode == null) {
+			String   errorText = "Startup mode value passed to addIgnoreList is null";
+			throw new NullPointerException(errorText);		
+		}
+		/* Check if the startup mode passed by the caller is invalid */
+		if (startupMode == HDLmStartupMode.NONE) {
+		  HDLmAssertAction(false, "Startup mode value passed to addIgnoreList is invalid");
+		}
+		/* Reset the last modified timestamp for the current company */
+		if (startupMode == HDLmStartupMode.STARTUPMODENO)
+		  lastModified = Instant.now();  
 	}
   /* The routine below checks if the results of a verification test 
      should be ignored or not, based on a specific ignore line. If the

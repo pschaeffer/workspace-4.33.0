@@ -39,7 +39,7 @@ class HDLmProxyTest {
 	void HDLmProxyJsonConstructor() {
 		/* Run a few HDLmProxyJsonConstructor tests */
 		String       proxyName = "legends-owo.dnsalias.com";
-    JsonParser   parser = new JsonParser();  
+    JsonParser   parser = HDLmMain.gsonJsonParserMain;  
     JsonElement  topNode = parser.parse(HDLmTreeData.jsonGetProxyStrSaved1); 
     JsonObject   topNodeObject = topNode.getAsJsonObject();
     Set<String>  topKeys = topNodeObject.keySet();
@@ -190,7 +190,7 @@ class HDLmProxyTest {
  		/* Run a few proxyFieldProtocolType tests */
   	HDLmEditorTypes  editorType = HDLmEditorTypes.PROXY;
  		String           proxyName = "OWO Home Bottom Text";
-    JsonParser       parser = new JsonParser();  
+    JsonParser       parser = HDLmMain.gsonJsonParserMain;  
     JsonElement      topNode = parser.parse(HDLmTreeData.jsonGetProxyStrSaved1); 
     JsonObject       topNodeObject = topNode.getAsJsonObject();
     Set<String>      topKeys = topNodeObject.keySet();
@@ -324,7 +324,7 @@ class HDLmProxyTest {
  		/* Run a few proxyFieldProxyType tests */
   	HDLmEditorTypes  editorType = HDLmEditorTypes.PROXY;
  		String           proxyName = "OWO Home Bottom Text";
-    JsonParser       parser = new JsonParser();  
+    JsonParser       parser = HDLmMain.gsonJsonParserMain;  
     JsonElement      topNode = parser.parse(HDLmTreeData.jsonGetProxyStrSaved1); 
     JsonObject       topNodeObject = topNode.getAsJsonObject();
     Set<String>      topKeys = topNodeObject.keySet();

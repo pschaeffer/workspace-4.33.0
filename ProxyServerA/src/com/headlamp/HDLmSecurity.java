@@ -233,7 +233,7 @@ public class HDLmSecurity {
 		  if (jsonValueStr == null)
 			  break;  
 			/* Create a new JSON parser for use below */
-	    JsonParser    parser = new JsonParser();  
+	    JsonParser    parser = HDLmMain.gsonJsonParserMain;  
 	    /* Make sure the JSON value string has the required key */
 	    JsonElement   jsonElement = parser.parse(jsonValueStr);
 		  /* Check if the JSON message passed by the caller is valid */
@@ -929,7 +929,7 @@ public class HDLmSecurity {
 			if (jsonValueStr == null)
 				break;
 			/* Create a new JSON parser for use below */
-	    JsonParser    parser = new JsonParser();  
+	    JsonParser    parser = HDLmMain.gsonJsonParserMain;  
 	    /* Make sure the inbound payload has the required key */
 	    JsonElement   jsonValueJson = parser.parse(jsonValueStr);
 		  /* Check if the JSON string is valid or not */
@@ -1161,7 +1161,7 @@ public class HDLmSecurity {
     if (outStatusCode != HttpStatus.OK_200)
 			return scopeStr;    
     /* Create a new JSON parser for use below */
-    JsonParser  parser = new JsonParser();  
+    JsonParser  parser = HDLmMain.gsonJsonParserMain;  
     JsonElement outArea = parser.parse(outResponseGetUser.getStringContent());
     /* Check if the JSON string obtained from the out area token is valid */
 	  if (!outArea.isJsonObject()) {
@@ -1296,7 +1296,7 @@ public class HDLmSecurity {
 			HDLmAssertAction(false, errorText);		    	
 	  }
 		/* Create a new JSON parser for use below */
-    JsonParser    parser = new JsonParser();  
+    JsonParser    parser = HDLmMain.gsonJsonParserMain;  
     /* Make sure the JSON response has the required key */
     JsonElement   jsonElement = parser.parse(jsonResponse);
 	  /* Check if the JSON string obtained from the response is valid */
@@ -1343,7 +1343,7 @@ public class HDLmSecurity {
     byte[]  idTokenPartBytes = Base64.getDecoder().decode(idTokenPart);
     String  idTokenJson = new String(idTokenPartBytes);
 		/* Create a new JSON parser for use below */
-    parser = new JsonParser();  
+    parser = HDLmMain.gsonJsonParserMain;  
     jsonElement = parser.parse(idTokenJson);
 	  /* Check if the JSON string obtained from ID token is valid */
 		if (!authResults.isJsonObject()) {
@@ -1434,7 +1434,7 @@ public class HDLmSecurity {
 		String  scopeStr = null;
 		if (jsonValueArea != null) {
 			/* Create a new JSON parser for use below */
-	    JsonParser    parser = new JsonParser();  
+	    JsonParser    parser = HDLmMain.gsonJsonParserMain;  
 	    /* Check if the JSON value area has the required keys */
 	    JsonElement   jsonValueJson = parser.parse(jsonValueArea);
 		  /* Check if the JSON string is valid or not */
@@ -1488,7 +1488,7 @@ public class HDLmSecurity {
 		String  passwordStr = null; 
 		if (jsonValueArea != null) {
 			/* Create a new JSON parser for use below */
-	   JsonParser    parser = new JsonParser();  
+	   JsonParser    parser = HDLmMain.gsonJsonParserMain;  
 	   /* Check if the JSON value area has the required keys */
 	   JsonElement   jsonValueJson = parser.parse(jsonValueArea);
 		  /* Check if the JSON string is valid or not */
@@ -1518,12 +1518,12 @@ public class HDLmSecurity {
      (the key) and the information (the password string) to be updated. */ 
 	protected static void  updatePassword(final String userNameStr,  
 			                                  final String passwordStr) {
-		/* Check some values passed by the caller */ 	 
+		/* Check if the userid was passed by the caller */ 	 
 		if (userNameStr == null) {
 		  String   errorText = "User name string reference is null in updatePassword";
 			HDLmAssertAction(false, errorText);		    	
 	  }	 
-		/* Check some values passed by the caller */ 	 
+		/* Check if the password was passed by the caller */ 	 
 		if (passwordStr == null) {
 		  String   errorText = "Password string reference is null in updatePassword";
 			HDLmAssertAction(false, errorText);		    	
@@ -1536,9 +1536,9 @@ public class HDLmSecurity {
 		String  scopeStr = null;
 		if (jsonValueArea != null) {
 			/* Create a new JSON parser for use below */
-	   JsonParser    parser = new JsonParser();  
-	   /* Check if the JSON value area has the required keys */
-	   JsonElement   jsonValueJson = parser.parse(jsonValueArea);
+ 	    JsonParser    parser = HDLmMain.gsonJsonParserMain;  
+	    /* Check if the JSON value area has the required keys */
+	    JsonElement   jsonValueJson = parser.parse(jsonValueArea);
 		  /* Check if the JSON string is valid or not */
 			if (!jsonValueJson.isJsonObject()) {
 		 	  String  errorText = "JSON string from memory database in updatePassword is invalid";
@@ -1557,6 +1557,75 @@ public class HDLmSecurity {
 		  HDLmJson.setJsonString(newJsonObject, "Scope", scopeStr);		
 		/* Convert the object to a JSON string */
 	  Gson     gsonInstance = HDLmMain.gsonMain;
+		String   jsonValueStr = gsonInstance.toJson(newJsonObject);		
+		HDLmMemoryStorage.put(jsonKeyStr, jsonValueStr);
+	}
+	/* This routine uses some information passed to it, to update the memory 
+	   storage area. The caller is assumed to provide the user name string 
+	   (the key) and the information (the password string) to be updated. */ 
+	protected static void  updatePasswordAndMemory(final String userNameStr,  
+			                                           final String passwordStr,
+			                                           final String passedScopeStr,
+			                                           final String passedLastTimeStr) {
+		/* Check if the userid was passed by the caller */ 	 
+		if (userNameStr == null) {
+		  String   errorText = "User name string reference is null in updatePasswordAndMemory";
+			HDLmAssertAction(false, errorText);		    	
+	  }	 
+		/* Check if the password was passed by the caller */ 	 	 
+		if (passwordStr == null) {
+		  String   errorText = "Password string reference is null in updatePasswordAndMemory";
+			HDLmAssertAction(false, errorText);		    	
+ 	  }	 
+		/* Check if the scope string was passed by the caller */ 	 
+		if (passedScopeStr == null) {
+		  String   errorText = "Scope string reference is null in updatePasswordAndMemory";
+			HDLmAssertAction(false, errorText);		    	
+	  }	 
+		/* Check if the last time string was passed by the caller */ 	 	 
+		if (passedLastTimeStr == null) {
+		  String   errorText = "Last time string reference is null in updatePasswordAndMemory";
+			HDLmAssertAction(false, errorText);		    	
+ 	  }	
+		/* Build the JSON strings used as the key and value */
+		String  jsonKeyStr = "{\"Type\":\"Username\",\"Value\":\"" + userNameStr + "\"}"; 
+		/* Try to get the existing (if any) data from the memory database */
+		String  jsonValueArea = HDLmMemoryStorage.get(jsonKeyStr);
+		String  lastTimeStr = null;
+		String  scopeStr = null;
+		if (jsonValueArea != null) {
+			/* Create a new JSON parser for use below */
+	    JsonParser    parser = HDLmMain.gsonJsonParserMain;  
+	    /* Check if the JSON value area has the required keys */
+	    JsonElement   jsonValueJson = parser.parse(jsonValueArea);
+		  /* Check if the JSON string is valid or not */
+			if (!jsonValueJson.isJsonObject()) {
+		 	  String  errorText = "JSON string from memory database in updatePassword is invalid";
+		 	  HDLmAssertAction(false, errorText);
+		  }
+			/* We can now try to get a few values from the JSON object */
+			scopeStr = HDLmJson.getJsonString(jsonValueJson, "Scope");
+			lastTimeStr = HDLmJson.getJsonString(jsonValueJson, "LastTime");  
+		}
+		/* If a value was not obtained from the memory database, 
+		   then we may (or may not) use the values passed by the 
+		   caller. The caller may or may not have passed values
+		   for the scope string and last time. */
+		else {
+			/* Use the passed a scope string value */
+		  scopeStr = passedScopeStr;
+			/* Use the passed last time string value or not */
+		  lastTimeStr = passedLastTimeStr;
+		}
+		/* Create a new JSON object for use below */
+		JsonObject  newJsonObject = new JsonObject();
+		HDLmJson.setJsonString(newJsonObject, "Password", passwordStr);
+		if (lastTimeStr != null)
+		  HDLmJson.setJsonString(newJsonObject, "LastTime", lastTimeStr);
+		if (scopeStr != null)
+		  HDLmJson.setJsonString(newJsonObject, "Scope", scopeStr);		
+		/* Convert the object to a JSON string */
+	 Gson     gsonInstance = HDLmMain.gsonMain;
 		String   jsonValueStr = gsonInstance.toJson(newJsonObject);		
 		HDLmMemoryStorage.put(jsonKeyStr, jsonValueStr);
 	}
@@ -1583,7 +1652,7 @@ public class HDLmSecurity {
 		String  passwordStr = null;
 		if (jsonValueArea != null) {
 			/* Create a new JSON parser for use below */
-	    JsonParser    parser = new JsonParser();  
+	    JsonParser    parser = HDLmMain.gsonJsonParserMain;  
 	    /* Check if the JSON value area has the required keys */
 	    JsonElement   jsonValueJson = parser.parse(jsonValueArea);
 		  /* Check if the JSON string is valid or not */

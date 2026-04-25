@@ -93,13 +93,13 @@ public class HDLmModLists extends HDLmMod {
 	  Set<String> jsonKeys = jsonObject.keySet();
 	  /* Get the standard class instance variables */
 	  HDLmModResponseExtended  response = HDLmModResponseExtended.getStandardFields(jsonElement, 
-                                                                    HDLmTreeTypes.LISTS,
-                                                                    HDLmGetComments.GETCOMMENTSNO,
-																															      HDLmGetCreated.GETCREATEDYES,
-																															      HDLmGetLastModified.GETLASTMODIFIEDYES,
-																															      HDLmGetPassThruStatus.GETSTATUSNO,
-																														        HDLmOptExtra.OPTEXTRAYES,
-																														        HDLmGetUpdated.GETUPDATEDYES);
+                                                                  HDLmTreeTypes.LISTS,
+                                                                  HDLmGetComments.GETCOMMENTSNO,
+																															    HDLmGetCreated.GETCREATEDYES,
+																															    HDLmGetLastModified.GETLASTMODIFIEDYES,
+																															    HDLmGetPassThruStatus.GETSTATUSNO,
+																														      HDLmOptExtra.OPTEXTRAYES,
+																														      HDLmGetUpdated.GETUPDATEDYES);
 	  if (response == null) {
 	   	String  errorText = "Null response from build standard fields routine";
 	 	  HDLmAssertAction(false, errorText);

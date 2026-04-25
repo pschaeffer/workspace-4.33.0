@@ -232,7 +232,9 @@ public class HDLmConfig {
 	    Map.entry("openAIApiKeySchaeffes",                new HDLmConfig(HDLmConfigTypes.STRING,  "")),	
 	    Map.entry("openAIMaximumStringLength",            new HDLmConfig(HDLmConfigTypes.INT,     "6000")),	
 	    Map.entry("openAIName",                           new HDLmConfig(HDLmConfigTypes.STRING,  "openai")),
-	    Map.entry("openRouterApiModel",                   new HDLmConfig(HDLmConfigTypes.STRING,  "openai/gpt-4o-mini")),
+	    /* Map.entry("openRouterApiModel",                new HDLmConfig(HDLmConfigTypes.STRING,  "openai/gpt-4o-mini")), */
+	    Map.entry("openRouterApiModel",                   new HDLmConfig(HDLmConfigTypes.STRING,  "anthropic/claude-opus-4.7")),
+	    /* Map.entry("openRouterApiModel",                new HDLmConfig(HDLmConfigTypes.STRING,  "openai/gpt-5.4-mini")), */
 	    Map.entry("openRouterImageApiModel",              new HDLmConfig(HDLmConfigTypes.STRING,  "google/gemini-3.1-flash-image-preview")),
 	    Map.entry("openRouterMaximumStringLength",        new HDLmConfig(HDLmConfigTypes.INT,     "6000")),
 	    Map.entry("openRouterTestApiKey",                 new HDLmConfig(HDLmConfigTypes.STRING,  "")),	
@@ -648,7 +650,7 @@ public class HDLmConfig {
 	    /* Check if we need to extract the actual secret from some JSON */
 			if (!secretAwsJsonKey.equals("")) {
 				/* Convert the JSON string to a set of JSON objects */
-		     JsonParser   parser = new JsonParser();
+		     JsonParser   parser = HDLmMain.gsonJsonParserMain;
 		     JsonElement  topNode = parser.parse(secretAwsValue);
 				 String       actualSecretValue = HDLmJson.getJsonString(topNode, secretAwsJsonKey);
 				 HDLmConfig.setConfigString(secretConfigName, actualSecretValue);

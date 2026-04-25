@@ -11,6 +11,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -119,59 +120,6 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmOpenRouter.class);
 	  outBuilder.append(contentTypeStr);
 	  return outBuilder.toString();
 	}
-	/* Build a data entity for use by other routines */
-	protected static HttpEntity buildDataEntity(final String inputImageUrl) {
-		/* Check one or more values passed by the caller */
-		if (inputImageUrl == null) {
-			String   errorText = "Input image URL string reference passed to buildDataEntity is null";
-			throw new NullPointerException(errorText);			
-		}
-		/* Build a few bodies that can be added to the entity */
-	  StringBody  stringBodyOne = new StringBody("3", ContentType.MULTIPART_FORM_DATA);
-	  StringBody  stringBodyTwo = new StringBody("1024x1024", ContentType.MULTIPART_FORM_DATA);  
-	  /* Build the input stream that can be added to the entity */
-	  ByteArrayInputStream    imageBais = null;
-	  String                  inputImageStrEncoded = null;
-		try { 
-			/* The original image is always obtained from Open AI even for Open Router. Open
-	   	   Router does not have a CDN that we can use to get an image for testing. As 
-		     a consequence, we use the original image from Open AI's CDN as the input
-		     image for testing in all cases. */
-			/* inputImageStr = "https://cdn.openai.com/API/images/guides/image_variation_original.webp"; */
-			URL   imageUrl = HDLmHttp.encodeUrl(inputImageUrl);  
-			inputImageStrEncoded = imageUrl.toString();
-			BufferedImage           imageBuffered = ImageIO.read(imageUrl);
-			imageBuffered = HDLmOpenRouter.getSquareImage(imageBuffered);
-			ByteArrayOutputStream   imageBaos = new ByteArrayOutputStream();
-			ImageIO.write(imageBuffered, "png", imageBaos);
-			imageBais = new ByteArrayInputStream(imageBaos.toByteArray());
-		}
-		catch (MalformedURLException malformedException) {
-			if (inputImageUrl != null)
-			  LOG.info("URL - " + inputImageUrl);
-			LOG.info("MalformedURLException while executing buildDataEntity");
-			LOG.info(malformedException.getMessage(), malformedException);
-			HDLmEvent.eventOccurred("MalformedURLException");	
-			return null;
-		}
-		catch (IOException ioException) {
-			if (inputImageUrl != null)
-			  LOG.info("URL - " + inputImageUrl);
-			LOG.info("IOException while executing buildDataEntity");
-  		LOG.info(ioException.getMessage(), ioException);
-  		HDLmEvent.eventOccurred("IOException");	
-  		return null;
-		}	 
-	  /* Build the entity that will be use to send the image data */
-	  MultipartEntityBuilder  builder = MultipartEntityBuilder.create();
-	  builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);	   
-	  builder.addBinaryBody("image", imageBais, ContentType.IMAGE_PNG, inputImageStrEncoded); 
-	  builder.addPart("n", stringBodyOne);
-	  builder.addPart("size", stringBodyTwo);
-	  HttpEntity  dataEntity = builder.build();
-	  /* Return the value we just built to the caller */
-	  return dataEntity;		
-	}
 	/* Build a header list for use with the Open Router API */
 	protected static ArrayList<String> buildHeaders(final HDLmApiKey apiKeyEnum) {
 		/* Check one or more values passed by the caller */
@@ -274,7 +222,7 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmOpenRouter.class);
 		/* What follows is a dummy loop used only to allow break to work */
 		while (true) {
 			/* Check for a regex path. Regex paths are not used. */
-			if (pathValueStrLen >= 3          &&
+			if (pathValueStrLen >= 3                 &&
 					pathValueStr.startsWith("//") &&
 					pathValueStr.endsWith("/"))
 				break;
@@ -402,10 +350,10 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmOpenRouter.class);
 	/* Execute an Open Router API request. The request could really
 	   be anything. The caller provides the body which defines
 	   the actual request. */
-	protected static HDLmResponse  executeOpenRouterRequestWebPageImprover(String bodyStr) {
+	protected static HDLmResponse  executeOpenRouterRequestWebpageImprover(String bodyStr) {
 		/* Check one or more values passed by the caller */
 		if (bodyStr == null) {
-			String   errorText = "Body string reference passed to executeOpenRouterRequest is null";
+			String   errorText = "Body string reference passed to executeOpenRouterRequestWebPageImprover is null";
 			throw new NullPointerException(errorText);
 		}
 		/* Get the Open Router model from the configuration values */
@@ -437,6 +385,396 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmOpenRouter.class);
 		executeResponse.setReturnCodeZero();
 		executeResponse.setReturnString(outputJson);
 		return executeResponse;
+	}
+	/* Execute an Open Router API request. The request could really
+	   be anything. The caller provides the body which defines
+	   the actual request. */
+	protected static HDLmResponse  executeOpenRouterRequestWebpageOptimizer(String bodyStr) {
+		/* Check one or more values passed by the caller */
+		if (bodyStr == null) {
+			String   errorText = "Body string reference passed to executeOpenRouterRequestWebPageOptimizer is null";
+			throw new NullPointerException(errorText);
+		}
+		/* Get the Open Router model from the configuration values */
+		String  apiModel = HDLmConfigInfo.getOpenRouterApiModel();
+		/* Replace the dummy model string with the actual model string */
+		bodyStr = bodyStr.replace("dummyModel", apiModel);
+		/* Build a response object that can be returned to the caller */
+		HDLmResponse  executeResponse = new HDLmResponse();
+		/* Build a header list for use later */
+		HDLmApiKey  apiKeyEnum = HDLmApiKey.APIKEYOPENROUTERWEBPAGEIMPROVER;
+		ArrayList<String>   headerList = HDLmOpenRouter.buildHeaders(apiKeyEnum);
+		/* Show the current timestamp for debugging purposes. */
+		String  curTmsp = Instant.now().toString();
+		LOG.info("Starting timestamp " + curTmsp); 
+		/* Try to get some Open Router data */
+		HDLmResponse  getResponse = getSomeOpenRouterData("api/v1/chat/completions", headerList, bodyStr);
+		/* Show the current timestamp for debugging purposes. */
+		curTmsp = Instant.now().toString();
+		LOG.info("Ending timestamp " + curTmsp); 
+		/* Get some values from the response */
+		String  errorMessage = getResponse.getErrorMessage();
+		String  outputJson = getResponse.getReturnString();
+		/* Check if we got an error message from the low-level AI routine */
+		if (errorMessage != null) {
+			executeResponse.setErrorMessage(errorMessage);
+			return executeResponse;
+		}
+		/* Check if obtained any output JSON from the Open Router API */
+		if (outputJson == null) {
+			errorMessage = "Output JSON from Open Router API is null";
+			executeResponse.setErrorMessage(errorMessage);
+			return executeResponse;
+		}
+		/* Store the output JSON in the response that will be returned to the caller */
+		executeResponse.setReturnCodeZero();
+		executeResponse.setReturnString(outputJson);
+		return executeResponse;
+	}
+	/* Execute the full webpage improver flow. The first request returns an array
+	   of improvements with why and what. Each what value is then converted into
+	   a markup object that contains scripts and styles arrays. */
+	protected static HDLmResponse  executeWebpageImproverRequest(final String bodyStr) {
+		/* Check one or more values passed by the caller */
+		if (bodyStr == null) {
+			String   errorText = "Body string reference passed to executeWebpageImproverRequest is null";
+			throw new NullPointerException(errorText);
+		}
+		HDLmResponse  outputResponse = new HDLmResponse();
+		HDLmResponse  initialResponse = HDLmOpenRouter.executeOpenRouterRequestWebpageImprover(bodyStr);
+		String        errorMessage = initialResponse.getErrorMessage();
+		if (errorMessage != null) {
+			outputResponse.setErrorMessage(errorMessage);
+			return outputResponse;
+		}
+		String  outputJsonStr = initialResponse.getReturnString();
+		if (outputJsonStr == null) {
+			errorMessage = "Initial webpage improver response is missing output JSON";
+			outputResponse.setErrorMessage(errorMessage);
+			return outputResponse;
+		}
+		/* Convert the output JSON string into an JSON object.
+		   Start by using the JSON parser that was created at 
+		   startup. */ 
+	  JsonParser    localParser = HDLmMain.gsonJsonParserMain;  
+ 	  /* Make sure the inbound payload has the required key */
+	  JsonElement   outputJsonElement = localParser.parse(outputJsonStr);
+	  /* Check if the JSON string is valid or not */
+	 	if (!outputJsonElement.isJsonObject()) {
+		  String  errorText = "JSON string from HDLmOpenRouter.executeOpenRouterRequestWebPageImprover in executeWebpageImproverRequest is invalid";
+		  HDLmAssertAction(false, errorText);
+	  }
+	 	/* Get the 'choices' array from the output JSON
+	 	   as a JSON array. It should always have a size 
+	 	   of one.*/ 
+	 	JsonArray   choicesArray = HDLmJson.getJsonArray(outputJsonElement, "choices"); 
+	 	int         choicesSize = choicesArray.size();
+		if (choicesSize <= 0) {
+			String errorText = "Choices array is empty in JSON string from HDLmOpenRouter.executeOpenRouterRequestWebPageImprover in executeWebpageImproverRequest";
+			HDLmAssertAction(false, errorText);
+		}
+		if (choicesSize != 1) {
+			String  errorFormat = "Choices array size is wrong (%d) in JSON string from HDLmOpenRouter.executeOpenRouterRequestWebPageImprover in executeWebpageImproverRequest";
+			String  errorText = String.format(errorFormat, choicesSize);
+			HDLmAssertAction(false, errorText);
+		}
+		/* Get the first choice object from the choices array */
+		JsonElement   firstChoiceElement = choicesArray.get(0);
+		if (!firstChoiceElement.isJsonObject()) {
+			String errorText = "First choice element is not a JSON object in JSON string from HDLmOpenRouter.executeOpenRouterRequestWebPageImprover in executeWebpageImproverRequest";
+			HDLmAssertAction(false, errorText);
+		}
+		/* Get the message object from the first choice object */
+		JsonObject  firstChoiceObject = firstChoiceElement.getAsJsonObject();
+		JsonObject  messageObject = HDLmJson.getJsonObject(firstChoiceObject, "message");
+		/* Get the content object from the message object */
+		String        contentStr = HDLmJson.getJsonString(messageObject, "content");
+		JsonElement   contentElement = localParser.parse(contentStr); 
+		/* Get the 'items' array from the content object. An 'item'
+		   is created for each improvement. */
+	 	JsonArray   itemsArray = HDLmJson.getJsonArray(contentElement, "items"); 
+	 	int         itemsSize = itemsArray.size();
+		if (itemsSize <= 0) {
+			String errorText = "Items array is empty in JSON string from HDLmOpenRouter.executeOpenRouterRequestWebPageImprover in executeWebpageImproverRequest";
+			HDLmAssertAction(false, errorText);
+		}		 
+	  /* Check each item/improvement */
+		for (int i = 0; i < itemsSize; i++) {
+			JsonElement  itemElement = itemsArray.get(i);
+			if (!itemElement.isJsonObject()) {
+				errorMessage = "A webpage improver entry is not a JSON object";
+				outputResponse.setErrorMessage(errorMessage);
+				return outputResponse;
+			}
+			/* Get and check the 'why' string */
+			String  whyStr = HDLmOpenRouter.getRequiredJsonString(itemElement,
+					                                                  "why",
+					                                                  "webpage improver improvement");
+			if (whyStr == null) {
+				errorMessage = "A webpage improver improvement is missing a why value";
+				outputResponse.setErrorMessage(errorMessage);
+				return outputResponse;
+			}
+			/* Get an check the 'what' string */
+			String  whatStr = HDLmOpenRouter.getRequiredJsonString(itemElement,
+					                                                   "what",
+					                                                   "webpage improver improvement");
+			if (whatStr == null) {
+				errorMessage = "A webpage improver improvement is missing a what value";
+				outputResponse.setErrorMessage(errorMessage);
+				return outputResponse;
+			}
+			/* The improvement appears not to have any markup. This check
+			   is skipped. */ 
+			if (1 == 2) { 
+				/* Get and check the markup. The markup should actually be 
+				   an object. */
+				JsonObject  markupObject = HDLmJson.getJsonObject(itemElement, "markup");
+				if (markupObject == null) {
+					errorMessage = "A webpage improver improvement is missing markup";
+					outputResponse.setErrorMessage(errorMessage);
+					return outputResponse;
+				}
+				if (!markupObject.isJsonObject()) {
+					errorMessage = "A webpage improver markup object is not a JSON object";
+					outputResponse.setErrorMessage(errorMessage);
+					return outputResponse;
+				}
+			}
+		}	
+	  /* Build the final string that is sent back to the 
+	     client */ 
+		JsonObject  outputObject = HDLmJson.createJsonObject();
+		HDLmJson.addArrayToJsonObject(outputObject, "improvements", itemsArray);
+		Gson    gsonInstance = HDLmMain.gsonMain;
+		String  normalizedPayload = gsonInstance.toJson(outputObject);
+		outputResponse.setReturnCodeZero();
+		outputResponse.setReturnString(normalizedPayload);
+		return outputResponse; 
+	}
+	/* Execute the full webpage optimizer flow */
+	protected static HDLmResponse  executeWebpageOptimizerRequest(final String bodyStr) {
+		/* Check one or more values passed by the caller */
+		if (bodyStr == null) {
+			String   errorText = "Body string reference passed to executeWebpageOptimizerRequest is null";
+			throw new NullPointerException(errorText);
+		}
+		HDLmResponse  outputResponse = new HDLmResponse();
+		HDLmResponse  initialResponse = HDLmOpenRouter.executeOpenRouterRequestWebpageOptimizer(bodyStr);
+		String        errorMessage = initialResponse.getErrorMessage();
+		if (errorMessage != null) {
+			outputResponse.setErrorMessage(errorMessage);
+			return outputResponse;
+		}
+		String  outputJsonStr = initialResponse.getReturnString();
+		if (outputJsonStr == null) {
+			errorMessage = "Initial webpage optimizer response is missing output JSON";
+			outputResponse.setErrorMessage(errorMessage);
+			return outputResponse;
+		}
+		/* Convert the output JSON string into an JSON object.
+		   Start by using the JSON parser that was created at 
+		   startup. */ 
+	  JsonParser    localParser = HDLmMain.gsonJsonParserMain;  
+	  /* Make sure the inbound payload has the required key */
+	  JsonElement   outputJsonElement = localParser.parse(outputJsonStr);
+	  /* Check if the JSON string is valid or not */
+		if (!outputJsonElement.isJsonObject()) {
+		  String  errorText = "JSON string from HDLmOpenRouter.executeOpenRouterRequestWebPageOptimizer in executeWebpageOptimizerRequest is invalid";
+		  HDLmAssertAction(false, errorText);
+	  }
+		/* Get the 'choices' array from the output JSON
+		   as a JSON array. It should always have a size 
+		   of one.*/ 
+		JsonArray   choicesArray = HDLmJson.getJsonArray(outputJsonElement, "choices"); 
+		int         choicesSize = choicesArray.size();
+		if (choicesSize <= 0) {
+			String errorText = "Choices array is empty in JSON string from HDLmOpenRouter.executeOpenRouterRequestWebPageOptimizer in executeWebpageOptimizerRequest";
+			HDLmAssertAction(false, errorText);
+		}
+		if (choicesSize != 1) {
+			String  errorFormat = "Choices array size is wrong (%d) in JSON string from HDLmOpenRouter.executeOpenRouterRequestWebPageOptimizer in executeWebpageOptimizerRequest";
+			String  errorText = String.format(errorFormat, choicesSize);
+			HDLmAssertAction(false, errorText);
+		}
+		/* Get the first choice object from the choices array */
+		JsonElement   firstChoiceElement = choicesArray.get(0);
+		if (!firstChoiceElement.isJsonObject()) {
+			String errorText = "First choice element is not a JSON object in JSON string from HDLmOpenRouter.executeOpenRouterRequestWebPageOptimizer in executeWebpageOptimizerRequest";
+			HDLmAssertAction(false, errorText);
+		}
+		/* Get the message object from the first choice object */
+		JsonObject  firstChoiceObject = firstChoiceElement.getAsJsonObject();
+		JsonObject  messageObject = HDLmJson.getJsonObject(firstChoiceObject, "message");
+		/* Get the content object from the message object */
+		String        contentStr = HDLmJson.getJsonString(messageObject, "content");
+		JsonElement   contentElement = localParser.parse(contentStr); 
+		/* Get the 'items' array from the content object */
+		JsonArray   itemsArray = HDLmJson.getJsonArray(contentElement, "items"); 
+		int         itemsSize = itemsArray.size();
+		if (itemsSize <= 0) {
+			String errorText = "Items array is empty in JSON string from HDLmOpenRouter.executeOpenRouterRequestWebPageOptimizer in executeWebpageOptimizerRequest";
+			HDLmAssertAction(false, errorText);
+		}		 
+	 /* Check each item */
+		for (int i = 0; i < itemsSize; i++) {
+			JsonElement  itemElement = itemsArray.get(i);
+			if (!itemElement.isJsonObject()) {
+				errorMessage = "A webpage optimizer entry is not a JSON object";
+				outputResponse.setErrorMessage(errorMessage);
+				return outputResponse;
+			}
+			/* Get and check the 'why' string */
+			String  whyStr = HDLmOpenRouter.getRequiredJsonString(itemElement,
+					                                                  "why",
+					                                                  "webpage optimizer");
+			if (whyStr == null) {
+				errorMessage = "A webpage optimizer is missing a why value";
+				outputResponse.setErrorMessage(errorMessage);
+				return outputResponse;
+			}
+			/* Get an check the 'what' string */
+			String  whatStr = HDLmOpenRouter.getRequiredJsonString(itemElement,
+					                                                   "what",
+					                                                   "webpage optimizer");
+			if (whatStr == null) {
+				errorMessage = "A webpage optimization is missing a what value";
+				outputResponse.setErrorMessage(errorMessage);
+				return outputResponse;
+			}
+			/* Get and check the markup. The markup should actually be 
+			   an object. */
+			JsonObject  markupObject = HDLmJson.getJsonObject(itemElement, "markup");
+			if (markupObject == null) {
+				errorMessage = "A webpage optimizer optimization is missing markup";
+				outputResponse.setErrorMessage(errorMessage);
+				return outputResponse;
+			}
+			if (!markupObject.isJsonObject()) {
+				errorMessage = "A webpage optimizer markup object is not a JSON object";
+				outputResponse.setErrorMessage(errorMessage);
+				return outputResponse;
+			}
+		}	
+	  /* Build the final string that is sent back to the 
+	     client */ 
+		JsonObject  outputObject = HDLmJson.createJsonObject();
+		HDLmJson.addArrayToJsonObject(outputObject, "optimizations", itemsArray);
+		Gson    gsonInstance = HDLmMain.gsonMain;
+		String  normalizedPayload = gsonInstance.toJson(outputObject);
+		outputResponse.setReturnCodeZero();
+		outputResponse.setReturnString(normalizedPayload);
+		return outputResponse; 
+	}
+	/* Extract the message content string from an Open Router response. */
+	protected static HDLmResponse  getOpenRouterMessageContent(final String outputJson,
+			                                                       final String methodName) {
+		/* Check one or more values passed by the caller */
+		if (outputJson == null) {
+			String   errorText = "Output JSON string reference passed to getOpenRouterMessageContent is null";
+			throw new NullPointerException(errorText);
+		}
+		if (methodName == null) {
+			String   errorText = "Method name string reference passed to getOpenRouterMessageContent is null";
+			throw new NullPointerException(errorText);
+		}
+		HDLmResponse  outputResponse = new HDLmResponse();
+		JsonParser    parser = HDLmMain.gsonJsonParserMain;
+		JsonElement   topNode = parser.parse(outputJson);
+		if (!topNode.isJsonObject()) {
+			String  errorFormat = "Top node is not a JSON object value in %s";
+			String  errorText = String.format(errorFormat, methodName);
+			outputResponse.setErrorMessage(errorText);
+			return outputResponse;
+		}
+		if (!HDLmJson.hasJsonKey(topNode, "choices")) {
+			String  errorText = HDLmOpenRouter.getApiErrorMessageFromOutputJson(outputJson);
+			if (errorText == null ||
+					errorText.length() == 0) {
+				String  errorFormat = "Choices array is missing from output JSON in %s";
+				errorText = String.format(errorFormat, methodName);
+			}
+			outputResponse.setErrorMessage(errorText);
+			return outputResponse;
+		}
+		JsonArray  choicesArray = HDLmJson.getJsonArray(topNode, "choices");
+		if (choicesArray == null ||
+				choicesArray.size() <= 0) {
+			String  errorFormat = "Choices array is empty in %s";
+			String  errorText = String.format(errorFormat, methodName);
+			outputResponse.setErrorMessage(errorText);
+			return outputResponse;
+		}
+		JsonElement  firstChoiceElement = choicesArray.get(0);
+		if (!firstChoiceElement.isJsonObject()) {
+			String  errorFormat = "First choice is not a JSON object in %s";
+			String  errorText = String.format(errorFormat, methodName);
+			outputResponse.setErrorMessage(errorText);
+			return outputResponse;
+		}
+		JsonObject  messageObject = HDLmJson.getJsonObject(firstChoiceElement, "message");
+		if (messageObject == null) {
+			String  errorFormat = "Message object is missing from first choice in %s";
+			String  errorText = String.format(errorFormat, methodName);
+			outputResponse.setErrorMessage(errorText);
+			return outputResponse;
+		}
+		String  contentStr = HDLmJson.getJsonString(messageObject, "content");
+		if (contentStr == null) {
+			String  errorFormat = "Message content is missing from first choice in %s";
+			String  errorText = String.format(errorFormat, methodName);
+			outputResponse.setErrorMessage(errorText);
+			return outputResponse;
+		}
+		contentStr = HDLmOpenRouter.removeJsonFences(contentStr);
+		outputResponse.setReturnCodeZero();
+		outputResponse.setReturnString(contentStr);
+		return outputResponse;
+	}
+	/* Get a required string field from a JSON object-like element. */
+	protected static String  getRequiredJsonString(final JsonElement jsonElement,
+			                                           final String key,
+			                                           final String contextStr) {
+		/* Check one or more values passed by the caller */
+		if (jsonElement == null) {
+			String   errorText = "JSON element reference passed to getRequiredJsonString is null";
+			throw new NullPointerException(errorText);
+		}
+		if (key == null) {
+			String   errorText = "Key string reference passed to getRequiredJsonString is null";
+			throw new NullPointerException(errorText);
+		}
+		if (contextStr == null) {
+			String   errorText = "Context string reference passed to getRequiredJsonString is null";
+			throw new NullPointerException(errorText);
+		}
+		if (!HDLmJson.hasJsonKey(jsonElement, key)) {
+			return null;
+		}
+		String  valueStr = HDLmJson.getJsonString(jsonElement, key);
+		if (valueStr == null ||
+				valueStr.length() == 0) {
+			return null;
+		}
+		return valueStr;
+	}
+	/* Remove fenced JSON markers from a message content string. */
+	protected static String  removeJsonFences(final String contentStr) {
+		/* Check one or more values passed by the caller */
+		if (contentStr == null) {
+			String   errorText = "Content string reference passed to removeJsonFences is null";
+			throw new NullPointerException(errorText);
+		}
+		String  outputStr = contentStr.trim();
+		if (outputStr.startsWith("```json") &&
+				outputStr.endsWith("```")) {
+			outputStr = outputStr.substring(7, outputStr.length() - 3).trim();
+		}
+		else if (outputStr.startsWith("```") &&
+			    	 outputStr.endsWith("```")) {
+			outputStr = outputStr.substring(3, outputStr.length() - 3).trim();
+		}
+		return outputStr;
 	}
 	/* Get some image choices using the Open Router API */
 	protected static HDLmResponse  getImageChoices(final String inputImageStr, 
@@ -498,7 +836,8 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmOpenRouter.class);
 	  ArrayList<String>   variantsList = HDLmOpenRouter.getImageVariations(outputJson); 
 	  if (variantsList.size() == 0) {
 	  	errorMessage = HDLmOpenRouter.getApiErrorMessageFromOutputJson(outputJson);
-	  	if (errorMessage == null || errorMessage.length() == 0) {
+	  	if (errorMessage == null || 
+				  errorMessage.length() == 0) {
 	  		errorMessage = "Open Router image response did not include image URLs";
 	  	}
 	  	outResponse.setErrorMessage(errorMessage);
@@ -518,7 +857,7 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmOpenRouter.class);
 	  /* Try to get each of the choices/variants from the Open Router output */
 	  ArrayList<String>   imageVariantsList = new ArrayList<String>();  
 	  /* Get the image variants from the Open Router output */
-    JsonParser   parser = new JsonParser();  
+    JsonParser   parser = HDLmMain.gsonJsonParserMain;  
 	  JsonElement  topNode = parser.parse(outputJson);
 		/* Check if the JSON element is not a JSON object value */
 		if (!topNode.isJsonObject()) {
@@ -551,7 +890,8 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmOpenRouter.class);
 		/* Handle chat completion image output: choices[].message.images[].image_url.url */
 		if (jsonKeys.contains("choices")) {
 			JsonElement  choicesElement = topNodeObject.get("choices");
-			if (choicesElement != null && choicesElement.isJsonArray()) {
+			if (choicesElement != null && 
+				  choicesElement.isJsonArray()) {
 				JsonArray  choicesArray = (JsonArray) choicesElement;
 				int        choicesArraySize = choicesArray.size();
 				for (int i = 0; i < choicesArraySize; i++) {
@@ -569,7 +909,8 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmOpenRouter.class);
 						continue;
 					}
 					JsonElement  imagesElement = messageObject.get("images");
-					if (imagesElement == null || !imagesElement.isJsonArray()) {
+					if (imagesElement == null || 
+						  !imagesElement.isJsonArray()) {
 						continue;
 					}
 					JsonArray  imagesArray = (JsonArray) imagesElement;
@@ -645,7 +986,8 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmOpenRouter.class);
 		   return */
 		if (errorMessage != null)
 			outResponse.setErrorMessage(errorMessage);
-		else if (statusLine != null && statusCode != HttpStatus.SC_OK)
+		else if (statusLine != null && 
+			       statusCode != HttpStatus.SC_OK)
 			outResponse.setErrorMessage(statusLine);
 		else if (contentString != null)
 			outResponse.setReturnString(contentString);
@@ -699,7 +1041,8 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmOpenRouter.class);
 	     return */
 	  if (errorMessage != null) 
 	    outResponse.setErrorMessage(errorMessage);
-	  else if (statusLine != null && statusCode != HttpStatus.SC_OK)
+	  else if (statusLine != null && 
+			       statusCode != HttpStatus.SC_OK)
 	 	  outResponse.setErrorMessage(statusLine);
 	  else if (contentString != null)
 	 	  outResponse.setReturnString(contentString);
@@ -711,19 +1054,21 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmOpenRouter.class);
 			String   errorText = "Output JSON string reference passed to getApiErrorMessageFromOutputJson is null";
 			throw new NullPointerException(errorText);
 		}
-		JsonParser   parser = new JsonParser();
+		JsonParser   parser = HDLmMain.gsonJsonParserMain;
 		JsonElement  topNode = parser.parse(outputJson);
 		if (!topNode.isJsonObject()) {
 			return null;
 		}
 		JsonObject  topNodeObject = topNode.getAsJsonObject();
 		JsonElement errorElement = topNodeObject.get("error");
-		if (errorElement == null || !errorElement.isJsonObject()) {
+		if (errorElement == null || 
+			  !errorElement.isJsonObject()) {
 			return null;
 		}
 		JsonObject   errorObject = errorElement.getAsJsonObject();
 		JsonElement  messageElement = errorObject.get("message");
-		if (messageElement == null || !messageElement.isJsonPrimitive()) {
+		if (messageElement == null || 
+			  !messageElement.isJsonPrimitive()) {
 			return null;
 		}
 		return messageElement.getAsString();
@@ -776,7 +1121,8 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmOpenRouter.class);
 	     return */
 	  if (errorMessage != null) 
 	    outResponse.setErrorMessage(errorMessage);
-	  else if (statusLine != null && statusCode != HttpStatus.SC_OK)
+	  else if (statusLine != null && 
+			       statusCode != HttpStatus.SC_OK)
 	 	  outResponse.setErrorMessage(statusLine);
 	  else if (contentString != null)
 	 	  outResponse.setReturnString(contentString);
@@ -893,7 +1239,7 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmOpenRouter.class);
 	  /* Try to get each of the choices/variants from the Open Router output */
 	  ArrayList<String>   choiceList = new ArrayList<String>();  
 	  /* Get the text variants from the Open Router output */
-	  JsonParser   parser = new JsonParser();  
+	  JsonParser   parser = HDLmMain.gsonJsonParserMain;  
 	  JsonElement  topNode = parser.parse(outputJson);
 		/* Check if the JSON element is not a JSON object value */
 		if (!topNode.isJsonObject()) {
@@ -949,7 +1295,8 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmOpenRouter.class);
 	  /* We may need to make some changes to the content string here. 
 	     For some reason, the API returns different text in some cases.
 	     The API does not return the same text structure in all cases. */
-	  if (contentStr != null && contentStr.length() >= 10) {
+	  if (contentStr != null && 
+			  contentStr.length() >= 10) {
 	  	if (contentStr.startsWith("```json") && 
 	  			contentStr.endsWith("```")) {
 	  		int   contentStrLength = contentStr.length();
@@ -959,7 +1306,7 @@ private static final Logger LOG = LoggerFactory.getLogger(HDLmOpenRouter.class);
 	  	}  	
 	  }
 	  /* Convert the content string to a JSON object */
-	  JsonParser   contentParser = new JsonParser();  
+	  JsonParser   contentParser = HDLmMain.gsonJsonParserMain;  
 	  JsonElement  contentElement = contentParser.parse(contentStr);
 	  /* The contentElement might actually be a JSON array at this point.
 	     The output comes back in two slightly different formats. We need

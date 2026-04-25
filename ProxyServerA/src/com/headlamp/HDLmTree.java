@@ -121,7 +121,7 @@ public class HDLmTree {
 			String  errorText = "New type value passed to tree object constructor is null";
 			throw new NullPointerException(errorText);
 		}
-		if (newType == HDLmTreeTypes.NONE) {
+		else if (newType == HDLmTreeTypes.NONE) {
 			String  errorText = "New type value passed to tree object constructor is not set";
 			HDLmAssertAction(false, errorText);
 		}
@@ -179,39 +179,154 @@ public class HDLmTree {
 		   node (the new modification rule or saved data value). */
 		ArrayList<String>   nodePath = new ArrayList<String>();
 		HDLmTree  nodeParent = null;
-		int       nodeLevels = 6;
+		/* Set the number of level we need to build based on
+		   the type of node we are building. For example, if 
+		   we are building a company node, we only need to build
+		   two levels (the top level and the companies level). */ 
+		int   nodeLevels = 0;
+		switch (nodeType) {
+      case TOP: {
+      	nodeLevels = 0;
+      	break;
+      }
+      case COMPANIES: {
+      	nodeLevels = 1;
+      	break;
+      }
+      case COMPANY: {
+      	nodeLevels = 2;
+      	break;
+      }
+      case DATA:
+      case LISTS:
+      case REPORTS:
+      case RULES: {
+      	nodeLevels = 3;
+      	break;
+      }
+      case DIVISION: {
+      	nodeLevels = 4;
+      	break;
+      }
+      case SITE: {
+      	nodeLevels = 5;
+      	break;
+      }
+      case VALUE:
+      case MOD: {
+      	nodeLevels = 6;
+      	break;
+      }
+		  /* Handle the default case. Of course, the default case should
+	       never occur. However, you never know. */ 
+	    default: {
+  	  	String  nodeTypeString = nodeType.toString();
+  			String  errorText = String.format("Node type of value (%s) is not supported", nodeTypeString);
+		  	throw new IllegalArgumentException(errorText);			  	
+	    }
+		}  	
+    /* Add the node levels that are needed */		
 		for (int i = 0; i < nodeLevels; i++) {
 			String  nodeName = null;
 			/* Create an enum for the node type */
 			HDLmTreeTypes   nodeEnum = null;
-			/* Set the correct node enum value based on the loop index */
-			if ((i+1) == 1)
-				nodeEnum = HDLmTreeTypes.TOP;
-			else if ((i+1) == 2)
-				nodeEnum = HDLmTreeTypes.COMPANIES;
-			else if ((i+1) == 3)
-				nodeEnum = HDLmTreeTypes.COMPANY;
-			else if ((i+1) == 4) {
-				if (nodeType == HDLmTreeTypes.DATA)
-				  nodeEnum = HDLmTreeTypes.DATA;
-				if (nodeType == HDLmTreeTypes.MOD)
-				  nodeEnum = HDLmTreeTypes.RULES;
-				if (nodeType == HDLmTreeTypes.RULES)
-				  nodeEnum = HDLmTreeTypes.RULES;
-				if (nodeType == HDLmTreeTypes.VALUE)
-				  nodeEnum = HDLmTreeTypes.DATA;
-			}
-			else if ((i+1) == 5)
-				nodeEnum = HDLmTreeTypes.DIVISION;
-			else if ((i+1) == 6)
-				nodeEnum = HDLmTreeTypes.SITE;
-			else if ((i+1) == 7) {
-				if (nodeType == HDLmTreeTypes.DATA)
-				  nodeEnum = HDLmTreeTypes.VALUE;
-				if (nodeType == HDLmTreeTypes.RULES)
-				  nodeEnum = HDLmTreeTypes.MOD;
-			}
+			/* Set the correct node enum value based on the loop index
+			   and the node type passed to this routine */
+			switch (i + 1) {
+			  case 1: {
+					nodeEnum = HDLmTreeTypes.TOP;
+					break;
+			  }
+			  case 2: {
+					nodeEnum = HDLmTreeTypes.COMPANIES;
+					break;
+			  }
+			  case 3: {
+					nodeEnum = HDLmTreeTypes.COMPANY;
+					break;
+			  }
+			  case 4: {
+				/* Set the node enum value based on the node type passed
+				   to this routine. Note that there are several node types
+				   that can be used at this level. The node enum value  
+				   basically control what type of node is built below. */ 
+				switch (nodeType) {
+				  case DATA: {
+						nodeEnum = HDLmTreeTypes.DATA;
+						break;
+				  }
+				  case LISTS: {
+				  	nodeEnum = HDLmTreeTypes.LISTS;
+				  	break;
+				  }
+					case REPORTS: {
+						nodeEnum = HDLmTreeTypes.REPORTS;
+						break;
+					}
+					case RULES: {
+						nodeEnum = HDLmTreeTypes.RULES;
+						break;
+					}
+					case DIVISION: {
+						nodeEnum = HDLmTreeTypes.RULES;
+						break;
+					}
+					case SITE: {
+						nodeEnum = HDLmTreeTypes.RULES;
+						break;
+					}
+					case MOD: {
+						nodeEnum = HDLmTreeTypes.RULES;
+						break;
+					}
+					case VALUE: {
+						nodeEnum = HDLmTreeTypes.DATA;
+						break;
+					}
+					/* Handle the default case. Of course, the default case should never occur.
+					   However, you never know. */
+					default: {
+						String nodeTypeString = nodeType.toString();
+						String errorText = String.format("Node type of value (%s) is not supported", nodeTypeString);
+						throw new IllegalArgumentException(errorText);
+					}
+				}
+				break;
+			  }
+			  case 5: {
+					nodeEnum = HDLmTreeTypes.DIVISION;
+					break;
+			  }
+			  case 6: {
+					nodeEnum = HDLmTreeTypes.SITE;
+					break;
+			  }
+			  case 7: {
+					switch (nodeType) {
+					  case DATA: {
+							nodeEnum = HDLmTreeTypes.VALUE;
+							break;
+					  }
+					  case RULES: {
+							nodeEnum = HDLmTreeTypes.MOD;
+							break;
+					  }
+					  default: {
+							String nodeTypeString = nodeType.toString();
+							String errorText = String.format("Node type of value (%s) is not supported for level 7", nodeTypeString);
+							throw new IllegalArgumentException(errorText);
+					  }
+					}				 
+			  	break;
+			  }
+			  default: {
+					String errorText = String.format("Loop index value (%d) is not supported in addLevels", i + 1);
+					throw new IllegalArgumentException(errorText);
+			  }
+			} 
 			/* Determine what we need to add to the node path */
+			if (nodeEnum == null) 
+				nodeEnum = nodeEnum;
 			switch (nodeEnum) {
 			  case TOP: {
 			  	nodeName = HDLmDefines.getString("HDLMTOPNODENAME");
@@ -227,6 +342,14 @@ public class HDLmTree {
 			  }
 			  case DATA: {
 			  	nodeName = HDLmDefines.getString("HDLMDATANODENAME");
+			  	break;
+			  }
+			  case LISTS: {
+			  	nodeName = HDLmDefines.getString("HDLMIGNORELISTSNODENAME");
+			  	break;
+			  }
+			  case REPORTS: {
+			  	nodeName = HDLmDefines.getString("HDLMREPORTSNODENAME");
 			  	break;
 			  }
 			  case RULES: {
@@ -255,8 +378,8 @@ public class HDLmTree {
 			     failed. This is likely to be more informative than 
 			     actual enum that did not match. */
 			  default: {
-		    	String  errorFormat = "No tree type enum value (%d) matched in addLevels";
-					String  errorText = String.format(errorFormat, i+1);
+		    	String  errorFormat = "No tree type enum value (%s) matched in addLevels";
+					String  errorText = String.format(errorFormat, nodeEnum.toString());
 					HDLmAssertAction(false, errorText);			  	
 			  }
 			}
@@ -273,104 +396,135 @@ public class HDLmTree {
 				nodeParent = nodeTree;
 				continue;
 			}
-			/* Check if the thing that was not found, was a Top node. This should
-	       never really happen because a Top node should always exist. */ 
-		  if (nodeEnum == HDLmTreeTypes.TOP) { 
-		    HDLmAssertAction(false, "Top tree node not found");
-		  }
-			/* Check if the thing that was not found, was a Companies node. This should
-	       never really happen because a Top node should always have a Companies
-	       node. */ 
-		  if (nodeEnum == HDLmTreeTypes.COMPANIES) { 
-		    HDLmAssertAction(false, "Companies tree node not found under Top tree node");
-		  }		  
-			/* Check if the thing that was not found, was a company. This can
-			   really happen, if a new company is being added to the node tree. */
-			if (nodeEnum == HDLmTreeTypes.COMPANY) {			
-		  	HDLmModCompany   company; 
-		    company = HDLmModCompany.addCompanyExtended(hostName);	;
-				if (company == null) 
-					HDLmAssertAction(false, "PassThru company reference not returned by add company extended routine");				
-		    /* Save the newly created node tree reference so that it can become
-		       the parent of the next tree node that is created */
-				nodeTree = HDLmTree.locateTreeNode(topTreeNode, nodePath);
-		    nodeParent = nodeTree;
-		    /* We don't need to add an insert here because the company node was 
-		       already written out to the database */ 
-		    if (1 == 2) {
-		      HDLmTree.addPendingInserts(nodeParent);
-		      insertsDone = true;
-		    }
-			}
-			/* Check if the thing that was not found, was a Data node. This should
-	       never really happen because a company node should always have a Data
-	       node under it. */ 
-		  if (nodeEnum == HDLmTreeTypes.DATA) { 
-		    HDLmAssertAction(false, "Data tree node not found under company tree node");
-		  }
-			/* Check if the thing that was not found, was a Rules node. This should
-		     never really happen because a company node should always have a Rules
-		     node under it. */ 
-			if (nodeEnum == HDLmTreeTypes.RULES) { 
-			  HDLmAssertAction(false, "Rules tree node not found under company tree node");
-			}
-			/* Check if the thing that was not found, was a division. This can
-		     really happen, if a new company is being added to the node tree. */
-		  if (nodeEnum == HDLmTreeTypes.DIVISION) {	
-				/* Get some information about the current instance */
-		  	ArrayList<String>   divisionNodePath = new ArrayList<String>(nodePath);
-				String              divisionNodeName = HDLmDefines.getString("HDLMDIVISIONNODENAME");
-				String              divisionNodeTypeStringLowerCase = nodeEnum.toString().toLowerCase();
-				String              divisionNodeString = "new" + divisionNodeTypeStringLowerCase;
-				String              divisionNodeTooltip = HDLmTree.getTooltipString(divisionNodeString);
-				/* Build a new tree node with the correct information */
-				HDLmTree  divisionTree = new HDLmTree(nodeEnum,
-						                                  divisionNodeTooltip,
-						                                  divisionNodePath);
-		    /* Make sure the new tree node was actually created */
-				if (divisionTree == null) 
-					HDLmAssertAction(false, "Null division tree node returned by new tree node constructor");
-				/* Add an extended modification to the division tree node */
-			  HDLmModDivision  newModNode = new HDLmModDivision();
-		    /* Make sure the new extended modification node was actually created */
-				if (newModNode == null) 
-					HDLmAssertAction(false, "Null division extended modification returned by new extended modification constructor");
-				divisionTree.setMod(newModNode);				
-				/* Add the division tree node to the Data or Rules tree node */
-				nodeParent.addOrReplaceChild(divisionTree);
-				nodeParent = divisionTree;
-				HDLmTree.addPendingInserts(nodeParent);
-				insertsDone = true;
-		  }
-			/* Check if the thing that was not found, was a site. This can
-	       really happen, if a new company is being added to the node
-	       tree. */
-		  if (nodeEnum == HDLmTreeTypes.SITE) {	
-				/* Get some information about the current instance */
-		  	ArrayList<String>   siteNodePath = new ArrayList<String>(nodePath);
-				String              siteNodeName = HDLmDefines.getString("HDLMSITENODENAME");
-				String              siteNodeTypeStringLowerCase = nodeEnum.toString().toLowerCase();
-				String              siteNodeString = "new" + siteNodeTypeStringLowerCase;
-				String              siteNodeTooltip = HDLmTree.getTooltipString(siteNodeString);
-				/* Build a new tree node with the correct information */
-				HDLmTree  siteTree = new HDLmTree(nodeEnum,
-						                              siteNodeTooltip,
-						                              siteNodePath);
-		    /* Make sure the new tree node was actually created */
-				if (siteTree == null) 
-					HDLmAssertAction(false, "Null site tree node returned by new tree node constructor");
-				/* Add an extended modification to the site tree node */
-			  HDLmModSite  newModNode = new HDLmModSite();
-		    /* Make sure the new extended modification node was actually created */
-				if (newModNode == null) 
-					HDLmAssertAction(false, "Null site extended modification returned by new extended modification constructor");
-				siteTree.setMod(newModNode);	
-				/* Add the site tree node to the division tree node */
-				nodeParent.addOrReplaceChild(siteTree);
-				nodeParent = siteTree;
-				HDLmTree.addPendingInserts(nodeParent);
-				insertsDone = true;
-		  }
+			/* Switch on the node enum value to determine the appropriate action */
+			switch (nodeEnum) {
+				/* Check if the thing that was not found, was a Top node. This should
+					never really happen because a Top node should always exist. */ 
+				case TOP: {
+					HDLmAssertAction(false, "Top tree node not found");
+					break;
+				}
+				/* Check if the thing that was not found, was a Companies node. This should
+					never really happen because a Top node should always have a Companies
+					node. */ 
+				case COMPANIES: { 
+					HDLmAssertAction(false, "Companies tree node not found under Top tree node");
+					break;
+				}		  
+				/* Check if the thing that was not found, was a company. This can
+					really happen, if a new company is being added to the node tree. */
+				case COMPANY: {			
+					HDLmModCompany   company; 
+					company = HDLmModCompany.addCompanyExtended(hostName);	
+					if (company == null) 
+						HDLmAssertAction(false, "PassThru company reference not returned by add company extended routine");				
+					/* Save the newly created node tree reference so that it can become
+						the parent of the next tree node that is created */
+					nodeTree = HDLmTree.locateTreeNode(topTreeNode, nodePath);
+					nodeParent = nodeTree;
+					/* We don't need to add an insert here because the company node was 
+						already written out to the database */ 
+					if (1 == 2) {
+						HDLmTree.addPendingInserts(nodeParent);
+						insertsDone = true;
+					}
+					break;
+				}
+				/* Check if the thing that was not found, was a Data node. This should
+					never really happen because a company node should always have a Data
+					node under it. */ 
+				case DATA: { 
+					HDLmAssertAction(false, "Data tree node not found under company tree node");
+					break;
+				}
+				/* Check if the thing that was not found, was an Lists node. This should
+					never really happen because a company node should always have a Lists
+					node under it. */ 
+				case LISTS: { 
+					HDLmAssertAction(false, "Lists tree node not found under company tree node");
+					break;
+				}
+				/* Check if the thing that was not found, was a Reports node. This should
+					never really happen because a company node should always have a Reports 
+					node under it. */ 
+				case REPORTS: { 
+					HDLmAssertAction(false, "Reports tree node not found under company tree node");
+					break;
+				}
+				/* Check if the thing that was not found, was a Rules node. This should
+					never really happen because a company node should always have a Rules
+					node under it. */ 
+				case RULES: { 
+					HDLmAssertAction(false, "Rules tree node not found under company tree node");
+					break;
+				}
+				/* Check if the thing that was not found, was a division. This can
+					really happen, if a new company is being added to the node tree. */
+				case DIVISION: {	
+					/* Get some information about the current instance */
+					ArrayList<String>   divisionNodePath = new ArrayList<String>(nodePath);
+					String              divisionNodeName = HDLmDefines.getString("HDLMDIVISIONNODENAME");
+					String              divisionNodeTypeStringLowerCase = nodeEnum.toString().toLowerCase();
+					String              divisionNodeString = "new" + divisionNodeTypeStringLowerCase;
+					String              divisionNodeTooltip = HDLmTree.getTooltipString(divisionNodeString);
+					/* Build a new tree node with the correct information */
+					HDLmTree  divisionTree = new HDLmTree(nodeEnum,
+																								divisionNodeTooltip,
+																								divisionNodePath);
+					/* Make sure the new tree node was actually created */
+					if (divisionTree == null) 
+						HDLmAssertAction(false, "Null division tree node returned by new tree node constructor");
+					/* Add an extended modification to the division tree node */
+					HDLmModDivision  newModNode = new HDLmModDivision();
+					/* Make sure the new extended modification node was actually created */
+					if (newModNode == null) 
+						HDLmAssertAction(false, "Null division extended modification returned by new extended modification constructor");
+					divisionTree.setMod(newModNode);				
+					/* Add the division tree node to the Data or Rules tree node */
+					nodeParent.addOrReplaceChild(divisionTree);
+					nodeParent = divisionTree;
+					HDLmTree.addPendingInserts(nodeParent);
+					insertsDone = true;
+					break;
+				}
+				/* Check if the thing that was not found, was a site. This can
+					really happen, if a new company is being added to the node
+					tree. */
+				case SITE: {	
+					/* Get some information about the current instance */
+					ArrayList<String>   siteNodePath = new ArrayList<String>(nodePath);
+					String              siteNodeName = HDLmDefines.getString("HDLMSITENODENAME");
+					String              siteNodeTypeStringLowerCase = nodeEnum.toString().toLowerCase();
+					String              siteNodeString = "new" + siteNodeTypeStringLowerCase;
+					String              siteNodeTooltip = HDLmTree.getTooltipString(siteNodeString);
+					/* Build a new tree node with the correct information */
+					HDLmTree  siteTree = new HDLmTree(nodeEnum,
+																						siteNodeTooltip,
+																						siteNodePath);
+					/* Make sure the new tree node was actually created */
+					if (siteTree == null) 
+						HDLmAssertAction(false, "Null site tree node returned by new tree node constructor");
+					/* Add an extended modification to the site tree node */
+					HDLmModSite  newModNode = new HDLmModSite();
+					/* Make sure the new extended modification node was actually created */
+					if (newModNode == null) 
+						HDLmAssertAction(false, "Null site extended modification returned by new extended modification constructor");
+					siteTree.setMod(newModNode);	
+					/* Add the site tree node to the division tree node */
+					nodeParent.addOrReplaceChild(siteTree);
+					nodeParent = siteTree;
+					HDLmTree.addPendingInserts(nodeParent);
+					insertsDone = true;
+					break;
+				}
+				/* Handle the default case. Of course, the default case should 
+				   never occur. However, you never know. */
+				default: {
+					String nodeEnumString = nodeEnum.toString();
+					String errorText = String.format("Node enum value of (%s) is not supported in addLevels", nodeEnumString);
+					HDLmAssertAction(false, errorText);
+				}	 
+			}	
 		}    
 		/* Check if we have done any inserts in this routine. If we have
 		   done some pending inserts, they need to be completed here. */ 
@@ -522,7 +676,7 @@ public class HDLmTree {
 			String  errorText = "New tree child node value is null";
 			throw new NullPointerException(errorText);
 		}
-		if (!(newChildNode instanceof HDLmTree)) {
+		else if (!(newChildNode instanceof HDLmTree)) {
 			HDLmAssertAction(false, "New tree child node value has incorrect type");
 		}
 		/* Declare and define a few local values */
@@ -747,7 +901,7 @@ public class HDLmTree {
 			throw new NullPointerException(errorText);
 		}
 		/* Check if the string (to be added) reference passed by the caller is null */		 
-		if (counter == null) {
+		else if (counter == null) {
 		  String  errorText = "String reference passed by the caller to addStringBuilder is null";
 		  throw new NullPointerException(errorText);
 		}
@@ -787,7 +941,7 @@ public class HDLmTree {
 			throw new NullPointerException(errorText);
 		}
 		/* Check if the JSON string passed by the caller has the wrong data type */
-		if (!(jsonStr instanceof String)) {
+		else if (!(jsonStr instanceof String)) {
 			HDLmAssertAction(false, "JSON string value has incorrect data type");
 		}
 		/* Check if the editor type passed by the caller is null */
@@ -796,7 +950,7 @@ public class HDLmTree {
 			throw new NullPointerException(errorText);
 		}
 		/* Check if the editor type passed by the caller is invalid */
-		if (editorType == HDLmEditorTypes.NONE) {
+		else if (editorType == HDLmEditorTypes.NONE) {
 			HDLmAssertAction(false, "Editor type value is invalid");
 		}
 		/* Check if the startup mode passed by the caller is null */
@@ -805,7 +959,7 @@ public class HDLmTree {
 			throw new NullPointerException(errorText);
 		}
 		/* Check if the startup mode passed by the caller is invalid */
-		if (startupMode == HDLmStartupMode.NONE) {
+		else if (startupMode == HDLmStartupMode.NONE) {
 			HDLmAssertAction(false, "Startup mode value in addToTree is invalid");
 		}
 		/* Create an JSON row comparator for use in sorting the array list elements */
@@ -890,7 +1044,7 @@ public class HDLmTree {
 		}
 		/* Convert the AJAX JSON to a JSON object and get some information from the
 		   object */
-		JsonParser    parser = new JsonParser();
+		JsonParser    parser = HDLmMain.gsonJsonParserMain;
 		JsonElement   jsonResponse = parser.parse(jsonStr);
 		if (jsonResponse.isJsonNull()) {
 			String  errorText = String.format("JSON response returned from JSON parsing is JSON null");
@@ -905,7 +1059,7 @@ public class HDLmTree {
 					"rows_returned");
 			HDLmAssertAction(false, errorText);
 		}
-		if (dataRowsCount <= 0) {
+		else if (dataRowsCount <= 0) {
 			String  errorText = String.format("Invalid number of data rows (%d) returned from the server", dataRowsCount);
 			HDLmAssertAction(false, errorText);
 		}
@@ -933,7 +1087,7 @@ public class HDLmTree {
 				HDLmAssertAction(false, errorText);
 			}
 			/* Convert the info string to a JSON object */
-			JsonParser    dataRowInfoParser = new JsonParser();
+			JsonParser    dataRowInfoParser = HDLmMain.gsonJsonParserMain;
 			JsonElement   dataRowInfoJson = dataRowInfoParser.parse(dataRowInfoString);
 			HDLmJson.setJsonValue(dataRowElement, "info", dataRowInfoJson);
 			/* Add the updated data row element to the rows array */
@@ -967,7 +1121,7 @@ public class HDLmTree {
 			throw new NullPointerException(errorText);
 		}
 		/* Check if the JSON string passed by the caller has the wrong data type */
-		if (!(jsonStr instanceof String)) {
+		else if (!(jsonStr instanceof String)) {
 			HDLmAssertAction(false, "JSON string value has incorrect data type");
 		}
 		/* Check if the editor type passed by the caller is null */
@@ -976,7 +1130,7 @@ public class HDLmTree {
 			throw new NullPointerException(errorText);
 		}
 		/* Check if the editor type passed by the caller is invalid */
-		if (editorType == HDLmEditorTypes.NONE) {
+		else if (editorType == HDLmEditorTypes.NONE) {
 			HDLmAssertAction(false, "Editor type value is invalid");
 		}
 		/* Get the editor type in a lower-case string */
@@ -995,7 +1149,7 @@ public class HDLmTree {
 		}
 		/* Convert the AJAX JSON to a JSON object and get some information from the
 		   object */
-		JsonParser    parser = new JsonParser();
+		JsonParser    parser = HDLmMain.gsonJsonParserMain;
 		JsonElement   topNode = parser.parse(jsonStr);
 		if (topNode.isJsonNull()) {
 			String  errorText = String.format("Top node returned from JSON parsing is JSON null");
@@ -1010,7 +1164,7 @@ public class HDLmTree {
 			                              		"rows_returned");
 			HDLmAssertAction(false, errorText);
 		}
-		if (dataRowsCount != 1) {
+		else if (dataRowsCount != 1) {
 			String  errorText = String.format("Invalid number of data rows (%d) returned from the server", dataRowsCount);
 			HDLmAssertAction(false, errorText);
 		}
@@ -1104,7 +1258,7 @@ public class HDLmTree {
 			throw new NullPointerException(errorText);
 		}
 		/* Check if the JSON string passed by the caller has the wrong data type */
-		if (!(jsonStr instanceof String)) {
+		else if (!(jsonStr instanceof String)) {
 			HDLmAssertAction(false, "JSON string value has incorrect data type");
 		}
 		/* Check if the editor type passed by the caller is null */
@@ -1113,7 +1267,7 @@ public class HDLmTree {
 			throw new NullPointerException(errorText);
 		}
 		/* Check if the editor type passed by the caller is invalid */
-		if (editorType == HDLmEditorTypes.NONE) {
+		else if (editorType == HDLmEditorTypes.NONE) {
 			HDLmAssertAction(false, "Editor type value is invalid");
 		}
 		/* Get the editor type in a lower-case string */
@@ -1132,7 +1286,7 @@ public class HDLmTree {
 		}
 		/* Convert the AJAX JSON to a JSON object and get some information from the
 		   object */
-		JsonParser    parser = new JsonParser();
+		JsonParser    parser = HDLmMain.gsonJsonParserMain;
 		JsonElement   topNode = parser.parse(jsonStr);
 		if (topNode.isJsonNull()) {
 			String  errorText = String.format("Top node returned from JSON parsing is JSON null");
@@ -1147,7 +1301,7 @@ public class HDLmTree {
 					"rows_returned");
 			HDLmAssertAction(false, errorText);
 		}
-		if (dataRowsCount != 1) {
+		else if (dataRowsCount != 1) {
 			String  errorText = String.format("Invalid number of data rows (%d) returned from the server", dataRowsCount);
 			HDLmAssertAction(false, errorText);
 		}
@@ -1241,11 +1395,11 @@ public class HDLmTree {
 			throw new NullPointerException(errorText);
 		}
 		/* Check if the JSON element is a null value */
-		if (jsonElements.isJsonNull()) {
+		else if (jsonElements.isJsonNull()) {
 			HDLmAssertAction(false, "JSON element is a JSON null");
 		}
 		/* Check if the JSON element is not a JSON object value */
-		if (!jsonElements.isJsonObject()) {
+		else if (!jsonElements.isJsonObject()) {
 			HDLmAssertAction(false, "JSON element is not a JSON object value");
 		} 
 		/* Check if the host name string instance passed by the caller is null */
@@ -1259,11 +1413,17 @@ public class HDLmTree {
 			throw new NullPointerException(errorText);
 		}
 		/* At this point, we may want to add a data value or we may want to add
-		   a rule (a modification). We need to check for each case. */
+		   a rule (a modification). We need to check for each case. */		
 		String  localTypeString = HDLmJson.getJsonString(jsonElements, "type");
-		HDLmTreeTypes   nodeType = HDLmTreeTypes.MOD;
-		if (localTypeString.equals("value"))
-			nodeType = HDLmTreeTypes.VALUE;		
+		/* Try to convert the type string to a tree type enum value. 
+		   This is the preferred way of doing this. */
+		HDLmTreeTypes   nodeType = HDLmTreeTypes.valueOfString(localTypeString);
+		/* Report an error the conversion above did not work. */
+		if (nodeType == HDLmTreeTypes.NONE) {   
+     	String  errorFormat = "Type string value (%s) did not match in addTreeNode";
+  		String  errorText = String.format(errorFormat, localTypeString);
+  		HDLmAssertAction(false, errorText);    	
+    }	
 		/* Build all of the intermediate levels as need be. This call will
 	     update the node tree (HDLmTree) in memory and send any new nodes
 	     to the database as need be. */ 
@@ -1295,27 +1455,87 @@ public class HDLmTree {
 	  /* Make sure the new tree node was actually created */
 		if (newTreeNode == null) 
 			HDLmAssertAction(false, "Null modification tree node returned by new tree node constructor");
-		/* We can now create the modification rule structure */ 
-		if (nodeType != HDLmTreeTypes.VALUE) {		
-		  HDLmMod   newModNode = new HDLmMod(nodeDetails);
-	 	  /* Make sure the error count is zero in the new modification */ 
-			if (newModNode.getErrorCount() != 0) {
-				String   errorText = "Error count is not zero in the new modification";
-				HDLmAssertAction(false, errorText);
-	    }
-		  newModNode.setIfNotSetTimes();
-	    newTreeNode.setMod(newModNode);		 
-	    /* At this point, the new tree node is pretty much done. We may need to 
-	       get the perceptual hash values (really just one) for any images that
-	       the tree node uses. The new instance below is used just to provide
-	       a way of invoking the function that actually does all of the work. */
-	  	HDLmProcessTreePHash  pHashInstance = new HDLmProcessTreePHash();
-	    pHashInstance.processTreePos(newTreeNode); 	  
-		}
-		else {
-		  HDLmMod   newValueNode = new HDLmModValue(nodeDetails);
-	    newTreeNode.setMod(newValueNode);					
-		}
+		/* We can now create the tree structure */ 
+		if (nodeEnum == null) 
+			nodeEnum = nodeEnum;
+		switch (nodeEnum) {
+		  case TOP: {
+			  HDLmMod   newTopNode = new HDLmModTop(nodeDetails);
+		    newTreeNode.setMod(newTopNode);
+		  	break;
+		  }
+		  case COMPANIES: {
+			  HDLmMod   newCompaniesNode = new HDLmModCompanies(nodeDetails);
+		    newTreeNode.setMod(newCompaniesNode);	
+		  	break;
+		  }
+		  case COMPANY: {
+			  HDLmMod   newCompanyNode = new HDLmModCompany(nodeDetails);
+		    newTreeNode.setMod(newCompanyNode);	
+		  	break;
+		  }
+		  case DATA: {
+			  HDLmMod   newDataNode = new HDLmModData(nodeDetails);
+		    newTreeNode.setMod(newDataNode);	
+		  	break;
+		  }
+		  case LISTS: {
+			  HDLmMod   newListsNode = new HDLmModLists(nodeDetails);
+		    newTreeNode.setMod(newListsNode);	
+		  	break;
+		  }
+		  case REPORTS: {
+			  HDLmMod   newReportsNode = new HDLmModReports(nodeDetails);
+		    newTreeNode.setMod(newReportsNode);	
+		  	break;
+		  }
+		  case RULES: {
+			  HDLmMod   newRulesNode = new HDLmModRules(nodeDetails);
+		    newTreeNode.setMod(newRulesNode);
+		  	break;
+			}
+		  case DIVISION: {
+			  HDLmMod   newDivisionNode = new HDLmModDivision(nodeDetails);
+		    newTreeNode.setMod(newDivisionNode);
+		  	break;
+		  }
+		  case SITE: {
+			  HDLmMod   newSiteNode = new HDLmModSite(nodeDetails);
+		    newTreeNode.setMod(newSiteNode);
+		  	break;
+		  }
+		  case MOD: {
+			  HDLmMod   newModNode = new HDLmMod(nodeDetails);  
+				if (newModNode.getErrorCount() != 0) {
+					String   errorText = "Error count is not zero in the new modification";
+					HDLmAssertAction(false, errorText);
+		    }
+			  newModNode.setIfNotSetTimes();
+		    newTreeNode.setMod(newModNode);		 
+		    /* At this point, the new tree node is pretty much done. We may need to 
+		       get the perceptual hash values (really just one) for any images that
+		       the tree node uses. The new instance below is used just to provide
+		       a way of invoking the function that actually does all of the work. */
+		  	HDLmProcessTreePHash  pHashInstance = new HDLmProcessTreePHash();
+		    pHashInstance.processTreePos(newTreeNode);
+		  	break;
+		  }
+		  case VALUE: {
+			  HDLmMod   newValueNode = new HDLmModValue(nodeDetails);
+		    newTreeNode.setMod(newValueNode);
+		  	break;
+		  }
+		  /* Report an error if none of the cases matched. At least
+		     one of the cases should have matched. The error text
+		     actually shows the loop index value (plus one) that
+		     failed. This is likely to be more informative than 
+		     actual enum that did not match. */
+		  default: {
+	    	String  errorFormat = "No tree type enum value (%s) matched in addTreeNode";
+				String  errorText = String.format(errorFormat, nodeEnum.toString());
+				HDLmAssertAction(false, errorText);			  	
+		  }
+	  }	
 	  /* Add the newly created tree node to the tree node tree. This should
 	     only be done after we have the final name for the tree node and the
 	     modification. At this point we have the final name for both. */
@@ -1565,7 +1785,7 @@ public class HDLmTree {
 			/* Get the current information object (for one row) */
 			String  infoStr = infoArray.get(i);
 		  /* We can now process the response text */
-		  JsonParser    parser = new JsonParser();  
+		  JsonParser    parser = HDLmMain.gsonJsonParserMain;  
 		  JsonElement   infoJson = parser.parse(infoStr); 
 			/* Add a information object */
 		  /* LOG.info(((Integer) (i)).toString()); */	
@@ -1631,7 +1851,7 @@ public class HDLmTree {
 			throw new NullPointerException(errorText);
 		}
 		/* Check if the fresh copy of the tree enum value passed by the caller is invalid */
-		if (freshTree == HDLmFreshCopy.NONE) {
+		else if (freshTree == HDLmFreshCopy.NONE) {
 			String  errorText = "Fresh copy of the tree enum value passed to buildLevelsGetSetTree is invalid";
 			throw new IllegalArgumentException(errorText);
 		}
@@ -1641,7 +1861,7 @@ public class HDLmTree {
 			throw new NullPointerException(errorText);
 		}
 		/* Check if the node type value passed by the caller is invalid */
-		if (nodeType == HDLmTreeTypes.NONE) {
+		else if (nodeType == HDLmTreeTypes.NONE) {
 			String  errorText = "Node Type value passed to buildLevelsGetSetTree is invalid";
 			throw new IllegalArgumentException(errorText);
 		}
@@ -1685,7 +1905,7 @@ public class HDLmTree {
 			String  errorText = "JSON object value is null";
 			throw new NullPointerException(errorText);
 		}
-		if (!(jsonObject instanceof JsonObject)) {
+		else if (!(jsonObject instanceof JsonObject)) {
 			HDLmAssertAction(false, "JSON object value has incorrect type");
 		}
 		HDLmMod newMod = null;
@@ -1710,7 +1930,7 @@ public class HDLmTree {
 			String  errorText = "JSON object value is null";
 			throw new NullPointerException(errorText);
 		}
-		if (!(jsonObject instanceof JsonObject)) {
+		else if (!(jsonObject instanceof JsonObject)) {
 			HDLmAssertAction(false, "JSON object value has incorrect type");
 		}
 		/* Build an empty node path array list. Entried are added to the node path array
@@ -1744,7 +1964,7 @@ public class HDLmTree {
 			throw new NullPointerException(errorText);
 		}
 		/* Check if the JSON data array list size passed by the caller is invalid */
-		if (jsonData.size() <= 0) {
+		else if (jsonData.size() <= 0) {
 			HDLmAssertAction(false, "JSON data array list size is invalid");
 		}
 		/* Check if the editor type passed by the caller is null */
@@ -1753,7 +1973,7 @@ public class HDLmTree {
 			throw new NullPointerException(errorText);
 		}
 		/* Check if the editor type passed by the caller is invalid */
-		if (editorType == HDLmEditorTypes.NONE) {
+		else if (editorType == HDLmEditorTypes.NONE) {
 			HDLmAssertAction(false, "Editor type value is invalid");
 		}
 		/* Declare and define a few variables */
@@ -1885,7 +2105,7 @@ public class HDLmTree {
 			String  errorText = "JSON object value is null";
 			throw new NullPointerException(errorText);
 		}
-		if (!(jsonObject instanceof JsonObject)) {
+		else if (!(jsonObject instanceof JsonObject)) {
 			HDLmAssertAction(false, "JSON object value has incorrect type");
 		}
 		HDLmModCompanies newCompanies = null;
@@ -1905,7 +2125,7 @@ public class HDLmTree {
 			String  errorText = "JSON object value is null";
 			throw new NullPointerException(errorText);
 		}
-		if (!(jsonObject instanceof JsonObject)) {
+		else if (!(jsonObject instanceof JsonObject)) {
 			HDLmAssertAction(false, "JSON object value has incorrect type");
 		}
 		HDLmModCompany newCompany = null;
@@ -1925,7 +2145,7 @@ public class HDLmTree {
 			String  errorText = "JSON object value is null";
 			throw new NullPointerException(errorText);
 		}
-		if (!(jsonObject instanceof JsonObject)) {
+		else if (!(jsonObject instanceof JsonObject)) {
 			HDLmAssertAction(false, "JSON object value has incorrect type");
 		}
 		HDLmModData  newData = null;
@@ -1945,7 +2165,7 @@ public class HDLmTree {
 			String  errorText = "JSON object value is null";
 			throw new NullPointerException(errorText);
 		}
-		if (!(jsonObject instanceof JsonObject)) {
+		else if (!(jsonObject instanceof JsonObject)) {
 			HDLmAssertAction(false, "JSON object value has incorrect type");
 		}
 		HDLmModDivision  newDivision = null;
@@ -1973,7 +2193,7 @@ public class HDLmTree {
 			divisionString = divisionString.replaceAll("dummyCreated", "created");
 			divisionString = divisionString.replaceAll("dummyLastModified", "lastmodified");
 			/* Parse the JSON string to get the JSON object */
-		  JsonParser    parser = new JsonParser();		
+		  JsonParser    parser = HDLmMain.gsonJsonParserMain;		
 	    JsonElement   infoJsonElement = null; 
 		  try {
 			  JsonObject  divisionJsonObject = parser.parse(divisionString).getAsJsonObject();
@@ -2002,7 +2222,7 @@ public class HDLmTree {
 			String  errorText = "JSON object value is null";
 			throw new NullPointerException(errorText);
 		}
-		if (!(jsonObject instanceof JsonObject)) {
+		else if (!(jsonObject instanceof JsonObject)) {
 			HDLmAssertAction(false, "JSON object value has incorrect type");
 		}
 		HDLmModIgnore newIgnore = null;
@@ -2022,7 +2242,7 @@ public class HDLmTree {
 			String  errorText = "JSON object value is null";
 			throw new NullPointerException(errorText);
 		}
-		if (!(jsonObject instanceof JsonObject)) {
+		else if (!(jsonObject instanceof JsonObject)) {
 			HDLmAssertAction(false, "JSON object value has incorrect type");
 		}
 		HDLmModLine newLine = null;
@@ -2042,7 +2262,7 @@ public class HDLmTree {
 			String  errorText = "JSON object value is null";
 			throw new NullPointerException(errorText);
 		}
-		if (!(jsonObject instanceof JsonObject)) {
+		else if (!(jsonObject instanceof JsonObject)) {
 			HDLmAssertAction(false, "JSON object value has incorrect type");
 		}
 		HDLmModLines newLines = null;
@@ -2062,7 +2282,7 @@ public class HDLmTree {
 			String  errorText = "JSON object value is null";
 			throw new NullPointerException(errorText);
 		}
-		if (!(jsonObject instanceof JsonObject)) {
+		else if (!(jsonObject instanceof JsonObject)) {
 			HDLmAssertAction(false, "JSON object value has incorrect type");
 		}
 		HDLmModList newList = null;
@@ -2077,12 +2297,12 @@ public class HDLmTree {
 	}
 	/* This routine builds a HDLmModLists object from some JSON, if possible.
 	   This routine actually builds a lists instance from JSON. */
-	protected static HDLmModLists buildModListsDetailsFromJson(final JsonObject jsonObject) {
+	protected static HDLmModLists  buildModListsDetailsFromJson(final JsonObject jsonObject) {
 		if (jsonObject == null) {
 			String  errorText = "JSON object value is null";
 			throw new NullPointerException(errorText);
 		}
-		if (!(jsonObject instanceof JsonObject)) {
+		else if (!(jsonObject instanceof JsonObject)) {
 			HDLmAssertAction(false, "JSON object value has incorrect type");
 		}
 		HDLmModLists newLists = null;
@@ -2102,7 +2322,7 @@ public class HDLmTree {
 			String  errorText = "JSON object value is null";
 			throw new NullPointerException(errorText);
 		}
-		if (!(jsonObject instanceof JsonObject)) {
+		else if (!(jsonObject instanceof JsonObject)) {
 			HDLmAssertAction(false, "JSON object value has incorrect type");
 		}
 		HDLmModReport newReport = null;
@@ -2122,7 +2342,7 @@ public class HDLmTree {
 			String  errorText = "JSON object value is null";
 			throw new NullPointerException(errorText);
 		}
-		if (!(jsonObject instanceof JsonObject)) {
+		else if (!(jsonObject instanceof JsonObject)) {
 			HDLmAssertAction(false, "JSON object value has incorrect type");
 		}
 		HDLmModReports newReports = null;
@@ -2142,7 +2362,7 @@ public class HDLmTree {
 			String  errorText = "JSON object value is null";
 			throw new NullPointerException(errorText);
 		}
-		if (!(jsonObject instanceof JsonObject)) {
+		else if (!(jsonObject instanceof JsonObject)) {
 			HDLmAssertAction(false, "JSON object value has incorrect type");
 		}
 		HDLmModRules newRules = null;
@@ -2162,7 +2382,7 @@ public class HDLmTree {
 			String  errorText = "JSON object value is null";
 			throw new NullPointerException(errorText);
 		}
-		if (!(jsonObject instanceof JsonObject)) {
+		else if (!(jsonObject instanceof JsonObject)) {
 			HDLmAssertAction(false, "JSON object value has incorrect type");
 		}
 		HDLmModSite  newSite = null;
@@ -2190,7 +2410,7 @@ public class HDLmTree {
 			siteString = siteString.replaceAll("dummyCreated", "created");
 			siteString = siteString.replaceAll("dummyLastModified", "lastmodified");
 			/* Parse the JSON string to get the JSON object */
-		  JsonParser    parser = new JsonParser();		
+		  JsonParser    parser = HDLmMain.gsonJsonParserMain;		
 	    JsonElement   infoJsonElement = null; 
 		  try {
 			  JsonObject  siteJsonObject = parser.parse(siteString).getAsJsonObject();
@@ -2219,7 +2439,7 @@ public class HDLmTree {
 			String  errorText = "JSON object value is null";
 			throw new NullPointerException(errorText);
 		}
-		if (!(jsonObject instanceof JsonObject)) {
+		else if (!(jsonObject instanceof JsonObject)) {
 			HDLmAssertAction(false, "JSON object value has incorrect type");
 		}
 		HDLmModTop newTop = null;
@@ -2239,7 +2459,7 @@ public class HDLmTree {
 			String  errorText = "JSON object value is null";
 			throw new NullPointerException(errorText);
 		}
-		if (!(jsonObject instanceof JsonObject)) {
+		else if (!(jsonObject instanceof JsonObject)) {
 			HDLmAssertAction(false, "JSON object value has incorrect type");
 		}
 		HDLmModValue   newValue = null;
@@ -2258,7 +2478,7 @@ public class HDLmTree {
 			String  errorText = "JSON object value is null";
 			throw new NullPointerException(errorText);
 		}
-		if (!(jsonObject instanceof JsonObject)) {
+		else if (!(jsonObject instanceof JsonObject)) {
 			HDLmAssertAction(false, "JSON object value has incorrect type");
 		}
 		HDLmProxy newProxy = null;
@@ -2315,10 +2535,10 @@ public class HDLmTree {
 			String  errorText = "JSON element value is null";
 			throw new NullPointerException(errorText);
 		}
-		if (!(jsonElement instanceof JsonElement)) {
+		else if (!(jsonElement instanceof JsonElement)) {
 			HDLmAssertAction(false, "JSON element value has incorrect type");
 		}
-		if (jsonElement.isJsonNull()) {
+		else if (jsonElement.isJsonNull()) {
 			HDLmAssertAction(false, "JSON element passed by the caller is JSON null");
 		}
 		if (idString == null) {
@@ -2331,7 +2551,7 @@ public class HDLmTree {
 			throw new NullPointerException(errorText);
 		}
 		/* Check if the editor type passed by the caller is invalid */
-		if (editorType == HDLmEditorTypes.NONE) {
+		else if (editorType == HDLmEditorTypes.NONE) {
 			HDLmAssertAction(false, "Editor type value is invalid");
 		}
 		JsonObject jsonObject = jsonElement.getAsJsonObject();
@@ -2364,70 +2584,93 @@ public class HDLmTree {
 		   all (or almost all) cases we have some details. We will actually have details
 		   even for the top-level tree node and each of the company nodes. Of course, we
 		   will have details for lower-level nodes as well. */
-		HDLmMod                 newMod = null;
-		HDLmModCompanies   newHDLmModCompanies = null;
-		HDLmModCompany     newHDLmModCompany = null;
-		HDLmModData        newHDLmModData = null;
-		HDLmModDivision    newHDLmModDivision = null;
-		HDLmModIgnore      newHDLmModIgnore = null;
-		HDLmModLine        newHDLmModLine = null;
-		HDLmModLines       newHDLmModLines = null;
-		HDLmModList        newHDLmModList = null;
-		HDLmModLists       newHDLmModLists = null;
-		HDLmModRules       newHDLmModRules = null;
-		HDLmModReports     newHDLmModReports = null;
-		HDLmModReport      newHDLmModReport = null;
-		HDLmModSite        newHDLmModSite = null;
-		HDLmModTop         newHDLmModTop = null;
-		HDLmModValue       newHDLmModValue = null;
+		HDLmMod           newMod = null;
+		HDLmModCompanies  newHDLmModCompanies = null;
+		HDLmModCompany    newHDLmModCompany = null;
+		HDLmModData       newHDLmModData = null;
+		HDLmModDivision   newHDLmModDivision = null;
+		HDLmModIgnore     newHDLmModIgnore = null;
+		HDLmModLine       newHDLmModLine = null;
+		HDLmModLines      newHDLmModLines = null;
+		HDLmModList       newHDLmModList = null;
+		HDLmModLists      newHDLmModLists = null;
+		HDLmModRules      newHDLmModRules = null;
+		HDLmModReports    newHDLmModReports = null;
+		HDLmModReport     newHDLmModReport = null;
+		HDLmModSite       newHDLmModSite = null;
+		HDLmModTop        newHDLmModTop = null;
+		HDLmModValue      newHDLmModValue = null;
 		if (editorType == HDLmEditorTypes.PASS) {
-			if (newTypeEnum == HDLmTreeTypes.COMPANIES) {
-				newHDLmModCompanies = buildModCompaniesDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.COMPANY) {
-				newHDLmModCompany = buildModCompanyDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.DATA) {
-				newHDLmModData = buildModDataDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.DIVISION) {
-				newHDLmModDivision = buildModDivisionDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.IGNORE) {
-				newHDLmModIgnore = buildModIgnoreDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.LINES) {
-				newHDLmModLines = buildModLinesDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.LINE) {
-				newHDLmModLine = buildModLineDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.LISTS) {
-				newHDLmModLists = buildModListsDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.LIST) {
-				newHDLmModList = buildModListDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.MOD) {
-				newMod = buildModDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.REPORTS) {
-				newHDLmModReports = buildModReportsDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.REPORT) {
-				newHDLmModReport = buildModReportDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.RULES) {
-				newHDLmModRules = buildModRulesDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.SITE) {
-				newHDLmModSite = buildModSiteDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.TOP) {
-				newHDLmModTop = buildModTopDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.VALUE) {
-				newHDLmModValue = buildModValueDetailsFromJson(jsonObject);
+			switch (newTypeEnum) {
+			  case COMPANIES: {
+					newHDLmModCompanies = buildModCompaniesDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case COMPANY: {
+					newHDLmModCompany = buildModCompanyDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case DATA: {
+					newHDLmModData = buildModDataDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case DIVISION: {
+					newHDLmModDivision = buildModDivisionDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case IGNORE: {
+					newHDLmModIgnore = buildModIgnoreDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case LINE: {
+					newHDLmModLine = buildModLineDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case LINES: {
+					newHDLmModLines = buildModLinesDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case LIST: {
+					newHDLmModList = buildModListDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case LISTS: {
+					newHDLmModLists = buildModListsDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case MOD: {
+					newMod = buildModDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case REPORTS: {
+					newHDLmModReports = buildModReportsDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case REPORT: {
+					newHDLmModReport = buildModReportDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case RULES: {
+					newHDLmModRules = buildModRulesDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case SITE: {
+					newHDLmModSite = buildModSiteDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case TOP: {
+					newHDLmModTop = buildModTopDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case VALUE: {
+					newHDLmModValue = buildModValueDetailsFromJson(jsonObject);
+					break;
+			  }
+			  default: {
+					String newTypeString = newTypeEnum.toString();
+					String errorText = String.format("Tree type of value (%s) is not supported for PASS editor details", newTypeString);
+					throw new IllegalArgumentException(errorText);
+			  }
 			}
 		}
 		/* Check if we are building an HDLmTree node for a company. In some cases we
@@ -2443,47 +2686,119 @@ public class HDLmTree {
 		}
 		/* Get the node path from the input JSON. We should always have a node path for
 		   all HDLmTree instances. */
-		ArrayList<String> newNodePath = buildNodePathFromJson(jsonObject);
+		ArrayList<String>   newNodePath = buildNodePathFromJson(jsonObject);
 		/* Build the new HDLmTree object */
 		HDLmTree newTree = new HDLmTree(newTypeEnum, newTooltip, newNodePath);
 		newTree.setId(idString);
 		/* We need to save a reference to the details object, if we created a details
 		   object. This won't always be true. However, if it is true, then we must save
 		   the details object reference. */
-		if (newHDLmModCompanies != null)
-			newTree.setMod(newHDLmModCompanies);
-		if (newHDLmModCompany != null)
-			newTree.setMod(newHDLmModCompany);
-		if (newHDLmModData != null)
-			newTree.setMod(newHDLmModData);
-		if (newHDLmModDivision != null)
-			newTree.setMod(newHDLmModDivision);
-		if (newHDLmModIgnore != null)
-			newTree.setMod(newHDLmModIgnore);
-		if (newHDLmModLine != null)
-			newTree.setMod(newHDLmModLine);
-		if (newHDLmModLines != null)
-			newTree.setMod(newHDLmModLines);
-		if (newHDLmModList != null)
-			newTree.setMod(newHDLmModList);
-		if (newHDLmModLists != null)
-			newTree.setMod(newHDLmModLists);
-		if (newHDLmModReport != null)
-			newTree.setMod(newHDLmModReport);
-		if (newHDLmModReports != null)
-			newTree.setMod(newHDLmModReports);
-		if (newHDLmModRules != null)
-			newTree.setMod(newHDLmModRules);
-		if (newHDLmModSite != null)
-			newTree.setMod(newHDLmModSite);
-		if (newHDLmModTop != null)
-			newTree.setMod(newHDLmModTop);
-		if (newHDLmModValue != null)
-			newTree.setMod(newHDLmModValue);
-		if (newMod != null)
-			newTree.setMod(newMod);
-		if (newProxy != null)
-			newTree.setMod(newProxy);
+		HDLmMod[] detailValues = new HDLmMod[] {
+				newHDLmModCompanies,
+				newHDLmModCompany,
+				newHDLmModData,
+				newHDLmModDivision,
+				newHDLmModIgnore,
+				newHDLmModLine,
+				newHDLmModLines,
+				newHDLmModList,
+				newHDLmModLists,
+				newHDLmModReport,
+				newHDLmModReports,
+				newHDLmModRules,
+				newHDLmModSite,
+				newHDLmModTop,
+				newHDLmModValue,
+				newMod,
+				newProxy
+		};
+		int detailIndex = -1;
+		for (int i = 0; i < detailValues.length; i++) {
+			if (detailValues[i] != null) {
+				detailIndex = i;
+				break;
+			}
+		}
+		switch (detailIndex) {
+		  case 0: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 1: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 2: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 3: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 4: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 5: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 6: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 7: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 8: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 9: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 10: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 11: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 12: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 13: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 14: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 15: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 16: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  default: {
+		  	/* The top node does not have any details. So, if we
+		  	    have a top node, then it is ok if we don't have 
+		  	    any details. However, if we don't have any details
+		  	    and we don't have a top node, then this is an error. */
+		  	if (newTypeEnum != HDLmTreeTypes.TOP) {
+		  		String errorText = "Tree details were not found in buildTreeFromJson";
+				  HDLmAssertAction(false, errorText);
+		  	}
+		  }
+		} 
 		return newTree;
 	}
 	/* This routine builds an HDLmTree object from some JSON. This routine calls
@@ -2496,10 +2811,10 @@ public class HDLmTree {
 			String  errorText = "JSON element value is null";
 			throw new NullPointerException(errorText);
 		}
-		if (!(jsonElement instanceof JsonElement)) {
+		else if (!(jsonElement instanceof JsonElement)) {
 			HDLmAssertAction(false, "JSON element value has incorrect type");
 		}
-		if (jsonElement.isJsonNull()) {
+		else if (jsonElement.isJsonNull()) {
 			HDLmAssertAction(false, "JSON element passed by the caller is JSON null");
 		}
 		/* Check if the editor type passed by the caller is null */
@@ -2508,7 +2823,7 @@ public class HDLmTree {
 			throw new NullPointerException(errorText);
 		}
 		/* Check if the editor type passed by the caller is invalid */
-		if (editorType == HDLmEditorTypes.NONE) {
+		else if (editorType == HDLmEditorTypes.NONE) {
 			HDLmAssertAction(false, "Editor type value is invalid");
 		}
 		JsonObject jsonObject = jsonElement.getAsJsonObject();
@@ -2563,53 +2878,76 @@ public class HDLmTree {
 			}
 		}
 		if (editorType == HDLmEditorTypes.PASS) {
-			if (newTypeEnum == HDLmTreeTypes.COMPANIES) {
-				newHDLmModCompanies = buildModCompaniesDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.COMPANY) {
-				newHDLmModCompany = buildModCompanyDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.DATA) {
-				newHDLmModData = buildModDataDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.DIVISION) {
-				newHDLmModDivision = buildModDivisionDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.IGNORE) {
-				newHDLmModIgnore = buildModIgnoreDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.LINES) {
-				newHDLmModLines = buildModLinesDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.LINE) {
-				newHDLmModLine = buildModLineDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.LISTS) {
-				newHDLmModLists = buildModListsDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.LIST) {
-				newHDLmModList = buildModListDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.MOD) {
-				newMod = buildModDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.REPORTS) {
-				newHDLmModReports = buildModReportsDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.REPORT) {
-				newHDLmModReport = buildModReportDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.RULES) {
-				newHDLmModRules = buildModRulesDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.SITE) {
-				newHDLmModSite = buildModSiteDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.TOP) {
-				newHDLmModTop = buildModTopDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.VALUE) {
-				newHDLmModValue = buildModValueDetailsFromJson(jsonObject);
+			switch (newTypeEnum) {
+			  case COMPANIES: {
+					newHDLmModCompanies = buildModCompaniesDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case COMPANY: {
+					newHDLmModCompany = buildModCompanyDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case DATA: {
+					newHDLmModData = buildModDataDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case DIVISION: {
+					newHDLmModDivision = buildModDivisionDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case IGNORE: {
+					newHDLmModIgnore = buildModIgnoreDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case LINE: {
+					newHDLmModLine = buildModLineDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case LINES: {
+					newHDLmModLines = buildModLinesDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case LIST: {
+					newHDLmModList = buildModListDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case LISTS: {
+					newHDLmModLists = buildModListsDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case MOD: {
+					newMod = buildModDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case REPORTS: {
+					newHDLmModReports = buildModReportsDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case REPORT: {
+					newHDLmModReport = buildModReportDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case RULES: {
+					newHDLmModRules = buildModRulesDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case SITE: {
+					newHDLmModSite = buildModSiteDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case TOP: {
+					newHDLmModTop = buildModTopDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case VALUE: {
+					newHDLmModValue = buildModValueDetailsFromJson(jsonObject);
+					break;
+			  }
+			  default: {
+					String newTypeString = newTypeEnum.toString();
+					String errorText = String.format("Tree type of value (%s) is not supported for PASS editor details", newTypeString);
+					throw new IllegalArgumentException(errorText);
+			  }
 			}
 		}
 		/* Check if we are building an HDLmTree node for a company. In some cases we
@@ -2637,40 +2975,106 @@ public class HDLmTree {
 		/* We need to save a reference to the details object, if we created a details
 		   object. This won't always be true. However, if it is true, then we must save
 		   the details object reference. */
-		if (newHDLmModCompanies != null)
-			newTree.setMod(newHDLmModCompanies);
-		if (newHDLmModCompany != null)
-			newTree.setMod(newHDLmModCompany);
-		if (newHDLmModData != null)
-			newTree.setMod(newHDLmModData);
-		if (newHDLmModDivision != null)
-			newTree.setMod(newHDLmModDivision);
-		if (newHDLmModIgnore != null)
-			newTree.setMod(newHDLmModIgnore);
-		if (newHDLmModLine != null)
-			newTree.setMod(newHDLmModLine);
-		if (newHDLmModLines != null)
-			newTree.setMod(newHDLmModLines);
-		if (newHDLmModLists != null)
-			newTree.setMod(newHDLmModLists);
-		if (newHDLmModList != null)
-			newTree.setMod(newHDLmModList);
-		if (newHDLmModReport != null)
-			newTree.setMod(newHDLmModReport);
-		if (newHDLmModReports != null)
-			newTree.setMod(newHDLmModReports);
-		if (newHDLmModRules != null)
-			newTree.setMod(newHDLmModRules);
-		if (newHDLmModSite != null)
-			newTree.setMod(newHDLmModSite);
-		if (newHDLmModTop != null)
-			newTree.setMod(newHDLmModTop);
-		if (newHDLmModValue != null)
-			newTree.setMod(newHDLmModValue);
-		if (newMod != null)
-			newTree.setMod(newMod);
-		if (newProxy != null)
-			newTree.setMod(newProxy);
+		HDLmMod[] detailValues = new HDLmMod[] {
+				newHDLmModCompanies,
+				newHDLmModCompany,
+				newHDLmModData,
+				newHDLmModDivision,
+				newHDLmModIgnore,
+				newHDLmModLine,
+				newHDLmModLines,
+				newHDLmModLists,
+				newHDLmModList,
+				newHDLmModReport,
+				newHDLmModReports,
+				newHDLmModRules,
+				newHDLmModSite,
+				newHDLmModTop,
+				newHDLmModValue,
+				newMod,
+				newProxy
+		};
+		int detailIndex = -1;
+		for (int i = 0; i < detailValues.length; i++) {
+			if (detailValues[i] != null) {
+				detailIndex = i;
+				break;
+			}
+		}
+		switch (detailIndex) {
+		  case 0: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 1: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 2: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 3: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 4: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 5: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 6: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 7: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 8: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 9: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 10: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 11: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 12: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 13: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 14: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 15: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 16: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  default: {
+				String errorText = "Tree details were not found in buildTreeFromJsonMod";
+				HDLmAssertAction(false, errorText);
+		  }
+		} 
 		/* Process each of the children */
 		for (JsonElement subElement : jsonArray) {
 			HDLmTree subTree = buildTreeFromJsonMod(subElement, editorType);
@@ -2687,10 +3091,10 @@ public class HDLmTree {
 			String  errorText = "JSON element value is null";
 			throw new NullPointerException(errorText);
 		}
-		if (!(jsonElement instanceof JsonElement)) {
+		else if (!(jsonElement instanceof JsonElement)) {
 			HDLmAssertAction(false, "JSON element value has incorrect type");
 		}
-		if (jsonElement.isJsonNull()) {
+		else if (jsonElement.isJsonNull()) {
 			HDLmAssertAction(false, "JSON element passed by the caller is JSON null");
 		}
 		/* Check if the editor type passed by the caller is null */
@@ -2699,7 +3103,7 @@ public class HDLmTree {
 			throw new NullPointerException(errorText);
 		}
 		/* Check if the editor type passed by the caller is invalid */
-		if (editorType == HDLmEditorTypes.NONE) {
+		else if (editorType == HDLmEditorTypes.NONE) {
 			HDLmAssertAction(false, "Editor type value is invalid");
 		}
 		JsonObject jsonObject = jsonElement.getAsJsonObject();
@@ -2765,10 +3169,10 @@ public class HDLmTree {
 			String  errorText = "JSON element value is null";
 			throw new NullPointerException(errorText);
 		}
-		if (!(jsonElement instanceof JsonElement)) {
+		else if (!(jsonElement instanceof JsonElement)) {
 			HDLmAssertAction(false, "JSON element value has incorrect type");
 		}
-		if (jsonElement.isJsonNull()) {
+		else if (jsonElement.isJsonNull()) {
 			HDLmAssertAction(false, "JSON element passed by the caller is JSON null");
 		}
 		/* Check if the editor type passed by the caller is null */
@@ -2777,7 +3181,7 @@ public class HDLmTree {
 			throw new NullPointerException(errorText);
 		}
 		/* Check if the editor type passed by the caller is invalid */
-		if (editorType == HDLmEditorTypes.NONE) {
+		else if (editorType == HDLmEditorTypes.NONE) {
 			HDLmAssertAction(false, "Editor type value is invalid");
 		}
 		JsonObject jsonObject = jsonElement.getAsJsonObject();
@@ -2832,53 +3236,76 @@ public class HDLmTree {
 			}
 		}
 		if (editorType == HDLmEditorTypes.PASS) {
-			if (newTypeEnum == HDLmTreeTypes.COMPANIES) {
-				newHDLmModCompanies = buildModCompaniesDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.COMPANY) {
-				newHDLmModCompany = buildModCompanyDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.DATA) {
-				newHDLmModData = buildModDataDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.DIVISION) {
-				newHDLmModDivision = buildModDivisionDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.IGNORE) {
-				newHDLmModIgnore = buildModIgnoreDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.LINES) {
-				newHDLmModLines = buildModLinesDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.LINE) {
-				newHDLmModLine = buildModLineDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.LISTS) {
-				newHDLmModLists = buildModListsDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.LIST) {
-				newHDLmModList = buildModListDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.MOD) {
-				newMod = buildModDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.REPORTS) {
-				newHDLmModReports = buildModReportsDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.REPORT) {
-				newHDLmModReport = buildModReportDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.RULES) {
-				newHDLmModRules = buildModRulesDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.SITE) {
-				newHDLmModSite = buildModSiteDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.TOP) {
-				newHDLmModTop = buildModTopDetailsFromJson(jsonObject);
-			}
-			if (newTypeEnum == HDLmTreeTypes.VALUE) {
-				newHDLmModValue = buildModValueDetailsFromJson(jsonObject);
+			switch (newTypeEnum) {
+			  case COMPANIES: {
+					newHDLmModCompanies = buildModCompaniesDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case COMPANY: {
+					newHDLmModCompany = buildModCompanyDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case DATA: {
+					newHDLmModData = buildModDataDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case DIVISION: {
+					newHDLmModDivision = buildModDivisionDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case IGNORE: {
+					newHDLmModIgnore = buildModIgnoreDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case LINE: {
+					newHDLmModLine = buildModLineDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case LINES: {
+					newHDLmModLines = buildModLinesDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case LIST: {
+					newHDLmModList = buildModListDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case LISTS: {
+					newHDLmModLists = buildModListsDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case MOD: {
+					newMod = buildModDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case REPORTS: {
+					newHDLmModReports = buildModReportsDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case REPORT: {
+					newHDLmModReport = buildModReportDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case RULES: {
+					newHDLmModRules = buildModRulesDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case SITE: {
+					newHDLmModSite = buildModSiteDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case TOP: {
+					newHDLmModTop = buildModTopDetailsFromJson(jsonObject);
+					break;
+			  }
+			  case VALUE: {
+					newHDLmModValue = buildModValueDetailsFromJson(jsonObject);
+					break;
+			  }
+			  default: {
+					String newTypeString = newTypeEnum.toString();
+					String errorText = String.format("Tree type of value (%s) is not supported for PASS editor details", newTypeString);
+					throw new IllegalArgumentException(errorText);
+			  }
 			}
 		}
 		/* Check if we are building an HDLmTree node for a company. In some cases we
@@ -2906,40 +3333,106 @@ public class HDLmTree {
 		/* We need to save a reference to the details object, if we created a details
 		   object. This won't always be true. However, if it is true, then we must save
 		   the details object reference. */
-		if (newHDLmModCompanies != null)
-			newTree.setMod(newHDLmModCompanies);
-		if (newHDLmModCompany != null)
-			newTree.setMod(newHDLmModCompany);
-		if (newHDLmModData != null)
-			newTree.setMod(newHDLmModData);
-		if (newHDLmModDivision != null)
-			newTree.setMod(newHDLmModDivision);
-		if (newHDLmModIgnore != null)
-			newTree.setMod(newHDLmModIgnore);
-		if (newHDLmModLine != null)
-			newTree.setMod(newHDLmModLine);
-		if (newHDLmModLines != null)
-			newTree.setMod(newHDLmModLines);
-		if (newHDLmModLists != null)
-			newTree.setMod(newHDLmModLists);
-		if (newHDLmModList != null)
-			newTree.setMod(newHDLmModList);
-		if (newHDLmModReport != null)
-			newTree.setMod(newHDLmModReport);
-		if (newHDLmModReports != null)
-			newTree.setMod(newHDLmModReports);
-		if (newHDLmModRules != null)
-			newTree.setMod(newHDLmModRules);
-		if (newHDLmModSite != null)
-			newTree.setMod(newHDLmModSite);
-		if (newHDLmModTop != null)
-			newTree.setMod(newHDLmModTop);
-		if (newHDLmModValue != null)
-			newTree.setMod(newHDLmModValue);
-		if (newMod != null)
-			newTree.setMod(newMod);
-		if (newProxy != null)
-			newTree.setMod(newProxy);
+		HDLmMod[] detailValues = new HDLmMod[] {
+				newHDLmModCompanies,
+				newHDLmModCompany,
+				newHDLmModData,
+				newHDLmModDivision,
+				newHDLmModIgnore,
+				newHDLmModLine,
+				newHDLmModLines,
+				newHDLmModLists,
+				newHDLmModList,
+				newHDLmModReport,
+				newHDLmModReports,
+				newHDLmModRules,
+				newHDLmModSite,
+				newHDLmModTop,
+				newHDLmModValue,
+				newMod,
+				newProxy
+		};
+		int detailIndex = -1;
+		for (int i = 0; i < detailValues.length; i++) {
+			if (detailValues[i] != null) {
+				detailIndex = i;
+				break;
+			}
+		}
+		switch (detailIndex) {
+		  case 0: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 1: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 2: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 3: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 4: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 5: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 6: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 7: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 8: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 9: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 10: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 11: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 12: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 13: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 14: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 15: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  case 16: {
+				newTree.setMod(detailValues[detailIndex]);
+				break;
+		  }
+		  default: {
+				String errorText = "Tree details were not found in buildTreeFromJsonProxy";
+				HDLmAssertAction(false, errorText);
+		  }
+		} 
 		/* Process each of the children */
 		for (JsonElement subElement : jsonArray) {
 			HDLmTree subTree = buildTreeFromJsonProxy(subElement, editorType);
@@ -3549,6 +4042,74 @@ public class HDLmTree {
 			HDLmTree.deleteNode(subNode, idArray);						
 		} 
   }
+  /* This method can be used to display the entire tree of node. 
+	   This method is used for debugging purposes. Note that the 
+	   tree is displayed in a hierarchical format. Also note that 
+	   this routine calls itself, to display lower-level nodes. */
+	protected static void  displayTree() { 
+		/* Set the initial level value */
+		int       level = 1;
+		/* Get the top node of the tree. We will start the 
+		   display with the top node. */
+		HDLmTree  topTreeNode = HDLmTree.getNodePassTreeTop();
+		/* Display the tree */
+		HDLmTree.displayTreeNode(topTreeNode, level);
+		return;
+	}
+	/* This method can be used to display the data of a single 
+	   node of the tree of nodes. This method is used for debugging 
+	   purposes. */
+	protected static void  displayTreeData(final HDLmTree treePos, final int level) {
+		/* Check if the tree position reference passed by the caller is null */
+		if (treePos == null) {
+			String  errorText = "Tree position reference passed to displayTreeData is null";
+			throw new NullPointerException(errorText);
+		}
+		/* Check if the level value passed by the caller is valid */
+		if (level <= 0) {
+			String  errorFormat = "Level passed to displayTreeData is invalid";
+			String  errorText = String.format(errorFormat);
+			throw new IllegalArgumentException(errorText);
+		}
+		/* Get a set of blanks for indentation */
+		String              indenBlanks = " ".repeat((level - 1) << 1);
+		ArrayList<String>   nodePath = treePos.getNodePath();
+		String              nodeName = nodePath.get(level - 1);
+		HDLmTreeTypes       nodeType = treePos.getType();
+		String              nodeTypeStr = nodeType.toString();
+		/* Display the current node */
+		LOG.info(indenBlanks + nodeTypeStr + ", |" + nodeName + "|");
+		return;
+	}
+  /* This method can be used to display a node of the tree of 
+     nodes. This method is used for debugging purposes. Note 
+     that the tree is displayed in a hierarchical format. Also 
+     note that this routine calls itself, to display lower-level nodes. */
+  protected static void  displayTreeNode(final HDLmTree treePos, final int level) {
+		/* Check if the tree position reference passed by the caller is null */
+		if (treePos == null) {
+			String  errorText = "Tree position reference passed to displayTreeNode is null";
+			throw new NullPointerException(errorText);
+		}
+		/* Check if the level value passed by the caller is valid */
+		if (level <= 0) {
+			String  errorFormat = "Level passed to displayTreeNode is invalid";
+			String  errorText = String.format(errorFormat);
+			throw new IllegalArgumentException(errorText);
+		}
+		/* Display the current node */
+		HDLmTree.displayTreeData(treePos, level);
+		/* Increment the level value */
+		int   newLevel = level + 1;
+	  /* Process all of the children of the current node */
+	  ArrayList<HDLmTree>   childrenArray = treePos.children;
+	  int   childrenCount = childrenArray.size();
+	  for (int i = 0; i < childrenCount; i++) {
+	    HDLmTree  curNode = childrenArray.get(i);
+	    HDLmTree.displayTreeNode(curNode, newLevel);
+	  }
+  	return;
+  }
 	/* This method scans a parameter number usage map to find the parameter number
 	   that is used the least. The least used parameter number is returned to the
 	   caller. Note that if the parameter map does not have any information for a
@@ -3588,14 +4149,14 @@ public class HDLmTree {
 			String  errorText = "JSON object value is null";
 			throw new NullPointerException(errorText);
 		}
-		if (!(jsonObject instanceof JsonObject)) {
+		else if (!(jsonObject instanceof JsonObject)) {
 			HDLmAssertAction(false, "JSON object value has incorrect type");
 		}
 		if (memberName == null) {
 			String  errorText = "JSON member name value is null";
 			throw new NullPointerException(errorText);
 		}
-		if (!(memberName instanceof String)) {
+		else if (!(memberName instanceof String)) {
 			HDLmAssertAction(false, "JSON member name value has incorrect type");
 		}
 		/* Check if the JSON object really has the member name passed by the caller */
@@ -3696,14 +4257,14 @@ public class HDLmTree {
 			String  errorText = "JSON object value is null";
 			throw new NullPointerException(errorText);
 		}
-		if (!(jsonObject instanceof JsonObject)) {
+		else if (!(jsonObject instanceof JsonObject)) {
 			HDLmAssertAction(false, "JSON object value has incorrect type");
 		}
 		if (memberName == null) {
 			String  errorText = "JSON member name value is null";
 			throw new NullPointerException(errorText);
 		}
-		if (!(memberName instanceof String)) {
+		else if (!(memberName instanceof String)) {
 			HDLmAssertAction(false, "JSON member name value has incorrect type");
 		}
 		/* Check if the JSON object really has the member name passed by the caller */
@@ -4044,6 +4605,7 @@ public class HDLmTree {
 					infoStr = infoStr.replace("\"dummyLastModified\":", "\"lastmodified\":");
 					break;
 		    }
+		    
 		    case LISTS: {
 					HDLmModLists   newHDLmModLists = new HDLmModLists();
 					tempTreeMod = newHDLmModLists;
@@ -4051,14 +4613,14 @@ public class HDLmTree {
 					Instant   savedLastModified = ((HDLmModLists) treeMod).getLastModified();
 					if (savedLastModified == null &&
 					    savedCreated != null) 
-						savedLastModified = savedCreated;					
-		      /* Set a few fields */ 
+						savedLastModified = savedCreated;								 		
+		      /* Set a few fields */ 		      
 					newHDLmModLists.setDummyCreated(savedCreated.toString());
 					newHDLmModLists.setDummyLastModified(savedLastModified.toString());	
 					newHDLmModLists.setListsCount(((HDLmModLists) treeMod).getListsCount());
 					newHDLmModLists.setAssociatedNodeTypeNull(); 
-					newHDLmModLists.setIgnoreListsNull(); 
-					/* Finish the temporary object */
+					newHDLmModLists.setIgnoreListsNull(); 				 
+					/* Finish the temporary object */		       
 					tempTreeMod.copyModFields(treeMod);
 					tempTreeMod.setCreatedNull();
 					tempTreeMod.setLastModifiedNull();
@@ -4067,15 +4629,15 @@ public class HDLmTree {
 					tempTreeMod.setUseMode(null);
 					tempTreeMod.setPathValueRe((Boolean) null);
 					tempTreeMod.setType((HDLmModTypes) null);
-					tempTreePos.setMod(tempTreeMod);
-					/* Convert the temporary object into a string */
+					tempTreePos.setMod(tempTreeMod);				 
+					/* Convert the temporary object into a string */		      
 					Gson    gson = HDLmMain.gsonMain;
 					infoStr = gson.toJson(tempTreePos);
 					infoStr = infoStr.replace("\"dummyType\":", "\"type\":");
 					infoStr = infoStr.replace("\"dummyCreated\":", "\"created\":");
 					infoStr = infoStr.replace("\"dummyLastModified\":", "\"lastmodified\":");
 					break;
-		    }
+		    }		    
 		    case MOD: { 
 					tempTreeMod = new HDLmMod();
 			 	  /* Make sure the error count is zero in the temporary modification */ 
@@ -4399,7 +4961,7 @@ public class HDLmTree {
 			throw new NullPointerException(errorText);
 		}
 		/* Check if the JSON object array passed by the caller is empty */
-		if (inArray.size() <= 0) {
+		else if (inArray.size() <= 0) {
 			String  errorFormat = "Size of array list of JSON objects is invalid";
 			String  errorText = String.format(errorFormat);
 			throw new IllegalArgumentException(errorText);
@@ -4416,7 +4978,7 @@ public class HDLmTree {
 			throw new NullPointerException(errorText);
 		}
 		/* Check if the JSON node array size passed by the caller is invalid */
-		if (jsonNodeArray.size() < 0) {
+		else if (jsonNodeArray.size() < 0) {
 			String  errorFormat = "Size of JSON nodes array passed by the caller is invalid";
 			String  errorText = String.format(errorFormat);
 			throw new IllegalArgumentException(errorText);
@@ -4498,14 +5060,14 @@ public class HDLmTree {
 			String  errorText = "Node array value is null";
 			throw new NullPointerException(errorText);
 		}
-		if (!(nodeArray instanceof ArrayList<?>)) {
+		else if (!(nodeArray instanceof ArrayList<?>)) {
 			HDLmAssertAction(false, "Node array value has incorrect type");
 		}
 		if (searchName == null) {
 			String  errorText = "Name value is null";
 			throw new NullPointerException(errorText);
 		}
-		if (!(searchName instanceof String)) {
+		else if (!(searchName instanceof String)) {
 			HDLmAssertAction(false, "Name value has incorrect type");
 		}
 		/* Search the node array passed by the caller for the first node with a name
@@ -4562,33 +5124,79 @@ public class HDLmTree {
 			/* Create an enum for the node type */
 			HDLmTreeTypes   nodeEnum = null;
 			/* Set the correct node enum value based on the loop index */
-			if ((i+1) == 1)
-				nodeEnum = HDLmTreeTypes.TOP;
-			else if ((i+1) == 2)
-				nodeEnum = HDLmTreeTypes.COMPANIES;
-			else if ((i+1) == 3)
-				nodeEnum = HDLmTreeTypes.COMPANY;
-			else if ((i+1) == 4) {
-				if (nodeType == HDLmTreeTypes.DATA)
-				  nodeEnum = HDLmTreeTypes.DATA;
-				if (nodeType == HDLmTreeTypes.MOD)
-				  nodeEnum = HDLmTreeTypes.RULES;
-				if (nodeType == HDLmTreeTypes.RULES)
-				  nodeEnum = HDLmTreeTypes.RULES;
-				if (nodeType == HDLmTreeTypes.VALUE)
-				  nodeEnum = HDLmTreeTypes.DATA;
-			}
-			else if ((i+1) == 5)
-				nodeEnum = HDLmTreeTypes.DIVISION;
-			else if ((i+1) == 6)
-				nodeEnum = HDLmTreeTypes.SITE;
-			else if ((i+1) == 7) {
-				if (nodeType == HDLmTreeTypes.DATA)
-				  nodeEnum = HDLmTreeTypes.VALUE;
-				if (nodeType == HDLmTreeTypes.RULES)
-				  nodeEnum = HDLmTreeTypes.MOD;
+			switch (i + 1) {
+			  case 1: {
+					nodeEnum = HDLmTreeTypes.TOP;
+					break;
+			  }
+			  case 2: {
+					nodeEnum = HDLmTreeTypes.COMPANIES;
+					break;
+			  }
+			  case 3: {
+					nodeEnum = HDLmTreeTypes.COMPANY;
+					break;
+			  }
+			  case 4: {
+					switch (nodeType) {
+					  case DATA: {
+							nodeEnum = HDLmTreeTypes.DATA;
+							break;
+					  }
+					  case MOD: {
+							nodeEnum = HDLmTreeTypes.RULES;
+							break;
+					  }
+					  case RULES: {
+							nodeEnum = HDLmTreeTypes.RULES;
+							break;
+					  }
+					  case VALUE: {
+							nodeEnum = HDLmTreeTypes.DATA;
+							break;
+					  }
+					  default: {
+							String nodeTypeString = nodeType.toString();
+							String errorText = String.format("Node type of value (%s) is not supported for level 4", nodeTypeString);
+							throw new IllegalArgumentException(errorText);
+					  }
+					} 
+			  	break;
+			  }
+			  case 5: {
+					nodeEnum = HDLmTreeTypes.DIVISION;
+					break;
+			  }
+			  case 6: {
+					nodeEnum = HDLmTreeTypes.SITE;
+					break;
+			  }
+			  case 7: {
+					switch (nodeType) {
+					  case DATA: {
+							nodeEnum = HDLmTreeTypes.VALUE;
+							break;
+					  }
+					  case RULES: {
+							nodeEnum = HDLmTreeTypes.MOD;
+							break;
+					  }
+					  default: {
+							String nodeTypeString = nodeType.toString();
+							String errorText = String.format("Node type of value (%s) is not supported for level 7", nodeTypeString);
+							throw new IllegalArgumentException(errorText);
+					  }
+					}
+		  		break;
+			  }
+			  default: {
+					String errorText = String.format("Loop index value (%d) is not supported in getNodePath", i + 1);
+					throw new IllegalArgumentException(errorText);
+			  }
 			}
 			/* Determine what we need to add to the node path */
+			if (nodeEnum == null) 
+				nodeEnum = nodeEnum;			 
 			switch (nodeEnum) {
 			  case TOP: {
 			  	nodeName = HDLmDefines.getString("HDLMTOPNODENAME");
@@ -4604,6 +5212,14 @@ public class HDLmTree {
 			  }
 			  case DATA: {
 			  	nodeName = HDLmDefines.getString("HDLMDATANODENAME");
+			  	break;
+			  }
+			  case LISTS: {
+			  	nodeName = HDLmDefines.getString("HDLMIGNORELISTSNODENAME");
+			  	break;
+			  }
+			  case REPORTS: {
+			  	nodeName = HDLmDefines.getString("HDLMREPORTSNODENAME");
 			  	break;
 			  }
 			  case RULES: {
@@ -4632,8 +5248,8 @@ public class HDLmTree {
 			     failed. This is likely to be more informative than 
 			     actual enum that did not match. */
 			  default: {
-		    	String  errorFormat = "No tree type enum value (%d) matched in getNodePath";
-					String  errorText = String.format(errorFormat, i+1);
+		    	String  errorFormat = "No tree type enum value (%s) matched in getNodePath";
+					String  errorText = String.format(errorFormat, nodeEnum.toString());
 					HDLmAssertAction(false, errorText);			  	
 			  }
 			}
@@ -4654,7 +5270,7 @@ public class HDLmTree {
 		/* Try to convert the information JSON string to a JSON object. If this fails,
 	     then we do not have a string than can be converted to a JSON object. If this
 	     works, then we do have string than can be converted to a JSON object. */
-	  JsonParser    parser = new JsonParser();		
+	  JsonParser    parser = HDLmMain.gsonJsonParserMain;		
     JsonElement   infoJsonElement = null; 
 	  try {
 		  infoJsonElement = parser.parse(infoStr);
@@ -4674,7 +5290,7 @@ public class HDLmTree {
 		  HDLmAssertAction(false, errorText);
 	  }
 	  /* Check if the JSON array is valid or not */
-		if (!nodePathJson.isJsonArray()) {
+		else if (!nodePathJson.isJsonArray()) {
 		  String  errorText = "JSON array in getNodePath is invalid";
 		  HDLmAssertAction(false, errorText);
 	  }
@@ -4683,13 +5299,13 @@ public class HDLmTree {
 		   get the maximum node path length */
 		int   maxPathLength = HDLmDefines.getNumber("HDLMRULESNODEPATHLENGTH");
 		/* Check if the node path length is too long */ 
-		if  (nodePathJsonSize > maxPathLength) {
+		if (nodePathJsonSize > maxPathLength) {
 			String errorFormat = "info node path length (%d) is too long";
 			String  errorText = String.format(errorFormat, nodePathJsonSize);
 			HDLmAssertAction(false, errorText);
 		}
 		/* Check if the node path length is too short */ 
-		if  (nodePathJsonSize < 1) {
+		if (nodePathJsonSize < 1) {
 			String errorFormat = "Info node path length (%d) is too short";
 			String  errorText = String.format(errorFormat, nodePathJsonSize);
 			HDLmAssertAction(false, errorText);
@@ -4723,14 +5339,14 @@ public class HDLmTree {
 			String  errorText = "JSON object value is null";
 			throw new NullPointerException(errorText);
 		}
-		if (!(jsonObject instanceof JsonObject)) {
+		else if (!(jsonObject instanceof JsonObject)) {
 			HDLmAssertAction(false, "JSON object value has incorrect type");
 		}
 		if (memberName == null) {
 			String  errorText = "JSON member name value is null";
 			throw new NullPointerException(errorText);
 		}
-		if (!(memberName instanceof String)) {
+		else if (!(memberName instanceof String)) {
 			HDLmAssertAction(false, "JSON member name value has incorrect type");
 		}
 		/* Check if the JSON object really has the member name passed by the caller */
@@ -4770,14 +5386,14 @@ public class HDLmTree {
 			String  errorText = "JSON object value is null";
 			throw new NullPointerException(errorText);
 		}
-		if (!(jsonObject instanceof JsonObject)) {
+		else if (!(jsonObject instanceof JsonObject)) {
 			HDLmAssertAction(false, "JSON object value has incorrect type");
 		}
 		if (memberName == null) {
 			String  errorText = "JSON member name value is null";
 			throw new NullPointerException(errorText);
 		}
-		if (!(memberName instanceof String)) {
+		else if (!(memberName instanceof String)) {
 			HDLmAssertAction(false, "JSON member name value has incorrect type");
 		}
 		/* Check if the JSON object really has the member name passed by the caller */
@@ -4820,42 +5436,62 @@ public class HDLmTree {
 			String  errorText = "Modification information JSON not obtained from getModInfo";
 			HDLmAssertAction(false, errorText);
 		}
-		if (type.equals("newcompmod")) {
-			typeJson = HDLmJson.getJsonValue(treeInfoJson, "compmod");
-			tooltip = HDLmJson.getJsonString(typeJson, "tooltip");
-		} else if (type.equals("newcompproxy")) {
-			typeJson = HDLmJson.getJsonValue(treeInfoJson, "compproxy");
-			tooltip = HDLmJson.getJsonString(typeJson, "tooltip");
-		} else if (type.equals("newcompstore")) {
-			typeJson = HDLmJson.getJsonValue(treeInfoJson, "compstore");
-			tooltip = HDLmJson.getJsonString(typeJson, "tooltip");
-		} else if (type.equals("newconfig")) {
-			typeJson = HDLmJson.getJsonValue(treeInfoJson, "config");
-			tooltip = HDLmJson.getJsonString(typeJson, "tooltip");
-		} else if (type.equals("newtop")) {
-			String typeKey = HDLmDefines.getString("HDLMTOPNODETYPE");
-			typeJson = HDLmJson.getJsonValue(treeInfoJson, typeKey);
-			tooltip = HDLmJson.getJsonString(typeJson, "tooltip");
-		} else if (type.equals("newSite")) {
-			typeJson = HDLmJson.getJsonValue(treeInfoJson, "division");
-			tooltip = HDLmJson.getJsonString(typeJson, "tooltip");
-		} else if (type.equals("newsite")) {
-			typeJson = HDLmJson.getJsonValue(treeInfoJson, "site");
-			tooltip = HDLmJson.getJsonString(typeJson, "tooltip");
-		} else if (type.equals("newmod")) {
-			typeJson = HDLmJson.getJsonValue(treeInfoJson, "mod");
-			tooltip = HDLmJson.getJsonString(typeJson, "tooltip");
-		} else if (type.equals("newstore")) {
-			typeJson = HDLmJson.getJsonValue(treeInfoJson, "store");
-			tooltip = HDLmJson.getJsonString(typeJson, "tooltip");
-		} else {
-			/* Build the tooltip information */
-			typeJson = HDLmJson.getJsonValue(modInfoJson, type);
-			if (typeJson != null)
-				tooltip = HDLmJson.getJsonString(typeJson, "longname");
-			else
-				tooltip = type;
-			tooltip = HDLmString.ucFirst(tooltip) + " " + "modification";
+		switch (type) {
+		  case "newcompmod": {
+				typeJson = HDLmJson.getJsonValue(treeInfoJson, "compmod");
+				tooltip = HDLmJson.getJsonString(typeJson, "tooltip");
+				break;
+		  }
+		  case "newcompproxy": {
+				typeJson = HDLmJson.getJsonValue(treeInfoJson, "compproxy");
+				tooltip = HDLmJson.getJsonString(typeJson, "tooltip");
+				break;
+		  }
+		  case "newcompstore": {
+				typeJson = HDLmJson.getJsonValue(treeInfoJson, "compstore");
+				tooltip = HDLmJson.getJsonString(typeJson, "tooltip");
+				break;
+		  }
+		  case "newconfig": {
+				typeJson = HDLmJson.getJsonValue(treeInfoJson, "config");
+				tooltip = HDLmJson.getJsonString(typeJson, "tooltip");
+				break;
+		  }
+		  case "newtop": {
+				String typeKey = HDLmDefines.getString("HDLMTOPNODETYPE");
+				typeJson = HDLmJson.getJsonValue(treeInfoJson, typeKey);
+				tooltip = HDLmJson.getJsonString(typeJson, "tooltip");
+				break;
+		  }
+		  case "newSite": {
+				typeJson = HDLmJson.getJsonValue(treeInfoJson, "division");
+				tooltip = HDLmJson.getJsonString(typeJson, "tooltip");
+				break;
+		  }
+		  case "newsite": {
+				typeJson = HDLmJson.getJsonValue(treeInfoJson, "site");
+				tooltip = HDLmJson.getJsonString(typeJson, "tooltip");
+				break;
+		  }
+		  case "newmod": {
+				typeJson = HDLmJson.getJsonValue(treeInfoJson, "mod");
+				tooltip = HDLmJson.getJsonString(typeJson, "tooltip");
+				break;
+		  }
+		  case "newstore": {
+				typeJson = HDLmJson.getJsonValue(treeInfoJson, "store");
+				tooltip = HDLmJson.getJsonString(typeJson, "tooltip");
+				break;
+		  }
+		  default: {
+  			/* Build the tooltip information */
+			  typeJson = HDLmJson.getJsonValue(modInfoJson, type);
+			  if (typeJson != null)
+		 		  tooltip = HDLmJson.getJsonString(typeJson, "longname");  
+			  else
+				  tooltip = type;
+			  tooltip = HDLmString.ucFirst(tooltip) + " " + "modification";
+		  }
 		}
 		return tooltip;
 	}
@@ -4873,14 +5509,14 @@ public class HDLmTree {
 			String  errorText = "Node array value is null";
 			throw new NullPointerException(errorText);
 		}
-		if (!(nodeArray instanceof ArrayList<?>)) {
+		else if (!(nodeArray instanceof ArrayList<?>)) {
 			HDLmAssertAction(false, "Node array value has incorrect type");
 		}
 		if (searchName == null) {
 			String  errorText = "Name value is null";
 			throw new NullPointerException(errorText);
 		}
-		if (!(searchName instanceof String)) {
+		else if (!(searchName instanceof String)) {
 			HDLmAssertAction(false, "Name value has incorrect type");
 		}
 		for (HDLmTree forNode : nodeArray) {
@@ -4939,219 +5575,272 @@ public class HDLmTree {
 			throw new NullPointerException(errorText);		
 		}
 		/* Check if the startup mode passed by the caller is invalid */
-		if (startupMode == HDLmStartupMode.NONE) {
+		else if (startupMode == HDLmStartupMode.NONE) {
 		  HDLmAssertAction(false, "Startup mode value passed to modifyModTree is invalid");
 		}
 		/* Check if we are handling the companies node. All of the individual companies
 		   must be added to the companies node. */
-		if (type == HDLmTreeTypes.COMPANIES) {
-			HDLmModCompanies companies = (HDLmModCompanies) details;
-			for (HDLmTree child : children) {
-				HDLmModCompany company = (HDLmModCompany) child.details;
-				boolean   updateLast = true;
-				if (startupMode == HDLmStartupMode.STARTUPMODEYES)
-					updateLast = false;
-				companies.addCompanyCompanies(company.getName(), company, updateLast);
-			}
-		}
-		/* Check if we are handling a company node. All of the children of a company
-		   node must be added to each company. The children are actually quite fixed.
-		   A company node always has four children. They are a set of data, a set of
-		   ignore-lists and a set of reports and a set of rules. */
-		if (type == HDLmTreeTypes.COMPANY) {
-			HDLmModCompany company = (HDLmModCompany) details;
-			int childrenSize = children.size();
-			if (childrenSize != 3 && childrenSize != 4) {
-				String errorFormat = "Number of children (%d) of a company node is not 3 or 4";
-				String  errorText = String.format(errorFormat, childrenSize);
-				HDLmAssertAction(false, errorText);
-			}
-			/* Set the adjustment factor. If the we only have three children
-			   (of a company), then the data subnode is probably missing. This
-			   is OK. Set the adjustment factor to one in this case. */
-			int   adjustmentFactor = 0;
-			if (childrenSize == 3)
-				adjustmentFactor = 1;
-			/* LOG.info(((Integer) adjustmentFactor).toString()); */
-			/* LOG.info(((Integer) childrenSize).toString()); */
-			/* The second child will be the set of ignore-lists */
-			HDLmTree ignoreListsNode = children.get(1 - adjustmentFactor);
-			company.setIgnoreLists((HDLmModLists) ignoreListsNode.details);
-			/* The third child will be the set of reports */
-			HDLmTree reportsNode = children.get(2 - adjustmentFactor);
-			company.setReports((HDLmModReports) reportsNode.details);
-			/* The fourth child will be the set of rules */
-			HDLmTree rulesNode = children.get(3 - adjustmentFactor);
-			company.setRules((HDLmModRules) rulesNode.details);			
-			/* Create the event and rule entries for the internally generated
-			   'visit' event. The generated JavaScript program will always 
-			   trigger this event when a web page loads the JavaScript 
-			   program. 
-			   
-			   This code is no longer in use. We no longer create events for 
-			   internally generated modification execution events. As a consequence,
-			   this code is no longer needed and could cause problems (because the
-			   number of events will always be zero). */
-			/* 
-			String  nameCompany = details.getName();
-			String  nameDivision = HDLmDefines.getString("HDLMDIVISIONNODENAME");
-			String  nameSite = HDLmDefines.getString("HDLMSITENODENAME");  
-			String  nameModification = HDLmDefines.getString("HDLMLOADPAGEMODNAME"); 
-			HDLmEvent.addEvent(HDLmEventTypes.MOD, nameCompany, nameDivision, nameSite, nameModification);
-			HDLmRule.addRule(HDLmRuleTypes.MOD, nameCompany, nameDivision, nameSite, nameModification);
-			*/			
-		}
-		/* Check if we are handling a data (set of divisions) node. All of the children
-		   (individual divisions) of a data (set of divisions) node must be added to
-		   each data node. */
-		if (type == HDLmTreeTypes.DATA) {
-			HDLmModData  data = (HDLmModData) details;
-			for (HDLmTree child : children) {
-				data.addDivision(child, startupMode);
-			}
-		}
-		/* Check if we are handling a division (set of sites) node. All of the 
-		   children (individual sites) of a division (set of sites) node must 
-		   be added to each division node. */
-		if (type == HDLmTreeTypes.DIVISION) {
-			HDLmModDivision  division = (HDLmModDivision) details;
-			for (HDLmTree child : children) {
-				division.addSite(child, startupMode);
-			}
-		}
-		/* Check if we are handling a lines (set of lines) node. All of the
-		   children(individual lines) of a lines node must be added to each lines node. */
-		if (type == HDLmTreeTypes.LINES) {
-			HDLmModLines lines = (HDLmModLines) details;
-			for (HDLmTree child : children) {
-				HDLmModLine line = (HDLmModLine) child.details;
-				lines.addLine(line);
-			}
-		}
-		/* Check if we are handling a list (ignore-list) node. All of the children
-		   (individual ignore-list entries) of a list node must be added to each list
-		   node. */
-		if (type == HDLmTreeTypes.LIST) {
-			HDLmModList ignoreList = (HDLmModList) details;
-			for (HDLmTree child : children) {
-				HDLmModIgnore ignoreListEntry = (HDLmModIgnore) child.details;
-				ignoreList.addIgnoreEntry(ignoreListEntry, startupMode);
-			}
-		}
-		/* Check if we are handling a lists (ignore-lists) node. All of the children
-		   (individual ignore-lists) of a lists node must be added to each lists node. */
-		if (type == HDLmTreeTypes.LISTS) {
-			HDLmModLists ignoreLists = (HDLmModLists) details;
-			for (HDLmTree child : children) {
-				HDLmModList ignoreList = (HDLmModList) child.details;
-				String ignoreListName = ignoreList.getName();
-				ignoreLists.addIgnoreList(ignoreListName, ignoreList, startupMode);
-			}
-		}
-		/* Check if we are handling a modification. If this is correct, then we must add
-		   an event for the current modification. */
-		if (type == HDLmTreeTypes.MOD) {
-			/* Get the node path for the current event */
-			ArrayList<String> path = this.nodePath;
-			if (path.size() != 7) {
-				String errorFormat = "Node path length is not correct (%d)";
-				String  errorText = String.format(errorFormat, path.size());
-				HDLmAssertAction(false, errorText);
-			}
-			/* Get the values from the node path */
-			String  nameCompany = path.get(2);
-			String  nameDivision = path.get(4);
-			String  nameSite = path.get(5);
-			String  nameModification = path.get(6);
-			HDLmEvent.addEvent(HDLmEventTypes.MOD, nameCompany, nameDivision, nameSite, nameModification);
-			HDLmRule.addRule(HDLmRuleTypes.MOD, nameCompany, nameDivision, nameSite, nameModification);
-		}
-		/* Check if we are handling a report node. All of the children of a report node
-		   must be added to each report. The children are actually quite fixed. A report
-		   node always has four children. They are three sets of lines and one
-		   ignore-list. The ignore-list is actually optional. This means that a report
-		   node might only have three children. */
-		if (type == HDLmTreeTypes.REPORT) {
-			HDLmModReport report = (HDLmModReport) details;
-			int childrenSize = children.size();
-			if (childrenSize != 3 && childrenSize != 4) {
-				String errorFormat = "Number of children (%d) of a report node is not 3 or 4";
-				String  errorText = String.format(errorFormat, childrenSize);
-				HDLmAssertAction(false, errorText);
-			}
-			HDLmTreeTypes curType;
-			int curCounter = 0;
-			/* Loop over the children, handling each child node as need be */
-			for (HDLmTree child : children) {
-				/* Get the type of the current child. It might be a lines node or it might be an
-				   ignore-list node. */
-				curType = child.getType();
-				/* If we have a lines node, then it should be one of the three expected lines
-				   nodes. */
-				if (curType == HDLmTreeTypes.LINES) {
-					curCounter++;
-					if (curCounter == 1) {
-						report.setInvalidRef((HDLmModLines) child.details);
-					} else if (curCounter == 2) {
-						report.setOverallRef((HDLmModLines) child.details);
-					} else if (curCounter == 3) {
-						report.setValidRef((HDLmModLines) child.details);
-					}
-				} else if (curType == HDLmTreeTypes.LIST) {
-					HDLmModList ignoreList = (HDLmModList) child.details;
-					report.setIgnoreListRef(ignoreList);
+		switch (type) {
+		  case COMPANIES: {
+				HDLmModCompanies companies = (HDLmModCompanies) details;
+				for (HDLmTree child : children) {
+					HDLmModCompany company = (HDLmModCompany) child.details;
+					boolean   updateLast = true;
+					if (startupMode == HDLmStartupMode.STARTUPMODEYES)
+						updateLast = false;
+					companies.addCompanyCompanies(company.getName(), company, updateLast);
 				}
-			}
-		}
-		/* Check if we are handling a reports (set of reports) node. All of the children
-		   (individual reports) of a reports (set of reports) node must be added to each
-		   reports node. */
-		if (type == HDLmTreeTypes.REPORTS) {
-			HDLmModReports reports = (HDLmModReports) details;
-			for (HDLmTree child : children) {
-				HDLmModReport report = (HDLmModReport) child.details;
-				reports.addReport(report, startupMode);
-			}
-		}
-		/* Check if we are handling a rules (set of divisions) node. All of the children
-		   (individual divisions) of a rules (set of divisions) node must be added to
-		   each rules node. */
-		if (type == HDLmTreeTypes.RULES) {
-			HDLmModRules rules = (HDLmModRules) details;
-			for (HDLmTree child : children) {
-				rules.addDivision(child, startupMode);
-			}
-		}
-		/* Check if we are handling a site (set of rules) node. All of the 
-		   children (individual rules) of a site (set of rules) node must 
-		   be added to each site node. */
-		if (type == HDLmTreeTypes.SITE) {
-			HDLmModSite  site = (HDLmModSite) details;
-			for (HDLmTree child : children) {
-				site.addRule(child, startupMode);
-			}
-		}
-		/* Check if we are handling the top node. All of the children of a top node must
-		   be added to each top node. The children are actually quite fixed. A top node
-		   always has either one or two children. A top node will always have a
-		   companies child node. A top node may have a reports child node as well. */
-		if (type == HDLmTreeTypes.TOP) {
-			HDLmModTop top = (HDLmModTop) details;
-			int   childrenSize = children.size();
-			if (childrenSize != 1 && childrenSize != 2) {
-				String errorFormat = "Number of children (%d) of the top node is not 1 or 2";
-				String  errorText = String.format(errorFormat, childrenSize);
-				HDLmAssertAction(false, errorText);
-			}
-			/* The first child will be the companies node */
-			HDLmTree companiesNode = children.get(0);
-			top.setCompaniesReference((HDLmModCompanies) companiesNode.details);
-			/* The second child (if it exists) will be the reports node */
-			int childrenLength = children.size();
-			if (childrenLength > 1) {
-				HDLmTree reportsNode = children.get(1);
-				top.setReportsReference((HDLmModReports) reportsNode.details);
-			}			 
+				break;
+		  }
+		  /* Check if we are handling a company node. All of the children of a company
+		     node must be added to each company. The children are actually quite fixed.
+		     A company node always has four children. They are a set of data, a set of
+		     ignore-lists and a set of reports and a set of rules. */
+		  case COMPANY: {
+				HDLmModCompany company = (HDLmModCompany) details;
+				int childrenSize = children.size();
+				if (childrenSize != 3 && childrenSize != 4) {
+					String errorFormat = "Number of children (%d) of a company node is not 3 or 4";
+					String  errorText = String.format(errorFormat, childrenSize);
+					HDLmAssertAction(false, errorText);
+				}
+				/* Set the adjustment factor. If the we only have three children
+				   (of a company), then the data subnode is probably missing. This
+				   is OK. Set the adjustment factor to one in this case. */
+				int   adjustmentFactor = 0;
+				if (childrenSize == 3)
+					adjustmentFactor = 1;
+				/* LOG.info(((Integer) adjustmentFactor).toString()); */
+				/* LOG.info(((Integer) childrenSize).toString()); */
+				/* The second child will be the set of ignore-lists */
+				HDLmTree ignoreListsNode = children.get(1 - adjustmentFactor); 
+				company.setIgnoreLists((HDLmModLists) ignoreListsNode.details); 
+				/* The third child will be the set of reports */
+				HDLmTree reportsNode = children.get(2 - adjustmentFactor);
+				company.setReports((HDLmModReports) reportsNode.details);
+				/* The fourth child will be the set of rules */
+				HDLmTree rulesNode = children.get(3 - adjustmentFactor);
+				company.setRules((HDLmModRules) rulesNode.details);			
+				/* Create the event and rule entries for the internally generated
+				   'visit' event. The generated JavaScript program will always 
+				   trigger this event when a web page loads the JavaScript 
+				   program. 
+				   
+				   This code is no longer in use. We no longer create events for 
+				   internally generated modification execution events. As a consequence,
+				   this code is no longer needed and could cause problems (because the
+				   number of events will always be zero). */
+				/* 
+				String  nameCompany = details.getName();
+				String  nameDivision = HDLmDefines.getString("HDLMDIVISIONNODENAME");
+				String  nameSite = HDLmDefines.getString("HDLMSITENODENAME");  
+				String  nameModification = HDLmDefines.getString("HDLMLOADPAGEMODNAME"); 
+				HDLmEvent.addEvent(HDLmEventTypes.MOD, nameCompany, nameDivision, nameSite, nameModification);
+				HDLmRule.addRule(HDLmRuleTypes.MOD, nameCompany, nameDivision, nameSite, nameModification);
+		  	*/			
+			  break;
+		  }
+		  /* Check if we are handling a data (set of divisions) node. All of the children
+		     (individual divisions) of a data (set of divisions) node must be added to
+		     each data node. */
+		  case DATA: {
+				HDLmModData  data = (HDLmModData) details;
+				for (HDLmTree child : children) {
+					data.addDivision(child, startupMode);
+				}
+				break;
+		  }
+		  /* Check if we are handling a division (set of sites) node. All of the 
+		     children (individual sites) of a division (set of sites) node must 
+		     be added to each division node. */
+		  case DIVISION: {
+				HDLmModDivision  division = (HDLmModDivision) details;
+				for (HDLmTree child : children) {
+					division.addSite(child, startupMode);
+				}
+				break;
+		  }
+	    /* We don't need to do a lot if we are handling a ignore node */
+			case IGNORE: {
+			  break;
+		  }
+	    /* We don't need to do a lot if we are handling a line node */
+			case LINE: {
+			  break;
+		  }
+		  /* Check if we are handling a lines (set of lines) node. All of the
+		     children(individual lines) of a lines node must be added to each lines node. */
+		  case LINES: {
+				HDLmModLines lines = (HDLmModLines) details;
+				for (HDLmTree child : children) {
+					HDLmModLine line = (HDLmModLine) child.details;
+					lines.addLine(line);
+				}
+				break;
+		  }
+		  /* Check if we are handling a list (ignore-list) node. All of the children
+		     (individual ignore-list entries) of a list node must be added to each list
+		     node. */
+		  case LIST: {
+				HDLmModList ignoreList = (HDLmModList) details;
+				for (HDLmTree child : children) {
+					HDLmModIgnore ignoreListEntry = (HDLmModIgnore) child.details;
+					ignoreList.addIgnoreEntry(ignoreListEntry, startupMode);
+				}
+				break;
+		  }
+		  /* Check if we are handling a lists (ignore-lists) node. All of the children
+		     (individual ignore-lists) of a lists node must be added to each lists node. */		 
+		  case LISTS: {
+				HDLmModLists ignoreLists = (HDLmModLists) details;
+				for (HDLmTree child : children) {
+					HDLmModList ignoreList = (HDLmModList) child.details;
+					String ignoreListName = ignoreList.getName();
+					ignoreLists.addIgnoreList(ignoreListName, ignoreList, startupMode);
+				}	 
+				break;
+		  }
+		  /* Check if we are handling a modification. If this is correct, then we must add
+		     an event for the current modification. */
+		  case MOD: {
+				/* Get the node path for the current event */
+				ArrayList<String> path = this.nodePath;
+				if (path.size() != 7) {
+					String errorFormat = "Node path length is not correct (%d)";
+					String  errorText = String.format(errorFormat, path.size());
+					HDLmAssertAction(false, errorText);
+				}
+				/* Get the values from the node path */
+				String  nameCompany = path.get(2);
+				String  nameDivision = path.get(4);
+				String  nameSite = path.get(5);
+				String  nameModification = path.get(6);
+				HDLmEvent.addEvent(HDLmEventTypes.MOD, nameCompany, nameDivision, nameSite, nameModification);
+				HDLmRule.addRule(HDLmRuleTypes.MOD, nameCompany, nameDivision, nameSite, nameModification);
+				break;
+		  }
+		  /* Check if we are handling a report node. All of the children of a report node
+		     must be added to each report. The children are actually quite fixed. A report
+		     node always has four children. They are three sets of lines and one
+		     ignore-list. The ignore-list is actually optional. This means that a report
+		     node might only have three children. */
+		  case REPORT: {
+				HDLmModReport report = (HDLmModReport) details;
+				int childrenSize = children.size();
+				if (childrenSize != 3 && childrenSize != 4) {
+					String errorFormat = "Number of children (%d) of a report node is not 3 or 4";
+					String  errorText = String.format(errorFormat, childrenSize);
+					HDLmAssertAction(false, errorText);
+				}
+			  HDLmTreeTypes curType;
+			  int curCounter = 0;
+			  /* Loop over the children, handling each child node as need be */
+			  for (HDLmTree child : children) {
+				  /* Get the type of the current child. It might be a lines node or it might be an
+				     ignore-list node. */
+				  curType = child.getType();
+				  /* If we have a lines node, then it should be one of the three expected lines
+				     nodes. */
+					switch (curType) {
+					  case LINES: {
+							curCounter++;
+							switch (curCounter) {
+							  case 1: {
+									report.setInvalidRef((HDLmModLines) child.details);
+									break;
+							  }
+							  case 2: {
+									report.setOverallRef((HDLmModLines) child.details);
+									break;
+							  }
+							  case 3: {
+									report.setValidRef((HDLmModLines) child.details);
+									break;
+							  }
+							  default: {
+									String errorText = String.format("Report line position (%d) is not supported", curCounter);
+									throw new IllegalArgumentException(errorText);
+							  }
+							}
+							break;
+					  }
+					  case LIST: {
+							HDLmModList ignoreList = (HDLmModList) child.details;
+							report.setIgnoreListRef(ignoreList);
+							break;
+					  }
+					  default: {
+							String curTypeString = curType.toString();
+							String errorText = String.format("Report child type (%s) is not supported", curTypeString);
+							throw new IllegalArgumentException(errorText);
+					  }
+					}
+			  }
+			  break;
+		  }
+		  /* Check if we are handling a reports (set of reports) node. All of the children
+		     (individual reports) of a reports (set of reports) node must be added to each
+		     reports node. */
+		  case REPORTS: {
+				HDLmModReports reports = (HDLmModReports) details;
+				for (HDLmTree child : children) {
+					HDLmModReport report = (HDLmModReport) child.details;
+					reports.addReport(report, startupMode);
+				}
+				break;
+		  }
+		  /* Check if we are handling a rules (set of divisions) node. All of the children
+		     (individual divisions) of a rules (set of divisions) node must be added to
+		     each rules node. */
+		  case RULES: {
+				HDLmModRules rules = (HDLmModRules) details;
+				for (HDLmTree child : children) {
+					rules.addDivision(child, startupMode);
+				}
+				break;
+		  }
+		  /* Check if we are handling a site (set of rules) node. All of the 
+		     children (individual rules) of a site (set of rules) node must 
+		     be added to each site node. */
+		  case SITE: {
+				HDLmModSite  site = (HDLmModSite) details;
+				for (HDLmTree child : children) {
+					site.addRule(child, startupMode);
+				}
+				break;
+		  }
+		  /* Check if we are handling the top node. All of the children of a top node must
+		     be added to each top node. The children are actually quite fixed. A top node
+		     always has either one or two children. A top node will always have a
+		     companies child node. A top node may have a reports child node as well. */
+		  case TOP: {
+				HDLmModTop top = (HDLmModTop) details;
+				int   childrenSize = children.size();
+				if (childrenSize != 1 && childrenSize != 2) {
+					String errorFormat = "Number of children (%d) of the top node is not 1 or 2";
+					String  errorText = String.format(errorFormat, childrenSize);
+					HDLmAssertAction(false, errorText);
+				}
+				/* The first child will be the companies node */
+				HDLmTree companiesNode = children.get(0);
+				top.setCompaniesReference((HDLmModCompanies) companiesNode.details);
+				/* The second child (if it exists) will be the reports node */
+				int childrenLength = children.size();
+				if (childrenLength > 1) {
+					HDLmTree reportsNode = children.get(1);
+					top.setReportsReference((HDLmModReports) reportsNode.details);
+				}			 
+				break;
+		  }
+      /* We don't need to do a lot if we are handling the VALUE type */
+		  case VALUE: {
+			  break;
+	  	}
+		  default: {
+				String typeString = type.toString();
+				String errorText = String.format("Tree type (%s) is not supported in modifyModTree", typeString);
+				throw new IllegalArgumentException(errorText);
+		  }
 		}
 		/* Reset the subnode count for the current node. The 
 		   subnode counts are actually in the current modification
@@ -5262,7 +5951,7 @@ public class HDLmTree {
 			throw new NullPointerException(errorText);
 		}
 		/* Check if the content passed by the caller is whitespace */
-		if (StringUtils.isWhitespace(content)) {
+		else if (StringUtils.isWhitespace(content)) {
 			String  errorText = "Content passed by the caller to passInsertRows is all whitepace";
 			throw new IllegalArgumentException(errorText);
 		}
@@ -5357,7 +6046,7 @@ public class HDLmTree {
 			throw new NullPointerException(errorText);
 		}
 		/* Check if the content passed by the caller is whitespace */
-		if (StringUtils.isWhitespace(content)) {
+		else if (StringUtils.isWhitespace(content)) {
 			String  errorText = "Content passed by the caller to passUpdateAllRows is all whitepace";
 			throw new IllegalArgumentException(errorText);
 		}
@@ -5526,7 +6215,7 @@ public class HDLmTree {
 			throw new NullPointerException(errorText);
 		}
 		/* Check if the current JSON element is really a JSON object */
-		if (!jsonElement.isJsonObject())
+		else if (!jsonElement.isJsonObject())
 			return;
 		/* The current JSON element may have details (modifications and other types that
 		   extend modifications have details ) associated with it. Check for and handle
@@ -5556,7 +6245,7 @@ public class HDLmTree {
 		/* Check the children of the current JSON element */
 		if (jsonElementChildren == null)
 			return;
-		if (!jsonElementChildren.isJsonArray())
+		else if (!jsonElementChildren.isJsonArray())
 			return;
 		JsonArray jsonChildrenArray = jsonElementChildren.getAsJsonArray();
 		/* Process all of the children of the current JSON element */
@@ -5813,7 +6502,7 @@ public class HDLmTree {
 			throw new NullPointerException(errorText);		
 		}
 		/* Check if the startup mode passed by the caller is invalid */
-		if (startupMode == HDLmStartupMode.NONE) {
+		else if (startupMode == HDLmStartupMode.NONE) {
 		  HDLmAssertAction(false, "Startup mode value passed to resetSubnodeCount is invalid");
 		}
 	  /* Check if the tree position value passed by the caller is null */		 
@@ -5838,7 +6527,7 @@ public class HDLmTree {
 		int   subnodesCount = 0;
 		Instant   savedLastModified = null;
 		switch (nodeType) { 
-	    case COMPANIES:
+	    case COMPANIES: {
 	    	subnodesCount = ((HDLmModCompanies) nodeDetails).getCompaniesCount();
         if (subnodesCount != childrenCount) {	    	
 					if (startupMode == HDLmStartupMode.STARTUPMODEYES) 
@@ -5849,7 +6538,12 @@ public class HDLmTree {
 						((HDLmModCompanies) nodeDetails).setLastModified(savedLastModified);		
         }
 	    	break;
-	    case DATA:
+	    }
+      /* We don't need to do a lot if we are handling a company node */
+		  case COMPANY: {
+			  break;
+	  	}
+	    case DATA: {
 	    	subnodesCount = ((HDLmModData) nodeDetails).getDivisionsCount();
         if (subnodesCount != childrenCount)	{	
 					if (startupMode == HDLmStartupMode.STARTUPMODEYES) 
@@ -5860,7 +6554,8 @@ public class HDLmTree {
 						((HDLmModData) nodeDetails).setLastModified(savedLastModified);	
         }
 	    	break;
-	    case DIVISION:
+	    }
+	    case DIVISION: {
 	    	subnodesCount = ((HDLmModDivision) nodeDetails).getSitesCount();
         if (subnodesCount != childrenCount) {	
 					if (startupMode == HDLmStartupMode.STARTUPMODEYES) 
@@ -5871,7 +6566,16 @@ public class HDLmTree {
 						((HDLmModDivision) nodeDetails).setLastModified(savedLastModified);	
         }
 	   	  break;
-	    case LINES:
+	    }
+      /* We don't need to do a lot if we are handling a ignore node */
+		  case IGNORE: {
+			  break;
+	  	}
+	    /* We don't need to do a lot if we are handling a line node */
+			case LINE: {
+			  break;
+		  }
+	    case LINES: {
 	    	subnodesCount = ((HDLmModLines) nodeDetails).getLinesCount();
         if (subnodesCount != childrenCount) {	
 					if (startupMode == HDLmStartupMode.STARTUPMODEYES) 
@@ -5882,7 +6586,8 @@ public class HDLmTree {
 						((HDLmModLines) nodeDetails).setLastModified(savedLastModified);	
         }
 	    	break;
-	    case LIST:
+	    }
+	    case LIST: {
 	    	subnodesCount = ((HDLmModList) nodeDetails).getIgnoresCount();
         if (subnodesCount != childrenCount) {		
 					if (startupMode == HDLmStartupMode.STARTUPMODEYES) 
@@ -5892,19 +6597,25 @@ public class HDLmTree {
 					if (startupMode == HDLmStartupMode.STARTUPMODEYES) 
 						((HDLmModList) nodeDetails).setLastModified(savedLastModified);	
         }
-	    	break;
-	    case LISTS:
+	    	break;	 
+	    }
+	    case LISTS: {
 	    	subnodesCount = ((HDLmModLists) nodeDetails).getListsCount();
         if (subnodesCount != childrenCount) {		
 					if (startupMode == HDLmStartupMode.STARTUPMODEYES) 
-						savedLastModified = ((HDLmModLists) nodeDetails).getLastModified();	
-          /* Reset the subnode count for the current node */
+						savedLastModified = ((HDLmModLists) nodeDetails).getLastModified();						 
+          /* Reset the subnode count for the current node */	    	  
           ((HDLmModLists) nodeDetails).setListsCount(childrenCount);
 					if (startupMode == HDLmStartupMode.STARTUPMODEYES) 
 						((HDLmModLists) nodeDetails).setLastModified(savedLastModified);	
         }
-	    	break;
-	    case REPORT:
+	    	break;	     
+	    }
+      /* We don't need to do a lot if we are handling a modification node */
+		  case MOD: {
+			  break;
+	  	}
+	    case REPORT: {
 	    	subnodesCount = ((HDLmModReport) nodeDetails).getLinesCount();
         if (subnodesCount != childrenCount) {		
 					if (startupMode == HDLmStartupMode.STARTUPMODEYES) 
@@ -5915,7 +6626,8 @@ public class HDLmTree {
 						((HDLmModReport) nodeDetails).setLastModified(savedLastModified);	
         }
 	    	break;
-	    case REPORTS:
+	    }
+	    case REPORTS: {
 	    	subnodesCount = ((HDLmModReports) nodeDetails).getReportsCount();
         if (subnodesCount != childrenCount) {		
 					if (startupMode == HDLmStartupMode.STARTUPMODEYES) 
@@ -5926,7 +6638,8 @@ public class HDLmTree {
 						((HDLmModReports) nodeDetails).setLastModified(savedLastModified);	
         }
 	    	break;
-	    case RULES:
+	    }
+	    case RULES: {
 	    	subnodesCount = ((HDLmModRules) nodeDetails).getDivisionsCount();
         if (subnodesCount != childrenCount) {		
 					if (startupMode == HDLmStartupMode.STARTUPMODEYES) 
@@ -5937,7 +6650,8 @@ public class HDLmTree {
 						((HDLmModRules) nodeDetails).setLastModified(savedLastModified);	
         }
 	    	break;
-	    case SITE:
+	    }
+	    case SITE: {
 	    	subnodesCount = ((HDLmModSite) nodeDetails).getRulesOrValuesCount();
         if (subnodesCount != childrenCount) {		
 					if (startupMode == HDLmStartupMode.STARTUPMODEYES) 
@@ -5948,6 +6662,20 @@ public class HDLmTree {
 						((HDLmModSite) nodeDetails).setLastModified(savedLastModified);	
         }
 	   	  break;
+	    }
+	    /* We don't need to do a lot if we are handling the top node */
+			case TOP: {
+				break;
+			}
+      /* We don't need to do a lot if we are handling the value node */
+		  case VALUE: {
+			  break;
+	  	}
+	    default: {
+	    	String nodeTypeString = nodeType.toString();
+	    	String errorText = String.format("Tree type (%s) is not supported in resetSubnodeCounts", nodeTypeString);
+	    	throw new IllegalArgumentException(errorText);
+	    }
 		}
 	}
 	/* Add or replace a tree node value to the node tree. The actual node tree has
@@ -5965,11 +6693,11 @@ public class HDLmTree {
 			throw new NullPointerException(errorText);
 		}
 		/* Check if the JSON element is a null value */
-		if (jsonElements.isJsonNull()) {
+		else if (jsonElements.isJsonNull()) {
 			HDLmAssertAction(false, "JSON element is a JSON null");
 		}
 		/* Check if the JSON element is not a JSON object value */
-		if (!jsonElements.isJsonObject()) {
+		else if (!jsonElements.isJsonObject()) {
 			HDLmAssertAction(false, "JSON element is not a JSON object value");
 		} 
 		/* Check if the host name string instance passed by the caller is null */
@@ -6099,7 +6827,7 @@ public class HDLmTree {
 		String treeName = this.getLastNodePathEntry();
 		if (!treeName.equals(modName)) {
 			String  errorText = String.format("Modification details name (%s) and modification node name (%s) don't match",
-				                  	           modName, treeName);
+				                    	          modName, treeName);
 			HDLmAssertAction(false, errorText);
 		}
 		details = newMod;
@@ -6210,11 +6938,11 @@ public class HDLmTree {
 			throw new NullPointerException(errorText);
 		}
 		/* Check if the JSON element is a null value */
-		if (jsonElements.isJsonNull()) {
+		else if (jsonElements.isJsonNull()) {
 			HDLmAssertAction(false, "JSON element is a JSON null");
 		}
 		/* Check if the JSON element is not a JSON object value */
-		if (!jsonElements.isJsonObject()) {
+		else if (!jsonElements.isJsonObject()) {
 			HDLmAssertAction(false, "JSON element is not a JSON object value");
 		} 
 		/* LOG.info("In HDLmTree.updateTreeNode"); */
@@ -6254,11 +6982,11 @@ public class HDLmTree {
 			throw new NullPointerException(errorText);
 		}
 		/* Check if the JSON element is a null value */
-		if (jsonElements.isJsonNull()) {
+		else if (jsonElements.isJsonNull()) {
 			HDLmAssertAction(false, "JSON element is a JSON null");
 		}
 		/* Check if the JSON element is not a JSON object value */
-		if (!jsonElements.isJsonObject()) {
+		else if (!jsonElements.isJsonObject()) {
 			HDLmAssertAction(false, "JSON element is not a JSON object value");
 		} 
 		/* LOG.info("In HDLmTree.updateTreeNode"); */

@@ -4,6 +4,8 @@ import static com.headlamp.HDLmAssert.HDLmAssertAction;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.nio.charset.CharsetEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -387,7 +389,7 @@ public class HDLmString {
 	/* Build a string from all of the entries in an array list of doubles.
 	   Note that the array list must contain Doubles (boxed doubles), not
 	   actual double values. */
-	protected static String fromDoublesArray(final ArrayList<Double> doubleArray) {
+	protected static String  fromDoublesArray(final ArrayList<Double> doubleArray) {
 		/* Check if the values passed by the caller are null */
 		if (doubleArray == null) {
 			String  errorText = "Input Doubles array list value passed to fromDoublesArray is null";
@@ -653,10 +655,10 @@ public class HDLmString {
  	
 	   Note that an identifier can contain numeric digits in it. This is part
 	   of the definition of an identifier in some languages. */
-	protected static ArrayList<HDLmToken> getTokens(final String inStr) {
+	protected static ArrayList<HDLmToken>  getTokens(final String inStr) {
 		return getTokens(inStr, '\'');
 	}
-	protected static ArrayList<HDLmToken> getTokens(final String inStr, final char quoteChar) {
+	protected static ArrayList<HDLmToken>  getTokens(final String inStr, final char quoteChar) {
 		ArrayList<HDLmToken> rv = new ArrayList<HDLmToken>();
 		char curCh;
 	  int  curIndex = 0;
@@ -944,6 +946,37 @@ public class HDLmString {
 	  String haystack = " \f\n\r\t\u000b";
 	  int pos = haystack.indexOf(inChar);
 	  return (pos >= 0);
+	}
+	/* Replace characters in a string that would be converted to a question
+ 	   mark by the default HTTP servlet writer encoding. Any such character
+	   is rewritten as a JSON Unicode escape sequence. For example, a single
+	   right quote is replaced by the string "\u2019". */
+	protected static String jsonReplaceUnprintable(final String inputStr) {
+		/* Check if the value passed by the caller is null */
+		if (inputStr == null) {
+			String  errorText = "Input string value passed to jsonReplaceUnprintable is null";
+			throw new NullPointerException(errorText);
+		}
+		CharsetEncoder  encoder = StandardCharsets.ISO_8859_1.newEncoder();
+		StringBuilder   outStrBuilder = new StringBuilder(inputStr.length());
+		int             inputStrLength = inputStr.length();
+		/* Check each character to see if the response writer would replace it */
+		for (int i = 0; i < inputStrLength; i++) {
+			char    currentChar = inputStr.charAt(i);
+			String  currentStr = String.valueOf(currentChar);
+			if (encoder.canEncode(currentStr))
+				outStrBuilder.append(currentChar);
+			else {
+				outStrBuilder.append(String.format("\\u%04x", (int) currentChar)); 
+				if (LOG.isDebugEnabled()) {
+			  	LOG.debug(((Integer) i).toString() + " " + 
+				            Character.toString(currentChar) + " " + 
+					  	      ((Integer) (int) currentChar).toString());			
+				  LOG.debug(String.format("\\u%04x", (int) currentChar));
+				}  
+			}
+		}
+		return outStrBuilder.toString();
 	}
   /* Convert the first character of a string to lowercase and return the
      string to the caller. The original string is not modified. */ 

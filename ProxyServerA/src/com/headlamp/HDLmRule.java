@@ -326,7 +326,7 @@ public class HDLmRule {
 		 		   JSON string. We need to handle both cases. */ 
 		 		if (ruleStatus.charAt(0) == '{') {
 		 			/* Create a new JSON parser for use below */
-		 	    JsonParser    parser = new JsonParser();  
+		 	    JsonParser    parser = HDLmMain.gsonJsonParserMain;  
 		 	    JsonElement   jsonElement = parser.parse(ruleStatus); 
 		 	    HDLmAssertAction(jsonElement.isJsonObject(), "JSON element must be a JSON object");
 		 	    /* Get a summary string for the error. The link is associated with this

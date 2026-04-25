@@ -423,7 +423,7 @@ class HDLmTree1Test {
 	void buildModDetailsFromJson() {
 		/* Run a few buildModDetailsFromJson tests */
 		String       modName = "OWO Home Bottom Parameters";
-    JsonParser   parser = new JsonParser();
+    JsonParser   parser = HDLmMain.gsonJsonParserMain;
     JsonElement  topNode = parser.parse(HDLmTreeData.jsonGetPassStrSaved1);
     JsonObject   topNodeObject = topNode.getAsJsonObject();
     Set<String>  topKeys = topNodeObject.keySet();
@@ -519,7 +519,7 @@ class HDLmTree1Test {
 	void buildNodePathFromJson() {
 		/* Run a few buildNodePathFromJson tests */
 		String       ruleName = "OWO Home Bottom Parameters";
-    JsonParser   parser = new JsonParser();
+    JsonParser   parser = HDLmMain.gsonJsonParserMain;
     JsonElement  topNode = parser.parse(HDLmTreeData.jsonGetPassStrSaved1);
     JsonObject   topNodeObject = topNode.getAsJsonObject();
     Set<String>  topKeys = topNodeObject.keySet();
@@ -602,7 +602,7 @@ class HDLmTree1Test {
 	void buildTreeFromJson() {
 		/* Run a few buildTreeFromJson tests */
 		String       ruleName = "OWO Home Bottom Parameters";
-    JsonParser   parser = new JsonParser();
+    JsonParser   parser = HDLmMain.gsonJsonParserMain;
     JsonElement  topNode = parser.parse(HDLmTreeData.jsonGetPassStrSaved1);
     JsonObject   topNodeObject = topNode.getAsJsonObject();
     Set<String>  topKeys = topNodeObject.keySet();
@@ -725,7 +725,7 @@ class HDLmTree1Test {
 	void buildTreeFromJsonNotUsed() {
 		/* Run a few buildTreeFromJsonNotUsed tests */
 		String       ruleName = "OWO Home Bottom Parameters";
-    JsonParser   parser = new JsonParser();
+    JsonParser   parser = HDLmMain.gsonJsonParserMain;
     JsonElement  topNode = parser.parse(HDLmTreeData.jsonGetPassStrSaved1);
     JsonObject   topNodeObject = topNode.getAsJsonObject();
     Set<String>  topKeys = topNodeObject.keySet();
@@ -840,7 +840,7 @@ class HDLmTree1Test {
 	void getArrayFromJson() {
 		/* Run a few getArrayFromJson tests */
 		String       modName = "OWO Bottom Parameters";
-    JsonParser   parser = new JsonParser();
+    JsonParser   parser = HDLmMain.gsonJsonParserMain;
     JsonElement  topNode = parser.parse(HDLmTreeData.jsonGetPassStrSaved1);
     JsonObject   topNodeObject = topNode.getAsJsonObject();
     Set<String>  topKeys = topNodeObject.keySet();
@@ -925,7 +925,7 @@ class HDLmTree1Test {
 	void getIntegerFromJson() {
 		/* Run a few getIntegerFromJson tests */
 		String       modName = "OWO Bottom Parameters";
-    JsonParser   parser = new JsonParser();
+    JsonParser   parser = HDLmMain.gsonJsonParserMain;
     JsonElement  topNode = parser.parse(HDLmTreeData.jsonGetPassStrSaved1);
     JsonObject   topNodeObject = topNode.getAsJsonObject();
     Set<String>  topKeys = topNodeObject.keySet();
@@ -1064,7 +1064,7 @@ class HDLmTree1Test {
 	void getStringFromJson() {
 		/* Run a few getStringFromJson tests */
 		String       modName = "OWO Home Bottom Parameters";
-    JsonParser   parser = new JsonParser();
+    JsonParser   parser = HDLmMain.gsonJsonParserMain;
     JsonElement  topNode = parser.parse(HDLmTreeData.jsonGetPassStrSaved1);
     JsonObject   topNodeObject = topNode.getAsJsonObject();
     Set<String>  topKeys = topNodeObject.keySet();

@@ -74,7 +74,7 @@ class HDLmDatabaseTest {
 		   then we do not have a string than can be converted to a 
 		   JSON object. If this works, then we do have string than 
 		   can be converted to a JSON object. */
-	  JsonParser    parser = new JsonParser();		
+	  JsonParser    parser = HDLmMain.gsonJsonParserMain;		
 	  JsonElement   topNodeJsonElement = null; 
 	  try {
 		  topNodeJsonElement = parser.parse(databaseOut);
@@ -176,7 +176,7 @@ class HDLmDatabaseTest {
 		   then we do not have a string than can be converted to a 
 		   JSON object. If this works, then we do have string than 
 		   can be converted to a JSON object. */
-	  JsonParser    parser = new JsonParser();		
+	  JsonParser    parser = HDLmMain.gsonJsonParserMain;		
 	  JsonElement   topNodeJsonElement = null; 
 	  try {
 		  topNodeJsonElement = parser.parse(databaseOut);
@@ -543,7 +543,7 @@ class HDLmDatabaseTest {
 	     then we do not have a string than can be converted to a 
 	     JSON object. If this works, then we do have string than 
 	     can be converted to a JSON object. */
-    JsonParser    parser = new JsonParser();		
+    JsonParser    parser = HDLmMain.gsonJsonParserMain;		
     JsonElement   topNodeJsonElement = null; 
     try {
 	    topNodeJsonElement = parser.parse(jsonInsert);
@@ -778,7 +778,7 @@ class HDLmDatabaseTest {
 	     then we do not have a string than can be converted to a 
 	     JSON object. If this works, then we do have string than 
 	     can be converted to a JSON object. */
-    JsonParser    parser = new JsonParser();		
+    JsonParser    parser = HDLmMain.gsonJsonParserMain;		
     JsonElement   topNodeJsonElement = null; 
     try {
 	    topNodeJsonElement = parser.parse(jsonInsert);
@@ -898,11 +898,11 @@ class HDLmDatabaseTest {
 		HDLmDatabaseRow             databaseRow;
 		ArrayList<HDLmDatabaseRow>  databaseRowList; 
 		HDLmDatabaseRows            databaseRows;
-		HDLmModCompany         localCompany;
-		HDLmModData            localData;
-		HDLmModLists           localLists;
-		HDLmModReports         localReports;
-		HDLmModRules           localRules;
+		HDLmModCompany              localCompany;
+		HDLmModData                 localData;
+		HDLmModLists                localLists;
+		HDLmModReports              localReports;
+		HDLmModRules                localRules;
 		HDLmTree                    localTree;
 		HDLmTreeTypes               localType;
 		Integer                     databaseRowId;
@@ -940,7 +940,7 @@ class HDLmDatabaseTest {
 	     then we do not have a string than can be converted to a 
 	     JSON object. If this works, then we do have string than 
 	     can be converted to a JSON object. */
-    JsonParser    parser = new JsonParser();		
+    JsonParser    parser = HDLmMain.gsonJsonParserMain;		
     JsonElement   topNodeJsonElement = null; 
     try {
 	    topNodeJsonElement = parser.parse(jsonInsert);
@@ -1020,7 +1020,7 @@ class HDLmDatabaseTest {
 	    databaseRow.setHDLmTreeInfo(localTree);
 		  /* Parse all of the info JSON and use the JSON elements to get
 		     the details instance (HDLmMod and the extensions to HDLmMod) */
-	    parser = new JsonParser();		
+	    parser = HDLmMain.gsonJsonParserMain;		
 	    topNodeJsonElement = null; 		  
 		  topNodeJsonElement = parser.parse(infoStr);
 	    JsonElement   detailsElement = HDLmJson.getJsonObject(topNodeJsonElement, "details");

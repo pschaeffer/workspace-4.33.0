@@ -47,7 +47,7 @@ class HDLmFieldTest {
 		/* Run a few checkFieldJsonObject tests */
   	HDLmEditorTypes  editorType = HDLmEditorTypes.MOD;
 		String           modName = "OWO Home Bottom Text";
-    JsonParser       parser = new JsonParser();  
+    JsonParser       parser = HDLmMain.gsonJsonParserMain;  
     JsonElement      topNode = parser.parse(HDLmTreeData.jsonGetModStr); 
     JsonObject       topNodeObject = topNode.getAsJsonObject();
     Set<String>      topKeys = topNodeObject.keySet();
@@ -337,7 +337,7 @@ class HDLmFieldTest {
 		/* Run a few checkFieldString tests */
   	HDLmEditorTypes  editorType = HDLmEditorTypes.MOD;
 		String           modName = "OWO Home Bottom Text";
-    JsonParser       parser = new JsonParser();  
+    JsonParser       parser = HDLmMain.gsonJsonParserMain;  
     JsonElement      topNode = parser.parse(HDLmTreeData.jsonGetModStr); 
     JsonObject       topNodeObject = topNode.getAsJsonObject();
     Set<String>      topKeys = topNodeObject.keySet();
@@ -720,7 +720,7 @@ class HDLmFieldTest {
 		/* Run a few checkFieldStringArray tests */
   	HDLmEditorTypes  editorType = HDLmEditorTypes.MOD;
 		String           modName = "OWO Home Bottom Text";
-    JsonParser       parser = new JsonParser();  
+    JsonParser       parser = HDLmMain.gsonJsonParserMain;  
     JsonElement      topNode = parser.parse(HDLmTreeData.jsonGetModStr); 
     JsonObject       topNodeObject = topNode.getAsJsonObject();
     Set<String>      topKeys = topNodeObject.keySet();
@@ -1225,7 +1225,7 @@ class HDLmFieldTest {
 		/* Run a few reportError tests */
   	HDLmEditorTypes  editorType = HDLmEditorTypes.MOD;
 		String           modName = "OWO Home Bottom Text";
-    JsonParser       parser = new JsonParser();  
+    JsonParser       parser = HDLmMain.gsonJsonParserMain;  
     JsonElement      topNode = parser.parse(HDLmTreeData.jsonGetModStr); 
     JsonObject       topNodeObject = topNode.getAsJsonObject();
     Set<String>      topKeys = topNodeObject.keySet();
@@ -1361,7 +1361,7 @@ class HDLmFieldTest {
 		/* Run a few reportErrorNoValue tests */
   	HDLmEditorTypes  editorType = HDLmEditorTypes.MOD;
 		String           modName = "OWO Home Bottom Text";
-    JsonParser       parser = new JsonParser();  
+    JsonParser       parser = HDLmMain.gsonJsonParserMain;  
     JsonElement      topNode = parser.parse(HDLmTreeData.jsonGetModStr); 
     JsonObject       topNodeObject = topNode.getAsJsonObject();
     Set<String>      topKeys = topNodeObject.keySet();
@@ -1512,7 +1512,7 @@ class HDLmFieldTest {
 		/* Run a few reportErrorValue tests */
   	HDLmEditorTypes  editorType = HDLmEditorTypes.MOD;
 		String           modName = "OWO Home Bottom Text";
-    JsonParser       parser = new JsonParser();  
+    JsonParser       parser = HDLmMain.gsonJsonParserMain;  
     JsonElement      topNode = parser.parse(HDLmTreeData.jsonGetModStr); 
     JsonObject       topNodeObject = topNode.getAsJsonObject();
     Set<String>      topKeys = topNodeObject.keySet();
@@ -1686,7 +1686,7 @@ class HDLmFieldTest {
 		/* Run a few reportField tests */
   	HDLmEditorTypes  editorType = HDLmEditorTypes.MOD;
 		String           modName = "OWO Home Bottom Text";
-    JsonParser       parser = new JsonParser();  
+    JsonParser       parser = HDLmMain.gsonJsonParserMain;  
     JsonElement      topNode = parser.parse(HDLmTreeData.jsonGetModStr); 
     JsonObject       topNodeObject = topNode.getAsJsonObject();
     Set<String>      topKeys = topNodeObject.keySet();

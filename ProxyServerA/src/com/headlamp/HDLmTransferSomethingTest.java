@@ -510,7 +510,7 @@ class HDLmTransferSomethingTest {
   		/* Try to convert the transfer JSON string to a JSON object. If this fails, then 
   		   we do not have a string than can be converted to a JSON object. If this works,
   		   then we do have string than can be converted to a JSON object. */
-  		JsonParser    parser = new JsonParser();		
+  		JsonParser    parser = HDLmMain.gsonJsonParserMain;		
   		JsonElement   jsonElement = null; 
   		try {
   			jsonElement = parser.parse(transferJson);
@@ -540,7 +540,7 @@ class HDLmTransferSomethingTest {
   		/* Try to convert the transfer JSON string to a JSON object. If this fails, then 
   		   we do not have a string than can be converted to a JSON object. If this works,
   		   then we do have string than can be converted to a JSON object. */
-  		JsonParser    parser = new JsonParser();		
+  		JsonParser    parser = HDLmMain.gsonJsonParserMain;		
   		JsonElement   jsonElement = null; 
   		try {
   			jsonElement = parser.parse(transferJson);
@@ -572,7 +572,7 @@ class HDLmTransferSomethingTest {
   		/* Try to convert the transfer JSON string to a JSON object. If this fails, then 
   		   we do not have a string than can be converted to a JSON object. If this works,
   		   then we do have string than can be converted to a JSON object. */
-  		JsonParser    parser = new JsonParser();		
+  		JsonParser    parser = HDLmMain.gsonJsonParserMain;		
   		JsonElement   jsonElement = null; 
   		try {
   			jsonElement = parser.parse(transferJson);
@@ -601,7 +601,7 @@ class HDLmTransferSomethingTest {
   		/* Try to convert the transfer JSON string to a JSON object. If this fails, then 
   		   we do not have a string than can be converted to a JSON object. If this works,
   		   then we do have string than can be converted to a JSON object. */
-  		JsonParser    parser = new JsonParser();		
+  		JsonParser    parser = HDLmMain.gsonJsonParserMain;		
   		JsonElement   jsonElement = null; 
   		try {
   			jsonElement = parser.parse(transferJson);
@@ -630,7 +630,7 @@ class HDLmTransferSomethingTest {
   		/* Try to convert the transfer JSON string to a JSON object. If this fails, then 
   		   we do not have a string than can be converted to a JSON object. If this works,
   		   then we do have string than can be converted to a JSON object. */
-  		JsonParser    parser = new JsonParser();		
+  		JsonParser    parser = HDLmMain.gsonJsonParserMain;		
   		JsonElement   jsonElement = null; 
   		try {
   			jsonElement = parser.parse(transferJson);
@@ -659,7 +659,7 @@ class HDLmTransferSomethingTest {
   		/* Try to convert the transfer JSON string to a JSON object. If this fails, then 
   		   we do not have a string than can be converted to a JSON object. If this works,
   		   then we do have string than can be converted to a JSON object. */
-  		JsonParser    parser = new JsonParser();		
+  		JsonParser    parser = HDLmMain.gsonJsonParserMain;		
   		JsonElement   jsonElement = null; 
   		try {
   			jsonElement = parser.parse(transferJson);
@@ -688,7 +688,7 @@ class HDLmTransferSomethingTest {
   		/* Try to convert the transfer JSON string to a JSON object. If this fails, then 
   		   we do not have a string than can be converted to a JSON object. If this works,
   		   then we do have string than can be converted to a JSON object. */
-  		JsonParser    parser = new JsonParser();		
+  		JsonParser    parser = HDLmMain.gsonJsonParserMain;		
   		JsonElement   jsonElement = null; 
   		try {
   			jsonElement = parser.parse(transferJson);
@@ -717,7 +717,7 @@ class HDLmTransferSomethingTest {
   		/* Try to convert the transfer JSON string to a JSON object. If this fails, then 
   		   we do not have a string than can be converted to a JSON object. If this works,
   		   then we do have string than can be converted to a JSON object. */
-  		JsonParser    parser = new JsonParser();		
+  		JsonParser    parser = HDLmMain.gsonJsonParserMain;		
   		JsonElement   jsonElement = null; 
   		try {
   			jsonElement = parser.parse(transferJson);
@@ -746,7 +746,7 @@ class HDLmTransferSomethingTest {
   		/* Try to convert the transfer JSON string to a JSON object. If this fails, then 
   		   we do not have a string than can be converted to a JSON object. If this works,
   		   then we do have string than can be converted to a JSON object. */
-  		JsonParser    parser = new JsonParser();		
+  		JsonParser    parser = HDLmMain.gsonJsonParserMain;		
   		JsonElement   jsonElement = null; 
   		try {
   			jsonElement = parser.parse(transferJson);
@@ -780,7 +780,7 @@ class HDLmTransferSomethingTest {
   		/* Try to convert the transfer JSON string to a JSON object. If this fails, then 
   		   we do not have a string than can be converted to a JSON object. If this works,
   		   then we do have string than can be converted to a JSON object. */
-  		JsonParser    parser = new JsonParser();		
+  		JsonParser    parser = HDLmMain.gsonJsonParserMain;		
   		JsonElement   jsonElement = null; 
   		try {
   			jsonElement = parser.parse(transferJson);
@@ -814,7 +814,7 @@ class HDLmTransferSomethingTest {
   		/* Try to convert the transfer JSON string to a JSON object. If this fails, then 
   		   we do not have a string than can be converted to a JSON object. If this works,
   		   then we do have string than can be converted to a JSON object. */
-  		JsonParser    parser = new JsonParser();		
+  		JsonParser    parser = HDLmMain.gsonJsonParserMain;		
   		JsonElement   jsonElement = null; 
   		try {
   			jsonElement = parser.parse(transferJson);
@@ -848,7 +848,7 @@ class HDLmTransferSomethingTest {
   		/* Try to convert the transfer JSON string to a JSON object. If this fails, then 
   		   we do not have a string than can be converted to a JSON object. If this works,
   		   then we do have string than can be converted to a JSON object. */
-  		JsonParser    parser = new JsonParser();		
+  		JsonParser    parser = HDLmMain.gsonJsonParserMain;		
   		JsonElement   jsonElement = null; 
   		try {
   			jsonElement = parser.parse(transferJson);
@@ -882,7 +882,7 @@ class HDLmTransferSomethingTest {
   		/* Try to convert the transfer JSON string to a JSON object. If this fails, then 
   		   we do not have a string than can be converted to a JSON object. If this works,
   		   then we do have string than can be converted to a JSON object. */
-  		JsonParser    parser = new JsonParser();		
+  		JsonParser    parser = HDLmMain.gsonJsonParserMain;		
   		JsonElement   jsonElement = null; 
   		try {
   			jsonElement = parser.parse(transferJson);
@@ -1097,7 +1097,7 @@ class HDLmTransferSomethingTest {
 		/* Try to convert the transfer JSON string to a JSON object. If this fails, then 
 		   we do not have a string than can be converted to a JSON object. If this works,
 		   then we do have string than can be converted to a JSON object. */
-		JsonParser    parser = new JsonParser();		
+		JsonParser    parser = HDLmMain.gsonJsonParserMain;		
 		JsonElement   jsonElement = null; 
 		try {
 			jsonElement = parser.parse(transferJson);

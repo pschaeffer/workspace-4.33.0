@@ -16,13 +16,11 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 /**
  * Class for supporting HTML modifications
@@ -2420,7 +2418,7 @@ public class HDLmMod {
 	   "ignore": {
 	     "longname":    "ignore",
 	     "ucfirstname": "Ignore",
-	     "tooltip":     "Ignore-list entry node"
+	     "tooltip":     "Ignore-list node"
 	   },
 	   "line": {
 	     "longname":    "line",
@@ -2481,11 +2479,11 @@ public class HDLmMod {
 	  """;  
   /* Build JSON elements (actually JSON elements within JSON elements) from each of
      the JSON strings */ 
-  static JsonParser   HDLmModInfoDataParser = new JsonParser();  
+  static JsonParser   HDLmModInfoDataParser = HDLmMain.gsonJsonParserMain;  
   static JsonElement  HDLmModInfoData = HDLmModInfoDataParser.parse(HDLmModInfoDataString);
-  static JsonParser   HDLmModTypeInfoParser = new JsonParser();  
+  static JsonParser   HDLmModTypeInfoParser = HDLmMain.gsonJsonParserMain;  
   static JsonElement  HDLmModTypeInfo = HDLmModTypeInfoParser.parse(HDLmModTypeInfoString);
-  static JsonParser   HDLmModTreeInfoParser = new JsonParser();  
+  static JsonParser   HDLmModTreeInfoParser = HDLmMain.gsonJsonParserMain;  
   static JsonElement  HDLmModTreeInfo = HDLmModTreeInfoParser.parse(HDLmModTreeInfoString); 
 	/* All instances of the HDLmMod class have a standard set of fields */
   @SerializedName("find")
@@ -5672,7 +5670,7 @@ public class HDLmMod {
 			throw new NullPointerException(errorText);
 		}
 		/* Create a new JSON parser for use below */
-    JsonParser   parser = new JsonParser();  
+    JsonParser   parser = HDLmMain.gsonJsonParserMain;  
     JsonElement  jsonElement = parser.parse(jsonString); 
     HDLmMod.checkForModifications(null, null, jsonElement);	
 	}
@@ -6952,7 +6950,7 @@ public class HDLmMod {
 	      then we do not have a string than can be converted to a JSON object.
 	      If this works, then we do have string than can be converted to a JSON
 	      object. */
-	   JsonParser   parser = new JsonParser();  
+	   JsonParser   parser = HDLmMain.gsonJsonParserMain;  
 	   JsonElement  topNode = parser.parse(curValue); 
 	   if (topNode.isJsonObject()) 
 	     continue;
@@ -7106,7 +7104,7 @@ public class HDLmMod {
 	       then we do not have a string than can be converted to a JSON object.
 	       If this works, then we do have string than can be converted to a JSON
 	       object. */
-	    JsonParser   parser = new JsonParser();  
+	    JsonParser   parser = HDLmMain.gsonJsonParserMain;  
 	    JsonElement  topNode = parser.parse(curValue); 
 	    if (topNode.isJsonObject()) 
 	      continue;
@@ -8172,9 +8170,13 @@ public class HDLmMod {
 	protected void setDummyUpdated(final Boolean newDummyUpdated) {
 		this.dummyUpdated = newDummyUpdated;
 	}
-	/* set the modification extra information value */
+	/* Set the modification error count value */
+	protected void setErrorCount(final int newErrorCount) {
+	  this.errorCount = newErrorCount;
+	}
+	/* Set the modification extra information value */
 	protected void setExtra(final String newExtra) {
-	  this.extra = newExtra;;
+	  this.extra = newExtra;
 	}
 	/* Set the finds associated with a modification */
 	protected void setFinds(final ArrayList<HDLmFind> newFinds) {
