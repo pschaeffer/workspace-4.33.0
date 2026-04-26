@@ -28,7 +28,7 @@
 	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/apache-log4j-2.17.1-bin/log4j-core-2.17.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/apache-log4j-2.17.1-bin/log4j-1.2-api-2.17.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/apache-log4j-2.17.1-bin/log4j-api-2.17.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/workspace-4.33.0 - backup - 20260418 - 2148/ProxyServerA"/>
+	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/workspace-4.33.0"/>
 	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/slf4j-1.7.32/slf4j-api-1.7.32.jar"/>
 	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/slf4j-1.7.32/slf4j-log4j12-1.7.32.jar"/>
 	<classpathentry kind="lib" path="C:/Users/pscha/HeadlampJetty/TwelveMonkeys/imageio-webp-3.8.1.jar"/>
